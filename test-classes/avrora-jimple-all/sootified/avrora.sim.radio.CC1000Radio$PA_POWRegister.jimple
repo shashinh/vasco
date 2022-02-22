@@ -1,0 +1,157 @@
+public class avrora.sim.radio.CC1000Radio$PA_POWRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    int paHighPower;
+    int paLowPower;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$PA_POWRegister this;
+        avrora.sim.radio.CC1000Radio this$0;
+
+        this := @this: avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        this$0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(this$0, "PA_POW", 15);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$PA_POWRegister this;
+        byte $stack2, $stack5, val;
+        int $stack3, $stack4, $stack6, $stack24, $stack25;
+        avrora.sim.radio.CC1000Radio $stack7, $stack10, $stack13, $stack16, $stack19, $stack22;
+        avrora.sim.radio.CC1000Radio$MainRegister $stack8, $stack11, $stack14, $stack17, $stack20;
+        boolean $stack9, $stack12, $stack15, $stack18, $stack21;
+        avrora.sim.FiniteStateMachine $stack23;
+
+        this := @this: avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        val := @parameter0: byte;
+
+        $stack2 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: byte value>;
+
+        $stack3 = $stack2 & 240;
+
+        $stack4 = $stack3 >> 4;
+
+        this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int paHighPower> = $stack4;
+
+        $stack5 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: byte value>;
+
+        $stack6 = $stack5 & 15;
+
+        this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int paLowPower> = $stack6;
+
+        $stack7 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack8 = $stack7.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $stack9 = $stack8.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd>;
+
+        if $stack9 != 0 goto label1;
+
+        $stack10 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack11 = $stack10.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $stack12 = $stack11.<avrora.sim.radio.CC1000Radio$MainRegister: boolean biasPd>;
+
+        if $stack12 != 0 goto label1;
+
+        $stack13 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack14 = $stack13.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $stack15 = $stack14.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fsPd>;
+
+        if $stack15 != 0 goto label1;
+
+        $stack16 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack17 = $stack16.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $stack18 = $stack17.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxtx>;
+
+        if $stack18 == 0 goto label1;
+
+        $stack19 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack20 = $stack19.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $stack21 = $stack20.<avrora.sim.radio.CC1000Radio$MainRegister: boolean txPd>;
+
+        if $stack21 != 0 goto label1;
+
+        $stack22 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack23 = $stack22.<avrora.sim.radio.CC1000Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        $stack24 = virtualinvoke this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int getPower()>();
+
+        $stack25 = $stack24 + 6;
+
+        virtualinvoke $stack23.<avrora.sim.FiniteStateMachine: void transition(int)>($stack25);
+
+     label1:
+        return;
+    }
+
+    protected int getPower()
+    {
+        avrora.sim.radio.CC1000Radio$PA_POWRegister this;
+        byte $stack1;
+        int $stack2;
+
+        this := @this: avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        $stack1 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: byte value>;
+
+        $stack2 = $stack1 & 255;
+
+        return $stack2;
+    }
+
+    protected void printStatus()
+    {
+        avrora.sim.radio.CC1000Radio$PA_POWRegister this;
+        avrora.sim.radio.CC1000Radio $stack1;
+        java.lang.StringBuilder $stack2, $stack4, $stack6, $stack7, $stack9;
+        avrora.sim.output.SimPrinter $stack3;
+        int $stack5, $stack8;
+        java.lang.String $stack10;
+
+        this := @this: avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        $stack1 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack3 = $stack1.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000[PA_POW]: PA high power: ");
+
+        $stack5 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int paHighPower>;
+
+        $stack6 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack5);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", PA low power: ");
+
+        $stack8 = this.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int paLowPower>;
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack3.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack10);
+
+        return;
+    }
+}

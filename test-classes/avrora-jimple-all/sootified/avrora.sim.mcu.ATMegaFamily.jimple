@@ -1,0 +1,299 @@
+public abstract class avrora.sim.mcu.ATMegaFamily extends avrora.sim.mcu.AtmelMicrocontroller
+{
+    protected static final int[] periods0;
+    protected static final int[] periods2;
+    protected static final int[] periods1;
+    protected static final int[] periods3;
+    protected avrora.sim.mcu.ATMegaFamily$FlagRegister EIFR_reg;
+    protected avrora.sim.mcu.ATMegaFamily$FlagRegister TIFR_reg;
+    protected avrora.sim.mcu.ATMegaFamily$MaskRegister TIMSK_reg;
+    protected avrora.sim.mcu.ATMegaFamily$FlagRegister ETIFR_reg;
+    protected avrora.sim.mcu.ATMegaFamily$MaskRegister ETIMSK_reg;
+
+    protected void <init>(avrora.sim.clock.ClockDomain, avrora.arch.avr.AVRProperties, avrora.sim.FiniteStateMachine)
+    {
+        avrora.sim.mcu.ATMegaFamily this;
+        avrora.sim.clock.ClockDomain cd;
+        avrora.arch.avr.AVRProperties p;
+        avrora.sim.FiniteStateMachine fsm;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily;
+
+        cd := @parameter0: avrora.sim.clock.ClockDomain;
+
+        p := @parameter1: avrora.arch.avr.AVRProperties;
+
+        fsm := @parameter2: avrora.sim.FiniteStateMachine;
+
+        specialinvoke this.<avrora.sim.mcu.AtmelMicrocontroller: void <init>(avrora.sim.clock.ClockDomain,avrora.arch.avr.AVRProperties,avrora.sim.FiniteStateMachine)>(cd, p, fsm);
+
+        return;
+    }
+
+    protected void buildPort(char)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin[] portPins;
+        avrora.sim.mcu.ATMegaFamily this;
+        java.lang.StringBuilder $stack4, $stack5, $stack6, $stack10, $stack11, $stack12, $stack16, $stack17, $stack18, $stack22, $stack23, $stack24, $stack25;
+        char p;
+        java.lang.String $stack7, $stack13, $stack19, $stack26;
+        avrora.sim.mcu.ATMegaFamily$PortRegister $stack8;
+        avrora.sim.mcu.ATMegaFamily$DirectionRegister $stack14;
+        avrora.sim.mcu.ATMegaFamily$PinRegister $stack20;
+        avrora.sim.mcu.Microcontroller$Pin $stack27;
+        avrora.sim.mcu.DefaultMCU$Pin $stack28;
+        int cntr#1;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily;
+
+        p := @parameter0: char;
+
+        portPins = newarray (avrora.sim.mcu.DefaultMCU$Pin)[8];
+
+        cntr#1 = 0;
+
+     label1:
+        if cntr#1 >= 8 goto label2;
+
+        $stack22 = new java.lang.StringBuilder;
+
+        specialinvoke $stack22.<java.lang.StringBuilder: void <init>()>();
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("P");
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(p);
+
+        $stack25 = virtualinvoke $stack24.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(cntr#1);
+
+        $stack26 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack27 = virtualinvoke this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)>($stack26);
+
+        $stack28 = (avrora.sim.mcu.DefaultMCU$Pin) $stack27;
+
+        portPins[cntr#1] = $stack28;
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        $stack4 = new java.lang.StringBuilder;
+
+        specialinvoke $stack4.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("PORT");
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(p);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack8 = new avrora.sim.mcu.ATMegaFamily$PortRegister;
+
+        specialinvoke $stack8.<avrora.sim.mcu.ATMegaFamily$PortRegister: void <init>(avrora.sim.mcu.DefaultMCU$Pin[])>(portPins);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.ActiveRegister installIOReg(java.lang.String,avrora.sim.ActiveRegister)>($stack7, $stack8);
+
+        $stack10 = new java.lang.StringBuilder;
+
+        specialinvoke $stack10.<java.lang.StringBuilder: void <init>()>();
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DDR");
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(p);
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack14 = new avrora.sim.mcu.ATMegaFamily$DirectionRegister;
+
+        specialinvoke $stack14.<avrora.sim.mcu.ATMegaFamily$DirectionRegister: void <init>(avrora.sim.mcu.DefaultMCU$Pin[])>(portPins);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.ActiveRegister installIOReg(java.lang.String,avrora.sim.ActiveRegister)>($stack13, $stack14);
+
+        $stack16 = new java.lang.StringBuilder;
+
+        specialinvoke $stack16.<java.lang.StringBuilder: void <init>()>();
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("PIN");
+
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(p);
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack20 = new avrora.sim.mcu.ATMegaFamily$PinRegister;
+
+        specialinvoke $stack20.<avrora.sim.mcu.ATMegaFamily$PinRegister: void <init>(avrora.sim.mcu.DefaultMCU$Pin[])>(portPins);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.ActiveRegister installIOReg(java.lang.String,avrora.sim.ActiveRegister)>($stack19, $stack20);
+
+        return;
+    }
+
+    protected avrora.sim.mcu.ATMegaFamily$FlagRegister buildInterruptRange(boolean, java.lang.String, java.lang.String, int, int)
+    {
+        int[] mapping;
+        boolean increasing;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister $stack9;
+        avrora.sim.mcu.ATMegaFamily this;
+        avrora.sim.AtmelInterpreter $stack10, $stack12;
+        avrora.sim.mcu.ATMegaFamily$MaskRegister $stack11;
+        java.lang.String maskRegNum, flagRegNum;
+        int baseVect, $stack15, $stack29, numVects, cntr#1, cntr#2;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily;
+
+        increasing := @parameter0: boolean;
+
+        maskRegNum := @parameter1: java.lang.String;
+
+        flagRegNum := @parameter2: java.lang.String;
+
+        baseVect := @parameter3: int;
+
+        numVects := @parameter4: int;
+
+        mapping = newarray (int)[8];
+
+        if increasing == 0 goto label3;
+
+        cntr#1 = 0;
+
+     label1:
+        if cntr#1 >= 8 goto label2;
+
+        $stack29 = baseVect + cntr#1;
+
+        mapping[cntr#1] = $stack29;
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        goto label5;
+
+     label3:
+        cntr#2 = 0;
+
+     label4:
+        if cntr#2 >= 8 goto label5;
+
+        $stack15 = baseVect - cntr#2;
+
+        mapping[cntr#2] = $stack15;
+
+        cntr#2 = cntr#2 + 1;
+
+        goto label4;
+
+     label5:
+        $stack9 = new avrora.sim.mcu.ATMegaFamily$FlagRegister;
+
+        $stack10 = this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.AtmelInterpreter interpreter>;
+
+        specialinvoke $stack9.<avrora.sim.mcu.ATMegaFamily$FlagRegister: void <init>(avrora.sim.AtmelInterpreter,int[])>($stack10, mapping);
+
+        $stack11 = new avrora.sim.mcu.ATMegaFamily$MaskRegister;
+
+        $stack12 = this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.AtmelInterpreter interpreter>;
+
+        specialinvoke $stack11.<avrora.sim.mcu.ATMegaFamily$MaskRegister: void <init>(avrora.sim.AtmelInterpreter,int[])>($stack12, mapping);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.ActiveRegister installIOReg(java.lang.String,avrora.sim.ActiveRegister)>(maskRegNum, $stack11);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.ActiveRegister installIOReg(java.lang.String,avrora.sim.ActiveRegister)>(flagRegNum, $stack9);
+
+        return $stack9;
+    }
+
+    public avrora.sim.mcu.ATMegaFamily$FlagRegister getEIFR_reg()
+    {
+        avrora.sim.mcu.ATMegaFamily this;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister $stack1;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily;
+
+        $stack1 = this.<avrora.sim.mcu.ATMegaFamily: avrora.sim.mcu.ATMegaFamily$FlagRegister EIFR_reg>;
+
+        return $stack1;
+    }
+
+    static void <clinit>()
+    {
+        int[] $stack0, $stack1, $stack2, $stack3;
+
+        $stack0 = newarray (int)[8];
+
+        $stack0[0] = 0;
+
+        $stack0[1] = 1;
+
+        $stack0[2] = 8;
+
+        $stack0[3] = 32;
+
+        $stack0[4] = 64;
+
+        $stack0[5] = 128;
+
+        $stack0[6] = 256;
+
+        $stack0[7] = 1024;
+
+        <avrora.sim.mcu.ATMegaFamily: int[] periods0> = $stack0;
+
+        $stack1 = newarray (int)[8];
+
+        $stack1[0] = 0;
+
+        $stack1[1] = 1;
+
+        $stack1[2] = 8;
+
+        $stack1[3] = 64;
+
+        $stack1[4] = 256;
+
+        $stack1[5] = 1024;
+
+        $stack1[6] = 0;
+
+        $stack1[7] = 0;
+
+        <avrora.sim.mcu.ATMegaFamily: int[] periods2> = $stack1;
+
+        $stack2 = newarray (int)[6];
+
+        $stack2[0] = 0;
+
+        $stack2[1] = 1;
+
+        $stack2[2] = 8;
+
+        $stack2[3] = 64;
+
+        $stack2[4] = 256;
+
+        $stack2[5] = 1024;
+
+        <avrora.sim.mcu.ATMegaFamily: int[] periods1> = $stack2;
+
+        $stack3 = newarray (int)[6];
+
+        $stack3[0] = 0;
+
+        $stack3[1] = 1;
+
+        $stack3[2] = 8;
+
+        $stack3[3] = 64;
+
+        $stack3[4] = 256;
+
+        $stack3[5] = 1024;
+
+        <avrora.sim.mcu.ATMegaFamily: int[] periods3> = $stack3;
+
+        return;
+    }
+}

@@ -1,0 +1,164 @@
+public class avrora.monitors.LEDMonitor$Mon extends java.lang.Object implements avrora.monitors.Monitor, avrora.sim.FiniteStateMachine$Probe
+{
+    avrora.sim.platform.LED$LEDGroup ledgroup;
+    avrora.sim.output.SimPrinter printer;
+    final avrora.monitors.LEDMonitor this$0;
+
+    public void <init>(avrora.monitors.LEDMonitor, avrora.sim.Simulator)
+    {
+        avrora.monitors.LEDMonitor$Mon this;
+        avrora.monitors.LEDMonitor this$0;
+        avrora.sim.Simulator s;
+        avrora.sim.mcu.Microcontroller $stack7;
+        avrora.sim.platform.Platform platform;
+        avrora.sim.output.SimPrinter $stack9;
+        java.lang.Object dev;
+        boolean $stack11;
+        avrora.sim.platform.LED$LEDGroup $stack12, $stack13;
+        avrora.sim.platform.LED[] leds;
+        int $stack14, cntr#1;
+        avrora.sim.platform.LED $stack15;
+        avrora.sim.FiniteStateMachine $stack16;
+
+        this := @this: avrora.monitors.LEDMonitor$Mon;
+
+        this$0 := @parameter0: avrora.monitors.LEDMonitor;
+
+        s := @parameter1: avrora.sim.Simulator;
+
+        this.<avrora.monitors.LEDMonitor$Mon: avrora.monitors.LEDMonitor this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack7 = virtualinvoke s.<avrora.sim.Simulator: avrora.sim.mcu.Microcontroller getMicrocontroller()>();
+
+        platform = interfaceinvoke $stack7.<avrora.sim.mcu.Microcontroller: avrora.sim.platform.Platform getPlatform()>();
+
+        $stack9 = virtualinvoke s.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter()>();
+
+        this.<avrora.monitors.LEDMonitor$Mon: avrora.sim.output.SimPrinter printer> = $stack9;
+
+        dev = virtualinvoke platform.<avrora.sim.platform.Platform: java.lang.Object getDevice(java.lang.String)>("leds");
+
+        $stack11 = dev instanceof avrora.sim.platform.LED$LEDGroup;
+
+        if $stack11 == 0 goto label2;
+
+        $stack12 = (avrora.sim.platform.LED$LEDGroup) dev;
+
+        this.<avrora.monitors.LEDMonitor$Mon: avrora.sim.platform.LED$LEDGroup ledgroup> = $stack12;
+
+        $stack13 = this.<avrora.monitors.LEDMonitor$Mon: avrora.sim.platform.LED$LEDGroup ledgroup>;
+
+        leds = $stack13.<avrora.sim.platform.LED$LEDGroup: avrora.sim.platform.LED[] leds>;
+
+        cntr#1 = 0;
+
+     label1:
+        $stack14 = lengthof leds;
+
+        if cntr#1 >= $stack14 goto label2;
+
+        $stack15 = leds[cntr#1];
+
+        $stack16 = $stack15.<avrora.sim.platform.LED: avrora.sim.FiniteStateMachine state>;
+
+        virtualinvoke $stack16.<avrora.sim.FiniteStateMachine: void insertProbe(avrora.sim.FiniteStateMachine$Probe)>(this);
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void fireBeforeTransition(int, int)
+    {
+        avrora.monitors.LEDMonitor$Mon this;
+        int beforeState, afterState;
+
+        this := @this: avrora.monitors.LEDMonitor$Mon;
+
+        beforeState := @parameter0: int;
+
+        afterState := @parameter1: int;
+
+        return;
+    }
+
+    public void fireAfterTransition(int, int)
+    {
+        int beforeState, afterState, $stack9, $stack12, $stack14, cntr#1;
+        avrora.monitors.LEDMonitor$Mon this;
+        avrora.sim.output.SimPrinter $stack6, $stack10;
+        java.lang.StringBuffer buf;
+        avrora.sim.platform.LED$LEDGroup $stack8;
+        avrora.sim.platform.LED[] leds;
+        avrora.sim.platform.LED $stack11, $stack13;
+
+        this := @this: avrora.monitors.LEDMonitor$Mon;
+
+        beforeState := @parameter0: int;
+
+        afterState := @parameter1: int;
+
+        if beforeState != afterState goto label1;
+
+        return;
+
+     label1:
+        $stack6 = this.<avrora.monitors.LEDMonitor$Mon: avrora.sim.output.SimPrinter printer>;
+
+        buf = virtualinvoke $stack6.<avrora.sim.output.SimPrinter: java.lang.StringBuffer getBuffer(int)>(30);
+
+        $stack8 = this.<avrora.monitors.LEDMonitor$Mon: avrora.sim.platform.LED$LEDGroup ledgroup>;
+
+        leds = $stack8.<avrora.sim.platform.LED$LEDGroup: avrora.sim.platform.LED[] leds>;
+
+        cntr#1 = 0;
+
+     label2:
+        $stack9 = lengthof leds;
+
+        if cntr#1 >= $stack9 goto label5;
+
+        $stack11 = leds[cntr#1];
+
+        $stack12 = virtualinvoke $stack11.<avrora.sim.platform.LED: int getState()>();
+
+        if $stack12 != 0 goto label3;
+
+        virtualinvoke buf.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("off ");
+
+        goto label4;
+
+     label3:
+        $stack13 = leds[cntr#1];
+
+        $stack14 = $stack13.<avrora.sim.platform.LED: int colornum>;
+
+        staticinvoke <cck.text.Terminal: void append(int,java.lang.StringBuffer,java.lang.String)>($stack14, buf, "on  ");
+
+     label4:
+        cntr#1 = cntr#1 + 1;
+
+        goto label2;
+
+     label5:
+        $stack10 = this.<avrora.monitors.LEDMonitor$Mon: avrora.sim.output.SimPrinter printer>;
+
+        virtualinvoke $stack10.<avrora.sim.output.SimPrinter: void printBuffer(java.lang.StringBuffer)>(buf);
+
+        return;
+    }
+
+    public void report()
+    {
+        avrora.monitors.LEDMonitor$Mon this;
+
+        this := @this: avrora.monitors.LEDMonitor$Mon;
+
+        return;
+    }
+}

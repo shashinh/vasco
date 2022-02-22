@@ -1,0 +1,110 @@
+public class avrora.sim.state.RegisterUtil$BoolView extends java.lang.Object implements avrora.sim.state.BooleanView
+{
+    protected final avrora.sim.state.RegisterView reg;
+    protected final byte low;
+
+    public void <init>(avrora.sim.state.RegisterView, byte)
+    {
+        avrora.sim.state.RegisterUtil$BoolView this;
+        avrora.sim.state.RegisterView r;
+        byte l;
+
+        this := @this: avrora.sim.state.RegisterUtil$BoolView;
+
+        r := @parameter0: avrora.sim.state.RegisterView;
+
+        l := @parameter1: byte;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.state.RegisterUtil$BoolView: avrora.sim.state.RegisterView reg> = r;
+
+        this.<avrora.sim.state.RegisterUtil$BoolView: byte low> = l;
+
+        return;
+    }
+
+    public boolean getValue()
+    {
+        avrora.sim.state.RegisterUtil$BoolView this;
+        avrora.sim.state.RegisterView $stack1;
+        int $stack2, $stack4, $stack5;
+        byte $stack3;
+        boolean $stack6#1;
+
+        this := @this: avrora.sim.state.RegisterUtil$BoolView;
+
+        $stack1 = this.<avrora.sim.state.RegisterUtil$BoolView: avrora.sim.state.RegisterView reg>;
+
+        $stack2 = interfaceinvoke $stack1.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack3 = this.<avrora.sim.state.RegisterUtil$BoolView: byte low>;
+
+        $stack4 = $stack2 >> $stack3;
+
+        $stack5 = $stack4 & 1;
+
+        if $stack5 != 1 goto label1;
+
+        $stack6#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack6#1 = 0;
+
+     label2:
+        return $stack6#1;
+    }
+
+    public void setValue(boolean)
+    {
+        boolean v;
+        avrora.sim.state.RegisterUtil$BoolView this;
+        avrora.sim.state.RegisterView $stack2, $stack3, $stack9, $stack10;
+        int $stack4, $stack6, $stack7, $stack8, $stack11, $stack13, $stack14;
+        byte $stack5, $stack12;
+
+        this := @this: avrora.sim.state.RegisterUtil$BoolView;
+
+        v := @parameter0: boolean;
+
+        if v == 0 goto label1;
+
+        $stack10 = this.<avrora.sim.state.RegisterUtil$BoolView: avrora.sim.state.RegisterView reg>;
+
+        $stack9 = this.<avrora.sim.state.RegisterUtil$BoolView: avrora.sim.state.RegisterView reg>;
+
+        $stack11 = interfaceinvoke $stack9.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack12 = this.<avrora.sim.state.RegisterUtil$BoolView: byte low>;
+
+        $stack13 = 1 << $stack12;
+
+        $stack14 = $stack11 | $stack13;
+
+        interfaceinvoke $stack10.<avrora.sim.state.RegisterView: void setValue(int)>($stack14);
+
+        goto label2;
+
+     label1:
+        $stack3 = this.<avrora.sim.state.RegisterUtil$BoolView: avrora.sim.state.RegisterView reg>;
+
+        $stack2 = this.<avrora.sim.state.RegisterUtil$BoolView: avrora.sim.state.RegisterView reg>;
+
+        $stack4 = interfaceinvoke $stack2.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack5 = this.<avrora.sim.state.RegisterUtil$BoolView: byte low>;
+
+        $stack6 = 1 << $stack5;
+
+        $stack7 = $stack6 ^ -1;
+
+        $stack8 = $stack4 & $stack7;
+
+        interfaceinvoke $stack3.<avrora.sim.state.RegisterView: void setValue(int)>($stack8);
+
+     label2:
+        return;
+    }
+}

@@ -1,0 +1,97 @@
+public class avrora.sim.mcu.USART$DataRegister extends avrora.sim.RWRegister
+{
+    avrora.sim.RWRegister transmitRegister;
+    avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO receiveRegister;
+    final avrora.sim.mcu.USART this$0;
+
+    void <init>(avrora.sim.mcu.USART)
+    {
+        avrora.sim.mcu.USART$DataRegister this;
+        avrora.sim.mcu.USART this$0;
+        avrora.sim.RWRegister $stack2;
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO $stack3;
+
+        this := @this: avrora.sim.mcu.USART$DataRegister;
+
+        this$0 := @parameter0: avrora.sim.mcu.USART;
+
+        this.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        $stack2 = new avrora.sim.RWRegister;
+
+        specialinvoke $stack2.<avrora.sim.RWRegister: void <init>()>();
+
+        this.<avrora.sim.mcu.USART$DataRegister: avrora.sim.RWRegister transmitRegister> = $stack2;
+
+        $stack3 = new avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+        specialinvoke $stack3.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: void <init>(avrora.sim.mcu.USART$DataRegister)>(this);
+
+        this.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO receiveRegister> = $stack3;
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.USART$DataRegister this;
+        byte val;
+        avrora.sim.RWRegister $stack2;
+        avrora.sim.mcu.USART $stack3, $stack6, $stack9;
+        avrora.sim.mcu.USART$ControlRegisterA $stack4;
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag $stack5;
+        avrora.sim.mcu.USART$ControlRegisterB $stack7;
+        boolean $stack8;
+        avrora.sim.mcu.USART$Transmitter $stack10;
+
+        this := @this: avrora.sim.mcu.USART$DataRegister;
+
+        val := @parameter0: byte;
+
+        $stack2 = this.<avrora.sim.mcu.USART$DataRegister: avrora.sim.RWRegister transmitRegister>;
+
+        virtualinvoke $stack2.<avrora.sim.RWRegister: void write(byte)>(val);
+
+        $stack3 = this.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $stack5 = $stack4.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.mcu.ATMegaFamily$InterruptFlag UDRE_flag>;
+
+        virtualinvoke $stack5.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: void flag(boolean)>(0);
+
+        $stack6 = this.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $stack7 = $stack6.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterB UCSRnB_reg>;
+
+        $stack8 = virtualinvoke $stack7.<avrora.sim.mcu.USART$ControlRegisterB: boolean readBit(int)>(3);
+
+        if $stack8 == 0 goto label1;
+
+        $stack9 = this.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $stack10 = $stack9.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$Transmitter transmitter>;
+
+        virtualinvoke $stack10.<avrora.sim.mcu.USART$Transmitter: void enableTransmit()>();
+
+     label1:
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.USART$DataRegister this;
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO $stack1;
+        byte $stack2;
+
+        this := @this: avrora.sim.mcu.USART$DataRegister;
+
+        $stack1 = this.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO receiveRegister>;
+
+        $stack2 = virtualinvoke $stack1.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: byte read()>();
+
+        return $stack2;
+    }
+}

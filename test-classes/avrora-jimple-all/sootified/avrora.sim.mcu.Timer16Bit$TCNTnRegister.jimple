@@ -1,0 +1,39 @@
+public class avrora.sim.mcu.Timer16Bit$TCNTnRegister extends avrora.sim.RWRegister
+{
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    protected void <init>(avrora.sim.mcu.Timer16Bit)
+    {
+        avrora.sim.mcu.Timer16Bit$TCNTnRegister this;
+        avrora.sim.mcu.Timer16Bit this$0;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$TCNTnRegister;
+
+        this$0 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        this.<avrora.sim.mcu.Timer16Bit$TCNTnRegister: avrora.sim.mcu.Timer16Bit this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.Timer16Bit$TCNTnRegister this;
+        byte val;
+        avrora.sim.mcu.Timer16Bit $stack2;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$TCNTnRegister;
+
+        val := @parameter0: byte;
+
+        this.<avrora.sim.mcu.Timer16Bit$TCNTnRegister: byte value> = val;
+
+        $stack2 = this.<avrora.sim.mcu.Timer16Bit$TCNTnRegister: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack2.<avrora.sim.mcu.Timer16Bit: boolean blockCompareMatch> = 1;
+
+        return;
+    }
+}

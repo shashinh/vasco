@@ -1,0 +1,55 @@
+public class avrora.sim.platform.Telos$Factory extends java.lang.Object implements avrora.sim.platform.PlatformFactory
+{
+
+    public void <init>()
+    {
+        avrora.sim.platform.Telos$Factory this;
+
+        this := @this: avrora.sim.platform.Telos$Factory;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public avrora.sim.platform.Platform newPlatform(int, avrora.sim.Simulation, avrora.core.Program)
+    {
+        int id;
+        avrora.sim.Simulation sim;
+        avrora.core.Program p;
+        avrora.sim.platform.Telos$Factory this;
+        avrora.sim.clock.ClockDomain $u0;
+        avrora.arch.msp430.mcu.F1611 $u1;
+        avrora.sim.platform.Telos $u2;
+        avrora.sim.mcu.Microcontroller $r0;
+        avrora.sim.platform.Platform $r1;
+
+        this := @this: avrora.sim.platform.Telos$Factory;
+
+        id := @parameter0: int;
+
+        sim := @parameter1: avrora.sim.Simulation;
+
+        p := @parameter2: avrora.core.Program;
+
+        $u0 = new avrora.sim.clock.ClockDomain;
+
+        specialinvoke $u0.<avrora.sim.clock.ClockDomain: void <init>(long)>(8000000L);
+
+        virtualinvoke $u0.<avrora.sim.clock.ClockDomain: avrora.sim.clock.Clock newClock(java.lang.String,long)>("external", 32768L);
+
+        $u2 = new avrora.sim.platform.Telos;
+
+        $u1 = new avrora.arch.msp430.mcu.F1611;
+
+        specialinvoke $u1.<avrora.arch.msp430.mcu.F1611: void <init>(int,avrora.sim.Simulation,avrora.sim.clock.ClockDomain,avrora.core.Program)>(id, sim, $u0, p);
+
+        $r0 = (avrora.sim.mcu.Microcontroller) $u1;
+
+        specialinvoke $u2.<avrora.sim.platform.Telos: void <init>(avrora.sim.mcu.Microcontroller)>($r0);
+
+        $r1 = (avrora.sim.platform.Platform) $u2;
+
+        return $r1;
+    }
+}

@@ -1,0 +1,621 @@
+public class avrora.sim.types.SensorSimulation$SensorNode extends avrora.sim.Simulation$Node
+{
+    avrora.sim.radio.Radio radio;
+    long startup;
+    java.util.List sensorInput;
+    final avrora.sim.types.SensorSimulation this$0;
+
+    void <init>(avrora.sim.types.SensorSimulation, int, avrora.sim.platform.PlatformFactory, avrora.core.LoadableProgram)
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.types.SensorSimulation this$0;
+        int id;
+        avrora.sim.platform.PlatformFactory pf;
+        avrora.core.LoadableProgram p;
+        java.util.LinkedList $stack5;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        this$0 := @parameter0: avrora.sim.types.SensorSimulation;
+
+        id := @parameter1: int;
+
+        pf := @parameter2: avrora.sim.platform.PlatformFactory;
+
+        p := @parameter3: avrora.core.LoadableProgram;
+
+        this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.Simulation$Node: void <init>(avrora.sim.Simulation,int,avrora.sim.platform.PlatformFactory,avrora.core.LoadableProgram)>(this$0, id, pf, p);
+
+        $stack5 = new java.util.LinkedList;
+
+        specialinvoke $stack5.<java.util.LinkedList: void <init>()>();
+
+        this.<avrora.sim.types.SensorSimulation$SensorNode: java.util.List sensorInput> = $stack5;
+
+        return;
+    }
+
+    protected void instantiate()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void createNode()>();
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void updateNodeID()>();
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void addSensorData()>();
+
+        return;
+    }
+
+    private void addSensorData()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        java.util.List $stack3;
+        java.util.Iterator i;
+        boolean $stack5;
+        java.lang.Object $stack6;
+        avrora.sim.types.SensorSimulation$SensorDataInput sdi;
+        avrora.sim.platform.Platform $stack7;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        $stack3 = this.<avrora.sim.types.SensorSimulation$SensorNode: java.util.List sensorInput>;
+
+        i = interfaceinvoke $stack3.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $stack5 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack5 == 0 goto label2;
+
+        $stack6 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        sdi = (avrora.sim.types.SensorSimulation$SensorDataInput) $stack6;
+
+        $stack7 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.platform.Platform platform>;
+
+        virtualinvoke sdi.<avrora.sim.types.SensorSimulation$SensorDataInput: void instantiate(avrora.sim.platform.Platform)>($stack7);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    private void createNode()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.SimulatorThread $stack3;
+        avrora.sim.platform.Platform $stack4;
+        java.lang.Object dev;
+        boolean $stack6, $stack7;
+        avrora.sim.radio.Medium $stack12, $stack16;
+        avrora.sim.radio.CC2420Radio radio#1;
+        avrora.sim.radio.CC1000Radio radio#2;
+        avrora.sim.Simulator $stack9#6;
+        long $stack8#10;
+        avrora.sim.types.SensorSimulation $stack10#14;
+        avrora.sim.radio.Topology $stack11#16;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        $stack3 = new avrora.sim.SimulatorThread;
+
+        specialinvoke $stack3.<avrora.sim.SimulatorThread: void <init>(avrora.sim.Simulation$Node)>(this);
+
+        this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.SimulatorThread thread> = $stack3;
+
+        specialinvoke this.<avrora.sim.Simulation$Node: void instantiate()>();
+
+        $stack4 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.platform.Platform platform>;
+
+        dev = virtualinvoke $stack4.<avrora.sim.platform.Platform: java.lang.Object getDevice(java.lang.String)>("radio");
+
+        $stack6 = dev instanceof avrora.sim.radio.CC2420Radio;
+
+        if $stack6 == 0 goto label1;
+
+        radio#1 = (avrora.sim.radio.CC2420Radio) dev;
+
+        this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.radio.Radio radio> = radio#1;
+
+        $stack16 = specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.radio.Medium createCC2420Medium()>();
+
+        virtualinvoke radio#1.<avrora.sim.radio.CC2420Radio: void setMedium(avrora.sim.radio.Medium)>($stack16);
+
+        goto label2;
+
+     label1:
+        $stack7 = dev instanceof avrora.sim.radio.CC1000Radio;
+
+        if $stack7 == 0 goto label2;
+
+        radio#2 = (avrora.sim.radio.CC1000Radio) dev;
+
+        this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.radio.Radio radio> = radio#2;
+
+        $stack12 = specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.radio.Medium createCC1000Medium()>();
+
+        virtualinvoke radio#2.<avrora.sim.radio.CC1000Radio: void setMedium(avrora.sim.radio.Medium)>($stack12);
+
+     label2:
+        $stack9#6 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.Simulator simulator>;
+
+        $stack8#10 = this.<avrora.sim.types.SensorSimulation$SensorNode: long startup>;
+
+        virtualinvoke $stack9#6.<avrora.sim.Simulator: void delay(long)>($stack8#10);
+
+        $stack10#14 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack11#16 = $stack10#14.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Topology topology>;
+
+        if $stack11#16 == null goto label3;
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void setNodePosition()>();
+
+        return;
+
+     label3:
+        return;
+    }
+
+    private avrora.sim.radio.Medium createCC2420Medium()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.types.SensorSimulation $stack1, $stack3, $stack5, $stack8, $stack9, $stack11, $stack14, $stack15, $stack17;
+        avrora.sim.radio.Medium $stack2, $stack4, $stack13, $stack19;
+        cck.util.Option$Bool $stack6;
+        boolean $stack7;
+        avrora.sim.clock.Synchronizer $stack10, $stack16;
+        avrora.sim.radio.RadiusModel $stack12;
+        avrora.sim.radio.LossyModel $stack18;
+        avrora.sim.radio.Medium$Arbitrator $r0, $r1;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        $stack1 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack2 = $stack1.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Medium cc2420_medium>;
+
+        if $stack2 != null goto label2;
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void createRadioModel()>();
+
+        $stack5 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack6 = $stack5.<avrora.sim.types.SensorSimulation: cck.util.Option$Bool LOSSY_MODEL>;
+
+        $stack7 = virtualinvoke $stack6.<cck.util.Option$Bool: boolean get()>();
+
+        if $stack7 == 0 goto label1;
+
+        $stack15 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack14 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack16 = staticinvoke <avrora.sim.types.SensorSimulation: avrora.sim.clock.Synchronizer access$000(avrora.sim.types.SensorSimulation)>($stack14);
+
+        $stack17 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack18 = $stack17.<avrora.sim.types.SensorSimulation: avrora.sim.radio.LossyModel lossyModel>;
+
+        $r0 = (avrora.sim.radio.Medium$Arbitrator) $stack18;
+
+        $stack19 = staticinvoke <avrora.sim.radio.CC2420Radio: avrora.sim.radio.Medium createMedium(avrora.sim.clock.Synchronizer,avrora.sim.radio.Medium$Arbitrator)>($stack16, $r0);
+
+        $stack15.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Medium cc2420_medium> = $stack19;
+
+        return $stack19;
+
+     label1:
+        $stack9 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack8 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack10 = staticinvoke <avrora.sim.types.SensorSimulation: avrora.sim.clock.Synchronizer access$100(avrora.sim.types.SensorSimulation)>($stack8);
+
+        $stack11 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack12 = $stack11.<avrora.sim.types.SensorSimulation: avrora.sim.radio.RadiusModel radiusModel>;
+
+        $r1 = (avrora.sim.radio.Medium$Arbitrator) $stack12;
+
+        $stack13 = staticinvoke <avrora.sim.radio.CC2420Radio: avrora.sim.radio.Medium createMedium(avrora.sim.clock.Synchronizer,avrora.sim.radio.Medium$Arbitrator)>($stack10, $r1);
+
+        $stack9.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Medium cc2420_medium> = $stack13;
+
+        return $stack13;
+
+     label2:
+        $stack3 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack4 = $stack3.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Medium cc2420_medium>;
+
+        return $stack4;
+    }
+
+    private avrora.sim.radio.Medium createCC1000Medium()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.types.SensorSimulation $stack1, $stack3, $stack5, $stack8, $stack9, $stack11, $stack14, $stack15, $stack17;
+        avrora.sim.radio.Medium $stack2, $stack4, $stack13, $stack19;
+        cck.util.Option$Bool $stack6;
+        boolean $stack7;
+        avrora.sim.clock.Synchronizer $stack10, $stack16;
+        avrora.sim.radio.RadiusModel $stack12;
+        avrora.sim.radio.LossyModel $stack18;
+        avrora.sim.radio.Medium$Arbitrator $r0, $r1;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        $stack1 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack2 = $stack1.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Medium cc1000_medium>;
+
+        if $stack2 != null goto label2;
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void createRadioModel()>();
+
+        $stack5 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack6 = $stack5.<avrora.sim.types.SensorSimulation: cck.util.Option$Bool LOSSY_MODEL>;
+
+        $stack7 = virtualinvoke $stack6.<cck.util.Option$Bool: boolean get()>();
+
+        if $stack7 == 0 goto label1;
+
+        $stack15 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack14 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack16 = staticinvoke <avrora.sim.types.SensorSimulation: avrora.sim.clock.Synchronizer access$200(avrora.sim.types.SensorSimulation)>($stack14);
+
+        $stack17 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack18 = $stack17.<avrora.sim.types.SensorSimulation: avrora.sim.radio.LossyModel lossyModel>;
+
+        $r0 = (avrora.sim.radio.Medium$Arbitrator) $stack18;
+
+        $stack19 = staticinvoke <avrora.sim.radio.CC1000Radio: avrora.sim.radio.Medium createMedium(avrora.sim.clock.Synchronizer,avrora.sim.radio.Medium$Arbitrator)>($stack16, $r0);
+
+        $stack15.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Medium cc1000_medium> = $stack19;
+
+        return $stack19;
+
+     label1:
+        $stack9 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack8 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack10 = staticinvoke <avrora.sim.types.SensorSimulation: avrora.sim.clock.Synchronizer access$300(avrora.sim.types.SensorSimulation)>($stack8);
+
+        $stack11 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack12 = $stack11.<avrora.sim.types.SensorSimulation: avrora.sim.radio.RadiusModel radiusModel>;
+
+        $r1 = (avrora.sim.radio.Medium$Arbitrator) $stack12;
+
+        $stack13 = staticinvoke <avrora.sim.radio.CC1000Radio: avrora.sim.radio.Medium createMedium(avrora.sim.clock.Synchronizer,avrora.sim.radio.Medium$Arbitrator)>($stack10, $r1);
+
+        $stack9.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Medium cc1000_medium> = $stack13;
+
+        return $stack13;
+
+     label2:
+        $stack3 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack4 = $stack3.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Medium cc1000_medium>;
+
+        return $stack4;
+    }
+
+    private void createRadioModel()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.types.SensorSimulation $stack2, $stack4, $stack7, $stack11, $stack13, $stack16, $stack18, $stack22, $stack24, $stack27;
+        avrora.sim.radio.Topology $stack3, $stack10, $stack21;
+        cck.util.Option$Str $stack5, $stack12, $stack23;
+        boolean $stack6, $stack9;
+        cck.util.Option$Bool $stack8;
+        java.lang.String $stack14, $stack25;
+        avrora.sim.radio.RadiusModel $stack15;
+        cck.util.Option$Double $stack17;
+        double $stack20;
+        avrora.sim.radio.LossyModel $stack26;
+        java.io.IOException $stack28;
+        cck.util.Util$Unexpected $stack29;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        $stack2 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack3 = $stack2.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Topology topology>;
+
+        if $stack3 != null goto label5;
+
+        $stack4 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack5 = $stack4.<avrora.sim.types.SensorSimulation: cck.util.Option$Str TOPOLOGY>;
+
+        $stack6 = virtualinvoke $stack5.<cck.util.Option$Str: boolean isBlank()>();
+
+        if $stack6 != 0 goto label5;
+
+     label1:
+        $stack7 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack8 = $stack7.<avrora.sim.types.SensorSimulation: cck.util.Option$Bool LOSSY_MODEL>;
+
+        $stack9 = virtualinvoke $stack8.<cck.util.Option$Bool: boolean get()>();
+
+        if $stack9 == 0 goto label2;
+
+        $stack24 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack21 = new avrora.sim.radio.Topology;
+
+        $stack22 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack23 = $stack22.<avrora.sim.types.SensorSimulation: cck.util.Option$Str TOPOLOGY>;
+
+        $stack25 = virtualinvoke $stack23.<cck.util.Option$Str: java.lang.String get()>();
+
+        specialinvoke $stack21.<avrora.sim.radio.Topology: void <init>(java.lang.String,boolean)>($stack25, 1);
+
+        $stack24.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Topology topology> = $stack21;
+
+        $stack27 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack26 = new avrora.sim.radio.LossyModel;
+
+        specialinvoke $stack26.<avrora.sim.radio.LossyModel: void <init>()>();
+
+        $stack27.<avrora.sim.types.SensorSimulation: avrora.sim.radio.LossyModel lossyModel> = $stack26;
+
+        goto label3;
+
+     label2:
+        $stack13 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack10 = new avrora.sim.radio.Topology;
+
+        $stack11 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack12 = $stack11.<avrora.sim.types.SensorSimulation: cck.util.Option$Str TOPOLOGY>;
+
+        $stack14 = virtualinvoke $stack12.<cck.util.Option$Str: java.lang.String get()>();
+
+        specialinvoke $stack10.<avrora.sim.radio.Topology: void <init>(java.lang.String,boolean)>($stack14, 0);
+
+        $stack13.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Topology topology> = $stack10;
+
+        $stack18 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack15 = new avrora.sim.radio.RadiusModel;
+
+        $stack16 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack17 = $stack16.<avrora.sim.types.SensorSimulation: cck.util.Option$Double RANGE>;
+
+        $stack20 = virtualinvoke $stack17.<cck.util.Option$Double: double get()>();
+
+        specialinvoke $stack15.<avrora.sim.radio.RadiusModel: void <init>(double,double)>(1.0, $stack20);
+
+        $stack18.<avrora.sim.types.SensorSimulation: avrora.sim.radio.RadiusModel radiusModel> = $stack15;
+
+     label3:
+        goto label5;
+
+     label4:
+        $stack28 := @caughtexception;
+
+        $stack29 = staticinvoke <cck.util.Util: cck.util.Util$Unexpected unexpected(java.lang.Throwable)>($stack28);
+
+        throw $stack29;
+
+     label5:
+        return;
+
+        catch java.io.IOException from label1 to label3 with label4;
+    }
+
+    private void setNodePosition()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.types.SensorSimulation $stack2, $stack5, $stack10, $stack13, $stack18;
+        cck.util.Option$Bool $stack3;
+        boolean $stack4;
+        int $stack6, $stack14;
+        avrora.sim.radio.Topology $stack7, $stack15;
+        avrora.sim.radio.Radio $stack9, $stack11, $stack17, $stack19;
+        avrora.sim.radio.RadiusModel $stack12;
+        avrora.sim.radio.LossyModel $stack20;
+        avrora.sim.radio.LossyModel$Position p#1;
+        avrora.sim.radio.RadiusModel$Position p#2;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        $stack2 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack3 = $stack2.<avrora.sim.types.SensorSimulation: cck.util.Option$Bool LOSSY_MODEL>;
+
+        $stack4 = virtualinvoke $stack3.<cck.util.Option$Bool: boolean get()>();
+
+        if $stack4 == 0 goto label2;
+
+        $stack13 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack15 = $stack13.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Topology topology>;
+
+        $stack14 = this.<avrora.sim.types.SensorSimulation$SensorNode: int id>;
+
+        p#1 = virtualinvoke $stack15.<avrora.sim.radio.Topology: avrora.sim.radio.LossyModel$Position getPosition(int)>($stack14);
+
+        if p#1 == null goto label1;
+
+        $stack17 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.radio.Radio radio>;
+
+        if $stack17 == null goto label1;
+
+        $stack18 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack20 = $stack18.<avrora.sim.types.SensorSimulation: avrora.sim.radio.LossyModel lossyModel>;
+
+        $stack19 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.radio.Radio radio>;
+
+        virtualinvoke $stack20.<avrora.sim.radio.LossyModel: void setPosition(avrora.sim.radio.Radio,avrora.sim.radio.LossyModel$Position)>($stack19, p#1);
+
+     label1:
+        goto label3;
+
+     label2:
+        $stack5 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack7 = $stack5.<avrora.sim.types.SensorSimulation: avrora.sim.radio.Topology topology>;
+
+        $stack6 = this.<avrora.sim.types.SensorSimulation$SensorNode: int id>;
+
+        p#2 = virtualinvoke $stack7.<avrora.sim.radio.Topology: avrora.sim.radio.RadiusModel$Position getPositioninRadius(int)>($stack6);
+
+        if p#2 == null goto label3;
+
+        $stack9 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.radio.Radio radio>;
+
+        if $stack9 == null goto label3;
+
+        $stack10 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack12 = $stack10.<avrora.sim.types.SensorSimulation: avrora.sim.radio.RadiusModel radiusModel>;
+
+        $stack11 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.radio.Radio radio>;
+
+        virtualinvoke $stack12.<avrora.sim.radio.RadiusModel: void setPosition(avrora.sim.radio.Radio,avrora.sim.radio.RadiusModel$Position)>($stack11, p#2);
+
+     label3:
+        return;
+    }
+
+    private void updateNodeID()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.types.SensorSimulation $stack3;
+        cck.util.Option$Bool $stack4;
+        boolean $stack5;
+        avrora.core.LoadableProgram $stack6;
+        avrora.core.Program p;
+        avrora.core.SourceMapping smap;
+        int $stack9, $stack10, $stack11, $stack12;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        $stack3 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack4 = $stack3.<avrora.sim.types.SensorSimulation: cck.util.Option$Bool UPDATE_NODE_ID>;
+
+        $stack5 = virtualinvoke $stack4.<cck.util.Option$Bool: boolean get()>();
+
+        if $stack5 == 0 goto label1;
+
+        $stack6 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.core.LoadableProgram path>;
+
+        p = virtualinvoke $stack6.<avrora.core.LoadableProgram: avrora.core.Program getProgram()>();
+
+        smap = virtualinvoke p.<avrora.core.Program: avrora.core.SourceMapping getSourceMapping()>();
+
+        if smap == null goto label1;
+
+        $stack9 = this.<avrora.sim.types.SensorSimulation$SensorNode: int id>;
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void updateVariable(avrora.core.SourceMapping,java.lang.String,int)>(smap, "TOS_LOCAL_ADDRESS", $stack9);
+
+        $stack10 = this.<avrora.sim.types.SensorSimulation$SensorNode: int id>;
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void updateVariable(avrora.core.SourceMapping,java.lang.String,int)>(smap, "node_address", $stack10);
+
+        $stack11 = this.<avrora.sim.types.SensorSimulation$SensorNode: int id>;
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void updateVariable(avrora.core.SourceMapping,java.lang.String,int)>(smap, "TOS_NODE_ID", $stack11);
+
+        $stack12 = this.<avrora.sim.types.SensorSimulation$SensorNode: int id>;
+
+        specialinvoke this.<avrora.sim.types.SensorSimulation$SensorNode: void updateVariable(avrora.core.SourceMapping,java.lang.String,int)>(smap, "ActiveMessageAddressC$addr", $stack12);
+
+     label1:
+        return;
+    }
+
+    private void updateVariable(avrora.core.SourceMapping, java.lang.String, int)
+    {
+        avrora.core.SourceMapping smap;
+        java.lang.String name;
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.Simulator $stack7;
+        avrora.sim.Interpreter $stack8;
+        avrora.sim.AtmelInterpreter bi;
+        int value, $stack9, $stack11, $stack12;
+        byte $stack10, $stack13;
+        avrora.core.SourceMapping$Location location#1;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        smap := @parameter0: avrora.core.SourceMapping;
+
+        name := @parameter1: java.lang.String;
+
+        value := @parameter2: int;
+
+        location#1 = virtualinvoke smap.<avrora.core.SourceMapping: avrora.core.SourceMapping$Location getLocation(java.lang.String)>(name);
+
+        if location#1 != null goto label1;
+
+        location#1 = virtualinvoke smap.<avrora.core.SourceMapping: avrora.core.SourceMapping$Location getLocation(java.lang.String)>("node_address");
+
+     label1:
+        if location#1 == null goto label2;
+
+        $stack7 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.Simulator simulator>;
+
+        $stack8 = virtualinvoke $stack7.<avrora.sim.Simulator: avrora.sim.Interpreter getInterpreter()>();
+
+        bi = (avrora.sim.AtmelInterpreter) $stack8;
+
+        $stack9 = location#1.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        $stack10 = staticinvoke <cck.util.Arithmetic: byte low(int)>(value);
+
+        virtualinvoke bi.<avrora.sim.AtmelInterpreter: void writeFlashByte(int,byte)>($stack9, $stack10);
+
+        $stack11 = location#1.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        $stack12 = $stack11 + 1;
+
+        $stack13 = staticinvoke <cck.util.Arithmetic: byte high(int)>(value);
+
+        virtualinvoke bi.<avrora.sim.AtmelInterpreter: void writeFlashByte(int,byte)>($stack12, $stack13);
+
+     label2:
+        return;
+    }
+
+    protected void remove()
+    {
+        avrora.sim.types.SensorSimulation$SensorNode this;
+        avrora.sim.types.SensorSimulation $stack1;
+        avrora.sim.clock.Synchronizer $stack2;
+
+        this := @this: avrora.sim.types.SensorSimulation$SensorNode;
+
+        $stack1 = this.<avrora.sim.types.SensorSimulation$SensorNode: avrora.sim.types.SensorSimulation this$0>;
+
+        $stack2 = staticinvoke <avrora.sim.types.SensorSimulation: avrora.sim.clock.Synchronizer access$400(avrora.sim.types.SensorSimulation)>($stack1);
+
+        virtualinvoke $stack2.<avrora.sim.clock.Synchronizer: void removeNode(avrora.sim.Simulation$Node)>(this);
+
+        return;
+    }
+}

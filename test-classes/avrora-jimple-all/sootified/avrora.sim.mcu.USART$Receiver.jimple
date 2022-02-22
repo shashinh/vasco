@@ -1,0 +1,96 @@
+public class avrora.sim.mcu.USART$Receiver extends java.lang.Object
+{
+    boolean receiving;
+    avrora.sim.mcu.USART$Receiver$Receive receive;
+    final avrora.sim.mcu.USART this$0;
+
+    protected void <init>(avrora.sim.mcu.USART)
+    {
+        avrora.sim.mcu.USART$Receiver this;
+        avrora.sim.mcu.USART this$0;
+        avrora.sim.mcu.USART$Receiver$Receive $stack2;
+
+        this := @this: avrora.sim.mcu.USART$Receiver;
+
+        this$0 := @parameter0: avrora.sim.mcu.USART;
+
+        this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack2 = new avrora.sim.mcu.USART$Receiver$Receive;
+
+        specialinvoke $stack2.<avrora.sim.mcu.USART$Receiver$Receive: void <init>(avrora.sim.mcu.USART$Receiver)>(this);
+
+        this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART$Receiver$Receive receive> = $stack2;
+
+        return;
+    }
+
+    protected void enableReceive()
+    {
+        avrora.sim.mcu.USART$Receiver this;
+        boolean $stack1;
+        avrora.sim.mcu.USART $stack2, $stack6, $stack7, $stack13, $stack17;
+        avrora.sim.mcu.USART$USARTDevice $stack3;
+        avrora.sim.mcu.USART$Receiver$Receive $stack4, $stack10;
+        avrora.sim.mcu.USART$Frame $stack5;
+        avrora.sim.mcu.USART$ControlRegisterC $stack8, $stack14;
+        avrora.sim.clock.Clock $stack9;
+        int $stack12, $stack15, $stack16, $stack18, $stack19, $stack20;
+        long $stack21;
+
+        this := @this: avrora.sim.mcu.USART$Receiver;
+
+        $stack1 = this.<avrora.sim.mcu.USART$Receiver: boolean receiving>;
+
+        if $stack1 != 0 goto label1;
+
+        $stack4 = this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART$Receiver$Receive receive>;
+
+        $stack2 = this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$USARTDevice connectedDevice>;
+
+        $stack5 = interfaceinvoke $stack3.<avrora.sim.mcu.USART$USARTDevice: avrora.sim.mcu.USART$Frame transmitFrame()>();
+
+        $stack4.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Frame frame> = $stack5;
+
+        $stack6 = this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $stack9 = $stack6.<avrora.sim.mcu.USART: avrora.sim.clock.Clock mainClock>;
+
+        $stack10 = this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART$Receiver$Receive receive>;
+
+        $stack7 = this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $stack8 = $stack7.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterC UCSRnC_reg>;
+
+        $stack12 = virtualinvoke $stack8.<avrora.sim.mcu.USART$ControlRegisterC: int getFrameSize()>();
+
+        $stack15 = 1 + $stack12;
+
+        $stack13 = this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $stack14 = $stack13.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterC UCSRnC_reg>;
+
+        $stack16 = virtualinvoke $stack14.<avrora.sim.mcu.USART$ControlRegisterC: int getStopBits()>();
+
+        $stack19 = $stack15 + $stack16;
+
+        $stack17 = this.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $stack18 = $stack17.<avrora.sim.mcu.USART: int period>;
+
+        $stack20 = $stack19 * $stack18;
+
+        $stack21 = (long) $stack20;
+
+        virtualinvoke $stack9.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>($stack10, $stack21);
+
+        this.<avrora.sim.mcu.USART$Receiver: boolean receiving> = 1;
+
+     label1:
+        return;
+    }
+}

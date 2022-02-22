@@ -1,0 +1,91 @@
+class avrora.sim.mcu.RegisterSet$SubFieldWriter extends avrora.sim.mcu.RegisterSet$SubRegWriter
+{
+    final avrora.sim.mcu.RegisterSet$FieldWriter fieldWriter;
+    final avrora.sim.mcu.RegisterLayout$SubField subField;
+
+    void <init>(avrora.sim.mcu.RegisterLayout$SubField, avrora.sim.mcu.RegisterSet$FieldWriter)
+    {
+        avrora.sim.mcu.RegisterSet$SubFieldWriter this;
+        avrora.sim.mcu.RegisterLayout$SubField sf;
+        avrora.sim.mcu.RegisterSet$FieldWriter fw;
+
+        this := @this: avrora.sim.mcu.RegisterSet$SubFieldWriter;
+
+        sf := @parameter0: avrora.sim.mcu.RegisterLayout$SubField;
+
+        fw := @parameter1: avrora.sim.mcu.RegisterSet$FieldWriter;
+
+        specialinvoke this.<avrora.sim.mcu.RegisterSet$SubRegWriter: void <init>(avrora.sim.mcu.RegisterLayout$SubField)>(sf);
+
+        this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: avrora.sim.mcu.RegisterLayout$SubField subField> = sf;
+
+        this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: avrora.sim.mcu.RegisterSet$FieldWriter fieldWriter> = fw;
+
+        return;
+    }
+
+    void write(byte)
+    {
+        byte val;
+        avrora.sim.mcu.RegisterSet$SubFieldWriter this;
+        int $stack3, $stack4, $stack5, wval, $stack8, $stack9, $stack10, $stack11, $stack14, $stack15, $stack16, $stack17, $stack18;
+        avrora.sim.mcu.RegisterSet$FieldWriter $stack6, $stack12, $stack21;
+        avrora.sim.mcu.RegisterLayout$SubField $stack7, $stack13, $stack19;
+        boolean $stack20;
+
+        this := @this: avrora.sim.mcu.RegisterSet$SubFieldWriter;
+
+        val := @parameter0: byte;
+
+        $stack3 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: int ior_low_bit>;
+
+        $stack5 = val >> $stack3;
+
+        $stack4 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: int mask>;
+
+        wval = $stack5 & $stack4;
+
+        $stack6 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: avrora.sim.mcu.RegisterSet$FieldWriter fieldWriter>;
+
+        $stack10 = $stack6.<avrora.sim.mcu.RegisterSet$FieldWriter: int value>;
+
+        $stack7 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: avrora.sim.mcu.RegisterLayout$SubField subField>;
+
+        $stack8 = $stack7.<avrora.sim.mcu.RegisterLayout$SubField: int field_low_bit>;
+
+        $stack9 = wval << $stack8;
+
+        $stack11 = $stack10 | $stack9;
+
+        $stack6.<avrora.sim.mcu.RegisterSet$FieldWriter: int value> = $stack11;
+
+        $stack12 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: avrora.sim.mcu.RegisterSet$FieldWriter fieldWriter>;
+
+        $stack17 = $stack12.<avrora.sim.mcu.RegisterSet$FieldWriter: int writtenMask>;
+
+        $stack15 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: int mask>;
+
+        $stack13 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: avrora.sim.mcu.RegisterLayout$SubField subField>;
+
+        $stack14 = $stack13.<avrora.sim.mcu.RegisterLayout$SubField: int field_low_bit>;
+
+        $stack16 = $stack15 << $stack14;
+
+        $stack18 = $stack17 | $stack16;
+
+        $stack12.<avrora.sim.mcu.RegisterSet$FieldWriter: int writtenMask> = $stack18;
+
+        $stack19 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: avrora.sim.mcu.RegisterLayout$SubField subField>;
+
+        $stack20 = $stack19.<avrora.sim.mcu.RegisterLayout$SubField: boolean commit>;
+
+        if $stack20 == 0 goto label1;
+
+        $stack21 = this.<avrora.sim.mcu.RegisterSet$SubFieldWriter: avrora.sim.mcu.RegisterSet$FieldWriter fieldWriter>;
+
+        virtualinvoke $stack21.<avrora.sim.mcu.RegisterSet$FieldWriter: void commit()>();
+
+     label1:
+        return;
+    }
+}

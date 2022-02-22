@@ -1,0 +1,2053 @@
+public abstract class org.dacapo.harness.Benchmark extends java.lang.Object
+{
+    private static final int BUFFER_SIZE;
+    private static final java.lang.String TIMEOUT_DIALATION_PROPERTY;
+    private static boolean verbose;
+    private static boolean silent;
+    private static boolean validateOutput;
+    private static boolean preIterationGC;
+    private static boolean validate;
+    private static boolean preserve;
+    private static java.io.PrintWriter valRepFile;
+    private static boolean validationReport;
+    private static java.lang.String timeoutDialation;
+    private static final java.io.PrintStream savedOut;
+    private static final java.io.PrintStream savedErr;
+    protected final java.io.File scratch;
+    protected final org.dacapo.parser.Config config;
+    protected java.lang.ClassLoader loader;
+    private java.lang.ClassLoader savedClassLoader;
+    private java.util.Properties savedSystemProperties;
+    private static org.dacapo.harness.TeePrintStream err;
+    private static org.dacapo.harness.TeePrintStream out;
+    protected int iteration;
+    protected java.lang.reflect.Method method;
+
+    public final boolean run(org.dacapo.harness.Callback, java.lang.String) throws java.lang.Exception
+    {
+        org.dacapo.harness.Benchmark this;
+        int $stack8, $stack9, $stack10;
+        java.lang.String size, $stack15, $stack20;
+        java.io.PrintStream $stack11, $stack12, $stack27, $stack28;
+        boolean $stack13, valid;
+        org.dacapo.harness.Callback callback;
+        org.dacapo.parser.Config $stack14, $stack19;
+        long start, $stack17, duration#2;
+        java.lang.Throwable $stack31;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        callback := @parameter0: org.dacapo.harness.Callback;
+
+        size := @parameter1: java.lang.String;
+
+        $stack8 = this.<org.dacapo.harness.Benchmark: int iteration>;
+
+        $stack9 = $stack8 + 1;
+
+        this.<org.dacapo.harness.Benchmark: int iteration> = $stack9;
+
+        $stack10 = this.<org.dacapo.harness.Benchmark: int iteration>;
+
+        if $stack10 != 1 goto label1;
+
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void prepare(java.lang.String)>(size);
+
+        $stack27 = <org.dacapo.harness.Benchmark: java.io.PrintStream savedOut>;
+
+        staticinvoke <java.lang.System: void setOut(java.io.PrintStream)>($stack27);
+
+        $stack28 = <org.dacapo.harness.Benchmark: java.io.PrintStream savedErr>;
+
+        staticinvoke <java.lang.System: void setErr(java.io.PrintStream)>($stack28);
+
+     label1:
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void preIteration(java.lang.String)>(size);
+
+        $stack11 = <org.dacapo.harness.Benchmark: java.io.PrintStream savedOut>;
+
+        staticinvoke <java.lang.System: void setOut(java.io.PrintStream)>($stack11);
+
+        $stack12 = <org.dacapo.harness.Benchmark: java.io.PrintStream savedErr>;
+
+        staticinvoke <java.lang.System: void setErr(java.io.PrintStream)>($stack12);
+
+        $stack13 = <org.dacapo.harness.Benchmark: boolean preIterationGC>;
+
+        if $stack13 == 0 goto label2;
+
+        staticinvoke <java.lang.System: void gc()>();
+
+     label2:
+        $stack14 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack15 = $stack14.<org.dacapo.parser.Config: java.lang.String name>;
+
+        virtualinvoke callback.<org.dacapo.harness.Callback: void start(java.lang.String)>($stack15);
+
+        start = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void startIteration()>();
+
+     label3:
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void iterate(java.lang.String)>(size);
+
+     label4:
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void stopIteration()>();
+
+        goto label7;
+
+     label5:
+        $stack31 := @caughtexception;
+
+     label6:
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void stopIteration()>();
+
+        throw $stack31;
+
+     label7:
+        $stack17 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        duration#2 = $stack17 - start;
+
+        virtualinvoke callback.<org.dacapo.harness.Callback: void stop(long)>(duration#2);
+
+        valid = virtualinvoke this.<org.dacapo.harness.Benchmark: boolean validate(java.lang.String)>(size);
+
+        $stack19 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack20 = $stack19.<org.dacapo.parser.Config: java.lang.String name>;
+
+        virtualinvoke callback.<org.dacapo.harness.Callback: void complete(java.lang.String,boolean)>($stack20, valid);
+
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void postIteration(java.lang.String)>(size);
+
+        return valid;
+
+        catch java.lang.Throwable from label3 to label4 with label5;
+        catch java.lang.Throwable from label5 to label6 with label5;
+    }
+
+    public void <init>(org.dacapo.parser.Config, java.io.File) throws java.lang.Exception
+    {
+        org.dacapo.harness.Benchmark this;
+        org.dacapo.parser.Config config;
+        java.io.File scratch;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        scratch := @parameter1: java.io.File;
+
+        specialinvoke this.<org.dacapo.harness.Benchmark: void <init>(org.dacapo.parser.Config,java.io.File,boolean)>(config, scratch, 1);
+
+        return;
+    }
+
+    public void <init>(org.dacapo.parser.Config, java.io.File, boolean) throws java.lang.Exception
+    {
+        org.dacapo.harness.Benchmark this;
+        boolean silent;
+        java.io.File scratch;
+        org.dacapo.parser.Config config;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        scratch := @parameter1: java.io.File;
+
+        silent := @parameter2: boolean;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<org.dacapo.harness.Benchmark: int iteration> = 0;
+
+        <org.dacapo.harness.Benchmark: boolean silent> = silent;
+
+        this.<org.dacapo.harness.Benchmark: java.io.File scratch> = scratch;
+
+        this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config> = config;
+
+        specialinvoke this.<org.dacapo.harness.Benchmark: void initialize()>();
+
+        return;
+    }
+
+    private void initialize() throws java.lang.Exception
+    {
+        org.dacapo.harness.Benchmark this;
+        java.util.Properties $stack4;
+        java.lang.StringBuilder $stack5, $stack9, $stack10;
+        org.dacapo.parser.Config $stack7, $stack21;
+        java.lang.String $stack8, $stack11, $stack12;
+        java.io.PrintStream $stack14, $stack17, $stack26, $stack33;
+        org.dacapo.harness.TeePrintStream $stack15, $stack18, $stack23, $stack28, $stack30, $stack35;
+        java.io.File $stack20, $stack24, $stack25, $stack31, $stack32;
+        org.dacapo.harness.DacapoClassLoader $stack22;
+        boolean $stack27, $stack34, $stack36#2, $stack29#6;
+        java.lang.Throwable $stack37, $stack39;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        $stack4 = staticinvoke <java.lang.System: java.util.Properties getProperties()>();
+
+        this.<org.dacapo.harness.Benchmark: java.util.Properties savedSystemProperties> = $stack4;
+
+        $stack5 = new java.lang.StringBuilder;
+
+        specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack8 = $stack7.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack9 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".log");
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack12 = virtualinvoke this.<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>($stack11);
+
+        staticinvoke <java.lang.System: java.lang.String setProperty(java.lang.String,java.lang.String)>("java.util.logging.config.file", $stack12);
+
+        $stack14 = <java.lang.System: java.io.PrintStream out>;
+
+        entermonitor $stack14;
+
+     label01:
+        $stack15 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream out>;
+
+        if $stack15 != null goto label04;
+
+        $stack30 = new org.dacapo.harness.TeePrintStream;
+
+        $stack33 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack31 = new java.io.File;
+
+        $stack32 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        specialinvoke $stack31.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack32, "stdout.log");
+
+        specialinvoke $stack30.<org.dacapo.harness.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($stack33, $stack31);
+
+        <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream out> = $stack30;
+
+        $stack35 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream out>;
+
+        $stack34 = <org.dacapo.harness.Benchmark: boolean silent>;
+
+        if $stack34 != 0 goto label02;
+
+        $stack36#2 = 1;
+
+        goto label03;
+
+     label02:
+        $stack36#2 = 0;
+
+     label03:
+        virtualinvoke $stack35.<org.dacapo.harness.TeePrintStream: void enableOutput(boolean)>($stack36#2);
+
+     label04:
+        exitmonitor $stack14;
+
+     label05:
+        goto label08;
+
+     label06:
+        $stack39 := @caughtexception;
+
+        exitmonitor $stack14;
+
+     label07:
+        throw $stack39;
+
+     label08:
+        $stack17 = <java.lang.System: java.io.PrintStream err>;
+
+        entermonitor $stack17;
+
+     label09:
+        $stack18 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream err>;
+
+        if $stack18 != null goto label12;
+
+        $stack23 = new org.dacapo.harness.TeePrintStream;
+
+        $stack26 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack24 = new java.io.File;
+
+        $stack25 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        specialinvoke $stack24.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack25, "stderr.log");
+
+        specialinvoke $stack23.<org.dacapo.harness.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($stack26, $stack24);
+
+        <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream err> = $stack23;
+
+        $stack28 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream err>;
+
+        $stack27 = <org.dacapo.harness.Benchmark: boolean silent>;
+
+        if $stack27 != 0 goto label10;
+
+        $stack29#6 = 1;
+
+        goto label11;
+
+     label10:
+        $stack29#6 = 0;
+
+     label11:
+        virtualinvoke $stack28.<org.dacapo.harness.TeePrintStream: void enableOutput(boolean)>($stack29#6);
+
+     label12:
+        exitmonitor $stack17;
+
+     label13:
+        goto label16;
+
+     label14:
+        $stack37 := @caughtexception;
+
+        exitmonitor $stack17;
+
+     label15:
+        throw $stack37;
+
+     label16:
+        specialinvoke this.<org.dacapo.harness.Benchmark: void prepareJars()>();
+
+        $stack21 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack20 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        $stack22 = staticinvoke <org.dacapo.harness.DacapoClassLoader: org.dacapo.harness.DacapoClassLoader create(org.dacapo.parser.Config,java.io.File)>($stack21, $stack20);
+
+        this.<org.dacapo.harness.Benchmark: java.lang.ClassLoader loader> = $stack22;
+
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void prepare()>();
+
+        return;
+
+        catch java.lang.Throwable from label01 to label05 with label06;
+        catch java.lang.Throwable from label06 to label07 with label06;
+        catch java.lang.Throwable from label09 to label13 with label14;
+        catch java.lang.Throwable from label14 to label15 with label14;
+    }
+
+    private void prepareJars() throws java.io.IOException, java.io.FileNotFoundException, org.dacapo.harness.DacapoException
+    {
+        java.io.File $stack3, $stack5, $stack22;
+        java.lang.StringBuilder $stack4, $stack6, $stack7, $stack15, $stack16, $stack20;
+        org.dacapo.harness.Benchmark this;
+        java.lang.String $stack8, $stack19, $stack21;
+        boolean $stack9;
+        org.dacapo.parser.Config $stack10, $stack12, $stack17;
+        java.lang.String[] $stack11, $stack13, $stack18;
+        int $stack14, i#1;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        $stack3 = new java.io.File;
+
+        $stack4 = new java.lang.StringBuilder;
+
+        specialinvoke $stack4.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        $stack6 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($stack5);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/jar");
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack3.<java.io.File: void <init>(java.lang.String)>($stack8);
+
+        $stack9 = virtualinvoke $stack3.<java.io.File: boolean exists()>();
+
+        if $stack9 != 0 goto label1;
+
+        virtualinvoke $stack3.<java.io.File: boolean mkdir()>();
+
+     label1:
+        $stack10 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack11 = $stack10.<org.dacapo.parser.Config: java.lang.String[] jars>;
+
+        if $stack11 == null goto label3;
+
+        i#1 = 0;
+
+     label2:
+        $stack12 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack13 = $stack12.<org.dacapo.parser.Config: java.lang.String[] jars>;
+
+        $stack14 = lengthof $stack13;
+
+        if i#1 >= $stack14 goto label3;
+
+        $stack15 = new java.lang.StringBuilder;
+
+        specialinvoke $stack15.<java.lang.StringBuilder: void <init>()>();
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("jar/");
+
+        $stack17 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack18 = $stack17.<org.dacapo.parser.Config: java.lang.String[] jars>;
+
+        $stack19 = $stack18[i#1];
+
+        $stack20 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack19);
+
+        $stack21 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack22 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        staticinvoke <org.dacapo.harness.Benchmark: void extractFileResource(java.lang.String,java.io.File)>($stack21, $stack22);
+
+        i#1 = i#1 + 1;
+
+        goto label2;
+
+     label3:
+        return;
+    }
+
+    protected void prepare() throws java.lang.Exception
+    {
+        java.lang.StringBuilder $stack1, $stack2, $stack5, $stack6;
+        org.dacapo.harness.Benchmark this;
+        org.dacapo.parser.Config $stack3;
+        java.lang.String $stack4, $stack7;
+        java.io.File $stack8;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        $stack1 = new java.lang.StringBuilder;
+
+        specialinvoke $stack1.<java.lang.StringBuilder: void <init>()>();
+
+        $stack2 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("dat/");
+
+        $stack3 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack4 = $stack3.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack5 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack4);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".zip");
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack8 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        staticinvoke <org.dacapo.harness.Benchmark: void unpackZipFileResource(java.lang.String,java.io.File)>($stack7, $stack8);
+
+        return;
+    }
+
+    protected void prepare(java.lang.String) throws java.lang.Exception
+    {
+        org.dacapo.harness.Benchmark this;
+        java.lang.String size;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        size := @parameter0: java.lang.String;
+
+        return;
+    }
+
+    public void preIteration(java.lang.String) throws java.lang.Exception
+    {
+        boolean $stack4, $stack5;
+        org.dacapo.harness.Benchmark this;
+        int $stack6, $stack11, i#1;
+        java.lang.String size, $stack15, $stack18;
+        java.io.File $stack7;
+        org.dacapo.parser.Config $stack8;
+        java.lang.String[] args;
+        java.io.PrintStream $stack10, $stack12, $stack14;
+        java.lang.StringBuilder $stack13, $stack16, $stack17;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        size := @parameter0: java.lang.String;
+
+        $stack4 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack4 == 0 goto label3;
+
+        $stack8 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack7 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        args = virtualinvoke $stack8.<org.dacapo.parser.Config: java.lang.String[] preprocessArgs(java.lang.String,java.io.File)>(size, $stack7);
+
+        $stack10 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack10.<java.io.PrintStream: void print(java.lang.String)>("Benchmark parameters: ");
+
+        i#1 = 0;
+
+     label1:
+        $stack11 = lengthof args;
+
+        if i#1 >= $stack11 goto label2;
+
+        $stack14 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack13 = new java.lang.StringBuilder;
+
+        specialinvoke $stack13.<java.lang.StringBuilder: void <init>()>();
+
+        $stack15 = args[i#1];
+
+        $stack16 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack15);
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack14.<java.io.PrintStream: void print(java.lang.String)>($stack18);
+
+        i#1 = i#1 + 1;
+
+        goto label1;
+
+     label2:
+        $stack12 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack12.<java.io.PrintStream: void println()>();
+
+     label3:
+        $stack5 = <org.dacapo.harness.Benchmark: boolean preserve>;
+
+        if $stack5 == 0 goto label4;
+
+        $stack6 = this.<org.dacapo.harness.Benchmark: int iteration>;
+
+        if $stack6 <= 1 goto label4;
+
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void postIterationCleanup(java.lang.String)>(size);
+
+     label4:
+        return;
+    }
+
+    public final void startIteration()
+    {
+        boolean $stack2, $stack7;
+        java.lang.String $stack3;
+        org.dacapo.harness.Benchmark this;
+        java.util.Properties $stack5, augmentedSystemProperties;
+        java.lang.Object $stack6;
+        org.dacapo.harness.TeePrintStream $stack8, $stack9, $stack11, $stack12, $stack14, $stack15;
+        int $stack10;
+        java.io.PrintStream $stack16;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        $stack2 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack2 == 0 goto label1;
+
+        $stack16 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack16.<java.io.PrintStream: void println(java.lang.String)>("startIteration()");
+
+     label1:
+        $stack3 = <org.dacapo.harness.Benchmark: java.lang.String timeoutDialation>;
+
+        staticinvoke <java.lang.System: java.lang.String setProperty(java.lang.String,java.lang.String)>("dacapo.timeout.dialation", $stack3);
+
+        $stack5 = this.<org.dacapo.harness.Benchmark: java.util.Properties savedSystemProperties>;
+
+        $stack6 = virtualinvoke $stack5.<java.util.Properties: java.lang.Object clone()>();
+
+        augmentedSystemProperties = (java.util.Properties) $stack6;
+
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void augmentSystemProperties(java.util.Properties)>(augmentedSystemProperties);
+
+        staticinvoke <java.lang.System: void setProperties(java.util.Properties)>(augmentedSystemProperties);
+
+        $stack7 = <org.dacapo.harness.Benchmark: boolean validateOutput>;
+
+        if $stack7 == 0 goto label3;
+
+        $stack8 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream out>;
+
+        staticinvoke <java.lang.System: void setOut(java.io.PrintStream)>($stack8);
+
+        $stack9 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream err>;
+
+        staticinvoke <java.lang.System: void setErr(java.io.PrintStream)>($stack9);
+
+        $stack10 = this.<org.dacapo.harness.Benchmark: int iteration>;
+
+        if $stack10 <= 1 goto label2;
+
+        $stack14 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream out>;
+
+        virtualinvoke $stack14.<org.dacapo.harness.TeePrintStream: void version()>();
+
+        $stack15 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream err>;
+
+        virtualinvoke $stack15.<org.dacapo.harness.TeePrintStream: void version()>();
+
+     label2:
+        $stack11 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream out>;
+
+        virtualinvoke $stack11.<org.dacapo.harness.TeePrintStream: void openLog()>();
+
+        $stack12 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream err>;
+
+        virtualinvoke $stack12.<org.dacapo.harness.TeePrintStream: void openLog()>();
+
+     label3:
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void useBenchmarkClassLoader()>();
+
+        return;
+    }
+
+    public void augmentSystemProperties(java.util.Properties)
+    {
+        org.dacapo.harness.Benchmark this;
+        java.util.Properties systemProperties;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        systemProperties := @parameter0: java.util.Properties;
+
+        return;
+    }
+
+    public abstract void iterate(java.lang.String) throws java.lang.Exception;
+
+    public final void stopIteration()
+    {
+        org.dacapo.harness.Benchmark this;
+        boolean $stack1, $stack3;
+        java.util.Properties $stack2;
+        java.io.PrintStream $stack4, $stack7, $stack8;
+        org.dacapo.harness.TeePrintStream $stack5, $stack6;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void revertClassLoader()>();
+
+        $stack1 = <org.dacapo.harness.Benchmark: boolean validateOutput>;
+
+        if $stack1 == 0 goto label1;
+
+        $stack5 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream out>;
+
+        virtualinvoke $stack5.<org.dacapo.harness.TeePrintStream: void closeLog()>();
+
+        $stack6 = <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream err>;
+
+        virtualinvoke $stack6.<org.dacapo.harness.TeePrintStream: void closeLog()>();
+
+        $stack7 = <org.dacapo.harness.Benchmark: java.io.PrintStream savedOut>;
+
+        staticinvoke <java.lang.System: void setOut(java.io.PrintStream)>($stack7);
+
+        $stack8 = <org.dacapo.harness.Benchmark: java.io.PrintStream savedErr>;
+
+        staticinvoke <java.lang.System: void setErr(java.io.PrintStream)>($stack8);
+
+     label1:
+        $stack2 = this.<org.dacapo.harness.Benchmark: java.util.Properties savedSystemProperties>;
+
+        staticinvoke <java.lang.System: void setProperties(java.util.Properties)>($stack2);
+
+        $stack3 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack3 == 0 goto label2;
+
+        $stack4 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack4.<java.io.PrintStream: void println(java.lang.String)>("stopIteration()");
+
+     label2:
+        return;
+    }
+
+    protected void useBenchmarkClassLoader()
+    {
+        org.dacapo.harness.Benchmark this;
+        java.lang.ClassLoader $stack1, $stack3, $stack5;
+        java.lang.Thread $stack2, $stack4;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        $stack1 = this.<org.dacapo.harness.Benchmark: java.lang.ClassLoader loader>;
+
+        if $stack1 == null goto label1;
+
+        $stack2 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+
+        $stack3 = virtualinvoke $stack2.<java.lang.Thread: java.lang.ClassLoader getContextClassLoader()>();
+
+        this.<org.dacapo.harness.Benchmark: java.lang.ClassLoader savedClassLoader> = $stack3;
+
+        $stack4 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+
+        $stack5 = this.<org.dacapo.harness.Benchmark: java.lang.ClassLoader loader>;
+
+        virtualinvoke $stack4.<java.lang.Thread: void setContextClassLoader(java.lang.ClassLoader)>($stack5);
+
+     label1:
+        return;
+    }
+
+    protected void revertClassLoader()
+    {
+        org.dacapo.harness.Benchmark this;
+        java.lang.ClassLoader $stack1, $stack3;
+        java.lang.Thread $stack2;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        $stack1 = this.<org.dacapo.harness.Benchmark: java.lang.ClassLoader loader>;
+
+        if $stack1 == null goto label1;
+
+        $stack2 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+
+        $stack3 = this.<org.dacapo.harness.Benchmark: java.lang.ClassLoader savedClassLoader>;
+
+        virtualinvoke $stack2.<java.lang.Thread: void setContextClassLoader(java.lang.ClassLoader)>($stack3);
+
+     label1:
+        return;
+    }
+
+    public boolean validate(java.lang.String)
+    {
+        boolean $stack10, $stack11, $stack12, $stack17, $stack22, $stack32, $stack33, $stack52, $stack86, $stack118, $stack120, $stack125, $stack126, $stack127, $stack145, $stack146, $stack172, valid#1, $stack16#5, $stack124#11, $stack24#36, $stack85#42, $stack26#57, $stack50#63, $stack28#78;
+        org.dacapo.harness.Benchmark this;
+        java.lang.String size, file, $stack38, $stack44, $stack60, $stack69, $stack77, $stack94, $stack103, $stack111, $stack116, $stack135, $stack144, $stack156, $stack161, $stack165, $stack175, $stack182, $stack189, refDigest#6, digest#7;
+        org.dacapo.parser.Config $stack13, $stack21, $stack45, $stack80, $stack114, $stack117, $stack119, $stack160, $stack23#21, $stack25#48, $stack27#69;
+        java.util.Set $stack14;
+        java.util.Iterator l3;
+        java.io.PrintWriter $stack18, $stack71, $stack105, $stack150, $stack158;
+        java.lang.Object $stack20;
+        java.io.File $stack30, $stack31, $stack47, $stack48, $stack82, $stack83, $stack121;
+        java.lang.StringBuilder $stack34, $stack36, $stack37, $stack39, $stack41, $stack42, $stack43, $stack56, $stack58, $stack59, $stack61, $stack63, $stack64, $stack65, $stack66, $stack67, $stack68, $stack70, $stack72, $stack73, $stack74, $stack75, $stack76, $stack90, $stack92, $stack93, $stack95, $stack97, $stack98, $stack99, $stack100, $stack101, $stack102, $stack104, $stack106, $stack107, $stack108, $stack109, $stack110, $stack131, $stack133, $stack134, $stack136, $stack138, $stack139, $stack140, $stack141, $stack142, $stack143, $stack149, $stack151, $stack152, $stack153, $stack154, $stack155, $stack157, $stack159, $stack162, $stack163, $stack164, $stack169, $stack171, $stack173, $stack174, $stack178, $stack180, $stack181, $stack185, $stack187, $stack188;
+        java.io.PrintStream $stack35, $stack40, $stack57, $stack62, $stack91, $stack96, $stack132, $stack137, $stack170, $stack179, $stack186;
+        byte $stack51;
+        byte[] $stack122;
+        java.io.IOException $stack176, $stack183, $stack190;
+        java.io.FileNotFoundException $stack177, $stack184, $stack191;
+        int refDigest#37, digest#38;
+        long refDigest#58, e#59;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        size := @parameter0: java.lang.String;
+
+        $stack10 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack10 == 0 goto label01;
+
+        $stack170 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack169 = new java.lang.StringBuilder;
+
+        specialinvoke $stack169.<java.lang.StringBuilder: void <init>()>();
+
+        $stack171 = virtualinvoke $stack169.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("validate(");
+
+        $stack172 = <org.dacapo.harness.Benchmark: boolean validate>;
+
+        $stack173 = virtualinvoke $stack171.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($stack172);
+
+        $stack174 = virtualinvoke $stack173.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(")");
+
+        $stack175 = virtualinvoke $stack174.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack170.<java.io.PrintStream: void println(java.lang.String)>($stack175);
+
+     label01:
+        $stack11 = <org.dacapo.harness.Benchmark: boolean validate>;
+
+        if $stack11 != 0 goto label02;
+
+        return 1;
+
+     label02:
+        $stack12 = <org.dacapo.harness.Benchmark: boolean validationReport>;
+
+        if $stack12 == 0 goto label03;
+
+        $stack158 = <org.dacapo.harness.Benchmark: java.io.PrintWriter valRepFile>;
+
+        $stack157 = new java.lang.StringBuilder;
+
+        specialinvoke $stack157.<java.lang.StringBuilder: void <init>()>();
+
+        $stack159 = virtualinvoke $stack157.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Validating ");
+
+        $stack160 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack161 = $stack160.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack162 = virtualinvoke $stack159.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack161);
+
+        $stack163 = virtualinvoke $stack162.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack164 = virtualinvoke $stack163.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(size);
+
+        $stack165 = virtualinvoke $stack164.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack158.<java.io.PrintWriter: void println(java.lang.String)>($stack165);
+
+     label03:
+        valid#1 = 1;
+
+        $stack13 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack14 = virtualinvoke $stack13.<org.dacapo.parser.Config: java.util.Set getOutputs(java.lang.String)>(size);
+
+        l3 = interfaceinvoke $stack14.<java.util.Set: java.util.Iterator iterator()>();
+
+     label04:
+        $stack16#5 = interfaceinvoke l3.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack16#5 == 0 goto label32;
+
+        $stack20 = interfaceinvoke l3.<java.util.Iterator: java.lang.Object next()>();
+
+        file = (java.lang.String) $stack20;
+
+        $stack21 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack22 = virtualinvoke $stack21.<org.dacapo.parser.Config: boolean hasDigest(java.lang.String,java.lang.String)>(size, file);
+
+        if $stack22 == 0 goto label13;
+
+        $stack114 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        refDigest#6 = virtualinvoke $stack114.<org.dacapo.parser.Config: java.lang.String getDigest(java.lang.String,java.lang.String)>(size, file);
+
+     label05:
+        $stack116 = virtualinvoke this.<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>(file);
+
+        $stack117 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack118 = virtualinvoke $stack117.<org.dacapo.parser.Config: boolean isTextFile(java.lang.String,java.lang.String)>(size, file);
+
+        $stack119 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack120 = virtualinvoke $stack119.<org.dacapo.parser.Config: boolean filterScratch(java.lang.String,java.lang.String)>(size, file);
+
+        $stack121 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        $stack122 = staticinvoke <org.dacapo.harness.FileDigest: byte[] get(java.lang.String,boolean,boolean,java.io.File)>($stack116, $stack118, $stack120, $stack121);
+
+        digest#7 = staticinvoke <org.dacapo.harness.Digest: java.lang.String toString(byte[])>($stack122);
+
+     label06:
+        goto label09;
+
+     label07:
+        $stack191 := @caughtexception;
+
+        digest#7 = "<File not found>";
+
+        goto label09;
+
+     label08:
+        $stack190 := @caughtexception;
+
+        digest#7 = "<IO exception>";
+
+        virtualinvoke $stack190.<java.io.IOException: void printStackTrace()>();
+
+     label09:
+        $stack124#11 = <org.dacapo.harness.Benchmark: boolean validationReport>;
+
+        if $stack124#11 == 0 goto label10;
+
+        $stack150 = <org.dacapo.harness.Benchmark: java.io.PrintWriter valRepFile>;
+
+        $stack149 = new java.lang.StringBuilder;
+
+        specialinvoke $stack149.<java.lang.StringBuilder: void <init>()>();
+
+        $stack151 = virtualinvoke $stack149.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  \"");
+
+        $stack152 = virtualinvoke $stack151.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack153 = virtualinvoke $stack152.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\" digest 0x");
+
+        $stack154 = virtualinvoke $stack153.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(digest#7);
+
+        $stack155 = virtualinvoke $stack154.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",");
+
+        $stack156 = virtualinvoke $stack155.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack150.<java.io.PrintWriter: void println(java.lang.String)>($stack156);
+
+     label10:
+        $stack125 = <org.dacapo.harness.Benchmark: boolean validateOutput>;
+
+        if $stack125 != 0 goto label11;
+
+        $stack145 = virtualinvoke file.<java.lang.String: boolean equals(java.lang.Object)>("$stdout");
+
+        if $stack145 != 0 goto label13;
+
+        $stack146 = virtualinvoke file.<java.lang.String: boolean equals(java.lang.Object)>("$stderr");
+
+        if $stack146 == 0 goto label11;
+
+        goto label13;
+
+     label11:
+        $stack126 = virtualinvoke digest#7.<java.lang.String: boolean equals(java.lang.Object)>(refDigest#6);
+
+        if $stack126 != 0 goto label12;
+
+        valid#1 = 0;
+
+        $stack137 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack136 = new java.lang.StringBuilder;
+
+        specialinvoke $stack136.<java.lang.StringBuilder: void <init>()>();
+
+        $stack138 = virtualinvoke $stack136.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Digest validation failed for ");
+
+        $stack139 = virtualinvoke $stack138.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack140 = virtualinvoke $stack139.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", expecting 0x");
+
+        $stack141 = virtualinvoke $stack140.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(refDigest#6);
+
+        $stack142 = virtualinvoke $stack141.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" found 0x");
+
+        $stack143 = virtualinvoke $stack142.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(digest#7);
+
+        $stack144 = virtualinvoke $stack143.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack137.<java.io.PrintStream: void println(java.lang.String)>($stack144);
+
+        goto label13;
+
+     label12:
+        $stack127 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack127 == 0 goto label13;
+
+        $stack132 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack131 = new java.lang.StringBuilder;
+
+        specialinvoke $stack131.<java.lang.StringBuilder: void <init>()>();
+
+        $stack133 = virtualinvoke $stack131.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Digest validation succeeded for ");
+
+        $stack134 = virtualinvoke $stack133.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack135 = virtualinvoke $stack134.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack132.<java.io.PrintStream: void println(java.lang.String)>($stack135);
+
+     label13:
+        $stack23#21 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack24#36 = virtualinvoke $stack23#21.<org.dacapo.parser.Config: boolean hasLines(java.lang.String,java.lang.String)>(size, file);
+
+        if $stack24#36 == 0 goto label21;
+
+        $stack80 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        refDigest#37 = virtualinvoke $stack80.<org.dacapo.parser.Config: int getLines(java.lang.String,java.lang.String)>(size, file);
+
+     label14:
+        $stack82 = new java.io.File;
+
+        $stack83 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        specialinvoke $stack82.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack83, file);
+
+        digest#38 = staticinvoke <org.dacapo.harness.Benchmark: int lineCount(java.io.File)>($stack82);
+
+     label15:
+        goto label18;
+
+     label16:
+        $stack184 := @caughtexception;
+
+        $stack186 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack185 = new java.lang.StringBuilder;
+
+        specialinvoke $stack185.<java.lang.StringBuilder: void <init>()>();
+
+        $stack187 = virtualinvoke $stack185.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File not found, ");
+
+        $stack188 = virtualinvoke $stack187.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack189 = virtualinvoke $stack188.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack186.<java.io.PrintStream: void println(java.lang.String)>($stack189);
+
+        digest#38 = -1;
+
+        goto label18;
+
+     label17:
+        $stack183 := @caughtexception;
+
+        virtualinvoke $stack183.<java.io.IOException: void printStackTrace()>();
+
+        digest#38 = -1;
+
+     label18:
+        $stack85#42 = <org.dacapo.harness.Benchmark: boolean validationReport>;
+
+        if $stack85#42 == 0 goto label19;
+
+        $stack105 = <org.dacapo.harness.Benchmark: java.io.PrintWriter valRepFile>;
+
+        $stack104 = new java.lang.StringBuilder;
+
+        specialinvoke $stack104.<java.lang.StringBuilder: void <init>()>();
+
+        $stack106 = virtualinvoke $stack104.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  \"");
+
+        $stack107 = virtualinvoke $stack106.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack108 = virtualinvoke $stack107.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\" lines ");
+
+        $stack109 = virtualinvoke $stack108.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(digest#38);
+
+        $stack110 = virtualinvoke $stack109.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",");
+
+        $stack111 = virtualinvoke $stack110.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack105.<java.io.PrintWriter: void println(java.lang.String)>($stack111);
+
+     label19:
+        if digest#38 == refDigest#37 goto label20;
+
+        valid#1 = 0;
+
+        $stack96 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack95 = new java.lang.StringBuilder;
+
+        specialinvoke $stack95.<java.lang.StringBuilder: void <init>()>();
+
+        $stack97 = virtualinvoke $stack95.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Line count validation failed for ");
+
+        $stack98 = virtualinvoke $stack97.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack99 = virtualinvoke $stack98.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", expecting ");
+
+        $stack100 = virtualinvoke $stack99.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(refDigest#37);
+
+        $stack101 = virtualinvoke $stack100.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" found ");
+
+        $stack102 = virtualinvoke $stack101.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(digest#38);
+
+        $stack103 = virtualinvoke $stack102.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack96.<java.io.PrintStream: void println(java.lang.String)>($stack103);
+
+        goto label21;
+
+     label20:
+        $stack86 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack86 == 0 goto label21;
+
+        $stack91 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack90 = new java.lang.StringBuilder;
+
+        specialinvoke $stack90.<java.lang.StringBuilder: void <init>()>();
+
+        $stack92 = virtualinvoke $stack90.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Line count validation succeeded for ");
+
+        $stack93 = virtualinvoke $stack92.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack94 = virtualinvoke $stack93.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack91.<java.io.PrintStream: void println(java.lang.String)>($stack94);
+
+     label21:
+        $stack25#48 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack26#57 = virtualinvoke $stack25#48.<org.dacapo.parser.Config: boolean hasBytes(java.lang.String,java.lang.String)>(size, file);
+
+        if $stack26#57 == 0 goto label29;
+
+        $stack45 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        refDigest#58 = virtualinvoke $stack45.<org.dacapo.parser.Config: long getBytes(java.lang.String,java.lang.String)>(size, file);
+
+     label22:
+        $stack47 = new java.io.File;
+
+        $stack48 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        specialinvoke $stack47.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack48, file);
+
+        e#59 = staticinvoke <org.dacapo.harness.Benchmark: long byteCount(java.io.File)>($stack47);
+
+     label23:
+        goto label26;
+
+     label24:
+        $stack177 := @caughtexception;
+
+        $stack179 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack178 = new java.lang.StringBuilder;
+
+        specialinvoke $stack178.<java.lang.StringBuilder: void <init>()>();
+
+        $stack180 = virtualinvoke $stack178.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File not found, ");
+
+        $stack181 = virtualinvoke $stack180.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack182 = virtualinvoke $stack181.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack179.<java.io.PrintStream: void println(java.lang.String)>($stack182);
+
+        e#59 = -1L;
+
+        goto label26;
+
+     label25:
+        $stack176 := @caughtexception;
+
+        virtualinvoke $stack176.<java.io.IOException: void printStackTrace()>();
+
+        e#59 = -1L;
+
+     label26:
+        $stack50#63 = <org.dacapo.harness.Benchmark: boolean validationReport>;
+
+        if $stack50#63 == 0 goto label27;
+
+        $stack71 = <org.dacapo.harness.Benchmark: java.io.PrintWriter valRepFile>;
+
+        $stack70 = new java.lang.StringBuilder;
+
+        specialinvoke $stack70.<java.lang.StringBuilder: void <init>()>();
+
+        $stack72 = virtualinvoke $stack70.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  \"");
+
+        $stack73 = virtualinvoke $stack72.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack74 = virtualinvoke $stack73.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\" bytes ");
+
+        $stack75 = virtualinvoke $stack74.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(e#59);
+
+        $stack76 = virtualinvoke $stack75.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",");
+
+        $stack77 = virtualinvoke $stack76.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack71.<java.io.PrintWriter: void println(java.lang.String)>($stack77);
+
+     label27:
+        $stack51 = e#59 cmp refDigest#58;
+
+        if $stack51 == 0 goto label28;
+
+        valid#1 = 0;
+
+        $stack62 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack61 = new java.lang.StringBuilder;
+
+        specialinvoke $stack61.<java.lang.StringBuilder: void <init>()>();
+
+        $stack63 = virtualinvoke $stack61.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Byte count validation failed for ");
+
+        $stack64 = virtualinvoke $stack63.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack65 = virtualinvoke $stack64.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", expecting ");
+
+        $stack66 = virtualinvoke $stack65.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(refDigest#58);
+
+        $stack67 = virtualinvoke $stack66.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" found ");
+
+        $stack68 = virtualinvoke $stack67.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(e#59);
+
+        $stack69 = virtualinvoke $stack68.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack62.<java.io.PrintStream: void println(java.lang.String)>($stack69);
+
+        goto label29;
+
+     label28:
+        $stack52 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack52 == 0 goto label29;
+
+        $stack57 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack56 = new java.lang.StringBuilder;
+
+        specialinvoke $stack56.<java.lang.StringBuilder: void <init>()>();
+
+        $stack58 = virtualinvoke $stack56.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Byte count validation succeeded for ");
+
+        $stack59 = virtualinvoke $stack58.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack60 = virtualinvoke $stack59.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack57.<java.io.PrintStream: void println(java.lang.String)>($stack60);
+
+     label29:
+        $stack27#69 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack28#78 = virtualinvoke $stack27#69.<org.dacapo.parser.Config: boolean checkExists(java.lang.String,java.lang.String)>(size, file);
+
+        if $stack28#78 == 0 goto label31;
+
+        $stack30 = new java.io.File;
+
+        $stack31 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        specialinvoke $stack30.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack31, file);
+
+        $stack32 = virtualinvoke $stack30.<java.io.File: boolean exists()>();
+
+        if $stack32 != 0 goto label30;
+
+        $stack40 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack39 = new java.lang.StringBuilder;
+
+        specialinvoke $stack39.<java.lang.StringBuilder: void <init>()>();
+
+        $stack41 = virtualinvoke $stack39.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Expected file ");
+
+        $stack42 = virtualinvoke $stack41.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack43 = virtualinvoke $stack42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" does not exist");
+
+        $stack44 = virtualinvoke $stack43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack40.<java.io.PrintStream: void println(java.lang.String)>($stack44);
+
+        valid#1 = 0;
+
+        goto label31;
+
+     label30:
+        $stack33 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack33 == 0 goto label31;
+
+        $stack35 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack34 = new java.lang.StringBuilder;
+
+        specialinvoke $stack34.<java.lang.StringBuilder: void <init>()>();
+
+        $stack36 = virtualinvoke $stack34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Existence validation succeeded for ");
+
+        $stack37 = virtualinvoke $stack36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(file);
+
+        $stack38 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack35.<java.io.PrintStream: void println(java.lang.String)>($stack38);
+
+     label31:
+        goto label04;
+
+     label32:
+        $stack17 = <org.dacapo.harness.Benchmark: boolean validationReport>;
+
+        if $stack17 == 0 goto label33;
+
+        $stack18 = <org.dacapo.harness.Benchmark: java.io.PrintWriter valRepFile>;
+
+        virtualinvoke $stack18.<java.io.PrintWriter: void flush()>();
+
+     label33:
+        return valid#1;
+
+        catch java.io.FileNotFoundException from label05 to label06 with label07;
+        catch java.io.IOException from label05 to label06 with label08;
+        catch java.io.FileNotFoundException from label14 to label15 with label16;
+        catch java.io.IOException from label14 to label15 with label17;
+        catch java.io.FileNotFoundException from label22 to label23 with label24;
+        catch java.io.IOException from label22 to label23 with label25;
+    }
+
+    public void postIteration(java.lang.String) throws java.lang.Exception
+    {
+        boolean $stack2;
+        org.dacapo.harness.Benchmark this;
+        java.lang.String size;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        size := @parameter0: java.lang.String;
+
+        $stack2 = <org.dacapo.harness.Benchmark: boolean preserve>;
+
+        if $stack2 != 0 goto label1;
+
+        virtualinvoke this.<org.dacapo.harness.Benchmark: void postIterationCleanup(java.lang.String)>(size);
+
+     label1:
+        return;
+    }
+
+    protected void postIterationCleanup(java.lang.String)
+    {
+        org.dacapo.harness.Benchmark this;
+        java.lang.String size, file;
+        org.dacapo.parser.Config $stack4, $stack12;
+        java.util.Set $stack5;
+        java.util.Iterator l2;
+        boolean $stack7, $stack9, $stack11, $stack13;
+        java.lang.Object $stack8;
+        java.io.File $stack14, $stack15;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        size := @parameter0: java.lang.String;
+
+        $stack4 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config: java.util.Set getOutputs(java.lang.String)>(size);
+
+        l2 = interfaceinvoke $stack5.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $stack7 = interfaceinvoke l2.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack7 == 0 goto label4;
+
+        $stack8 = interfaceinvoke l2.<java.util.Iterator: java.lang.Object next()>();
+
+        file = (java.lang.String) $stack8;
+
+        $stack9 = virtualinvoke file.<java.lang.String: boolean equals(java.lang.Object)>("$stdout");
+
+        if $stack9 != 0 goto label3;
+
+        $stack11 = virtualinvoke file.<java.lang.String: boolean equals(java.lang.Object)>("$stderr");
+
+        if $stack11 == 0 goto label2;
+
+        goto label3;
+
+     label2:
+        $stack12 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack13 = virtualinvoke $stack12.<org.dacapo.parser.Config: boolean isKept(java.lang.String,java.lang.String)>(size, file);
+
+        if $stack13 != 0 goto label3;
+
+        $stack14 = new java.io.File;
+
+        $stack15 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        specialinvoke $stack14.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack15, file);
+
+        staticinvoke <org.dacapo.harness.Benchmark: void deleteFile(java.io.File)>($stack14);
+
+     label3:
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    public void cleanup()
+    {
+        boolean $stack1;
+        java.io.File $stack2, $stack5;
+        org.dacapo.harness.Benchmark this;
+        org.dacapo.parser.Config $stack3;
+        java.lang.String $stack4;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        $stack1 = <org.dacapo.harness.Benchmark: boolean preserve>;
+
+        if $stack1 != 0 goto label1;
+
+        $stack2 = new java.io.File;
+
+        $stack5 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        $stack3 = this.<org.dacapo.harness.Benchmark: org.dacapo.parser.Config config>;
+
+        $stack4 = $stack3.<org.dacapo.parser.Config: java.lang.String name>;
+
+        specialinvoke $stack2.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack5, $stack4);
+
+        staticinvoke <org.dacapo.harness.Benchmark: void deleteTree(java.io.File)>($stack2);
+
+     label1:
+        return;
+    }
+
+    public static java.net.URL getURL(java.lang.String)
+    {
+        java.lang.Class $stack3;
+        java.lang.ClassLoader cl;
+        java.lang.String fn, $stack11;
+        java.net.URL resource;
+        boolean $stack6;
+        java.lang.StringBuilder $stack7, $stack9, $stack10;
+        java.io.PrintStream $stack8;
+
+        fn := @parameter0: java.lang.String;
+
+        $stack3 = class "Lorg/dacapo/harness/Benchmark;";
+
+        cl = virtualinvoke $stack3.<java.lang.Class: java.lang.ClassLoader getClassLoader()>();
+
+        resource = virtualinvoke cl.<java.lang.ClassLoader: java.net.URL getResource(java.lang.String)>(fn);
+
+        $stack6 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack6 == 0 goto label1;
+
+        $stack8 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack7 = new java.lang.StringBuilder;
+
+        specialinvoke $stack7.<java.lang.StringBuilder: void <init>()>();
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Util.getURL: returns ");
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(resource);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack8.<java.io.PrintStream: void println(java.lang.String)>($stack11);
+
+     label1:
+        return resource;
+    }
+
+    public java.lang.String fileInScratch(java.lang.String)
+    {
+        java.io.File $stack2, $stack3;
+        org.dacapo.harness.Benchmark this;
+        java.lang.String name, $stack4;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        name := @parameter0: java.lang.String;
+
+        $stack2 = new java.io.File;
+
+        $stack3 = this.<org.dacapo.harness.Benchmark: java.io.File scratch>;
+
+        specialinvoke $stack2.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack3, name);
+
+        $stack4 = virtualinvoke $stack2.<java.io.File: java.lang.String getPath()>();
+
+        return $stack4;
+    }
+
+    public static void unpackZipFileResource(java.lang.String, java.io.File) throws java.io.IOException, java.io.FileNotFoundException, org.dacapo.harness.DacapoException
+    {
+        java.lang.String name, $stack12;
+        java.net.URL resource;
+        java.io.BufferedInputStream $stack5;
+        java.io.InputStream $stack6;
+        java.io.File destination;
+        org.dacapo.harness.DacapoException $stack7;
+        java.lang.StringBuilder $stack8, $stack9, $stack10, $stack11;
+
+        name := @parameter0: java.lang.String;
+
+        destination := @parameter1: java.io.File;
+
+        resource = staticinvoke <org.dacapo.harness.Benchmark: java.net.URL getURL(java.lang.String)>(name);
+
+        if resource != null goto label1;
+
+        $stack7 = new org.dacapo.harness.DacapoException;
+
+        $stack8 = new java.lang.StringBuilder;
+
+        specialinvoke $stack8.<java.lang.StringBuilder: void <init>()>();
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("No such zip file: \"");
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(name);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack7.<org.dacapo.harness.DacapoException: void <init>(java.lang.String)>($stack12);
+
+        throw $stack7;
+
+     label1:
+        $stack5 = new java.io.BufferedInputStream;
+
+        $stack6 = virtualinvoke resource.<java.net.URL: java.io.InputStream openStream()>();
+
+        specialinvoke $stack5.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($stack6);
+
+        staticinvoke <org.dacapo.harness.Benchmark: void unpackZipStream(java.io.BufferedInputStream,java.io.File)>($stack5, destination);
+
+        return;
+    }
+
+    public static void extractFileResource(java.lang.String, java.io.File) throws java.io.IOException, java.io.FileNotFoundException, org.dacapo.harness.DacapoException
+    {
+        boolean $stack4;
+        java.lang.String name, $stack14, $stack20, $stack22;
+        java.net.URL resource;
+        java.io.BufferedInputStream $stack6;
+        java.io.InputStream $stack7;
+        java.io.File $stack8, destination;
+        org.dacapo.harness.DacapoException $stack9;
+        java.lang.StringBuilder $stack10, $stack11, $stack12, $stack13, $stack15, $stack17, $stack18, $stack19, $stack21;
+        java.io.PrintStream $stack16;
+
+        name := @parameter0: java.lang.String;
+
+        destination := @parameter1: java.io.File;
+
+        $stack4 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack4 == 0 goto label1;
+
+        $stack16 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack15 = new java.lang.StringBuilder;
+
+        specialinvoke $stack15.<java.lang.StringBuilder: void <init>()>();
+
+        $stack17 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Extracting file ");
+
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(name);
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" into ");
+
+        $stack20 = virtualinvoke destination.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $stack21 = virtualinvoke $stack19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack20);
+
+        $stack22 = virtualinvoke $stack21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack16.<java.io.PrintStream: void println(java.lang.String)>($stack22);
+
+     label1:
+        resource = staticinvoke <org.dacapo.harness.Benchmark: java.net.URL getURL(java.lang.String)>(name);
+
+        if resource != null goto label2;
+
+        $stack9 = new org.dacapo.harness.DacapoException;
+
+        $stack10 = new java.lang.StringBuilder;
+
+        specialinvoke $stack10.<java.lang.StringBuilder: void <init>()>();
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("No such file: \"");
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(name);
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack9.<org.dacapo.harness.DacapoException: void <init>(java.lang.String)>($stack14);
+
+        throw $stack9;
+
+     label2:
+        $stack6 = new java.io.BufferedInputStream;
+
+        $stack7 = virtualinvoke resource.<java.net.URL: java.io.InputStream openStream()>();
+
+        specialinvoke $stack6.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($stack7);
+
+        $stack8 = new java.io.File;
+
+        specialinvoke $stack8.<java.io.File: void <init>(java.io.File,java.lang.String)>(destination, name);
+
+        staticinvoke <org.dacapo.harness.Benchmark: void fileFromInputStream(java.io.InputStream,java.io.File)>($stack6, $stack8);
+
+        return;
+    }
+
+    private static void unpackZipStream(java.io.BufferedInputStream, java.io.File) throws java.io.IOException
+    {
+        java.util.zip.ZipInputStream $stack5;
+        java.io.BufferedInputStream inputStream;
+        java.util.zip.ZipEntry $stack6;
+        boolean $stack7, $stack10, $stack12;
+        java.io.File $stack8, destination;
+        java.lang.String $stack9, $stack17, $stack19;
+        java.lang.StringBuilder $stack14, $stack16, $stack18;
+        java.io.PrintStream $stack15;
+
+        inputStream := @parameter0: java.io.BufferedInputStream;
+
+        destination := @parameter1: java.io.File;
+
+        $stack5 = new java.util.zip.ZipInputStream;
+
+        specialinvoke $stack5.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>(inputStream);
+
+     label1:
+        $stack6 = virtualinvoke $stack5.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+        if $stack6 == null goto label5;
+
+        $stack7 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack7 == 0 goto label2;
+
+        $stack15 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack14 = new java.lang.StringBuilder;
+
+        specialinvoke $stack14.<java.lang.StringBuilder: void <init>()>();
+
+        $stack16 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unpacking ");
+
+        $stack17 = virtualinvoke $stack6.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $stack18 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack17);
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack15.<java.io.PrintStream: void println(java.lang.String)>($stack19);
+
+     label2:
+        $stack8 = new java.io.File;
+
+        $stack9 = virtualinvoke $stack6.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        specialinvoke $stack8.<java.io.File: void <init>(java.io.File,java.lang.String)>(destination, $stack9);
+
+        $stack10 = virtualinvoke $stack6.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+        if $stack10 == 0 goto label3;
+
+        $stack12 = virtualinvoke $stack8.<java.io.File: boolean exists()>();
+
+        if $stack12 != 0 goto label4;
+
+        virtualinvoke $stack8.<java.io.File: boolean mkdir()>();
+
+        goto label4;
+
+     label3:
+        staticinvoke <org.dacapo.harness.Benchmark: void fileFromInputStream(java.io.InputStream,java.io.File)>($stack5, $stack8);
+
+     label4:
+        goto label1;
+
+     label5:
+        virtualinvoke $stack5.<java.util.zip.ZipInputStream: void close()>();
+
+        return;
+    }
+
+    private static void fileFromInputStream(java.io.InputStream, java.io.File) throws java.io.IOException
+    {
+        java.io.FileOutputStream $stack6;
+        java.io.File file;
+        java.io.BufferedOutputStream $stack7;
+        byte[] data;
+        java.io.InputStream input;
+        int $stack8;
+
+        input := @parameter0: java.io.InputStream;
+
+        file := @parameter1: java.io.File;
+
+        $stack6 = new java.io.FileOutputStream;
+
+        specialinvoke $stack6.<java.io.FileOutputStream: void <init>(java.io.File)>(file);
+
+        $stack7 = new java.io.BufferedOutputStream;
+
+        specialinvoke $stack7.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($stack6, 2048);
+
+        data = newarray (byte)[2048];
+
+     label1:
+        $stack8 = virtualinvoke input.<java.io.InputStream: int read(byte[],int,int)>(data, 0, 2048);
+
+        if $stack8 == -1 goto label2;
+
+        virtualinvoke $stack7.<java.io.BufferedOutputStream: void write(byte[],int,int)>(data, 0, $stack8);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $stack7.<java.io.BufferedOutputStream: void flush()>();
+
+        virtualinvoke $stack7.<java.io.BufferedOutputStream: void close()>();
+
+        return;
+    }
+
+    public static void deleteTree(java.io.File)
+    {
+        boolean $stack3, $stack4;
+        java.io.File tree, $stack8;
+        java.io.File[] files;
+        int $stack6, i#1;
+        java.lang.StringBuilder $stack12, $stack14, $stack16;
+        java.io.PrintStream $stack13;
+        java.lang.String $stack15, $stack17;
+
+        tree := @parameter0: java.io.File;
+
+        $stack3 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack3 == 0 goto label1;
+
+        $stack13 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack12 = new java.lang.StringBuilder;
+
+        specialinvoke $stack12.<java.lang.StringBuilder: void <init>()>();
+
+        $stack14 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Deleting ");
+
+        $stack15 = virtualinvoke tree.<java.io.File: java.lang.String getName()>();
+
+        $stack16 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack15);
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack13.<java.io.PrintStream: void println(java.lang.String)>($stack17);
+
+     label1:
+        $stack4 = virtualinvoke tree.<java.io.File: boolean isDirectory()>();
+
+        if $stack4 != 0 goto label2;
+
+        virtualinvoke tree.<java.io.File: boolean delete()>();
+
+        goto label5;
+
+     label2:
+        files = virtualinvoke tree.<java.io.File: java.io.File[] listFiles()>();
+
+        i#1 = 0;
+
+     label3:
+        $stack6 = lengthof files;
+
+        if i#1 >= $stack6 goto label4;
+
+        $stack8 = files[i#1];
+
+        staticinvoke <org.dacapo.harness.Benchmark: void deleteTree(java.io.File)>($stack8);
+
+        i#1 = i#1 + 1;
+
+        goto label3;
+
+     label4:
+        virtualinvoke tree.<java.io.File: boolean delete()>();
+
+     label5:
+        return;
+    }
+
+    public static void deleteFile(java.io.File)
+    {
+        boolean $stack1, $stack2, $stack3;
+        java.io.File file;
+        java.lang.StringBuilder $stack5, $stack7, $stack9;
+        java.io.PrintStream $stack6;
+        java.lang.String $stack8, $stack10;
+
+        file := @parameter0: java.io.File;
+
+        $stack1 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        if $stack1 == 0 goto label1;
+
+        $stack6 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack5 = new java.lang.StringBuilder;
+
+        specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Deleting ");
+
+        $stack8 = virtualinvoke file.<java.io.File: java.lang.String getName()>();
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack6.<java.io.PrintStream: void println(java.lang.String)>($stack10);
+
+     label1:
+        $stack2 = virtualinvoke file.<java.io.File: boolean exists()>();
+
+        if $stack2 == 0 goto label2;
+
+        $stack3 = virtualinvoke file.<java.io.File: boolean isDirectory()>();
+
+        if $stack3 != 0 goto label2;
+
+        virtualinvoke file.<java.io.File: boolean delete()>();
+
+     label2:
+        return;
+    }
+
+    public static int lineCount(java.io.File) throws java.io.IOException
+    {
+        java.io.BufferedReader $stack3;
+        java.io.FileReader $stack4;
+        java.io.File file;
+        java.lang.String $stack5;
+        int lines#1;
+
+        file := @parameter0: java.io.File;
+
+        lines#1 = 0;
+
+        $stack3 = new java.io.BufferedReader;
+
+        $stack4 = new java.io.FileReader;
+
+        specialinvoke $stack4.<java.io.FileReader: void <init>(java.io.File)>(file);
+
+        specialinvoke $stack3.<java.io.BufferedReader: void <init>(java.io.Reader)>($stack4);
+
+     label1:
+        $stack5 = virtualinvoke $stack3.<java.io.BufferedReader: java.lang.String readLine()>();
+
+        if $stack5 == null goto label2;
+
+        lines#1 = lines#1 + 1;
+
+        goto label1;
+
+     label2:
+        virtualinvoke $stack3.<java.io.BufferedReader: void close()>();
+
+        return lines#1;
+    }
+
+    public static long byteCount(java.io.File) throws java.io.IOException
+    {
+        java.io.File file;
+        long $stack1;
+
+        file := @parameter0: java.io.File;
+
+        $stack1 = virtualinvoke file.<java.io.File: long length()>();
+
+        return $stack1;
+    }
+
+    public static void setCommandLineOptions(org.dacapo.harness.CommandLineArgs)
+    {
+        org.dacapo.harness.CommandLineArgs line;
+        boolean $stack1, $stack2, $stack3, $stack4, $stack5;
+        java.lang.String $stack6, $stack7, $stack8;
+
+        line := @parameter0: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = virtualinvoke line.<org.dacapo.harness.CommandLineArgs: boolean getSilent()>();
+
+        <org.dacapo.harness.Benchmark: boolean silent> = $stack1;
+
+        $stack2 = virtualinvoke line.<org.dacapo.harness.CommandLineArgs: boolean getPreserve()>();
+
+        <org.dacapo.harness.Benchmark: boolean preserve> = $stack2;
+
+        $stack3 = virtualinvoke line.<org.dacapo.harness.CommandLineArgs: boolean getValidate()>();
+
+        <org.dacapo.harness.Benchmark: boolean validate> = $stack3;
+
+        $stack4 = virtualinvoke line.<org.dacapo.harness.CommandLineArgs: boolean getValidateOutput()>();
+
+        <org.dacapo.harness.Benchmark: boolean validateOutput> = $stack4;
+
+        $stack5 = virtualinvoke line.<org.dacapo.harness.CommandLineArgs: boolean getPreIterationGC()>();
+
+        <org.dacapo.harness.Benchmark: boolean preIterationGC> = $stack5;
+
+        $stack6 = virtualinvoke line.<org.dacapo.harness.CommandLineArgs: java.lang.String getTimeoutDialation()>();
+
+        <org.dacapo.harness.Benchmark: java.lang.String timeoutDialation> = $stack6;
+
+        $stack7 = virtualinvoke line.<org.dacapo.harness.CommandLineArgs: java.lang.String getValidationReport()>();
+
+        if $stack7 == null goto label1;
+
+        $stack8 = virtualinvoke line.<org.dacapo.harness.CommandLineArgs: java.lang.String getValidationReport()>();
+
+        staticinvoke <org.dacapo.harness.Benchmark: void enableValidationReport(java.lang.String)>($stack8);
+
+     label1:
+        return;
+    }
+
+    private static void enableValidationReport(java.lang.String)
+    {
+        java.io.PrintWriter $stack2;
+        java.io.BufferedWriter $stack3;
+        java.io.FileWriter $stack4;
+        java.lang.String filename;
+        java.io.IOException $stack5;
+
+        filename := @parameter0: java.lang.String;
+
+     label1:
+        <org.dacapo.harness.Benchmark: boolean validationReport> = 1;
+
+        $stack2 = new java.io.PrintWriter;
+
+        $stack3 = new java.io.BufferedWriter;
+
+        $stack4 = new java.io.FileWriter;
+
+        specialinvoke $stack4.<java.io.FileWriter: void <init>(java.lang.String,boolean)>(filename, 1);
+
+        specialinvoke $stack3.<java.io.BufferedWriter: void <init>(java.io.Writer)>($stack4);
+
+        specialinvoke $stack2.<java.io.PrintWriter: void <init>(java.io.Writer)>($stack3);
+
+        <org.dacapo.harness.Benchmark: java.io.PrintWriter valRepFile> = $stack2;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack5 := @caughtexception;
+
+        virtualinvoke $stack5.<java.io.IOException: void printStackTrace()>();
+
+        staticinvoke <java.lang.System: void exit(int)>(1);
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    public static boolean getVerbose()
+    {
+        boolean $stack0;
+
+        $stack0 = <org.dacapo.harness.Benchmark: boolean verbose>;
+
+        return $stack0;
+    }
+
+    public static boolean getValidateOutput()
+    {
+        boolean $stack0;
+
+        $stack0 = <org.dacapo.harness.Benchmark: boolean validateOutput>;
+
+        return $stack0;
+    }
+
+    public static boolean getValidate()
+    {
+        boolean $stack0;
+
+        $stack0 = <org.dacapo.harness.Benchmark: boolean validate>;
+
+        return $stack0;
+    }
+
+    public static boolean getPreserve()
+    {
+        boolean $stack0;
+
+        $stack0 = <org.dacapo.harness.Benchmark: boolean preserve>;
+
+        return $stack0;
+    }
+
+    protected int getIteration()
+    {
+        org.dacapo.harness.Benchmark this;
+        int $stack1;
+
+        this := @this: org.dacapo.harness.Benchmark;
+
+        $stack1 = this.<org.dacapo.harness.Benchmark: int iteration>;
+
+        return $stack1;
+    }
+
+    public static boolean getSilent()
+    {
+        boolean $stack0;
+
+        $stack0 = <org.dacapo.harness.Benchmark: boolean silent>;
+
+        return $stack0;
+    }
+
+    static void <clinit>()
+    {
+        java.io.PrintStream $stack0, $stack1;
+
+        <org.dacapo.harness.Benchmark: java.lang.String TIMEOUT_DIALATION_PROPERTY> = "dacapo.timeout.dialation";
+
+        <org.dacapo.harness.Benchmark: int BUFFER_SIZE> = 2048;
+
+        <org.dacapo.harness.Benchmark: boolean verbose> = 0;
+
+        <org.dacapo.harness.Benchmark: boolean silent> = 1;
+
+        <org.dacapo.harness.Benchmark: boolean validateOutput> = 1;
+
+        <org.dacapo.harness.Benchmark: boolean preIterationGC> = 0;
+
+        <org.dacapo.harness.Benchmark: boolean validate> = 1;
+
+        <org.dacapo.harness.Benchmark: boolean preserve> = 0;
+
+        <org.dacapo.harness.Benchmark: java.io.PrintWriter valRepFile> = null;
+
+        <org.dacapo.harness.Benchmark: boolean validationReport> = 0;
+
+        <org.dacapo.harness.Benchmark: java.lang.String timeoutDialation> = "1";
+
+        $stack0 = <java.lang.System: java.io.PrintStream out>;
+
+        <org.dacapo.harness.Benchmark: java.io.PrintStream savedOut> = $stack0;
+
+        $stack1 = <java.lang.System: java.io.PrintStream err>;
+
+        <org.dacapo.harness.Benchmark: java.io.PrintStream savedErr> = $stack1;
+
+        <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream err> = null;
+
+        <org.dacapo.harness.Benchmark: org.dacapo.harness.TeePrintStream out> = null;
+
+        return;
+    }
+}

@@ -1,0 +1,141 @@
+class avrora.sim.mcu.ADC$ControlRegister$ConversionEvent extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.mcu.ADC$ControlRegister this$1;
+
+    private void <init>(avrora.sim.mcu.ADC$ControlRegister)
+    {
+        avrora.sim.mcu.ADC$ControlRegister$ConversionEvent this;
+        avrora.sim.mcu.ADC$ControlRegister l1;
+
+        this := @this: avrora.sim.mcu.ADC$ControlRegister$ConversionEvent;
+
+        l1 := @parameter0: avrora.sim.mcu.ADC$ControlRegister;
+
+        this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1> = l1;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.ADC$ControlRegister$ConversionEvent this;
+        avrora.sim.mcu.ADC$ControlRegister $stack2, $stack4, $stack6, $stack10, $stack13, $stack15, $stack17, $stack21, $stack24, $stack25, $stack26;
+        int val, $stack19;
+        avrora.sim.mcu.ADC $stack5, $stack7, $stack11, $stack16, $stack18, $stack27;
+        avrora.sim.RWRegister $stack8, $stack9;
+        avrora.sim.output.SimPrinter $stack12, $stack29;
+        avrora.sim.state.BooleanView $stack14, $stack22;
+        avrora.sim.AtmelInterpreter $stack20;
+        boolean $stack23;
+        java.lang.StringBuilder $stack28, $stack30, $stack31;
+        java.lang.String $stack32;
+
+        this := @this: avrora.sim.mcu.ADC$ControlRegister$ConversionEvent;
+
+        $stack2 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        val = staticinvoke <avrora.sim.mcu.ADC$ControlRegister: int access$100(avrora.sim.mcu.ADC$ControlRegister)>($stack2);
+
+        $stack4 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        $stack5 = $stack4.<avrora.sim.mcu.ADC$ControlRegister: avrora.sim.mcu.ADC this$0>;
+
+        $stack9 = $stack5.<avrora.sim.mcu.ADC: avrora.sim.RWRegister ADCH_reg>;
+
+        $stack6 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        $stack7 = $stack6.<avrora.sim.mcu.ADC$ControlRegister: avrora.sim.mcu.ADC this$0>;
+
+        $stack8 = $stack7.<avrora.sim.mcu.ADC: avrora.sim.RWRegister ADCL_reg>;
+
+        staticinvoke <avrora.sim.mcu.AtmelInternalDevice: void write16(int,avrora.sim.RWRegister,avrora.sim.RWRegister)>(val, $stack9, $stack8);
+
+        $stack10 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        $stack11 = $stack10.<avrora.sim.mcu.ADC$ControlRegister: avrora.sim.mcu.ADC this$0>;
+
+        $stack12 = $stack11.<avrora.sim.mcu.ADC: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $stack12 == null goto label1;
+
+        $stack26 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        $stack27 = $stack26.<avrora.sim.mcu.ADC$ControlRegister: avrora.sim.mcu.ADC this$0>;
+
+        $stack29 = $stack27.<avrora.sim.mcu.ADC: avrora.sim.output.SimPrinter devicePrinter>;
+
+        $stack28 = new java.lang.StringBuilder;
+
+        specialinvoke $stack28.<java.lang.StringBuilder: void <init>()>();
+
+        $stack30 = virtualinvoke $stack28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ADC: conversion completed -> ");
+
+        $stack31 = virtualinvoke $stack30.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(val);
+
+        $stack32 = virtualinvoke $stack31.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack29.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack32);
+
+     label1:
+        $stack13 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        $stack14 = $stack13.<avrora.sim.mcu.ADC$ControlRegister: avrora.sim.state.BooleanView _adif>;
+
+        interfaceinvoke $stack14.<avrora.sim.state.BooleanView: void setValue(boolean)>(1);
+
+        $stack15 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        $stack16 = $stack15.<avrora.sim.mcu.ADC$ControlRegister: avrora.sim.mcu.ADC this$0>;
+
+        $stack20 = $stack16.<avrora.sim.mcu.ADC: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack17 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        $stack18 = $stack17.<avrora.sim.mcu.ADC$ControlRegister: avrora.sim.mcu.ADC this$0>;
+
+        $stack19 = $stack18.<avrora.sim.mcu.ADC: int interruptNum>;
+
+        virtualinvoke $stack20.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>($stack19, 1);
+
+        $stack21 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        $stack22 = $stack21.<avrora.sim.mcu.ADC$ControlRegister: avrora.sim.state.BooleanView _adfr>;
+
+        $stack23 = interfaceinvoke $stack22.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        if $stack23 == 0 goto label2;
+
+        $stack25 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        staticinvoke <avrora.sim.mcu.ADC$ControlRegister: void access$200(avrora.sim.mcu.ADC$ControlRegister)>($stack25);
+
+        goto label3;
+
+     label2:
+        $stack24 = this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: avrora.sim.mcu.ADC$ControlRegister this$1>;
+
+        staticinvoke <avrora.sim.mcu.ADC$ControlRegister: void access$300(avrora.sim.mcu.ADC$ControlRegister)>($stack24);
+
+     label3:
+        return;
+    }
+
+    void <init>(avrora.sim.mcu.ADC$ControlRegister, avrora.sim.mcu.ADC$1)
+    {
+        avrora.sim.mcu.ADC$ControlRegister$ConversionEvent this;
+        avrora.sim.mcu.ADC$ControlRegister x0;
+        avrora.sim.mcu.ADC$1 x1;
+
+        this := @this: avrora.sim.mcu.ADC$ControlRegister$ConversionEvent;
+
+        x0 := @parameter0: avrora.sim.mcu.ADC$ControlRegister;
+
+        x1 := @parameter1: avrora.sim.mcu.ADC$1;
+
+        specialinvoke this.<avrora.sim.mcu.ADC$ControlRegister$ConversionEvent: void <init>(avrora.sim.mcu.ADC$ControlRegister)>(x0);
+
+        return;
+    }
+}

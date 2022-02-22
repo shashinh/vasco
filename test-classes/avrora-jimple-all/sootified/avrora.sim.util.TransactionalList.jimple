@@ -1,0 +1,291 @@
+public class avrora.sim.util.TransactionalList extends java.lang.Object
+{
+    protected avrora.sim.util.TransactionalList$Link head;
+    protected avrora.sim.util.TransactionalList$Link tail;
+    protected avrora.sim.util.TransactionalList$Link transHead;
+    protected avrora.sim.util.TransactionalList$Link transTail;
+    protected int nesting;
+
+    public void <init>()
+    {
+        avrora.sim.util.TransactionalList this;
+
+        this := @this: avrora.sim.util.TransactionalList;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void add(java.lang.Object)
+    {
+        avrora.sim.util.TransactionalList this;
+        int $stack2;
+        avrora.sim.util.TransactionalList$Link $stack3, $stack4, $stack5, $stack6, $stack7, $stack8;
+        java.lang.Object b;
+
+        this := @this: avrora.sim.util.TransactionalList;
+
+        b := @parameter0: java.lang.Object;
+
+        $stack2 = this.<avrora.sim.util.TransactionalList: int nesting>;
+
+        if $stack2 <= 0 goto label1;
+
+        specialinvoke this.<avrora.sim.util.TransactionalList: void addTransaction(java.lang.Object,boolean)>(b, 1);
+
+        return;
+
+     label1:
+        $stack3 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link head>;
+
+        if $stack3 != null goto label2;
+
+        $stack8 = new avrora.sim.util.TransactionalList$Link;
+
+        specialinvoke $stack8.<avrora.sim.util.TransactionalList$Link: void <init>(java.lang.Object)>(b);
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link tail> = $stack8;
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link head> = $stack8;
+
+        goto label3;
+
+     label2:
+        $stack5 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link tail>;
+
+        $stack4 = new avrora.sim.util.TransactionalList$Link;
+
+        specialinvoke $stack4.<avrora.sim.util.TransactionalList$Link: void <init>(java.lang.Object)>(b);
+
+        $stack5.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next> = $stack4;
+
+        $stack6 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link tail>;
+
+        $stack7 = $stack6.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link tail> = $stack7;
+
+     label3:
+        return;
+    }
+
+    public void remove(java.lang.Object)
+    {
+        avrora.sim.util.TransactionalList this;
+        int $stack5;
+        avrora.sim.util.TransactionalList$Link next, $stack8, $stack9, $stack11, prev#1, pos#2;
+        java.lang.Object o, $stack6;
+
+        this := @this: avrora.sim.util.TransactionalList;
+
+        o := @parameter0: java.lang.Object;
+
+        $stack5 = this.<avrora.sim.util.TransactionalList: int nesting>;
+
+        if $stack5 <= 0 goto label1;
+
+        specialinvoke this.<avrora.sim.util.TransactionalList: void addTransaction(java.lang.Object,boolean)>(o, 0);
+
+        return;
+
+     label1:
+        prev#1 = null;
+
+        pos#2 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link head>;
+
+     label2:
+        if pos#2 == null goto label7;
+
+        next = pos#2.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        $stack6 = pos#2.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        if $stack6 != o goto label5;
+
+        if prev#1 != null goto label3;
+
+        $stack11 = pos#2.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link head> = $stack11;
+
+        goto label4;
+
+     label3:
+        $stack8 = pos#2.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        prev#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next> = $stack8;
+
+     label4:
+        $stack9 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link tail>;
+
+        if pos#2 != $stack9 goto label6;
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link tail> = prev#1;
+
+        goto label6;
+
+     label5:
+        prev#1 = pos#2;
+
+     label6:
+        pos#2 = next;
+
+        goto label2;
+
+     label7:
+        return;
+    }
+
+    private void addTransaction(java.lang.Object, boolean)
+    {
+        avrora.sim.util.TransactionalList this;
+        avrora.sim.util.TransactionalList$Link $stack3, $stack4, $stack5, $stack6, $stack7, $stack8;
+        java.lang.Object o;
+        boolean isAdd;
+
+        this := @this: avrora.sim.util.TransactionalList;
+
+        o := @parameter0: java.lang.Object;
+
+        isAdd := @parameter1: boolean;
+
+        $stack3 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transHead>;
+
+        if $stack3 != null goto label1;
+
+        $stack8 = new avrora.sim.util.TransactionalList$Link;
+
+        specialinvoke $stack8.<avrora.sim.util.TransactionalList$Link: void <init>(java.lang.Object,boolean)>(o, isAdd);
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transTail> = $stack8;
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transHead> = $stack8;
+
+        goto label2;
+
+     label1:
+        $stack5 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transTail>;
+
+        $stack4 = new avrora.sim.util.TransactionalList$Link;
+
+        specialinvoke $stack4.<avrora.sim.util.TransactionalList$Link: void <init>(java.lang.Object,boolean)>(o, isAdd);
+
+        $stack5.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next> = $stack4;
+
+        $stack6 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transTail>;
+
+        $stack7 = $stack6.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transTail> = $stack7;
+
+     label2:
+        return;
+    }
+
+    public boolean isEmpty()
+    {
+        avrora.sim.util.TransactionalList this;
+        avrora.sim.util.TransactionalList$Link $stack1;
+        boolean $stack2#1;
+
+        this := @this: avrora.sim.util.TransactionalList;
+
+        $stack1 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link head>;
+
+        if $stack1 != null goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    public void beginTransaction()
+    {
+        avrora.sim.util.TransactionalList this;
+        int $stack1, $stack2;
+
+        this := @this: avrora.sim.util.TransactionalList;
+
+        $stack1 = this.<avrora.sim.util.TransactionalList: int nesting>;
+
+        $stack2 = $stack1 + 1;
+
+        this.<avrora.sim.util.TransactionalList: int nesting> = $stack2;
+
+        return;
+    }
+
+    public void endTransaction()
+    {
+        avrora.sim.util.TransactionalList this;
+        int $stack3, $stack4, $stack5;
+        avrora.sim.util.TransactionalList$Link thead, pos#1;
+        boolean $stack6;
+        java.lang.Object $stack7, $stack9;
+
+        this := @this: avrora.sim.util.TransactionalList;
+
+        $stack3 = this.<avrora.sim.util.TransactionalList: int nesting>;
+
+        $stack4 = $stack3 - 1;
+
+        this.<avrora.sim.util.TransactionalList: int nesting> = $stack4;
+
+        $stack5 = this.<avrora.sim.util.TransactionalList: int nesting>;
+
+        if $stack5 != 0 goto label4;
+
+        thead = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transHead>;
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transHead> = null;
+
+        this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link transTail> = null;
+
+        pos#1 = thead;
+
+     label1:
+        if pos#1 == null goto label4;
+
+        $stack6 = pos#1.<avrora.sim.util.TransactionalList$Link: boolean addTransaction>;
+
+        if $stack6 == 0 goto label2;
+
+        $stack9 = pos#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        virtualinvoke this.<avrora.sim.util.TransactionalList: void add(java.lang.Object)>($stack9);
+
+        goto label3;
+
+     label2:
+        $stack7 = pos#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        virtualinvoke this.<avrora.sim.util.TransactionalList: void remove(java.lang.Object)>($stack7);
+
+     label3:
+        pos#1 = pos#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    public avrora.sim.util.TransactionalList$Link getHead()
+    {
+        avrora.sim.util.TransactionalList this;
+        avrora.sim.util.TransactionalList$Link $stack1;
+
+        this := @this: avrora.sim.util.TransactionalList;
+
+        $stack1 = this.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link head>;
+
+        return $stack1;
+    }
+}

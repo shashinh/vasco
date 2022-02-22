@@ -1,0 +1,119 @@
+class org.dacapo.parser.Config$OutputFile extends java.lang.Object
+{
+    java.lang.String name;
+    java.lang.String digest;
+    boolean keep;
+    boolean existence;
+    int lines;
+    long bytes;
+    boolean text;
+    boolean filter;
+    final org.dacapo.parser.Config this$0;
+
+    void <init>(org.dacapo.parser.Config, java.lang.String)
+    {
+        org.dacapo.parser.Config$OutputFile this;
+        org.dacapo.parser.Config this$0;
+        java.lang.String name;
+
+        this := @this: org.dacapo.parser.Config$OutputFile;
+
+        this$0 := @parameter0: org.dacapo.parser.Config;
+
+        name := @parameter1: java.lang.String;
+
+        this.<org.dacapo.parser.Config$OutputFile: org.dacapo.parser.Config this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<org.dacapo.parser.Config$OutputFile: java.lang.String digest> = null;
+
+        this.<org.dacapo.parser.Config$OutputFile: boolean keep> = 0;
+
+        this.<org.dacapo.parser.Config$OutputFile: boolean existence> = 0;
+
+        this.<org.dacapo.parser.Config$OutputFile: int lines> = -1;
+
+        this.<org.dacapo.parser.Config$OutputFile: long bytes> = -1L;
+
+        this.<org.dacapo.parser.Config$OutputFile: boolean text> = 0;
+
+        this.<org.dacapo.parser.Config$OutputFile: boolean filter> = 0;
+
+        this.<org.dacapo.parser.Config$OutputFile: java.lang.String name> = name;
+
+        return;
+    }
+
+    boolean hasDigest()
+    {
+        org.dacapo.parser.Config$OutputFile this;
+        java.lang.String $stack1;
+        boolean $stack2#1;
+
+        this := @this: org.dacapo.parser.Config$OutputFile;
+
+        $stack1 = this.<org.dacapo.parser.Config$OutputFile: java.lang.String digest>;
+
+        if $stack1 == null goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    boolean hasLines()
+    {
+        org.dacapo.parser.Config$OutputFile this;
+        int $stack1;
+        boolean $stack2#1;
+
+        this := @this: org.dacapo.parser.Config$OutputFile;
+
+        $stack1 = this.<org.dacapo.parser.Config$OutputFile: int lines>;
+
+        if $stack1 == -1 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    boolean hasBytes()
+    {
+        org.dacapo.parser.Config$OutputFile this;
+        long $stack1;
+        byte $stack2;
+        boolean $stack3#1;
+
+        this := @this: org.dacapo.parser.Config$OutputFile;
+
+        $stack1 = this.<org.dacapo.parser.Config$OutputFile: long bytes>;
+
+        $stack2 = $stack1 cmp -1L;
+
+        if $stack2 == 0 goto label1;
+
+        $stack3#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack3#1 = 0;
+
+     label2:
+        return $stack3#1;
+    }
+}

@@ -1,0 +1,138 @@
+public abstract class avrora.core.ProgramReader extends cck.help.HelpCategory
+{
+    public final cck.util.Option$Str ARCH;
+    public final cck.util.Option$List INDIRECT_EDGES;
+
+    public abstract avrora.core.Program read(java.lang.String[]) throws java.lang.Exception;
+
+    protected void <init>(java.lang.String)
+    {
+        avrora.core.ProgramReader this;
+        java.lang.String h, $stack4;
+        cck.util.Option$Str $stack2;
+        cck.util.Option$List $stack3;
+        cck.util.Options $stack5;
+
+        this := @this: avrora.core.ProgramReader;
+
+        h := @parameter0: java.lang.String;
+
+        specialinvoke this.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("reader", h);
+
+        $stack2 = virtualinvoke this.<avrora.core.ProgramReader: cck.util.Option$Str newOption(java.lang.String,java.lang.String,java.lang.String)>("arch", "avr", "This option specifies the name of the instruction set architecture for the specified program. This architecture option is used to retrieve an appropriate disassembler and interpreter for the program.");
+
+        this.<avrora.core.ProgramReader: cck.util.Option$Str ARCH> = $stack2;
+
+        $stack3 = virtualinvoke this.<avrora.core.ProgramReader: cck.util.Option$List newOptionList(java.lang.String,java.lang.String,java.lang.String)>("indirect-edges", "", "This option can be used to specify the possible targets of indirect calls and jumps within a program, which may be needed in performing stack analysis or building a control flow graph. Each element of the list is a pair of program addresses separated by a colon, where a program address can be a label or a hexadecimal number preceded by \"0x\". The first program address is the address of the indirect call or jump instruction and the second program address is a possible target.");
+
+        this.<avrora.core.ProgramReader: cck.util.Option$List INDIRECT_EDGES> = $stack3;
+
+        $stack4 = this.<avrora.core.ProgramReader: java.lang.String help>;
+
+        virtualinvoke this.<avrora.core.ProgramReader: void addSection(java.lang.String,java.lang.String)>("OVERVIEW", $stack4);
+
+        $stack5 = this.<avrora.core.ProgramReader: cck.util.Options options>;
+
+        virtualinvoke this.<avrora.core.ProgramReader: void addOptionSection(java.lang.String,cck.util.Options)>("Help for specific options is below.", $stack5);
+
+        return;
+    }
+
+    protected void addIndirectEdges(avrora.core.Program)
+    {
+        avrora.core.ProgramReader this;
+        cck.util.Option$List $stack8;
+        java.util.List $stack9;
+        java.util.Iterator i;
+        boolean $stack11;
+        java.lang.Object $stack12;
+        java.lang.String s, $stack15, $stack18, $stack25, $stack27;
+        int ind, $stack17, $stack20, $stack21;
+        avrora.core.Program p;
+        avrora.core.SourceMapping sm;
+        avrora.core.SourceMapping$Location loc, tar;
+        java.lang.StringBuilder $stack23, $stack24, $stack26;
+        cck.util.Util$InternalError $stack28;
+
+        this := @this: avrora.core.ProgramReader;
+
+        p := @parameter0: avrora.core.Program;
+
+        $stack8 = this.<avrora.core.ProgramReader: cck.util.Option$List INDIRECT_EDGES>;
+
+        $stack9 = virtualinvoke $stack8.<cck.util.Option$List: java.util.List get()>();
+
+        i = interfaceinvoke $stack9.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $stack11 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack11 == 0 goto label3;
+
+        $stack12 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        s = (java.lang.String) $stack12;
+
+        ind = virtualinvoke s.<java.lang.String: int indexOf(int)>(58);
+
+        if ind > 0 goto label2;
+
+        $stack23 = new java.lang.StringBuilder;
+
+        specialinvoke $stack23.<java.lang.StringBuilder: void <init>()>();
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("invalid indirect edge format: ");
+
+        $stack25 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(s);
+
+        $stack26 = virtualinvoke $stack24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack25);
+
+        $stack27 = virtualinvoke $stack26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack28 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>($stack27);
+
+        throw $stack28;
+
+     label2:
+        sm = virtualinvoke p.<avrora.core.Program: avrora.core.SourceMapping getSourceMapping()>();
+
+        $stack15 = virtualinvoke s.<java.lang.String: java.lang.String substring(int,int)>(0, ind);
+
+        loc = virtualinvoke sm.<avrora.core.SourceMapping: avrora.core.SourceMapping$Location getLocation(java.lang.String)>($stack15);
+
+        $stack17 = ind + 1;
+
+        $stack18 = virtualinvoke s.<java.lang.String: java.lang.String substring(int)>($stack17);
+
+        tar = virtualinvoke sm.<avrora.core.SourceMapping: avrora.core.SourceMapping$Location getLocation(java.lang.String)>($stack18);
+
+        $stack21 = loc.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        $stack20 = tar.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        virtualinvoke p.<avrora.core.Program: void addIndirectEdge(int,int)>($stack21, $stack20);
+
+        goto label1;
+
+     label3:
+        return;
+    }
+
+    public avrora.arch.AbstractArchitecture getArchitecture()
+    {
+        avrora.core.ProgramReader this;
+        cck.util.Option$Str $stack1;
+        java.lang.String $stack2;
+        avrora.arch.AbstractArchitecture $stack3;
+
+        this := @this: avrora.core.ProgramReader;
+
+        $stack1 = this.<avrora.core.ProgramReader: cck.util.Option$Str ARCH>;
+
+        $stack2 = virtualinvoke $stack1.<cck.util.Option$Str: java.lang.String get()>();
+
+        $stack3 = staticinvoke <avrora.arch.ArchitectureRegistry: avrora.arch.AbstractArchitecture getArchitecture(java.lang.String)>($stack2);
+
+        return $stack3;
+    }
+}

@@ -1,0 +1,1573 @@
+public class org.dacapo.parser.SimpleCharStream extends java.lang.Object
+{
+    public static final boolean staticFlag;
+    int bufsize;
+    int available;
+    int tokenBegin;
+    public int bufpos;
+    protected int[] bufline;
+    protected int[] bufcolumn;
+    protected int column;
+    protected int line;
+    protected boolean prevCharIsCR;
+    protected boolean prevCharIsLF;
+    protected java.io.Reader inputStream;
+    protected char[] buffer;
+    protected int maxNextCharInd;
+    protected int inBuf;
+    protected int tabSize;
+
+    protected void setTabSize(int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int i;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        i := @parameter0: int;
+
+        this.<org.dacapo.parser.SimpleCharStream: int tabSize> = i;
+
+        return;
+    }
+
+    protected int getTabSize(int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack2, i;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        i := @parameter0: int;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int tabSize>;
+
+        return $stack2;
+    }
+
+    protected void ExpandBuff(boolean)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack6, $stack7, $stack8, $stack9, $stack10, $stack11, $stack12, $stack13, $stack14, $stack15, $stack17, $stack18, $stack19, $stack20, $stack22, $stack23, $stack24, $stack25, $stack27, $stack28, $stack29, $stack30, $stack31, $stack32, $stack33, $stack34, $stack35, $stack36, $stack38, $stack39, $stack40, $stack41, $stack43, $stack44, $stack45, $stack46, $stack48, $stack49, $stack50, $stack51, $stack53, $stack54, $stack55, $stack56, $stack58, $stack59, $stack60, $stack61, $stack63, $stack64, $stack65, $stack66, $stack67;
+        char[] newbuffer, $stack16, $stack37, $stack42;
+        int[] newbufline, newbufcolumn, $stack21, $stack26, $stack47, $stack52, $stack57, $stack62;
+        boolean wrapAround;
+        java.lang.Throwable $stack68;
+        java.lang.Error $stack69;
+        java.lang.String $stack70;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        wrapAround := @parameter0: boolean;
+
+        $stack6 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack7 = $stack6 + 2048;
+
+        newbuffer = newarray (char)[$stack7];
+
+        $stack8 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack9 = $stack8 + 2048;
+
+        newbufline = newarray (int)[$stack9];
+
+        $stack10 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack11 = $stack10 + 2048;
+
+        newbufcolumn = newarray (int)[$stack11];
+
+     label1:
+        if wrapAround == 0 goto label2;
+
+        $stack37 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack36 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack34 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack33 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack35 = $stack34 - $stack33;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack37, $stack36, newbuffer, 0, $stack35);
+
+        $stack42 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack39 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack38 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack41 = $stack39 - $stack38;
+
+        $stack40 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack42, 0, newbuffer, $stack41, $stack40);
+
+        this.<org.dacapo.parser.SimpleCharStream: char[] buffer> = newbuffer;
+
+        $stack47 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack46 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack44 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack43 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack45 = $stack44 - $stack43;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack47, $stack46, newbufline, 0, $stack45);
+
+        $stack52 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack49 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack48 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack51 = $stack49 - $stack48;
+
+        $stack50 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack52, 0, newbufline, $stack51, $stack50);
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufline> = newbufline;
+
+        $stack57 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack56 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack54 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack53 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack55 = $stack54 - $stack53;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack57, $stack56, newbufcolumn, 0, $stack55);
+
+        $stack62 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack59 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack58 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack61 = $stack59 - $stack58;
+
+        $stack60 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack62, 0, newbufcolumn, $stack61, $stack60);
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn> = newbufcolumn;
+
+        $stack66 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack64 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack63 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack65 = $stack64 - $stack63;
+
+        $stack67 = $stack66 + $stack65;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = $stack67;
+
+        this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd> = $stack67;
+
+        goto label3;
+
+     label2:
+        $stack16 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack15 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack13 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack12 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack14 = $stack13 - $stack12;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack16, $stack15, newbuffer, 0, $stack14);
+
+        this.<org.dacapo.parser.SimpleCharStream: char[] buffer> = newbuffer;
+
+        $stack21 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack20 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack18 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack17 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack19 = $stack18 - $stack17;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack21, $stack20, newbufline, 0, $stack19);
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufline> = newbufline;
+
+        $stack26 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack25 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack23 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack22 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack24 = $stack23 - $stack22;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack26, $stack25, newbufcolumn, 0, $stack24);
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn> = newbufcolumn;
+
+        $stack28 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack27 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack29 = $stack28 - $stack27;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = $stack29;
+
+        this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd> = $stack29;
+
+     label3:
+        goto label5;
+
+     label4:
+        $stack68 := @caughtexception;
+
+        $stack69 = new java.lang.Error;
+
+        $stack70 = virtualinvoke $stack68.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        specialinvoke $stack69.<java.lang.Error: void <init>(java.lang.String)>($stack70);
+
+        throw $stack69;
+
+     label5:
+        $stack30 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack31 = $stack30 + 2048;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufsize> = $stack31;
+
+        $stack32 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        this.<org.dacapo.parser.SimpleCharStream: int available> = $stack32;
+
+        this.<org.dacapo.parser.SimpleCharStream: int tokenBegin> = 0;
+
+        return;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+    }
+
+    protected void FillBuff() throws java.io.IOException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack3, $stack4, $stack12, $stack13, $stack16, $stack17, $stack18, $stack19, $stack20, $stack21, $stack22, $stack23, $stack30, $stack31, $stack32, $stack35, $stack37, $stack38, $stack39, $stack40, $stack8#36, $stack6#48, $stack5#60, $stack7#66, $stack11#77;
+        java.io.Reader $stack14, $stack10#12;
+        java.io.IOException $stack15, $stack36;
+        char[] $stack9#24;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack4 = this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd>;
+
+        $stack3 = this.<org.dacapo.parser.SimpleCharStream: int available>;
+
+        if $stack4 != $stack3 goto label06;
+
+        $stack17 = this.<org.dacapo.parser.SimpleCharStream: int available>;
+
+        $stack16 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        if $stack17 != $stack16 goto label03;
+
+        $stack31 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        if $stack31 <= 2048 goto label01;
+
+        this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = 0;
+
+        $stack35 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        this.<org.dacapo.parser.SimpleCharStream: int available> = $stack35;
+
+        goto label06;
+
+     label01:
+        $stack32 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        if $stack32 >= 0 goto label02;
+
+        this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = 0;
+
+        goto label06;
+
+     label02:
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ExpandBuff(boolean)>(0);
+
+        goto label06;
+
+     label03:
+        $stack19 = this.<org.dacapo.parser.SimpleCharStream: int available>;
+
+        $stack18 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        if $stack19 <= $stack18 goto label04;
+
+        $stack30 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        this.<org.dacapo.parser.SimpleCharStream: int available> = $stack30;
+
+        goto label06;
+
+     label04:
+        $stack21 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack20 = this.<org.dacapo.parser.SimpleCharStream: int available>;
+
+        $stack22 = $stack21 - $stack20;
+
+        if $stack22 >= 2048 goto label05;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ExpandBuff(boolean)>(1);
+
+        goto label06;
+
+     label05:
+        $stack23 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        this.<org.dacapo.parser.SimpleCharStream: int available> = $stack23;
+
+     label06:
+        $stack10#12 = this.<org.dacapo.parser.SimpleCharStream: java.io.Reader inputStream>;
+
+        $stack9#24 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack8#36 = this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd>;
+
+        $stack6#48 = this.<org.dacapo.parser.SimpleCharStream: int available>;
+
+        $stack5#60 = this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd>;
+
+        $stack7#66 = $stack6#48 - $stack5#60;
+
+        $stack11#77 = virtualinvoke $stack10#12.<java.io.Reader: int read(char[],int,int)>($stack9#24, $stack8#36, $stack7#66);
+
+        if $stack11#77 != -1 goto label07;
+
+        $stack14 = this.<org.dacapo.parser.SimpleCharStream: java.io.Reader inputStream>;
+
+        virtualinvoke $stack14.<java.io.Reader: void close()>();
+
+        $stack15 = new java.io.IOException;
+
+        specialinvoke $stack15.<java.io.IOException: void <init>()>();
+
+        throw $stack15;
+
+     label07:
+        $stack12 = this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd>;
+
+        $stack13 = $stack12 + $stack11#77;
+
+        this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd> = $stack13;
+
+     label08:
+        return;
+
+     label09:
+        $stack36 := @caughtexception;
+
+        $stack37 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack38 = $stack37 - 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = $stack38;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void backup(int)>(0);
+
+        $stack39 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        if $stack39 != -1 goto label10;
+
+        $stack40 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        this.<org.dacapo.parser.SimpleCharStream: int tokenBegin> = $stack40;
+
+     label10:
+        throw $stack36;
+
+        catch java.io.IOException from label06 to label08 with label09;
+    }
+
+    public char BeginToken() throws java.io.IOException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        char c;
+        int $stack3;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        this.<org.dacapo.parser.SimpleCharStream: int tokenBegin> = -1;
+
+        c = virtualinvoke this.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        $stack3 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        this.<org.dacapo.parser.SimpleCharStream: int tokenBegin> = $stack3;
+
+        return c;
+    }
+
+    protected void UpdateLineColumn(char)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack2, $stack3, $stack18, $stack19, $stack20, $stack21, $stack22, $stack23, $stack24, $stack25, $stack26, $stack27, $stack29, $stack31, $stack33, $stack7#15, $stack6#21, $stack10#33, $stack9#39;
+        boolean $stack4, $stack5;
+        char c;
+        int[] $stack8#9, $stack11#27;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        c := @parameter0: char;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int column>;
+
+        $stack3 = $stack2 + 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = $stack3;
+
+        $stack4 = this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsLF>;
+
+        if $stack4 == 0 goto label1;
+
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsLF> = 0;
+
+        $stack31 = this.<org.dacapo.parser.SimpleCharStream: int line>;
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = 1;
+
+        $stack33 = $stack31 + 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int line> = $stack33;
+
+        goto label3;
+
+     label1:
+        $stack5 = this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsCR>;
+
+        if $stack5 == 0 goto label3;
+
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsCR> = 0;
+
+        if c != 10 goto label2;
+
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsLF> = 1;
+
+        goto label3;
+
+     label2:
+        $stack27 = this.<org.dacapo.parser.SimpleCharStream: int line>;
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = 1;
+
+        $stack29 = $stack27 + 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int line> = $stack29;
+
+     label3:
+        tableswitch(c)
+        {
+            case 9: goto label6;
+            case 10: goto label5;
+            case 11: goto label7;
+            case 12: goto label7;
+            case 13: goto label4;
+            default: goto label7;
+        };
+
+     label4:
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsCR> = 1;
+
+        goto label7;
+
+     label5:
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsLF> = 1;
+
+        goto label7;
+
+     label6:
+        $stack18 = this.<org.dacapo.parser.SimpleCharStream: int column>;
+
+        $stack19 = $stack18 - 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = $stack19;
+
+        $stack25 = this.<org.dacapo.parser.SimpleCharStream: int column>;
+
+        $stack23 = this.<org.dacapo.parser.SimpleCharStream: int tabSize>;
+
+        $stack21 = this.<org.dacapo.parser.SimpleCharStream: int column>;
+
+        $stack20 = this.<org.dacapo.parser.SimpleCharStream: int tabSize>;
+
+        $stack22 = $stack21 % $stack20;
+
+        $stack24 = $stack23 - $stack22;
+
+        $stack26 = $stack25 + $stack24;
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = $stack26;
+
+        goto label7;
+
+     label7:
+        $stack8#9 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack7#15 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack6#21 = this.<org.dacapo.parser.SimpleCharStream: int line>;
+
+        $stack8#9[$stack7#15] = $stack6#21;
+
+        $stack11#27 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack10#33 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack9#39 = this.<org.dacapo.parser.SimpleCharStream: int column>;
+
+        $stack11#27[$stack10#33] = $stack9#39;
+
+        return;
+    }
+
+    public char readChar() throws java.io.IOException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack2, $stack3, $stack4, $stack5, $stack6, $stack14, $stack15, $stack16, $stack17, $stack18, $stack19;
+        char[] $stack7, $stack20;
+        char c, $stack21;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int inBuf>;
+
+        if $stack2 <= 0 goto label2;
+
+        $stack14 = this.<org.dacapo.parser.SimpleCharStream: int inBuf>;
+
+        $stack15 = $stack14 - 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int inBuf> = $stack15;
+
+        $stack16 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack17 = $stack16 + 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = $stack17;
+
+        $stack18 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        if $stack17 != $stack18 goto label1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = 0;
+
+     label1:
+        $stack20 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack19 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack21 = $stack20[$stack19];
+
+        return $stack21;
+
+     label2:
+        $stack3 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack4 = $stack3 + 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = $stack4;
+
+        $stack5 = this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd>;
+
+        if $stack4 < $stack5 goto label3;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void FillBuff()>();
+
+     label3:
+        $stack7 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack6 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        c = $stack7[$stack6];
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void UpdateLineColumn(char)>(c);
+
+        return c;
+    }
+
+    public int getColumn()
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack1, $stack3;
+        int[] $stack2;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack1 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    public int getLine()
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack1, $stack3;
+        int[] $stack2;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack1 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    public int getEndColumn()
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack1, $stack3;
+        int[] $stack2;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack1 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    public int getEndLine()
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack1, $stack3;
+        int[] $stack2;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack1 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    public int getBeginColumn()
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack1, $stack3;
+        int[] $stack2;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack1 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    public int getBeginLine()
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack1, $stack3;
+        int[] $stack2;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack1 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    public void backup(int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int amount, $stack2, $stack3, $stack4, $stack5, $stack6, $stack7, $stack8;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        amount := @parameter0: int;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int inBuf>;
+
+        $stack3 = $stack2 + amount;
+
+        this.<org.dacapo.parser.SimpleCharStream: int inBuf> = $stack3;
+
+        $stack4 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack5 = $stack4 - amount;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = $stack5;
+
+        if $stack5 >= 0 goto label1;
+
+        $stack7 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack6 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack8 = $stack7 + $stack6;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = $stack8;
+
+     label1:
+        return;
+    }
+
+    public void <init>(java.io.Reader, int, int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.Reader dstream;
+        int startline, startcolumn, $stack5, buffersize;
+        char[] $stack6;
+        int[] $stack7, $stack8;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.Reader;
+
+        startline := @parameter1: int;
+
+        startcolumn := @parameter2: int;
+
+        buffersize := @parameter3: int;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = -1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int line> = 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsCR> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsLF> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int inBuf> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int tabSize> = 8;
+
+        this.<org.dacapo.parser.SimpleCharStream: java.io.Reader inputStream> = dstream;
+
+        this.<org.dacapo.parser.SimpleCharStream: int line> = startline;
+
+        $stack5 = startcolumn - 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = $stack5;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufsize> = buffersize;
+
+        this.<org.dacapo.parser.SimpleCharStream: int available> = buffersize;
+
+        $stack6 = newarray (char)[buffersize];
+
+        this.<org.dacapo.parser.SimpleCharStream: char[] buffer> = $stack6;
+
+        $stack7 = newarray (int)[buffersize];
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufline> = $stack7;
+
+        $stack8 = newarray (int)[buffersize];
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn> = $stack8;
+
+        return;
+    }
+
+    public void <init>(java.io.Reader, int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.Reader dstream;
+        int startline, startcolumn;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.Reader;
+
+        startline := @parameter1: int;
+
+        startcolumn := @parameter2: int;
+
+        specialinvoke this.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.Reader,int,int,int)>(dstream, startline, startcolumn, 4096);
+
+        return;
+    }
+
+    public void <init>(java.io.Reader)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.Reader dstream;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.Reader;
+
+        specialinvoke this.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.Reader,int,int,int)>(dstream, 1, 1, 4096);
+
+        return;
+    }
+
+    public void ReInit(java.io.Reader, int, int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.Reader dstream;
+        int startline, startcolumn, $stack5, buffersize, $stack13;
+        char[] $stack6, $stack7, $stack12;
+        int[] $stack8, $stack9;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.Reader;
+
+        startline := @parameter1: int;
+
+        startcolumn := @parameter2: int;
+
+        buffersize := @parameter3: int;
+
+        this.<org.dacapo.parser.SimpleCharStream: java.io.Reader inputStream> = dstream;
+
+        this.<org.dacapo.parser.SimpleCharStream: int line> = startline;
+
+        $stack5 = startcolumn - 1;
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = $stack5;
+
+        $stack6 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        if $stack6 == null goto label1;
+
+        $stack12 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack13 = lengthof $stack12;
+
+        if buffersize == $stack13 goto label2;
+
+     label1:
+        this.<org.dacapo.parser.SimpleCharStream: int bufsize> = buffersize;
+
+        this.<org.dacapo.parser.SimpleCharStream: int available> = buffersize;
+
+        $stack7 = newarray (char)[buffersize];
+
+        this.<org.dacapo.parser.SimpleCharStream: char[] buffer> = $stack7;
+
+        $stack8 = newarray (int)[buffersize];
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufline> = $stack8;
+
+        $stack9 = newarray (int)[buffersize];
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn> = $stack9;
+
+     label2:
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsCR> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: boolean prevCharIsLF> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int maxNextCharInd> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int inBuf> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int tokenBegin> = 0;
+
+        this.<org.dacapo.parser.SimpleCharStream: int bufpos> = -1;
+
+        return;
+    }
+
+    public void ReInit(java.io.Reader, int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.Reader dstream;
+        int startline, startcolumn;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.Reader;
+
+        startline := @parameter1: int;
+
+        startcolumn := @parameter2: int;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.Reader,int,int,int)>(dstream, startline, startcolumn, 4096);
+
+        return;
+    }
+
+    public void ReInit(java.io.Reader)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.Reader dstream;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.Reader;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.Reader,int,int,int)>(dstream, 1, 1, 4096);
+
+        return;
+    }
+
+    public void <init>(java.io.InputStream, java.lang.String, int, int, int) throws java.io.UnsupportedEncodingException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.lang.String encoding;
+        java.io.InputStream dstream;
+        int startline, startcolumn, buffersize;
+        java.io.InputStreamReader $stack6#1;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        encoding := @parameter1: java.lang.String;
+
+        startline := @parameter2: int;
+
+        startcolumn := @parameter3: int;
+
+        buffersize := @parameter4: int;
+
+        if encoding != null goto label1;
+
+        $stack6#1 = new java.io.InputStreamReader;
+
+        specialinvoke $stack6#1.<java.io.InputStreamReader: void <init>(java.io.InputStream)>(dstream);
+
+        goto label2;
+
+     label1:
+        $stack6#1 = new java.io.InputStreamReader;
+
+        specialinvoke $stack6#1.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>(dstream, encoding);
+
+     label2:
+        specialinvoke this.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.Reader,int,int,int)>($stack6#1, startline, startcolumn, buffersize);
+
+        return;
+    }
+
+    public void <init>(java.io.InputStream, int, int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStreamReader $stack5;
+        java.io.InputStream dstream;
+        int startline, startcolumn, buffersize;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        startline := @parameter1: int;
+
+        startcolumn := @parameter2: int;
+
+        buffersize := @parameter3: int;
+
+        $stack5 = new java.io.InputStreamReader;
+
+        specialinvoke $stack5.<java.io.InputStreamReader: void <init>(java.io.InputStream)>(dstream);
+
+        specialinvoke this.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.Reader,int,int,int)>($stack5, startline, startcolumn, buffersize);
+
+        return;
+    }
+
+    public void <init>(java.io.InputStream, java.lang.String, int, int) throws java.io.UnsupportedEncodingException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStream dstream;
+        java.lang.String encoding;
+        int startline, startcolumn;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        encoding := @parameter1: java.lang.String;
+
+        startline := @parameter2: int;
+
+        startcolumn := @parameter3: int;
+
+        specialinvoke this.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.InputStream,java.lang.String,int,int,int)>(dstream, encoding, startline, startcolumn, 4096);
+
+        return;
+    }
+
+    public void <init>(java.io.InputStream, int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStream dstream;
+        int startline, startcolumn;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        startline := @parameter1: int;
+
+        startcolumn := @parameter2: int;
+
+        specialinvoke this.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.InputStream,int,int,int)>(dstream, startline, startcolumn, 4096);
+
+        return;
+    }
+
+    public void <init>(java.io.InputStream, java.lang.String) throws java.io.UnsupportedEncodingException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStream dstream;
+        java.lang.String encoding;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        encoding := @parameter1: java.lang.String;
+
+        specialinvoke this.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.InputStream,java.lang.String,int,int,int)>(dstream, encoding, 1, 1, 4096);
+
+        return;
+    }
+
+    public void <init>(java.io.InputStream)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStream dstream;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        specialinvoke this.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.InputStream,int,int,int)>(dstream, 1, 1, 4096);
+
+        return;
+    }
+
+    public void ReInit(java.io.InputStream, java.lang.String, int, int, int) throws java.io.UnsupportedEncodingException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.lang.String encoding;
+        java.io.InputStream dstream;
+        int startline, startcolumn, buffersize;
+        java.io.InputStreamReader $stack6#1;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        encoding := @parameter1: java.lang.String;
+
+        startline := @parameter2: int;
+
+        startcolumn := @parameter3: int;
+
+        buffersize := @parameter4: int;
+
+        if encoding != null goto label1;
+
+        $stack6#1 = new java.io.InputStreamReader;
+
+        specialinvoke $stack6#1.<java.io.InputStreamReader: void <init>(java.io.InputStream)>(dstream);
+
+        goto label2;
+
+     label1:
+        $stack6#1 = new java.io.InputStreamReader;
+
+        specialinvoke $stack6#1.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>(dstream, encoding);
+
+     label2:
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.Reader,int,int,int)>($stack6#1, startline, startcolumn, buffersize);
+
+        return;
+    }
+
+    public void ReInit(java.io.InputStream, int, int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStreamReader $stack5;
+        java.io.InputStream dstream;
+        int startline, startcolumn, buffersize;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        startline := @parameter1: int;
+
+        startcolumn := @parameter2: int;
+
+        buffersize := @parameter3: int;
+
+        $stack5 = new java.io.InputStreamReader;
+
+        specialinvoke $stack5.<java.io.InputStreamReader: void <init>(java.io.InputStream)>(dstream);
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.Reader,int,int,int)>($stack5, startline, startcolumn, buffersize);
+
+        return;
+    }
+
+    public void ReInit(java.io.InputStream, java.lang.String) throws java.io.UnsupportedEncodingException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStream dstream;
+        java.lang.String encoding;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        encoding := @parameter1: java.lang.String;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.InputStream,java.lang.String,int,int,int)>(dstream, encoding, 1, 1, 4096);
+
+        return;
+    }
+
+    public void ReInit(java.io.InputStream)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStream dstream;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.InputStream,int,int,int)>(dstream, 1, 1, 4096);
+
+        return;
+    }
+
+    public void ReInit(java.io.InputStream, java.lang.String, int, int) throws java.io.UnsupportedEncodingException
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStream dstream;
+        java.lang.String encoding;
+        int startline, startcolumn;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        encoding := @parameter1: java.lang.String;
+
+        startline := @parameter2: int;
+
+        startcolumn := @parameter3: int;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.InputStream,java.lang.String,int,int,int)>(dstream, encoding, startline, startcolumn, 4096);
+
+        return;
+    }
+
+    public void ReInit(java.io.InputStream, int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        java.io.InputStream dstream;
+        int startline, startcolumn;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        dstream := @parameter0: java.io.InputStream;
+
+        startline := @parameter1: int;
+
+        startcolumn := @parameter2: int;
+
+        virtualinvoke this.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.InputStream,int,int,int)>(dstream, startline, startcolumn, 4096);
+
+        return;
+    }
+
+    public java.lang.String GetImage()
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack1, $stack2, $stack5, $stack6, $stack7, $stack8, $stack12, $stack13, $stack18, $stack19, $stack20, $stack21, $stack22;
+        java.lang.StringBuilder $stack3, $stack10, $stack15;
+        java.lang.String $stack4, $stack11, $stack16, $stack17;
+        char[] $stack9, $stack14, $stack23;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        $stack2 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack1 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        if $stack2 < $stack1 goto label1;
+
+        $stack17 = new java.lang.String;
+
+        $stack23 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack22 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack19 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack18 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack20 = $stack19 - $stack18;
+
+        $stack21 = $stack20 + 1;
+
+        specialinvoke $stack17.<java.lang.String: void <init>(char[],int,int)>($stack23, $stack22, $stack21);
+
+        return $stack17;
+
+     label1:
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = new java.lang.String;
+
+        $stack9 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack8 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack6 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack5 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack7 = $stack6 - $stack5;
+
+        specialinvoke $stack4.<java.lang.String: void <init>(char[],int,int)>($stack9, $stack8, $stack7);
+
+        $stack10 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack4);
+
+        $stack11 = new java.lang.String;
+
+        $stack14 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack12 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack13 = $stack12 + 1;
+
+        specialinvoke $stack11.<java.lang.String: void <init>(char[],int,int)>($stack14, 0, $stack13);
+
+        $stack15 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack11);
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack16;
+    }
+
+    public char[] GetSuffix(int)
+    {
+        int len, $stack3, $stack4, $stack5, $stack6, $stack7, $stack8, $stack9, $stack10, $stack11, $stack12, $stack14, $stack15, $stack16, $stack17, $stack18, $stack20, $stack21, $stack22;
+        char[] 'ret', $stack13, $stack19, $stack23;
+        org.dacapo.parser.SimpleCharStream this;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        len := @parameter0: int;
+
+        'ret' = newarray (char)[len];
+
+        $stack3 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack4 = $stack3 + 1;
+
+        if $stack4 < len goto label1;
+
+        $stack23 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack20 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack21 = $stack20 - len;
+
+        $stack22 = $stack21 + 1;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack23, $stack22, 'ret', 0, len);
+
+        goto label2;
+
+     label1:
+        $stack13 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack8 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack5 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack6 = len - $stack5;
+
+        $stack7 = $stack6 - 1;
+
+        $stack12 = $stack8 - $stack7;
+
+        $stack9 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack10 = len - $stack9;
+
+        $stack11 = $stack10 - 1;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack13, $stack12, 'ret', 0, $stack11);
+
+        $stack19 = this.<org.dacapo.parser.SimpleCharStream: char[] buffer>;
+
+        $stack14 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack15 = len - $stack14;
+
+        $stack18 = $stack15 - 1;
+
+        $stack16 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack17 = $stack16 + 1;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack19, 0, 'ret', $stack18, $stack17);
+
+     label2:
+        return 'ret';
+    }
+
+    public void Done()
+    {
+        org.dacapo.parser.SimpleCharStream this;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        this.<org.dacapo.parser.SimpleCharStream: char[] buffer> = null;
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufline> = null;
+
+        this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn> = null;
+
+        return;
+    }
+
+    public void adjustBeginLineColumn(int, int)
+    {
+        org.dacapo.parser.SimpleCharStream this;
+        int $stack10, $stack11, $stack12, $stack13, $stack14, $stack15, $stack16, $stack17, $stack18, $stack20, $stack22, newCol, $stack25, $stack34, $stack35, $stack37, $stack38, $stack40, $stack41, $stack44, $stack46, $stack47, $stack49, $stack50, $stack52, $stack53, $stack58, $stack60, $stack61, $stack62, $stack66, $stack67, $stack68, $stack69, $stack70, newLine#1, start#2, len#3, i#4, j#5, columnDiff#8, nextColDiff#14, newLine#15, $stack27#17;
+        int[] $stack19, $stack21, $stack24, $stack26, $stack36, $stack39, $stack42, $stack45, $stack48, $stack51, $stack56, $stack57, $stack59, $stack63;
+
+        this := @this: org.dacapo.parser.SimpleCharStream;
+
+        newLine#1 := @parameter0: int;
+
+        newCol := @parameter1: int;
+
+        start#2 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack11 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack10 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        if $stack11 < $stack10 goto label1;
+
+        $stack67 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack66 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack69 = $stack67 - $stack66;
+
+        $stack68 = this.<org.dacapo.parser.SimpleCharStream: int inBuf>;
+
+        $stack70 = $stack69 + $stack68;
+
+        len#3 = $stack70 + 1;
+
+        goto label2;
+
+     label1:
+        $stack13 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack12 = this.<org.dacapo.parser.SimpleCharStream: int tokenBegin>;
+
+        $stack15 = $stack13 - $stack12;
+
+        $stack14 = this.<org.dacapo.parser.SimpleCharStream: int bufpos>;
+
+        $stack16 = $stack15 + $stack14;
+
+        $stack18 = $stack16 + 1;
+
+        $stack17 = this.<org.dacapo.parser.SimpleCharStream: int inBuf>;
+
+        len#3 = $stack18 + $stack17;
+
+     label2:
+        i#4 = 0;
+
+        j#5 = 0;
+
+        columnDiff#8 = 0;
+
+     label3:
+        if i#4 >= len#3 goto label4;
+
+        $stack48 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack46 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack47 = start#2 % $stack46;
+
+        j#5 = $stack47;
+
+        $stack53 = $stack48[$stack47];
+
+        $stack51 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        start#2 = start#2 + 1;
+
+        $stack49 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack50 = start#2 % $stack49;
+
+        $stack52 = $stack51[$stack50];
+
+        if $stack53 != $stack52 goto label4;
+
+        $stack56 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack56[$stack47] = newLine#1;
+
+        $stack57 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack58 = $stack57[$stack50];
+
+        $stack61 = columnDiff#8 + $stack58;
+
+        $stack59 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack60 = $stack59[$stack47];
+
+        nextColDiff#14 = $stack61 - $stack60;
+
+        $stack63 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack62 = newCol + columnDiff#8;
+
+        $stack63[$stack47] = $stack62;
+
+        columnDiff#8 = nextColDiff#14;
+
+        i#4 = i#4 + 1;
+
+        goto label3;
+
+     label4:
+        if i#4 >= len#3 goto label7;
+
+        $stack24 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        newLine#15 = newLine#1 + 1;
+
+        $stack24[j#5] = newLine#1;
+
+        $stack26 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack25 = newCol + columnDiff#8;
+
+        $stack26[j#5] = $stack25;
+
+     label5:
+        $stack27#17 = i#4;
+
+        i#4 = i#4 + 1;
+
+        if $stack27#17 >= len#3 goto label7;
+
+        $stack36 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack34 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack35 = start#2 % $stack34;
+
+        j#5 = $stack35;
+
+        $stack41 = $stack36[$stack35];
+
+        $stack39 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        start#2 = start#2 + 1;
+
+        $stack37 = this.<org.dacapo.parser.SimpleCharStream: int bufsize>;
+
+        $stack38 = start#2 % $stack37;
+
+        $stack40 = $stack39[$stack38];
+
+        if $stack41 == $stack40 goto label6;
+
+        $stack45 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack44 = newLine#15;
+
+        newLine#15 = newLine#15 + 1;
+
+        $stack45[$stack35] = $stack44;
+
+        goto label5;
+
+     label6:
+        $stack42 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack42[$stack35] = newLine#15;
+
+        goto label5;
+
+     label7:
+        $stack19 = this.<org.dacapo.parser.SimpleCharStream: int[] bufline>;
+
+        $stack20 = $stack19[j#5];
+
+        this.<org.dacapo.parser.SimpleCharStream: int line> = $stack20;
+
+        $stack21 = this.<org.dacapo.parser.SimpleCharStream: int[] bufcolumn>;
+
+        $stack22 = $stack21[j#5];
+
+        this.<org.dacapo.parser.SimpleCharStream: int column> = $stack22;
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <org.dacapo.parser.SimpleCharStream: boolean staticFlag> = 0;
+
+        return;
+    }
+}

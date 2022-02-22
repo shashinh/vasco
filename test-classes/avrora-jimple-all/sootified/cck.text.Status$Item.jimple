@@ -1,0 +1,26 @@
+class cck.text.Status$Item extends java.lang.Object
+{
+    java.lang.String title;
+    long starttime;
+
+    void <init>(java.lang.String)
+    {
+        cck.text.Status$Item this;
+        java.lang.String t;
+        long $stack2;
+
+        this := @this: cck.text.Status$Item;
+
+        t := @parameter0: java.lang.String;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<cck.text.Status$Item: java.lang.String title> = t;
+
+        $stack2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        this.<cck.text.Status$Item: long starttime> = $stack2;
+
+        return;
+    }
+}

@@ -1,0 +1,345 @@
+public class avrora.sim.mcu.DefaultMCU$Pin extends java.lang.Object implements avrora.sim.mcu.Microcontroller$Pin
+{
+    protected final int number;
+    boolean level;
+    boolean outputDir;
+    boolean pullup;
+    avrora.sim.mcu.Microcontroller$Pin$Input input;
+    avrora.sim.mcu.Microcontroller$Pin$Output output;
+    final avrora.sim.mcu.DefaultMCU this$0;
+
+    protected void <init>(avrora.sim.mcu.DefaultMCU, int)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        avrora.sim.mcu.DefaultMCU this$0;
+        int num;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        this$0 := @parameter0: avrora.sim.mcu.DefaultMCU;
+
+        num := @parameter1: int;
+
+        this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.DefaultMCU$Pin: int number> = num;
+
+        return;
+    }
+
+    public void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        avrora.sim.mcu.Microcontroller$Pin$Output o;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        o := @parameter0: avrora.sim.mcu.Microcontroller$Pin$Output;
+
+        this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.Microcontroller$Pin$Output output> = o;
+
+        return;
+    }
+
+    public void connectInput(avrora.sim.mcu.Microcontroller$Pin$Input)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        avrora.sim.mcu.Microcontroller$Pin$Input i;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        i := @parameter0: avrora.sim.mcu.Microcontroller$Pin$Input;
+
+        this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.Microcontroller$Pin$Input input> = i;
+
+        return;
+    }
+
+    protected void setOutputDir(boolean)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        boolean out, $stack2;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        out := @parameter0: boolean;
+
+        this.<avrora.sim.mcu.DefaultMCU$Pin: boolean outputDir> = out;
+
+        if out == 0 goto label1;
+
+        $stack2 = this.<avrora.sim.mcu.DefaultMCU$Pin: boolean level>;
+
+        virtualinvoke this.<avrora.sim.mcu.DefaultMCU$Pin: void write(boolean)>($stack2);
+
+     label1:
+        return;
+    }
+
+    protected void setPullup(boolean)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        boolean pull;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        pull := @parameter0: boolean;
+
+        this.<avrora.sim.mcu.DefaultMCU$Pin: boolean pullup> = pull;
+
+        return;
+    }
+
+    protected boolean read()
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        boolean $stack2, result#1;
+        avrora.sim.mcu.Microcontroller$Pin$Input $stack3, $stack7;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        $stack2 = this.<avrora.sim.mcu.DefaultMCU$Pin: boolean outputDir>;
+
+        if $stack2 != 0 goto label2;
+
+        $stack3 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.Microcontroller$Pin$Input input>;
+
+        if $stack3 == null goto label1;
+
+        $stack7 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.Microcontroller$Pin$Input input>;
+
+        result#1 = interfaceinvoke $stack7.<avrora.sim.mcu.Microcontroller$Pin$Input: boolean read()>();
+
+        goto label3;
+
+     label1:
+        result#1 = this.<avrora.sim.mcu.DefaultMCU$Pin: boolean pullup>;
+
+        goto label3;
+
+     label2:
+        result#1 = this.<avrora.sim.mcu.DefaultMCU$Pin: boolean level>;
+
+     label3:
+        specialinvoke this.<avrora.sim.mcu.DefaultMCU$Pin: void printRead(boolean)>(result#1);
+
+        return result#1;
+    }
+
+    private void printRead(boolean)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        avrora.sim.mcu.DefaultMCU $stack3, $stack5, $stack8, $stack19, $stack21;
+        avrora.sim.output.SimPrinter $stack4, $stack6, $stack10, $stack22;
+        java.lang.String dir, $stack18;
+        java.lang.StringBuilder $stack9, $stack11, $stack13, $stack14, $stack15, $stack16, $stack17;
+        int $stack12;
+        boolean result;
+        avrora.sim.Simulator $stack20;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        result := @parameter0: boolean;
+
+        $stack3 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.DefaultMCU: avrora.sim.output.SimPrinter pinPrinter>;
+
+        if $stack4 != null goto label1;
+
+        $stack21 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack19 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack20 = $stack19.<avrora.sim.mcu.DefaultMCU: avrora.sim.Simulator simulator>;
+
+        $stack22 = virtualinvoke $stack20.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter(java.lang.String)>("mcu.pin");
+
+        $stack21.<avrora.sim.mcu.DefaultMCU: avrora.sim.output.SimPrinter pinPrinter> = $stack22;
+
+     label1:
+        $stack5 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack6 = $stack5.<avrora.sim.mcu.DefaultMCU: avrora.sim.output.SimPrinter pinPrinter>;
+
+        if $stack6 == null goto label2;
+
+        dir = specialinvoke this.<avrora.sim.mcu.DefaultMCU$Pin: java.lang.String getDirection()>();
+
+        $stack8 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack10 = $stack8.<avrora.sim.mcu.DefaultMCU: avrora.sim.output.SimPrinter pinPrinter>;
+
+        $stack9 = new java.lang.StringBuilder;
+
+        specialinvoke $stack9.<java.lang.StringBuilder: void <init>()>();
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("READ PIN: ");
+
+        $stack12 = this.<avrora.sim.mcu.DefaultMCU$Pin: int number>;
+
+        $stack13 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(dir);
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<- ");
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>(result);
+
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack10.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack18);
+
+     label2:
+        return;
+    }
+
+    private java.lang.String getDirection()
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        boolean $stack1, $stack5;
+        avrora.sim.mcu.Microcontroller$Pin$Input $stack2;
+        java.lang.StringBuilder $stack3, $stack4, $stack6, $stack7;
+        java.lang.String $stack8;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        $stack1 = this.<avrora.sim.mcu.DefaultMCU$Pin: boolean outputDir>;
+
+        if $stack1 != 0 goto label2;
+
+        $stack2 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.Microcontroller$Pin$Input input>;
+
+        if $stack2 == null goto label1;
+
+        return "[input] ";
+
+     label1:
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[pullup:");
+
+        $stack5 = this.<avrora.sim.mcu.DefaultMCU$Pin: boolean pullup>;
+
+        $stack6 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($stack5);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] ");
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack8;
+
+     label2:
+        return "[output] ";
+    }
+
+    protected void write(boolean)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        boolean value, $stack2;
+        avrora.sim.mcu.Microcontroller$Pin$Output $stack3, $stack4;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        value := @parameter0: boolean;
+
+        this.<avrora.sim.mcu.DefaultMCU$Pin: boolean level> = value;
+
+        specialinvoke this.<avrora.sim.mcu.DefaultMCU$Pin: void printWrite(boolean)>(value);
+
+        $stack2 = this.<avrora.sim.mcu.DefaultMCU$Pin: boolean outputDir>;
+
+        if $stack2 == 0 goto label1;
+
+        $stack3 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.Microcontroller$Pin$Output output>;
+
+        if $stack3 == null goto label1;
+
+        $stack4 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.Microcontroller$Pin$Output output>;
+
+        interfaceinvoke $stack4.<avrora.sim.mcu.Microcontroller$Pin$Output: void write(boolean)>(value);
+
+     label1:
+        return;
+    }
+
+    private void printWrite(boolean)
+    {
+        avrora.sim.mcu.DefaultMCU$Pin this;
+        avrora.sim.mcu.DefaultMCU $stack3, $stack5, $stack8, $stack19, $stack21, $stack23;
+        boolean $stack4, value;
+        avrora.sim.output.SimPrinter $stack6, $stack10, $stack22;
+        java.lang.String dir, $stack18;
+        java.lang.StringBuilder $stack9, $stack11, $stack13, $stack14, $stack15, $stack16, $stack17;
+        int $stack12;
+        avrora.sim.Simulator $stack20;
+
+        this := @this: avrora.sim.mcu.DefaultMCU$Pin;
+
+        value := @parameter0: boolean;
+
+        $stack3 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack4 = staticinvoke <avrora.sim.mcu.DefaultMCU: boolean access$000(avrora.sim.mcu.DefaultMCU)>($stack3);
+
+        if $stack4 == 0 goto label1;
+
+        $stack21 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack19 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack20 = $stack19.<avrora.sim.mcu.DefaultMCU: avrora.sim.Simulator simulator>;
+
+        $stack22 = virtualinvoke $stack20.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter(java.lang.String)>("mcu.pin");
+
+        $stack21.<avrora.sim.mcu.DefaultMCU: avrora.sim.output.SimPrinter pinPrinter> = $stack22;
+
+        $stack23 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        staticinvoke <avrora.sim.mcu.DefaultMCU: boolean access$002(avrora.sim.mcu.DefaultMCU,boolean)>($stack23, 1);
+
+     label1:
+        $stack5 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack6 = $stack5.<avrora.sim.mcu.DefaultMCU: avrora.sim.output.SimPrinter pinPrinter>;
+
+        if $stack6 == null goto label2;
+
+        dir = specialinvoke this.<avrora.sim.mcu.DefaultMCU$Pin: java.lang.String getDirection()>();
+
+        $stack8 = this.<avrora.sim.mcu.DefaultMCU$Pin: avrora.sim.mcu.DefaultMCU this$0>;
+
+        $stack10 = $stack8.<avrora.sim.mcu.DefaultMCU: avrora.sim.output.SimPrinter pinPrinter>;
+
+        $stack9 = new java.lang.StringBuilder;
+
+        specialinvoke $stack9.<java.lang.StringBuilder: void <init>()>();
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("WRITE PIN: ");
+
+        $stack12 = this.<avrora.sim.mcu.DefaultMCU$Pin: int number>;
+
+        $stack13 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(dir);
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("-> ");
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>(value);
+
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack10.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack18);
+
+     label2:
+        return;
+    }
+}

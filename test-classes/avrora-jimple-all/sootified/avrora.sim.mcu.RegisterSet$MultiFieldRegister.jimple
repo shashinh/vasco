@@ -1,0 +1,76 @@
+public class avrora.sim.mcu.RegisterSet$MultiFieldRegister extends java.lang.Object implements avrora.sim.ActiveRegister
+{
+    byte value;
+    final avrora.sim.mcu.RegisterSet$SubRegWriter[] subFields;
+    final avrora.sim.mcu.RegisterSet this$0;
+
+    void <init>(avrora.sim.mcu.RegisterSet, avrora.sim.mcu.RegisterSet$SubRegWriter[])
+    {
+        avrora.sim.mcu.RegisterSet$MultiFieldRegister this;
+        avrora.sim.mcu.RegisterSet this$0;
+        avrora.sim.mcu.RegisterSet$SubRegWriter[] srw;
+
+        this := @this: avrora.sim.mcu.RegisterSet$MultiFieldRegister;
+
+        this$0 := @parameter0: avrora.sim.mcu.RegisterSet;
+
+        srw := @parameter1: avrora.sim.mcu.RegisterSet$SubRegWriter[];
+
+        this.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: avrora.sim.mcu.RegisterSet this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: avrora.sim.mcu.RegisterSet$SubRegWriter[] subFields> = srw;
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.RegisterSet$MultiFieldRegister this;
+        byte $stack1;
+
+        this := @this: avrora.sim.mcu.RegisterSet$MultiFieldRegister;
+
+        $stack1 = this.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: byte value>;
+
+        return $stack1;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.RegisterSet$MultiFieldRegister this;
+        byte nval;
+        avrora.sim.mcu.RegisterSet$SubRegWriter[] $stack4, $stack6;
+        int $stack5, cntr#1;
+        avrora.sim.mcu.RegisterSet$SubRegWriter sf;
+
+        this := @this: avrora.sim.mcu.RegisterSet$MultiFieldRegister;
+
+        nval := @parameter0: byte;
+
+        this.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: byte value> = nval;
+
+        cntr#1 = 0;
+
+     label1:
+        $stack4 = this.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: avrora.sim.mcu.RegisterSet$SubRegWriter[] subFields>;
+
+        $stack5 = lengthof $stack4;
+
+        if cntr#1 >= $stack5 goto label2;
+
+        $stack6 = this.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: avrora.sim.mcu.RegisterSet$SubRegWriter[] subFields>;
+
+        sf = $stack6[cntr#1];
+
+        virtualinvoke sf.<avrora.sim.mcu.RegisterSet$SubRegWriter: void write(byte)>(nval);
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}

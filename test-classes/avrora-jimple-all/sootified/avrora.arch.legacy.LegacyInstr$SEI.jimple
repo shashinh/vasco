@@ -1,0 +1,72 @@
+public class avrora.arch.legacy.LegacyInstr$SEI extends avrora.arch.legacy.LegacyInstr$NONE_class
+{
+    static final avrora.arch.legacy.LegacyInstrProperties props;
+    static final avrora.arch.legacy.LegacyInstrProto prototype;
+
+    avrora.arch.legacy.LegacyInstr allocate(int)
+    {
+        avrora.arch.legacy.LegacyInstr$SEI $stack2, this;
+        int pc;
+
+        this := @this: avrora.arch.legacy.LegacyInstr$SEI;
+
+        pc := @parameter0: int;
+
+        $stack2 = new avrora.arch.legacy.LegacyInstr$SEI;
+
+        specialinvoke $stack2.<avrora.arch.legacy.LegacyInstr$SEI: void <init>(int)>(pc);
+
+        return $stack2;
+    }
+
+    public void <init>(int)
+    {
+        avrora.arch.legacy.LegacyInstr$SEI this;
+        avrora.arch.legacy.LegacyInstrProperties $stack2;
+        int pc;
+
+        this := @this: avrora.arch.legacy.LegacyInstr$SEI;
+
+        pc := @parameter0: int;
+
+        $stack2 = <avrora.arch.legacy.LegacyInstr$SEI: avrora.arch.legacy.LegacyInstrProperties props>;
+
+        specialinvoke this.<avrora.arch.legacy.LegacyInstr$NONE_class: void <init>(avrora.arch.legacy.LegacyInstrProperties)>($stack2);
+
+        return;
+    }
+
+    public void accept(avrora.arch.legacy.LegacyInstrVisitor)
+    {
+        avrora.arch.legacy.LegacyInstrVisitor v;
+        avrora.arch.legacy.LegacyInstr$SEI this;
+
+        this := @this: avrora.arch.legacy.LegacyInstr$SEI;
+
+        v := @parameter0: avrora.arch.legacy.LegacyInstrVisitor;
+
+        interfaceinvoke v.<avrora.arch.legacy.LegacyInstrVisitor: void visit(avrora.arch.legacy.LegacyInstr$SEI)>(this);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        avrora.arch.legacy.LegacyInstrProperties $stack0;
+        avrora.arch.legacy.LegacyInstr$SEI $stack1;
+
+        $stack0 = new avrora.arch.legacy.LegacyInstrProperties;
+
+        specialinvoke $stack0.<avrora.arch.legacy.LegacyInstrProperties: void <init>(java.lang.String,java.lang.String,int,int)>("sei", "sei", 2, 1);
+
+        <avrora.arch.legacy.LegacyInstr$SEI: avrora.arch.legacy.LegacyInstrProperties props> = $stack0;
+
+        $stack1 = new avrora.arch.legacy.LegacyInstr$SEI;
+
+        specialinvoke $stack1.<avrora.arch.legacy.LegacyInstr$SEI: void <init>(int)>(0);
+
+        <avrora.arch.legacy.LegacyInstr$SEI: avrora.arch.legacy.LegacyInstrProto prototype> = $stack1;
+
+        return;
+    }
+}

@@ -1,0 +1,185 @@
+public class cck.text.Verbose$Printer extends cck.text.Printer
+{
+    public boolean enabled;
+
+    void <init>()
+    {
+        cck.text.Verbose$Printer this;
+        java.io.PrintStream $stack1;
+        boolean $stack2;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        $stack1 = <java.lang.System: java.io.PrintStream out>;
+
+        specialinvoke this.<cck.text.Printer: void <init>(java.io.PrintStream)>($stack1);
+
+        $stack2 = <cck.text.Verbose: boolean ALL>;
+
+        this.<cck.text.Verbose$Printer: boolean enabled> = $stack2;
+
+        return;
+    }
+
+    public void println(java.lang.String)
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack2;
+        java.lang.String s;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        s := @parameter0: java.lang.String;
+
+        $stack2 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack2 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void println(java.lang.String)>(s);
+
+     label1:
+        return;
+    }
+
+    public void print(java.lang.String)
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack2;
+        java.lang.String s;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        s := @parameter0: java.lang.String;
+
+        $stack2 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack2 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void print(java.lang.String)>(s);
+
+     label1:
+        return;
+    }
+
+    public void nextln()
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack1;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        $stack1 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void nextln()>();
+
+     label1:
+        return;
+    }
+
+    public void indent()
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack1;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        $stack1 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void indent()>();
+
+     label1:
+        return;
+    }
+
+    public void spaces()
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack1;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        $stack1 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void spaces()>();
+
+     label1:
+        return;
+    }
+
+    public void unindent()
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack1;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        $stack1 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void unindent()>();
+
+     label1:
+        return;
+    }
+
+    public void startblock()
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack1;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        $stack1 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void startblock()>();
+
+     label1:
+        return;
+    }
+
+    public void startblock(java.lang.String)
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack2;
+        java.lang.String name;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        name := @parameter0: java.lang.String;
+
+        $stack2 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack2 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void startblock(java.lang.String)>(name);
+
+     label1:
+        return;
+    }
+
+    public void endblock()
+    {
+        cck.text.Verbose$Printer this;
+        boolean $stack1;
+
+        this := @this: cck.text.Verbose$Printer;
+
+        $stack1 = this.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke this.<cck.text.Printer: void endblock()>();
+
+     label1:
+        return;
+    }
+}

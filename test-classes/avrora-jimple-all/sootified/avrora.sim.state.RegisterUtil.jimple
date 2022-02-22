@@ -1,0 +1,167 @@
+public class avrora.sim.state.RegisterUtil extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        avrora.sim.state.RegisterUtil this;
+
+        this := @this: avrora.sim.state.RegisterUtil;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView, int)
+    {
+        avrora.sim.state.RegisterUtil$BoolView $stack2;
+        avrora.sim.state.RegisterView sup;
+        int low;
+        byte $stack3;
+
+        sup := @parameter0: avrora.sim.state.RegisterView;
+
+        low := @parameter1: int;
+
+        $stack2 = new avrora.sim.state.RegisterUtil$BoolView;
+
+        $stack3 = (byte) low;
+
+        specialinvoke $stack2.<avrora.sim.state.RegisterUtil$BoolView: void <init>(avrora.sim.state.RegisterView,byte)>(sup, $stack3);
+
+        return $stack2;
+    }
+
+    public static avrora.sim.state.RegisterView bitView(avrora.sim.state.RegisterView, int)
+    {
+        avrora.sim.state.RegisterUtil$BitRangeView $stack2;
+        avrora.sim.state.RegisterView sup;
+        int low;
+        byte $stack3, $stack4;
+
+        sup := @parameter0: avrora.sim.state.RegisterView;
+
+        low := @parameter1: int;
+
+        $stack2 = new avrora.sim.state.RegisterUtil$BitRangeView;
+
+        $stack4 = (byte) low;
+
+        $stack3 = (byte) low;
+
+        specialinvoke $stack2.<avrora.sim.state.RegisterUtil$BitRangeView: void <init>(avrora.sim.state.RegisterView,byte,byte)>(sup, $stack4, $stack3);
+
+        return $stack2;
+    }
+
+    public static avrora.sim.state.RegisterView bitRangeView(avrora.sim.state.RegisterView, int, int)
+    {
+        avrora.sim.state.RegisterUtil$BitRangeView $stack3;
+        avrora.sim.state.RegisterView sup;
+        int low, high;
+        byte $stack4, $stack5;
+
+        sup := @parameter0: avrora.sim.state.RegisterView;
+
+        low := @parameter1: int;
+
+        high := @parameter2: int;
+
+        $stack3 = new avrora.sim.state.RegisterUtil$BitRangeView;
+
+        $stack5 = (byte) low;
+
+        $stack4 = (byte) high;
+
+        specialinvoke $stack3.<avrora.sim.state.RegisterUtil$BitRangeView: void <init>(avrora.sim.state.RegisterView,byte,byte)>(sup, $stack5, $stack4);
+
+        return $stack3;
+    }
+
+    public static avrora.sim.state.RegisterView permutedView(avrora.sim.state.RegisterView, byte[])
+    {
+        avrora.sim.state.RegisterUtil$PermutedView $stack2;
+        avrora.sim.state.RegisterView sup;
+        byte[] perm;
+
+        sup := @parameter0: avrora.sim.state.RegisterView;
+
+        perm := @parameter1: byte[];
+
+        $stack2 = new avrora.sim.state.RegisterUtil$PermutedView;
+
+        specialinvoke $stack2.<avrora.sim.state.RegisterUtil$PermutedView: void <init>(avrora.sim.state.RegisterView,byte[])>(sup, perm);
+
+        return $stack2;
+    }
+
+    public static avrora.sim.state.RegisterView stackedView(avrora.sim.state.RegisterView, avrora.sim.state.RegisterView)
+    {
+        avrora.sim.state.RegisterView[] $stack3;
+        avrora.sim.state.RegisterView a, b, $r0;
+        avrora.sim.state.RegisterUtil$StackedView $u0;
+
+        a := @parameter0: avrora.sim.state.RegisterView;
+
+        b := @parameter1: avrora.sim.state.RegisterView;
+
+        $u0 = new avrora.sim.state.RegisterUtil$StackedView;
+
+        $stack3 = newarray (avrora.sim.state.RegisterView)[2];
+
+        $stack3[0] = a;
+
+        $stack3[1] = b;
+
+        specialinvoke $u0.<avrora.sim.state.RegisterUtil$StackedView: void <init>(avrora.sim.state.RegisterView[])>($stack3);
+
+        $r0 = (avrora.sim.state.RegisterView) $u0;
+
+        return $r0;
+    }
+
+    public static avrora.sim.state.RegisterView stackedView(avrora.sim.state.RegisterView[])
+    {
+        avrora.sim.state.RegisterView[] a;
+        avrora.sim.state.RegisterUtil$StackedView $u0;
+        avrora.sim.state.RegisterView $r0;
+
+        a := @parameter0: avrora.sim.state.RegisterView[];
+
+        $u0 = new avrora.sim.state.RegisterUtil$StackedView;
+
+        specialinvoke $u0.<avrora.sim.state.RegisterUtil$StackedView: void <init>(avrora.sim.state.RegisterView[])>(a);
+
+        $r0 = (avrora.sim.state.RegisterView) $u0;
+
+        return $r0;
+    }
+
+    public static void instrumentRegister(avrora.sim.output.SimPrinter, avrora.sim.state.Register, java.lang.String)
+    {
+        avrora.sim.output.SimPrinter sp;
+        avrora.sim.state.Register reg;
+        java.lang.String name;
+        avrora.sim.state.RegisterUtil$RegisterPrinter $u0;
+        avrora.sim.state.Register$Watch $r0;
+
+        sp := @parameter0: avrora.sim.output.SimPrinter;
+
+        reg := @parameter1: avrora.sim.state.Register;
+
+        name := @parameter2: java.lang.String;
+
+        if sp == null goto label1;
+
+        $u0 = new avrora.sim.state.RegisterUtil$RegisterPrinter;
+
+        specialinvoke $u0.<avrora.sim.state.RegisterUtil$RegisterPrinter: void <init>(avrora.sim.output.SimPrinter,java.lang.String)>(sp, name);
+
+        $r0 = (avrora.sim.state.Register$Watch) $u0;
+
+        virtualinvoke reg.<avrora.sim.state.Register: void addWatch(avrora.sim.state.Register$Watch)>($r0);
+
+     label1:
+        return;
+    }
+}

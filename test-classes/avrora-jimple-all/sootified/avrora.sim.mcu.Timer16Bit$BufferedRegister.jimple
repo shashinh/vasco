@@ -1,0 +1,105 @@
+public class avrora.sim.mcu.Timer16Bit$BufferedRegister extends avrora.sim.RWRegister
+{
+    final avrora.sim.RWRegister register;
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    protected void <init>(avrora.sim.mcu.Timer16Bit)
+    {
+        avrora.sim.mcu.Timer16Bit$BufferedRegister this;
+        avrora.sim.mcu.Timer16Bit this$0;
+        avrora.sim.RWRegister $stack2;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$BufferedRegister;
+
+        this$0 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        this.<avrora.sim.mcu.Timer16Bit$BufferedRegister: avrora.sim.mcu.Timer16Bit this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        $stack2 = new avrora.sim.RWRegister;
+
+        specialinvoke $stack2.<avrora.sim.RWRegister: void <init>()>();
+
+        this.<avrora.sim.mcu.Timer16Bit$BufferedRegister: avrora.sim.RWRegister register> = $stack2;
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.Timer16Bit$BufferedRegister this;
+        byte val;
+        avrora.sim.mcu.Timer16Bit $stack3;
+        avrora.sim.mcu.RegisterSet$Field $stack4;
+        int mode;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$BufferedRegister;
+
+        val := @parameter0: byte;
+
+        specialinvoke this.<avrora.sim.RWRegister: void write(byte)>(val);
+
+        $stack3 = this.<avrora.sim.mcu.Timer16Bit$BufferedRegister: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.Timer16Bit: avrora.sim.mcu.RegisterSet$Field WGMn>;
+
+        mode = $stack4.<avrora.sim.mcu.RegisterSet$Field: int value>;
+
+        if mode == 0 goto label1;
+
+        if mode == 4 goto label1;
+
+        if mode != 12 goto label2;
+
+     label1:
+        virtualinvoke this.<avrora.sim.mcu.Timer16Bit$BufferedRegister: void flush()>();
+
+     label2:
+        return;
+    }
+
+    public byte readBuffer()
+    {
+        avrora.sim.mcu.Timer16Bit$BufferedRegister this;
+        byte $stack1;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$BufferedRegister;
+
+        $stack1 = specialinvoke this.<avrora.sim.RWRegister: byte read()>();
+
+        return $stack1;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.Timer16Bit$BufferedRegister this;
+        avrora.sim.RWRegister $stack1;
+        byte $stack2;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$BufferedRegister;
+
+        $stack1 = this.<avrora.sim.mcu.Timer16Bit$BufferedRegister: avrora.sim.RWRegister register>;
+
+        $stack2 = virtualinvoke $stack1.<avrora.sim.RWRegister: byte read()>();
+
+        return $stack2;
+    }
+
+    protected void flush()
+    {
+        avrora.sim.mcu.Timer16Bit$BufferedRegister this;
+        byte $stack1;
+        avrora.sim.RWRegister $stack2;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$BufferedRegister;
+
+        $stack2 = this.<avrora.sim.mcu.Timer16Bit$BufferedRegister: avrora.sim.RWRegister register>;
+
+        $stack1 = this.<avrora.sim.mcu.Timer16Bit$BufferedRegister: byte value>;
+
+        virtualinvoke $stack2.<avrora.sim.RWRegister: void write(byte)>($stack1);
+
+        return;
+    }
+}

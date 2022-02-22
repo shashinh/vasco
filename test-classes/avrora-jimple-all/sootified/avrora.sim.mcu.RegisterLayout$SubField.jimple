@@ -1,0 +1,31 @@
+public class avrora.sim.mcu.RegisterLayout$SubField extends java.lang.Object
+{
+    final avrora.sim.mcu.RegisterLayout$Field field;
+    final int ior;
+    int length;
+    int ior_low_bit;
+    int field_low_bit;
+    int mask;
+    boolean commit;
+
+    void <init>(avrora.sim.mcu.RegisterLayout$Field, int)
+    {
+        avrora.sim.mcu.RegisterLayout$SubField this;
+        avrora.sim.mcu.RegisterLayout$Field f;
+        int ior;
+
+        this := @this: avrora.sim.mcu.RegisterLayout$SubField;
+
+        f := @parameter0: avrora.sim.mcu.RegisterLayout$Field;
+
+        ior := @parameter1: int;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.RegisterLayout$SubField: avrora.sim.mcu.RegisterLayout$Field field> = f;
+
+        this.<avrora.sim.mcu.RegisterLayout$SubField: int ior> = ior;
+
+        return;
+    }
+}

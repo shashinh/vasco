@@ -1,0 +1,347 @@
+public class cck.text.CharUtil extends java.lang.Object
+{
+    public static final char[] HEX_CHARS;
+    public static final char[] LOW_HEX_CHARS;
+
+    public void <init>()
+    {
+        cck.text.CharUtil this;
+
+        this := @this: cck.text.CharUtil;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static boolean isHexDigit(char)
+    {
+        char c;
+
+        c := @parameter0: char;
+
+        tableswitch(c)
+        {
+            case 48: goto label1;
+            case 49: goto label1;
+            case 50: goto label1;
+            case 51: goto label1;
+            case 52: goto label1;
+            case 53: goto label1;
+            case 54: goto label1;
+            case 55: goto label1;
+            case 56: goto label1;
+            case 57: goto label1;
+            case 58: goto label2;
+            case 59: goto label2;
+            case 60: goto label2;
+            case 61: goto label2;
+            case 62: goto label2;
+            case 63: goto label2;
+            case 64: goto label2;
+            case 65: goto label1;
+            case 66: goto label1;
+            case 67: goto label1;
+            case 68: goto label1;
+            case 69: goto label1;
+            case 70: goto label1;
+            case 71: goto label2;
+            case 72: goto label2;
+            case 73: goto label2;
+            case 74: goto label2;
+            case 75: goto label2;
+            case 76: goto label2;
+            case 77: goto label2;
+            case 78: goto label2;
+            case 79: goto label2;
+            case 80: goto label2;
+            case 81: goto label2;
+            case 82: goto label2;
+            case 83: goto label2;
+            case 84: goto label2;
+            case 85: goto label2;
+            case 86: goto label2;
+            case 87: goto label2;
+            case 88: goto label2;
+            case 89: goto label2;
+            case 90: goto label2;
+            case 91: goto label2;
+            case 92: goto label2;
+            case 93: goto label2;
+            case 94: goto label2;
+            case 95: goto label2;
+            case 96: goto label2;
+            case 97: goto label1;
+            case 98: goto label1;
+            case 99: goto label1;
+            case 100: goto label1;
+            case 101: goto label1;
+            case 102: goto label1;
+            default: goto label2;
+        };
+
+     label1:
+        return 1;
+
+     label2:
+        return 0;
+    }
+
+    public static char toUpperHexChar(int)
+    {
+        int digitValue, $stack1, $stack2, $stack4;
+        char $stack3, $stack5;
+
+        digitValue := @parameter0: int;
+
+        if digitValue >= 10 goto label1;
+
+        $stack4 = digitValue | 48;
+
+        $stack5 = (char) $stack4;
+
+        return $stack5;
+
+     label1:
+        $stack1 = 65 + digitValue;
+
+        $stack2 = $stack1 - 10;
+
+        $stack3 = (char) $stack2;
+
+        return $stack3;
+    }
+
+    public static char toLowerHexChar(int)
+    {
+        int digitValue, $stack1, $stack2, $stack4;
+        char $stack3, $stack5;
+
+        digitValue := @parameter0: int;
+
+        if digitValue >= 10 goto label1;
+
+        $stack4 = digitValue | 48;
+
+        $stack5 = (char) $stack4;
+
+        return $stack5;
+
+     label1:
+        $stack1 = 97 + digitValue;
+
+        $stack2 = $stack1 - 10;
+
+        $stack3 = (char) $stack2;
+
+        return $stack3;
+    }
+
+    public static int hexValueOf(char)
+    {
+        char c;
+        int $stack1;
+
+        c := @parameter0: char;
+
+        $stack1 = staticinvoke <java.lang.Character: int digit(char,int)>(c, 16);
+
+        return $stack1;
+    }
+
+    public static boolean isDecDigit(char)
+    {
+        char c;
+        boolean $stack1#1;
+
+        c := @parameter0: char;
+
+        if c >= 48 goto label1;
+
+        return 0;
+
+     label1:
+        if c > 57 goto label2;
+
+        $stack1#1 = 1;
+
+        goto label3;
+
+     label2:
+        $stack1#1 = 0;
+
+     label3:
+        return $stack1#1;
+    }
+
+    public static int decValueOf(char)
+    {
+        char c;
+        int $stack1;
+
+        c := @parameter0: char;
+
+        $stack1 = staticinvoke <java.lang.Character: int digit(char,int)>(c, 10);
+
+        return $stack1;
+    }
+
+    public static boolean isOctDigit(char)
+    {
+        char c;
+        boolean $stack1#1;
+
+        c := @parameter0: char;
+
+        if c >= 48 goto label1;
+
+        return 0;
+
+     label1:
+        if c > 55 goto label2;
+
+        $stack1#1 = 1;
+
+        goto label3;
+
+     label2:
+        $stack1#1 = 0;
+
+     label3:
+        return $stack1#1;
+    }
+
+    public static int octValueOf(char)
+    {
+        char c;
+        int $stack1;
+
+        c := @parameter0: char;
+
+        $stack1 = staticinvoke <java.lang.Character: int digit(char,int)>(c, 8);
+
+        return $stack1;
+    }
+
+    public static boolean isBinDigit(char)
+    {
+        char c;
+        boolean $stack1#1;
+
+        c := @parameter0: char;
+
+        if c == 48 goto label1;
+
+        if c != 49 goto label2;
+
+     label1:
+        $stack1#1 = 1;
+
+        goto label3;
+
+     label2:
+        $stack1#1 = 0;
+
+     label3:
+        return $stack1#1;
+    }
+
+    public static int binValueOf(char)
+    {
+        char c;
+        byte $stack1#1;
+
+        c := @parameter0: char;
+
+        if c != 48 goto label1;
+
+        $stack1#1 = 0;
+
+        goto label2;
+
+     label1:
+        $stack1#1 = 1;
+
+     label2:
+        return $stack1#1;
+    }
+
+    static void <clinit>()
+    {
+        char[] $stack0, $stack1;
+
+        $stack0 = newarray (char)[16];
+
+        $stack0[0] = 48;
+
+        $stack0[1] = 49;
+
+        $stack0[2] = 50;
+
+        $stack0[3] = 51;
+
+        $stack0[4] = 52;
+
+        $stack0[5] = 53;
+
+        $stack0[6] = 54;
+
+        $stack0[7] = 55;
+
+        $stack0[8] = 56;
+
+        $stack0[9] = 57;
+
+        $stack0[10] = 65;
+
+        $stack0[11] = 66;
+
+        $stack0[12] = 67;
+
+        $stack0[13] = 68;
+
+        $stack0[14] = 69;
+
+        $stack0[15] = 70;
+
+        <cck.text.CharUtil: char[] HEX_CHARS> = $stack0;
+
+        $stack1 = newarray (char)[16];
+
+        $stack1[0] = 48;
+
+        $stack1[1] = 49;
+
+        $stack1[2] = 50;
+
+        $stack1[3] = 51;
+
+        $stack1[4] = 52;
+
+        $stack1[5] = 53;
+
+        $stack1[6] = 54;
+
+        $stack1[7] = 55;
+
+        $stack1[8] = 56;
+
+        $stack1[9] = 57;
+
+        $stack1[10] = 97;
+
+        $stack1[11] = 98;
+
+        $stack1[12] = 99;
+
+        $stack1[13] = 100;
+
+        $stack1[14] = 101;
+
+        $stack1[15] = 102;
+
+        <cck.text.CharUtil: char[] LOW_HEX_CHARS> = $stack1;
+
+        return;
+    }
+}

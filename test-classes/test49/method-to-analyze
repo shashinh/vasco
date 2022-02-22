@@ -1,0 +1,36 @@
+    private void addToList(ch.qos.logback.core.pattern.Converter)
+    {
+        ch.qos.logback.core.pattern.parser.Compiler r0;
+        ch.qos.logback.core.pattern.Converter $r1, r2, $r3;
+
+        r0 := @this: ch.qos.logback.core.pattern.parser.Compiler;
+
+        r2 := @parameter0: ch.qos.logback.core.pattern.Converter;
+
+        $r1 = r0.<ch.qos.logback.core.pattern.parser.Compiler: ch.qos.logback.core.pattern.Converter head>;
+
+        if $r1 != null goto label1;
+
+        r0.<ch.qos.logback.core.pattern.parser.Compiler: ch.qos.logback.core.pattern.Converter tail> = r2;
+
+        r0.<ch.qos.logback.core.pattern.parser.Compiler: ch.qos.logback.core.pattern.Converter head> = r2;
+
+        goto label2;
+
+     label1:
+     //r3 is null here
+        $r3 = r0.<ch.qos.logback.core.pattern.parser.Compiler: ch.qos.logback.core.pattern.Converter tail>;
+
+	//due to which this method call is summarized. i.e. out = null after below instruction!
+        virtualinvoke $r3.<ch.qos.logback.core.pattern.Converter: void setNext(ch.qos.logback.core.pattern.Converter)>(r2);
+
+        r0.<ch.qos.logback.core.pattern.parser.Compiler: ch.qos.logback.core.pattern.Converter tail> = r2;
+
+     label2:
+        return;
+    }
+
+
+r0.<ch.qos.logback.core.pattern.parser.Compiler: ch.qos.logback.core.pattern.Converter tail> = r2
+
+virtualinvoke $r3.<ch.qos.logback.core.pattern.Converter: void setNext(ch.qos.logback.core.pattern.Converter)>(r2) sets out to null !!!!

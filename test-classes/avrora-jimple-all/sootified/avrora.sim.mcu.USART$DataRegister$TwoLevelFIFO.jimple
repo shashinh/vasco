@@ -1,0 +1,234 @@
+class avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO extends avrora.sim.RWRegister
+{
+    java.util.LinkedList readyQueue;
+    java.util.LinkedList waitQueue;
+    final avrora.sim.mcu.USART$DataRegister this$1;
+
+    void <init>(avrora.sim.mcu.USART$DataRegister)
+    {
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO this;
+        avrora.sim.mcu.USART$DataRegister l1;
+        java.util.LinkedList $stack2, $stack3, $stack5, $stack8, $stack11;
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper $stack4, $stack7, $stack10;
+
+        this := @this: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+        l1 := @parameter0: avrora.sim.mcu.USART$DataRegister;
+
+        this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1> = l1;
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        $stack2 = new java.util.LinkedList;
+
+        specialinvoke $stack2.<java.util.LinkedList: void <init>()>();
+
+        this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue> = $stack2;
+
+        $stack3 = new java.util.LinkedList;
+
+        specialinvoke $stack3.<java.util.LinkedList: void <init>()>();
+
+        this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue> = $stack3;
+
+        $stack5 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $stack4 = new avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper;
+
+        specialinvoke $stack4.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: void <init>(avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO,avrora.sim.mcu.USART$1)>(this, null);
+
+        virtualinvoke $stack5.<java.util.LinkedList: boolean add(java.lang.Object)>($stack4);
+
+        $stack8 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $stack7 = new avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper;
+
+        specialinvoke $stack7.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: void <init>(avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO,avrora.sim.mcu.USART$1)>(this, null);
+
+        virtualinvoke $stack8.<java.util.LinkedList: boolean add(java.lang.Object)>($stack7);
+
+        $stack11 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $stack10 = new avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper;
+
+        specialinvoke $stack10.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: void <init>(avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO,avrora.sim.mcu.USART$1)>(this, null);
+
+        virtualinvoke $stack11.<java.util.LinkedList: boolean add(java.lang.Object)>($stack10);
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO this;
+        java.util.LinkedList $stack2, $stack4, $stack6, $stack15;
+        boolean $stack3, $stack7, $stack14;
+        java.lang.Object $stack5;
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper current;
+        avrora.sim.mcu.USART$DataRegister $stack8, $stack20, $stack30;
+        avrora.sim.mcu.USART $stack9, $stack21, $stack31;
+        avrora.sim.mcu.USART$ControlRegisterB $stack10;
+        avrora.sim.mcu.USART$Frame $stack11, $stack17;
+        int $stack12, $stack18;
+        avrora.sim.state.BooleanView $stack13;
+        byte $stack19;
+        avrora.sim.mcu.USART$ControlRegisterA $stack22, $stack32;
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag $stack23, $stack33;
+
+        this := @this: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+        $stack2 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        $stack3 = virtualinvoke $stack2.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $stack3 == 0 goto label1;
+
+        $stack30 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1>;
+
+        $stack31 = $stack30.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $stack32 = $stack31.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $stack33 = $stack32.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.mcu.ATMegaFamily$InterruptFlag UDRE_flag>;
+
+        virtualinvoke $stack33.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: void flag(boolean)>(1);
+
+        return 0;
+
+     label1:
+        $stack4 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        $stack5 = virtualinvoke $stack4.<java.util.LinkedList: java.lang.Object removeLast()>();
+
+        current = (avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper) $stack5;
+
+        $stack6 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        $stack7 = virtualinvoke $stack6.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $stack7 == 0 goto label2;
+
+        $stack20 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1>;
+
+        $stack21 = $stack20.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $stack22 = $stack21.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $stack23 = $stack22.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.mcu.ATMegaFamily$InterruptFlag RXC_flag>;
+
+        virtualinvoke $stack23.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: void flag(boolean)>(0);
+
+     label2:
+        $stack8 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1>;
+
+        $stack9 = $stack8.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $stack10 = $stack9.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterB UCSRnB_reg>;
+
+        $stack13 = $stack10.<avrora.sim.mcu.USART$ControlRegisterB: avrora.sim.state.BooleanView _rxb8n>;
+
+        $stack11 = current.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: avrora.sim.mcu.USART$Frame frame>;
+
+        $stack12 = $stack11.<avrora.sim.mcu.USART$Frame: int value>;
+
+        $stack14 = staticinvoke <cck.util.Arithmetic: boolean getBit(int,int)>($stack12, 8);
+
+        interfaceinvoke $stack13.<avrora.sim.state.BooleanView: void setValue(boolean)>($stack14);
+
+        $stack15 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        virtualinvoke $stack15.<java.util.LinkedList: boolean add(java.lang.Object)>(current);
+
+        $stack17 = current.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: avrora.sim.mcu.USART$Frame frame>;
+
+        $stack18 = $stack17.<avrora.sim.mcu.USART$Frame: int value>;
+
+        $stack19 = (byte) $stack18;
+
+        return $stack19;
+    }
+
+    public void writeFrame(avrora.sim.mcu.USART$Frame)
+    {
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO this;
+        java.util.LinkedList $stack3, $stack5, $stack8;
+        boolean $stack4;
+        java.lang.Object $stack6;
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper $stack7, current;
+        avrora.sim.mcu.USART$Frame frame;
+        avrora.sim.mcu.USART$DataRegister $stack9;
+        avrora.sim.mcu.USART $stack10;
+        avrora.sim.mcu.USART$ControlRegisterA $stack11;
+        avrora.sim.state.BooleanView $stack12;
+
+        this := @this: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+        frame := @parameter0: avrora.sim.mcu.USART$Frame;
+
+        $stack3 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $stack4 == 0 goto label1;
+
+        $stack9 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1>;
+
+        $stack10 = $stack9.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $stack11 = $stack10.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $stack12 = $stack11.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.state.BooleanView _dor>;
+
+        interfaceinvoke $stack12.<avrora.sim.state.BooleanView: void setValue(boolean)>(1);
+
+        goto label2;
+
+     label1:
+        $stack5 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $stack6 = virtualinvoke $stack5.<java.util.LinkedList: java.lang.Object removeLast()>();
+
+        $stack7 = (avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper) $stack6;
+
+        current = (avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper) $stack7;
+
+        current.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: avrora.sim.mcu.USART$Frame frame> = frame;
+
+        $stack8 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        virtualinvoke $stack8.<java.util.LinkedList: void addFirst(java.lang.Object)>(current);
+
+     label2:
+        return;
+    }
+
+    protected void flush()
+    {
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO this;
+        java.util.LinkedList $stack1, $stack3, $stack4;
+        boolean $stack2;
+        java.lang.Object $stack5;
+
+        this := @this: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+     label1:
+        $stack1 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $stack2 != 0 goto label2;
+
+        $stack4 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        $stack3 = this.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $stack5 = virtualinvoke $stack3.<java.util.LinkedList: java.lang.Object removeLast()>();
+
+        virtualinvoke $stack4.<java.util.LinkedList: boolean add(java.lang.Object)>($stack5);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}

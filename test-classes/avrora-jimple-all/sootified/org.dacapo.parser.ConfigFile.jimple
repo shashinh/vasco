@@ -1,0 +1,2355 @@
+class org.dacapo.parser.ConfigFile extends java.lang.Object implements org.dacapo.parser.ConfigFileConstants
+{
+    public org.dacapo.parser.ConfigFileTokenManager token_source;
+    org.dacapo.parser.SimpleCharStream jj_input_stream;
+    public org.dacapo.parser.Token token;
+    public org.dacapo.parser.Token jj_nt;
+    private int jj_ntk;
+    private int jj_gen;
+    private final int[] jj_la1;
+    private static int[] jj_la1_0;
+    private static int[] jj_la1_1;
+    private java.util.List jj_expentries;
+    private int[] jj_expentry;
+    private int jj_kind;
+
+    public static void main(java.lang.String[])
+    {
+        org.dacapo.parser.ConfigFile $stack3;
+        java.io.FileInputStream $stack4;
+        java.lang.String[] args;
+        java.lang.String $stack5, $stack12, $stack15;
+        java.io.PrintStream $stack7, $stack10, $stack17;
+        java.io.FileNotFoundException $stack8;
+        java.lang.StringBuilder $stack9, $stack11, $stack13, $stack14;
+        org.dacapo.parser.ParseException $stack16;
+
+        args := @parameter0: java.lang.String[];
+
+     label1:
+        $stack3 = new org.dacapo.parser.ConfigFile;
+
+        $stack4 = new java.io.FileInputStream;
+
+        $stack5 = args[0];
+
+        specialinvoke $stack4.<java.io.FileInputStream: void <init>(java.lang.String)>($stack5);
+
+        specialinvoke $stack3.<org.dacapo.parser.ConfigFile: void <init>(java.io.InputStream,java.lang.String)>($stack4, "UTF-8");
+
+        virtualinvoke $stack3.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Config configFile()>();
+
+     label2:
+        goto label5;
+
+     label3:
+        $stack16 := @caughtexception;
+
+        $stack17 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack17.<java.io.PrintStream: void println(java.lang.String)>("Parse exception");
+
+        virtualinvoke $stack16.<org.dacapo.parser.ParseException: void printStackTrace()>();
+
+        return;
+
+     label4:
+        $stack8 := @caughtexception;
+
+        $stack10 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack9 = new java.lang.StringBuilder;
+
+        specialinvoke $stack9.<java.lang.StringBuilder: void <init>()>();
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File ");
+
+        $stack12 = args[0];
+
+        $stack13 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" not found.");
+
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack10.<java.io.PrintStream: void println(java.lang.String)>($stack15);
+
+        return;
+
+     label5:
+        $stack7 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack7.<java.io.PrintStream: void println(java.lang.String)>("Success!");
+
+        return;
+
+        catch org.dacapo.parser.ParseException from label1 to label2 with label3;
+        catch java.io.FileNotFoundException from label1 to label2 with label4;
+    }
+
+    private static java.lang.String unQuote(org.dacapo.parser.Token)
+    {
+        org.dacapo.parser.Token token;
+        java.lang.String $stack1, $stack2, $stack6;
+        int $stack4, $stack5;
+
+        token := @parameter0: org.dacapo.parser.Token;
+
+        $stack2 = token.<org.dacapo.parser.Token: java.lang.String image>;
+
+        $stack1 = token.<org.dacapo.parser.Token: java.lang.String image>;
+
+        $stack4 = virtualinvoke $stack1.<java.lang.String: int length()>();
+
+        $stack5 = $stack4 - 1;
+
+        $stack6 = virtualinvoke $stack2.<java.lang.String: java.lang.String substring(int,int)>(1, $stack5);
+
+        return $stack6;
+    }
+
+    private static java.lang.String unHex(org.dacapo.parser.Token)
+    {
+        org.dacapo.parser.Token token;
+        java.lang.String $stack1, $stack2, $stack3;
+
+        token := @parameter0: org.dacapo.parser.Token;
+
+        $stack1 = token.<org.dacapo.parser.Token: java.lang.String image>;
+
+        $stack2 = virtualinvoke $stack1.<java.lang.String: java.lang.String substring(int)>(2);
+
+        $stack3 = virtualinvoke $stack2.<java.lang.String: java.lang.String toLowerCase()>();
+
+        return $stack3;
+    }
+
+    public final org.dacapo.parser.Config configFile() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Config config;
+        int $stack3, $stack5, $stack9, $stack14, $stack4#1, $stack6#2;
+        int[] $stack10, $stack15;
+        org.dacapo.parser.ParseException $stack17;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config = virtualinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Config config()>();
+
+     label01:
+        $stack3 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack3 != -1 goto label02;
+
+        $stack4#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label03;
+
+     label02:
+        $stack4#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label03:
+        lookupswitch($stack4#1)
+        {
+            case 20: goto label05;
+            case 36: goto label04;
+            default: goto label06;
+        };
+
+     label04:
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void sizeSpec(org.dacapo.parser.Config)>(config);
+
+        goto label07;
+
+     label05:
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void description(org.dacapo.parser.Config)>(config);
+
+        goto label07;
+
+     label06:
+        $stack15 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack14 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack15[0] = $stack14;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(-1);
+
+        $stack17 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack17.<org.dacapo.parser.ParseException: void <init>()>();
+
+        throw $stack17;
+
+     label07:
+        $stack5 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack5 != -1 goto label08;
+
+        $stack6#2 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label09;
+
+     label08:
+        $stack6#2 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label09:
+        lookupswitch($stack6#2)
+        {
+            case 20: goto label10;
+            case 36: goto label10;
+            default: goto label11;
+        };
+
+     label10:
+        goto label01;
+
+     label11:
+        $stack10 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack9 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack10[1] = $stack9;
+
+        goto label12;
+
+     label12:
+        return config;
+    }
+
+    public final org.dacapo.parser.Config config() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token name;
+        org.dacapo.parser.Config $stack5;
+        java.lang.String $stack6;
+        int $stack7, $stack11, $stack8#1;
+        int[] $stack12;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(15);
+
+        name = specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(46);
+
+        $stack5 = new org.dacapo.parser.Config;
+
+        $stack6 = name.<org.dacapo.parser.Token: java.lang.String image>;
+
+        specialinvoke $stack5.<org.dacapo.parser.Config: void <init>(java.lang.String)>($stack6);
+
+     label1:
+        $stack7 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack7 != -1 goto label2;
+
+        $stack8#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label3;
+
+     label2:
+        $stack8#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label3:
+        lookupswitch($stack8#1)
+        {
+            case 18: goto label4;
+            case 26: goto label4;
+            case 44: goto label4;
+            default: goto label5;
+        };
+
+     label4:
+        goto label6;
+
+     label5:
+        $stack12 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack11 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack12[2] = $stack11;
+
+        goto label7;
+
+     label6:
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void configOption(org.dacapo.parser.Config)>($stack5);
+
+        goto label1;
+
+     label7:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(53);
+
+        return $stack5;
+    }
+
+    public final void configOption(org.dacapo.parser.Config) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        int $stack5, $stack12, $stack6#1;
+        org.dacapo.parser.Config$ThreadModel threadModel;
+        org.dacapo.parser.Config config;
+        java.lang.String className;
+        int[] $stack13;
+        org.dacapo.parser.ParseException $stack15;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        $stack5 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack5 != -1 goto label1;
+
+        $stack6#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label2;
+
+     label1:
+        $stack6#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label2:
+        lookupswitch($stack6#1)
+        {
+            case 18: goto label3;
+            case 26: goto label5;
+            case 44: goto label4;
+            default: goto label6;
+        };
+
+     label3:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(18);
+
+        className = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String identifier()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setClass(java.lang.String)>(className);
+
+        goto label7;
+
+     label4:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(44);
+
+        threadModel = virtualinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Config$ThreadModel threadModel()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setThreadModel(org.dacapo.parser.Config$ThreadModel)>(threadModel);
+
+        goto label7;
+
+     label5:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(26);
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void libraries(org.dacapo.parser.Config)>(config);
+
+        goto label7;
+
+     label6:
+        $stack13 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack12 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack13[3] = $stack12;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(-1);
+
+        $stack15 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack15.<org.dacapo.parser.ParseException: void <init>()>();
+
+        throw $stack15;
+
+     label7:
+        return;
+    }
+
+    public final void libraries(org.dacapo.parser.Config) throws org.dacapo.parser.ParseException
+    {
+        java.util.ArrayList $stack4;
+        org.dacapo.parser.ConfigFile this;
+        int $stack7, $stack14, $stack8#2;
+        int[] $stack15;
+        org.dacapo.parser.Config config;
+        java.lang.String[] $stack16, $stack18, $stack19;
+        java.lang.Object[] $stack17;
+        java.lang.String jar#1, jar#3;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        $stack4 = new java.util.ArrayList;
+
+        specialinvoke $stack4.<java.util.ArrayList: void <init>()>();
+
+        jar#1 = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String string()>();
+
+        virtualinvoke $stack4.<java.util.ArrayList: boolean add(java.lang.Object)>(jar#1);
+
+     label1:
+        $stack7 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack7 != -1 goto label2;
+
+        $stack8#2 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label3;
+
+     label2:
+        $stack8#2 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label3:
+        lookupswitch($stack8#2)
+        {
+            case 50: goto label4;
+            default: goto label5;
+        };
+
+     label4:
+        goto label6;
+
+     label5:
+        $stack15 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack14 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack15[4] = $stack14;
+
+        goto label7;
+
+     label6:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(50);
+
+        jar#3 = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String string()>();
+
+        virtualinvoke $stack4.<java.util.ArrayList: boolean add(java.lang.Object)>(jar#3);
+
+        goto label1;
+
+     label7:
+        $stack16 = newarray (java.lang.String)[0];
+
+        $stack17 = virtualinvoke $stack4.<java.util.ArrayList: java.lang.Object[] toArray(java.lang.Object[])>($stack16);
+
+        $stack18 = (java.lang.String[]) $stack17;
+
+        $stack19 = (java.lang.String[]) $stack18;
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setJars(java.lang.String[])>($stack19);
+
+        return;
+    }
+
+    public final void sizeSpec(org.dacapo.parser.Config) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token size;
+        org.dacapo.parser.Config config;
+        java.lang.String $stack5;
+        int $stack6, $stack13, $stack7#1;
+        int[] $stack14;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(36);
+
+        size = specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(46);
+
+     label1:
+        $stack5 = size.<org.dacapo.parser.Token: java.lang.String image>;
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void sizeClause(org.dacapo.parser.Config,java.lang.String)>(config, $stack5);
+
+        $stack6 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack6 != -1 goto label2;
+
+        $stack7#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label3;
+
+     label2:
+        $stack7#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label3:
+        lookupswitch($stack7#1)
+        {
+            case 13: goto label4;
+            case 20: goto label4;
+            case 31: goto label4;
+            case 42: goto label4;
+            case 43: goto label4;
+            default: goto label5;
+        };
+
+     label4:
+        goto label1;
+
+     label5:
+        $stack14 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack13 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack14[5] = $stack13;
+
+        goto label6;
+
+     label6:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(53);
+
+        return;
+    }
+
+    public final void sizeClause(org.dacapo.parser.Config, java.lang.String) throws org.dacapo.parser.ParseException
+    {
+        java.util.Vector $stack8;
+        org.dacapo.parser.ConfigFile this;
+        int $stack9, thread_limit, threads, $stack16, $stack21, $stack27, $stack31, $stack38, $stack41, $stack47, $stack10#1, $stack28#2, $stack32#4, $stack17#6;
+        org.dacapo.parser.Config config;
+        java.lang.String size, description, arg#3, arg#5;
+        int[] $stack22, $stack39, $stack42, $stack48;
+        org.dacapo.parser.ParseException $stack50;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        size := @parameter1: java.lang.String;
+
+        $stack8 = new java.util.Vector;
+
+        specialinvoke $stack8.<java.util.Vector: void <init>()>();
+
+        $stack9 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack9 != -1 goto label01;
+
+        $stack10#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label02;
+
+     label01:
+        $stack10#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label02:
+        lookupswitch($stack10#1)
+        {
+            case 13: goto label03;
+            case 20: goto label15;
+            case 31: goto label18;
+            case 42: goto label17;
+            case 43: goto label16;
+            default: goto label25;
+        };
+
+     label03:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(13);
+
+        $stack27 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack27 != -1 goto label04;
+
+        $stack28#2 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label05;
+
+     label04:
+        $stack28#2 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label05:
+        lookupswitch($stack28#2)
+        {
+            case 48: goto label06;
+            default: goto label13;
+        };
+
+     label06:
+        arg#3 = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String string()>();
+
+        virtualinvoke $stack8.<java.util.Vector: boolean add(java.lang.Object)>(arg#3);
+
+     label07:
+        $stack31 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack31 != -1 goto label08;
+
+        $stack32#4 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label09;
+
+     label08:
+        $stack32#4 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label09:
+        lookupswitch($stack32#4)
+        {
+            case 50: goto label10;
+            default: goto label11;
+        };
+
+     label10:
+        goto label12;
+
+     label11:
+        $stack39 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack38 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack39[6] = $stack38;
+
+        goto label14;
+
+     label12:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(50);
+
+        arg#5 = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String string()>();
+
+        virtualinvoke $stack8.<java.util.Vector: boolean add(java.lang.Object)>(arg#5);
+
+        goto label07;
+
+     label13:
+        $stack42 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack41 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack42[7] = $stack41;
+
+     label14:
+        virtualinvoke config.<org.dacapo.parser.Config: void addSize(java.lang.String,java.util.Vector)>(size, $stack8);
+
+        goto label26;
+
+     label15:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(20);
+
+        description = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String string()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setSizeDescription(java.lang.String,java.lang.String)>(size, description);
+
+        goto label26;
+
+     label16:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(43);
+
+        thread_limit = virtualinvoke this.<org.dacapo.parser.ConfigFile: int integer()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setThreadLimit(java.lang.String,int)>(size, thread_limit);
+
+        goto label26;
+
+     label17:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(42);
+
+        threads = virtualinvoke this.<org.dacapo.parser.ConfigFile: int integer()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setThreadFactor(java.lang.String,int)>(size, threads);
+
+        goto label26;
+
+     label18:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(31);
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void outputFile(org.dacapo.parser.Config,java.lang.String)>(config, size);
+
+     label19:
+        $stack16 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack16 != -1 goto label20;
+
+        $stack17#6 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label21;
+
+     label20:
+        $stack17#6 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label21:
+        lookupswitch($stack17#6)
+        {
+            case 50: goto label22;
+            default: goto label23;
+        };
+
+     label22:
+        goto label24;
+
+     label23:
+        $stack22 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack21 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack22[8] = $stack21;
+
+        goto label26;
+
+     label24:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(50);
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void outputFile(org.dacapo.parser.Config,java.lang.String)>(config, size);
+
+        goto label19;
+
+     label25:
+        $stack48 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack47 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack48[9] = $stack47;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(-1);
+
+        $stack50 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack50.<org.dacapo.parser.ParseException: void <init>()>();
+
+        throw $stack50;
+
+     label26:
+        return;
+    }
+
+    public final void outputFile(org.dacapo.parser.Config, java.lang.String) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        int $stack4, $stack11, $stack19, $stack5#1, $stack7#14, $stack8#18;
+        org.dacapo.parser.Config config;
+        java.lang.String size, file#2;
+        int[] $stack12, $stack20;
+        org.dacapo.parser.ParseException $stack22;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        size := @parameter1: java.lang.String;
+
+        $stack4 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack4 != -1 goto label01;
+
+        $stack5#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label02;
+
+     label01:
+        $stack5#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label02:
+        lookupswitch($stack5#1)
+        {
+            case 37: goto label04;
+            case 38: goto label05;
+            case 48: goto label03;
+            default: goto label06;
+        };
+
+     label03:
+        file#2 = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String string()>();
+
+        goto label07;
+
+     label04:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(37);
+
+        file#2 = "stdout.log";
+
+        goto label07;
+
+     label05:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(38);
+
+        file#2 = "stderr.log";
+
+        goto label07;
+
+     label06:
+        $stack20 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack19 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack20[10] = $stack19;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(-1);
+
+        $stack22 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack22.<org.dacapo.parser.ParseException: void <init>()>();
+
+        throw $stack22;
+
+     label07:
+        virtualinvoke config.<org.dacapo.parser.Config: void addOutputFile(java.lang.String,java.lang.String)>(size, file#2);
+
+     label08:
+        $stack7#14 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack7#14 != -1 goto label09;
+
+        $stack8#18 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label10;
+
+     label09:
+        $stack8#18 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label10:
+        tableswitch($stack8#18)
+        {
+            case 17: goto label11;
+            case 18: goto label12;
+            case 19: goto label12;
+            case 20: goto label12;
+            case 21: goto label11;
+            case 22: goto label11;
+            case 23: goto label12;
+            case 24: goto label12;
+            case 25: goto label11;
+            case 26: goto label12;
+            case 27: goto label12;
+            case 28: goto label11;
+            default: goto label12;
+        };
+
+     label11:
+        goto label13;
+
+     label12:
+        $stack12 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack11 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack12[11] = $stack11;
+
+        goto label14;
+
+     label13:
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void outputClause(org.dacapo.parser.Config,java.lang.String,java.lang.String)>(config, size, file#2);
+
+        goto label08;
+
+     label14:
+        return;
+    }
+
+    public final void outputClause(org.dacapo.parser.Config, java.lang.String, java.lang.String) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        int $stack8, n, $stack15, $stack18, $stack23, $stack28, $stack38, $stack9#1, $stack16#2, $stack19#3;
+        org.dacapo.parser.Config config;
+        java.lang.String size, file, digest;
+        int[] $stack24, $stack29, $stack39;
+        long l;
+        org.dacapo.parser.ParseException $stack41;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        size := @parameter1: java.lang.String;
+
+        file := @parameter2: java.lang.String;
+
+        $stack8 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack8 != -1 goto label01;
+
+        $stack9#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label02;
+
+     label01:
+        $stack9#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label02:
+        tableswitch($stack9#1)
+        {
+            case 17: goto label19;
+            case 18: goto label20;
+            case 19: goto label20;
+            case 20: goto label20;
+            case 21: goto label03;
+            case 22: goto label16;
+            case 23: goto label20;
+            case 24: goto label20;
+            case 25: goto label17;
+            case 26: goto label20;
+            case 27: goto label20;
+            case 28: goto label18;
+            default: goto label20;
+        };
+
+     label03:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(21);
+
+        $stack15 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack15 != -1 goto label04;
+
+        $stack16#2 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label05;
+
+     label04:
+        $stack16#2 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label05:
+        lookupswitch($stack16#2)
+        {
+            case 51: goto label06;
+            default: goto label14;
+        };
+
+     label06:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(51);
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void digestOption(org.dacapo.parser.Config,java.lang.String,java.lang.String)>(config, size, file);
+
+     label07:
+        $stack18 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack18 != -1 goto label08;
+
+        $stack19#3 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label09;
+
+     label08:
+        $stack19#3 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label09:
+        lookupswitch($stack19#3)
+        {
+            case 50: goto label10;
+            default: goto label11;
+        };
+
+     label10:
+        goto label12;
+
+     label11:
+        $stack24 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack23 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack24[12] = $stack23;
+
+        goto label13;
+
+     label12:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(50);
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void digestOption(org.dacapo.parser.Config,java.lang.String,java.lang.String)>(config, size, file);
+
+        goto label07;
+
+     label13:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(52);
+
+        goto label15;
+
+     label14:
+        $stack29 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack28 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack29[13] = $stack28;
+
+     label15:
+        digest = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String hex()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setDigest(java.lang.String,java.lang.String,java.lang.String)>(size, file, digest);
+
+        goto label21;
+
+     label16:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(22);
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setExists(java.lang.String,java.lang.String)>(size, file);
+
+        goto label21;
+
+     label17:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(25);
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setKeep(java.lang.String,java.lang.String)>(size, file);
+
+        goto label21;
+
+     label18:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(28);
+
+        n = virtualinvoke this.<org.dacapo.parser.ConfigFile: int integer()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setLines(java.lang.String,java.lang.String,int)>(size, file, n);
+
+        goto label21;
+
+     label19:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(17);
+
+        l = virtualinvoke this.<org.dacapo.parser.ConfigFile: long longInt()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setBytes(java.lang.String,java.lang.String,long)>(size, file, l);
+
+        goto label21;
+
+     label20:
+        $stack39 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack38 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack39[14] = $stack38;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(-1);
+
+        $stack41 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack41.<org.dacapo.parser.ParseException: void <init>()>();
+
+        throw $stack41;
+
+     label21:
+        return;
+    }
+
+    public final void digestOption(org.dacapo.parser.Config, java.lang.String, java.lang.String) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        int $stack4, $stack10, $stack5#1;
+        org.dacapo.parser.Config config;
+        java.lang.String size, file;
+        int[] $stack11;
+        org.dacapo.parser.ParseException $stack13;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        size := @parameter1: java.lang.String;
+
+        file := @parameter2: java.lang.String;
+
+        $stack4 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack4 != -1 goto label1;
+
+        $stack5#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label2;
+
+     label1:
+        $stack5#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label2:
+        lookupswitch($stack5#1)
+        {
+            case 16: goto label4;
+            case 23: goto label5;
+            case 33: goto label6;
+            case 39: goto label3;
+            default: goto label7;
+        };
+
+     label3:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(39);
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setTextFile(java.lang.String,java.lang.String,boolean)>(size, file, 1);
+
+        goto label8;
+
+     label4:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(16);
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setTextFile(java.lang.String,java.lang.String,boolean)>(size, file, 0);
+
+        goto label8;
+
+     label5:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(23);
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setFilterScratch(java.lang.String,java.lang.String,boolean)>(size, file, 1);
+
+        goto label8;
+
+     label6:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(33);
+
+        virtualinvoke config.<org.dacapo.parser.Config: void setFilterScratch(java.lang.String,java.lang.String,boolean)>(size, file, 0);
+
+        goto label8;
+
+     label7:
+        $stack11 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack10 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack11[15] = $stack10;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(-1);
+
+        $stack13 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack13.<org.dacapo.parser.ParseException: void <init>()>();
+
+        throw $stack13;
+
+     label8:
+        return;
+    }
+
+    public final org.dacapo.parser.Config$ThreadModel threadModel() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        int $stack1, $stack9, $stack2#1;
+        org.dacapo.parser.Config$ThreadModel $stack4, $stack6, $stack8;
+        int[] $stack10;
+        org.dacapo.parser.ParseException $stack12;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        $stack1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack1 != -1 goto label1;
+
+        $stack2#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label2;
+
+     label1:
+        $stack2#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label2:
+        lookupswitch($stack2#1)
+        {
+            case 24: goto label4;
+            case 32: goto label5;
+            case 35: goto label3;
+            default: goto label6;
+        };
+
+     label3:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(35);
+
+        $stack4 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE>;
+
+        return $stack4;
+
+     label4:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(24);
+
+        $stack8 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED>;
+
+        return $stack8;
+
+     label5:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(32);
+
+        $stack6 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel PER_CPU>;
+
+        return $stack6;
+
+     label6:
+        $stack10 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack9 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack10[16] = $stack9;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(-1);
+
+        $stack12 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack12.<org.dacapo.parser.ParseException: void <init>()>();
+
+        throw $stack12;
+    }
+
+    public final void description(org.dacapo.parser.Config) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Config config;
+        int $stack3, $stack8, $stack4#1;
+        int[] $stack9;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(20);
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void descElement(org.dacapo.parser.Config)>(config);
+
+     label1:
+        $stack3 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack3 != -1 goto label2;
+
+        $stack4#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label3;
+
+     label2:
+        $stack4#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label3:
+        lookupswitch($stack4#1)
+        {
+            case 50: goto label4;
+            default: goto label5;
+        };
+
+     label4:
+        goto label6;
+
+     label5:
+        $stack9 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack8 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack9[17] = $stack8;
+
+        goto label7;
+
+     label6:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(50);
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void descElement(org.dacapo.parser.Config)>(config);
+
+        goto label1;
+
+     label7:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(53);
+
+        return;
+    }
+
+    public final void descElement(org.dacapo.parser.Config) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        java.lang.String id, desc;
+        org.dacapo.parser.Config config;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        id = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String descId()>();
+
+        desc = virtualinvoke this.<org.dacapo.parser.ConfigFile: java.lang.String string()>();
+
+        virtualinvoke config.<org.dacapo.parser.Config: void addDesc(java.lang.String,java.lang.String)>(id, desc);
+
+        return;
+    }
+
+    public final java.lang.String descId() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        int $stack1, $stack15, $stack2#1;
+        int[] $stack16;
+        org.dacapo.parser.ParseException $stack18;
+        org.dacapo.parser.Token $stack4#17;
+        java.lang.String $stack5#25;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        $stack1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+        if $stack1 != -1 goto label01;
+
+        $stack2#1 = specialinvoke this.<org.dacapo.parser.ConfigFile: int jj_ntk()>();
+
+        goto label02;
+
+     label01:
+        $stack2#1 = this.<org.dacapo.parser.ConfigFile: int jj_ntk>;
+
+     label02:
+        tableswitch($stack2#1)
+        {
+            case 14: goto label03;
+            case 15: goto label12;
+            case 16: goto label12;
+            case 17: goto label12;
+            case 18: goto label12;
+            case 19: goto label04;
+            case 20: goto label12;
+            case 21: goto label12;
+            case 22: goto label12;
+            case 23: goto label12;
+            case 24: goto label12;
+            case 25: goto label12;
+            case 26: goto label12;
+            case 27: goto label05;
+            case 28: goto label12;
+            case 29: goto label06;
+            case 30: goto label12;
+            case 31: goto label12;
+            case 32: goto label12;
+            case 33: goto label12;
+            case 34: goto label07;
+            case 35: goto label12;
+            case 36: goto label12;
+            case 37: goto label12;
+            case 38: goto label12;
+            case 39: goto label12;
+            case 40: goto label10;
+            case 41: goto label11;
+            case 42: goto label08;
+            case 43: goto label12;
+            case 44: goto label12;
+            case 45: goto label09;
+            default: goto label12;
+        };
+
+     label03:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(14);
+
+        goto label13;
+
+     label04:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(19);
+
+        goto label13;
+
+     label05:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(27);
+
+        goto label13;
+
+     label06:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(29);
+
+        goto label13;
+
+     label07:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(34);
+
+        goto label13;
+
+     label08:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(42);
+
+        goto label13;
+
+     label09:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(45);
+
+        goto label13;
+
+     label10:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(40);
+
+        goto label13;
+
+     label11:
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(41);
+
+        goto label13;
+
+     label12:
+        $stack16 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack15 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack16[18] = $stack15;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(-1);
+
+        $stack18 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack18.<org.dacapo.parser.ParseException: void <init>()>();
+
+        throw $stack18;
+
+     label13:
+        $stack4#17 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack5#25 = $stack4#17.<org.dacapo.parser.Token: java.lang.String image>;
+
+        return $stack5#25;
+    }
+
+    public final java.lang.String identifier() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token $stack2;
+        java.lang.String $stack3;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(46);
+
+        $stack2 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack3 = $stack2.<org.dacapo.parser.Token: java.lang.String image>;
+
+        return $stack3;
+    }
+
+    public final java.lang.String string() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token $stack2;
+        java.lang.String $stack3;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(48);
+
+        $stack2 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack3 = staticinvoke <org.dacapo.parser.ConfigFile: java.lang.String unQuote(org.dacapo.parser.Token)>($stack2);
+
+        return $stack3;
+    }
+
+    public final int integer() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token $stack2;
+        java.lang.String $stack3;
+        int $stack4;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(49);
+
+        $stack2 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack3 = $stack2.<org.dacapo.parser.Token: java.lang.String image>;
+
+        $stack4 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($stack3);
+
+        return $stack4;
+    }
+
+    public final long longInt() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token $stack2;
+        java.lang.String $stack3;
+        long $stack4;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(49);
+
+        $stack2 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack3 = $stack2.<org.dacapo.parser.Token: java.lang.String image>;
+
+        $stack4 = staticinvoke <java.lang.Long: long parseLong(java.lang.String)>($stack3);
+
+        return $stack4;
+    }
+
+    public final java.lang.String hex() throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token $stack2;
+        java.lang.String $stack3;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_consume_token(int)>(47);
+
+        $stack2 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack3 = staticinvoke <org.dacapo.parser.ConfigFile: java.lang.String unHex(org.dacapo.parser.Token)>($stack2);
+
+        return $stack3;
+    }
+
+    private static void jj_la1_init_0()
+    {
+        int[] $stack0;
+
+        $stack0 = newarray (int)[19];
+
+        $stack0[0] = 1048576;
+
+        $stack0[1] = 1048576;
+
+        $stack0[2] = 67371008;
+
+        $stack0[3] = 67371008;
+
+        $stack0[4] = 0;
+
+        $stack0[5] = -2146426880;
+
+        $stack0[6] = 0;
+
+        $stack0[7] = 0;
+
+        $stack0[8] = 0;
+
+        $stack0[9] = -2146426880;
+
+        $stack0[10] = 0;
+
+        $stack0[11] = 308412416;
+
+        $stack0[12] = 0;
+
+        $stack0[13] = 0;
+
+        $stack0[14] = 308412416;
+
+        $stack0[15] = 8454144;
+
+        $stack0[16] = 16777216;
+
+        $stack0[17] = 0;
+
+        $stack0[18] = 671629312;
+
+        <org.dacapo.parser.ConfigFile: int[] jj_la1_0> = $stack0;
+
+        return;
+    }
+
+    private static void jj_la1_init_1()
+    {
+        int[] $stack0;
+
+        $stack0 = newarray (int)[19];
+
+        $stack0[0] = 16;
+
+        $stack0[1] = 16;
+
+        $stack0[2] = 4096;
+
+        $stack0[3] = 4096;
+
+        $stack0[4] = 262144;
+
+        $stack0[5] = 3072;
+
+        $stack0[6] = 262144;
+
+        $stack0[7] = 65536;
+
+        $stack0[8] = 262144;
+
+        $stack0[9] = 3072;
+
+        $stack0[10] = 65632;
+
+        $stack0[11] = 0;
+
+        $stack0[12] = 262144;
+
+        $stack0[13] = 524288;
+
+        $stack0[14] = 0;
+
+        $stack0[15] = 130;
+
+        $stack0[16] = 9;
+
+        $stack0[17] = 262144;
+
+        $stack0[18] = 9988;
+
+        <org.dacapo.parser.ConfigFile: int[] jj_la1_1> = $stack0;
+
+        return;
+    }
+
+    public void <init>(java.io.InputStream)
+    {
+        org.dacapo.parser.ConfigFile this;
+        java.io.InputStream stream;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        stream := @parameter0: java.io.InputStream;
+
+        specialinvoke this.<org.dacapo.parser.ConfigFile: void <init>(java.io.InputStream,java.lang.String)>(stream, null);
+
+        return;
+    }
+
+    public void <init>(java.io.InputStream, java.lang.String)
+    {
+        org.dacapo.parser.ConfigFile this;
+        int[] $stack4, $stack10;
+        java.util.ArrayList $stack5;
+        org.dacapo.parser.SimpleCharStream $stack6, $stack8;
+        java.io.InputStream stream;
+        java.lang.String encoding;
+        org.dacapo.parser.ConfigFileTokenManager $stack7;
+        org.dacapo.parser.Token $stack9;
+        java.io.UnsupportedEncodingException $stack13;
+        java.lang.RuntimeException $stack14;
+        int e#2;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        stream := @parameter0: java.io.InputStream;
+
+        encoding := @parameter1: java.lang.String;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack4 = newarray (int)[19];
+
+        this.<org.dacapo.parser.ConfigFile: int[] jj_la1> = $stack4;
+
+        $stack5 = new java.util.ArrayList;
+
+        specialinvoke $stack5.<java.util.ArrayList: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: java.util.List jj_expentries> = $stack5;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_kind> = -1;
+
+     label1:
+        $stack6 = new org.dacapo.parser.SimpleCharStream;
+
+        specialinvoke $stack6.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.InputStream,java.lang.String,int,int)>(stream, encoding, 1, 1);
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.SimpleCharStream jj_input_stream> = $stack6;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack13 := @caughtexception;
+
+        $stack14 = new java.lang.RuntimeException;
+
+        specialinvoke $stack14.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($stack13);
+
+        throw $stack14;
+
+     label4:
+        $stack7 = new org.dacapo.parser.ConfigFileTokenManager;
+
+        $stack8 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.SimpleCharStream jj_input_stream>;
+
+        specialinvoke $stack7.<org.dacapo.parser.ConfigFileTokenManager: void <init>(org.dacapo.parser.SimpleCharStream)>($stack8);
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source> = $stack7;
+
+        $stack9 = new org.dacapo.parser.Token;
+
+        specialinvoke $stack9.<org.dacapo.parser.Token: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack9;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = -1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_gen> = 0;
+
+        e#2 = 0;
+
+     label5:
+        if e#2 >= 19 goto label6;
+
+        $stack10 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack10[e#2] = -1;
+
+        e#2 = e#2 + 1;
+
+        goto label5;
+
+     label6:
+        return;
+
+        catch java.io.UnsupportedEncodingException from label1 to label2 with label3;
+    }
+
+    public void ReInit(java.io.InputStream)
+    {
+        org.dacapo.parser.ConfigFile this;
+        java.io.InputStream stream;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        stream := @parameter0: java.io.InputStream;
+
+        virtualinvoke this.<org.dacapo.parser.ConfigFile: void ReInit(java.io.InputStream,java.lang.String)>(stream, null);
+
+        return;
+    }
+
+    public void ReInit(java.io.InputStream, java.lang.String)
+    {
+        org.dacapo.parser.ConfigFile this;
+        java.io.InputStream stream;
+        java.lang.String encoding;
+        org.dacapo.parser.SimpleCharStream $stack4, $stack5;
+        org.dacapo.parser.ConfigFileTokenManager $stack6;
+        org.dacapo.parser.Token $stack7;
+        int[] $stack8;
+        java.io.UnsupportedEncodingException $stack11;
+        java.lang.RuntimeException $stack12;
+        int e#2;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        stream := @parameter0: java.io.InputStream;
+
+        encoding := @parameter1: java.lang.String;
+
+     label1:
+        $stack4 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.SimpleCharStream jj_input_stream>;
+
+        virtualinvoke $stack4.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.InputStream,java.lang.String,int,int)>(stream, encoding, 1, 1);
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack11 := @caughtexception;
+
+        $stack12 = new java.lang.RuntimeException;
+
+        specialinvoke $stack12.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($stack11);
+
+        throw $stack12;
+
+     label4:
+        $stack6 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source>;
+
+        $stack5 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.SimpleCharStream jj_input_stream>;
+
+        virtualinvoke $stack6.<org.dacapo.parser.ConfigFileTokenManager: void ReInit(org.dacapo.parser.SimpleCharStream)>($stack5);
+
+        $stack7 = new org.dacapo.parser.Token;
+
+        specialinvoke $stack7.<org.dacapo.parser.Token: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack7;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = -1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_gen> = 0;
+
+        e#2 = 0;
+
+     label5:
+        if e#2 >= 19 goto label6;
+
+        $stack8 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack8[e#2] = -1;
+
+        e#2 = e#2 + 1;
+
+        goto label5;
+
+     label6:
+        return;
+
+        catch java.io.UnsupportedEncodingException from label1 to label2 with label3;
+    }
+
+    public void <init>(java.io.Reader)
+    {
+        org.dacapo.parser.ConfigFile this;
+        int[] $stack3, $stack9;
+        java.util.ArrayList $stack4;
+        org.dacapo.parser.SimpleCharStream $stack5, $stack7;
+        java.io.Reader stream;
+        org.dacapo.parser.ConfigFileTokenManager $stack6;
+        org.dacapo.parser.Token $stack8;
+        int i#1;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        stream := @parameter0: java.io.Reader;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack3 = newarray (int)[19];
+
+        this.<org.dacapo.parser.ConfigFile: int[] jj_la1> = $stack3;
+
+        $stack4 = new java.util.ArrayList;
+
+        specialinvoke $stack4.<java.util.ArrayList: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: java.util.List jj_expentries> = $stack4;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_kind> = -1;
+
+        $stack5 = new org.dacapo.parser.SimpleCharStream;
+
+        specialinvoke $stack5.<org.dacapo.parser.SimpleCharStream: void <init>(java.io.Reader,int,int)>(stream, 1, 1);
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.SimpleCharStream jj_input_stream> = $stack5;
+
+        $stack6 = new org.dacapo.parser.ConfigFileTokenManager;
+
+        $stack7 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.SimpleCharStream jj_input_stream>;
+
+        specialinvoke $stack6.<org.dacapo.parser.ConfigFileTokenManager: void <init>(org.dacapo.parser.SimpleCharStream)>($stack7);
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source> = $stack6;
+
+        $stack8 = new org.dacapo.parser.Token;
+
+        specialinvoke $stack8.<org.dacapo.parser.Token: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack8;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = -1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_gen> = 0;
+
+        i#1 = 0;
+
+     label1:
+        if i#1 >= 19 goto label2;
+
+        $stack9 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack9[i#1] = -1;
+
+        i#1 = i#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void ReInit(java.io.Reader)
+    {
+        org.dacapo.parser.ConfigFile this;
+        java.io.Reader stream;
+        org.dacapo.parser.SimpleCharStream $stack3, $stack4;
+        org.dacapo.parser.ConfigFileTokenManager $stack5;
+        org.dacapo.parser.Token $stack6;
+        int[] $stack7;
+        int i#1;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        stream := @parameter0: java.io.Reader;
+
+        $stack3 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.SimpleCharStream jj_input_stream>;
+
+        virtualinvoke $stack3.<org.dacapo.parser.SimpleCharStream: void ReInit(java.io.Reader,int,int)>(stream, 1, 1);
+
+        $stack5 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source>;
+
+        $stack4 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.SimpleCharStream jj_input_stream>;
+
+        virtualinvoke $stack5.<org.dacapo.parser.ConfigFileTokenManager: void ReInit(org.dacapo.parser.SimpleCharStream)>($stack4);
+
+        $stack6 = new org.dacapo.parser.Token;
+
+        specialinvoke $stack6.<org.dacapo.parser.Token: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack6;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = -1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_gen> = 0;
+
+        i#1 = 0;
+
+     label1:
+        if i#1 >= 19 goto label2;
+
+        $stack7 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack7[i#1] = -1;
+
+        i#1 = i#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void <init>(org.dacapo.parser.ConfigFileTokenManager)
+    {
+        org.dacapo.parser.ConfigFile this;
+        int[] $stack3, $stack6;
+        java.util.ArrayList $stack4;
+        org.dacapo.parser.ConfigFileTokenManager tm;
+        org.dacapo.parser.Token $stack5;
+        int i#1;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        tm := @parameter0: org.dacapo.parser.ConfigFileTokenManager;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack3 = newarray (int)[19];
+
+        this.<org.dacapo.parser.ConfigFile: int[] jj_la1> = $stack3;
+
+        $stack4 = new java.util.ArrayList;
+
+        specialinvoke $stack4.<java.util.ArrayList: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: java.util.List jj_expentries> = $stack4;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_kind> = -1;
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source> = tm;
+
+        $stack5 = new org.dacapo.parser.Token;
+
+        specialinvoke $stack5.<org.dacapo.parser.Token: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack5;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = -1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_gen> = 0;
+
+        i#1 = 0;
+
+     label1:
+        if i#1 >= 19 goto label2;
+
+        $stack6 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack6[i#1] = -1;
+
+        i#1 = i#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void ReInit(org.dacapo.parser.ConfigFileTokenManager)
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.ConfigFileTokenManager tm;
+        org.dacapo.parser.Token $stack3;
+        int[] $stack4;
+        int i#1;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        tm := @parameter0: org.dacapo.parser.ConfigFileTokenManager;
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source> = tm;
+
+        $stack3 = new org.dacapo.parser.Token;
+
+        specialinvoke $stack3.<org.dacapo.parser.Token: void <init>()>();
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack3;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = -1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_gen> = 0;
+
+        i#1 = 0;
+
+     label1:
+        if i#1 >= 19 goto label2;
+
+        $stack4 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack4[i#1] = -1;
+
+        i#1 = i#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    private org.dacapo.parser.Token jj_consume_token(int) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token $stack3, $stack4, $stack6, $stack7, $stack8, $stack13, $stack14, $stack15;
+        org.dacapo.parser.ConfigFileTokenManager $stack5;
+        int kind, $stack9, $stack11, $stack12;
+        org.dacapo.parser.ParseException $stack10;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        kind := @parameter0: int;
+
+        $stack3 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack4 = $stack3.<org.dacapo.parser.Token: org.dacapo.parser.Token next>;
+
+        if $stack4 == null goto label1;
+
+        $stack14 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack15 = $stack14.<org.dacapo.parser.Token: org.dacapo.parser.Token next>;
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack15;
+
+        goto label2;
+
+     label1:
+        $stack6 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack5 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source>;
+
+        $stack7 = virtualinvoke $stack5.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.Token getNextToken()>();
+
+        $stack6.<org.dacapo.parser.Token: org.dacapo.parser.Token next> = $stack7;
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack7;
+
+     label2:
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = -1;
+
+        $stack8 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack9 = $stack8.<org.dacapo.parser.Token: int kind>;
+
+        if $stack9 != kind goto label3;
+
+        $stack11 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack12 = $stack11 + 1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_gen> = $stack12;
+
+        $stack13 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        return $stack13;
+
+     label3:
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack3;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_kind> = kind;
+
+        $stack10 = virtualinvoke this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ParseException generateParseException()>();
+
+        throw $stack10;
+    }
+
+    public final org.dacapo.parser.Token getNextToken()
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token $stack1, $stack2, $stack4, $stack5, $stack8, $stack9, $stack10;
+        org.dacapo.parser.ConfigFileTokenManager $stack3;
+        int $stack6, $stack7;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        $stack1 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack2 = $stack1.<org.dacapo.parser.Token: org.dacapo.parser.Token next>;
+
+        if $stack2 == null goto label1;
+
+        $stack9 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack10 = $stack9.<org.dacapo.parser.Token: org.dacapo.parser.Token next>;
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack10;
+
+        goto label2;
+
+     label1:
+        $stack4 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack3 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source>;
+
+        $stack5 = virtualinvoke $stack3.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.Token getNextToken()>();
+
+        $stack4.<org.dacapo.parser.Token: org.dacapo.parser.Token next> = $stack5;
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token> = $stack5;
+
+     label2:
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = -1;
+
+        $stack6 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        $stack7 = $stack6 + 1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_gen> = $stack7;
+
+        $stack8 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        return $stack8;
+    }
+
+    public final org.dacapo.parser.Token getToken(int)
+    {
+        org.dacapo.parser.ConfigFile this;
+        int index, i#2;
+        org.dacapo.parser.Token $stack4, $stack6, t#1;
+        org.dacapo.parser.ConfigFileTokenManager $stack5;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        index := @parameter0: int;
+
+        t#1 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        i#2 = 0;
+
+     label1:
+        if i#2 >= index goto label4;
+
+        $stack4 = t#1.<org.dacapo.parser.Token: org.dacapo.parser.Token next>;
+
+        if $stack4 == null goto label2;
+
+        t#1 = t#1.<org.dacapo.parser.Token: org.dacapo.parser.Token next>;
+
+        goto label3;
+
+     label2:
+        $stack5 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source>;
+
+        $stack6 = virtualinvoke $stack5.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.Token getNextToken()>();
+
+        t#1.<org.dacapo.parser.Token: org.dacapo.parser.Token next> = $stack6;
+
+        t#1 = $stack6;
+
+     label3:
+        i#2 = i#2 + 1;
+
+        goto label1;
+
+     label4:
+        return t#1;
+    }
+
+    private int jj_ntk()
+    {
+        org.dacapo.parser.ConfigFile this;
+        org.dacapo.parser.Token $stack1, $stack2, $stack3, $stack6, $stack7;
+        int $stack4, $stack8;
+        org.dacapo.parser.ConfigFileTokenManager $stack5;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        $stack1 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack2 = $stack1.<org.dacapo.parser.Token: org.dacapo.parser.Token next>;
+
+        this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_nt> = $stack2;
+
+        if $stack2 != null goto label1;
+
+        $stack6 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack5 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.ConfigFileTokenManager token_source>;
+
+        $stack7 = virtualinvoke $stack5.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.Token getNextToken()>();
+
+        $stack6.<org.dacapo.parser.Token: org.dacapo.parser.Token next> = $stack7;
+
+        $stack8 = $stack7.<org.dacapo.parser.Token: int kind>;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = $stack8;
+
+        return $stack8;
+
+     label1:
+        $stack3 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token jj_nt>;
+
+        $stack4 = $stack3.<org.dacapo.parser.Token: int kind>;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_ntk> = $stack4;
+
+        return $stack4;
+    }
+
+    public org.dacapo.parser.ParseException generateParseException()
+    {
+        org.dacapo.parser.ConfigFile this;
+        java.util.List $stack4, $stack6, $stack8, $stack13, $stack25;
+        boolean[] la1tokens;
+        int $stack5, $stack7, $stack9, $stack28, $stack29, $stack33, $stack34, $stack35, $stack37, $stack38, $stack39, $stack42, $stack46, i#1, j#6, i#7, j#9;
+        org.dacapo.parser.ParseException $stack10;
+        java.lang.String[] $stack11;
+        org.dacapo.parser.Token $stack12;
+        java.lang.Object $stack14;
+        int[] $stack15, $stack16, $stack22, $stack23, $stack24, $stack27, $stack32, $stack36;
+        boolean $stack19;
+        int[][] i#8;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        $stack4 = this.<org.dacapo.parser.ConfigFile: java.util.List jj_expentries>;
+
+        interfaceinvoke $stack4.<java.util.List: void clear()>();
+
+        la1tokens = newarray (boolean)[54];
+
+        $stack5 = this.<org.dacapo.parser.ConfigFile: int jj_kind>;
+
+        if $stack5 < 0 goto label01;
+
+        $stack46 = this.<org.dacapo.parser.ConfigFile: int jj_kind>;
+
+        la1tokens[$stack46] = 1;
+
+        this.<org.dacapo.parser.ConfigFile: int jj_kind> = -1;
+
+     label01:
+        i#1 = 0;
+
+     label02:
+        if i#1 >= 19 goto label07;
+
+        $stack27 = this.<org.dacapo.parser.ConfigFile: int[] jj_la1>;
+
+        $stack29 = $stack27[i#1];
+
+        $stack28 = this.<org.dacapo.parser.ConfigFile: int jj_gen>;
+
+        if $stack29 != $stack28 goto label06;
+
+        j#6 = 0;
+
+     label03:
+        if j#6 >= 32 goto label06;
+
+        $stack32 = <org.dacapo.parser.ConfigFile: int[] jj_la1_0>;
+
+        $stack34 = $stack32[i#1];
+
+        $stack33 = 1 << j#6;
+
+        $stack35 = $stack34 & $stack33;
+
+        if $stack35 == 0 goto label04;
+
+        la1tokens[j#6] = 1;
+
+     label04:
+        $stack36 = <org.dacapo.parser.ConfigFile: int[] jj_la1_1>;
+
+        $stack38 = $stack36[i#1];
+
+        $stack37 = 1 << j#6;
+
+        $stack39 = $stack38 & $stack37;
+
+        if $stack39 == 0 goto label05;
+
+        $stack42 = 32 + j#6;
+
+        la1tokens[$stack42] = 1;
+
+     label05:
+        j#6 = j#6 + 1;
+
+        goto label03;
+
+     label06:
+        i#1 = i#1 + 1;
+
+        goto label02;
+
+     label07:
+        i#7 = 0;
+
+     label08:
+        if i#7 >= 54 goto label10;
+
+        $stack19 = la1tokens[i#7];
+
+        if $stack19 == 0 goto label09;
+
+        $stack22 = newarray (int)[1];
+
+        this.<org.dacapo.parser.ConfigFile: int[] jj_expentry> = $stack22;
+
+        $stack23 = this.<org.dacapo.parser.ConfigFile: int[] jj_expentry>;
+
+        $stack23[0] = i#7;
+
+        $stack25 = this.<org.dacapo.parser.ConfigFile: java.util.List jj_expentries>;
+
+        $stack24 = this.<org.dacapo.parser.ConfigFile: int[] jj_expentry>;
+
+        interfaceinvoke $stack25.<java.util.List: boolean add(java.lang.Object)>($stack24);
+
+     label09:
+        i#7 = i#7 + 1;
+
+        goto label08;
+
+     label10:
+        $stack6 = this.<org.dacapo.parser.ConfigFile: java.util.List jj_expentries>;
+
+        $stack7 = interfaceinvoke $stack6.<java.util.List: int size()>();
+
+        i#8 = newarray (int[])[$stack7];
+
+        j#9 = 0;
+
+     label11:
+        $stack8 = this.<org.dacapo.parser.ConfigFile: java.util.List jj_expentries>;
+
+        $stack9 = interfaceinvoke $stack8.<java.util.List: int size()>();
+
+        if j#9 >= $stack9 goto label12;
+
+        $stack13 = this.<org.dacapo.parser.ConfigFile: java.util.List jj_expentries>;
+
+        $stack14 = interfaceinvoke $stack13.<java.util.List: java.lang.Object get(int)>(j#9);
+
+        $stack15 = (int[]) $stack14;
+
+        $stack16 = (int[]) $stack15;
+
+        i#8[j#9] = $stack16;
+
+        j#9 = j#9 + 1;
+
+        goto label11;
+
+     label12:
+        $stack10 = new org.dacapo.parser.ParseException;
+
+        $stack12 = this.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Token token>;
+
+        $stack11 = <org.dacapo.parser.ConfigFile: java.lang.String[] tokenImage>;
+
+        specialinvoke $stack10.<org.dacapo.parser.ParseException: void <init>(org.dacapo.parser.Token,int[][],java.lang.String[])>($stack12, i#8, $stack11);
+
+        return $stack10;
+    }
+
+    public final void enable_tracing()
+    {
+        org.dacapo.parser.ConfigFile this;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        return;
+    }
+
+    public final void disable_tracing()
+    {
+        org.dacapo.parser.ConfigFile this;
+
+        this := @this: org.dacapo.parser.ConfigFile;
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        staticinvoke <org.dacapo.parser.ConfigFile: void jj_la1_init_0()>();
+
+        staticinvoke <org.dacapo.parser.ConfigFile: void jj_la1_init_1()>();
+
+        return;
+    }
+}

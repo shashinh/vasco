@@ -1,0 +1,40 @@
+public class avrora.arch.legacy.LegacyInterpreter$Factory extends avrora.sim.InterpreterFactory
+{
+
+    public void <init>()
+    {
+        avrora.arch.legacy.LegacyInterpreter$Factory this;
+
+        this := @this: avrora.arch.legacy.LegacyInterpreter$Factory;
+
+        specialinvoke this.<avrora.sim.InterpreterFactory: void <init>()>();
+
+        return;
+    }
+
+    public avrora.sim.Interpreter newInterpreter(avrora.sim.Simulator, avrora.core.Program, avrora.sim.mcu.MCUProperties)
+    {
+        avrora.arch.legacy.LegacyInterpreter $stack4;
+        avrora.sim.Simulator s;
+        avrora.core.Program p;
+        avrora.sim.mcu.MCUProperties pr;
+        avrora.arch.avr.AVRProperties $stack5;
+        avrora.arch.legacy.LegacyInterpreter$Factory this;
+
+        this := @this: avrora.arch.legacy.LegacyInterpreter$Factory;
+
+        s := @parameter0: avrora.sim.Simulator;
+
+        p := @parameter1: avrora.core.Program;
+
+        pr := @parameter2: avrora.sim.mcu.MCUProperties;
+
+        $stack4 = new avrora.arch.legacy.LegacyInterpreter;
+
+        $stack5 = (avrora.arch.avr.AVRProperties) pr;
+
+        specialinvoke $stack4.<avrora.arch.legacy.LegacyInterpreter: void <init>(avrora.sim.Simulator,avrora.core.Program,avrora.arch.avr.AVRProperties)>(s, p, $stack5);
+
+        return $stack4;
+    }
+}

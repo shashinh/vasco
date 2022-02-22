@@ -1,0 +1,118 @@
+public class avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    protected byte increment;
+    protected final int top;
+    protected final avrora.sim.RWRegister compareRegHigh;
+    protected final avrora.sim.RWRegister compareRegLow;
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    protected void <init>(avrora.sim.mcu.Timer16Bit, int, avrora.sim.RWRegister, avrora.sim.RWRegister)
+    {
+        avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect this;
+        avrora.sim.mcu.Timer16Bit this$0;
+        int t;
+        avrora.sim.RWRegister compareRegH, compareRegL;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect;
+
+        this$0 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        t := @parameter1: int;
+
+        compareRegH := @parameter2: avrora.sim.RWRegister;
+
+        compareRegL := @parameter3: avrora.sim.RWRegister;
+
+        this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.mcu.Timer16Bit this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: byte increment> = 1;
+
+        this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: int top> = t;
+
+        this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.RWRegister compareRegHigh> = compareRegH;
+
+        this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.RWRegister compareRegLow> = compareRegL;
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect this;
+        avrora.sim.mcu.Timer16Bit $stack3, $stack4, $stack8, $stack18, $stack19, $stack11#21;
+        avrora.sim.mcu.Timer16Bit$TCNTnRegister $stack5;
+        avrora.sim.RWRegister $stack6, $stack9, $stack20, $stack21;
+        int ncount#1, top#2, ncount#15;
+        byte $stack10#11;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect;
+
+        $stack3 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack6 = $stack3.<avrora.sim.mcu.Timer16Bit: avrora.sim.RWRegister TCNTnH_reg>;
+
+        $stack4 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack5 = $stack4.<avrora.sim.mcu.Timer16Bit: avrora.sim.mcu.Timer16Bit$TCNTnRegister TCNTnL_reg>;
+
+        ncount#1 = staticinvoke <avrora.sim.mcu.AtmelInternalDevice: int read16(avrora.sim.RWRegister,avrora.sim.RWRegister)>($stack6, $stack5);
+
+        $stack8 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.mcu.Timer16Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer16Bit: void access$200(avrora.sim.mcu.Timer16Bit,int)>($stack8, ncount#1);
+
+        top#2 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: int top>;
+
+        $stack9 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.RWRegister compareRegHigh>;
+
+        if $stack9 == null goto label1;
+
+        $stack21 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.RWRegister compareRegHigh>;
+
+        $stack20 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.RWRegister compareRegLow>;
+
+        top#2 = staticinvoke <avrora.sim.mcu.AtmelInternalDevice: int read16(avrora.sim.RWRegister,avrora.sim.RWRegister)>($stack21, $stack20);
+
+     label1:
+        if ncount#1 != top#2 goto label2;
+
+        this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: byte increment> = -1;
+
+        $stack19 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.mcu.Timer16Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer16Bit: void access$400(avrora.sim.mcu.Timer16Bit)>($stack19);
+
+        goto label4;
+
+     label2:
+        if ncount#1 > 0 goto label3;
+
+        $stack18 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.mcu.Timer16Bit this$0>;
+
+        virtualinvoke $stack18.<avrora.sim.mcu.Timer16Bit: void overflow()>();
+
+        this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: byte increment> = 1;
+
+        ncount#1 = 0;
+
+        goto label4;
+
+     label3:
+        if ncount#1 < 65535 goto label4;
+
+        ncount#1 = -1;
+
+     label4:
+        $stack10#11 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: byte increment>;
+
+        ncount#15 = ncount#1 + $stack10#11;
+
+        $stack11#21 = this.<avrora.sim.mcu.Timer16Bit$Mode_PWMPhaseCorrect: avrora.sim.mcu.Timer16Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer16Bit: void access$300(avrora.sim.mcu.Timer16Bit,avrora.sim.Simulator$Event,int)>($stack11#21, this, ncount#15);
+
+        return;
+    }
+}

@@ -1,0 +1,51 @@
+public class avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.mcu.EEPROM this$0;
+
+    protected void <init>(avrora.sim.mcu.EEPROM)
+    {
+        avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent this;
+        avrora.sim.mcu.EEPROM this$0;
+
+        this := @this: avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent;
+
+        this$0 := @parameter0: avrora.sim.mcu.EEPROM;
+
+        this.<avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent: avrora.sim.mcu.EEPROM this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent this;
+        avrora.sim.mcu.EEPROM $stack1, $stack3, $stack5;
+        avrora.sim.output.SimPrinter $stack2, $stack6;
+        avrora.sim.mcu.EEPROM$EECRReg $stack4;
+
+        this := @this: avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent;
+
+        $stack1 = this.<avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack2 = $stack1.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $stack2 == null goto label1;
+
+        $stack5 = this.<avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack6 = $stack5.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        virtualinvoke $stack6.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("EEPROM: write finished, clearing EEWE");
+
+     label1:
+        $stack3 = this.<avrora.sim.mcu.EEPROM$EEPROMWriteFinishedEvent: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.EEPROM: avrora.sim.mcu.EEPROM$EECRReg EECR_reg>;
+
+        virtualinvoke $stack4.<avrora.sim.mcu.EEPROM$EECRReg: void resetEEWE()>();
+
+        return;
+    }
+}

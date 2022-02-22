@@ -1,0 +1,742 @@
+public abstract class avrora.sim.radio.Medium$Receiver extends avrora.sim.radio.Medium$TXRX
+{
+    private static final int BIT_DELAY;
+    protected boolean locked;
+    protected double frequency;
+    public avrora.sim.radio.Medium$Receiver$Ticker ticker;
+    static final boolean $assertionsDisabled;
+
+    protected void <init>(avrora.sim.radio.Medium, avrora.sim.clock.Clock)
+    {
+        avrora.sim.radio.Medium$Receiver this;
+        avrora.sim.radio.Medium m;
+        avrora.sim.clock.Clock c;
+        avrora.sim.radio.Medium$Receiver$Ticker $stack3;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        m := @parameter0: avrora.sim.radio.Medium;
+
+        c := @parameter1: avrora.sim.clock.Clock;
+
+        specialinvoke this.<avrora.sim.radio.Medium$TXRX: void <init>(avrora.sim.radio.Medium,avrora.sim.clock.Clock)>(m, c);
+
+        $stack3 = new avrora.sim.radio.Medium$Receiver$Ticker;
+
+        specialinvoke $stack3.<avrora.sim.radio.Medium$Receiver$Ticker: void <init>(avrora.sim.radio.Medium$Receiver)>(this);
+
+        this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium$Receiver$Ticker ticker> = $stack3;
+
+        return;
+    }
+
+    public final void beginReceive(double)
+    {
+        avrora.sim.radio.Medium$Receiver this;
+        double freq;
+        boolean $stack3;
+        long $stack4, $stack5, $stack6;
+        avrora.sim.radio.Medium$Receiver$Ticker $stack7;
+        avrora.sim.clock.Clock $stack8;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        freq := @parameter0: double;
+
+        this.<avrora.sim.radio.Medium$Receiver: double frequency> = freq;
+
+        $stack3 = this.<avrora.sim.radio.Medium$Receiver: boolean activated>;
+
+        if $stack3 != 0 goto label1;
+
+        this.<avrora.sim.radio.Medium$Receiver: boolean activated> = 1;
+
+        $stack8 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack7 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium$Receiver$Ticker ticker>;
+
+        $stack5 = this.<avrora.sim.radio.Medium$Receiver: long leadCycles>;
+
+        $stack4 = this.<avrora.sim.radio.Medium$Receiver: long cyclesPerByte>;
+
+        $stack6 = $stack5 + $stack4;
+
+        virtualinvoke $stack8.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>($stack7, $stack6);
+
+     label1:
+        return;
+    }
+
+    public final void endReceive()
+    {
+        avrora.sim.radio.Medium$Receiver this;
+        boolean $stack1;
+        avrora.sim.radio.Medium$Probe$List $stack5, $stack12;
+        avrora.sim.clock.Clock $stack3#12;
+        avrora.sim.radio.Medium$Receiver$Ticker $stack2#16;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        $stack1 = this.<avrora.sim.radio.Medium$Receiver: boolean locked>;
+
+        if $stack1 == 0 goto label1;
+
+        virtualinvoke this.<avrora.sim.radio.Medium$Receiver: byte nextByte(boolean,byte)>(0, 0);
+
+        $stack5 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        if $stack5 == null goto label1;
+
+        $stack12 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        virtualinvoke $stack12.<avrora.sim.radio.Medium$Probe$List: void fireAfterReceiveEnd(avrora.sim.radio.Medium$Receiver)>(this);
+
+     label1:
+        this.<avrora.sim.radio.Medium$Receiver: boolean activated> = 0;
+
+        this.<avrora.sim.radio.Medium$Receiver: boolean locked> = 0;
+
+        $stack3#12 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack2#16 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium$Receiver$Ticker ticker>;
+
+        virtualinvoke $stack3#12.<avrora.sim.clock.Clock: void removeEvent(avrora.sim.Simulator$Event)>($stack2#16);
+
+        return;
+    }
+
+    public abstract byte nextByte(boolean, byte);
+
+    public abstract void setRssiValid(boolean);
+
+    public abstract boolean getRssiValid();
+
+    public abstract void setRSSI(double);
+
+    public abstract void setBER(double);
+
+    public final boolean isChannelClear(int, int)
+    {
+        int MDMCTRL0_reg, $stack16, cca_mode, $stack33, RSSI_reg, $stack34, $stack35, $stack36, rssi_val, $stack37, $stack50, $stack59, $stack60, $stack70, $stack79, $stack31#13, t#14, I#15;
+        avrora.sim.radio.Medium$Receiver this;
+        boolean $stack17, $stack18, $stack28, one#1, $stack30#6, $stack38#16, $stack32#17, $stack27#18, $stack19#19;
+        avrora.sim.clock.Clock $stack20, $stack45, $stack47, $stack54, $stack56, $stack65, $stack67;
+        long time, $stack22, bit, $stack23, $stack24, $stack25, $stack48, $stack57, $stack68;
+        java.util.List it;
+        java.util.Iterator i;
+        java.lang.Object $stack43;
+        avrora.sim.radio.Medium $stack44, $stack53, $stack64;
+        avrora.sim.radio.Medium$Arbitrator $stack46, $stack55, $stack66;
+        double $stack49, $stack51, $stack58, $stack69, $stack72, $stack74, $stack75, $stack76, $stack77, $stack78, rssi#2, I#8;
+        java.lang.AssertionError $stack81;
+        avrora.sim.radio.Medium$Transmission t#7;
+        byte $stack40#9, $stack39#10;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        RSSI_reg := @parameter0: int;
+
+        MDMCTRL0_reg := @parameter1: int;
+
+        $stack16 = MDMCTRL0_reg & 192;
+
+        cca_mode = $stack16 >>> 6;
+
+        $stack17 = this.<avrora.sim.radio.Medium$Receiver: boolean activated>;
+
+        if $stack17 != 0 goto label18;
+
+        $stack20 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        time = virtualinvoke $stack20.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack22 = virtualinvoke this.<avrora.sim.radio.Medium$Receiver: long getBitNum(long)>(time);
+
+        bit = $stack22 - 1L;
+
+        $stack23 = this.<avrora.sim.radio.Medium$Receiver: long cyclesPerByte>;
+
+        $stack24 = time - $stack23;
+
+        specialinvoke this.<avrora.sim.radio.Medium$Receiver: void waitForNeighbors(long)>($stack24);
+
+        $stack25 = bit - 8L;
+
+        it = specialinvoke this.<avrora.sim.radio.Medium$Receiver: java.util.List getIntersection(long)>($stack25);
+
+        if it == null goto label15;
+
+        one#1 = 0;
+
+        rssi#2 = 0.0;
+
+        $stack28 = <avrora.sim.radio.Medium$Receiver: boolean $assertionsDisabled>;
+
+        if $stack28 != 0 goto label01;
+
+        $stack79 = interfaceinvoke it.<java.util.List: int size()>();
+
+        if $stack79 > 0 goto label01;
+
+        $stack81 = new java.lang.AssertionError;
+
+        specialinvoke $stack81.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack81;
+
+     label01:
+        i = interfaceinvoke it.<java.util.List: java.util.Iterator iterator()>();
+
+     label02:
+        $stack30#6 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack30#6 == 0 goto label05;
+
+        $stack43 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        t#7 = (avrora.sim.radio.Medium$Transmission) $stack43;
+
+        if one#1 == 0 goto label03;
+
+        $stack64 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack66 = $stack64.<avrora.sim.radio.Medium: avrora.sim.radio.Medium$Arbitrator arbitrator>;
+
+        $stack67 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack65 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack68 = virtualinvoke $stack65.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack69 = virtualinvoke $stack67.<avrora.sim.clock.Clock: double cyclesToMillis(long)>($stack68);
+
+        $stack70 = (int) $stack69;
+
+        I#8 = interfaceinvoke $stack66.<avrora.sim.radio.Medium$Arbitrator: double computeReceivedPower(avrora.sim.radio.Medium$Transmission,avrora.sim.radio.Medium$Receiver,int)>(t#7, this, $stack70);
+
+        $stack72 = rssi#2 / 10.0;
+
+        $stack74 = staticinvoke <java.lang.Math: double pow(double,double)>(10.0, $stack72);
+
+        $stack75 = I#8 / 10.0;
+
+        $stack76 = staticinvoke <java.lang.Math: double pow(double,double)>(10.0, $stack75);
+
+        $stack77 = $stack74 + $stack76;
+
+        $stack78 = staticinvoke <java.lang.Math: double log10(double)>($stack77);
+
+        rssi#2 = 10.0 * $stack78;
+
+        goto label04;
+
+     label03:
+        one#1 = 1;
+
+        $stack44 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack46 = $stack44.<avrora.sim.radio.Medium: avrora.sim.radio.Medium$Arbitrator arbitrator>;
+
+        $stack47 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack45 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack48 = virtualinvoke $stack45.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack49 = virtualinvoke $stack47.<avrora.sim.clock.Clock: double cyclesToMillis(long)>($stack48);
+
+        $stack50 = (int) $stack49;
+
+        $stack51 = interfaceinvoke $stack46.<avrora.sim.radio.Medium$Arbitrator: double computeReceivedPower(avrora.sim.radio.Medium$Transmission,avrora.sim.radio.Medium$Receiver,int)>(t#7, this, $stack50);
+
+        staticinvoke <avrora.sim.radio.Medium: double access$302(double)>($stack51);
+
+        $stack53 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack55 = $stack53.<avrora.sim.radio.Medium: avrora.sim.radio.Medium$Arbitrator arbitrator>;
+
+        $stack56 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack54 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack57 = virtualinvoke $stack54.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack58 = virtualinvoke $stack56.<avrora.sim.clock.Clock: double cyclesToMillis(long)>($stack57);
+
+        $stack59 = (int) $stack58;
+
+        $stack60 = interfaceinvoke $stack55.<avrora.sim.radio.Medium$Arbitrator: int getNoise(int)>($stack59);
+
+        staticinvoke <avrora.sim.radio.Medium: int access$402(int)>($stack60);
+
+        rssi#2 = staticinvoke <avrora.sim.radio.Medium: double access$300()>();
+
+     label04:
+        goto label02;
+
+     label05:
+        if cca_mode != 1 goto label06;
+
+        $stack40#9 = 1;
+
+        goto label07;
+
+     label06:
+        $stack40#9 = 0;
+
+     label07:
+        if cca_mode != 3 goto label08;
+
+        $stack39#10 = 1;
+
+        goto label09;
+
+     label08:
+        $stack39#10 = 0;
+
+     label09:
+        $stack31#13 = $stack40#9 | $stack39#10;
+
+        if $stack31#13 == 0 goto label12;
+
+        $stack33 = MDMCTRL0_reg & 1792;
+
+        t#14 = $stack33 >>> 8;
+
+        $stack34 = RSSI_reg & 65280;
+
+        $stack35 = $stack34 >>> 8;
+
+        I#15 = $stack35 - 256;
+
+        $stack36 = (int) rssi#2;
+
+        rssi_val = $stack36 + 45;
+
+        $stack37 = I#15 - t#14;
+
+        if rssi_val >= $stack37 goto label10;
+
+        $stack38#16 = 1;
+
+        goto label11;
+
+     label10:
+        $stack38#16 = 0;
+
+     label11:
+        return $stack38#16;
+
+     label12:
+        if it == null goto label13;
+
+        $stack32#17 = 1;
+
+        goto label14;
+
+     label13:
+        $stack32#17 = 0;
+
+     label14:
+        return $stack32#17;
+
+     label15:
+        if it == null goto label16;
+
+        $stack27#18 = 1;
+
+        goto label17;
+
+     label16:
+        $stack27#18 = 0;
+
+     label17:
+        return $stack27#18;
+
+     label18:
+        $stack18 = this.<avrora.sim.radio.Medium$Receiver: boolean locked>;
+
+        if $stack18 != 0 goto label19;
+
+        $stack19#19 = 1;
+
+        goto label20;
+
+     label19:
+        $stack19#19 = 0;
+
+     label20:
+        return $stack19#19;
+    }
+
+    private avrora.sim.radio.Medium$Transmission earliestNewTransmission(long)
+    {
+        avrora.sim.radio.Medium$Receiver this;
+        avrora.sim.radio.Medium $stack8, $stack9, $stack17, $stack26;
+        java.util.List $stack10;
+        java.util.Iterator i;
+        boolean $stack12, $stack33;
+        java.lang.Object $stack14;
+        avrora.sim.radio.Medium$Transmission t, tx#1;
+        long bit, $stack15, $stack20, $stack21, $stack22, $stack23, $stack30, $stack39, $stack40;
+        byte $stack16, $stack24, $stack41;
+        int $stack18, $stack19, $stack32;
+        avrora.sim.clock.Clock $stack27, $stack29;
+        avrora.sim.radio.Medium$Arbitrator $stack28;
+        double $stack31;
+        java.lang.Throwable $stack42;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        bit := @parameter0: long;
+
+        tx#1 = null;
+
+        $stack8 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        entermonitor $stack8;
+
+     label01:
+        $stack9 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack10 = $stack9.<avrora.sim.radio.Medium: java.util.List transmissions>;
+
+        i = interfaceinvoke $stack10.<java.util.List: java.util.Iterator iterator()>();
+
+     label02:
+        $stack12 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack12 == 0 goto label06;
+
+        $stack14 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        t = (avrora.sim.radio.Medium$Transmission) $stack14;
+
+        $stack15 = t.<avrora.sim.radio.Medium$Transmission: long firstBit>;
+
+        $stack16 = bit cmp $stack15;
+
+        if $stack16 > 0 goto label04;
+
+        $stack26 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack28 = $stack26.<avrora.sim.radio.Medium: avrora.sim.radio.Medium$Arbitrator arbitrator>;
+
+        $stack29 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack27 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack30 = virtualinvoke $stack27.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack31 = virtualinvoke $stack29.<avrora.sim.clock.Clock: double cyclesToMillis(long)>($stack30);
+
+        $stack32 = (int) $stack31;
+
+        $stack33 = interfaceinvoke $stack28.<avrora.sim.radio.Medium$Arbitrator: boolean lockTransmission(avrora.sim.radio.Medium$Receiver,avrora.sim.radio.Medium$Transmission,int)>(this, t, $stack32);
+
+        if $stack33 == 0 goto label04;
+
+        if tx#1 != null goto label03;
+
+        tx#1 = t;
+
+        goto label05;
+
+     label03:
+        $stack40 = t.<avrora.sim.radio.Medium$Transmission: long firstBit>;
+
+        $stack39 = tx#1.<avrora.sim.radio.Medium$Transmission: long firstBit>;
+
+        $stack41 = $stack40 cmp $stack39;
+
+        if $stack41 >= 0 goto label05;
+
+        tx#1 = t;
+
+        goto label05;
+
+     label04:
+        $stack21 = bit - 8L;
+
+        $stack17 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack18 = $stack17.<avrora.sim.radio.Medium: int leadBits>;
+
+        $stack19 = 2 * $stack18;
+
+        $stack20 = (long) $stack19;
+
+        $stack23 = $stack21 - $stack20;
+
+        $stack22 = t.<avrora.sim.radio.Medium$Transmission: long lastBit>;
+
+        $stack24 = $stack23 cmp $stack22;
+
+        if $stack24 <= 0 goto label05;
+
+        interfaceinvoke i.<java.util.Iterator: void remove()>();
+
+     label05:
+        goto label02;
+
+     label06:
+        exitmonitor $stack8;
+
+     label07:
+        goto label10;
+
+     label08:
+        $stack42 := @caughtexception;
+
+        exitmonitor $stack8;
+
+     label09:
+        throw $stack42;
+
+     label10:
+        return tx#1;
+
+        catch java.lang.Throwable from label01 to label07 with label08;
+        catch java.lang.Throwable from label08 to label09 with label08;
+    }
+
+    private java.util.List getIntersection(long)
+    {
+        avrora.sim.radio.Medium$Receiver this;
+        avrora.sim.radio.Medium $stack8, $stack9;
+        java.util.List $stack10;
+        java.util.Iterator i;
+        boolean $stack12, $stack15;
+        java.lang.Object $stack14;
+        avrora.sim.radio.Medium$Transmission t;
+        long bit;
+        java.util.LinkedList $stack18, it#1;
+        java.lang.Throwable $stack21;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        bit := @parameter0: long;
+
+        it#1 = null;
+
+        $stack8 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        entermonitor $stack8;
+
+     label1:
+        $stack9 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack10 = $stack9.<avrora.sim.radio.Medium: java.util.List transmissions>;
+
+        i = interfaceinvoke $stack10.<java.util.List: java.util.Iterator iterator()>();
+
+     label2:
+        $stack12 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack12 == 0 goto label5;
+
+        $stack14 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        t = (avrora.sim.radio.Medium$Transmission) $stack14;
+
+        $stack15 = specialinvoke this.<avrora.sim.radio.Medium$Receiver: boolean intersect(long,avrora.sim.radio.Medium$Transmission)>(bit, t);
+
+        if $stack15 == 0 goto label4;
+
+        if it#1 != null goto label3;
+
+        $stack18 = new java.util.LinkedList;
+
+        specialinvoke $stack18.<java.util.LinkedList: void <init>()>();
+
+        it#1 = $stack18;
+
+     label3:
+        interfaceinvoke it#1.<java.util.List: boolean add(java.lang.Object)>(t);
+
+     label4:
+        goto label2;
+
+     label5:
+        exitmonitor $stack8;
+
+     label6:
+        goto label9;
+
+     label7:
+        $stack21 := @caughtexception;
+
+        exitmonitor $stack8;
+
+     label8:
+        throw $stack21;
+
+     label9:
+        return it#1;
+
+        catch java.lang.Throwable from label1 to label6 with label7;
+        catch java.lang.Throwable from label7 to label8 with label7;
+    }
+
+    private boolean intersect(long, avrora.sim.radio.Medium$Transmission)
+    {
+        long bit, $stack4, $stack6;
+        avrora.sim.radio.Medium$Transmission t;
+        byte $stack5, $stack7;
+        avrora.sim.radio.Medium$Receiver this;
+        boolean $stack8#1;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        bit := @parameter0: long;
+
+        t := @parameter1: avrora.sim.radio.Medium$Transmission;
+
+        $stack4 = t.<avrora.sim.radio.Medium$Transmission: long firstBit>;
+
+        $stack5 = bit cmp $stack4;
+
+        if $stack5 < 0 goto label1;
+
+        $stack6 = t.<avrora.sim.radio.Medium$Transmission: long lastBit>;
+
+        $stack7 = bit cmp $stack6;
+
+        if $stack7 >= 0 goto label1;
+
+        $stack8#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack8#1 = 0;
+
+     label2:
+        return $stack8#1;
+    }
+
+    private void waitForNeighbors(long)
+    {
+        avrora.sim.radio.Medium$Receiver this;
+        avrora.sim.radio.Medium $stack3, $stack5;
+        avrora.sim.clock.Synchronizer $stack4, $stack6;
+        long gtime;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        gtime := @parameter0: long;
+
+        $stack3 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack4 = $stack3.<avrora.sim.radio.Medium: avrora.sim.clock.Synchronizer synch>;
+
+        if $stack4 == null goto label1;
+
+        $stack5 = this.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium medium>;
+
+        $stack6 = $stack5.<avrora.sim.radio.Medium: avrora.sim.clock.Synchronizer synch>;
+
+        virtualinvoke $stack6.<avrora.sim.clock.Synchronizer: void waitForNeighbors(long)>(gtime);
+
+     label1:
+        return;
+    }
+
+    public volatile void removeProbe(avrora.sim.radio.Medium$Probe)
+    {
+        avrora.sim.radio.Medium$Receiver this;
+        avrora.sim.radio.Medium$Probe l1;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Probe;
+
+        specialinvoke this.<avrora.sim.radio.Medium$TXRX: void removeProbe(avrora.sim.radio.Medium$Probe)>(l1);
+
+        return;
+    }
+
+    public volatile void insertProbe(avrora.sim.radio.Medium$Probe)
+    {
+        avrora.sim.radio.Medium$Receiver this;
+        avrora.sim.radio.Medium$Probe l1;
+
+        this := @this: avrora.sim.radio.Medium$Receiver;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Probe;
+
+        specialinvoke this.<avrora.sim.radio.Medium$TXRX: void insertProbe(avrora.sim.radio.Medium$Probe)>(l1);
+
+        return;
+    }
+
+    static void access$000(avrora.sim.radio.Medium$Receiver, long)
+    {
+        avrora.sim.radio.Medium$Receiver x0;
+        long x1;
+
+        x0 := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        x1 := @parameter1: long;
+
+        specialinvoke x0.<avrora.sim.radio.Medium$Receiver: void waitForNeighbors(long)>(x1);
+
+        return;
+    }
+
+    static avrora.sim.radio.Medium$Transmission access$100(avrora.sim.radio.Medium$Receiver, long)
+    {
+        avrora.sim.radio.Medium$Receiver x0;
+        long x1;
+        avrora.sim.radio.Medium$Transmission $stack3;
+
+        x0 := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        x1 := @parameter1: long;
+
+        $stack3 = specialinvoke x0.<avrora.sim.radio.Medium$Receiver: avrora.sim.radio.Medium$Transmission earliestNewTransmission(long)>(x1);
+
+        return $stack3;
+    }
+
+    static java.util.List access$200(avrora.sim.radio.Medium$Receiver, long)
+    {
+        avrora.sim.radio.Medium$Receiver x0;
+        long x1;
+        java.util.List $stack3;
+
+        x0 := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        x1 := @parameter1: long;
+
+        $stack3 = specialinvoke x0.<avrora.sim.radio.Medium$Receiver: java.util.List getIntersection(long)>(x1);
+
+        return $stack3;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.Class $stack0;
+        boolean $stack1, $stack2#1;
+
+        <avrora.sim.radio.Medium$Receiver: int BIT_DELAY> = 1;
+
+        $stack0 = class "Lavrora/sim/radio/Medium;";
+
+        $stack1 = virtualinvoke $stack0.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $stack1 != 0 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        <avrora.sim.radio.Medium$Receiver: boolean $assertionsDisabled> = $stack2#1;
+
+        return;
+    }
+}

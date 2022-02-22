@@ -1,0 +1,619 @@
+public abstract class org.apache.commons.cli.Parser extends java.lang.Object implements org.apache.commons.cli.CommandLineParser
+{
+    protected org.apache.commons.cli.CommandLine cmd;
+    private org.apache.commons.cli.Options options;
+    private java.util.List requiredOptions;
+
+    public void <init>()
+    {
+        org.apache.commons.cli.Parser this;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    protected void setOptions(org.apache.commons.cli.Options)
+    {
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.Options options;
+        java.util.ArrayList $stack2;
+        java.util.List $stack3;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        options := @parameter0: org.apache.commons.cli.Options;
+
+        this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options options> = options;
+
+        $stack2 = new java.util.ArrayList;
+
+        $stack3 = virtualinvoke options.<org.apache.commons.cli.Options: java.util.List getRequiredOptions()>();
+
+        specialinvoke $stack2.<java.util.ArrayList: void <init>(java.util.Collection)>($stack3);
+
+        this.<org.apache.commons.cli.Parser: java.util.List requiredOptions> = $stack2;
+
+        return;
+    }
+
+    protected org.apache.commons.cli.Options getOptions()
+    {
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.Options $stack1;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        $stack1 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options options>;
+
+        return $stack1;
+    }
+
+    protected java.util.List getRequiredOptions()
+    {
+        org.apache.commons.cli.Parser this;
+        java.util.List $stack1;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        $stack1 = this.<org.apache.commons.cli.Parser: java.util.List requiredOptions>;
+
+        return $stack1;
+    }
+
+    protected abstract java.lang.String[] flatten(org.apache.commons.cli.Options, java.lang.String[], boolean);
+
+    public org.apache.commons.cli.CommandLine parse(org.apache.commons.cli.Options, java.lang.String[]) throws org.apache.commons.cli.ParseException
+    {
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.Options options;
+        java.lang.String[] arguments;
+        org.apache.commons.cli.CommandLine $stack3;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        options := @parameter0: org.apache.commons.cli.Options;
+
+        arguments := @parameter1: java.lang.String[];
+
+        $stack3 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine parse(org.apache.commons.cli.Options,java.lang.String[],java.util.Properties,boolean)>(options, arguments, null, 0);
+
+        return $stack3;
+    }
+
+    public org.apache.commons.cli.CommandLine parse(org.apache.commons.cli.Options, java.lang.String[], java.util.Properties) throws org.apache.commons.cli.ParseException
+    {
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.Options options;
+        java.lang.String[] arguments;
+        java.util.Properties properties;
+        org.apache.commons.cli.CommandLine $stack4;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        options := @parameter0: org.apache.commons.cli.Options;
+
+        arguments := @parameter1: java.lang.String[];
+
+        properties := @parameter2: java.util.Properties;
+
+        $stack4 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine parse(org.apache.commons.cli.Options,java.lang.String[],java.util.Properties,boolean)>(options, arguments, properties, 0);
+
+        return $stack4;
+    }
+
+    public org.apache.commons.cli.CommandLine parse(org.apache.commons.cli.Options, java.lang.String[], boolean) throws org.apache.commons.cli.ParseException
+    {
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.Options options;
+        java.lang.String[] arguments;
+        boolean stopAtNonOption;
+        org.apache.commons.cli.CommandLine $stack4;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        options := @parameter0: org.apache.commons.cli.Options;
+
+        arguments := @parameter1: java.lang.String[];
+
+        stopAtNonOption := @parameter2: boolean;
+
+        $stack4 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine parse(org.apache.commons.cli.Options,java.lang.String[],java.util.Properties,boolean)>(options, arguments, null, stopAtNonOption);
+
+        return $stack4;
+    }
+
+    public org.apache.commons.cli.CommandLine parse(org.apache.commons.cli.Options, java.lang.String[], java.util.Properties, boolean) throws org.apache.commons.cli.ParseException
+    {
+        org.apache.commons.cli.Options options, $stack14, $stack35;
+        java.util.List $stack10, opt#5;
+        boolean $stack12, stopAtNonOption, $stack22, $stack24, $stack25, $stack28, $stack31, $stack36, it#4, $stack18#9;
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.CommandLine $stack13, $stack19, $stack26, $stack33, $stack40, $stack41;
+        java.lang.String[] $stack15, arguments#1;
+        java.util.ListIterator iterator;
+        java.util.Properties properties;
+        java.lang.Object $stack20, $stack29, $stack47;
+        java.lang.String t, $stack21, $stack23, str, $stack30;
+        java.util.Iterator it#2;
+        org.apache.commons.cli.Option opt#3;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        options := @parameter0: org.apache.commons.cli.Options;
+
+        arguments#1 := @parameter1: java.lang.String[];
+
+        properties := @parameter2: java.util.Properties;
+
+        stopAtNonOption := @parameter3: boolean;
+
+        $stack10 = virtualinvoke options.<org.apache.commons.cli.Options: java.util.List helpOptions()>();
+
+        it#2 = interfaceinvoke $stack10.<java.util.List: java.util.Iterator iterator()>();
+
+     label01:
+        $stack12 = interfaceinvoke it#2.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack12 == 0 goto label02;
+
+        $stack47 = interfaceinvoke it#2.<java.util.Iterator: java.lang.Object next()>();
+
+        opt#3 = (org.apache.commons.cli.Option) $stack47;
+
+        virtualinvoke opt#3.<org.apache.commons.cli.Option: void clearValues()>();
+
+        goto label01;
+
+     label02:
+        virtualinvoke this.<org.apache.commons.cli.Parser: void setOptions(org.apache.commons.cli.Options)>(options);
+
+        $stack13 = new org.apache.commons.cli.CommandLine;
+
+        specialinvoke $stack13.<org.apache.commons.cli.CommandLine: void <init>()>();
+
+        this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd> = $stack13;
+
+        it#4 = 0;
+
+        if arguments#1 != null goto label03;
+
+        arguments#1 = newarray (java.lang.String)[0];
+
+     label03:
+        $stack14 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options getOptions()>();
+
+        $stack15 = virtualinvoke this.<org.apache.commons.cli.Parser: java.lang.String[] flatten(org.apache.commons.cli.Options,java.lang.String[],boolean)>($stack14, arguments#1, stopAtNonOption);
+
+        opt#5 = staticinvoke <java.util.Arrays: java.util.List asList(java.lang.Object[])>($stack15);
+
+        iterator = interfaceinvoke opt#5.<java.util.List: java.util.ListIterator listIterator()>();
+
+     label04:
+        $stack18#9 = interfaceinvoke iterator.<java.util.ListIterator: boolean hasNext()>();
+
+        if $stack18#9 == 0 goto label14;
+
+        $stack20 = interfaceinvoke iterator.<java.util.ListIterator: java.lang.Object next()>();
+
+        t = (java.lang.String) $stack20;
+
+        $stack21 = "--";
+
+        $stack22 = virtualinvoke $stack21.<java.lang.String: boolean equals(java.lang.Object)>(t);
+
+        if $stack22 == 0 goto label05;
+
+        it#4 = 1;
+
+        goto label10;
+
+     label05:
+        $stack23 = "-";
+
+        $stack24 = virtualinvoke $stack23.<java.lang.String: boolean equals(java.lang.Object)>(t);
+
+        if $stack24 == 0 goto label07;
+
+        if stopAtNonOption == 0 goto label06;
+
+        it#4 = 1;
+
+        goto label10;
+
+     label06:
+        $stack41 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd>;
+
+        virtualinvoke $stack41.<org.apache.commons.cli.CommandLine: void addArg(java.lang.String)>(t);
+
+        goto label10;
+
+     label07:
+        $stack25 = virtualinvoke t.<java.lang.String: boolean startsWith(java.lang.String)>("-");
+
+        if $stack25 == 0 goto label09;
+
+        if stopAtNonOption == 0 goto label08;
+
+        $stack35 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options getOptions()>();
+
+        $stack36 = virtualinvoke $stack35.<org.apache.commons.cli.Options: boolean hasOption(java.lang.String)>(t);
+
+        if $stack36 != 0 goto label08;
+
+        it#4 = 1;
+
+        $stack40 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd>;
+
+        virtualinvoke $stack40.<org.apache.commons.cli.CommandLine: void addArg(java.lang.String)>(t);
+
+        goto label10;
+
+     label08:
+        virtualinvoke this.<org.apache.commons.cli.Parser: void processOption(java.lang.String,java.util.ListIterator)>(t, iterator);
+
+        goto label10;
+
+     label09:
+        $stack26 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd>;
+
+        virtualinvoke $stack26.<org.apache.commons.cli.CommandLine: void addArg(java.lang.String)>(t);
+
+        if stopAtNonOption == 0 goto label10;
+
+        it#4 = 1;
+
+     label10:
+        if it#4 == 0 goto label13;
+
+     label11:
+        $stack28 = interfaceinvoke iterator.<java.util.ListIterator: boolean hasNext()>();
+
+        if $stack28 == 0 goto label13;
+
+        $stack29 = interfaceinvoke iterator.<java.util.ListIterator: java.lang.Object next()>();
+
+        str = (java.lang.String) $stack29;
+
+        $stack30 = "--";
+
+        $stack31 = virtualinvoke $stack30.<java.lang.String: boolean equals(java.lang.Object)>(str);
+
+        if $stack31 != 0 goto label12;
+
+        $stack33 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd>;
+
+        virtualinvoke $stack33.<org.apache.commons.cli.CommandLine: void addArg(java.lang.String)>(str);
+
+     label12:
+        goto label11;
+
+     label13:
+        goto label04;
+
+     label14:
+        virtualinvoke this.<org.apache.commons.cli.Parser: void processProperties(java.util.Properties)>(properties);
+
+        virtualinvoke this.<org.apache.commons.cli.Parser: void checkRequiredOptions()>();
+
+        $stack19 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd>;
+
+        return $stack19;
+    }
+
+    protected void processProperties(java.util.Properties)
+    {
+        java.util.Properties properties;
+        java.util.Enumeration e;
+        boolean $stack8, $stack12, $stack17, $stack19, $stack22, $stack26;
+        java.lang.Object $stack9;
+        java.lang.String option, value, $stack18, $stack21, $stack25;
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.CommandLine $stack11, $stack20#10;
+        org.apache.commons.cli.Options $stack14;
+        org.apache.commons.cli.Option opt;
+        java.lang.String[] $stack27, $stack28;
+        int $stack29;
+        java.lang.RuntimeException $stack32;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        properties := @parameter0: java.util.Properties;
+
+        if properties != null goto label1;
+
+        return;
+
+     label1:
+        e = virtualinvoke properties.<java.util.Properties: java.util.Enumeration propertyNames()>();
+
+     label2:
+        $stack8 = interfaceinvoke e.<java.util.Enumeration: boolean hasMoreElements()>();
+
+        if $stack8 == 0 goto label9;
+
+        $stack9 = interfaceinvoke e.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+        option = virtualinvoke $stack9.<java.lang.Object: java.lang.String toString()>();
+
+        $stack11 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd>;
+
+        $stack12 = virtualinvoke $stack11.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>(option);
+
+        if $stack12 != 0 goto label8;
+
+        $stack14 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options getOptions()>();
+
+        opt = virtualinvoke $stack14.<org.apache.commons.cli.Options: org.apache.commons.cli.Option getOption(java.lang.String)>(option);
+
+        value = virtualinvoke properties.<java.util.Properties: java.lang.String getProperty(java.lang.String)>(option);
+
+        $stack17 = virtualinvoke opt.<org.apache.commons.cli.Option: boolean hasArg()>();
+
+        if $stack17 == 0 goto label6;
+
+        $stack27 = virtualinvoke opt.<org.apache.commons.cli.Option: java.lang.String[] getValues()>();
+
+        if $stack27 == null goto label3;
+
+        $stack28 = virtualinvoke opt.<org.apache.commons.cli.Option: java.lang.String[] getValues()>();
+
+        $stack29 = lengthof $stack28;
+
+        if $stack29 != 0 goto label7;
+
+     label3:
+        virtualinvoke opt.<org.apache.commons.cli.Option: void addValueForProcessing(java.lang.String)>(value);
+
+     label4:
+        goto label7;
+
+     label5:
+        $stack32 := @caughtexception;
+
+        goto label7;
+
+     label6:
+        $stack18 = "yes";
+
+        $stack19 = virtualinvoke $stack18.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>(value);
+
+        if $stack19 != 0 goto label7;
+
+        $stack21 = "true";
+
+        $stack22 = virtualinvoke $stack21.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>(value);
+
+        if $stack22 != 0 goto label7;
+
+        $stack25 = "1";
+
+        $stack26 = virtualinvoke $stack25.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>(value);
+
+        if $stack26 != 0 goto label7;
+
+        goto label9;
+
+     label7:
+        $stack20#10 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd>;
+
+        virtualinvoke $stack20#10.<org.apache.commons.cli.CommandLine: void addOption(org.apache.commons.cli.Option)>(opt);
+
+     label8:
+        goto label2;
+
+     label9:
+        return;
+
+        catch java.lang.RuntimeException from label3 to label4 with label5;
+    }
+
+    protected void checkRequiredOptions() throws org.apache.commons.cli.MissingOptionException
+    {
+        org.apache.commons.cli.Parser this;
+        java.util.List $stack1, $stack4;
+        boolean $stack2;
+        org.apache.commons.cli.MissingOptionException $stack3;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        $stack1 = virtualinvoke this.<org.apache.commons.cli.Parser: java.util.List getRequiredOptions()>();
+
+        $stack2 = interfaceinvoke $stack1.<java.util.List: boolean isEmpty()>();
+
+        if $stack2 != 0 goto label1;
+
+        $stack3 = new org.apache.commons.cli.MissingOptionException;
+
+        $stack4 = virtualinvoke this.<org.apache.commons.cli.Parser: java.util.List getRequiredOptions()>();
+
+        specialinvoke $stack3.<org.apache.commons.cli.MissingOptionException: void <init>(java.util.List)>($stack4);
+
+        throw $stack3;
+
+     label1:
+        return;
+    }
+
+    public void processArgs(org.apache.commons.cli.Option, java.util.ListIterator) throws org.apache.commons.cli.ParseException
+    {
+        java.util.ListIterator iter;
+        boolean $stack5, $stack7, $stack11, $stack14;
+        org.apache.commons.cli.Option opt;
+        org.apache.commons.cli.MissingArgumentException $stack8;
+        java.lang.Object $stack9;
+        java.lang.String str, $stack12;
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.Options $stack10;
+        java.lang.RuntimeException $stack19;
+        java.lang.String[] $stack6#4;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        opt := @parameter0: org.apache.commons.cli.Option;
+
+        iter := @parameter1: java.util.ListIterator;
+
+     label1:
+        $stack5 = interfaceinvoke iter.<java.util.ListIterator: boolean hasNext()>();
+
+        if $stack5 == 0 goto label6;
+
+        $stack9 = interfaceinvoke iter.<java.util.ListIterator: java.lang.Object next()>();
+
+        str = (java.lang.String) $stack9;
+
+        $stack10 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options getOptions()>();
+
+        $stack11 = virtualinvoke $stack10.<org.apache.commons.cli.Options: boolean hasOption(java.lang.String)>(str);
+
+        if $stack11 == 0 goto label2;
+
+        $stack14 = virtualinvoke str.<java.lang.String: boolean startsWith(java.lang.String)>("-");
+
+        if $stack14 == 0 goto label2;
+
+        interfaceinvoke iter.<java.util.ListIterator: java.lang.Object previous()>();
+
+        goto label6;
+
+     label2:
+        $stack12 = staticinvoke <org.apache.commons.cli.Util: java.lang.String stripLeadingAndTrailingQuotes(java.lang.String)>(str);
+
+        virtualinvoke opt.<org.apache.commons.cli.Option: void addValueForProcessing(java.lang.String)>($stack12);
+
+     label3:
+        goto label5;
+
+     label4:
+        $stack19 := @caughtexception;
+
+        interfaceinvoke iter.<java.util.ListIterator: java.lang.Object previous()>();
+
+        goto label6;
+
+     label5:
+        goto label1;
+
+     label6:
+        $stack6#4 = virtualinvoke opt.<org.apache.commons.cli.Option: java.lang.String[] getValues()>();
+
+        if $stack6#4 != null goto label7;
+
+        $stack7 = virtualinvoke opt.<org.apache.commons.cli.Option: boolean hasOptionalArg()>();
+
+        if $stack7 != 0 goto label7;
+
+        $stack8 = new org.apache.commons.cli.MissingArgumentException;
+
+        specialinvoke $stack8.<org.apache.commons.cli.MissingArgumentException: void <init>(org.apache.commons.cli.Option)>(opt);
+
+        throw $stack8;
+
+     label7:
+        return;
+
+        catch java.lang.RuntimeException from label2 to label3 with label4;
+    }
+
+    protected void processOption(java.lang.String, java.util.ListIterator) throws org.apache.commons.cli.ParseException
+    {
+        org.apache.commons.cli.Parser this;
+        org.apache.commons.cli.Options $stack6, $stack8, $stack12, $stack18;
+        java.lang.String arg, $stack27, $stack35;
+        boolean hasOption, $stack11, $stack20, $stack14#4;
+        org.apache.commons.cli.Option $stack9, opt;
+        java.lang.Object $stack10;
+        org.apache.commons.cli.OptionGroup $stack13, group;
+        org.apache.commons.cli.CommandLine $stack15;
+        java.util.ListIterator iter;
+        java.util.List $stack22, $stack26;
+        org.apache.commons.cli.UnrecognizedOptionException $stack31;
+        java.lang.StringBuffer $stack32, $stack33, $stack34;
+
+        this := @this: org.apache.commons.cli.Parser;
+
+        arg := @parameter0: java.lang.String;
+
+        iter := @parameter1: java.util.ListIterator;
+
+        $stack6 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options getOptions()>();
+
+        hasOption = virtualinvoke $stack6.<org.apache.commons.cli.Options: boolean hasOption(java.lang.String)>(arg);
+
+        if hasOption != 0 goto label1;
+
+        $stack31 = new org.apache.commons.cli.UnrecognizedOptionException;
+
+        $stack32 = new java.lang.StringBuffer;
+
+        specialinvoke $stack32.<java.lang.StringBuffer: void <init>()>();
+
+        $stack33 = virtualinvoke $stack32.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("Unrecognized option: ");
+
+        $stack34 = virtualinvoke $stack33.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(arg);
+
+        $stack35 = virtualinvoke $stack34.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke $stack31.<org.apache.commons.cli.UnrecognizedOptionException: void <init>(java.lang.String,java.lang.String)>($stack35, arg);
+
+        throw $stack31;
+
+     label1:
+        $stack8 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options getOptions()>();
+
+        $stack9 = virtualinvoke $stack8.<org.apache.commons.cli.Options: org.apache.commons.cli.Option getOption(java.lang.String)>(arg);
+
+        $stack10 = virtualinvoke $stack9.<org.apache.commons.cli.Option: java.lang.Object clone()>();
+
+        opt = (org.apache.commons.cli.Option) $stack10;
+
+        $stack11 = virtualinvoke opt.<org.apache.commons.cli.Option: boolean isRequired()>();
+
+        if $stack11 == 0 goto label2;
+
+        $stack26 = virtualinvoke this.<org.apache.commons.cli.Parser: java.util.List getRequiredOptions()>();
+
+        $stack27 = virtualinvoke opt.<org.apache.commons.cli.Option: java.lang.String getKey()>();
+
+        interfaceinvoke $stack26.<java.util.List: boolean remove(java.lang.Object)>($stack27);
+
+     label2:
+        $stack12 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options getOptions()>();
+
+        $stack13 = virtualinvoke $stack12.<org.apache.commons.cli.Options: org.apache.commons.cli.OptionGroup getOptionGroup(org.apache.commons.cli.Option)>(opt);
+
+        if $stack13 == null goto label4;
+
+        $stack18 = virtualinvoke this.<org.apache.commons.cli.Parser: org.apache.commons.cli.Options getOptions()>();
+
+        group = virtualinvoke $stack18.<org.apache.commons.cli.Options: org.apache.commons.cli.OptionGroup getOptionGroup(org.apache.commons.cli.Option)>(opt);
+
+        $stack20 = virtualinvoke group.<org.apache.commons.cli.OptionGroup: boolean isRequired()>();
+
+        if $stack20 == 0 goto label3;
+
+        $stack22 = virtualinvoke this.<org.apache.commons.cli.Parser: java.util.List getRequiredOptions()>();
+
+        interfaceinvoke $stack22.<java.util.List: boolean remove(java.lang.Object)>(group);
+
+     label3:
+        virtualinvoke group.<org.apache.commons.cli.OptionGroup: void setSelected(org.apache.commons.cli.Option)>(opt);
+
+     label4:
+        $stack14#4 = virtualinvoke opt.<org.apache.commons.cli.Option: boolean hasArg()>();
+
+        if $stack14#4 == 0 goto label5;
+
+        virtualinvoke this.<org.apache.commons.cli.Parser: void processArgs(org.apache.commons.cli.Option,java.util.ListIterator)>(opt, iter);
+
+     label5:
+        $stack15 = this.<org.apache.commons.cli.Parser: org.apache.commons.cli.CommandLine cmd>;
+
+        virtualinvoke $stack15.<org.apache.commons.cli.CommandLine: void addOption(org.apache.commons.cli.Option)>(opt);
+
+        return;
+    }
+}

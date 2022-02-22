@@ -1,0 +1,84 @@
+public class avrora.sim.FiniteStateMachine$TransitionEvent extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    protected int oldState;
+    protected int newState;
+    final avrora.sim.FiniteStateMachine this$0;
+
+    protected void <init>(avrora.sim.FiniteStateMachine)
+    {
+        avrora.sim.FiniteStateMachine$TransitionEvent this;
+        avrora.sim.FiniteStateMachine this$0;
+
+        this := @this: avrora.sim.FiniteStateMachine$TransitionEvent;
+
+        this$0 := @parameter0: avrora.sim.FiniteStateMachine;
+
+        this.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.FiniteStateMachine$TransitionEvent this;
+        int $stack1, $stack4, $stack7, $stack8, $stack11, $stack14, $stack15, $stack18, $stack19;
+        avrora.sim.FiniteStateMachine $stack2, $stack3, $stack10, $stack17;
+        avrora.sim.FiniteStateMachine$State[] $stack5, $stack12;
+        avrora.sim.FiniteStateMachine$State $stack6, $stack13;
+        avrora.sim.util.MulticastFSMProbe $stack9, $stack16, $stack20;
+
+        this := @this: avrora.sim.FiniteStateMachine$TransitionEvent;
+
+        $stack2 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0>;
+
+        $stack1 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        $stack2.<avrora.sim.FiniteStateMachine: int curState> = $stack1;
+
+        $stack3 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0>;
+
+        $stack5 = $stack3.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack4 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $stack6 = $stack5[$stack4];
+
+        $stack9 = $stack6.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        $stack8 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $stack7 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void access$000(avrora.sim.util.MulticastFSMProbe,int,int)>($stack9, $stack8, $stack7);
+
+        $stack10 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0>;
+
+        $stack12 = $stack10.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack11 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        $stack13 = $stack12[$stack11];
+
+        $stack16 = $stack13.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        $stack15 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $stack14 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void access$000(avrora.sim.util.MulticastFSMProbe,int,int)>($stack16, $stack15, $stack14);
+
+        $stack17 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0>;
+
+        $stack20 = $stack17.<avrora.sim.FiniteStateMachine: avrora.sim.util.MulticastFSMProbe globalProbe>;
+
+        $stack19 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $stack18 = this.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void access$000(avrora.sim.util.MulticastFSMProbe,int,int)>($stack20, $stack19, $stack18);
+
+        return;
+    }
+}

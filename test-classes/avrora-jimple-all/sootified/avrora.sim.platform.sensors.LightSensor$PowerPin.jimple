@@ -1,0 +1,49 @@
+class avrora.sim.platform.sensors.LightSensor$PowerPin extends java.lang.Object implements avrora.sim.mcu.Microcontroller$Pin$Output
+{
+    final avrora.sim.platform.sensors.LightSensor this$0;
+
+    void <init>(avrora.sim.platform.sensors.LightSensor)
+    {
+        avrora.sim.platform.sensors.LightSensor$PowerPin this;
+        avrora.sim.platform.sensors.LightSensor this$0;
+
+        this := @this: avrora.sim.platform.sensors.LightSensor$PowerPin;
+
+        this$0 := @parameter0: avrora.sim.platform.sensors.LightSensor;
+
+        this.<avrora.sim.platform.sensors.LightSensor$PowerPin: avrora.sim.platform.sensors.LightSensor this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void write(boolean)
+    {
+        avrora.sim.platform.sensors.LightSensor$PowerPin this;
+        boolean val;
+        avrora.sim.platform.sensors.LightSensor $stack2, $stack3, $stack4;
+        avrora.sim.FiniteStateMachine $stack5;
+        int $stack6;
+
+        this := @this: avrora.sim.platform.sensors.LightSensor$PowerPin;
+
+        val := @parameter0: boolean;
+
+        $stack2 = this.<avrora.sim.platform.sensors.LightSensor$PowerPin: avrora.sim.platform.sensors.LightSensor this$0>;
+
+        $stack2.<avrora.sim.platform.sensors.LightSensor: boolean power> = val;
+
+        $stack3 = this.<avrora.sim.platform.sensors.LightSensor$PowerPin: avrora.sim.platform.sensors.LightSensor this$0>;
+
+        $stack5 = $stack3.<avrora.sim.platform.sensors.LightSensor: avrora.sim.FiniteStateMachine fsm>;
+
+        $stack4 = this.<avrora.sim.platform.sensors.LightSensor$PowerPin: avrora.sim.platform.sensors.LightSensor this$0>;
+
+        $stack6 = staticinvoke <avrora.sim.platform.sensors.LightSensor: int access$000(avrora.sim.platform.sensors.LightSensor)>($stack4);
+
+        virtualinvoke $stack5.<avrora.sim.FiniteStateMachine: void transition(int)>($stack6);
+
+        return;
+    }
+}

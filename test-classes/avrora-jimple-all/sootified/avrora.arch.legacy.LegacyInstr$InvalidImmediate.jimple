@@ -1,0 +1,50 @@
+public class avrora.arch.legacy.LegacyInstr$InvalidImmediate extends avrora.arch.legacy.LegacyInstr$InvalidOperand
+{
+    public final int low;
+    public final int high;
+    public final int value;
+
+    public void <init>(int, int, int, int)
+    {
+        avrora.arch.legacy.LegacyInstr$InvalidImmediate this;
+        int num, l, h, v;
+        java.lang.StringBuilder $stack5, $stack6, $stack7, $stack8, $stack9, $stack10;
+        java.lang.String $stack11;
+
+        this := @this: avrora.arch.legacy.LegacyInstr$InvalidImmediate;
+
+        num := @parameter0: int;
+
+        v := @parameter1: int;
+
+        l := @parameter2: int;
+
+        h := @parameter3: int;
+
+        $stack5 = new java.lang.StringBuilder;
+
+        specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>();
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("value out of required range [");
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(h);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(93);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke this.<avrora.arch.legacy.LegacyInstr$InvalidOperand: void <init>(int,java.lang.String)>(num, $stack11);
+
+        this.<avrora.arch.legacy.LegacyInstr$InvalidImmediate: int low> = l;
+
+        this.<avrora.arch.legacy.LegacyInstr$InvalidImmediate: int high> = h;
+
+        this.<avrora.arch.legacy.LegacyInstr$InvalidImmediate: int value> = v;
+
+        return;
+    }
+}

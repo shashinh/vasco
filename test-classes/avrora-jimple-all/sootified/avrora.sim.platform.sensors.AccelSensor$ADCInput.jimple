@@ -1,0 +1,71 @@
+class avrora.sim.platform.sensors.AccelSensor$ADCInput extends java.lang.Object implements avrora.sim.mcu.ADC$ADCInput
+{
+    final avrora.sim.platform.sensors.AccelSensor this$0;
+
+    void <init>(avrora.sim.platform.sensors.AccelSensor)
+    {
+        avrora.sim.platform.sensors.AccelSensor$ADCInput this;
+        avrora.sim.platform.sensors.AccelSensor this$0;
+
+        this := @this: avrora.sim.platform.sensors.AccelSensor$ADCInput;
+
+        this$0 := @parameter0: avrora.sim.platform.sensors.AccelSensor;
+
+        this.<avrora.sim.platform.sensors.AccelSensor$ADCInput: avrora.sim.platform.sensors.AccelSensor this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public float getVoltage()
+    {
+        avrora.sim.platform.sensors.AccelSensor$ADCInput this;
+        avrora.sim.platform.sensors.AccelSensor $stack2, $stack4, $stack6, $stack9;
+        avrora.sim.platform.sensors.SensorData $stack3, $stack7;
+        boolean $stack5;
+        int read;
+        avrora.sim.mcu.ADC $stack10;
+        float $stack11, $stack12, $stack13, $stack14;
+
+        this := @this: avrora.sim.platform.sensors.AccelSensor$ADCInput;
+
+        $stack2 = this.<avrora.sim.platform.sensors.AccelSensor$ADCInput: avrora.sim.platform.sensors.AccelSensor this$0>;
+
+        $stack3 = $stack2.<avrora.sim.platform.sensors.AccelSensor: avrora.sim.platform.sensors.SensorData data>;
+
+        if $stack3 != null goto label1;
+
+        return 0.0F;
+
+     label1:
+        $stack4 = this.<avrora.sim.platform.sensors.AccelSensor$ADCInput: avrora.sim.platform.sensors.AccelSensor this$0>;
+
+        $stack5 = $stack4.<avrora.sim.platform.sensors.AccelSensor: boolean on>;
+
+        if $stack5 != 0 goto label2;
+
+        return 0.0F;
+
+     label2:
+        $stack6 = this.<avrora.sim.platform.sensors.AccelSensor$ADCInput: avrora.sim.platform.sensors.AccelSensor this$0>;
+
+        $stack7 = $stack6.<avrora.sim.platform.sensors.AccelSensor: avrora.sim.platform.sensors.SensorData data>;
+
+        read = interfaceinvoke $stack7.<avrora.sim.platform.sensors.SensorData: int reading()>();
+
+        $stack9 = this.<avrora.sim.platform.sensors.AccelSensor$ADCInput: avrora.sim.platform.sensors.AccelSensor this$0>;
+
+        $stack10 = $stack9.<avrora.sim.platform.sensors.AccelSensor: avrora.sim.mcu.ADC adcDevice>;
+
+        $stack11 = virtualinvoke $stack10.<avrora.sim.mcu.ADC: float getVoltageRef()>();
+
+        $stack12 = (float) read;
+
+        $stack13 = $stack11 * $stack12;
+
+        $stack14 = $stack13 / 1023.0F;
+
+        return $stack14;
+    }
+}

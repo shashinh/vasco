@@ -1,0 +1,91 @@
+class cck.help.HelpCategory$ListSection extends cck.help.HelpCategory$Section
+{
+    final java.lang.String title;
+    final java.lang.String para;
+    final java.util.List list;
+    final cck.help.HelpCategory this$0;
+
+    void <init>(cck.help.HelpCategory, java.lang.String, java.lang.String, java.util.List)
+    {
+        cck.help.HelpCategory$ListSection this;
+        cck.help.HelpCategory l1;
+        java.lang.String t, p;
+        java.util.List l;
+
+        this := @this: cck.help.HelpCategory$ListSection;
+
+        l1 := @parameter0: cck.help.HelpCategory;
+
+        t := @parameter1: java.lang.String;
+
+        p := @parameter2: java.lang.String;
+
+        l := @parameter3: java.util.List;
+
+        this.<cck.help.HelpCategory$ListSection: cck.help.HelpCategory this$0> = l1;
+
+        specialinvoke this.<cck.help.HelpCategory$Section: void <init>(cck.help.HelpCategory,cck.help.HelpCategory$1)>(l1, null);
+
+        this.<cck.help.HelpCategory$ListSection: java.lang.String title> = t;
+
+        this.<cck.help.HelpCategory$ListSection: java.lang.String para> = p;
+
+        this.<cck.help.HelpCategory$ListSection: java.util.List list> = l;
+
+        return;
+    }
+
+    void printHelp()
+    {
+        cck.help.HelpCategory$ListSection this;
+        java.lang.String $stack3, $stack4, $stack5, $stack11;
+        java.util.List $stack6;
+        java.util.Iterator i;
+        java.lang.Object $stack9;
+        cck.help.HelpItem hi;
+        boolean $stack8#4;
+
+        this := @this: cck.help.HelpCategory$ListSection;
+
+        $stack3 = this.<cck.help.HelpCategory$ListSection: java.lang.String title>;
+
+        if $stack3 == null goto label1;
+
+        $stack11 = this.<cck.help.HelpCategory$ListSection: java.lang.String title>;
+
+        staticinvoke <cck.text.Terminal: void printBrightBlue(java.lang.String)>($stack11);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("\n");
+
+     label1:
+        $stack4 = this.<cck.help.HelpCategory$ListSection: java.lang.String para>;
+
+        $stack5 = staticinvoke <cck.text.StringUtil: java.lang.String formatParagraphs(java.lang.String,int,int,int)>($stack4, 0, 4, 78);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack5);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("");
+
+        $stack6 = this.<cck.help.HelpCategory$ListSection: java.util.List list>;
+
+        i = interfaceinvoke $stack6.<java.util.List: java.util.Iterator iterator()>();
+
+     label2:
+        $stack8#4 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack8#4 == 0 goto label3;
+
+        $stack9 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        hi = (cck.help.HelpItem) $stack9;
+
+        interfaceinvoke hi.<cck.help.HelpItem: void printHelp()>();
+
+        goto label2;
+
+     label3:
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("");
+
+        return;
+    }
+}

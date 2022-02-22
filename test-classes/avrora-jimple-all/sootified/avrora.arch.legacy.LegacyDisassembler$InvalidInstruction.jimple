@@ -1,0 +1,45 @@
+public class avrora.arch.legacy.LegacyDisassembler$InvalidInstruction extends java.lang.Exception
+{
+    public final int pc;
+    public final int word1;
+    final avrora.arch.legacy.LegacyDisassembler this$0;
+
+    void <init>(avrora.arch.legacy.LegacyDisassembler, int, int)
+    {
+        avrora.arch.legacy.LegacyDisassembler$InvalidInstruction this;
+        avrora.arch.legacy.LegacyDisassembler this$0;
+        java.lang.StringBuilder $stack4, $stack5, $stack7;
+        int pc, word1;
+        java.lang.String $stack6, $stack8;
+
+        this := @this: avrora.arch.legacy.LegacyDisassembler$InvalidInstruction;
+
+        this$0 := @parameter0: avrora.arch.legacy.LegacyDisassembler;
+
+        word1 := @parameter1: int;
+
+        pc := @parameter2: int;
+
+        this.<avrora.arch.legacy.LegacyDisassembler$InvalidInstruction: avrora.arch.legacy.LegacyDisassembler this$0> = this$0;
+
+        $stack4 = new java.lang.StringBuilder;
+
+        specialinvoke $stack4.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Invalid Instruction at ");
+
+        $stack6 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(pc);
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke this.<java.lang.Exception: void <init>(java.lang.String)>($stack8);
+
+        this.<avrora.arch.legacy.LegacyDisassembler$InvalidInstruction: int pc> = pc;
+
+        this.<avrora.arch.legacy.LegacyDisassembler$InvalidInstruction: int word1> = word1;
+
+        return;
+    }
+}

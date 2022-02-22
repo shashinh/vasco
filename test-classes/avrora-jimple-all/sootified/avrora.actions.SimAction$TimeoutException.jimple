@@ -1,0 +1,56 @@
+public class avrora.actions.SimAction$TimeoutException extends java.lang.RuntimeException
+{
+    public final int address;
+    public final avrora.sim.State state;
+    public final long timeout;
+
+    public void <init>(int, avrora.sim.State, long, java.lang.String)
+    {
+        avrora.actions.SimAction$TimeoutException this;
+        java.lang.StringBuilder $stack6, $stack7, $stack9, $stack10, $stack11, $stack12, $stack13;
+        int a;
+        java.lang.String $stack8, l, $stack14;
+        long t;
+        avrora.sim.State s;
+
+        this := @this: avrora.actions.SimAction$TimeoutException;
+
+        a := @parameter0: int;
+
+        s := @parameter1: avrora.sim.State;
+
+        t := @parameter2: long;
+
+        l := @parameter3: java.lang.String;
+
+        $stack6 = new java.lang.StringBuilder;
+
+        specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("timeout @ ");
+
+        $stack8 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(a);
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" reached after ");
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(t);
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke this.<java.lang.RuntimeException: void <init>(java.lang.String)>($stack14);
+
+        this.<avrora.actions.SimAction$TimeoutException: int address> = a;
+
+        this.<avrora.actions.SimAction$TimeoutException: avrora.sim.State state> = s;
+
+        this.<avrora.actions.SimAction$TimeoutException: long timeout> = t;
+
+        return;
+    }
+}

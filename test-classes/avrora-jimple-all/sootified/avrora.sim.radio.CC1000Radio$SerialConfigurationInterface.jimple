@@ -1,0 +1,335 @@
+public class avrora.sim.radio.CC1000Radio$SerialConfigurationInterface extends java.lang.Object
+{
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput PCLK_in;
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput PDATA_in;
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput PDATA_out;
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput PALE_in;
+    byte address;
+    boolean writeCommand;
+    int writeValue;
+    boolean inputPin;
+    byte readData;
+    int bitsRead;
+    avrora.sim.output.SimPrinter readerPrinter;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this;
+        avrora.sim.radio.CC1000Radio this$0;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput $stack2;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput $stack3;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput $stack4;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput $stack5;
+        avrora.sim.Simulator $stack6;
+        avrora.sim.output.SimPrinter $stack7;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        this$0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack2 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput;
+
+        specialinvoke $stack2.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput: void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)>(this);
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput PCLK_in> = $stack2;
+
+        $stack3 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput;
+
+        specialinvoke $stack3.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput: void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)>(this);
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput PDATA_in> = $stack3;
+
+        $stack4 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput;
+
+        specialinvoke $stack4.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput: void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)>(this);
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput PDATA_out> = $stack4;
+
+        $stack5 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput;
+
+        specialinvoke $stack5.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput: void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)>(this);
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput PALE_in> = $stack5;
+
+        $stack6 = this$0.<avrora.sim.radio.CC1000Radio: avrora.sim.Simulator sim>;
+
+        $stack7 = virtualinvoke $stack6.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter(java.lang.String)>("radio.cc1000.pinconfig");
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter> = $stack7;
+
+        return;
+    }
+
+    private void clockInBit()
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this;
+        int $stack1, $stack2, $stack3, $stack28, $stack40, $stack57, $stack61, $stack4#15, $stack5#25, $stack6#35;
+        boolean $stack7, $stack44, $stack49, $stack50, $stack59;
+        avrora.sim.output.SimPrinter $stack8, $stack10, $stack31, $stack33;
+        java.lang.StringBuilder $stack9, $stack11, $stack15, $stack16, $stack19, $stack32, $stack34, $stack38, $stack39, $stack42;
+        byte $stack12, $stack17, $stack26, $stack29, $stack35, $stack52, $stack55, $stack56, $stack58, $stack60, $stack62, $stack63#1;
+        long $stack13, $stack36;
+        java.lang.String $stack14, $stack18, $stack20, $stack37, $stack41, $stack43;
+        avrora.sim.radio.CC1000Radio $stack25, $stack51;
+        avrora.sim.radio.CC1000Radio$RadioRegister[] $stack27, $stack53;
+        avrora.sim.radio.CC1000Radio$RadioRegister $stack30, $stack54;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        $stack1 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        if $stack1 >= 7 goto label3;
+
+        $stack56 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $stack57 = $stack56 << 1;
+
+        $stack58 = (byte) $stack57;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address> = $stack58;
+
+        $stack60 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $stack59 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean inputPin>;
+
+        if $stack59 == 0 goto label1;
+
+        $stack63#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack63#1 = 0;
+
+     label2:
+        $stack61 = $stack60 | $stack63#1;
+
+        $stack62 = (byte) $stack61;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address> = $stack62;
+
+        goto label6;
+
+     label3:
+        $stack2 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        if $stack2 != 7 goto label4;
+
+        $stack49 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean inputPin>;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean writeCommand> = $stack49;
+
+        $stack50 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean writeCommand>;
+
+        if $stack50 != 0 goto label6;
+
+        $stack51 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack53 = $stack51.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $stack52 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $stack54 = $stack53[$stack52];
+
+        $stack55 = $stack54.<avrora.sim.radio.CC1000Radio$RadioRegister: byte value>;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte readData> = $stack55;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void outputReadBit()>();
+
+        goto label6;
+
+     label4:
+        $stack3 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        if $stack3 >= 16 goto label6;
+
+        $stack44 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean writeCommand>;
+
+        if $stack44 == 0 goto label5;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void inputWriteBit()>();
+
+        goto label6;
+
+     label5:
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void outputReadBit()>();
+
+     label6:
+        $stack4#15 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        $stack5#25 = $stack4#15 + 1;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead> = $stack5#25;
+
+        $stack6#35 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        if $stack6#35 != 16 goto label9;
+
+        $stack7 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean writeCommand>;
+
+        if $stack7 == 0 goto label7;
+
+        $stack25 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack27 = $stack25.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $stack26 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $stack30 = $stack27[$stack26];
+
+        $stack28 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int writeValue>;
+
+        $stack29 = (byte) $stack28;
+
+        virtualinvoke $stack30.<avrora.sim.radio.CC1000Radio$RadioRegister: void write(byte)>($stack29);
+
+        $stack31 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter>;
+
+        if $stack31 == null goto label8;
+
+        $stack33 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter>;
+
+        $stack32 = new java.lang.StringBuilder;
+
+        specialinvoke $stack32.<java.lang.StringBuilder: void <init>()>();
+
+        $stack34 = virtualinvoke $stack32.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000.Reg[");
+
+        $stack35 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $stack36 = (long) $stack35;
+
+        $stack37 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($stack36, 2);
+
+        $stack38 = virtualinvoke $stack34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack37);
+
+        $stack39 = virtualinvoke $stack38.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] <= ");
+
+        $stack40 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int writeValue>;
+
+        $stack41 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>($stack40, 8);
+
+        $stack42 = virtualinvoke $stack39.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack41);
+
+        $stack43 = virtualinvoke $stack42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack33.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack43);
+
+        goto label8;
+
+     label7:
+        $stack8 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter>;
+
+        if $stack8 == null goto label8;
+
+        $stack10 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter>;
+
+        $stack9 = new java.lang.StringBuilder;
+
+        specialinvoke $stack9.<java.lang.StringBuilder: void <init>()>();
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000.Reg[");
+
+        $stack12 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $stack13 = (long) $stack12;
+
+        $stack14 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($stack13, 2);
+
+        $stack15 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack14);
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] -> ");
+
+        $stack17 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte readData>;
+
+        $stack18 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>($stack17, 8);
+
+        $stack19 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack18);
+
+        $stack20 = virtualinvoke $stack19.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack10.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack20);
+
+     label8:
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead> = 0;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address> = 0;
+
+     label9:
+        return;
+    }
+
+    private void inputWriteBit()
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this;
+        int $stack1, $stack3, $stack4;
+        boolean $stack2;
+        byte $stack5#1;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        $stack1 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int writeValue>;
+
+        $stack3 = $stack1 << 1;
+
+        $stack2 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean inputPin>;
+
+        if $stack2 == 0 goto label1;
+
+        $stack5#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack5#1 = 0;
+
+     label2:
+        $stack4 = $stack3 | $stack5#1;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int writeValue> = $stack4;
+
+        return;
+    }
+
+    private void outputReadBit()
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this;
+        int $stack1, $stack2;
+        byte $stack3;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput $stack4;
+        boolean $stack5;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        $stack4 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput PDATA_out>;
+
+        $stack3 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte readData>;
+
+        $stack1 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        $stack2 = 14 - $stack1;
+
+        $stack5 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>($stack3, $stack2);
+
+        $stack4.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput: boolean outputPin> = $stack5;
+
+        return;
+    }
+
+    static void access$200(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface x0;
+
+        x0 := @parameter0: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        specialinvoke x0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void clockInBit()>();
+
+        return;
+    }
+}

@@ -1,0 +1,116 @@
+public class cck.util.Option$Str extends cck.util.Option
+{
+    protected java.lang.String defvalue;
+    protected java.lang.String value;
+
+    public void <init>(java.lang.String, java.lang.String, java.lang.String)
+    {
+        cck.util.Option$Str this;
+        java.lang.String nm, desc, val, $stack4;
+
+        this := @this: cck.util.Option$Str;
+
+        nm := @parameter0: java.lang.String;
+
+        val := @parameter1: java.lang.String;
+
+        desc := @parameter2: java.lang.String;
+
+        specialinvoke this.<cck.util.Option: void <init>(java.lang.String,java.lang.String)>(nm, desc);
+
+        this.<cck.util.Option$Str: java.lang.String value> = val;
+
+        $stack4 = this.<cck.util.Option$Str: java.lang.String value>;
+
+        this.<cck.util.Option$Str: java.lang.String defvalue> = $stack4;
+
+        return;
+    }
+
+    public void set(java.lang.String)
+    {
+        cck.util.Option$Str this;
+        java.lang.String val;
+
+        this := @this: cck.util.Option$Str;
+
+        val := @parameter0: java.lang.String;
+
+        this.<cck.util.Option$Str: java.lang.String value> = val;
+
+        return;
+    }
+
+    public void setNewDefault(java.lang.String)
+    {
+        cck.util.Option$Str this;
+        java.lang.String val;
+
+        this := @this: cck.util.Option$Str;
+
+        val := @parameter0: java.lang.String;
+
+        this.<cck.util.Option$Str: java.lang.String defvalue> = val;
+
+        this.<cck.util.Option$Str: java.lang.String value> = val;
+
+        return;
+    }
+
+    public java.lang.String get()
+    {
+        cck.util.Option$Str this;
+        java.lang.String $stack1;
+
+        this := @this: cck.util.Option$Str;
+
+        $stack1 = this.<cck.util.Option$Str: java.lang.String value>;
+
+        return $stack1;
+    }
+
+    public java.lang.String stringValue()
+    {
+        cck.util.Option$Str this;
+        java.lang.String $stack1;
+
+        this := @this: cck.util.Option$Str;
+
+        $stack1 = this.<cck.util.Option$Str: java.lang.String value>;
+
+        return $stack1;
+    }
+
+    public void printHelp()
+    {
+        cck.util.Option$Str this;
+        java.lang.String $stack1;
+
+        this := @this: cck.util.Option$Str;
+
+        $stack1 = this.<cck.util.Option$Str: java.lang.String defvalue>;
+
+        virtualinvoke this.<cck.util.Option$Str: void printHeader(java.lang.String,java.lang.String)>("string", $stack1);
+
+        virtualinvoke this.<cck.util.Option$Str: void printDescription()>();
+
+        return;
+    }
+
+    public boolean isBlank()
+    {
+        cck.util.Option$Str this;
+        java.lang.String $stack1, $stack2;
+        boolean $stack3;
+
+        this := @this: cck.util.Option$Str;
+
+        $stack2 = "";
+
+        $stack1 = this.<cck.util.Option$Str: java.lang.String value>;
+
+        $stack3 = virtualinvoke $stack2.<java.lang.String: boolean equals(java.lang.Object)>($stack1);
+
+        return $stack3;
+    }
+}

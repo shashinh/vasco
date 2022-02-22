@@ -1,0 +1,610 @@
+public class jdk.internal.util.xml.PropertiesDefaultHandler extends jdk.internal.org.xml.sax.helpers.DefaultHandler
+{
+    private static final java.lang.String ELEMENT_ROOT;
+    private static final java.lang.String ELEMENT_COMMENT;
+    private static final java.lang.String ELEMENT_ENTRY;
+    private static final java.lang.String ATTR_KEY;
+    private static final java.lang.String PROPS_DTD_DECL;
+    private static final java.lang.String PROPS_DTD_URI;
+    private static final java.lang.String PROPS_DTD;
+    private static final java.lang.String EXTERNAL_XML_VERSION;
+    private java.util.Properties properties;
+    static final java.lang.String ALLOWED_ELEMENTS;
+    static final java.lang.String ALLOWED_COMMENT;
+    java.lang.StringBuffer buf;
+    boolean sawComment;
+    boolean validEntry;
+    int rootElem;
+    java.lang.String key;
+    java.lang.String rootElm;
+
+    public void <init>()
+    {
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+        java.lang.StringBuffer $stack1;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.helpers.DefaultHandler: void <init>()>();
+
+        $stack1 = new java.lang.StringBuffer;
+
+        specialinvoke $stack1.<java.lang.StringBuffer: void <init>()>();
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.StringBuffer buf> = $stack1;
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: boolean sawComment> = 0;
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: boolean validEntry> = 0;
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: int rootElem> = 0;
+
+        return;
+    }
+
+    public void load(java.util.Properties, java.io.InputStream) throws java.io.IOException, java.util.InvalidPropertiesFormatException, java.io.UnsupportedEncodingException
+    {
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+        java.util.Properties l1;
+        jdk.internal.util.xml.impl.SAXParserImpl $stack4;
+        java.io.InputStream l2;
+        jdk.internal.org.xml.sax.SAXException $stack5;
+        java.util.InvalidPropertiesFormatException $stack6;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: java.util.Properties;
+
+        l2 := @parameter1: java.io.InputStream;
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.util.Properties properties> = l1;
+
+     label1:
+        $stack4 = new jdk.internal.util.xml.impl.SAXParserImpl;
+
+        specialinvoke $stack4.<jdk.internal.util.xml.impl.SAXParserImpl: void <init>()>();
+
+        virtualinvoke $stack4.<jdk.internal.util.xml.SAXParser: void parse(java.io.InputStream,jdk.internal.org.xml.sax.helpers.DefaultHandler)>(l2, l0);
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack5 := @caughtexception;
+
+        $stack6 = new java.util.InvalidPropertiesFormatException;
+
+        specialinvoke $stack6.<java.util.InvalidPropertiesFormatException: void <init>(java.lang.Throwable)>($stack5);
+
+        throw $stack6;
+
+     label4:
+        return;
+
+        catch jdk.internal.org.xml.sax.SAXException from label1 to label2 with label3;
+    }
+
+    public void store(java.util.Properties, java.io.OutputStream, java.lang.String, java.lang.String) throws java.io.IOException
+    {
+        jdk.internal.util.xml.impl.XMLStreamWriterImpl $stack12;
+        java.io.OutputStream l2;
+        java.lang.String l4, l3, $stack24, $stack25;
+        java.util.Properties l1;
+        java.util.Iterator l7;
+        java.lang.Object $stack18, l9, l10;
+        java.util.Map$Entry l8;
+        boolean $stack21, $stack23, $stack30, $stack16#16;
+        int $stack26;
+        jdk.internal.util.xml.XMLStreamException $stack28;
+        java.lang.Throwable $stack29, $stack32, $stack34;
+        java.io.IOException $stack31;
+        java.io.UnsupportedEncodingException $stack33;
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+        java.util.Set $stack14#8;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: java.util.Properties;
+
+        l2 := @parameter1: java.io.OutputStream;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 := @parameter3: java.lang.String;
+
+     label01:
+        $stack12 = new jdk.internal.util.xml.impl.XMLStreamWriterImpl;
+
+        specialinvoke $stack12.<jdk.internal.util.xml.impl.XMLStreamWriterImpl: void <init>(java.io.OutputStream,java.lang.String)>(l2, l4);
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeStartDocument()>();
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeDTD(java.lang.String)>("<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">");
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeStartElement(java.lang.String)>("properties");
+
+        if l3 == null goto label02;
+
+        $stack26 = virtualinvoke l3.<java.lang.String: int length()>();
+
+        if $stack26 <= 0 goto label02;
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeStartElement(java.lang.String)>("comment");
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeCharacters(java.lang.String)>(l3);
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeEndElement()>();
+
+     label02:
+        entermonitor l1;
+
+     label03:
+        $stack14#8 = virtualinvoke l1.<java.util.Properties: java.util.Set entrySet()>();
+
+        l7 = interfaceinvoke $stack14#8.<java.util.Set: java.util.Iterator iterator()>();
+
+     label04:
+        $stack16#16 = interfaceinvoke l7.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack16#16 == 0 goto label06;
+
+        $stack18 = interfaceinvoke l7.<java.util.Iterator: java.lang.Object next()>();
+
+        l8 = (java.util.Map$Entry) $stack18;
+
+        l9 = interfaceinvoke l8.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        l10 = interfaceinvoke l8.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $stack21 = l9 instanceof java.lang.String;
+
+        if $stack21 == 0 goto label05;
+
+        $stack23 = l10 instanceof java.lang.String;
+
+        if $stack23 == 0 goto label05;
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeStartElement(java.lang.String)>("entry");
+
+        $stack24 = (java.lang.String) l9;
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeAttribute(java.lang.String,java.lang.String)>("key", $stack24);
+
+        $stack25 = (java.lang.String) l10;
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeCharacters(java.lang.String)>($stack25);
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeEndElement()>();
+
+     label05:
+        goto label04;
+
+     label06:
+        exitmonitor l1;
+
+     label07:
+        goto label10;
+
+     label08:
+        $stack34 := @caughtexception;
+
+        exitmonitor l1;
+
+     label09:
+        throw $stack34;
+
+     label10:
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeEndElement()>();
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void writeEndDocument()>();
+
+        interfaceinvoke $stack12.<jdk.internal.util.xml.XMLStreamWriter: void close()>();
+
+     label11:
+        goto label14;
+
+     label12:
+        $stack28 := @caughtexception;
+
+        $stack29 = virtualinvoke $stack28.<jdk.internal.util.xml.XMLStreamException: java.lang.Throwable getCause()>();
+
+        $stack30 = $stack29 instanceof java.io.UnsupportedEncodingException;
+
+        if $stack30 == 0 goto label13;
+
+        $stack32 = virtualinvoke $stack28.<jdk.internal.util.xml.XMLStreamException: java.lang.Throwable getCause()>();
+
+        $stack33 = (java.io.UnsupportedEncodingException) $stack32;
+
+        throw $stack33;
+
+     label13:
+        $stack31 = new java.io.IOException;
+
+        specialinvoke $stack31.<java.io.IOException: void <init>(java.lang.Throwable)>($stack28);
+
+        throw $stack31;
+
+     label14:
+        return;
+
+        catch java.lang.Throwable from label03 to label07 with label08;
+        catch java.lang.Throwable from label08 to label09 with label08;
+        catch jdk.internal.util.xml.XMLStreamException from label01 to label11 with label12;
+    }
+
+    public void startElement(java.lang.String, java.lang.String, java.lang.String, jdk.internal.org.xml.sax.Attributes) throws jdk.internal.org.xml.sax.SAXException
+    {
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+        int $stack5, $stack7, $stack42, $stack43;
+        java.lang.String $stack6, l3, $stack16, $stack17, $stack24, $stack27, $stack35, $stack38, l1, l2, $stack8#2;
+        boolean $stack10, $stack11, $stack12, $stack28, $stack9#6;
+        jdk.internal.org.xml.sax.SAXParseException $stack13, $stack18, $stack19, $stack30, $stack39;
+        jdk.internal.org.xml.sax.Attributes l4;
+        java.lang.StringBuilder $stack20, $stack21, $stack22, $stack23, $stack31, $stack32, $stack33, $stack34, $stack36, $stack37;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 := @parameter3: jdk.internal.org.xml.sax.Attributes;
+
+        $stack5 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: int rootElem>;
+
+        if $stack5 >= 2 goto label1;
+
+        $stack42 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: int rootElem>;
+
+        $stack43 = $stack42 + 1;
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: int rootElem> = $stack43;
+
+     label1:
+        $stack6 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String rootElm>;
+
+        if $stack6 != null goto label2;
+
+        $stack39 = new jdk.internal.org.xml.sax.SAXParseException;
+
+        specialinvoke $stack39.<jdk.internal.org.xml.sax.SAXParseException: void <init>(java.lang.String,jdk.internal.org.xml.sax.Locator)>("An XML properties document must contain the DOCTYPE declaration as defined by java.util.Properties.", null);
+
+        virtualinvoke l0.<jdk.internal.util.xml.PropertiesDefaultHandler: void fatalError(jdk.internal.org.xml.sax.SAXParseException)>($stack39);
+
+     label2:
+        $stack7 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: int rootElem>;
+
+        if $stack7 != 1 goto label3;
+
+        $stack27 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String rootElm>;
+
+        $stack28 = virtualinvoke $stack27.<java.lang.String: boolean equals(java.lang.Object)>(l3);
+
+        if $stack28 != 0 goto label3;
+
+        $stack30 = new jdk.internal.org.xml.sax.SAXParseException;
+
+        $stack31 = new java.lang.StringBuilder;
+
+        specialinvoke $stack31.<java.lang.StringBuilder: void <init>()>();
+
+        $stack32 = virtualinvoke $stack31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Document root element \"");
+
+        $stack33 = virtualinvoke $stack32.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l3);
+
+        $stack34 = virtualinvoke $stack33.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\", must match DOCTYPE root \"");
+
+        $stack35 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String rootElm>;
+
+        $stack36 = virtualinvoke $stack34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack35);
+
+        $stack37 = virtualinvoke $stack36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $stack38 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack30.<jdk.internal.org.xml.sax.SAXParseException: void <init>(java.lang.String,jdk.internal.org.xml.sax.Locator)>($stack38, null);
+
+        virtualinvoke l0.<jdk.internal.util.xml.PropertiesDefaultHandler: void fatalError(jdk.internal.org.xml.sax.SAXParseException)>($stack30);
+
+     label3:
+        $stack8#2 = "properties, comment, entry";
+
+        $stack9#6 = virtualinvoke $stack8#2.<java.lang.String: boolean contains(java.lang.CharSequence)>(l3);
+
+        if $stack9#6 != 0 goto label4;
+
+        $stack19 = new jdk.internal.org.xml.sax.SAXParseException;
+
+        $stack20 = new java.lang.StringBuilder;
+
+        specialinvoke $stack20.<java.lang.StringBuilder: void <init>()>();
+
+        $stack21 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Element type \"");
+
+        $stack22 = virtualinvoke $stack21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l3);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\" must be declared.");
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack19.<jdk.internal.org.xml.sax.SAXParseException: void <init>(java.lang.String,jdk.internal.org.xml.sax.Locator)>($stack24, null);
+
+        virtualinvoke l0.<jdk.internal.util.xml.PropertiesDefaultHandler: void fatalError(jdk.internal.org.xml.sax.SAXParseException)>($stack19);
+
+     label4:
+        $stack10 = virtualinvoke l3.<java.lang.String: boolean equals(java.lang.Object)>("entry");
+
+        if $stack10 == 0 goto label5;
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: boolean validEntry> = 1;
+
+        $stack16 = interfaceinvoke l4.<jdk.internal.org.xml.sax.Attributes: java.lang.String getValue(java.lang.String)>("key");
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String key> = $stack16;
+
+        $stack17 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String key>;
+
+        if $stack17 != null goto label7;
+
+        $stack18 = new jdk.internal.org.xml.sax.SAXParseException;
+
+        specialinvoke $stack18.<jdk.internal.org.xml.sax.SAXParseException: void <init>(java.lang.String,jdk.internal.org.xml.sax.Locator)>("Attribute \"key\" is required and must be specified for element type \"entry\"", null);
+
+        virtualinvoke l0.<jdk.internal.util.xml.PropertiesDefaultHandler: void fatalError(jdk.internal.org.xml.sax.SAXParseException)>($stack18);
+
+        goto label7;
+
+     label5:
+        $stack11 = virtualinvoke l3.<java.lang.String: boolean equals(java.lang.Object)>("comment");
+
+        if $stack11 == 0 goto label7;
+
+        $stack12 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: boolean sawComment>;
+
+        if $stack12 == 0 goto label6;
+
+        $stack13 = new jdk.internal.org.xml.sax.SAXParseException;
+
+        specialinvoke $stack13.<jdk.internal.org.xml.sax.SAXParseException: void <init>(java.lang.String,jdk.internal.org.xml.sax.Locator)>("Only one comment element may be allowed. The content of element type \"properties\" must match \"(comment?,entry*)\"", null);
+
+        virtualinvoke l0.<jdk.internal.util.xml.PropertiesDefaultHandler: void fatalError(jdk.internal.org.xml.sax.SAXParseException)>($stack13);
+
+     label6:
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: boolean sawComment> = 1;
+
+     label7:
+        return;
+    }
+
+    public void characters(char[], int, int) throws jdk.internal.org.xml.sax.SAXException
+    {
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+        boolean $stack4;
+        char[] l1;
+        int l2, l3;
+        java.lang.StringBuffer $stack5;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: char[];
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        $stack4 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: boolean validEntry>;
+
+        if $stack4 == 0 goto label1;
+
+        $stack5 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.StringBuffer buf>;
+
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(char[],int,int)>(l1, l2, l3);
+
+     label1:
+        return;
+    }
+
+    public void endElement(java.lang.String, java.lang.String, java.lang.String) throws jdk.internal.org.xml.sax.SAXException
+    {
+        java.lang.String l3, $stack4, $stack9, $stack10, $stack22, l1, l2;
+        boolean $stack5, $stack6;
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+        java.lang.StringBuffer $stack7, $stack12, $stack13;
+        java.util.Properties $stack8;
+        int $stack15;
+        jdk.internal.org.xml.sax.SAXParseException $stack17;
+        java.lang.StringBuilder $stack18, $stack19, $stack20, $stack21;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        $stack4 = "properties, comment, entry";
+
+        $stack5 = virtualinvoke $stack4.<java.lang.String: boolean contains(java.lang.CharSequence)>(l3);
+
+        if $stack5 != 0 goto label1;
+
+        $stack17 = new jdk.internal.org.xml.sax.SAXParseException;
+
+        $stack18 = new java.lang.StringBuilder;
+
+        specialinvoke $stack18.<java.lang.StringBuilder: void <init>()>();
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Element: ");
+
+        $stack20 = virtualinvoke $stack19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l3);
+
+        $stack21 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is invalid, must match  \"(comment?,entry*)\".");
+
+        $stack22 = virtualinvoke $stack21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack17.<jdk.internal.org.xml.sax.SAXParseException: void <init>(java.lang.String,jdk.internal.org.xml.sax.Locator)>($stack22, null);
+
+        virtualinvoke l0.<jdk.internal.util.xml.PropertiesDefaultHandler: void fatalError(jdk.internal.org.xml.sax.SAXParseException)>($stack17);
+
+     label1:
+        $stack6 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: boolean validEntry>;
+
+        if $stack6 == 0 goto label2;
+
+        $stack8 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.util.Properties properties>;
+
+        $stack9 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String key>;
+
+        $stack7 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.StringBuffer buf>;
+
+        $stack10 = virtualinvoke $stack7.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        virtualinvoke $stack8.<java.util.Properties: java.lang.Object setProperty(java.lang.String,java.lang.String)>($stack9, $stack10);
+
+        $stack13 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.StringBuffer buf>;
+
+        $stack12 = l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.StringBuffer buf>;
+
+        $stack15 = virtualinvoke $stack12.<java.lang.StringBuffer: int length()>();
+
+        virtualinvoke $stack13.<java.lang.StringBuffer: java.lang.StringBuffer delete(int,int)>(0, $stack15);
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: boolean validEntry> = 0;
+
+     label2:
+        return;
+    }
+
+    public void notationDecl(java.lang.String, java.lang.String, java.lang.String) throws jdk.internal.org.xml.sax.SAXException
+    {
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+        java.lang.String l1, l2, l3;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        l0.<jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String rootElm> = l1;
+
+        return;
+    }
+
+    public jdk.internal.org.xml.sax.InputSource resolveEntity(java.lang.String, java.lang.String) throws jdk.internal.org.xml.sax.SAXException, java.io.IOException
+    {
+        java.lang.String l2, $stack9, l1;
+        boolean $stack4;
+        jdk.internal.org.xml.sax.SAXException $stack5;
+        java.lang.StringBuilder $stack6, $stack7, $stack8;
+        jdk.internal.org.xml.sax.InputSource $stack10;
+        java.io.StringReader $stack11;
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack4 = virtualinvoke l2.<java.lang.String: boolean equals(java.lang.Object)>("http://java.sun.com/dtd/properties.dtd");
+
+        if $stack4 == 0 goto label1;
+
+        $stack10 = new jdk.internal.org.xml.sax.InputSource;
+
+        $stack11 = new java.io.StringReader;
+
+        specialinvoke $stack11.<java.io.StringReader: void <init>(java.lang.String)>("<?xml version=\"1.0\" encoding=\"UTF-8\"?><!-- DTD for properties --><!ELEMENT properties ( comment?, entry* ) ><!ATTLIST properties version CDATA #FIXED \"1.0\"><!ELEMENT comment (#PCDATA) ><!ELEMENT entry (#PCDATA) ><!ATTLIST entry  key CDATA #REQUIRED>");
+
+        specialinvoke $stack10.<jdk.internal.org.xml.sax.InputSource: void <init>(java.io.Reader)>($stack11);
+
+        virtualinvoke $stack10.<jdk.internal.org.xml.sax.InputSource: void setSystemId(java.lang.String)>("http://java.sun.com/dtd/properties.dtd");
+
+        return $stack10;
+
+     label1:
+        $stack5 = new jdk.internal.org.xml.sax.SAXException;
+
+        $stack6 = new java.lang.StringBuilder;
+
+        specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Invalid system identifier: ");
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l2);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack5.<jdk.internal.org.xml.sax.SAXException: void <init>(java.lang.String)>($stack9);
+
+        throw $stack5;
+    }
+
+    public void error(jdk.internal.org.xml.sax.SAXParseException) throws jdk.internal.org.xml.sax.SAXException
+    {
+        jdk.internal.org.xml.sax.SAXParseException l1;
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: jdk.internal.org.xml.sax.SAXParseException;
+
+        throw l1;
+    }
+
+    public void fatalError(jdk.internal.org.xml.sax.SAXParseException) throws jdk.internal.org.xml.sax.SAXException
+    {
+        jdk.internal.org.xml.sax.SAXParseException l1;
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: jdk.internal.org.xml.sax.SAXParseException;
+
+        throw l1;
+    }
+
+    public void warning(jdk.internal.org.xml.sax.SAXParseException) throws jdk.internal.org.xml.sax.SAXException
+    {
+        jdk.internal.org.xml.sax.SAXParseException l1;
+        jdk.internal.util.xml.PropertiesDefaultHandler l0;
+
+        l0 := @this: jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        l1 := @parameter0: jdk.internal.org.xml.sax.SAXParseException;
+
+        throw l1;
+    }
+
+    public static void <clinit>()
+    {
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String ALLOWED_COMMENT> = "comment";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String ALLOWED_ELEMENTS> = "properties, comment, entry";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String EXTERNAL_XML_VERSION> = "1.0";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String PROPS_DTD> = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!-- DTD for properties --><!ELEMENT properties ( comment?, entry* ) ><!ATTLIST properties version CDATA #FIXED \"1.0\"><!ELEMENT comment (#PCDATA) ><!ELEMENT entry (#PCDATA) ><!ATTLIST entry  key CDATA #REQUIRED>";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String PROPS_DTD_URI> = "http://java.sun.com/dtd/properties.dtd";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String PROPS_DTD_DECL> = "<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String ATTR_KEY> = "key";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String ELEMENT_ENTRY> = "entry";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String ELEMENT_COMMENT> = "comment";
+
+        <jdk.internal.util.xml.PropertiesDefaultHandler: java.lang.String ELEMENT_ROOT> = "properties";
+
+        return;
+    }
+}

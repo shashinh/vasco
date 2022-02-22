@@ -1,0 +1,130 @@
+public class avrora.sim.mcu.USART$SerialPrinter extends java.lang.Object implements avrora.sim.mcu.USART$USARTDevice
+{
+    avrora.sim.output.SimPrinter serialPrinter;
+    char[] stream;
+    int count;
+    final avrora.sim.mcu.USART this$0;
+
+    protected void <init>(avrora.sim.mcu.USART)
+    {
+        avrora.sim.mcu.USART$SerialPrinter this;
+        avrora.sim.mcu.USART this$0, $stack2;
+        avrora.sim.Simulator $stack3;
+        avrora.sim.output.SimPrinter $stack4;
+        char[] $stack5;
+
+        this := @this: avrora.sim.mcu.USART$SerialPrinter;
+
+        this$0 := @parameter0: avrora.sim.mcu.USART;
+
+        this.<avrora.sim.mcu.USART$SerialPrinter: avrora.sim.mcu.USART this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack2 = this.<avrora.sim.mcu.USART$SerialPrinter: avrora.sim.mcu.USART this$0>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.USART: avrora.sim.Simulator simulator>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter(java.lang.String)>("atmel.usart.printer");
+
+        this.<avrora.sim.mcu.USART$SerialPrinter: avrora.sim.output.SimPrinter serialPrinter> = $stack4;
+
+        $stack5 = newarray (char)[10];
+
+        $stack5[0] = 104;
+
+        $stack5[1] = 101;
+
+        $stack5[2] = 108;
+
+        $stack5[3] = 108;
+
+        $stack5[4] = 111;
+
+        $stack5[5] = 119;
+
+        $stack5[6] = 111;
+
+        $stack5[7] = 114;
+
+        $stack5[8] = 108;
+
+        $stack5[9] = 100;
+
+        this.<avrora.sim.mcu.USART$SerialPrinter: char[] stream> = $stack5;
+
+        return;
+    }
+
+    public avrora.sim.mcu.USART$Frame transmitFrame()
+    {
+        avrora.sim.mcu.USART$Frame $stack1;
+        avrora.sim.mcu.USART$SerialPrinter this;
+        int $stack2, $stack3, $stack6, $stack7;
+        char[] $stack4, $stack5;
+        char $stack8;
+        byte $stack9;
+
+        this := @this: avrora.sim.mcu.USART$SerialPrinter;
+
+        $stack1 = new avrora.sim.mcu.USART$Frame;
+
+        $stack4 = this.<avrora.sim.mcu.USART$SerialPrinter: char[] stream>;
+
+        $stack2 = this.<avrora.sim.mcu.USART$SerialPrinter: int count>;
+
+        $stack3 = $stack2 + 1;
+
+        this.<avrora.sim.mcu.USART$SerialPrinter: int count> = $stack3;
+
+        $stack5 = this.<avrora.sim.mcu.USART$SerialPrinter: char[] stream>;
+
+        $stack6 = lengthof $stack5;
+
+        $stack7 = $stack2 % $stack6;
+
+        $stack8 = $stack4[$stack7];
+
+        $stack9 = (byte) $stack8;
+
+        specialinvoke $stack1.<avrora.sim.mcu.USART$Frame: void <init>(byte,boolean,int)>($stack9, 0, 8);
+
+        return $stack1;
+    }
+
+    public void receiveFrame(avrora.sim.mcu.USART$Frame)
+    {
+        avrora.sim.mcu.USART$SerialPrinter this;
+        avrora.sim.output.SimPrinter $stack2, $stack4;
+        java.lang.StringBuilder $stack3, $stack5, $stack7;
+        avrora.sim.mcu.USART$Frame frame;
+        java.lang.String $stack6, $stack8;
+
+        this := @this: avrora.sim.mcu.USART$SerialPrinter;
+
+        frame := @parameter0: avrora.sim.mcu.USART$Frame;
+
+        $stack2 = this.<avrora.sim.mcu.USART$SerialPrinter: avrora.sim.output.SimPrinter serialPrinter>;
+
+        if $stack2 == null goto label1;
+
+        $stack4 = this.<avrora.sim.mcu.USART$SerialPrinter: avrora.sim.output.SimPrinter serialPrinter>;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Serial Printer ");
+
+        $stack6 = virtualinvoke frame.<avrora.sim.mcu.USART$Frame: java.lang.String toString()>();
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack4.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack8);
+
+     label1:
+        return;
+    }
+}

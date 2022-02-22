@@ -1,0 +1,109 @@
+public class org.dacapo.harness.Avrora extends org.dacapo.harness.Benchmark
+{
+    java.lang.String[] args;
+
+    public void <init>(org.dacapo.parser.Config, java.io.File) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora this;
+        org.dacapo.parser.Config config;
+        java.io.File scratch;
+        java.lang.ClassLoader $stack4;
+        java.lang.Class clazz;
+        java.lang.Class[] $stack6;
+        java.lang.reflect.Method $stack7;
+
+        this := @this: org.dacapo.harness.Avrora;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        scratch := @parameter1: java.io.File;
+
+        specialinvoke this.<org.dacapo.harness.Benchmark: void <init>(org.dacapo.parser.Config,java.io.File)>(config, scratch);
+
+        $stack4 = this.<org.dacapo.harness.Avrora: java.lang.ClassLoader loader>;
+
+        clazz = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String,boolean,java.lang.ClassLoader)>("avrora.Main", 1, $stack4);
+
+        $stack6 = newarray (java.lang.Class)[1];
+
+        $stack6[0] = class "[Ljava/lang/String;";
+
+        $stack7 = virtualinvoke clazz.<java.lang.Class: java.lang.reflect.Method getMethod(java.lang.String,java.lang.Class[])>("main", $stack6);
+
+        this.<org.dacapo.harness.Avrora: java.lang.reflect.Method method> = $stack7;
+
+        return;
+    }
+
+    protected void prepare(java.lang.String) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora this;
+        java.lang.String size;
+        java.io.File $stack2;
+        org.dacapo.parser.Config $stack3;
+        java.lang.String[] $stack4;
+
+        this := @this: org.dacapo.harness.Avrora;
+
+        size := @parameter0: java.lang.String;
+
+        specialinvoke this.<org.dacapo.harness.Benchmark: void prepare(java.lang.String)>(size);
+
+        $stack3 = this.<org.dacapo.harness.Avrora: org.dacapo.parser.Config config>;
+
+        $stack2 = this.<org.dacapo.harness.Avrora: java.io.File scratch>;
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config: java.lang.String[] preprocessArgs(java.lang.String,java.io.File)>(size, $stack2);
+
+        this.<org.dacapo.harness.Avrora: java.lang.String[] args> = $stack4;
+
+        return;
+    }
+
+    public void augmentSystemProperties(java.util.Properties)
+    {
+        java.util.Properties systemProperties;
+        org.dacapo.harness.Avrora this;
+        org.dacapo.parser.Config $stack2;
+        java.lang.String $stack3, $stack5;
+
+        this := @this: org.dacapo.harness.Avrora;
+
+        systemProperties := @parameter0: java.util.Properties;
+
+        $stack2 = this.<org.dacapo.harness.Avrora: org.dacapo.parser.Config config>;
+
+        $stack3 = $stack2.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack5 = virtualinvoke this.<org.dacapo.harness.Avrora: java.lang.String fileInScratch(java.lang.String)>($stack3);
+
+        virtualinvoke systemProperties.<java.util.Properties: java.lang.Object setProperty(java.lang.String,java.lang.String)>("user.home", $stack5);
+
+        return;
+    }
+
+    public void iterate(java.lang.String) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora this;
+        java.lang.Object[] $stack2;
+        java.lang.String[] $stack3;
+        java.lang.reflect.Method $stack4;
+        java.lang.String size;
+
+        this := @this: org.dacapo.harness.Avrora;
+
+        size := @parameter0: java.lang.String;
+
+        $stack4 = this.<org.dacapo.harness.Avrora: java.lang.reflect.Method method>;
+
+        $stack2 = newarray (java.lang.Object)[1];
+
+        $stack3 = this.<org.dacapo.harness.Avrora: java.lang.String[] args>;
+
+        $stack2[0] = $stack3;
+
+        virtualinvoke $stack4.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>(null, $stack2);
+
+        return;
+    }
+}

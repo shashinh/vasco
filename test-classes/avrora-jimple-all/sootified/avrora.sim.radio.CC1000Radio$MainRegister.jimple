@@ -1,0 +1,479 @@
+public class avrora.sim.radio.CC1000Radio$MainRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    public static final int RXTX;
+    public static final int F_REG;
+    public static final int RX_PD;
+    public static final int TX_PD;
+    public static final int FS_PD;
+    public static final int CORE_PD;
+    public static final int BIAS_PD;
+    public static final int RESET_N;
+    boolean rxtx;
+    boolean fReg;
+    boolean rxPd;
+    boolean txPd;
+    boolean fsPd;
+    boolean corePd;
+    boolean biasPd;
+    boolean resetN;
+    byte oldVal;
+    boolean transmit_activated;
+    boolean receive_activated;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$MainRegister this;
+        avrora.sim.radio.CC1000Radio this$0;
+
+        this := @this: avrora.sim.radio.CC1000Radio$MainRegister;
+
+        this$0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(this$0, "MAIN", 62);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$MainRegister this;
+        byte val, $stack25, $stack34, $stack64;
+        boolean $stack4, $stack5, $stack6, $stack7, $stack8, $stack9, $stack10, $stack11, $stack12, $stack15, $stack22, oldrxtx, $stack27, $stack28, $stack33, $stack35, $stack36, $stack44, $stack47, $stack48, $stack49, $stack53, $stack55, $stack56, $stack57, $stack58, $stack60, $stack61, $stack65, $stack81, $stack29#15, $stack37#21, $stack38#27, $stack39#37;
+        avrora.sim.radio.CC1000Radio $stack13, $stack16, $stack17, $stack20, $stack23, $stack30, $stack32, $stack50, $stack68, $stack72, $stack74, $stack77, $stack79, $stack82, $stack88, $stack91, $stack40#47;
+        avrora.sim.radio.CC1000Radio$Receiver $stack14, $stack92;
+        avrora.sim.radio.CC1000Radio$Transmitter $stack18, $stack89;
+        double $stack19, $stack21;
+        avrora.sim.radio.CC1000Radio$SPITicker $stack24, $stack83;
+        avrora.sim.radio.CC1000Radio$PA_POWRegister $stack51;
+        int $stack52, state#17;
+        avrora.sim.output.SimPrinter $stack73, $stack75, $stack78, $stack80;
+        avrora.sim.radio.CC1000Radio$FrequencyRegister $stack31#16;
+        avrora.sim.FiniteStateMachine $stack41#52;
+
+        this := @this: avrora.sim.radio.CC1000Radio$MainRegister;
+
+        val := @parameter0: byte;
+
+        $stack4 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 7);
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxtx> = $stack4;
+
+        $stack5 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 6);
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fReg> = $stack5;
+
+        $stack6 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 5);
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxPd> = $stack6;
+
+        $stack7 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 4);
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean txPd> = $stack7;
+
+        $stack8 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 3);
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fsPd> = $stack8;
+
+        $stack9 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 2);
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd> = $stack9;
+
+        $stack10 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 1);
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean biasPd> = $stack10;
+
+        $stack11 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 0);
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean resetN> = $stack11;
+
+        $stack12 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxPd>;
+
+        if $stack12 == 0 goto label01;
+
+        $stack91 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack92 = $stack91.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Receiver receiver>;
+
+        virtualinvoke $stack92.<avrora.sim.radio.CC1000Radio$Receiver: void endReceive()>();
+
+        goto label02;
+
+     label01:
+        $stack13 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack14 = $stack13.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Receiver receiver>;
+
+        virtualinvoke $stack14.<avrora.sim.radio.CC1000Radio$Receiver: void beginReceive(double)>(2.4);
+
+     label02:
+        $stack15 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean txPd>;
+
+        if $stack15 == 0 goto label03;
+
+        $stack88 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack89 = $stack88.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Transmitter transmitter>;
+
+        virtualinvoke $stack89.<avrora.sim.radio.CC1000Radio$Transmitter: void endTransmit()>();
+
+        goto label04;
+
+     label03:
+        $stack16 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack18 = $stack16.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Transmitter transmitter>;
+
+        $stack17 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack19 = virtualinvoke $stack17.<avrora.sim.radio.CC1000Radio: double getPower()>();
+
+        $stack20 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack21 = virtualinvoke $stack20.<avrora.sim.radio.CC1000Radio: double getFrequency()>();
+
+        virtualinvoke $stack18.<avrora.sim.radio.CC1000Radio$Transmitter: void beginTransmit(double,double)>($stack19, $stack21);
+
+     label04:
+        $stack22 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxPd>;
+
+        if $stack22 == 0 goto label05;
+
+        $stack81 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean txPd>;
+
+        if $stack81 != 0 goto label06;
+
+     label05:
+        $stack23 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack24 = $stack23.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SPITicker ticker>;
+
+        virtualinvoke $stack24.<avrora.sim.radio.CC1000Radio$SPITicker: void activate()>();
+
+        goto label07;
+
+     label06:
+        $stack82 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack83 = $stack82.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SPITicker ticker>;
+
+        virtualinvoke $stack83.<avrora.sim.radio.CC1000Radio$SPITicker: void deactivate()>();
+
+     label07:
+        $stack25 = this.<avrora.sim.radio.CC1000Radio$MainRegister: byte oldVal>;
+
+        oldrxtx = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>($stack25, 7);
+
+        $stack27 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxtx>;
+
+        if $stack27 == 0 goto label08;
+
+        if oldrxtx != 0 goto label08;
+
+        $stack77 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack78 = $stack77.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        if $stack78 == null goto label09;
+
+        $stack79 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack80 = $stack79.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        virtualinvoke $stack80.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("CC1000: RX end receiving -> begin transmitting");
+
+        goto label09;
+
+     label08:
+        $stack28 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxtx>;
+
+        if $stack28 != 0 goto label09;
+
+        if oldrxtx == 0 goto label09;
+
+        $stack72 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack73 = $stack72.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        if $stack73 == null goto label09;
+
+        $stack74 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack75 = $stack74.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        virtualinvoke $stack75.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("CC1000: TX end transmitting -> begin receiving");
+
+     label09:
+        $stack32 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack29#15 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fReg>;
+
+        if $stack29#15 == 0 goto label10;
+
+        $stack68 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack31#16 = $stack68.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_B_reg>;
+
+        goto label11;
+
+     label10:
+        $stack30 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack31#16 = $stack30.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_A_reg>;
+
+     label11:
+        $stack32.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister currentFrequencyRegister> = $stack31#16;
+
+        $stack33 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean resetN>;
+
+        if $stack33 == 0 goto label12;
+
+        $stack64 = this.<avrora.sim.radio.CC1000Radio$MainRegister: byte oldVal>;
+
+        $stack65 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>($stack64, 0);
+
+        if $stack65 != 0 goto label12;
+
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: byte oldVal> = val;
+
+        return;
+
+     label12:
+        $stack34 = this.<avrora.sim.radio.CC1000Radio$MainRegister: byte oldVal>;
+
+        if val == $stack34 goto label19;
+
+        $stack35 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd>;
+
+        if $stack35 == 0 goto label13;
+
+        state#17 = 1;
+
+        goto label14;
+
+     label13:
+        state#17 = 2;
+
+     label14:
+        $stack36 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd>;
+
+        if $stack36 != 0 goto label15;
+
+        $stack61 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean biasPd>;
+
+        if $stack61 != 0 goto label15;
+
+        state#17 = 3;
+
+     label15:
+        $stack37#21 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd>;
+
+        if $stack37#21 != 0 goto label16;
+
+        $stack58 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean biasPd>;
+
+        if $stack58 != 0 goto label16;
+
+        $stack60 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fsPd>;
+
+        if $stack60 != 0 goto label16;
+
+        state#17 = 4;
+
+     label16:
+        $stack38#27 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd>;
+
+        if $stack38#27 != 0 goto label17;
+
+        $stack53 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean biasPd>;
+
+        if $stack53 != 0 goto label17;
+
+        $stack55 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fsPd>;
+
+        if $stack55 != 0 goto label17;
+
+        $stack56 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxtx>;
+
+        if $stack56 != 0 goto label17;
+
+        $stack57 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxPd>;
+
+        if $stack57 != 0 goto label17;
+
+        state#17 = 5;
+
+     label17:
+        $stack39#37 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd>;
+
+        if $stack39#37 != 0 goto label18;
+
+        $stack44 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean biasPd>;
+
+        if $stack44 != 0 goto label18;
+
+        $stack47 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fsPd>;
+
+        if $stack47 != 0 goto label18;
+
+        $stack48 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxtx>;
+
+        if $stack48 == 0 goto label18;
+
+        $stack49 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean txPd>;
+
+        if $stack49 != 0 goto label18;
+
+        $stack50 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack51 = $stack50.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$PA_POWRegister PA_POW_reg>;
+
+        $stack52 = virtualinvoke $stack51.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int getPower()>();
+
+        state#17 = $stack52 + 6;
+
+     label18:
+        $stack40#47 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack41#52 = $stack40#47.<avrora.sim.radio.CC1000Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $stack41#52.<avrora.sim.FiniteStateMachine: void transition(int)>(state#17);
+
+     label19:
+        this.<avrora.sim.radio.CC1000Radio$MainRegister: byte oldVal> = val;
+
+        return;
+    }
+
+    protected void printStatus()
+    {
+        avrora.sim.radio.CC1000Radio$MainRegister this;
+        boolean $stack4, $stack5, $stack12, $stack16, $stack20, $stack24, $stack28, $stack32;
+        java.lang.String rxtxS, $stack37, $stack74#1, $stack38#2;
+        java.lang.StringBuffer $stack6;
+        char $stack13, $stack17, $stack21, $stack25, $stack29, $stack33;
+        avrora.sim.radio.CC1000Radio $stack35;
+        avrora.sim.output.SimPrinter $stack36;
+
+        this := @this: avrora.sim.radio.CC1000Radio$MainRegister;
+
+        $stack4 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxtx>;
+
+        if $stack4 == 0 goto label1;
+
+        $stack74#1 = "TX";
+
+        goto label2;
+
+     label1:
+        $stack74#1 = "RX";
+
+     label2:
+        rxtxS = $stack74#1;
+
+        $stack5 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fReg>;
+
+        if $stack5 == 0 goto label3;
+
+        $stack38#2 = "B";
+
+        goto label4;
+
+     label3:
+        $stack38#2 = "A";
+
+     label4:
+        $stack6 = new java.lang.StringBuffer;
+
+        specialinvoke $stack6.<java.lang.StringBuffer: void <init>(int)>(100);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("CC1000[MAIN]: ");
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(rxtxS);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", freg: ");
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack38#2);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", rx pd: ");
+
+        $stack12 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxPd>;
+
+        $stack13 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack12);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack13);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", tx pd: ");
+
+        $stack16 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean txPd>;
+
+        $stack17 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack16);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack17);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", fs pd: ");
+
+        $stack20 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fsPd>;
+
+        $stack21 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack20);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack21);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", core pd: ");
+
+        $stack24 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd>;
+
+        $stack25 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack24);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack25);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", bias pd: ");
+
+        $stack28 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean biasPd>;
+
+        $stack29 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack28);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack29);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", reset: ");
+
+        $stack32 = this.<avrora.sim.radio.CC1000Radio$MainRegister: boolean resetN>;
+
+        $stack33 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack32);
+
+        virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack33);
+
+        $stack35 = this.<avrora.sim.radio.CC1000Radio$MainRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack36 = $stack35.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        $stack37 = virtualinvoke $stack6.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        virtualinvoke $stack36.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack37);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.radio.CC1000Radio$MainRegister: int RESET_N> = 0;
+
+        <avrora.sim.radio.CC1000Radio$MainRegister: int BIAS_PD> = 1;
+
+        <avrora.sim.radio.CC1000Radio$MainRegister: int CORE_PD> = 2;
+
+        <avrora.sim.radio.CC1000Radio$MainRegister: int FS_PD> = 3;
+
+        <avrora.sim.radio.CC1000Radio$MainRegister: int TX_PD> = 4;
+
+        <avrora.sim.radio.CC1000Radio$MainRegister: int RX_PD> = 5;
+
+        <avrora.sim.radio.CC1000Radio$MainRegister: int F_REG> = 6;
+
+        <avrora.sim.radio.CC1000Radio$MainRegister: int RXTX> = 7;
+
+        return;
+    }
+}

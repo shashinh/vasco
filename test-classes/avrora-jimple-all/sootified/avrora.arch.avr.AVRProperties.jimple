@@ -1,0 +1,56 @@
+public class avrora.arch.avr.AVRProperties extends avrora.sim.mcu.MCUProperties
+{
+    public final int ioreg_size;
+    public final int sram_size;
+    public final int flash_size;
+    public final int eeprom_size;
+    public final int num_pins;
+    public final avrora.sim.CodeSegment$Factory codeSegmentFactory;
+
+    public void <init>(int, int, int, int, int, int, avrora.sim.CodeSegment$Factory, java.util.HashMap, avrora.sim.mcu.RegisterLayout, java.util.HashMap)
+    {
+        avrora.arch.avr.AVRProperties this;
+        java.util.HashMap pa, inta;
+        avrora.sim.mcu.RegisterLayout rl;
+        int ni, is, ss, fs, es, np;
+        avrora.sim.CodeSegment$Factory csf;
+
+        this := @this: avrora.arch.avr.AVRProperties;
+
+        is := @parameter0: int;
+
+        ss := @parameter1: int;
+
+        fs := @parameter2: int;
+
+        es := @parameter3: int;
+
+        np := @parameter4: int;
+
+        ni := @parameter5: int;
+
+        csf := @parameter6: avrora.sim.CodeSegment$Factory;
+
+        pa := @parameter7: java.util.HashMap;
+
+        rl := @parameter8: avrora.sim.mcu.RegisterLayout;
+
+        inta := @parameter9: java.util.HashMap;
+
+        specialinvoke this.<avrora.sim.mcu.MCUProperties: void <init>(java.util.HashMap,avrora.sim.mcu.RegisterLayout,java.util.HashMap,int)>(pa, rl, inta, ni);
+
+        this.<avrora.arch.avr.AVRProperties: int ioreg_size> = is;
+
+        this.<avrora.arch.avr.AVRProperties: int sram_size> = ss;
+
+        this.<avrora.arch.avr.AVRProperties: int flash_size> = fs;
+
+        this.<avrora.arch.avr.AVRProperties: int eeprom_size> = es;
+
+        this.<avrora.arch.avr.AVRProperties: int num_pins> = np;
+
+        this.<avrora.arch.avr.AVRProperties: avrora.sim.CodeSegment$Factory codeSegmentFactory> = csf;
+
+        return;
+    }
+}

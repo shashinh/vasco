@@ -1,0 +1,85 @@
+class avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification extends java.lang.Object implements avrora.sim.InterruptTable$Notification
+{
+    final int bit;
+    final avrora.sim.mcu.ATMegaFamily$FlagRegister this$0;
+
+    void <init>(avrora.sim.mcu.ATMegaFamily$FlagRegister, int)
+    {
+        avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification this;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister this$0;
+        int bit;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification;
+
+        this$0 := @parameter0: avrora.sim.mcu.ATMegaFamily$FlagRegister;
+
+        bit := @parameter1: int;
+
+        this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: avrora.sim.mcu.ATMegaFamily$FlagRegister this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: int bit> = bit;
+
+        return;
+    }
+
+    public void force(int)
+    {
+        avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification this;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister $stack2, $stack5;
+        int $stack3, inum;
+        byte $stack4, $stack6;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification;
+
+        inum := @parameter0: int;
+
+        $stack5 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: avrora.sim.mcu.ATMegaFamily$FlagRegister this$0>;
+
+        $stack2 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: avrora.sim.mcu.ATMegaFamily$FlagRegister this$0>;
+
+        $stack4 = $stack2.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value>;
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: int bit>;
+
+        $stack6 = staticinvoke <cck.util.Arithmetic: byte setBit(byte,int,boolean)>($stack4, $stack3, 1);
+
+        $stack5.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value> = $stack6;
+
+        return;
+    }
+
+    public void invoke(int)
+    {
+        avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification this;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister $stack2, $stack5, $stack7;
+        int $stack3, inum;
+        byte $stack4, $stack6;
+        avrora.sim.AtmelInterpreter $stack8;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification;
+
+        inum := @parameter0: int;
+
+        $stack5 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: avrora.sim.mcu.ATMegaFamily$FlagRegister this$0>;
+
+        $stack2 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: avrora.sim.mcu.ATMegaFamily$FlagRegister this$0>;
+
+        $stack4 = $stack2.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value>;
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: int bit>;
+
+        $stack6 = staticinvoke <cck.util.Arithmetic: byte setBit(byte,int,boolean)>($stack4, $stack3, 0);
+
+        $stack5.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value> = $stack6;
+
+        $stack7 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: avrora.sim.mcu.ATMegaFamily$FlagRegister this$0>;
+
+        $stack8 = $stack7.<avrora.sim.mcu.ATMegaFamily$FlagRegister: avrora.sim.AtmelInterpreter interpreter>;
+
+        virtualinvoke $stack8.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>(inum, 0);
+
+        return;
+    }
+}

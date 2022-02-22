@@ -1,0 +1,56 @@
+public class avrora.sim.mcu.ATMegaFamily$PortRegister extends avrora.sim.RWRegister
+{
+    protected avrora.sim.mcu.DefaultMCU$Pin[] pins;
+
+    protected void <init>(avrora.sim.mcu.DefaultMCU$Pin[])
+    {
+        avrora.sim.mcu.ATMegaFamily$PortRegister this;
+        avrora.sim.mcu.DefaultMCU$Pin[] p;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$PortRegister;
+
+        p := @parameter0: avrora.sim.mcu.DefaultMCU$Pin[];
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        this.<avrora.sim.mcu.ATMegaFamily$PortRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins> = p;
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.ATMegaFamily$PortRegister this;
+        byte val;
+        avrora.sim.mcu.DefaultMCU$Pin[] $stack3;
+        avrora.sim.mcu.DefaultMCU$Pin $stack4;
+        boolean $stack5;
+        int cntr#1;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$PortRegister;
+
+        val := @parameter0: byte;
+
+        cntr#1 = 0;
+
+     label1:
+        if cntr#1 >= 8 goto label2;
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$PortRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack4 = $stack3[cntr#1];
+
+        $stack5 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, cntr#1);
+
+        virtualinvoke $stack4.<avrora.sim.mcu.DefaultMCU$Pin: void write(boolean)>($stack5);
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        this.<avrora.sim.mcu.ATMegaFamily$PortRegister: byte value> = val;
+
+        return;
+    }
+}

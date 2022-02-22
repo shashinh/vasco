@@ -1,0 +1,44 @@
+public abstract class avrora.monitors.MonitorFactory extends cck.help.HelpCategory
+{
+
+    protected void <init>(java.lang.String)
+    {
+        avrora.monitors.MonitorFactory this;
+        java.lang.String h, $stack2;
+        cck.util.Options $stack3;
+
+        this := @this: avrora.monitors.MonitorFactory;
+
+        h := @parameter0: java.lang.String;
+
+        specialinvoke this.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("monitor", h);
+
+        $stack2 = this.<avrora.monitors.MonitorFactory: java.lang.String help>;
+
+        virtualinvoke this.<avrora.monitors.MonitorFactory: void addSection(java.lang.String,java.lang.String)>("MONITOR OVERVIEW", $stack2);
+
+        $stack3 = this.<avrora.monitors.MonitorFactory: cck.util.Options options>;
+
+        virtualinvoke this.<avrora.monitors.MonitorFactory: void addOptionSection(java.lang.String,cck.util.Options)>("Help for the options accepted by this monitor is below.", $stack3);
+
+        return;
+    }
+
+    public abstract avrora.monitors.Monitor newMonitor(avrora.sim.Simulator);
+
+    public void processOptions(cck.util.Options)
+    {
+        avrora.monitors.MonitorFactory this;
+        cck.util.Options o, $stack2;
+
+        this := @this: avrora.monitors.MonitorFactory;
+
+        o := @parameter0: cck.util.Options;
+
+        $stack2 = this.<avrora.monitors.MonitorFactory: cck.util.Options options>;
+
+        virtualinvoke $stack2.<cck.util.Options: void process(cck.util.Options)>(o);
+
+        return;
+    }
+}

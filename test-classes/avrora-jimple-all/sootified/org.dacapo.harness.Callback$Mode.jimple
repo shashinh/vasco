@@ -1,0 +1,84 @@
+public final enum class org.dacapo.harness.Callback$Mode extends java.lang.Enum
+{
+    public static final enum org.dacapo.harness.Callback$Mode WARMUP;
+    public static final enum org.dacapo.harness.Callback$Mode TIMING;
+    private static final org.dacapo.harness.Callback$Mode[] $VALUES;
+
+    public static org.dacapo.harness.Callback$Mode[] values()
+    {
+        org.dacapo.harness.Callback$Mode[] $stack0, $stack2;
+        java.lang.Object $stack1;
+
+        $stack0 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode[] $VALUES>;
+
+        $stack1 = virtualinvoke $stack0.<java.lang.Object: java.lang.Object clone()>();
+
+        $stack2 = (org.dacapo.harness.Callback$Mode[]) $stack1;
+
+        return $stack2;
+    }
+
+    public static org.dacapo.harness.Callback$Mode valueOf(java.lang.String)
+    {
+        java.lang.String name;
+        java.lang.Enum $stack1;
+        org.dacapo.harness.Callback$Mode $stack2;
+
+        name := @parameter0: java.lang.String;
+
+        $stack1 = staticinvoke <java.lang.Enum: java.lang.Enum valueOf(java.lang.Class,java.lang.String)>(class "Lorg/dacapo/harness/Callback$Mode;", name);
+
+        $stack2 = (org.dacapo.harness.Callback$Mode) $stack1;
+
+        return $stack2;
+    }
+
+    private void <init>(java.lang.String, int)
+    {
+        org.dacapo.harness.Callback$Mode this;
+        java.lang.String l1;
+        int l2;
+
+        this := @this: org.dacapo.harness.Callback$Mode;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+        specialinvoke this.<java.lang.Enum: void <init>(java.lang.String,int)>(l1, l2);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        org.dacapo.harness.Callback$Mode $stack0, $stack1, $stack3, $stack4;
+        org.dacapo.harness.Callback$Mode[] $stack2;
+
+        $stack0 = new org.dacapo.harness.Callback$Mode;
+
+        specialinvoke $stack0.<org.dacapo.harness.Callback$Mode: void <init>(java.lang.String,int)>("WARMUP", 0);
+
+        <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP> = $stack0;
+
+        $stack1 = new org.dacapo.harness.Callback$Mode;
+
+        specialinvoke $stack1.<org.dacapo.harness.Callback$Mode: void <init>(java.lang.String,int)>("TIMING", 1);
+
+        <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING> = $stack1;
+
+        $stack2 = newarray (org.dacapo.harness.Callback$Mode)[2];
+
+        $stack3 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        $stack2[0] = $stack3;
+
+        $stack4 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        $stack2[1] = $stack4;
+
+        <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode[] $VALUES> = $stack2;
+
+        return;
+    }
+}

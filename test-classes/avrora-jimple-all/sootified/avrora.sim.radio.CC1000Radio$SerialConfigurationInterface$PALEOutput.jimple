@@ -1,0 +1,57 @@
+public class avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput extends java.lang.Object implements avrora.sim.mcu.Microcontroller$Pin$Output
+{
+    protected boolean last;
+    final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this$1;
+
+    protected void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput this;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this$1;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput;
+
+        this$1 := @parameter0: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this$1> = this$1;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void write(boolean)
+    {
+        boolean level, $stack2;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput this;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface $stack3, $stack4;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput;
+
+        level := @parameter0: boolean;
+
+        $stack2 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput: boolean last>;
+
+        if level != $stack2 goto label1;
+
+        return;
+
+     label1:
+        if level != 0 goto label2;
+
+        $stack4 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this$1>;
+
+        $stack4.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead> = 0;
+
+        goto label3;
+
+     label2:
+        $stack3 = this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface this$1>;
+
+        $stack3.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead> = 8;
+
+     label3:
+        this.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput: boolean last> = level;
+
+        return;
+    }
+}

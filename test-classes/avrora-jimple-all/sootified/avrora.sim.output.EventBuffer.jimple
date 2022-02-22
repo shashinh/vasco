@@ -1,0 +1,114 @@
+public class avrora.sim.output.EventBuffer extends java.lang.Object
+{
+    public final avrora.sim.Simulator sim;
+    protected avrora.sim.output.EventBuffer$Event head;
+    protected avrora.sim.output.EventBuffer$Event tail;
+
+    public void <init>(avrora.sim.Simulator)
+    {
+        avrora.sim.output.EventBuffer this;
+        avrora.sim.Simulator s;
+
+        this := @this: avrora.sim.output.EventBuffer;
+
+        s := @parameter0: avrora.sim.Simulator;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.output.EventBuffer: avrora.sim.Simulator sim> = s;
+
+        return;
+    }
+
+    protected avrora.sim.output.EventBuffer$Event recordEvent(java.lang.Object, long)
+    {
+        avrora.sim.output.EventBuffer$Event $stack5, $stack6, $stack7;
+        avrora.sim.output.EventBuffer this;
+        java.lang.Object o;
+        long param;
+
+        this := @this: avrora.sim.output.EventBuffer;
+
+        o := @parameter0: java.lang.Object;
+
+        param := @parameter1: long;
+
+        $stack5 = new avrora.sim.output.EventBuffer$Event;
+
+        specialinvoke $stack5.<avrora.sim.output.EventBuffer$Event: void <init>(avrora.sim.output.EventBuffer,java.lang.Object,long)>(this, o, param);
+
+        $stack6 = this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail>;
+
+        if $stack6 != null goto label1;
+
+        this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail> = $stack5;
+
+        this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head> = $stack5;
+
+        goto label2;
+
+     label1:
+        $stack7 = this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail>;
+
+        $stack7.<avrora.sim.output.EventBuffer$Event: avrora.sim.output.EventBuffer$Event next> = $stack5;
+
+        this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail> = $stack5;
+
+     label2:
+        return $stack5;
+    }
+
+    public avrora.sim.output.EventBuffer$Event extract(long)
+    {
+        avrora.sim.output.EventBuffer this;
+        long time, $stack6;
+        byte $stack7;
+        avrora.sim.output.EventBuffer$Event prev#1, cur#2, prev#3, cur#4;
+
+        this := @this: avrora.sim.output.EventBuffer;
+
+        time := @parameter0: long;
+
+        prev#1 = null;
+
+        cur#2 = this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head>;
+
+     label1:
+        if cur#2 == null goto label4;
+
+        $stack6 = cur#2.<avrora.sim.output.EventBuffer$Event: long time>;
+
+        $stack7 = $stack6 cmp time;
+
+        if $stack7 < 0 goto label3;
+
+        if prev#1 == null goto label2;
+
+        prev#1.<avrora.sim.output.EventBuffer$Event: avrora.sim.output.EventBuffer$Event next> = null;
+
+        prev#3 = this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head>;
+
+        this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head> = cur#2;
+
+        return prev#3;
+
+     label2:
+        return null;
+
+     label3:
+        prev#1 = cur#2;
+
+        cur#2 = cur#2.<avrora.sim.output.EventBuffer$Event: avrora.sim.output.EventBuffer$Event next>;
+
+        goto label1;
+
+     label4:
+        cur#4 = this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head>;
+
+        this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail> = null;
+
+        this.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head> = null;
+
+        return cur#4;
+    }
+}

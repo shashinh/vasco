@@ -17,6 +17,7 @@
  */
 package vasco.callgraph;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,6 +44,7 @@ import soot.jimple.NullConstant;
 import soot.jimple.StringConstant;
 import soot.jimple.internal.JNewExpr;
 import soot.jimple.internal.JimpleLocal;
+import vasco.soot.AbstractNullObj;
 
 /**
  * A data flow value representation for points-to analysis using allocation sites.
@@ -72,9 +74,11 @@ public class PointsToGraph {
 	public static final NewExpr SUMMARY_NODE = new JNewExpr(null);
 	public static final NewExpr GLOBAL_SITE = new JNewExpr(Scene.v().getObjectType());
 	
+	public static final AbstractNullObj nullObj = new AbstractNullObj();
 
 	protected Map<Local,Set<AnyNewExpr>> roots;
 	protected Map<AnyNewExpr,Map<SootField,Set<AnyNewExpr>>> heap;
+	
 	
 	
 	/**
@@ -83,6 +87,8 @@ public class PointsToGraph {
 	public PointsToGraph() {
 		roots = new HashMap<Local,Set<AnyNewExpr>>();
 		heap = new HashMap<AnyNewExpr,Map<SootField,Set<AnyNewExpr>>>();
+		//SHASHIN
+		heap.put(nullObj, new HashMap<SootField, Set<AnyNewExpr>>());
 	}
 
 	/** 
@@ -395,6 +401,13 @@ public class PointsToGraph {
 		while (!worklist.isEmpty()) {
 			// Get the next element
 			AnyNewExpr node = worklist.remove();
+			
+			//SHASHIN - hacky hack, just ignore the null object
+			if(node instanceof AbstractNullObj)
+				continue;
+				//System.out.println("processing the abstract nullobj");
+			//SHASHIN
+			
 			// Ignore null pointees from the work-list
 			if (node == null)
 				throw new NullPointerException();
@@ -429,6 +442,11 @@ public class PointsToGraph {
 		Set<AnyNewExpr> rhsPointees = roots.get(rhs);		
 		Set<AnyNewExpr> rhsFieldPointees = new HashSet<AnyNewExpr>();
 		for (AnyNewExpr src : rhsPointees) {
+			//SHASHIN
+			if(src == nullObj) {
+				continue;
+			}
+			//SHASHIN
 			if (src == null) {
 				throw new NullPointerException();
 			} else if (src == SUMMARY_NODE) { 
@@ -482,6 +500,10 @@ public class PointsToGraph {
 	 * 
 	 */
 	private void newNode(AnyNewExpr allocSite, boolean summarizeFields) {
+		//SHASHIN
+		if(allocSite instanceof AbstractNullObj)
+			return;
+		//SHASHIN
 		// Do not re-create a new node unless we are summarizing its fields
 		if (heap.containsKey(allocSite) && !summarizeFields) {
 			return;
@@ -543,6 +565,8 @@ public class PointsToGraph {
 	 */
 	public void setField(Local lhs, SootField field, Local rhs) {
 		// You can't set field of a non-existent variable.
+		//System.out.println("asserting roots.containsKey(lhs) where LHS is " + lhs);
+		//System.out.println("roots collection is " + roots);
 		assert_tmp (roots.containsKey(lhs));
 	
 		// Since we are doing weak updates, nothing to do if setting field to null
@@ -553,6 +577,7 @@ public class PointsToGraph {
 		Set<AnyNewExpr> lhsPointees = roots.get(lhs);
 		// Find the objects to which the fields will now point to.
 		Set<AnyNewExpr> rhsPointees = roots.get(rhs);
+		//rshPointees + NullExprObj;
 		
 		// LHS variable should exist
 		if (lhsPointees == null)
@@ -563,8 +588,12 @@ public class PointsToGraph {
 			throw new NullPointerException();
 		
 		// If the RHS variable exists, but points to nothing, then bye-bye
-		if(rhsPointees.size() == 0)
-			return;
+		if(rhsPointees.size() == 0) {
+			//nullStoreMap.insert(lhs, "n");
+			rhsPointees = new HashSet<AnyNewExpr>();
+			rhsPointees.add(nullObj);
+			//return;
+		}
 		
 		boolean summarizeRhsTargets = false;
 		
@@ -577,7 +606,8 @@ public class PointsToGraph {
 				// that we can summarize fields of RHS pointees
 				summarizeRhsTargets = true;
 				continue;
-			}
+			} else if (node == nullObj)
+				continue;
 			// Add the new edges (copy-and-modify as edges are immutable)
 			Map<SootField,Set<AnyNewExpr>> oldEdges = heap.get(node);
 			Map<SootField,Set<AnyNewExpr>> newEdges = new HashMap<SootField,Set<AnyNewExpr>>(oldEdges);
@@ -738,6 +768,141 @@ public class PointsToGraph {
 			return "[" + node.toString() + " (" + node.hashCode() + ")]";
 		}
 	}
+	
+	
+	//SHASHIN
+	public String prettyPrintInvariant(PointsToAnalysis pta) {
+		
+		StringBuilder sbMain = new StringBuilder();
+		Map<String, Set<String>> map = new HashMap<String, Set<String>>();
+		for(Local var: roots.keySet()) {
+			if(var.toString().charAt(0) != '$') {
+				String varName = var.toString();
+				if(var.toString().contains("#")) {
+					varName = varName.split("#")[0];
+				}
+				varName = varName.substring(1);
+				Set<String> varMap;
+				if(map.containsKey(varName)) {
+					varMap = map.get(varName);
+				} else 
+					varMap = new HashSet<String>();
+				
+				for(AnyNewExpr node : roots.get(var)) {
+					if(pta.bciMap.get(node) == null)
+						varMap.add("n");
+					else
+						varMap.add(pta.bciMap.get(node).toString());
+				}
+	
+				if(map.containsKey(varName)) {
+					map.replace(varName, varMap);
+				} else 
+					map.put(varName, varMap);
+			}
+		}
+		
+		List<String> sList = new ArrayList<String>();
+		for(String varName : map.keySet()) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(varName + ":");
+			sb.append(String.join(" ", map.get(varName)));
+			sList.add(sb.toString());
+		}
+		
+		sbMain.append("(").append(String.join(",", sList)).append(")");
+		System.out.println(sbMain.toString());
+		
+		map = new HashMap<String, Set<String>>();
+		sList = new ArrayList<String>();
+		for(AnyNewExpr source : heap.keySet()) {
+			for(SootField field : heap.get(source).keySet()) {
+				if(pta.bciMap.get(source) != null) {
+					StringBuilder tempSb = new StringBuilder();
+					tempSb.append(pta.bciMap.get(source)).append(".").append(field.isStatic() ? field.toString() : field.getName());
+					tempSb.append(":");
+
+					List<String> tempList = new ArrayList<String>();
+					if(heap.get(source).get(field).isEmpty()) {
+						tempList.add("n");
+					} else {
+						
+						for (AnyNewExpr target : heap.get(source).get(field)) {
+							if(pta.bciMap.get(target) == null) 
+								tempList.add("n");
+							else
+								tempList.add(pta.bciMap.get(target).toString());
+						}
+					}
+						
+					tempSb.append(String.join(" ", tempList));
+					sList.add(tempSb.toString());
+						
+					
+					
+				}
+			}
+		}
+		
+		sbMain.append("(").append(String.join(",", sList)).append(")");
+		System.out.println(sbMain.toString());
+		
+		
+		/*
+		StringBuffer sb = new StringBuffer();
+
+		for (Local var : roots.keySet()) {
+			if(var.toString().charAt(0) != '$') {
+				sb.append(var).append(" -> ");
+				for (AnyNewExpr node : roots.get(var)) {
+					if(pta.bciMap.get(node) == null)
+						sb.append("null").append(" ");
+					else
+						sb.append(pta.bciMap.get(node)).append(" ");
+				}
+				sb.append("\n");
+			}
+		}
+
+		for (AnyNewExpr source : heap.keySet()) {
+			for (SootField field : heap.get(source).keySet()) {
+				if(pta.bciMap.get(source) != null) {
+					sb.append(pta.bciMap.get(source)).append(".").append(field.isStatic() ? field.toString() : field.getName()).append(" -> ");
+					
+					if(heap.get(source).get(field).isEmpty())
+						sb.append("null\n");
+					else {
+
+						for (AnyNewExpr target : heap.get(source).get(field)) {
+							if(pta.bciMap.get(target) == null) 
+								sb.append("null").append(" ");
+							else
+								sb.append(pta.bciMap.get(target)).append(" ");
+						}
+						sb.append("\n");
+					}
+				}
+			}
+		}
+		
+		*/
+		return sbMain.toString();
+		
+	}
+	
+	
+	private String node2StringInvariant(AnyNewExpr node) {
+		if (node == SUMMARY_NODE) {
+			return "SUMMARY";
+		} else if (node == STRING_SITE) {
+			return "STRING";
+		} else if (node == CLASS_SITE) {
+			return "CLASS";
+		} else {
+			return "[" + node.toString() + " (" + node.hashCode() + ")]";
+		}
+	}
+	
 	
 	/**
 	 * Sets this graph to the union of the given arguments.

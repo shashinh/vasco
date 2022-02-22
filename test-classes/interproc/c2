@@ -1,0 +1,133 @@
+Classfile /home/shashin/Documents/projects/vasco/test-classes/interproc/sootOutput/Main.class
+  Last modified 22 Feb, 2022; size 574 bytes
+  MD5 checksum 6ec769647f031b5c91ecca401f0127aa
+  Compiled from "Main.java"
+class Main
+  minor version: 3
+  major version: 45
+  flags: ACC_SUPER
+Constant pool:
+   #1 = Utf8               Main
+   #2 = Class              #1             // Main
+   #3 = Utf8               java/lang/Object
+   #4 = Class              #3             // java/lang/Object
+   #5 = Utf8               Main.java
+   #6 = Utf8               <init>
+   #7 = Utf8               ()V
+   #8 = NameAndType        #6:#7          // "<init>":()V
+   #9 = Methodref          #4.#8          // java/lang/Object."<init>":()V
+  #10 = Utf8               main
+  #11 = Utf8               ([Ljava/lang/String;)V
+  #12 = Utf8               A
+  #13 = Class              #12            // A
+  #14 = Methodref          #13.#8         // A."<init>":()V
+  #15 = Utf8               B
+  #16 = Class              #15            // B
+  #17 = Methodref          #16.#8         // B."<init>":()V
+  #18 = Utf8               C
+  #19 = Class              #18            // C
+  #20 = Methodref          #19.#8         // C."<init>":()V
+  #21 = Utf8               foo
+  #22 = Utf8               (LB;LC;)LD;
+  #23 = NameAndType        #21:#22        // foo:(LB;LC;)LD;
+  #24 = Methodref          #13.#23        // A.foo:(LB;LC;)LD;
+  #25 = Utf8               D
+  #26 = Class              #25            // D
+  #27 = Utf8               bar
+  #28 = NameAndType        #27:#7         // bar:()V
+  #29 = Methodref          #26.#28        // D.bar:()V
+  #30 = Utf8               Code
+  #31 = Utf8               LineNumberTable
+  #32 = Utf8               StackMap
+  #33 = Utf8               SourceFile
+{
+  Main();
+    descriptor: ()V
+    flags:
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #9                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 1: 0
+        line 1: 1
+        line 1: 4
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=3, args_size=1
+         0: new           #13                 // class A
+         3: astore_0
+         4: aload_0
+         5: invokespecial #14                 // Method A."<init>":()V
+         8: aload_0
+         9: new           #16                 // class B
+        12: dup
+        13: invokespecial #17                 // Method B."<init>":()V
+        16: new           #16                 // class B
+        19: astore_1
+        20: aload_1
+        21: invokespecial #17                 // Method B."<init>":()V
+        24: new           #19                 // class C
+        27: astore_2
+        28: aload_2
+        29: invokespecial #20                 // Method C."<init>":()V
+        32: aload_2
+        33: invokevirtual #24                 // Method A.foo:(LB;LC;)LD;
+        36: invokevirtual #29                 // Method D.bar:()V
+        39: aload_0
+        40: aload_1
+        41: aload_2
+        42: invokevirtual #24                 // Method A.foo:(LB;LC;)LD;
+        45: pop
+        46: bipush        10
+        48: istore_0
+        49: iload_0
+        50: ifle          59
+        53: iinc          0, -1
+        56: goto          49
+        59: return
+      StackMap: number_of_entries = 2
+        frame_type = 255 offset = 49
+          locals = [ int, class B, class C ]
+          stack = []
+        frame_type = 255 offset = 59
+          locals = [ int, class B, class C ]
+          stack = []
+      LineNumberTable:
+        line 3: 0
+        line 3: 3
+        line 3: 4
+        line 3: 5
+        line 8: 8
+        line 4: 9
+        line 4: 12
+        line 4: 13
+        line 5: 16
+        line 5: 19
+        line 5: 20
+        line 5: 21
+        line 6: 24
+        line 6: 27
+        line 6: 28
+        line 6: 29
+        line 8: 32
+        line 8: 33
+        line 9: 36
+        line 11: 39
+        line 11: 40
+        line 11: 41
+        line 11: 42
+        line 11: 45
+        line 13: 46
+        line 13: 48
+        line 14: 49
+        line 14: 50
+        line 16: 53
+        line 16: 56
+        line 18: 59
+}
+SourceFile: "Main.java"

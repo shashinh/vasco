@@ -1,0 +1,206 @@
+public class avrora.sim.radio.Medium extends java.lang.Object
+{
+    private static final int BYTE_SIZE;
+    private static int Pn;
+    private static double Pr;
+    public final avrora.sim.clock.Synchronizer synch;
+    public final avrora.sim.radio.Medium$Arbitrator arbitrator;
+    public final int bitsPerSecond;
+    public final int leadBits;
+    public final int minLength;
+    public final int maxLength;
+    protected java.util.List transmissions;
+
+    public void <init>(avrora.sim.clock.Synchronizer, avrora.sim.radio.Medium$Arbitrator, int, int, int, int)
+    {
+        avrora.sim.radio.Medium this;
+        java.util.LinkedList $stack7;
+        avrora.sim.clock.Synchronizer synch;
+        int bps, ltb, mintl, maxtl;
+        avrora.sim.radio.Medium$Arbitrator arb;
+        avrora.sim.radio.Medium$BasicArbitrator $stack8;
+
+        this := @this: avrora.sim.radio.Medium;
+
+        synch := @parameter0: avrora.sim.clock.Synchronizer;
+
+        arb := @parameter1: avrora.sim.radio.Medium$Arbitrator;
+
+        bps := @parameter2: int;
+
+        ltb := @parameter3: int;
+
+        mintl := @parameter4: int;
+
+        maxtl := @parameter5: int;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack7 = new java.util.LinkedList;
+
+        specialinvoke $stack7.<java.util.LinkedList: void <init>()>();
+
+        this.<avrora.sim.radio.Medium: java.util.List transmissions> = $stack7;
+
+        this.<avrora.sim.radio.Medium: avrora.sim.clock.Synchronizer synch> = synch;
+
+        this.<avrora.sim.radio.Medium: int bitsPerSecond> = bps;
+
+        this.<avrora.sim.radio.Medium: int leadBits> = ltb;
+
+        this.<avrora.sim.radio.Medium: int minLength> = mintl;
+
+        this.<avrora.sim.radio.Medium: int maxLength> = maxtl;
+
+        if arb != null goto label1;
+
+        $stack8 = new avrora.sim.radio.Medium$BasicArbitrator;
+
+        specialinvoke $stack8.<avrora.sim.radio.Medium$BasicArbitrator: void <init>()>();
+
+        this.<avrora.sim.radio.Medium: avrora.sim.radio.Medium$Arbitrator arbitrator> = $stack8;
+
+        goto label2;
+
+     label1:
+        this.<avrora.sim.radio.Medium: avrora.sim.radio.Medium$Arbitrator arbitrator> = arb;
+
+     label2:
+        return;
+    }
+
+    protected synchronized avrora.sim.radio.Medium$Transmission newTransmission(avrora.sim.radio.Medium$Transmitter, double, double)
+    {
+        avrora.sim.radio.Medium$Transmission $stack7;
+        avrora.sim.radio.Medium this;
+        avrora.sim.radio.Medium$Transmitter o;
+        double p, f;
+        java.util.List $stack8;
+
+        this := @this: avrora.sim.radio.Medium;
+
+        o := @parameter0: avrora.sim.radio.Medium$Transmitter;
+
+        p := @parameter1: double;
+
+        f := @parameter2: double;
+
+        $stack7 = new avrora.sim.radio.Medium$Transmission;
+
+        specialinvoke $stack7.<avrora.sim.radio.Medium$Transmission: void <init>(avrora.sim.radio.Medium,avrora.sim.radio.Medium$Transmitter,double,double)>(this, o, p, f);
+
+        $stack8 = this.<avrora.sim.radio.Medium: java.util.List transmissions>;
+
+        interfaceinvoke $stack8.<java.util.List: boolean add(java.lang.Object)>($stack7);
+
+        return $stack7;
+    }
+
+    public static boolean isCorruptedByte(char)
+    {
+        char c;
+        int $stack1;
+        boolean $stack2#1;
+
+        c := @parameter0: char;
+
+        $stack1 = c & 65280;
+
+        if $stack1 == 0 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    public static byte getCorruptedBits(char)
+    {
+        char c;
+        int $stack1;
+        byte $stack2;
+
+        c := @parameter0: char;
+
+        $stack1 = c >> 8;
+
+        $stack2 = (byte) $stack1;
+
+        return $stack2;
+    }
+
+    public static byte getTransmittedBits(char)
+    {
+        char c;
+        byte $stack1;
+
+        c := @parameter0: char;
+
+        $stack1 = (byte) c;
+
+        return $stack1;
+    }
+
+    static double access$302(double)
+    {
+        double x0;
+
+        x0 := @parameter0: double;
+
+        <avrora.sim.radio.Medium: double Pr> = x0;
+
+        return x0;
+    }
+
+    static int access$402(int)
+    {
+        int x0;
+
+        x0 := @parameter0: int;
+
+        <avrora.sim.radio.Medium: int Pn> = x0;
+
+        return x0;
+    }
+
+    static double access$300()
+    {
+        double $stack0;
+
+        $stack0 = <avrora.sim.radio.Medium: double Pr>;
+
+        return $stack0;
+    }
+
+    static int access$400()
+    {
+        int $stack0;
+
+        $stack0 = <avrora.sim.radio.Medium: int Pn>;
+
+        return $stack0;
+    }
+
+    static void <clinit>()
+    {
+        int $stack0;
+        double $stack1;
+
+        <avrora.sim.radio.Medium: int BYTE_SIZE> = 8;
+
+        <avrora.sim.radio.Medium: int Pn> = -95;
+
+        $stack0 = <avrora.sim.radio.Medium: int Pn>;
+
+        $stack1 = (double) $stack0;
+
+        <avrora.sim.radio.Medium: double Pr> = $stack1;
+
+        return;
+    }
+}

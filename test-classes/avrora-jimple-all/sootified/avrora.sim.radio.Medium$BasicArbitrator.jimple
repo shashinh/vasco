@@ -1,0 +1,173 @@
+public class avrora.sim.radio.Medium$BasicArbitrator extends java.lang.Object implements avrora.sim.radio.Medium$Arbitrator
+{
+    static final boolean $assertionsDisabled;
+
+    public void <init>()
+    {
+        avrora.sim.radio.Medium$BasicArbitrator this;
+
+        this := @this: avrora.sim.radio.Medium$BasicArbitrator;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public boolean lockTransmission(avrora.sim.radio.Medium$Receiver, avrora.sim.radio.Medium$Transmission, int)
+    {
+        avrora.sim.radio.Medium$BasicArbitrator this;
+        avrora.sim.radio.Medium$Receiver receiver;
+        avrora.sim.radio.Medium$Transmission trans;
+        int Milliseconds;
+
+        this := @this: avrora.sim.radio.Medium$BasicArbitrator;
+
+        receiver := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        trans := @parameter1: avrora.sim.radio.Medium$Transmission;
+
+        Milliseconds := @parameter2: int;
+
+        return 1;
+    }
+
+    public char mergeTransmissions(avrora.sim.radio.Medium$Receiver, java.util.List, long, int)
+    {
+        boolean $stack11, $stack16#5;
+        java.util.List it;
+        java.util.Iterator i;
+        java.lang.Object $stack13, $stack18;
+        avrora.sim.radio.Medium$Transmission first, next;
+        long bit;
+        byte $stack15, $stack20;
+        char $stack17;
+        int nval, $stack21, $stack22, $stack23, $stack25, Milliseconds, value#1, value#6;
+        java.lang.AssertionError $stack32;
+        avrora.sim.radio.Medium$BasicArbitrator this;
+        avrora.sim.radio.Medium$Receiver receiver;
+
+        this := @this: avrora.sim.radio.Medium$BasicArbitrator;
+
+        receiver := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        it := @parameter1: java.util.List;
+
+        bit := @parameter2: long;
+
+        Milliseconds := @parameter3: int;
+
+        $stack11 = <avrora.sim.radio.Medium$BasicArbitrator: boolean $assertionsDisabled>;
+
+        if $stack11 != 0 goto label1;
+
+        $stack25 = interfaceinvoke it.<java.util.List: int size()>();
+
+        if $stack25 > 0 goto label1;
+
+        $stack32 = new java.lang.AssertionError;
+
+        specialinvoke $stack32.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack32;
+
+     label1:
+        i = interfaceinvoke it.<java.util.List: java.util.Iterator iterator()>();
+
+        $stack13 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        first = (avrora.sim.radio.Medium$Transmission) $stack13;
+
+        $stack15 = virtualinvoke first.<avrora.sim.radio.Medium$Transmission: byte getByteAtTime(long)>(bit);
+
+        value#1 = 255 & $stack15;
+
+     label2:
+        $stack16#5 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack16#5 == 0 goto label3;
+
+        $stack18 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        next = (avrora.sim.radio.Medium$Transmission) $stack18;
+
+        $stack20 = virtualinvoke next.<avrora.sim.radio.Medium$Transmission: byte getByteAtTime(long)>(bit);
+
+        nval = 255 & $stack20;
+
+        $stack22 = nval << 8;
+
+        $stack21 = value#1 << 8;
+
+        $stack23 = $stack22 ^ $stack21;
+
+        value#6 = value#1 | $stack23;
+
+        value#1 = value#6 | nval;
+
+        goto label2;
+
+     label3:
+        $stack17 = (char) value#1;
+
+        return $stack17;
+    }
+
+    public double computeReceivedPower(avrora.sim.radio.Medium$Transmission, avrora.sim.radio.Medium$Receiver, int)
+    {
+        double $stack4;
+        avrora.sim.radio.Medium$BasicArbitrator this;
+        avrora.sim.radio.Medium$Transmission t;
+        avrora.sim.radio.Medium$Receiver receiver;
+        int Milliseconds;
+
+        this := @this: avrora.sim.radio.Medium$BasicArbitrator;
+
+        t := @parameter0: avrora.sim.radio.Medium$Transmission;
+
+        receiver := @parameter1: avrora.sim.radio.Medium$Receiver;
+
+        Milliseconds := @parameter2: int;
+
+        $stack4 = staticinvoke <avrora.sim.radio.Medium: double access$300()>();
+
+        return $stack4;
+    }
+
+    public int getNoise(int)
+    {
+        int $stack2, index;
+        avrora.sim.radio.Medium$BasicArbitrator this;
+
+        this := @this: avrora.sim.radio.Medium$BasicArbitrator;
+
+        index := @parameter0: int;
+
+        $stack2 = staticinvoke <avrora.sim.radio.Medium: int access$400()>();
+
+        return $stack2;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.Class $stack0;
+        boolean $stack1, $stack2#1;
+
+        $stack0 = class "Lavrora/sim/radio/Medium;";
+
+        $stack1 = virtualinvoke $stack0.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $stack1 != 0 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        <avrora.sim.radio.Medium$BasicArbitrator: boolean $assertionsDisabled> = $stack2#1;
+
+        return;
+    }
+}

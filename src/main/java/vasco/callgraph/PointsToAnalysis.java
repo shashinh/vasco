@@ -19,7 +19,10 @@ package vasco.callgraph;
 
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import soot.Local;
@@ -29,6 +32,7 @@ import soot.Scene;
 import soot.SootClass;
 import soot.SootField;
 import soot.SootMethod;
+import soot.SootMethodRef;
 import soot.Unit;
 import soot.Value;
 import soot.jimple.AnyNewExpr;
@@ -53,10 +57,13 @@ import soot.jimple.StaticInvokeExpr;
 import soot.jimple.Stmt;
 import soot.jimple.VirtualInvokeExpr;
 import soot.jimple.internal.JNewArrayExpr;
+import soot.tagkit.BytecodeOffsetTag;
+import soot.tagkit.Tag;
 import vasco.CallSite;
 import vasco.Context;
 import vasco.OldForwardInterProceduralAnalysis;
 import vasco.ProgramRepresentation;
+import vasco.soot.AbstractNullObj;
 import vasco.soot.DefaultJimpleRepresentation;
 
 /**
@@ -94,6 +101,11 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 	 * A set of classes whose static initialisers have been processed.
 	 */
 	private Set<SootClass> clinitCalled;
+	
+
+	public Map<AnyNewExpr, String> bciMap;
+	public Map<AnyNewExpr, String> exprToMethodMap;
+	
 
 	/**
 	 * Constructs a new points-to analysis as a forward-flow inter-procedural
@@ -104,7 +116,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		
 		// Play around with these flags
 		this.freeResultsOnTheFly = true;
-		this.verbose = true;
+		//this.verbose = true;
 		
 		// No classes statically initialised yet
 		this.clinitCalled = new HashSet<SootClass>();
@@ -112,6 +124,10 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		// Create a static points-to graph with a single "global" root object
 		this.staticHeap = topValue();
 		this.staticHeap.assignNew(PointsToGraph.GLOBAL_LOCAL, PointsToGraph.GLOBAL_SITE);
+		
+
+		this.bciMap = new HashMap<AnyNewExpr, String>();
+		this.exprToMethodMap = new HashMap<AnyNewExpr, String>();
 	}
 
 	/**
@@ -168,6 +184,40 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		// for example, basic blocks)
 		assert (unit instanceof Stmt);
 		Stmt stmt = (Stmt) unit;
+		
+		
+		//SHASHIN
+		
+		if(isReflectedStatement(stmt)) {
+			return out;
+		} else if (stmt.toString().contains("<org.dacapo.harness.Callback: void init(org.dacapo.parser.Config)>")
+				|| stmt.toString().contains("<org.dacapo.harness.Callback: void start(java.lang.String)>")
+				|| stmt.toString().contains("<org.dacapo.harness.Callback: void stop(long)>")
+				|| stmt.toString().contains("<org.dacapo.harness.Callback: void complete(java.lang.String,boolean)>")) { 
+			return out;
+		}
+		
+		
+		
+		int bci = -1;
+		try {
+				BytecodeOffsetTag bT = (BytecodeOffsetTag)unit.getTag("BytecodeOffsetTag");
+				bci = bT.getBytecodeOffset();
+		} catch (Exception ex) {
+			//System.out.println("bci for unit is missing!");
+		}
+		
+//		int byteCodeOffset = -1;
+//		for(Tag tag : unit.getTags()) {
+//			System.out.println("checking tag of type " + tag.getName());
+//			if(tag instanceof BytecodeOffsetTag) {
+//				byteCodeOffset = ((BytecodeOffsetTag) tag).getBytecodeOffset();
+//				System.out.println("Handling byte code offset  " + byteCodeOffset);
+//			}
+//		}
+		
+		
+		//SHASHIN
 
 		// What kind of statement?
 		if (stmt instanceof DefinitionStmt) {
@@ -255,9 +305,39 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				} else if (rhsOp instanceof AnyNewExpr) {
 					// NEW, NEWARRAY or NEWMULTIARRAY
 					AnyNewExpr anyNewExpr = (AnyNewExpr) rhsOp;
+					
+					
+					//SHASHIN		
+					SootMethod currentMethod = context.getMethod();
+					
+					//add each unique calling method to the calleeIndexMap calleeIndex
+					
+					int currentMethodIndex = this.methodIndex;
+					String callerMethodSig = currentMethod.getDeclaringClass().getName() + "." + currentMethod.getName();
+					
+					if(!this.calleeIndexMap.containsKey(callerMethodSig)) {
+						this.calleeIndexMap.put(callerMethodSig, methodIndex);
+						methodIndex++;
+						//currentMethodIndex = methodIndex;
+					} else {
+						currentMethodIndex = this.calleeIndexMap.get(callerMethodSig);
+					}
+					//System.out.println(callerMethodSig + " " + currentMethodIndex);
+					
+					//SHASHIN
+					
 					if (lhsOp instanceof Local) {
 						Local lhs = (Local) lhsOp;
 						out.assignNew(lhs, anyNewExpr);
+						//SHASHIN - UPDATE BCI TO NODE MAP HERE
+
+						this.bciMap.put(anyNewExpr, currentMethodIndex + "-" + bci);
+						//this.bciMap.put(anyNewExpr, currentMethodIndex + "-" + bci);
+						String methodSig = context.getMethod().getDeclaringClass().getName() + "." + context.getMethod().getName();
+
+						this.exprToMethodMap.put(anyNewExpr, methodSig);
+						//SHASHIN
+						
 					} else {
 						throw new RuntimeException(lhsOp.toString());						
 					}
@@ -369,9 +449,52 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				}				
 			}
 		}
+		
+		//SHASHIN
+		//if(out != null) System.out.println(out.toString());
 
 		return out;
 
+	}
+	
+	private boolean isReflectedStatement(Stmt stmt) {
+		boolean isReflected = false;
+		InvokeExpr ie = null;
+		
+		if (stmt instanceof DefinitionStmt) {
+			//we only care to test if the RHS is an operation involving reflection
+			Value rhsOp = ((DefinitionStmt) stmt).getRightOp();
+			if(rhsOp instanceof InvokeExpr) {
+				ie = (InvokeExpr) rhsOp;
+			}
+			
+		} else if (stmt instanceof InvokeStmt) {
+			ie = stmt.getInvokeExpr();
+		}
+		
+		if(ie != null) {
+			final Scene sc = Scene.v();
+	        SootMethodRef methodRef = ie.getMethodRef();
+	        switch(methodRef.getDeclaringClass().getName()) {
+	        	case "java.lang.reflect.Method":
+	                if ("java.lang.Object invoke(java.lang.Object,java.lang.Object[])"
+	                        .equals(methodRef.getSubSignature().getString())) {
+	                	isReflected = true;
+	                    }
+	        		break;
+	            case "java.lang.reflect.Constructor":
+	                if ("java.lang.Object newInstance(java.lang.Object[])".equals(methodRef.getSubSignature().getString())) {
+	                	System.out.println("this looks like a constructor newinstance!");
+	                	isReflected = true;
+	                }
+	                break;
+	    		default:
+	    			break;
+	        			
+	        		
+	        }
+		}
+		return isReflected;
 	}
 
 
@@ -403,6 +526,10 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			if (heapNodes != null) {
 				// For each object, find the invoked method for the declared type
 				for (AnyNewExpr heapNode : heapNodes) {
+					//SHASHIN
+					if(heapNode instanceof AbstractNullObj)
+						continue;
+					
 					if (heapNode == PointsToGraph.SUMMARY_NODE) {						
 						// If even one pointee is a summary node, then this is a default site
 						return null;
@@ -448,8 +575,79 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 	 */
 	protected PointsToGraph handleInvoke(Context<SootMethod,Unit,PointsToGraph> callerContext, Stmt callStmt,
 			InvokeExpr ie, PointsToGraph in) {
+		
 		// Get the caller method
 		SootMethod callerMethod = callerContext.getMethod();
+
+		//SHASHIN
+		/*
+		//check if this invoke expression is a reflected call
+		boolean isReflectInvokeExpr = false;
+		Set<SootMethod> reflectedTargets = new HashSet<SootMethod>();
+		
+		
+		final Scene sc = Scene.v();
+        SootMethodRef methodRef = ie.getMethodRef();
+        switch(methodRef.getDeclaringClass().getName()) {
+        	case "java.lang.reflect.Method":
+                if ("java.lang.Object invoke(java.lang.Object,java.lang.Object[])"
+                        .equals(methodRef.getSubSignature().getString())) {
+
+            		System.out.println("this looks like a methodinvoke!");
+            		isReflectInvokeExpr = true;
+            	    Set<String> ret = methodInvokeReceivers.get(callerMethod);
+            	    ret = (ret != null) ? ret : Collections.emptySet();
+            	    System.out.println("possible reflected targets are " + ret);
+            	    for(String sig : ret) {
+            	    	if(sc.containsMethod(sig)) {
+            	    		System.out.println("method.Invoke target " + sig + " is resolved");
+            	    		SootMethod reflectedTarget = sc.getMethod(sig);
+            	    		//System.out.println(reflectedTarget.getActiveBody());
+                	    	reflectedTargets.add(reflectedTarget);
+            	    	}
+            	    	
+            	    }
+                      //reflectionModel.methodInvoke(source, s);
+                    }
+        		break;
+            case "java.lang.reflect.Constructor":
+                if ("java.lang.Object newInstance(java.lang.Object[])".equals(methodRef.getSubSignature().getString())) {
+                	System.out.println("this looks like a constructor newinstance!");
+                	isReflectInvokeExpr = true;
+
+            	    Set<String> ret = constructorNewInstanceReceivers.get(callerMethod);
+            	    ret = (ret != null) ? ret : Collections.emptySet();
+            	    for(String sig : ret) {
+            	    	if(sc.containsMethod(sig)) {
+            	    		System.out.println("constructor.NewInstance target " + sig + " is resolved");
+            	    		SootMethod reflectedTarget = sc.getMethod(sig);
+            	    		//System.out.println(reflectedTarget.getActiveBody());
+                	    	reflectedTargets.add(reflectedTarget);
+            	    	}
+            	    	
+            	    }
+                  //reflectionModel.contructorNewInstance(source, s);
+                }
+                break;
+    		default:
+    			break;
+        			
+        		
+        }
+		*/
+		
+		//SHASHIN
+		//add each unique calling method to the calleeIndexMap calleeIndex
+		/*int currentCalleeIndex = this.calleeIndex;
+		String callerMethodSig = callerMethod.getDeclaringClass().getName() + "." + callerMethod.getName();
+		if(!this.calleeIndexMap.containsKey(callerMethodSig)) {
+			this.calleeIndexMap.put(callerMethodSig, calleeIndex);
+			calleeIndex++;
+		} else {
+			currentCalleeIndex = this.calleeIndexMap.get(callerMethodSig);
+		}*/
+		//SHASHIN
+		
 		// Initialise the final result as TOP first
 		PointsToGraph resultFlow = topValue();
 
@@ -463,10 +661,24 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				lhs = (Local) lhsOp;
 			}
 		}
-
+		
+		Set<SootMethod> targets;
+		/*
+		//isReflectInvokeExpr = false;
+		if(isReflectInvokeExpr && !reflectedTargets.isEmpty()) {
+			targets = reflectedTargets;
+			//<org.dacapo.harness.TestHarness: void main(java.lang.String[])>
+		}
 		// Find target methods for this call site (invoke expression) using the points-to data
-		Set<SootMethod> targets = getTargets(callerMethod, callStmt, ie, in);
+		else 
+			*/
+			targets = getTargets(callerMethod, callStmt, ie, in);
 
+		//shashin
+		if(targets != null && targets.size() == 1 && 
+				(targets.iterator().next().toString().contains("<java.util.regex.Pattern") 
+				|| (targets.iterator().next().toString().contains("java.util.HashMap"))))
+			targets = null;
 		// If "targets" is null, that means the invoking instance was SUMMARY
 		// So we use the DUMMY METHOD (which is a method with no body)
 		if (targets == null) {
@@ -478,9 +690,10 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		} 
 		
 		// Make calls for all target methods
+		this.immediatePrevContextAnalysed = true;
 		for (SootMethod calledMethod : targets) {
 
-			// The call-edge is obtained by assign parameters and THIS, and killing caller's locals
+			// The call-edge is obtained by assign para	meters and THIS, and killing caller's locals
 			PointsToGraph callEdge = copy(in);
 			if (calledMethod.hasActiveBody()) {
 				// We need to maintain a set of locals not to kill (in case the call is recursive)
@@ -490,30 +703,162 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				callEdge.assign(PointsToGraph.STICKY_LOCAL, null);
 				doNotKill.add(PointsToGraph.STICKY_LOCAL);
 				
+				//System.out.println("dumping call parameters ");
 				// Assign this...
+				Local receiver = null;
 				if (ie instanceof InstanceInvokeExpr) {
-					Local receiver = (Local)((InstanceInvokeExpr) ie).getBase();
+					receiver = (Local)((InstanceInvokeExpr) ie).getBase();
+					//System.out.println(receiver.toString());
+					//System.out.println(calledMethod.getSubSignature());
+					try {
 					Local thisLocal = calledMethod.getActiveBody().getThisLocal();
+					
 					callEdge.assign(thisLocal, receiver);
 					doNotKill.add(thisLocal);
 					// Sticky it!
 					callEdge.assignSticky(PointsToGraph.STICKY_LOCAL, thisLocal);
+					} catch (Exception ex) { }
 				}
 				
+				//SHASHIN
+				SootMethod m = (SootMethod) callerContext.getMethod();
+				String mN = m.getDeclaringClass().getName() + "." + m.getName();
+				String calledMethodSig = calledMethod.getDeclaringClass().getName() + "-" + calledMethod.getName();
+				//System.out.println(mN);
+				//THIS MAP NOT NEEDED
+				Map<Integer,Set<String>> calledMethodArgsMap;
+//				if(this.callSiteInvariants.containsKey(mN)) {
+//					map = this.callSiteInvariants.get(mN);
+//				} else {
+//					map = new HashMap<String, Map<Integer,Set<String>>>();
+//				}
+				
+				if(this.callSiteInvariants.containsKey(calledMethodSig)) {
+					calledMethodArgsMap = this.callSiteInvariants.get(calledMethodSig);
+				} else {
+					calledMethodArgsMap = new HashMap<Integer, Set<String>>();
+				}
+				
+				//this map not needed anymore
+//				Map<Integer, Set<String>> calledMethodArgsMap;
+//				if(map.containsKey(calledMethodSig)) {
+//					calledMethodArgsMap = map.get(calledMethodSig);
+//				} else {
+//					calledMethodArgsMap = new HashMap<Integer, Set<String>>();
+//				}
+				//this map not needed anymore
+				
+				
+				Set<String> thisBCSet;
+				if(calledMethodArgsMap.containsKey(0)) {
+					thisBCSet = calledMethodArgsMap.get(0);
+				} else {
+					thisBCSet = new HashSet<String>();
+				}
+				
+				if(receiver != null) {
+					try {
+					for(AnyNewExpr t : in.getTargets(receiver)) {
+						if(t instanceof AbstractNullObj) continue;
+						
+						if(t == PointsToGraph.STRING_SITE)
+							thisBCSet.add("s");
+						else {
+							if(this.bciMap.get(t) != null)
+								thisBCSet.add(/*currentCalleeIndex + "-" + */this.bciMap.get(t).toString());
+							else 
+								thisBCSet.add("u-u");
+						
+						}
+					}
+					} catch (Exception ex) {
+						System.out.println(ex.toString());
+					}
+				} else {
+					thisBCSet.add("n");
+				}
+				
+				if(calledMethodArgsMap.containsKey(0)) {
+					calledMethodArgsMap.replace(0, thisBCSet);
+				} else 
+					calledMethodArgsMap.put(0, thisBCSet);
+				
 				// Assign parameters...
+				//if( !isReflected) if the invoke statement is reflected, do not bother about mapping parameters
 				for (int i = 0; i < calledMethod.getParameterCount(); i++) {
+
+												//SHASHIN - TODO - assert that we cannot handle non-empty args list
+												Set<String> argBCSet;
+												if(calledMethodArgsMap.containsKey(i + 1)) {
+													argBCSet = calledMethodArgsMap.get(i + 1);
+												} else {
+													argBCSet = new HashSet<String>();
+												}
+					
+					
 					// Only for reference-like parameters
+					
+					//calledMethiod : public Avrora(Config config, File scratch)
 					if (calledMethod.getParameterType(i) instanceof RefLikeType) {
 						Local parameter = calledMethod.getActiveBody().getParameterLocal(i);
-						Value argValue = ie.getArg(i);
+						Value argValue = null;
+						try {
+							argValue = ie.getArg(i);
+						} catch (IndexOutOfBoundsException ex) {
+							argValue = ie.getArg(0);
+						}
 						// The argument can be a constant or local, so handle accordingly
 						if (argValue instanceof Local) {
 							Local argLocal = (Local) argValue;
+							//SHASHIN
+							//System.out.println(argLocal);
+							try {
+							for(AnyNewExpr tgt : in.getTargets(argLocal)) {
+								
+													String bci;
+													if(tgt == PointsToGraph.STRING_SITE) {
+														bci = "s";
+														argBCSet.add(bci);
+													} else if (tgt instanceof AbstractNullObj) {
+														argBCSet.add("n");
+													} else if (tgt == PointsToGraph.SUMMARY_NODE) {
+														argBCSet.add("g");
+													}
+													else {
+														bci = this.bciMap.get(tgt);
+														String temp = this.exprToMethodMap.get(tgt);
+														int ci;
+														if(temp != null && bci != null) {
+															try {
+															ci = this.calleeIndexMap.get(temp);
+															} catch (Exception ex) {
+																System.out.println(ex.toString());
+																//something wrong here, assume default value for the callee index
+																ci = -1;
+															}
+															argBCSet.add(/*ci + "-" + */bci.toString());
+														} else {
+															argBCSet.add("u-u");
+														}
+								}
+
+								//System.out.println(bci);
+
+//								int ci = this.calleeIndexMap.get(this.exprToMethodMap.get(tgt));
+//								argBCSet.add(ci + "-" + bci.toString());
+								
+							} } catch (Exception ex )
+							{ System.out.println(ex); }
+							//SHASHIN
+							
+							
+							
 							callEdge.assign(parameter, argLocal);
 							doNotKill.add(parameter);
 							// Sticky it!
 							callEdge.assignSticky(PointsToGraph.STICKY_LOCAL, argLocal);
 						} else if (argValue instanceof Constant) {
+												argBCSet.add("c");
 							Constant argConstant = (Constant) argValue;
 							callEdge.assignConstant(parameter, argConstant);
 							doNotKill.add(parameter);
@@ -522,8 +867,26 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							throw new RuntimeException(argValue.toString());
 						}
 					}
+					
+					if(calledMethodArgsMap.containsKey(i + 1)) {
+						calledMethodArgsMap.replace(i + 1, argBCSet);
+					} else 
+						calledMethodArgsMap.put(i + 1, argBCSet);
 				}
 				
+//				if(map.containsKey(calledMethodSig)) {
+//					map.replace(calledMethodSig, calledMethodArgsMap);
+//				} else {
+//					map.put(calledMethodSig, calledMethodArgsMap);
+//
+//				}
+				
+				if(this.callSiteInvariants.containsKey(calledMethodSig)) {
+					this.callSiteInvariants.replace(calledMethodSig, calledMethodArgsMap);
+				} else {
+					this.callSiteInvariants.put(calledMethodSig, calledMethodArgsMap);
+
+				}
 				// Kill caller data...
 				for (Local callerLocal : callerMethod.getActiveBody().getLocals()) {
 					if (doNotKill.contains(callerLocal) == false)

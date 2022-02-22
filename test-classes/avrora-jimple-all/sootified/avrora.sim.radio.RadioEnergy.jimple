@@ -1,0 +1,629 @@
+public abstract class avrora.sim.radio.RadioEnergy extends java.lang.Object
+{
+    public static final int startMode;
+    public static final java.lang.String[] modeName;
+    public static final double[] modeAmpere;
+
+    public void <init>()
+    {
+        avrora.sim.radio.RadioEnergy this;
+
+        this := @this: avrora.sim.radio.RadioEnergy;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static java.lang.String[] allModeNames()
+    {
+        java.lang.String[] modeName, $stack2, $stack5;
+        java.lang.StringBuilder $stack3, $stack7, $stack8, $stack9, $stack10, $stack13;
+        int $stack4, i#1;
+        java.lang.String $stack6, $stack11, $stack12, $stack14;
+
+        modeName = newarray (java.lang.String)[262];
+
+        $stack2 = <avrora.sim.radio.RadioEnergy: java.lang.String[] modeName>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack2, 0, modeName, 0, 6);
+
+        i#1 = 0;
+
+     label1:
+        if i#1 >= 256 goto label2;
+
+        $stack4 = i#1 + 6;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = <avrora.sim.radio.RadioEnergy: java.lang.String[] modeName>;
+
+        $stack6 = $stack5[6];
+
+        $stack7 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+        $stack8 = new java.lang.StringBuilder;
+
+        specialinvoke $stack8.<java.lang.StringBuilder: void <init>()>();
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i#1);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":   ");
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack12 = staticinvoke <cck.text.StringUtil: java.lang.String leftJustify(java.lang.String,int)>($stack11, 3);
+
+        $stack13 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        modeName[$stack4] = $stack14;
+
+        i#1 = i#1 + 1;
+
+        goto label1;
+
+     label2:
+        return modeName;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.String[] $stack0;
+        double[] $stack1;
+
+        <avrora.sim.radio.RadioEnergy: int startMode> = 0;
+
+        $stack0 = newarray (java.lang.String)[7];
+
+        $stack0[0] = "Power Off:            ";
+
+        $stack0[1] = "Power Down:           ";
+
+        $stack0[2] = "Crystal:              ";
+
+        $stack0[3] = "Crystal + Bias:       ";
+
+        $stack0[4] = "Crystal + Bias + Syn: ";
+
+        $stack0[5] = "Receive (Rx):         ";
+
+        $stack0[6] = "Transmit (Tx):        ";
+
+        <avrora.sim.radio.RadioEnergy: java.lang.String[] modeName> = $stack0;
+
+        $stack1 = newarray (double)[262];
+
+        $stack1[0] = 0.0;
+
+        $stack1[1] = 2.0E-7;
+
+        $stack1[2] = 6.0E-5;
+
+        $stack1[3] = 0.00138;
+
+        $stack1[4] = 0.0055;
+
+        $stack1[5] = 0.0096;
+
+        $stack1[6] = 0.0063;
+
+        $stack1[7] = 0.00882;
+
+        $stack1[8] = 0.00903;
+
+        $stack1[9] = 0.00915;
+
+        $stack1[10] = 0.00935;
+
+        $stack1[11] = 0.00956;
+
+        $stack1[12] = 0.00976;
+
+        $stack1[13] = 0.00992;
+
+        $stack1[14] = 0.01007;
+
+        $stack1[15] = 0.01022;
+
+        $stack1[16] = 0.01038;
+
+        $stack1[17] = 0.01057;
+
+        $stack1[18] = 0.01079;
+
+        $stack1[19] = 0.01101;
+
+        $stack1[20] = 0.0112;
+
+        $stack1[21] = 0.01134;
+
+        $stack1[22] = 0.01144;
+
+        $stack1[23] = 0.01153;
+
+        $stack1[24] = 0.01163;
+
+        $stack1[25] = 0.01172;
+
+        $stack1[26] = 0.01181;
+
+        $stack1[27] = 0.01189;
+
+        $stack1[28] = 0.01198;
+
+        $stack1[29] = 0.01206;
+
+        $stack1[30] = 0.01214;
+
+        $stack1[31] = 0.01222;
+
+        $stack1[32] = 0.0123;
+
+        $stack1[33] = 0.01237;
+
+        $stack1[34] = 0.01245;
+
+        $stack1[35] = 0.01252;
+
+        $stack1[36] = 0.01259;
+
+        $stack1[37] = 0.01266;
+
+        $stack1[38] = 0.01273;
+
+        $stack1[39] = 0.01279;
+
+        $stack1[40] = 0.01286;
+
+        $stack1[41] = 0.01292;
+
+        $stack1[42] = 0.01298;
+
+        $stack1[43] = 0.01304;
+
+        $stack1[44] = 0.0131;
+
+        $stack1[45] = 0.01316;
+
+        $stack1[46] = 0.01321;
+
+        $stack1[47] = 0.01327;
+
+        $stack1[48] = 0.01332;
+
+        $stack1[49] = 0.01338;
+
+        $stack1[50] = 0.01343;
+
+        $stack1[51] = 0.01348;
+
+        $stack1[52] = 0.01353;
+
+        $stack1[53] = 0.01358;
+
+        $stack1[54] = 0.01362;
+
+        $stack1[55] = 0.01367;
+
+        $stack1[56] = 0.01372;
+
+        $stack1[57] = 0.01376;
+
+        $stack1[58] = 0.0138;
+
+        $stack1[59] = 0.01385;
+
+        $stack1[60] = 0.01389;
+
+        $stack1[61] = 0.01393;
+
+        $stack1[62] = 0.01397;
+
+        $stack1[63] = 0.01401;
+
+        $stack1[64] = 0.01405;
+
+        $stack1[65] = 0.01409;
+
+        $stack1[66] = 0.01413;
+
+        $stack1[67] = 0.01417;
+
+        $stack1[68] = 0.01421;
+
+        $stack1[69] = 0.01425;
+
+        $stack1[70] = 0.01429;
+
+        $stack1[71] = 0.01432;
+
+        $stack1[72] = 0.01436;
+
+        $stack1[73] = 0.0144;
+
+        $stack1[74] = 0.01443;
+
+        $stack1[75] = 0.01447;
+
+        $stack1[76] = 0.01451;
+
+        $stack1[77] = 0.01454;
+
+        $stack1[78] = 0.01458;
+
+        $stack1[79] = 0.01462;
+
+        $stack1[80] = 0.01465;
+
+        $stack1[81] = 0.01469;
+
+        $stack1[82] = 0.01473;
+
+        $stack1[83] = 0.01476;
+
+        $stack1[84] = 0.0148;
+
+        $stack1[85] = 0.01484;
+
+        $stack1[86] = 0.01487;
+
+        $stack1[87] = 0.01491;
+
+        $stack1[88] = 0.01495;
+
+        $stack1[89] = 0.01499;
+
+        $stack1[90] = 0.01503;
+
+        $stack1[91] = 0.01507;
+
+        $stack1[92] = 0.01511;
+
+        $stack1[93] = 0.01515;
+
+        $stack1[94] = 0.01519;
+
+        $stack1[95] = 0.01523;
+
+        $stack1[96] = 0.01528;
+
+        $stack1[97] = 0.01532;
+
+        $stack1[98] = 0.01536;
+
+        $stack1[99] = 0.01541;
+
+        $stack1[100] = 0.01546;
+
+        $stack1[101] = 0.0155;
+
+        $stack1[102] = 0.01555;
+
+        $stack1[103] = 0.0156;
+
+        $stack1[104] = 0.01565;
+
+        $stack1[105] = 0.01569;
+
+        $stack1[106] = 0.01574;
+
+        $stack1[107] = 0.01579;
+
+        $stack1[108] = 0.01583;
+
+        $stack1[109] = 0.01588;
+
+        $stack1[110] = 0.01593;
+
+        $stack1[111] = 0.01597;
+
+        $stack1[112] = 0.01602;
+
+        $stack1[113] = 0.01606;
+
+        $stack1[114] = 0.01611;
+
+        $stack1[115] = 0.01615;
+
+        $stack1[116] = 0.0162;
+
+        $stack1[117] = 0.01624;
+
+        $stack1[118] = 0.01629;
+
+        $stack1[119] = 0.01633;
+
+        $stack1[120] = 0.01638;
+
+        $stack1[121] = 0.01642;
+
+        $stack1[122] = 0.01647;
+
+        $stack1[123] = 0.01651;
+
+        $stack1[124] = 0.01656;
+
+        $stack1[125] = 0.0166;
+
+        $stack1[126] = 0.01665;
+
+        $stack1[127] = 0.01669;
+
+        $stack1[128] = 0.01674;
+
+        $stack1[129] = 0.01679;
+
+        $stack1[130] = 0.01683;
+
+        $stack1[131] = 0.01688;
+
+        $stack1[132] = 0.01693;
+
+        $stack1[133] = 0.01697;
+
+        $stack1[134] = 0.01702;
+
+        $stack1[135] = 0.01707;
+
+        $stack1[136] = 0.01712;
+
+        $stack1[137] = 0.01716;
+
+        $stack1[138] = 0.01721;
+
+        $stack1[139] = 0.01726;
+
+        $stack1[140] = 0.01731;
+
+        $stack1[141] = 0.01736;
+
+        $stack1[142] = 0.01741;
+
+        $stack1[143] = 0.01746;
+
+        $stack1[144] = 0.01751;
+
+        $stack1[145] = 0.01756;
+
+        $stack1[146] = 0.01761;
+
+        $stack1[147] = 0.01766;
+
+        $stack1[148] = 0.01771;
+
+        $stack1[149] = 0.01776;
+
+        $stack1[150] = 0.01781;
+
+        $stack1[151] = 0.01786;
+
+        $stack1[152] = 0.01791;
+
+        $stack1[153] = 0.01796;
+
+        $stack1[154] = 0.01801;
+
+        $stack1[155] = 0.01806;
+
+        $stack1[156] = 0.01811;
+
+        $stack1[157] = 0.01816;
+
+        $stack1[158] = 0.01821;
+
+        $stack1[159] = 0.01826;
+
+        $stack1[160] = 0.01831;
+
+        $stack1[161] = 0.01837;
+
+        $stack1[162] = 0.01842;
+
+        $stack1[163] = 0.01847;
+
+        $stack1[164] = 0.01852;
+
+        $stack1[165] = 0.01857;
+
+        $stack1[166] = 0.01862;
+
+        $stack1[167] = 0.01867;
+
+        $stack1[168] = 0.01872;
+
+        $stack1[169] = 0.01878;
+
+        $stack1[170] = 0.01883;
+
+        $stack1[171] = 0.01888;
+
+        $stack1[172] = 0.01893;
+
+        $stack1[173] = 0.01898;
+
+        $stack1[174] = 0.01903;
+
+        $stack1[175] = 0.01908;
+
+        $stack1[176] = 0.01913;
+
+        $stack1[177] = 0.01919;
+
+        $stack1[178] = 0.01924;
+
+        $stack1[179] = 0.01929;
+
+        $stack1[180] = 0.01934;
+
+        $stack1[181] = 0.01939;
+
+        $stack1[182] = 0.01944;
+
+        $stack1[183] = 0.01949;
+
+        $stack1[184] = 0.01954;
+
+        $stack1[185] = 0.01959;
+
+        $stack1[186] = 0.01964;
+
+        $stack1[187] = 0.01969;
+
+        $stack1[188] = 0.01974;
+
+        $stack1[189] = 0.01979;
+
+        $stack1[190] = 0.01984;
+
+        $stack1[191] = 0.01989;
+
+        $stack1[192] = 0.01994;
+
+        $stack1[193] = 0.01999;
+
+        $stack1[194] = 0.02004;
+
+        $stack1[195] = 0.02009;
+
+        $stack1[196] = 0.02014;
+
+        $stack1[197] = 0.02019;
+
+        $stack1[198] = 0.02024;
+
+        $stack1[199] = 0.02029;
+
+        $stack1[200] = 0.02033;
+
+        $stack1[201] = 0.02038;
+
+        $stack1[202] = 0.02042;
+
+        $stack1[203] = 0.02046;
+
+        $stack1[204] = 0.0205;
+
+        $stack1[205] = 0.02054;
+
+        $stack1[206] = 0.02058;
+
+        $stack1[207] = 0.02061;
+
+        $stack1[208] = 0.02065;
+
+        $stack1[209] = 0.02068;
+
+        $stack1[210] = 0.02072;
+
+        $stack1[211] = 0.02075;
+
+        $stack1[212] = 0.02078;
+
+        $stack1[213] = 0.02082;
+
+        $stack1[214] = 0.02085;
+
+        $stack1[215] = 0.02088;
+
+        $stack1[216] = 0.02091;
+
+        $stack1[217] = 0.02095;
+
+        $stack1[218] = 0.02098;
+
+        $stack1[219] = 0.02101;
+
+        $stack1[220] = 0.02105;
+
+        $stack1[221] = 0.02108;
+
+        $stack1[222] = 0.02112;
+
+        $stack1[223] = 0.02115;
+
+        $stack1[224] = 0.02119;
+
+        $stack1[225] = 0.02123;
+
+        $stack1[226] = 0.02127;
+
+        $stack1[227] = 0.02131;
+
+        $stack1[228] = 0.02135;
+
+        $stack1[229] = 0.0214;
+
+        $stack1[230] = 0.02144;
+
+        $stack1[231] = 0.02149;
+
+        $stack1[232] = 0.02154;
+
+        $stack1[233] = 0.02159;
+
+        $stack1[234] = 0.02165;
+
+        $stack1[235] = 0.02171;
+
+        $stack1[236] = 0.02177;
+
+        $stack1[237] = 0.02183;
+
+        $stack1[238] = 0.02189;
+
+        $stack1[239] = 0.02196;
+
+        $stack1[240] = 0.02203;
+
+        $stack1[241] = 0.02211;
+
+        $stack1[242] = 0.02219;
+
+        $stack1[243] = 0.02227;
+
+        $stack1[244] = 0.02235;
+
+        $stack1[245] = 0.02244;
+
+        $stack1[246] = 0.02253;
+
+        $stack1[247] = 0.02265;
+
+        $stack1[248] = 0.0228;
+
+        $stack1[249] = 0.023;
+
+        $stack1[250] = 0.02323;
+
+        $stack1[251] = 0.02349;
+
+        $stack1[252] = 0.02377;
+
+        $stack1[253] = 0.02408;
+
+        $stack1[254] = 0.02441;
+
+        $stack1[255] = 0.02475;
+
+        $stack1[256] = 0.02511;
+
+        $stack1[257] = 0.02547;
+
+        $stack1[258] = 0.02584;
+
+        $stack1[259] = 0.0262;
+
+        $stack1[260] = 0.02656;
+
+        $stack1[261] = 0.02692;
+
+        <avrora.sim.radio.RadioEnergy: double[] modeAmpere> = $stack1;
+
+        return;
+    }
+}

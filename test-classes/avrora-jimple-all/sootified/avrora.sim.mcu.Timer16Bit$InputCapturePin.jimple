@@ -1,0 +1,79 @@
+public class avrora.sim.mcu.Timer16Bit$InputCapturePin extends java.lang.Object implements avrora.sim.state.BooleanView
+{
+    boolean level;
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    public void <init>(avrora.sim.mcu.Timer16Bit)
+    {
+        avrora.sim.mcu.Timer16Bit$InputCapturePin this;
+        avrora.sim.mcu.Timer16Bit this$0;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$InputCapturePin;
+
+        this$0 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        this.<avrora.sim.mcu.Timer16Bit$InputCapturePin: avrora.sim.mcu.Timer16Bit this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public boolean getValue()
+    {
+        avrora.sim.mcu.Timer16Bit$InputCapturePin this;
+        boolean $stack1;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$InputCapturePin;
+
+        $stack1 = this.<avrora.sim.mcu.Timer16Bit$InputCapturePin: boolean level>;
+
+        return $stack1;
+    }
+
+    public void setValue(boolean)
+    {
+        boolean v, $stack2, $stack6, $stack9#1;
+        avrora.sim.mcu.Timer16Bit$InputCapturePin this;
+        avrora.sim.mcu.Timer16Bit $stack3, $stack7;
+        avrora.sim.mcu.RegisterSet$Field $stack4;
+        int $stack5;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$InputCapturePin;
+
+        v := @parameter0: boolean;
+
+        $stack2 = this.<avrora.sim.mcu.Timer16Bit$InputCapturePin: boolean level>;
+
+        if v == $stack2 goto label3;
+
+        this.<avrora.sim.mcu.Timer16Bit$InputCapturePin: boolean level> = v;
+
+        $stack3 = this.<avrora.sim.mcu.Timer16Bit$InputCapturePin: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.Timer16Bit: avrora.sim.mcu.RegisterSet$Field ICESn_flag>;
+
+        $stack5 = $stack4.<avrora.sim.mcu.RegisterSet$Field: int value>;
+
+        if $stack5 != 1 goto label1;
+
+        $stack9#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack9#1 = 0;
+
+     label2:
+        $stack6 = this.<avrora.sim.mcu.Timer16Bit$InputCapturePin: boolean level>;
+
+        if $stack9#1 != $stack6 goto label3;
+
+        $stack7 = this.<avrora.sim.mcu.Timer16Bit$InputCapturePin: avrora.sim.mcu.Timer16Bit this$0>;
+
+        virtualinvoke $stack7.<avrora.sim.mcu.Timer16Bit: void captureInput()>();
+
+     label3:
+        return;
+    }
+}

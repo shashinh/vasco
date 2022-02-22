@@ -1,0 +1,139 @@
+class avrora.sim.clock.DeltaQueue$Link extends java.lang.Object
+{
+    avrora.sim.clock.DeltaQueue$EventList events;
+    avrora.sim.clock.DeltaQueue$Link next;
+    long delta;
+    final avrora.sim.clock.DeltaQueue this$0;
+
+    void <init>(avrora.sim.clock.DeltaQueue, avrora.sim.Simulator$Event, long)
+    {
+        avrora.sim.clock.DeltaQueue$Link this;
+        avrora.sim.clock.DeltaQueue l1;
+        avrora.sim.Simulator$Event t;
+        avrora.sim.clock.DeltaQueue$EventList $stack5;
+        long d;
+
+        this := @this: avrora.sim.clock.DeltaQueue$Link;
+
+        l1 := @parameter0: avrora.sim.clock.DeltaQueue;
+
+        t := @parameter1: avrora.sim.Simulator$Event;
+
+        d := @parameter2: long;
+
+        this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue this$0> = l1;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack5 = staticinvoke <avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList access$000(avrora.sim.clock.DeltaQueue,avrora.sim.Simulator$Event,avrora.sim.clock.DeltaQueue$EventList)>(l1, t, null);
+
+        this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events> = $stack5;
+
+        this.<avrora.sim.clock.DeltaQueue$Link: long delta> = d;
+
+        return;
+    }
+
+    void add(avrora.sim.Simulator$Event)
+    {
+        avrora.sim.clock.DeltaQueue$Link this;
+        avrora.sim.Simulator$Event t;
+        avrora.sim.clock.DeltaQueue$EventList $stack2, $stack4;
+        avrora.sim.clock.DeltaQueue $stack3;
+
+        this := @this: avrora.sim.clock.DeltaQueue$Link;
+
+        t := @parameter0: avrora.sim.Simulator$Event;
+
+        $stack3 = this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue this$0>;
+
+        $stack2 = this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events>;
+
+        $stack4 = staticinvoke <avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList access$000(avrora.sim.clock.DeltaQueue,avrora.sim.Simulator$Event,avrora.sim.clock.DeltaQueue$EventList)>($stack3, t, $stack2);
+
+        this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events> = $stack4;
+
+        return;
+    }
+
+    void remove(avrora.sim.Simulator$Event)
+    {
+        avrora.sim.clock.DeltaQueue$Link this;
+        avrora.sim.clock.DeltaQueue$EventList next, $stack7, $stack10, prev#1, pos#2;
+        avrora.sim.Simulator$Event t, $stack5;
+        avrora.sim.clock.DeltaQueue $stack8;
+
+        this := @this: avrora.sim.clock.DeltaQueue$Link;
+
+        t := @parameter0: avrora.sim.Simulator$Event;
+
+        prev#1 = null;
+
+        pos#2 = this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events>;
+
+     label1:
+        if pos#2 == null goto label6;
+
+        next = pos#2.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next>;
+
+        $stack5 = pos#2.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.Simulator$Event event>;
+
+        if $stack5 != t goto label4;
+
+        if prev#1 != null goto label2;
+
+        $stack10 = pos#2.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next>;
+
+        this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events> = $stack10;
+
+        goto label3;
+
+     label2:
+        $stack7 = pos#2.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next>;
+
+        prev#1.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next> = $stack7;
+
+     label3:
+        $stack8 = this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue this$0>;
+
+        staticinvoke <avrora.sim.clock.DeltaQueue: void access$100(avrora.sim.clock.DeltaQueue,avrora.sim.clock.DeltaQueue$EventList)>($stack8, pos#2);
+
+        goto label5;
+
+     label4:
+        prev#1 = pos#2;
+
+     label5:
+        pos#2 = next;
+
+        goto label1;
+
+     label6:
+        return;
+    }
+
+    void fire()
+    {
+        avrora.sim.clock.DeltaQueue$Link this;
+        avrora.sim.Simulator$Event $stack2;
+        avrora.sim.clock.DeltaQueue$EventList pos#1;
+
+        this := @this: avrora.sim.clock.DeltaQueue$Link;
+
+        pos#1 = this.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events>;
+
+     label1:
+        if pos#1 == null goto label2;
+
+        $stack2 = pos#1.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.Simulator$Event event>;
+
+        interfaceinvoke $stack2.<avrora.sim.Simulator$Event: void fire()>();
+
+        pos#1 = pos#1.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next>;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}
