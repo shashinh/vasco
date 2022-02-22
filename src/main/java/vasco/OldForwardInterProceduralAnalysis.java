@@ -351,10 +351,10 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				N unit = context.getWorkList().pollFirst();
 				//if(unit != null && unit.toString().equals("virtualinvoke callback.<org.dacapo.harness.Callback: void start(java.lang.String)>($stack15)")) 
 				//	context.getWorkList().add(unit.s);
-				if(context.getMethod().toString().equals("<org.dacapo.harness.TestHarness: void runBenchmark(java.io.File,java.lang.String,org.dacapo.harness.TestHarness)>")) {
+				/*if(context.getMethod().toString().equals("<org.dacapo.harness.TestHarness: void runBenchmark(java.io.File,java.lang.String,org.dacapo.harness.TestHarness)>")) {
 					
 					System.out.println("TestHarness unit: " + unit + ", line number " + ((Unit) unit).getJavaSourceStartLineNumber());
-				}
+				}*/
 				
 				if (unit != null) {
 					// SHASHIN
@@ -451,7 +451,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// immediatePrevContextAnalysed :
 					// 1. stmt was an invoke
 					// 2. the called context was analyzed
-					if ( (!isLoopHeader && immediatePrevContextAnalysed) || out.equals(prevOut) == false) {
+					if ( (!isLoopHeader /*&& immediatePrevContextAnalysed*/) || out.equals(prevOut) == false) {
 						//System.out.println("OUT changed @" + unitBCI);
 
 						// Then add successors to the work-list.
