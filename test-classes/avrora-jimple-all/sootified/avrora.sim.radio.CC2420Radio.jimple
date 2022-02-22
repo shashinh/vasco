@@ -1,0 +1,3407 @@
+public class avrora.sim.radio.CC2420Radio extends java.lang.Object implements avrora.sim.radio.Radio
+{
+    public static final int MAIN;
+    public static final int MDMCTRL0;
+    public static final int MDMCTRL1;
+    public static final int RSSI;
+    public static final int SYNCWORD;
+    public static final int TXCTRL;
+    public static final int RXCTRL0;
+    public static final int RXCTRL1;
+    public static final int FSCTRL;
+    public static final int SECCTRL0;
+    public static final int SECCTRL1;
+    public static final int BATTMON;
+    public static final int IOCFG0;
+    public static final int IOCFG1;
+    public static final int MANFIDL;
+    public static final int MANFIDH;
+    public static final int FSMTC;
+    public static final int MANAND;
+    public static final int MANOR;
+    public static final int AGCCTRL0;
+    public static final int AGCTST0;
+    public static final int AGCTST1;
+    public static final int AGCTST2;
+    public static final int FSTST0;
+    public static final int FSTST1;
+    public static final int FSTST2;
+    public static final int FSTST3;
+    public static final int RXBPFTST;
+    public static final int FSMSTATE;
+    public static final int ADCTST;
+    public static final int DACTST;
+    public static final int TOPTST;
+    public static final int TXFIFO;
+    public static final int RXFIFO;
+    public static final int SNOP;
+    public static final int SXOSCON;
+    public static final int STXCAL;
+    public static final int SRXON;
+    public static final int STXON;
+    public static final int STXONCCA;
+    public static final int SRFOFF;
+    public static final int SXOSCOFF;
+    public static final int SFLUSHRX;
+    public static final int SFLUSHTX;
+    public static final int SACK;
+    public static final int SACKPEND;
+    public static final int SRXDEC;
+    public static final int STXENC;
+    public static final int SAES;
+    private static final int NUM_REGISTERS;
+    private static final int FIFO_SIZE;
+    private static final int RAMSECURITYBANK_SIZE;
+    private static final int XOSC_START_TIME;
+    private static final int PLL_LOCK_TIME;
+    protected final avrora.sim.mcu.Microcontroller mcu;
+    protected final avrora.sim.Simulator sim;
+    protected final int xfreq;
+    protected final char[] registers;
+    protected final byte[] RAMSecurityRegisters;
+    protected final avrora.sim.state.ByteFIFO txFIFO;
+    protected final avrora.sim.state.ByteFIFO rxFIFO;
+    protected java.util.List BERlist;
+    protected avrora.sim.radio.Medium medium;
+    protected avrora.sim.radio.CC2420Radio$Transmitter transmitter;
+    protected avrora.sim.radio.CC2420Radio$Receiver receiver;
+    protected final avrora.sim.state.Register statusRegister;
+    protected boolean startingOscillator;
+    protected boolean TXstartingUp;
+    protected boolean RXstartingUp;
+    protected boolean SRXDEC_switched;
+    protected boolean STXENC_switched;
+    protected final avrora.sim.state.BooleanView oscStable;
+    protected final avrora.sim.state.BooleanView txUnderflow;
+    protected final avrora.sim.state.BooleanView txActive;
+    protected final avrora.sim.state.BooleanView signalLock;
+    protected final avrora.sim.state.BooleanView rssiValid;
+    protected final avrora.sim.state.RegisterView MDMCTRL0_reg;
+    protected final avrora.sim.state.BooleanView autoACK;
+    protected final avrora.sim.state.BooleanView autoCRC;
+    protected final avrora.sim.state.BooleanView ADR_DECODE;
+    protected final avrora.sim.state.BooleanView PAN_COORDINATOR;
+    protected final avrora.sim.state.BooleanView RESERVED_FRAME_MODE;
+    protected final avrora.sim.state.RegisterView IOCFG0_reg;
+    protected final avrora.sim.state.BooleanView BCN_ACCEPT;
+    protected final avrora.sim.state.BooleanView CCA_assessor;
+    protected avrora.sim.state.BooleanView SFD_value;
+    public final avrora.sim.radio.CC2420Radio$CC2420Pin SCLK_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Pin MISO_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Pin MOSI_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Pin CS_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Pin VREN_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Pin RSTN_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Output FIFO_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Output FIFOP_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Output CCA_pin;
+    public final avrora.sim.radio.CC2420Radio$CC2420Output SFD_pin;
+    public final avrora.sim.radio.CC2420Radio$SPIInterface spiInterface;
+    public final avrora.sim.radio.CC2420Radio$ADCInterface adcInterface;
+    public int FIFOP_interrupt;
+    protected final avrora.sim.output.SimPrinter printer;
+    protected boolean FIFO_active;
+    protected boolean FIFOP_active;
+    protected boolean CCA_active;
+    protected boolean SFD_active;
+    protected boolean SendAck;
+    protected boolean SendAckPend;
+    protected byte DSN;
+    protected byte[] PANId;
+    protected byte[] macPANId;
+    protected byte[] ShortAddr;
+    protected byte[] macShortAddr;
+    protected static final byte[] SHORT_BROADCAST_ADDR;
+    protected byte[] LongAdr;
+    protected byte[] IEEEAdr;
+    protected static final byte[] LONG_BROADCAST_ADDR;
+    protected static final double[] POWER_dBm;
+    protected static final int[] Corr_MAX;
+    protected static final int[] Corr_MIN;
+    protected double Correlation;
+    protected static final java.lang.String[] allModeNames;
+    protected static final int[][] ttm;
+    protected final avrora.sim.FiniteStateMachine stateMachine;
+    protected boolean ClearFlag;
+    protected static final int CMD_R_REG;
+    protected static final int CMD_W_REG;
+    protected static final int CMD_R_RX;
+    protected static final int CMD_W_RX;
+    protected static final int CMD_R_TX;
+    protected static final int CMD_W_TX;
+    protected static final int CMD_R_RAM;
+    protected static final int CMD_W_RAM;
+    protected int configCommand;
+    protected int configByteCnt;
+    protected int configRegAddr;
+    protected byte configByteHigh;
+    protected int configRAMAddr;
+    protected int configRAMBank;
+    private static final int TX_IN_PREAMBLE;
+    private static final int TX_SFD_1;
+    private static final int TX_SFD_2;
+    private static final int TX_LENGTH;
+    private static final int TX_IN_PACKET;
+    private static final int TX_CRC_1;
+    private static final int TX_CRC_2;
+    private static final int TX_END;
+    private static final int RECV_SFD_SCAN;
+    private static final int RECV_SFD_MATCHED_1;
+    private static final int RECV_SFD_MATCHED_2;
+    private static final int RECV_IN_PACKET;
+    private static final int RECV_CRC_1;
+    private static final int RECV_CRC_2;
+    private static final int RECV_END_STATE;
+    private static final int RECV_OVERFLOW;
+
+    public void <init>(avrora.sim.mcu.Microcontroller, int)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        char[] $stack4, $stack21, $stack33;
+        byte[] $stack5;
+        avrora.sim.state.Register $stack10, $stack12, $stack14, $stack16, $stack18, $u3;
+        avrora.sim.state.BooleanView $stack11, $stack13, $stack15, $stack17, $stack19, $stack23, $stack25, $stack27, $stack29, $stack31, $stack35, $stack51, $stack53, $r7, $r8, $r9, $r10;
+        avrora.sim.state.RegisterView $stack22, $stack24, $stack26, $stack28, $stack30, $stack34, $r0, $r1, $r2, $r3, $r4, $r5, $r6;
+        avrora.sim.mcu.Microcontroller mcu;
+        avrora.sim.Simulator $stack56, simulator, $stack64, $stack70;
+        int xfreq;
+        avrora.sim.radio.Medium $stack57;
+        avrora.sim.clock.MainClock $stack60;
+        int[][] $stack61;
+        java.lang.String[] $stack62;
+        double[] $stack66;
+        avrora.sim.FiniteStateMachine $stack67, $u22;
+        avrora.sim.Simulation $stack68;
+        avrora.sim.energy.EnergyControl $stack69;
+        avrora.sim.output.SimPrinter $stack71;
+        avrora.sim.state.ByteFIFO $u0, $u1;
+        java.util.ArrayList $u2;
+        avrora.sim.state.RegisterUtil$CharArrayView $u4, $u5;
+        avrora.sim.radio.CC2420Radio$ClearChannelAssessor $u6;
+        avrora.sim.state.BooleanRegister $u7, $u14, $u16;
+        avrora.sim.radio.CC2420Radio$CC2420Pin $u8, $u9, $u10, $u11, $u12, $u13;
+        avrora.sim.radio.CC2420Radio$CC2420Output $u15, $u17, $u18, $u19;
+        avrora.sim.radio.CC2420Radio$SPIInterface $u20;
+        avrora.sim.radio.CC2420Radio$ADCInterface $u21;
+        avrora.sim.energy.Energy $u23;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        mcu := @parameter0: avrora.sim.mcu.Microcontroller;
+
+        xfreq := @parameter1: int;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack4 = newarray (char)[64];
+
+        this.<avrora.sim.radio.CC2420Radio: char[] registers> = $stack4;
+
+        $stack5 = newarray (byte)[113];
+
+        this.<avrora.sim.radio.CC2420Radio: byte[] RAMSecurityRegisters> = $stack5;
+
+        $u0 = new avrora.sim.state.ByteFIFO;
+
+        specialinvoke $u0.<avrora.sim.state.ByteFIFO: void <init>(int)>(128);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO> = $u0;
+
+        $u1 = new avrora.sim.state.ByteFIFO;
+
+        specialinvoke $u1.<avrora.sim.state.ByteFIFO: void <init>(int)>(128);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO> = $u1;
+
+        $u2 = new java.util.ArrayList;
+
+        specialinvoke $u2.<java.util.ArrayList: void <init>()>();
+
+        this.<avrora.sim.radio.CC2420Radio: java.util.List BERlist> = $u2;
+
+        $u3 = new avrora.sim.state.Register;
+
+        specialinvoke $u3.<avrora.sim.state.Register: void <init>(int)>(8);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.Register statusRegister> = $u3;
+
+        $stack10 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.Register statusRegister>;
+
+        $r0 = (avrora.sim.state.RegisterView) $stack10;
+
+        $stack11 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($r0, 6);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView oscStable> = $stack11;
+
+        $stack12 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.Register statusRegister>;
+
+        $r1 = (avrora.sim.state.RegisterView) $stack12;
+
+        $stack13 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($r1, 5);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView txUnderflow> = $stack13;
+
+        $stack14 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.Register statusRegister>;
+
+        $r2 = (avrora.sim.state.RegisterView) $stack14;
+
+        $stack15 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($r2, 3);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView txActive> = $stack15;
+
+        $stack16 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.Register statusRegister>;
+
+        $r3 = (avrora.sim.state.RegisterView) $stack16;
+
+        $stack17 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($r3, 2);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView signalLock> = $stack17;
+
+        $stack18 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.Register statusRegister>;
+
+        $r4 = (avrora.sim.state.RegisterView) $stack18;
+
+        $stack19 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($r4, 1);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView rssiValid> = $stack19;
+
+        $u4 = new avrora.sim.state.RegisterUtil$CharArrayView;
+
+        $stack21 = this.<avrora.sim.radio.CC2420Radio: char[] registers>;
+
+        specialinvoke $u4.<avrora.sim.state.RegisterUtil$CharArrayView: void <init>(char[],int)>($stack21, 17);
+
+        $r5 = (avrora.sim.state.RegisterView) $u4;
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.RegisterView MDMCTRL0_reg> = $r5;
+
+        $stack22 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.RegisterView MDMCTRL0_reg>;
+
+        $stack23 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($stack22, 4);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView autoACK> = $stack23;
+
+        $stack24 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.RegisterView MDMCTRL0_reg>;
+
+        $stack25 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($stack24, 5);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView autoCRC> = $stack25;
+
+        $stack26 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.RegisterView MDMCTRL0_reg>;
+
+        $stack27 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($stack26, 11);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView ADR_DECODE> = $stack27;
+
+        $stack28 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.RegisterView MDMCTRL0_reg>;
+
+        $stack29 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($stack28, 12);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView PAN_COORDINATOR> = $stack29;
+
+        $stack30 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.RegisterView MDMCTRL0_reg>;
+
+        $stack31 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($stack30, 13);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView RESERVED_FRAME_MODE> = $stack31;
+
+        $u5 = new avrora.sim.state.RegisterUtil$CharArrayView;
+
+        $stack33 = this.<avrora.sim.radio.CC2420Radio: char[] registers>;
+
+        specialinvoke $u5.<avrora.sim.state.RegisterUtil$CharArrayView: void <init>(char[],int)>($stack33, 28);
+
+        $r6 = (avrora.sim.state.RegisterView) $u5;
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.RegisterView IOCFG0_reg> = $r6;
+
+        $stack34 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.RegisterView IOCFG0_reg>;
+
+        $stack35 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($stack34, 11);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView BCN_ACCEPT> = $stack35;
+
+        $u6 = new avrora.sim.radio.CC2420Radio$ClearChannelAssessor;
+
+        specialinvoke $u6.<avrora.sim.radio.CC2420Radio$ClearChannelAssessor: void <init>(avrora.sim.radio.CC2420Radio)>(this);
+
+        $r7 = (avrora.sim.state.BooleanView) $u6;
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView CCA_assessor> = $r7;
+
+        $u7 = new avrora.sim.state.BooleanRegister;
+
+        specialinvoke $u7.<avrora.sim.state.BooleanRegister: void <init>()>();
+
+        $r8 = (avrora.sim.state.BooleanView) $u7;
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView SFD_value> = $r8;
+
+        $u8 = new avrora.sim.radio.CC2420Radio$CC2420Pin;
+
+        specialinvoke $u8.<avrora.sim.radio.CC2420Radio$CC2420Pin: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String)>(this, "SCLK");
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Pin SCLK_pin> = $u8;
+
+        $u9 = new avrora.sim.radio.CC2420Radio$CC2420Pin;
+
+        specialinvoke $u9.<avrora.sim.radio.CC2420Radio$CC2420Pin: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String)>(this, "MISO");
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Pin MISO_pin> = $u9;
+
+        $u10 = new avrora.sim.radio.CC2420Radio$CC2420Pin;
+
+        specialinvoke $u10.<avrora.sim.radio.CC2420Radio$CC2420Pin: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String)>(this, "MOSI");
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Pin MOSI_pin> = $u10;
+
+        $u11 = new avrora.sim.radio.CC2420Radio$CC2420Pin;
+
+        specialinvoke $u11.<avrora.sim.radio.CC2420Radio$CC2420Pin: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String)>(this, "CS");
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Pin CS_pin> = $u11;
+
+        $u12 = new avrora.sim.radio.CC2420Radio$CC2420Pin;
+
+        specialinvoke $u12.<avrora.sim.radio.CC2420Radio$CC2420Pin: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String)>(this, "VREN");
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Pin VREN_pin> = $u12;
+
+        $u13 = new avrora.sim.radio.CC2420Radio$CC2420Pin;
+
+        specialinvoke $u13.<avrora.sim.radio.CC2420Radio$CC2420Pin: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String)>(this, "RSTN");
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Pin RSTN_pin> = $u13;
+
+        $u15 = new avrora.sim.radio.CC2420Radio$CC2420Output;
+
+        $u14 = new avrora.sim.state.BooleanRegister;
+
+        specialinvoke $u14.<avrora.sim.state.BooleanRegister: void <init>()>();
+
+        $r9 = (avrora.sim.state.BooleanView) $u14;
+
+        specialinvoke $u15.<avrora.sim.radio.CC2420Radio$CC2420Output: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String,avrora.sim.state.BooleanView)>(this, "FIFO", $r9);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output FIFO_pin> = $u15;
+
+        $u17 = new avrora.sim.radio.CC2420Radio$CC2420Output;
+
+        $u16 = new avrora.sim.state.BooleanRegister;
+
+        specialinvoke $u16.<avrora.sim.state.BooleanRegister: void <init>()>();
+
+        $r10 = (avrora.sim.state.BooleanView) $u16;
+
+        specialinvoke $u17.<avrora.sim.radio.CC2420Radio$CC2420Output: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String,avrora.sim.state.BooleanView)>(this, "FIFOP", $r10);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output FIFOP_pin> = $u17;
+
+        $u18 = new avrora.sim.radio.CC2420Radio$CC2420Output;
+
+        $stack51 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView CCA_assessor>;
+
+        specialinvoke $u18.<avrora.sim.radio.CC2420Radio$CC2420Output: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String,avrora.sim.state.BooleanView)>(this, "CCA", $stack51);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output CCA_pin> = $u18;
+
+        $u19 = new avrora.sim.radio.CC2420Radio$CC2420Output;
+
+        $stack53 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView SFD_value>;
+
+        specialinvoke $u19.<avrora.sim.radio.CC2420Radio$CC2420Output: void <init>(avrora.sim.radio.CC2420Radio,java.lang.String,avrora.sim.state.BooleanView)>(this, "SFD", $stack53);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output SFD_pin> = $u19;
+
+        $u20 = new avrora.sim.radio.CC2420Radio$SPIInterface;
+
+        specialinvoke $u20.<avrora.sim.radio.CC2420Radio$SPIInterface: void <init>(avrora.sim.radio.CC2420Radio)>(this);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$SPIInterface spiInterface> = $u20;
+
+        $u21 = new avrora.sim.radio.CC2420Radio$ADCInterface;
+
+        specialinvoke $u21.<avrora.sim.radio.CC2420Radio$ADCInterface: void <init>(avrora.sim.radio.CC2420Radio)>(this);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$ADCInterface adcInterface> = $u21;
+
+        this.<avrora.sim.radio.CC2420Radio: int FIFOP_interrupt> = -1;
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.mcu.Microcontroller mcu> = mcu;
+
+        $stack56 = interfaceinvoke mcu.<avrora.sim.mcu.Microcontroller: avrora.sim.Simulator getSimulator()>();
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.Simulator sim> = $stack56;
+
+        this.<avrora.sim.radio.CC2420Radio: int xfreq> = xfreq;
+
+        $stack57 = staticinvoke <avrora.sim.radio.CC2420Radio: avrora.sim.radio.Medium createMedium(avrora.sim.clock.Synchronizer,avrora.sim.radio.Medium$Arbitrator)>(null, null);
+
+        virtualinvoke this.<avrora.sim.radio.CC2420Radio: void setMedium(avrora.sim.radio.Medium)>($stack57);
+
+        simulator = interfaceinvoke mcu.<avrora.sim.mcu.Microcontroller: avrora.sim.Simulator getSimulator()>();
+
+        $u22 = new avrora.sim.FiniteStateMachine;
+
+        $stack60 = virtualinvoke simulator.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack62 = <avrora.sim.radio.CC2420Radio: java.lang.String[] allModeNames>;
+
+        $stack61 = <avrora.sim.radio.CC2420Radio: int[][] ttm>;
+
+        specialinvoke $u22.<avrora.sim.FiniteStateMachine: void <init>(avrora.sim.clock.Clock,int,java.lang.String[],int[][])>($stack60, 0, $stack62, $stack61);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine> = $u22;
+
+        $u23 = new avrora.sim.energy.Energy;
+
+        $stack66 = <avrora.sim.radio.CC2420Energy: double[] modeAmpere>;
+
+        $stack67 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        $stack64 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.Simulator sim>;
+
+        $stack68 = virtualinvoke $stack64.<avrora.sim.Simulator: avrora.sim.Simulation getSimulation()>();
+
+        $stack69 = virtualinvoke $stack68.<avrora.sim.Simulation: avrora.sim.energy.EnergyControl getEnergyControl()>();
+
+        specialinvoke $u23.<avrora.sim.energy.Energy: void <init>(java.lang.String,double[],avrora.sim.FiniteStateMachine,avrora.sim.energy.EnergyControl)>("Radio", $stack66, $stack67, $stack69);
+
+        specialinvoke this.<avrora.sim.radio.CC2420Radio: void reset()>();
+
+        $stack70 = interfaceinvoke mcu.<avrora.sim.mcu.Microcontroller: avrora.sim.Simulator getSimulator()>();
+
+        $stack71 = virtualinvoke $stack70.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter(java.lang.String)>("radio.cc2420");
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer> = $stack71;
+
+        return;
+    }
+
+    public avrora.sim.FiniteStateMachine getFiniteStateMachine()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.FiniteStateMachine $stack1;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        return $stack1;
+    }
+
+    private void reset()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.state.ByteFIFO $stack2, $stack3;
+        avrora.sim.state.Register $stack4;
+        avrora.sim.state.BooleanView $stack5, $stack7, $stack11, $stack14;
+        avrora.sim.radio.CC2420Radio$CC2420Output $stack6, $stack8, $stack9, $stack12;
+        boolean $stack10, $stack13, $stack20#2, $stack17#3;
+        avrora.sim.radio.CC2420Radio$Transmitter $stack15;
+        avrora.sim.radio.CC2420Radio$Receiver $stack16;
+        int cntr#1;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        cntr#1 = 0;
+
+     label1:
+        if cntr#1 >= 64 goto label2;
+
+        virtualinvoke this.<avrora.sim.radio.CC2420Radio: void resetRegister(int)>(cntr#1);
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        $stack2 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        virtualinvoke $stack2.<avrora.sim.state.ByteFIFO: void clear()>();
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        virtualinvoke $stack3.<avrora.sim.state.ByteFIFO: void clear()>();
+
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.Register statusRegister>;
+
+        virtualinvoke $stack4.<avrora.sim.state.Register: void setValue(int)>(0);
+
+        $stack6 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output CCA_pin>;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView CCA_assessor>;
+
+        $stack6.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level> = $stack5;
+
+        $stack8 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output SFD_pin>;
+
+        $stack7 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView SFD_value>;
+
+        $stack8.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level> = $stack7;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean FIFO_active> = 1;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean FIFOP_active> = 1;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean CCA_active> = 1;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean SFD_active> = 1;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean SendAck> = 0;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean SendAckPend> = 0;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean ClearFlag> = 0;
+
+        $stack9 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output FIFO_pin>;
+
+        $stack11 = $stack9.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level>;
+
+        $stack10 = this.<avrora.sim.radio.CC2420Radio: boolean FIFO_active>;
+
+        if $stack10 != 0 goto label3;
+
+        $stack20#2 = 1;
+
+        goto label4;
+
+     label3:
+        $stack20#2 = 0;
+
+     label4:
+        interfaceinvoke $stack11.<avrora.sim.state.BooleanView: void setValue(boolean)>($stack20#2);
+
+        $stack12 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output FIFOP_pin>;
+
+        $stack14 = $stack12.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level>;
+
+        $stack13 = this.<avrora.sim.radio.CC2420Radio: boolean FIFOP_active>;
+
+        if $stack13 != 0 goto label5;
+
+        $stack17#3 = 1;
+
+        goto label6;
+
+     label5:
+        $stack17#3 = 0;
+
+     label6:
+        interfaceinvoke $stack14.<avrora.sim.state.BooleanView: void setValue(boolean)>($stack17#3);
+
+        $stack15 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter>;
+
+        virtualinvoke $stack15.<avrora.sim.radio.CC2420Radio$Transmitter: void endTransmit()>();
+
+        $stack16 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        virtualinvoke $stack16.<avrora.sim.radio.CC2420Radio$Receiver: void endReceive()>();
+
+        return;
+    }
+
+    public void setSFDView(avrora.sim.state.BooleanView)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.radio.CC2420Radio$CC2420Output $stack2, $stack5;
+        avrora.sim.state.BooleanView $stack3, $stack4, sfd;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        sfd := @parameter0: avrora.sim.state.BooleanView;
+
+        $stack2 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output SFD_pin>;
+
+        $stack4 = $stack2.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level>;
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView SFD_value>;
+
+        if $stack4 != $stack3 goto label1;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output SFD_pin>;
+
+        $stack5.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level> = sfd;
+
+     label1:
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView SFD_value> = sfd;
+
+        return;
+    }
+
+    int readRegister(int)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        int addr;
+        char[] $stack3;
+        char val;
+        avrora.sim.output.SimPrinter $stack4, $stack6;
+        java.lang.StringBuilder $stack5, $stack7, $stack9, $stack10, $stack12;
+        java.lang.String $stack8, $stack11, $stack13;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        addr := @parameter0: int;
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: char[] registers>;
+
+        val = $stack3[addr];
+
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack4 == null goto label1;
+
+        $stack6 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        $stack5 = new java.lang.StringBuilder;
+
+        specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC2420 ");
+
+        $stack8 = staticinvoke <avrora.sim.radio.CC2420Radio: java.lang.String regName(int)>(addr);
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" => ");
+
+        $stack11 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>(val, 16);
+
+        $stack12 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack11);
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack6.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack13);
+
+     label1:
+        return val;
+    }
+
+    void writeRegister(int, int)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.output.SimPrinter $stack5, $stack31;
+        int addr, val, ccaMux, $stack8, sfdMux, $stack28;
+        char $stack6;
+        char[] $stack7;
+        boolean $stack9, $stack10, $stack11, $stack12, $stack24#1, $stack20#2, $stack16#3, $stack14#4;
+        avrora.sim.FiniteStateMachine $stack29;
+        java.lang.StringBuilder $stack30, $stack32, $stack34, $stack35, $stack37;
+        java.lang.String $stack33, $stack36, $stack38;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        addr := @parameter0: int;
+
+        val := @parameter1: int;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack5 == null goto label01;
+
+        $stack31 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        $stack30 = new java.lang.StringBuilder;
+
+        specialinvoke $stack30.<java.lang.StringBuilder: void <init>()>();
+
+        $stack32 = virtualinvoke $stack30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC2420 ");
+
+        $stack33 = staticinvoke <avrora.sim.radio.CC2420Radio: java.lang.String regName(int)>(addr);
+
+        $stack34 = virtualinvoke $stack32.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack33);
+
+        $stack35 = virtualinvoke $stack34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" <= ");
+
+        $stack36 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>(val, 16);
+
+        $stack37 = virtualinvoke $stack35.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack36);
+
+        $stack38 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack31.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack38);
+
+     label01:
+        $stack7 = this.<avrora.sim.radio.CC2420Radio: char[] registers>;
+
+        $stack6 = (char) val;
+
+        $stack7[addr] = $stack6;
+
+        lookupswitch(addr)
+        {
+            case 16: goto label02;
+            case 28: goto label04;
+            case 29: goto label03;
+            default: goto label13;
+        };
+
+     label02:
+        $stack28 = val & 32768;
+
+        if $stack28 == 0 goto label13;
+
+        specialinvoke this.<avrora.sim.radio.CC2420Radio: void reset()>();
+
+        $stack29 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $stack29.<avrora.sim.FiniteStateMachine: void transition(int)>(1);
+
+        goto label13;
+
+     label03:
+        ccaMux = val & 31;
+
+        $stack8 = val >> 5;
+
+        sfdMux = $stack8 & 31;
+
+        specialinvoke this.<avrora.sim.radio.CC2420Radio: void setCCAMux(int)>(ccaMux);
+
+        specialinvoke this.<avrora.sim.radio.CC2420Radio: void setSFDMux(int)>(sfdMux);
+
+        goto label13;
+
+     label04:
+        $stack9 = staticinvoke <cck.util.Arithmetic: boolean getBit(int,int)>(val, 10);
+
+        if $stack9 != 0 goto label05;
+
+        $stack24#1 = 1;
+
+        goto label06;
+
+     label05:
+        $stack24#1 = 0;
+
+     label06:
+        this.<avrora.sim.radio.CC2420Radio: boolean FIFO_active> = $stack24#1;
+
+        $stack10 = staticinvoke <cck.util.Arithmetic: boolean getBit(int,int)>(val, 9);
+
+        if $stack10 != 0 goto label07;
+
+        $stack20#2 = 1;
+
+        goto label08;
+
+     label07:
+        $stack20#2 = 0;
+
+     label08:
+        this.<avrora.sim.radio.CC2420Radio: boolean FIFOP_active> = $stack20#2;
+
+        $stack11 = staticinvoke <cck.util.Arithmetic: boolean getBit(int,int)>(val, 8);
+
+        if $stack11 != 0 goto label09;
+
+        $stack16#3 = 1;
+
+        goto label10;
+
+     label09:
+        $stack16#3 = 0;
+
+     label10:
+        this.<avrora.sim.radio.CC2420Radio: boolean SFD_active> = $stack16#3;
+
+        $stack12 = staticinvoke <cck.util.Arithmetic: boolean getBit(int,int)>(val, 7);
+
+        if $stack12 != 0 goto label11;
+
+        $stack14#4 = 1;
+
+        goto label12;
+
+     label11:
+        $stack14#4 = 0;
+
+     label12:
+        this.<avrora.sim.radio.CC2420Radio: boolean CCA_active> = $stack14#4;
+
+     label13:
+        virtualinvoke this.<avrora.sim.radio.CC2420Radio: void computeStatus()>();
+
+        return;
+    }
+
+    private void setSFDMux(int)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        int sfdMux;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        sfdMux := @parameter0: int;
+
+        return;
+    }
+
+    private void setCCAMux(int)
+    {
+        int ccaMux;
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.state.BooleanView $stack2, $stack4;
+        avrora.sim.radio.CC2420Radio$CC2420Output $stack3, $stack5;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        ccaMux := @parameter0: int;
+
+        if ccaMux != 24 goto label1;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output CCA_pin>;
+
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView oscStable>;
+
+        $stack5.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level> = $stack4;
+
+        goto label2;
+
+     label1:
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output CCA_pin>;
+
+        $stack2 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView CCA_assessor>;
+
+        $stack3.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level> = $stack2;
+
+     label2:
+        return;
+    }
+
+    void strobe(int)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.output.SimPrinter $stack2, $stack37;
+        int addr;
+        avrora.sim.radio.CC2420Radio$Receiver $stack3, $stack5, $stack7, $stack9, $stack14, $stack30, $stack32, $stack35;
+        boolean $stack4, $stack8, $stack16, $stack19, $stack29, $stack22#1, $stack21#2;
+        avrora.sim.radio.CC2420Radio$Transmitter $stack6, $stack10, $stack31, $stack33, $stack34;
+        avrora.sim.state.ByteFIFO $stack11, $stack13;
+        avrora.sim.state.BooleanView $stack12, $stack17, $stack20, $stack25, $stack28;
+        avrora.sim.radio.CC2420Radio$CC2420Output $stack15, $stack18;
+        avrora.sim.FiniteStateMachine $stack26, $stack27;
+        java.lang.StringBuilder $stack36, $stack38, $stack40;
+        java.lang.String $stack39, $stack41;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        addr := @parameter0: int;
+
+        $stack2 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack2 == null goto label01;
+
+        $stack37 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        $stack36 = new java.lang.StringBuilder;
+
+        specialinvoke $stack36.<java.lang.StringBuilder: void <init>()>();
+
+        $stack38 = virtualinvoke $stack36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC2420 Strobe ");
+
+        $stack39 = staticinvoke <avrora.sim.radio.CC2420Radio: java.lang.String strobeName(int)>(addr);
+
+        $stack40 = virtualinvoke $stack38.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack39);
+
+        $stack41 = virtualinvoke $stack40.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack37.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack41);
+
+     label01:
+        tableswitch(addr)
+        {
+            case 0: goto label02;
+            case 1: goto label03;
+            case 2: goto label04;
+            case 3: goto label05;
+            case 4: goto label07;
+            case 5: goto label06;
+            case 6: goto label08;
+            case 7: goto label09;
+            case 8: goto label10;
+            case 9: goto label15;
+            case 10: goto label16;
+            case 11: goto label17;
+            case 12: goto label18;
+            case 13: goto label19;
+            case 14: goto label20;
+            default: goto label20;
+        };
+
+     label02:
+        goto label20;
+
+     label03:
+        specialinvoke this.<avrora.sim.radio.CC2420Radio: void startOscillator()>();
+
+        goto label20;
+
+     label04:
+        goto label20;
+
+     label05:
+        $stack34 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter>;
+
+        virtualinvoke $stack34.<avrora.sim.radio.CC2420Radio$Transmitter: void shutdown()>();
+
+        $stack35 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        virtualinvoke $stack35.<avrora.sim.radio.CC2420Radio$Receiver: void startup()>();
+
+        goto label20;
+
+     label06:
+        $stack28 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView CCA_assessor>;
+
+        $stack29 = interfaceinvoke $stack28.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        if $stack29 == 0 goto label20;
+
+        $stack30 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        virtualinvoke $stack30.<avrora.sim.radio.CC2420Radio$Receiver: void shutdown()>();
+
+        $stack31 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter>;
+
+        virtualinvoke $stack31.<avrora.sim.radio.CC2420Radio$Transmitter: void startup()>();
+
+        goto label20;
+
+     label07:
+        $stack32 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        virtualinvoke $stack32.<avrora.sim.radio.CC2420Radio$Receiver: void shutdown()>();
+
+        $stack33 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter>;
+
+        virtualinvoke $stack33.<avrora.sim.radio.CC2420Radio$Transmitter: void startup()>();
+
+        goto label20;
+
+     label08:
+        $stack27 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $stack27.<avrora.sim.FiniteStateMachine: void transition(int)>(2);
+
+        goto label20;
+
+     label09:
+        $stack25 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView oscStable>;
+
+        interfaceinvoke $stack25.<avrora.sim.state.BooleanView: void setValue(boolean)>(0);
+
+        $stack26 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $stack26.<avrora.sim.FiniteStateMachine: void transition(int)>(1);
+
+        goto label20;
+
+     label10:
+        $stack13 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        virtualinvoke $stack13.<avrora.sim.state.ByteFIFO: void clear()>();
+
+        $stack14 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        virtualinvoke $stack14.<avrora.sim.radio.CC2420Radio$Receiver: void resetOverflow()>();
+
+        $stack15 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output FIFO_pin>;
+
+        $stack17 = $stack15.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level>;
+
+        $stack16 = this.<avrora.sim.radio.CC2420Radio: boolean FIFO_active>;
+
+        if $stack16 != 0 goto label11;
+
+        $stack22#1 = 1;
+
+        goto label12;
+
+     label11:
+        $stack22#1 = 0;
+
+     label12:
+        interfaceinvoke $stack17.<avrora.sim.state.BooleanView: void setValue(boolean)>($stack22#1);
+
+        $stack18 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output FIFOP_pin>;
+
+        $stack20 = $stack18.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level>;
+
+        $stack19 = this.<avrora.sim.radio.CC2420Radio: boolean FIFOP_active>;
+
+        if $stack19 != 0 goto label13;
+
+        $stack21#2 = 1;
+
+        goto label14;
+
+     label13:
+        $stack21#2 = 0;
+
+     label14:
+        interfaceinvoke $stack20.<avrora.sim.state.BooleanView: void setValue(boolean)>($stack21#2);
+
+        goto label20;
+
+     label15:
+        $stack11 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        virtualinvoke $stack11.<avrora.sim.state.ByteFIFO: void clear()>();
+
+        $stack12 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView txUnderflow>;
+
+        interfaceinvoke $stack12.<avrora.sim.state.BooleanView: void setValue(boolean)>(0);
+
+        goto label20;
+
+     label16:
+        this.<avrora.sim.radio.CC2420Radio: boolean SendAck> = 1;
+
+        $stack7 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        $stack8 = $stack7.<avrora.sim.radio.CC2420Radio$Receiver: boolean locked>;
+
+        if $stack8 != 0 goto label20;
+
+        $stack9 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        virtualinvoke $stack9.<avrora.sim.radio.CC2420Radio$Receiver: void shutdown()>();
+
+        $stack10 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter>;
+
+        virtualinvoke $stack10.<avrora.sim.radio.CC2420Radio$Transmitter: void startup()>();
+
+        goto label20;
+
+     label17:
+        this.<avrora.sim.radio.CC2420Radio: boolean SendAckPend> = 1;
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        $stack4 = $stack3.<avrora.sim.radio.CC2420Radio$Receiver: boolean locked>;
+
+        if $stack4 != 0 goto label20;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        virtualinvoke $stack5.<avrora.sim.radio.CC2420Radio$Receiver: void shutdown()>();
+
+        $stack6 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter>;
+
+        virtualinvoke $stack6.<avrora.sim.radio.CC2420Radio$Transmitter: void startup()>();
+
+        goto label20;
+
+     label18:
+        goto label20;
+
+     label19:
+        goto label20;
+
+     label20:
+        return;
+    }
+
+    private void startOscillator()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.state.BooleanView $stack1;
+        boolean $stack2, $stack3;
+        avrora.sim.Simulator $stack5;
+        long $stack6;
+        avrora.sim.radio.CC2420Radio$1 $u0;
+        avrora.sim.Simulator$Event $r0;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView oscStable>;
+
+        $stack2 = interfaceinvoke $stack1.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        if $stack2 != 0 goto label1;
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: boolean startingOscillator>;
+
+        if $stack3 != 0 goto label1;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean startingOscillator> = 1;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.Simulator sim>;
+
+        $u0 = new avrora.sim.radio.CC2420Radio$1;
+
+        specialinvoke $u0.<avrora.sim.radio.CC2420Radio$1: void <init>(avrora.sim.radio.CC2420Radio)>(this);
+
+        $stack6 = specialinvoke this.<avrora.sim.radio.CC2420Radio: long toCycles(long)>(1000L);
+
+        $r0 = (avrora.sim.Simulator$Event) $u0;
+
+        virtualinvoke $stack5.<avrora.sim.Simulator: void insertEvent(avrora.sim.Simulator$Event,long)>($r0, $stack6);
+
+     label1:
+        return;
+    }
+
+    void resetRegister(int)
+    {
+        int addr;
+        avrora.sim.radio.CC2420Radio this;
+        char val#1;
+        char[] $stack3#17;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        addr := @parameter0: int;
+
+        val#1 = 0;
+
+        tableswitch(addr)
+        {
+            case 16: goto label1;
+            case 17: goto label2;
+            case 18: goto label9;
+            case 19: goto label9;
+            case 20: goto label3;
+            case 21: goto label4;
+            case 22: goto label5;
+            case 23: goto label6;
+            case 24: goto label7;
+            case 25: goto label9;
+            case 26: goto label9;
+            case 27: goto label9;
+            case 28: goto label8;
+            default: goto label9;
+        };
+
+     label1:
+        val#1 = 63488;
+
+        goto label9;
+
+     label2:
+        val#1 = 2786;
+
+        goto label9;
+
+     label3:
+        val#1 = 42767;
+
+        goto label9;
+
+     label4:
+        val#1 = 41215;
+
+        goto label9;
+
+     label5:
+        val#1 = 4837;
+
+        goto label9;
+
+     label6:
+        val#1 = 2646;
+
+        goto label9;
+
+     label7:
+        val#1 = 16741;
+
+        goto label9;
+
+     label8:
+        val#1 = 64;
+
+     label9:
+        $stack3#17 = this.<avrora.sim.radio.CC2420Radio: char[] registers>;
+
+        $stack3#17[addr] = val#1;
+
+        return;
+    }
+
+    void computeStatus()
+    {
+        avrora.sim.radio.CC2420Radio this;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        return;
+    }
+
+    protected byte receiveConfigByte(byte)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        int $stack5, $stack6, $stack7, $stack8, $stack9, $stack10, $stack11, $stack12, $stack13, $stack14, $stack15, $stack16, $stack18, $stack21, $stack24, $stack25, $stack26, $stack27, $stack28, $stack29, $stack30, $stack32, $stack35, $stack47, $stack49, $stack50, $stack52, $stack53, $stack54, $stack65, $stack66, $stack72, $stack73, $stack74, $stack75, $stack76, $stack84;
+        byte val, $stack17, $stack20, $stack23, $stack31, $stack34, $stack37, $stack39, $stack41, $stack43, $stack45, $stack46, $stack51, $stack58, $stack60, $stack62, $stack64, $stack67, status, $stack82#1, $stack80#2, $stack77#3;
+        avrora.sim.state.ByteFIFO $stack19, $stack22, $stack33, $stack36, $stack38, $stack40, $stack42, $stack44, $stack57, $stack59, $stack61, $stack63;
+        short $stack48;
+        boolean $stack55, ramop, readop;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        val := @parameter0: byte;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: int configByteCnt>;
+
+        $stack6 = $stack5 + 1;
+
+        this.<avrora.sim.radio.CC2420Radio: int configByteCnt> = $stack6;
+
+        $stack7 = this.<avrora.sim.radio.CC2420Radio: int configByteCnt>;
+
+        if $stack7 != 1 goto label12;
+
+        status = specialinvoke this.<avrora.sim.radio.CC2420Radio: byte getStatus()>();
+
+        ramop = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 7);
+
+        readop = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 6);
+
+        $stack72 = val & 63;
+
+        this.<avrora.sim.radio.CC2420Radio: int configRegAddr> = $stack72;
+
+        $stack73 = val & 127;
+
+        this.<avrora.sim.radio.CC2420Radio: int configRAMAddr> = $stack73;
+
+        virtualinvoke this.<avrora.sim.radio.CC2420Radio: void computeStatus()>();
+
+        $stack74 = this.<avrora.sim.radio.CC2420Radio: int configRegAddr>;
+
+        if $stack74 > 15 goto label01;
+
+        $stack84 = this.<avrora.sim.radio.CC2420Radio: int configRegAddr>;
+
+        virtualinvoke this.<avrora.sim.radio.CC2420Radio: void strobe(int)>($stack84);
+
+        this.<avrora.sim.radio.CC2420Radio: int configByteCnt> = 0;
+
+        goto label11;
+
+     label01:
+        if ramop == 0 goto label02;
+
+        this.<avrora.sim.radio.CC2420Radio: int configCommand> = 6;
+
+        goto label11;
+
+     label02:
+        $stack75 = this.<avrora.sim.radio.CC2420Radio: int configRegAddr>;
+
+        if $stack75 != 62 goto label05;
+
+        if readop == 0 goto label03;
+
+        $stack82#1 = 4;
+
+        goto label04;
+
+     label03:
+        $stack82#1 = 5;
+
+     label04:
+        this.<avrora.sim.radio.CC2420Radio: int configCommand> = $stack82#1;
+
+        goto label11;
+
+     label05:
+        $stack76 = this.<avrora.sim.radio.CC2420Radio: int configRegAddr>;
+
+        if $stack76 != 63 goto label08;
+
+        if readop == 0 goto label06;
+
+        $stack80#2 = 2;
+
+        goto label07;
+
+     label06:
+        $stack80#2 = 3;
+
+     label07:
+        this.<avrora.sim.radio.CC2420Radio: int configCommand> = $stack80#2;
+
+        goto label11;
+
+     label08:
+        if readop == 0 goto label09;
+
+        $stack77#3 = 0;
+
+        goto label10;
+
+     label09:
+        $stack77#3 = 1;
+
+     label10:
+        this.<avrora.sim.radio.CC2420Radio: int configCommand> = $stack77#3;
+
+     label11:
+        return status;
+
+     label12:
+        $stack8 = this.<avrora.sim.radio.CC2420Radio: int configByteCnt>;
+
+        if $stack8 != 2 goto label23;
+
+        $stack52 = this.<avrora.sim.radio.CC2420Radio: int configCommand>;
+
+        tableswitch($stack52)
+        {
+            case 0: goto label13;
+            case 1: goto label14;
+            case 2: goto label16;
+            case 3: goto label18;
+            case 4: goto label15;
+            case 5: goto label17;
+            case 6: goto label19;
+            default: goto label22;
+        };
+
+     label13:
+        $stack65 = this.<avrora.sim.radio.CC2420Radio: int configRegAddr>;
+
+        $stack66 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: int readRegister(int)>($stack65);
+
+        $stack67 = staticinvoke <cck.util.Arithmetic: byte high(int)>($stack66);
+
+        return $stack67;
+
+     label14:
+        this.<avrora.sim.radio.CC2420Radio: byte configByteHigh> = val;
+
+        return 0;
+
+     label15:
+        $stack59 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        $stack60 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte readFIFO(avrora.sim.state.ByteFIFO)>($stack59);
+
+        return $stack60;
+
+     label16:
+        $stack63 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        $stack64 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte readFIFO(avrora.sim.state.ByteFIFO)>($stack63);
+
+        return $stack64;
+
+     label17:
+        $stack57 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        $stack58 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte writeFIFO(avrora.sim.state.ByteFIFO,byte,boolean)>($stack57, val, 1);
+
+        return $stack58;
+
+     label18:
+        $stack61 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        $stack62 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte writeFIFO(avrora.sim.state.ByteFIFO,byte,boolean)>($stack61, val, 0);
+
+        return $stack62;
+
+     label19:
+        $stack53 = val >> 6;
+
+        $stack54 = $stack53 & 3;
+
+        this.<avrora.sim.radio.CC2420Radio: int configRAMBank> = $stack54;
+
+        $stack55 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 5);
+
+        if $stack55 == 0 goto label20;
+
+        this.<avrora.sim.radio.CC2420Radio: int configCommand> = 6;
+
+        goto label21;
+
+     label20:
+        this.<avrora.sim.radio.CC2420Radio: int configCommand> = 7;
+
+     label21:
+        return 0;
+
+     label22:
+        goto label38;
+
+     label23:
+        $stack9 = this.<avrora.sim.radio.CC2420Radio: int configCommand>;
+
+        tableswitch($stack9)
+        {
+            case 0: goto label24;
+            case 1: goto label25;
+            case 2: goto label27;
+            case 3: goto label29;
+            case 4: goto label26;
+            case 5: goto label28;
+            case 6: goto label30;
+            case 7: goto label34;
+            default: goto label38;
+        };
+
+     label24:
+        this.<avrora.sim.radio.CC2420Radio: int configByteCnt> = 0;
+
+        $stack49 = this.<avrora.sim.radio.CC2420Radio: int configRegAddr>;
+
+        $stack50 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: int readRegister(int)>($stack49);
+
+        $stack51 = staticinvoke <cck.util.Arithmetic: byte low(int)>($stack50);
+
+        return $stack51;
+
+     label25:
+        this.<avrora.sim.radio.CC2420Radio: int configByteCnt> = 0;
+
+        $stack47 = this.<avrora.sim.radio.CC2420Radio: int configRegAddr>;
+
+        $stack46 = this.<avrora.sim.radio.CC2420Radio: byte configByteHigh>;
+
+        $stack48 = staticinvoke <cck.util.Arithmetic: short word(byte,byte)>(val, $stack46);
+
+        virtualinvoke this.<avrora.sim.radio.CC2420Radio: void writeRegister(int,int)>($stack47, $stack48);
+
+        return 0;
+
+     label26:
+        $stack40 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        $stack41 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte readFIFO(avrora.sim.state.ByteFIFO)>($stack40);
+
+        return $stack41;
+
+     label27:
+        $stack44 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        $stack45 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte readFIFO(avrora.sim.state.ByteFIFO)>($stack44);
+
+        return $stack45;
+
+     label28:
+        $stack38 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        $stack39 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte writeFIFO(avrora.sim.state.ByteFIFO,byte,boolean)>($stack38, val, 1);
+
+        return $stack39;
+
+     label29:
+        $stack42 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        $stack43 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte writeFIFO(avrora.sim.state.ByteFIFO,byte,boolean)>($stack42, val, 0);
+
+        return $stack43;
+
+     label30:
+        $stack24 = this.<avrora.sim.radio.CC2420Radio: int configRAMBank>;
+
+        if $stack24 != 0 goto label31;
+
+        $stack36 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        $stack35 = this.<avrora.sim.radio.CC2420Radio: int configRAMAddr>;
+
+        $stack37 = virtualinvoke $stack36.<avrora.sim.state.ByteFIFO: byte peek(int)>($stack35);
+
+        return $stack37;
+
+     label31:
+        $stack25 = this.<avrora.sim.radio.CC2420Radio: int configRAMBank>;
+
+        if $stack25 != 1 goto label32;
+
+        $stack33 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        $stack32 = this.<avrora.sim.radio.CC2420Radio: int configRAMAddr>;
+
+        $stack34 = virtualinvoke $stack33.<avrora.sim.state.ByteFIFO: byte peek(int)>($stack32);
+
+        return $stack34;
+
+     label32:
+        $stack26 = this.<avrora.sim.radio.CC2420Radio: int configRAMBank>;
+
+        if $stack26 != 2 goto label33;
+
+        $stack29 = this.<avrora.sim.radio.CC2420Radio: int configRAMAddr>;
+
+        $stack27 = this.<avrora.sim.radio.CC2420Radio: int configByteCnt>;
+
+        $stack28 = $stack27 - 3;
+
+        $stack30 = $stack29 + $stack28;
+
+        $stack31 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte ReadSecurityBank(int)>($stack30);
+
+        return $stack31;
+
+     label33:
+        return 0;
+
+     label34:
+        $stack10 = this.<avrora.sim.radio.CC2420Radio: int configRAMBank>;
+
+        if $stack10 != 0 goto label35;
+
+        $stack22 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        $stack21 = this.<avrora.sim.radio.CC2420Radio: int configRAMAddr>;
+
+        $stack23 = virtualinvoke $stack22.<avrora.sim.state.ByteFIFO: byte poke(int,byte)>($stack21, val);
+
+        return $stack23;
+
+     label35:
+        $stack11 = this.<avrora.sim.radio.CC2420Radio: int configRAMBank>;
+
+        if $stack11 != 1 goto label36;
+
+        $stack19 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        $stack18 = this.<avrora.sim.radio.CC2420Radio: int configRAMAddr>;
+
+        $stack20 = virtualinvoke $stack19.<avrora.sim.state.ByteFIFO: byte poke(int,byte)>($stack18, val);
+
+        return $stack20;
+
+     label36:
+        $stack12 = this.<avrora.sim.radio.CC2420Radio: int configRAMBank>;
+
+        if $stack12 != 2 goto label37;
+
+        $stack15 = this.<avrora.sim.radio.CC2420Radio: int configRAMAddr>;
+
+        $stack13 = this.<avrora.sim.radio.CC2420Radio: int configByteCnt>;
+
+        $stack14 = $stack13 - 3;
+
+        $stack16 = $stack15 + $stack14;
+
+        $stack17 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: byte WriteSecurityBank(int,byte)>($stack16, val);
+
+        return $stack17;
+
+     label37:
+        return 0;
+
+     label38:
+        return 0;
+    }
+
+    private byte getStatus()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.state.Register $stack2;
+        int $stack3;
+        byte status;
+        avrora.sim.output.SimPrinter $stack4, $stack6;
+        java.lang.StringBuilder $stack5, $stack7, $stack10;
+        long $stack8;
+        java.lang.String $stack9, $stack11;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack2 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.Register statusRegister>;
+
+        $stack3 = virtualinvoke $stack2.<avrora.sim.state.Register: int getValue()>();
+
+        status = (byte) $stack3;
+
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack4 == null goto label1;
+
+        $stack6 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        $stack5 = new java.lang.StringBuilder;
+
+        specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC2420 status: ");
+
+        $stack8 = (long) status;
+
+        $stack9 = staticinvoke <cck.text.StringUtil: java.lang.String toBin(long,int)>($stack8, 8);
+
+        $stack10 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack9);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack6.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack11);
+
+     label1:
+        return status;
+    }
+
+    protected byte ReadSecurityBank(int)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        int address;
+        byte[] $stack3;
+        byte value, $stack5;
+        avrora.sim.output.SimPrinter $stack4, $stack7;
+        java.lang.StringBuilder $stack6, $stack8, $stack10, $stack11, $stack14, $stack15, $stack17;
+        java.lang.String $stack9, $stack13, $stack16, $stack18;
+        long $stack12;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        address := @parameter0: int;
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: byte[] RAMSecurityRegisters>;
+
+        value = $stack3[address];
+
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack4 == null goto label1;
+
+        $stack7 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        $stack6 = new java.lang.StringBuilder;
+
+        specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>();
+
+        $stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC2420 ");
+
+        $stack9 = staticinvoke <avrora.sim.radio.CC2420Radio: java.lang.String SecurityRAMName(int)>(address);
+
+        $stack10 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack9);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("(addr ");
+
+        $stack12 = (long) address;
+
+        $stack13 = staticinvoke <cck.text.StringUtil: java.lang.String to0xHex(long,int)>($stack12, 2);
+
+        $stack14 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack13);
+
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") -> ");
+
+        $stack16 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>(value, 8);
+
+        $stack17 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack16);
+
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack7.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack18);
+
+     label1:
+        $stack5 = (byte) value;
+
+        return $stack5;
+    }
+
+    protected byte WriteSecurityBank(int, byte)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.output.SimPrinter $stack3, $stack12;
+        int address;
+        byte value, $stack6, $stack8;
+        byte[] $stack4, $stack5, $stack7;
+        avrora.sim.state.BooleanView $stack10;
+        java.lang.StringBuilder $stack11, $stack13, $stack15, $stack16, $stack19, $stack20, $stack22;
+        java.lang.String $stack14, $stack18, $stack21, $stack23;
+        long $stack17;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        address := @parameter0: int;
+
+        value := @parameter1: byte;
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack3 == null goto label1;
+
+        $stack12 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        $stack11 = new java.lang.StringBuilder;
+
+        specialinvoke $stack11.<java.lang.StringBuilder: void <init>()>();
+
+        $stack13 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC2420 ");
+
+        $stack14 = staticinvoke <avrora.sim.radio.CC2420Radio: java.lang.String SecurityRAMName(int)>(address);
+
+        $stack15 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack14);
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("(addr ");
+
+        $stack17 = (long) address;
+
+        $stack18 = staticinvoke <cck.text.StringUtil: java.lang.String to0xHex(long,int)>($stack17, 2);
+
+        $stack19 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack18);
+
+        $stack20 = virtualinvoke $stack19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") <= ");
+
+        $stack21 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>(value, 8);
+
+        $stack22 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack21);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack12.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack23);
+
+     label1:
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: byte[] RAMSecurityRegisters>;
+
+        $stack4[address] = value;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: byte[] RAMSecurityRegisters>;
+
+        $stack6 = $stack5[104];
+
+        if $stack6 != 255 goto label2;
+
+        $stack7 = this.<avrora.sim.radio.CC2420Radio: byte[] RAMSecurityRegisters>;
+
+        $stack8 = $stack7[105];
+
+        if $stack8 != 255 goto label2;
+
+        $stack10 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.BooleanView BCN_ACCEPT>;
+
+        interfaceinvoke $stack10.<avrora.sim.state.BooleanView: void setValue(boolean)>(1);
+
+     label2:
+        return value;
+    }
+
+    protected byte readFIFO(avrora.sim.state.ByteFIFO)
+    {
+        avrora.sim.state.ByteFIFO fifo, $stack5;
+        byte val;
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.output.SimPrinter $stack4, $stack19;
+        boolean $stack6, $stack11, $stack15, $stack17#1, $stack13#2;
+        int $stack7, $stack8;
+        avrora.sim.radio.CC2420Radio$CC2420Output $stack10, $stack14;
+        avrora.sim.state.BooleanView $stack12, $stack16;
+        java.lang.StringBuilder $stack18, $stack20, $stack22, $stack23, $stack25;
+        java.lang.String $stack21, $stack24, $stack26;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        fifo := @parameter0: avrora.sim.state.ByteFIFO;
+
+        val = virtualinvoke fifo.<avrora.sim.state.ByteFIFO: byte remove()>();
+
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack4 == null goto label1;
+
+        $stack19 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        $stack18 = new java.lang.StringBuilder;
+
+        specialinvoke $stack18.<java.lang.StringBuilder: void <init>()>();
+
+        $stack20 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC2420 Read ");
+
+        $stack21 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: java.lang.String fifoName(avrora.sim.state.ByteFIFO)>(fifo);
+
+        $stack22 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack21);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" -> ");
+
+        $stack24 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>(val, 8);
+
+        $stack25 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack24);
+
+        $stack26 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack19.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack26);
+
+     label1:
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        if fifo != $stack5 goto label7;
+
+        $stack6 = virtualinvoke fifo.<avrora.sim.state.ByteFIFO: boolean empty()>();
+
+        if $stack6 == 0 goto label4;
+
+        $stack14 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output FIFO_pin>;
+
+        $stack16 = $stack14.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level>;
+
+        $stack15 = this.<avrora.sim.radio.CC2420Radio: boolean FIFO_active>;
+
+        if $stack15 != 0 goto label2;
+
+        $stack17#1 = 1;
+
+        goto label3;
+
+     label2:
+        $stack17#1 = 0;
+
+     label3:
+        interfaceinvoke $stack16.<avrora.sim.state.BooleanView: void setValue(boolean)>($stack17#1);
+
+        goto label7;
+
+     label4:
+        $stack7 = virtualinvoke fifo.<avrora.sim.state.ByteFIFO: int size()>();
+
+        $stack8 = specialinvoke this.<avrora.sim.radio.CC2420Radio: int getFIFOThreshold()>();
+
+        if $stack7 >= $stack8 goto label7;
+
+        $stack10 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$CC2420Output FIFOP_pin>;
+
+        $stack12 = $stack10.<avrora.sim.radio.CC2420Radio$CC2420Output: avrora.sim.state.BooleanView level>;
+
+        $stack11 = this.<avrora.sim.radio.CC2420Radio: boolean FIFOP_active>;
+
+        if $stack11 != 0 goto label5;
+
+        $stack13#2 = 1;
+
+        goto label6;
+
+     label5:
+        $stack13#2 = 0;
+
+     label6:
+        interfaceinvoke $stack12.<avrora.sim.state.BooleanView: void setValue(boolean)>($stack13#2);
+
+     label7:
+        return val;
+    }
+
+    protected byte writeFIFO(avrora.sim.state.ByteFIFO, byte, boolean)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.output.SimPrinter $stack5, $stack14;
+        boolean st, $stack6;
+        byte result, val, $stack11#1;
+        avrora.sim.state.ByteFIFO fifo;
+        java.lang.StringBuilder $stack13, $stack15, $stack17, $stack18, $stack20;
+        java.lang.String $stack16, $stack19, $stack21;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        fifo := @parameter0: avrora.sim.state.ByteFIFO;
+
+        val := @parameter1: byte;
+
+        st := @parameter2: boolean;
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack5 == null goto label1;
+
+        $stack14 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        $stack13 = new java.lang.StringBuilder;
+
+        specialinvoke $stack13.<java.lang.StringBuilder: void <init>()>();
+
+        $stack15 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC2420 Write ");
+
+        $stack16 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: java.lang.String fifoName(avrora.sim.state.ByteFIFO)>(fifo);
+
+        $stack17 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack16);
+
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" <= ");
+
+        $stack19 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>(val, 8);
+
+        $stack20 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack19);
+
+        $stack21 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack14.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack21);
+
+     label1:
+        if st == 0 goto label2;
+
+        $stack11#1 = specialinvoke this.<avrora.sim.radio.CC2420Radio: byte getStatus()>();
+
+        goto label3;
+
+     label2:
+        $stack11#1 = 0;
+
+     label3:
+        result = $stack11#1;
+
+        $stack6 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: boolean getClearFlag()>();
+
+        if $stack6 == 0 goto label4;
+
+        virtualinvoke fifo.<avrora.sim.state.ByteFIFO: void clear()>();
+
+        this.<avrora.sim.radio.CC2420Radio: boolean ClearFlag> = 0;
+
+     label4:
+        virtualinvoke fifo.<avrora.sim.state.ByteFIFO: void add(byte)>(val);
+
+        virtualinvoke this.<avrora.sim.radio.CC2420Radio: void computeStatus()>();
+
+        return result;
+    }
+
+    protected boolean getClearFlag()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        boolean $stack1;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = this.<avrora.sim.radio.CC2420Radio: boolean ClearFlag>;
+
+        return $stack1;
+    }
+
+    protected void setClearFlag()
+    {
+        avrora.sim.radio.CC2420Radio this;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        this.<avrora.sim.radio.CC2420Radio: boolean ClearFlag> = 1;
+
+        return;
+    }
+
+    private int getFIFOThreshold()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        char[] $stack1;
+        char $stack2;
+        int $stack3;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = this.<avrora.sim.radio.CC2420Radio: char[] registers>;
+
+        $stack2 = $stack1[28];
+
+        $stack3 = $stack2 & 127;
+
+        return $stack3;
+    }
+
+    public avrora.sim.Simulator getSimulator()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.Simulator $stack1;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.Simulator sim>;
+
+        return $stack1;
+    }
+
+    public double getPower()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        double[] $stack1;
+        int $stack2, $stack3;
+        double $stack4;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = <avrora.sim.radio.CC2420Radio: double[] POWER_dBm>;
+
+        $stack2 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: int readRegister(int)>(21);
+
+        $stack3 = $stack2 & 31;
+
+        $stack4 = $stack1[$stack3];
+
+        return $stack4;
+    }
+
+    public double getFrequency()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        int $stack2, $stack3, $stack4;
+        double $stack5;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack2 = virtualinvoke this.<avrora.sim.radio.CC2420Radio: int readRegister(int)>(24);
+
+        $stack3 = 2048 + $stack2;
+
+        $stack4 = $stack3 & 1023;
+
+        $stack5 = (double) $stack4;
+
+        return $stack5;
+    }
+
+    private void pinChange_CS(boolean)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        boolean level;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        level := @parameter0: boolean;
+
+        this.<avrora.sim.radio.CC2420Radio: int configByteCnt> = 0;
+
+        return;
+    }
+
+    private void pinChange_VREN(boolean)
+    {
+        boolean level;
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.FiniteStateMachine $stack2, $stack6, $stack9, $stack11;
+        int $stack3, $stack10;
+        avrora.sim.radio.CC2420Radio$Transmitter $stack4;
+        avrora.sim.radio.CC2420Radio$Receiver $stack5;
+        avrora.sim.output.SimPrinter $stack7, $stack8, $stack12, $stack13;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        level := @parameter0: boolean;
+
+        if level == 0 goto label1;
+
+        $stack9 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        $stack10 = virtualinvoke $stack9.<avrora.sim.FiniteStateMachine: int getCurrentState()>();
+
+        if $stack10 != 0 goto label2;
+
+        $stack11 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $stack11.<avrora.sim.FiniteStateMachine: void transition(int)>(1);
+
+        $stack12 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack12 == null goto label2;
+
+        $stack13 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        virtualinvoke $stack13.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("CC2420 Voltage Regulator started");
+
+        goto label2;
+
+     label1:
+        $stack2 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        $stack3 = virtualinvoke $stack2.<avrora.sim.FiniteStateMachine: int getCurrentState()>();
+
+        if $stack3 <= 0 goto label2;
+
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter>;
+
+        virtualinvoke $stack4.<avrora.sim.radio.CC2420Radio$Transmitter: void endTransmit()>();
+
+        $stack5 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        virtualinvoke $stack5.<avrora.sim.radio.CC2420Radio$Receiver: void endReceive()>();
+
+        $stack6 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $stack6.<avrora.sim.FiniteStateMachine: void transition(int)>(0);
+
+        $stack7 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack7 == null goto label2;
+
+        $stack8 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        virtualinvoke $stack8.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("CC2420 Voltage Regulator switched off");
+
+     label2:
+        return;
+    }
+
+    private void pinChange_RSTN(boolean)
+    {
+        boolean level;
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.FiniteStateMachine $stack2;
+        avrora.sim.output.SimPrinter $stack3, $stack4;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        level := @parameter0: boolean;
+
+        if level != 0 goto label1;
+
+        specialinvoke this.<avrora.sim.radio.CC2420Radio: void reset()>();
+
+        $stack2 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $stack2.<avrora.sim.FiniteStateMachine: void transition(int)>(1);
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        if $stack3 == null goto label1;
+
+        $stack4 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.output.SimPrinter printer>;
+
+        virtualinvoke $stack4.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("CC2420 reset by pin");
+
+     label1:
+        return;
+    }
+
+    char crcAccumulate(char, byte)
+    {
+        byte val;
+        int $stack4, $stack5, $stack6, $stack7, $stack10, $stack11, i#2;
+        avrora.sim.radio.CC2420Radio this;
+        char crc#1, crc#3;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        crc#1 := @parameter0: char;
+
+        val := @parameter1: byte;
+
+        i#2 = 8;
+
+        $stack4 = val << 8;
+
+        $stack5 = crc#1 ^ $stack4;
+
+        crc#3 = (char) $stack5;
+
+     label1:
+        $stack6 = crc#3 & 32768;
+
+        if $stack6 == 0 goto label2;
+
+        $stack10 = crc#3 << 1;
+
+        $stack11 = $stack10 ^ 4129;
+
+        crc#3 = (char) $stack11;
+
+        goto label3;
+
+     label2:
+        $stack7 = crc#3 << 1;
+
+        crc#3 = (char) $stack7;
+
+     label3:
+        i#2 = i#2 + -1;
+
+        if i#2 > 0 goto label1;
+
+        return crc#3;
+    }
+
+    public static java.lang.String regName(int)
+    {
+        int reg;
+        java.lang.StringBuilder $stack1, $stack4, $stack5;
+        long $stack2;
+        java.lang.String $stack3, $stack6;
+
+        reg := @parameter0: int;
+
+        tableswitch(reg)
+        {
+            case 16: goto label01;
+            case 17: goto label02;
+            case 18: goto label03;
+            case 19: goto label04;
+            case 20: goto label05;
+            case 21: goto label06;
+            case 22: goto label07;
+            case 23: goto label08;
+            case 24: goto label09;
+            case 25: goto label10;
+            case 26: goto label11;
+            case 27: goto label12;
+            case 28: goto label13;
+            case 29: goto label14;
+            case 30: goto label15;
+            case 31: goto label16;
+            case 32: goto label17;
+            case 33: goto label18;
+            case 34: goto label19;
+            case 35: goto label20;
+            case 36: goto label21;
+            case 37: goto label22;
+            case 38: goto label23;
+            case 39: goto label24;
+            case 40: goto label25;
+            case 41: goto label26;
+            case 42: goto label27;
+            case 43: goto label28;
+            case 44: goto label29;
+            case 45: goto label30;
+            case 46: goto label31;
+            case 47: goto label32;
+            case 48: goto label35;
+            case 49: goto label35;
+            case 50: goto label35;
+            case 51: goto label35;
+            case 52: goto label35;
+            case 53: goto label35;
+            case 54: goto label35;
+            case 55: goto label35;
+            case 56: goto label35;
+            case 57: goto label35;
+            case 58: goto label35;
+            case 59: goto label35;
+            case 60: goto label35;
+            case 61: goto label35;
+            case 62: goto label33;
+            case 63: goto label34;
+            default: goto label35;
+        };
+
+     label01:
+        return "MAIN    ";
+
+     label02:
+        return "MDMCTRL0";
+
+     label03:
+        return "MDMCTRL1";
+
+     label04:
+        return "RSSI    ";
+
+     label05:
+        return "SYNCWORD";
+
+     label06:
+        return "TXCTRL  ";
+
+     label07:
+        return "RXCTRL0 ";
+
+     label08:
+        return "RXCTRL1 ";
+
+     label09:
+        return "FSCTRL  ";
+
+     label10:
+        return "SECCTRL0";
+
+     label11:
+        return "SECCTRL1";
+
+     label12:
+        return "BATTMON ";
+
+     label13:
+        return "IOCFG0  ";
+
+     label14:
+        return "IOCFG1  ";
+
+     label15:
+        return "MANFIDL ";
+
+     label16:
+        return "MANFIDH ";
+
+     label17:
+        return "FSMTC   ";
+
+     label18:
+        return "MANAND  ";
+
+     label19:
+        return "MANOR   ";
+
+     label20:
+        return "AGCCTRL0";
+
+     label21:
+        return "AGCTST0 ";
+
+     label22:
+        return "AGCTST1 ";
+
+     label23:
+        return "AGCTST2 ";
+
+     label24:
+        return "FSTST0  ";
+
+     label25:
+        return "FSTST1  ";
+
+     label26:
+        return "FSTST2  ";
+
+     label27:
+        return "FSTST3  ";
+
+     label28:
+        return "RXBPFTST";
+
+     label29:
+        return "FSMSTATE";
+
+     label30:
+        return "ADCTST  ";
+
+     label31:
+        return "DACTST  ";
+
+     label32:
+        return "TOPTST  ";
+
+     label33:
+        return "TXFIFO  ";
+
+     label34:
+        return "RXFIFO  ";
+
+     label35:
+        $stack1 = new java.lang.StringBuilder;
+
+        specialinvoke $stack1.<java.lang.StringBuilder: void <init>()>();
+
+        $stack2 = (long) reg;
+
+        $stack3 = staticinvoke <cck.text.StringUtil: java.lang.String to0xHex(long,int)>($stack2, 2);
+
+        $stack4 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack3);
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("    ");
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack6;
+    }
+
+    public static java.lang.String strobeName(int)
+    {
+        int strobe;
+        java.lang.StringBuilder $stack1, $stack4, $stack5;
+        long $stack2;
+        java.lang.String $stack3, $stack6;
+
+        strobe := @parameter0: int;
+
+        tableswitch(strobe)
+        {
+            case 0: goto label01;
+            case 1: goto label02;
+            case 2: goto label03;
+            case 3: goto label04;
+            case 4: goto label05;
+            case 5: goto label06;
+            case 6: goto label07;
+            case 7: goto label08;
+            case 8: goto label09;
+            case 9: goto label10;
+            case 10: goto label11;
+            case 11: goto label12;
+            case 12: goto label13;
+            case 13: goto label14;
+            case 14: goto label15;
+            default: goto label16;
+        };
+
+     label01:
+        return "SNOP    ";
+
+     label02:
+        return "SXOSCON ";
+
+     label03:
+        return "STXCAL  ";
+
+     label04:
+        return "SRXON   ";
+
+     label05:
+        return "STXON   ";
+
+     label06:
+        return "STXONCCA";
+
+     label07:
+        return "SRFOFF  ";
+
+     label08:
+        return "SXOSCOFF";
+
+     label09:
+        return "SFLUSHRX";
+
+     label10:
+        return "SFLUSHTX";
+
+     label11:
+        return "SACK    ";
+
+     label12:
+        return "SACKPEND";
+
+     label13:
+        return "SRXDEC  ";
+
+     label14:
+        return "STXENC  ";
+
+     label15:
+        return "SAES    ";
+
+     label16:
+        $stack1 = new java.lang.StringBuilder;
+
+        specialinvoke $stack1.<java.lang.StringBuilder: void <init>()>();
+
+        $stack2 = (long) strobe;
+
+        $stack3 = staticinvoke <cck.text.StringUtil: java.lang.String to0xHex(long,int)>($stack2, 2);
+
+        $stack4 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack3);
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("    ");
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack6;
+    }
+
+    java.lang.String fifoName(avrora.sim.state.ByteFIFO)
+    {
+        avrora.sim.state.ByteFIFO fifo, $stack2, $stack3;
+        avrora.sim.radio.CC2420Radio this;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        fifo := @parameter0: avrora.sim.state.ByteFIFO;
+
+        $stack2 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO txFIFO>;
+
+        if fifo != $stack2 goto label1;
+
+        return "TX FIFO";
+
+     label1:
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.state.ByteFIFO rxFIFO>;
+
+        if fifo != $stack3 goto label2;
+
+        return "RX FIFO";
+
+     label2:
+        return "XX FIFO";
+    }
+
+    public static java.lang.String SecurityRAMName(int)
+    {
+        int address;
+
+        address := @parameter0: int;
+
+        if address >= 16 goto label1;
+
+        return "KEY0";
+
+     label1:
+        if address >= 32 goto label2;
+
+        return "RX_NONCE_COUNTER";
+
+     label2:
+        if address >= 48 goto label3;
+
+        return "SABUF";
+
+     label3:
+        if address >= 64 goto label4;
+
+        return "KEY1";
+
+     label4:
+        if address >= 80 goto label5;
+
+        return "TX_NONCE_COUNTER";
+
+     label5:
+        if address >= 96 goto label6;
+
+        return "CBCSTATE";
+
+     label6:
+        if address >= 104 goto label7;
+
+        return "IEEADR";
+
+     label7:
+        if address >= 106 goto label8;
+
+        return "PANID";
+
+     label8:
+        if address >= 112 goto label9;
+
+        return "SHORTADR";
+
+     label9:
+        return " ";
+    }
+
+    private long toCycles(long)
+    {
+        long us, $stack5, $stack6, $stack7;
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.Simulator $stack3;
+        avrora.sim.clock.MainClock $stack4;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        us := @parameter0: long;
+
+        $stack3 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.Simulator sim>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack5 = virtualinvoke $stack4.<avrora.sim.clock.MainClock: long getHZ()>();
+
+        $stack6 = us * $stack5;
+
+        $stack7 = $stack6 / 1000000L;
+
+        return $stack7;
+    }
+
+    public static avrora.sim.radio.Medium createMedium(avrora.sim.clock.Synchronizer, avrora.sim.radio.Medium$Arbitrator)
+    {
+        avrora.sim.radio.Medium $stack2;
+        avrora.sim.clock.Synchronizer synch;
+        avrora.sim.radio.Medium$Arbitrator arbitrator;
+
+        synch := @parameter0: avrora.sim.clock.Synchronizer;
+
+        arbitrator := @parameter1: avrora.sim.radio.Medium$Arbitrator;
+
+        $stack2 = new avrora.sim.radio.Medium;
+
+        specialinvoke $stack2.<avrora.sim.radio.Medium: void <init>(avrora.sim.clock.Synchronizer,avrora.sim.radio.Medium$Arbitrator,int,int,int,int)>(synch, arbitrator, 250000, 48, 8, 1024);
+
+        return $stack2;
+    }
+
+    public avrora.sim.radio.Medium$Transmitter getTransmitter()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.radio.CC2420Radio$Transmitter $stack1;
+        avrora.sim.radio.Medium$Transmitter $r0;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter>;
+
+        $r0 = (avrora.sim.radio.Medium$Transmitter) $stack1;
+
+        return $r0;
+    }
+
+    public avrora.sim.radio.Medium$Receiver getReceiver()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.radio.CC2420Radio$Receiver $stack1;
+        avrora.sim.radio.Medium$Receiver $r0;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver>;
+
+        $r0 = (avrora.sim.radio.Medium$Receiver) $stack1;
+
+        return $r0;
+    }
+
+    public void setMedium(avrora.sim.radio.Medium)
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.radio.Medium m;
+        avrora.sim.radio.CC2420Radio$Transmitter $stack2;
+        avrora.sim.radio.CC2420Radio$Receiver $stack3;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        m := @parameter0: avrora.sim.radio.Medium;
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.Medium medium> = m;
+
+        $stack2 = new avrora.sim.radio.CC2420Radio$Transmitter;
+
+        specialinvoke $stack2.<avrora.sim.radio.CC2420Radio$Transmitter: void <init>(avrora.sim.radio.CC2420Radio,avrora.sim.radio.Medium)>(this, m);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Transmitter transmitter> = $stack2;
+
+        $stack3 = new avrora.sim.radio.CC2420Radio$Receiver;
+
+        specialinvoke $stack3.<avrora.sim.radio.CC2420Radio$Receiver: void <init>(avrora.sim.radio.CC2420Radio,avrora.sim.radio.Medium)>(this, m);
+
+        this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.CC2420Radio$Receiver receiver> = $stack3;
+
+        return;
+    }
+
+    public avrora.sim.radio.Medium getMedium()
+    {
+        avrora.sim.radio.CC2420Radio this;
+        avrora.sim.radio.Medium $stack1;
+
+        this := @this: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = this.<avrora.sim.radio.CC2420Radio: avrora.sim.radio.Medium medium>;
+
+        return $stack1;
+    }
+
+    static int access$000(avrora.sim.radio.CC2420Radio)
+    {
+        avrora.sim.radio.CC2420Radio x0;
+        int $stack1;
+
+        x0 := @parameter0: avrora.sim.radio.CC2420Radio;
+
+        $stack1 = specialinvoke x0.<avrora.sim.radio.CC2420Radio: int getFIFOThreshold()>();
+
+        return $stack1;
+    }
+
+    static void access$100(avrora.sim.radio.CC2420Radio, boolean)
+    {
+        avrora.sim.radio.CC2420Radio x0;
+        boolean x1;
+
+        x0 := @parameter0: avrora.sim.radio.CC2420Radio;
+
+        x1 := @parameter1: boolean;
+
+        specialinvoke x0.<avrora.sim.radio.CC2420Radio: void pinChange_CS(boolean)>(x1);
+
+        return;
+    }
+
+    static void access$200(avrora.sim.radio.CC2420Radio, boolean)
+    {
+        avrora.sim.radio.CC2420Radio x0;
+        boolean x1;
+
+        x0 := @parameter0: avrora.sim.radio.CC2420Radio;
+
+        x1 := @parameter1: boolean;
+
+        specialinvoke x0.<avrora.sim.radio.CC2420Radio: void pinChange_VREN(boolean)>(x1);
+
+        return;
+    }
+
+    static void access$300(avrora.sim.radio.CC2420Radio, boolean)
+    {
+        avrora.sim.radio.CC2420Radio x0;
+        boolean x1;
+
+        x0 := @parameter0: avrora.sim.radio.CC2420Radio;
+
+        x1 := @parameter1: boolean;
+
+        specialinvoke x0.<avrora.sim.radio.CC2420Radio: void pinChange_RSTN(boolean)>(x1);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        byte[] $stack0, $stack1;
+        double[] $stack2;
+        int[] $stack3, $stack4;
+        java.lang.String[] $stack5, $stack6;
+        int $stack7;
+        int[][] $stack8;
+
+        <avrora.sim.radio.CC2420Radio: int RECV_OVERFLOW> = 7;
+
+        <avrora.sim.radio.CC2420Radio: int RECV_END_STATE> = 6;
+
+        <avrora.sim.radio.CC2420Radio: int RECV_CRC_2> = 5;
+
+        <avrora.sim.radio.CC2420Radio: int RECV_CRC_1> = 4;
+
+        <avrora.sim.radio.CC2420Radio: int RECV_IN_PACKET> = 3;
+
+        <avrora.sim.radio.CC2420Radio: int RECV_SFD_MATCHED_2> = 2;
+
+        <avrora.sim.radio.CC2420Radio: int RECV_SFD_MATCHED_1> = 1;
+
+        <avrora.sim.radio.CC2420Radio: int RECV_SFD_SCAN> = 0;
+
+        <avrora.sim.radio.CC2420Radio: int TX_END> = 7;
+
+        <avrora.sim.radio.CC2420Radio: int TX_CRC_2> = 6;
+
+        <avrora.sim.radio.CC2420Radio: int TX_CRC_1> = 5;
+
+        <avrora.sim.radio.CC2420Radio: int TX_IN_PACKET> = 4;
+
+        <avrora.sim.radio.CC2420Radio: int TX_LENGTH> = 3;
+
+        <avrora.sim.radio.CC2420Radio: int TX_SFD_2> = 2;
+
+        <avrora.sim.radio.CC2420Radio: int TX_SFD_1> = 1;
+
+        <avrora.sim.radio.CC2420Radio: int TX_IN_PREAMBLE> = 0;
+
+        <avrora.sim.radio.CC2420Radio: int CMD_W_RAM> = 7;
+
+        <avrora.sim.radio.CC2420Radio: int CMD_R_RAM> = 6;
+
+        <avrora.sim.radio.CC2420Radio: int CMD_W_TX> = 5;
+
+        <avrora.sim.radio.CC2420Radio: int CMD_R_TX> = 4;
+
+        <avrora.sim.radio.CC2420Radio: int CMD_W_RX> = 3;
+
+        <avrora.sim.radio.CC2420Radio: int CMD_R_RX> = 2;
+
+        <avrora.sim.radio.CC2420Radio: int CMD_W_REG> = 1;
+
+        <avrora.sim.radio.CC2420Radio: int CMD_R_REG> = 0;
+
+        <avrora.sim.radio.CC2420Radio: int PLL_LOCK_TIME> = 192;
+
+        <avrora.sim.radio.CC2420Radio: int XOSC_START_TIME> = 1000;
+
+        <avrora.sim.radio.CC2420Radio: int RAMSECURITYBANK_SIZE> = 113;
+
+        <avrora.sim.radio.CC2420Radio: int FIFO_SIZE> = 128;
+
+        <avrora.sim.radio.CC2420Radio: int NUM_REGISTERS> = 64;
+
+        <avrora.sim.radio.CC2420Radio: int SAES> = 14;
+
+        <avrora.sim.radio.CC2420Radio: int STXENC> = 13;
+
+        <avrora.sim.radio.CC2420Radio: int SRXDEC> = 12;
+
+        <avrora.sim.radio.CC2420Radio: int SACKPEND> = 11;
+
+        <avrora.sim.radio.CC2420Radio: int SACK> = 10;
+
+        <avrora.sim.radio.CC2420Radio: int SFLUSHTX> = 9;
+
+        <avrora.sim.radio.CC2420Radio: int SFLUSHRX> = 8;
+
+        <avrora.sim.radio.CC2420Radio: int SXOSCOFF> = 7;
+
+        <avrora.sim.radio.CC2420Radio: int SRFOFF> = 6;
+
+        <avrora.sim.radio.CC2420Radio: int STXONCCA> = 5;
+
+        <avrora.sim.radio.CC2420Radio: int STXON> = 4;
+
+        <avrora.sim.radio.CC2420Radio: int SRXON> = 3;
+
+        <avrora.sim.radio.CC2420Radio: int STXCAL> = 2;
+
+        <avrora.sim.radio.CC2420Radio: int SXOSCON> = 1;
+
+        <avrora.sim.radio.CC2420Radio: int SNOP> = 0;
+
+        <avrora.sim.radio.CC2420Radio: int RXFIFO> = 63;
+
+        <avrora.sim.radio.CC2420Radio: int TXFIFO> = 62;
+
+        <avrora.sim.radio.CC2420Radio: int TOPTST> = 47;
+
+        <avrora.sim.radio.CC2420Radio: int DACTST> = 46;
+
+        <avrora.sim.radio.CC2420Radio: int ADCTST> = 45;
+
+        <avrora.sim.radio.CC2420Radio: int FSMSTATE> = 44;
+
+        <avrora.sim.radio.CC2420Radio: int RXBPFTST> = 43;
+
+        <avrora.sim.radio.CC2420Radio: int FSTST3> = 42;
+
+        <avrora.sim.radio.CC2420Radio: int FSTST2> = 41;
+
+        <avrora.sim.radio.CC2420Radio: int FSTST1> = 40;
+
+        <avrora.sim.radio.CC2420Radio: int FSTST0> = 39;
+
+        <avrora.sim.radio.CC2420Radio: int AGCTST2> = 38;
+
+        <avrora.sim.radio.CC2420Radio: int AGCTST1> = 37;
+
+        <avrora.sim.radio.CC2420Radio: int AGCTST0> = 36;
+
+        <avrora.sim.radio.CC2420Radio: int AGCCTRL0> = 35;
+
+        <avrora.sim.radio.CC2420Radio: int MANOR> = 34;
+
+        <avrora.sim.radio.CC2420Radio: int MANAND> = 33;
+
+        <avrora.sim.radio.CC2420Radio: int FSMTC> = 32;
+
+        <avrora.sim.radio.CC2420Radio: int MANFIDH> = 31;
+
+        <avrora.sim.radio.CC2420Radio: int MANFIDL> = 30;
+
+        <avrora.sim.radio.CC2420Radio: int IOCFG1> = 29;
+
+        <avrora.sim.radio.CC2420Radio: int IOCFG0> = 28;
+
+        <avrora.sim.radio.CC2420Radio: int BATTMON> = 27;
+
+        <avrora.sim.radio.CC2420Radio: int SECCTRL1> = 26;
+
+        <avrora.sim.radio.CC2420Radio: int SECCTRL0> = 25;
+
+        <avrora.sim.radio.CC2420Radio: int FSCTRL> = 24;
+
+        <avrora.sim.radio.CC2420Radio: int RXCTRL1> = 23;
+
+        <avrora.sim.radio.CC2420Radio: int RXCTRL0> = 22;
+
+        <avrora.sim.radio.CC2420Radio: int TXCTRL> = 21;
+
+        <avrora.sim.radio.CC2420Radio: int SYNCWORD> = 20;
+
+        <avrora.sim.radio.CC2420Radio: int RSSI> = 19;
+
+        <avrora.sim.radio.CC2420Radio: int MDMCTRL1> = 18;
+
+        <avrora.sim.radio.CC2420Radio: int MDMCTRL0> = 17;
+
+        <avrora.sim.radio.CC2420Radio: int MAIN> = 16;
+
+        $stack0 = newarray (byte)[2];
+
+        $stack0[0] = 15;
+
+        $stack0[1] = 15;
+
+        <avrora.sim.radio.CC2420Radio: byte[] SHORT_BROADCAST_ADDR> = $stack0;
+
+        $stack1 = newarray (byte)[8];
+
+        $stack1[0] = 15;
+
+        $stack1[1] = 15;
+
+        $stack1[2] = 15;
+
+        $stack1[3] = 15;
+
+        $stack1[4] = 15;
+
+        $stack1[5] = 15;
+
+        $stack1[6] = 15;
+
+        $stack1[7] = 15;
+
+        <avrora.sim.radio.CC2420Radio: byte[] LONG_BROADCAST_ADDR> = $stack1;
+
+        $stack2 = newarray (double)[32];
+
+        $stack2[0] = -37.917;
+
+        $stack2[1] = -32.984;
+
+        $stack2[2] = -28.697;
+
+        $stack2[3] = -25.0;
+
+        $stack2[4] = -21.837;
+
+        $stack2[5] = -19.153;
+
+        $stack2[6] = -16.893;
+
+        $stack2[7] = -15.0;
+
+        $stack2[8] = -13.42;
+
+        $stack2[9] = -12.097;
+
+        $stack2[10] = -10.975;
+
+        $stack2[11] = -10.0;
+
+        $stack2[12] = -9.1238;
+
+        $stack2[13] = -8.3343;
+
+        $stack2[14] = -7.6277;
+
+        $stack2[15] = -7.0;
+
+        $stack2[16] = -6.4442;
+
+        $stack2[17] = -5.9408;
+
+        $stack2[18] = -5.467;
+
+        $stack2[19] = -5.0;
+
+        $stack2[20] = -4.5212;
+
+        $stack2[21] = -4.0275;
+
+        $stack2[22] = -3.5201;
+
+        $stack2[23] = -3.0;
+
+        $stack2[24] = -2.4711;
+
+        $stack2[25] = -1.9492;
+
+        $stack2[26] = -1.4526;
+
+        $stack2[27] = -1.0;
+
+        $stack2[28] = -0.6099;
+
+        $stack2[29] = -0.3008;
+
+        $stack2[30] = -0.0914;
+
+        $stack2[31] = 0.0;
+
+        <avrora.sim.radio.CC2420Radio: double[] POWER_dBm> = $stack2;
+
+        $stack3 = newarray (int)[101];
+
+        $stack3[0] = 110;
+
+        $stack3[1] = 109;
+
+        $stack3[2] = 109;
+
+        $stack3[3] = 109;
+
+        $stack3[4] = 107;
+
+        $stack3[5] = 107;
+
+        $stack3[6] = 107;
+
+        $stack3[7] = 107;
+
+        $stack3[8] = 107;
+
+        $stack3[9] = 107;
+
+        $stack3[10] = 107;
+
+        $stack3[11] = 107;
+
+        $stack3[12] = 103;
+
+        $stack3[13] = 102;
+
+        $stack3[14] = 102;
+
+        $stack3[15] = 102;
+
+        $stack3[16] = 101;
+
+        $stack3[17] = 101;
+
+        $stack3[18] = 101;
+
+        $stack3[19] = 101;
+
+        $stack3[20] = 99;
+
+        $stack3[21] = 94;
+
+        $stack3[22] = 92;
+
+        $stack3[23] = 94;
+
+        $stack3[24] = 101;
+
+        $stack3[25] = 97;
+
+        $stack3[26] = 98;
+
+        $stack3[27] = 97;
+
+        $stack3[28] = 97;
+
+        $stack3[29] = 97;
+
+        $stack3[30] = 97;
+
+        $stack3[31] = 97;
+
+        $stack3[32] = 94;
+
+        $stack3[33] = 94;
+
+        $stack3[34] = 94;
+
+        $stack3[35] = 94;
+
+        $stack3[36] = 94;
+
+        $stack3[37] = 94;
+
+        $stack3[38] = 94;
+
+        $stack3[39] = 94;
+
+        $stack3[40] = 94;
+
+        $stack3[41] = 94;
+
+        $stack3[42] = 94;
+
+        $stack3[43] = 94;
+
+        $stack3[44] = 92;
+
+        $stack3[45] = 89;
+
+        $stack3[46] = 89;
+
+        $stack3[47] = 89;
+
+        $stack3[48] = 89;
+
+        $stack3[49] = 89;
+
+        $stack3[50] = 88;
+
+        $stack3[51] = 88;
+
+        $stack3[52] = 88;
+
+        $stack3[53] = 88;
+
+        $stack3[54] = 88;
+
+        $stack3[55] = 86;
+
+        $stack3[56] = 86;
+
+        $stack3[57] = 86;
+
+        $stack3[58] = 86;
+
+        $stack3[59] = 86;
+
+        $stack3[60] = 86;
+
+        $stack3[61] = 86;
+
+        $stack3[62] = 86;
+
+        $stack3[63] = 86;
+
+        $stack3[64] = 85;
+
+        $stack3[65] = 85;
+
+        $stack3[66] = 85;
+
+        $stack3[67] = 85;
+
+        $stack3[68] = 85;
+
+        $stack3[69] = 85;
+
+        $stack3[70] = 83;
+
+        $stack3[71] = 83;
+
+        $stack3[72] = 83;
+
+        $stack3[73] = 83;
+
+        $stack3[74] = 83;
+
+        $stack3[75] = 83;
+
+        $stack3[76] = 83;
+
+        $stack3[77] = 83;
+
+        $stack3[78] = 79;
+
+        $stack3[79] = 78;
+
+        $stack3[80] = 78;
+
+        $stack3[81] = 78;
+
+        $stack3[82] = 78;
+
+        $stack3[83] = 78;
+
+        $stack3[84] = 76;
+
+        $stack3[85] = 76;
+
+        $stack3[86] = 76;
+
+        $stack3[87] = 74;
+
+        $stack3[88] = 74;
+
+        $stack3[89] = 74;
+
+        $stack3[90] = 74;
+
+        $stack3[91] = 74;
+
+        $stack3[92] = 74;
+
+        $stack3[93] = 74;
+
+        $stack3[94] = 74;
+
+        $stack3[95] = 74;
+
+        $stack3[96] = 74;
+
+        $stack3[97] = 66;
+
+        $stack3[98] = 65;
+
+        $stack3[99] = 65;
+
+        $stack3[100] = 65;
+
+        <avrora.sim.radio.CC2420Radio: int[] Corr_MAX> = $stack3;
+
+        $stack4 = newarray (int)[101];
+
+        $stack4[0] = 95;
+
+        $stack4[1] = 95;
+
+        $stack4[2] = 94;
+
+        $stack4[3] = 91;
+
+        $stack4[4] = 90;
+
+        $stack4[5] = 90;
+
+        $stack4[6] = 89;
+
+        $stack4[7] = 89;
+
+        $stack4[8] = 89;
+
+        $stack4[9] = 88;
+
+        $stack4[10] = 88;
+
+        $stack4[11] = 88;
+
+        $stack4[12] = 82;
+
+        $stack4[13] = 82;
+
+        $stack4[14] = 82;
+
+        $stack4[15] = 82;
+
+        $stack4[16] = 76;
+
+        $stack4[17] = 76;
+
+        $stack4[18] = 76;
+
+        $stack4[19] = 76;
+
+        $stack4[20] = 76;
+
+        $stack4[21] = 76;
+
+        $stack4[22] = 74;
+
+        $stack4[23] = 74;
+
+        $stack4[24] = 74;
+
+        $stack4[25] = 74;
+
+        $stack4[26] = 74;
+
+        $stack4[27] = 74;
+
+        $stack4[28] = 72;
+
+        $stack4[29] = 72;
+
+        $stack4[30] = 72;
+
+        $stack4[31] = 72;
+
+        $stack4[32] = 72;
+
+        $stack4[33] = 72;
+
+        $stack4[34] = 72;
+
+        $stack4[35] = 72;
+
+        $stack4[36] = 69;
+
+        $stack4[37] = 69;
+
+        $stack4[38] = 69;
+
+        $stack4[39] = 69;
+
+        $stack4[40] = 69;
+
+        $stack4[41] = 69;
+
+        $stack4[42] = 69;
+
+        $stack4[43] = 69;
+
+        $stack4[44] = 69;
+
+        $stack4[45] = 69;
+
+        $stack4[46] = 69;
+
+        $stack4[47] = 69;
+
+        $stack4[48] = 69;
+
+        $stack4[49] = 69;
+
+        $stack4[50] = 69;
+
+        $stack4[51] = 69;
+
+        $stack4[52] = 69;
+
+        $stack4[53] = 69;
+
+        $stack4[54] = 69;
+
+        $stack4[55] = 69;
+
+        $stack4[56] = 67;
+
+        $stack4[57] = 67;
+
+        $stack4[58] = 67;
+
+        $stack4[59] = 67;
+
+        $stack4[60] = 67;
+
+        $stack4[61] = 67;
+
+        $stack4[62] = 65;
+
+        $stack4[63] = 65;
+
+        $stack4[64] = 65;
+
+        $stack4[65] = 65;
+
+        $stack4[66] = 65;
+
+        $stack4[67] = 65;
+
+        $stack4[68] = 65;
+
+        $stack4[69] = 64;
+
+        $stack4[70] = 64;
+
+        $stack4[71] = 63;
+
+        $stack4[72] = 63;
+
+        $stack4[73] = 63;
+
+        $stack4[74] = 63;
+
+        $stack4[75] = 63;
+
+        $stack4[76] = 63;
+
+        $stack4[77] = 63;
+
+        $stack4[78] = 63;
+
+        $stack4[79] = 63;
+
+        $stack4[80] = 61;
+
+        $stack4[81] = 61;
+
+        $stack4[82] = 61;
+
+        $stack4[83] = 60;
+
+        $stack4[84] = 60;
+
+        $stack4[85] = 60;
+
+        $stack4[86] = 58;
+
+        $stack4[87] = 58;
+
+        $stack4[88] = 56;
+
+        $stack4[89] = 56;
+
+        $stack4[90] = 56;
+
+        $stack4[91] = 55;
+
+        $stack4[92] = 55;
+
+        $stack4[93] = 55;
+
+        $stack4[94] = 50;
+
+        $stack4[95] = 50;
+
+        $stack4[96] = 50;
+
+        $stack4[97] = 50;
+
+        $stack4[98] = 50;
+
+        $stack4[99] = 50;
+
+        $stack4[100] = 50;
+
+        <avrora.sim.radio.CC2420Radio: int[] Corr_MIN> = $stack4;
+
+        $stack5 = staticinvoke <avrora.sim.radio.CC2420Energy: java.lang.String[] allModeNames()>();
+
+        <avrora.sim.radio.CC2420Radio: java.lang.String[] allModeNames> = $stack5;
+
+        $stack6 = <avrora.sim.radio.CC2420Radio: java.lang.String[] allModeNames>;
+
+        $stack7 = lengthof $stack6;
+
+        $stack8 = staticinvoke <avrora.sim.FiniteStateMachine: int[][] buildSparseTTM(int,int)>($stack7, 0);
+
+        <avrora.sim.radio.CC2420Radio: int[][] ttm> = $stack8;
+
+        return;
+    }
+}

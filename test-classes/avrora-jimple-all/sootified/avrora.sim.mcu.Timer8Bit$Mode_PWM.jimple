@@ -1,0 +1,83 @@
+class avrora.sim.mcu.Timer8Bit$Mode_PWM extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    protected byte increment;
+    final avrora.sim.mcu.Timer8Bit this$0;
+
+    void <init>(avrora.sim.mcu.Timer8Bit)
+    {
+        avrora.sim.mcu.Timer8Bit$Mode_PWM this;
+        avrora.sim.mcu.Timer8Bit this$0;
+
+        this := @this: avrora.sim.mcu.Timer8Bit$Mode_PWM;
+
+        this$0 := @parameter0: avrora.sim.mcu.Timer8Bit;
+
+        this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: avrora.sim.mcu.Timer8Bit this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: byte increment> = 1;
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.Timer8Bit$Mode_PWM this;
+        avrora.sim.mcu.Timer8Bit $stack2, $stack5, $stack8, $stack15, $stack7#14;
+        avrora.sim.mcu.Timer8Bit$TCNTnRegister $stack3;
+        byte $stack4, $stack6#7;
+        avrora.sim.mcu.Timer8Bit$BufferedRegister $stack16;
+        int ncount#1, ncount#10;
+
+        this := @this: avrora.sim.mcu.Timer8Bit$Mode_PWM;
+
+        $stack2 = this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.Timer8Bit: avrora.sim.mcu.Timer8Bit$TCNTnRegister TCNTn_reg>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.mcu.Timer8Bit$TCNTnRegister: byte read()>();
+
+        ncount#1 = $stack4 & 255;
+
+        $stack5 = this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer8Bit: void access$000(avrora.sim.mcu.Timer8Bit,int)>($stack5, ncount#1);
+
+        if ncount#1 < 255 goto label1;
+
+        this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: byte increment> = -1;
+
+        ncount#1 = 255;
+
+        $stack15 = this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        $stack16 = $stack15.<avrora.sim.mcu.Timer8Bit: avrora.sim.mcu.Timer8Bit$BufferedRegister OCRn_reg>;
+
+        virtualinvoke $stack16.<avrora.sim.mcu.Timer8Bit$BufferedRegister: void flush()>();
+
+        goto label2;
+
+     label1:
+        if ncount#1 > 0 goto label2;
+
+        $stack8 = this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        virtualinvoke $stack8.<avrora.sim.mcu.Timer8Bit: void overflow()>();
+
+        this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: byte increment> = 1;
+
+        ncount#1 = 0;
+
+     label2:
+        $stack6#7 = this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: byte increment>;
+
+        ncount#10 = ncount#1 + $stack6#7;
+
+        $stack7#14 = this.<avrora.sim.mcu.Timer8Bit$Mode_PWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer8Bit: void access$100(avrora.sim.mcu.Timer8Bit,avrora.sim.Simulator$Event,int)>($stack7#14, this, ncount#10);
+
+        return;
+    }
+}

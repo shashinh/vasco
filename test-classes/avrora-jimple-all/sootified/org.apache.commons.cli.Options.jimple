@@ -1,0 +1,410 @@
+public class org.apache.commons.cli.Options extends java.lang.Object implements java.io.Serializable
+{
+    private static final long serialVersionUID;
+    private java.util.Map shortOpts;
+    private java.util.Map longOpts;
+    private java.util.List requiredOpts;
+    private java.util.Map optionGroups;
+
+    public void <init>()
+    {
+        org.apache.commons.cli.Options this;
+        java.util.HashMap $stack1, $stack2, $stack4;
+        java.util.ArrayList $stack3;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack1 = new java.util.HashMap;
+
+        specialinvoke $stack1.<java.util.HashMap: void <init>()>();
+
+        this.<org.apache.commons.cli.Options: java.util.Map shortOpts> = $stack1;
+
+        $stack2 = new java.util.HashMap;
+
+        specialinvoke $stack2.<java.util.HashMap: void <init>()>();
+
+        this.<org.apache.commons.cli.Options: java.util.Map longOpts> = $stack2;
+
+        $stack3 = new java.util.ArrayList;
+
+        specialinvoke $stack3.<java.util.ArrayList: void <init>()>();
+
+        this.<org.apache.commons.cli.Options: java.util.List requiredOpts> = $stack3;
+
+        $stack4 = new java.util.HashMap;
+
+        specialinvoke $stack4.<java.util.HashMap: void <init>()>();
+
+        this.<org.apache.commons.cli.Options: java.util.Map optionGroups> = $stack4;
+
+        return;
+    }
+
+    public org.apache.commons.cli.Options addOptionGroup(org.apache.commons.cli.OptionGroup)
+    {
+        org.apache.commons.cli.OptionGroup group;
+        java.util.Collection $stack4;
+        java.util.Iterator options;
+        boolean $stack6, $stack7#4;
+        org.apache.commons.cli.Options this;
+        java.lang.Object $stack8;
+        org.apache.commons.cli.Option option;
+        java.util.Map $stack10;
+        java.lang.String $stack11;
+        java.util.List $stack14;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        group := @parameter0: org.apache.commons.cli.OptionGroup;
+
+        $stack4 = virtualinvoke group.<org.apache.commons.cli.OptionGroup: java.util.Collection getOptions()>();
+
+        options = interfaceinvoke $stack4.<java.util.Collection: java.util.Iterator iterator()>();
+
+        $stack6 = virtualinvoke group.<org.apache.commons.cli.OptionGroup: boolean isRequired()>();
+
+        if $stack6 == 0 goto label1;
+
+        $stack14 = this.<org.apache.commons.cli.Options: java.util.List requiredOpts>;
+
+        interfaceinvoke $stack14.<java.util.List: boolean add(java.lang.Object)>(group);
+
+     label1:
+        $stack7#4 = interfaceinvoke options.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack7#4 == 0 goto label2;
+
+        $stack8 = interfaceinvoke options.<java.util.Iterator: java.lang.Object next()>();
+
+        option = (org.apache.commons.cli.Option) $stack8;
+
+        virtualinvoke option.<org.apache.commons.cli.Option: void setRequired(boolean)>(0);
+
+        virtualinvoke this.<org.apache.commons.cli.Options: org.apache.commons.cli.Options addOption(org.apache.commons.cli.Option)>(option);
+
+        $stack10 = this.<org.apache.commons.cli.Options: java.util.Map optionGroups>;
+
+        $stack11 = virtualinvoke option.<org.apache.commons.cli.Option: java.lang.String getKey()>();
+
+        interfaceinvoke $stack10.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack11, group);
+
+        goto label1;
+
+     label2:
+        return this;
+    }
+
+    java.util.Collection getOptionGroups()
+    {
+        java.util.HashSet $stack1;
+        org.apache.commons.cli.Options this;
+        java.util.Map $stack2;
+        java.util.Collection $stack3;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        $stack1 = new java.util.HashSet;
+
+        $stack2 = this.<org.apache.commons.cli.Options: java.util.Map optionGroups>;
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Map: java.util.Collection values()>();
+
+        specialinvoke $stack1.<java.util.HashSet: void <init>(java.util.Collection)>($stack3);
+
+        return $stack1;
+    }
+
+    public org.apache.commons.cli.Options addOption(java.lang.String, boolean, java.lang.String)
+    {
+        org.apache.commons.cli.Options this;
+        java.lang.String opt, description;
+        boolean hasArg;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        opt := @parameter0: java.lang.String;
+
+        hasArg := @parameter1: boolean;
+
+        description := @parameter2: java.lang.String;
+
+        virtualinvoke this.<org.apache.commons.cli.Options: org.apache.commons.cli.Options addOption(java.lang.String,java.lang.String,boolean,java.lang.String)>(opt, null, hasArg, description);
+
+        return this;
+    }
+
+    public org.apache.commons.cli.Options addOption(java.lang.String, java.lang.String, boolean, java.lang.String)
+    {
+        org.apache.commons.cli.Options this;
+        org.apache.commons.cli.Option $stack5;
+        java.lang.String opt, longOpt, description;
+        boolean hasArg;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        opt := @parameter0: java.lang.String;
+
+        longOpt := @parameter1: java.lang.String;
+
+        hasArg := @parameter2: boolean;
+
+        description := @parameter3: java.lang.String;
+
+        $stack5 = new org.apache.commons.cli.Option;
+
+        specialinvoke $stack5.<org.apache.commons.cli.Option: void <init>(java.lang.String,java.lang.String,boolean,java.lang.String)>(opt, longOpt, hasArg, description);
+
+        virtualinvoke this.<org.apache.commons.cli.Options: org.apache.commons.cli.Options addOption(org.apache.commons.cli.Option)>($stack5);
+
+        return this;
+    }
+
+    public org.apache.commons.cli.Options addOption(org.apache.commons.cli.Option)
+    {
+        org.apache.commons.cli.Option opt;
+        java.lang.String key, $stack23;
+        boolean $stack4, $stack5, $stack9;
+        org.apache.commons.cli.Options this;
+        java.util.List $stack8, $stack10, $stack16, $stack17;
+        int $stack18;
+        java.util.Map $stack22, $stack6#4;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        opt := @parameter0: org.apache.commons.cli.Option;
+
+        key = virtualinvoke opt.<org.apache.commons.cli.Option: java.lang.String getKey()>();
+
+        $stack4 = virtualinvoke opt.<org.apache.commons.cli.Option: boolean hasLongOpt()>();
+
+        if $stack4 == 0 goto label1;
+
+        $stack22 = this.<org.apache.commons.cli.Options: java.util.Map longOpts>;
+
+        $stack23 = virtualinvoke opt.<org.apache.commons.cli.Option: java.lang.String getLongOpt()>();
+
+        interfaceinvoke $stack22.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack23, opt);
+
+     label1:
+        $stack5 = virtualinvoke opt.<org.apache.commons.cli.Option: boolean isRequired()>();
+
+        if $stack5 == 0 goto label3;
+
+        $stack8 = this.<org.apache.commons.cli.Options: java.util.List requiredOpts>;
+
+        $stack9 = interfaceinvoke $stack8.<java.util.List: boolean contains(java.lang.Object)>(key);
+
+        if $stack9 == 0 goto label2;
+
+        $stack17 = this.<org.apache.commons.cli.Options: java.util.List requiredOpts>;
+
+        $stack16 = this.<org.apache.commons.cli.Options: java.util.List requiredOpts>;
+
+        $stack18 = interfaceinvoke $stack16.<java.util.List: int indexOf(java.lang.Object)>(key);
+
+        interfaceinvoke $stack17.<java.util.List: java.lang.Object remove(int)>($stack18);
+
+     label2:
+        $stack10 = this.<org.apache.commons.cli.Options: java.util.List requiredOpts>;
+
+        interfaceinvoke $stack10.<java.util.List: boolean add(java.lang.Object)>(key);
+
+     label3:
+        $stack6#4 = this.<org.apache.commons.cli.Options: java.util.Map shortOpts>;
+
+        interfaceinvoke $stack6#4.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>(key, opt);
+
+        return this;
+    }
+
+    public java.util.Collection getOptions()
+    {
+        org.apache.commons.cli.Options this;
+        java.util.List $stack1;
+        java.util.Collection $stack2;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        $stack1 = virtualinvoke this.<org.apache.commons.cli.Options: java.util.List helpOptions()>();
+
+        $stack2 = staticinvoke <java.util.Collections: java.util.Collection unmodifiableCollection(java.util.Collection)>($stack1);
+
+        return $stack2;
+    }
+
+    java.util.List helpOptions()
+    {
+        java.util.ArrayList $stack1;
+        org.apache.commons.cli.Options this;
+        java.util.Map $stack2;
+        java.util.Collection $stack3;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        $stack1 = new java.util.ArrayList;
+
+        $stack2 = this.<org.apache.commons.cli.Options: java.util.Map shortOpts>;
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Map: java.util.Collection values()>();
+
+        specialinvoke $stack1.<java.util.ArrayList: void <init>(java.util.Collection)>($stack3);
+
+        return $stack1;
+    }
+
+    public java.util.List getRequiredOptions()
+    {
+        org.apache.commons.cli.Options this;
+        java.util.List $stack1;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        $stack1 = this.<org.apache.commons.cli.Options: java.util.List requiredOpts>;
+
+        return $stack1;
+    }
+
+    public org.apache.commons.cli.Option getOption(java.lang.String)
+    {
+        org.apache.commons.cli.Options this;
+        java.util.Map $stack3, $stack5, $stack8;
+        boolean $stack4;
+        java.lang.Object $stack6, $stack9;
+        org.apache.commons.cli.Option $stack7, $stack10;
+        java.lang.String opt#1, opt#2;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        opt#1 := @parameter0: java.lang.String;
+
+        opt#2 = staticinvoke <org.apache.commons.cli.Util: java.lang.String stripLeadingHyphens(java.lang.String)>(opt#1);
+
+        $stack3 = this.<org.apache.commons.cli.Options: java.util.Map shortOpts>;
+
+        $stack4 = interfaceinvoke $stack3.<java.util.Map: boolean containsKey(java.lang.Object)>(opt#2);
+
+        if $stack4 == 0 goto label1;
+
+        $stack8 = this.<org.apache.commons.cli.Options: java.util.Map shortOpts>;
+
+        $stack9 = interfaceinvoke $stack8.<java.util.Map: java.lang.Object get(java.lang.Object)>(opt#2);
+
+        $stack10 = (org.apache.commons.cli.Option) $stack9;
+
+        return $stack10;
+
+     label1:
+        $stack5 = this.<org.apache.commons.cli.Options: java.util.Map longOpts>;
+
+        $stack6 = interfaceinvoke $stack5.<java.util.Map: java.lang.Object get(java.lang.Object)>(opt#2);
+
+        $stack7 = (org.apache.commons.cli.Option) $stack6;
+
+        return $stack7;
+    }
+
+    public boolean hasOption(java.lang.String)
+    {
+        org.apache.commons.cli.Options this;
+        java.util.Map $stack3, $stack5;
+        boolean $stack4, $stack6, $stack7#3;
+        java.lang.String opt#1, opt#2;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        opt#1 := @parameter0: java.lang.String;
+
+        opt#2 = staticinvoke <org.apache.commons.cli.Util: java.lang.String stripLeadingHyphens(java.lang.String)>(opt#1);
+
+        $stack3 = this.<org.apache.commons.cli.Options: java.util.Map shortOpts>;
+
+        $stack4 = interfaceinvoke $stack3.<java.util.Map: boolean containsKey(java.lang.Object)>(opt#2);
+
+        if $stack4 != 0 goto label1;
+
+        $stack5 = this.<org.apache.commons.cli.Options: java.util.Map longOpts>;
+
+        $stack6 = interfaceinvoke $stack5.<java.util.Map: boolean containsKey(java.lang.Object)>(opt#2);
+
+        if $stack6 == 0 goto label2;
+
+     label1:
+        $stack7#3 = 1;
+
+        goto label3;
+
+     label2:
+        $stack7#3 = 0;
+
+     label3:
+        return $stack7#3;
+    }
+
+    public org.apache.commons.cli.OptionGroup getOptionGroup(org.apache.commons.cli.Option)
+    {
+        org.apache.commons.cli.Options this;
+        org.apache.commons.cli.Option opt;
+        java.util.Map $stack2;
+        java.lang.String $stack3;
+        java.lang.Object $stack4;
+        org.apache.commons.cli.OptionGroup $stack5;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        opt := @parameter0: org.apache.commons.cli.Option;
+
+        $stack2 = this.<org.apache.commons.cli.Options: java.util.Map optionGroups>;
+
+        $stack3 = virtualinvoke opt.<org.apache.commons.cli.Option: java.lang.String getKey()>();
+
+        $stack4 = interfaceinvoke $stack2.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack3);
+
+        $stack5 = (org.apache.commons.cli.OptionGroup) $stack4;
+
+        return $stack5;
+    }
+
+    public java.lang.String toString()
+    {
+        java.lang.StringBuffer $stack2;
+        org.apache.commons.cli.Options this;
+        java.util.Map $stack4, $stack8;
+        java.lang.String $stack5, $stack11;
+
+        this := @this: org.apache.commons.cli.Options;
+
+        $stack2 = new java.lang.StringBuffer;
+
+        specialinvoke $stack2.<java.lang.StringBuffer: void <init>()>();
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("[ Options: [ short ");
+
+        $stack4 = this.<org.apache.commons.cli.Options: java.util.Map shortOpts>;
+
+        $stack5 = virtualinvoke $stack4.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack5);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" ] [ long ");
+
+        $stack8 = this.<org.apache.commons.cli.Options: java.util.Map longOpts>;
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.Object)>($stack8);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" ]");
+
+        $stack11 = virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $stack11;
+    }
+
+    public static void <clinit>()
+    {
+        <org.apache.commons.cli.Options: long serialVersionUID> = 1L;
+
+        return;
+    }
+}

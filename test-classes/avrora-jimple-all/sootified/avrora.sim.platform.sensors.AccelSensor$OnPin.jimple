@@ -1,0 +1,49 @@
+class avrora.sim.platform.sensors.AccelSensor$OnPin extends java.lang.Object implements avrora.sim.mcu.Microcontroller$Pin$Output
+{
+    final avrora.sim.platform.sensors.AccelSensor this$0;
+
+    void <init>(avrora.sim.platform.sensors.AccelSensor)
+    {
+        avrora.sim.platform.sensors.AccelSensor$OnPin this;
+        avrora.sim.platform.sensors.AccelSensor this$0;
+
+        this := @this: avrora.sim.platform.sensors.AccelSensor$OnPin;
+
+        this$0 := @parameter0: avrora.sim.platform.sensors.AccelSensor;
+
+        this.<avrora.sim.platform.sensors.AccelSensor$OnPin: avrora.sim.platform.sensors.AccelSensor this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void write(boolean)
+    {
+        avrora.sim.platform.sensors.AccelSensor$OnPin this;
+        boolean val;
+        avrora.sim.platform.sensors.AccelSensor $stack2, $stack3, $stack4;
+        avrora.sim.FiniteStateMachine $stack5;
+        int $stack6;
+
+        this := @this: avrora.sim.platform.sensors.AccelSensor$OnPin;
+
+        val := @parameter0: boolean;
+
+        $stack2 = this.<avrora.sim.platform.sensors.AccelSensor$OnPin: avrora.sim.platform.sensors.AccelSensor this$0>;
+
+        $stack2.<avrora.sim.platform.sensors.AccelSensor: boolean on> = val;
+
+        $stack3 = this.<avrora.sim.platform.sensors.AccelSensor$OnPin: avrora.sim.platform.sensors.AccelSensor this$0>;
+
+        $stack5 = $stack3.<avrora.sim.platform.sensors.AccelSensor: avrora.sim.FiniteStateMachine fsm>;
+
+        $stack4 = this.<avrora.sim.platform.sensors.AccelSensor$OnPin: avrora.sim.platform.sensors.AccelSensor this$0>;
+
+        $stack6 = staticinvoke <avrora.sim.platform.sensors.AccelSensor: int access$000(avrora.sim.platform.sensors.AccelSensor)>($stack4);
+
+        virtualinvoke $stack5.<avrora.sim.FiniteStateMachine: void transition(int)>($stack6);
+
+        return;
+    }
+}

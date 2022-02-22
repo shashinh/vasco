@@ -1,0 +1,98 @@
+public class avrora.sim.types.SingleSimulation extends avrora.sim.Simulation
+{
+    protected static final java.lang.String HELP;
+
+    public void <init>()
+    {
+        avrora.sim.types.SingleSimulation this;
+        java.lang.String $stack4;
+        cck.util.Options $stack5;
+        cck.util.Option$List $stack6;
+        avrora.sim.clock.Synchronizer$Single $u0;
+        avrora.sim.clock.Synchronizer $r0;
+
+        this := @this: avrora.sim.types.SingleSimulation;
+
+        $u0 = new avrora.sim.clock.Synchronizer$Single;
+
+        specialinvoke $u0.<avrora.sim.clock.Synchronizer$Single: void <init>()>();
+
+        $r0 = (avrora.sim.clock.Synchronizer) $u0;
+
+        specialinvoke this.<avrora.sim.Simulation: void <init>(java.lang.String,java.lang.String,avrora.sim.clock.Synchronizer)>("single", "The \"single\" simulation type corresponds to a standard simulation of a single microcontroller with a single program.", $r0);
+
+        $stack4 = this.<avrora.sim.types.SingleSimulation: java.lang.String help>;
+
+        virtualinvoke this.<avrora.sim.types.SingleSimulation: void addSection(java.lang.String,java.lang.String)>("SINGLE NODE SIMULATION OVERVIEW", $stack4);
+
+        $stack5 = this.<avrora.sim.types.SingleSimulation: cck.util.Options options>;
+
+        virtualinvoke this.<avrora.sim.types.SingleSimulation: void addOptionSection(java.lang.String,cck.util.Options)>("The most basic type of simulation, the single node simulation, is designed to simulate a single microcontroller running a single program. Help for specific options relating to simulating a single node is below.", $stack5);
+
+        $stack6 = this.<avrora.sim.types.SingleSimulation: cck.util.Option$List MONITORS>;
+
+        virtualinvoke $stack6.<cck.util.Option$List: void setNewDefault(java.lang.String)>("leds");
+
+        return;
+    }
+
+    public void process(cck.util.Options, java.lang.String[]) throws java.lang.Exception
+    {
+        avrora.sim.types.SingleSimulation this;
+        cck.util.Options o, $stack5;
+        java.lang.String[] args;
+        int $stack6, $stack7;
+        avrora.core.LoadableProgram $stack8;
+        java.lang.String $stack9;
+        avrora.sim.platform.PlatformFactory pf;
+
+        this := @this: avrora.sim.types.SingleSimulation;
+
+        o := @parameter0: cck.util.Options;
+
+        args := @parameter1: java.lang.String[];
+
+        $stack5 = this.<avrora.sim.types.SingleSimulation: cck.util.Options options>;
+
+        virtualinvoke $stack5.<cck.util.Options: void process(cck.util.Options)>(o);
+
+        virtualinvoke this.<avrora.sim.types.SingleSimulation: void processMonitorList()>();
+
+        $stack6 = lengthof args;
+
+        if $stack6 != 0 goto label1;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("Simulation error", "No program specified");
+
+     label1:
+        $stack7 = lengthof args;
+
+        if $stack7 <= 1 goto label2;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("Simulation error", "Single node simulation accepts only one program");
+
+     label2:
+        staticinvoke <avrora.Main: void checkFilesExist(java.lang.String[])>(args);
+
+        $stack8 = new avrora.core.LoadableProgram;
+
+        $stack9 = args[0];
+
+        specialinvoke $stack8.<avrora.core.LoadableProgram: void <init>(java.lang.String)>($stack9);
+
+        virtualinvoke $stack8.<avrora.core.LoadableProgram: void load()>();
+
+        pf = virtualinvoke this.<avrora.sim.types.SingleSimulation: avrora.sim.platform.PlatformFactory getPlatform()>();
+
+        virtualinvoke this.<avrora.sim.types.SingleSimulation: avrora.sim.Simulation$Node createNode(avrora.sim.platform.PlatformFactory,avrora.core.LoadableProgram)>(pf, $stack8);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.types.SingleSimulation: java.lang.String HELP> = "The \"single\" simulation type corresponds to a standard simulation of a single microcontroller with a single program.";
+
+        return;
+    }
+}

@@ -1,0 +1,28 @@
+class B extends java.lang.Object
+{
+
+    void <init>()
+    {
+        B r0;
+
+        r0 := @this: B;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    void print()
+    {
+        java.io.PrintStream $r0;
+        B r1;
+
+        r1 := @this: B;
+
+        $r0 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r0.<java.io.PrintStream: void println(java.lang.String)>("hello from print");
+
+        return;
+    }
+}

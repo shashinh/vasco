@@ -1,0 +1,178 @@
+public class avrora.sim.mcu.ATMegaFamily$FlagRegister extends avrora.sim.RWRegister
+{
+    protected final int[] mapping;
+    protected final avrora.sim.AtmelInterpreter interpreter;
+
+    public void <init>(avrora.sim.AtmelInterpreter, int[])
+    {
+        avrora.sim.mcu.ATMegaFamily$FlagRegister this;
+        int[] map, $stack7, $stack12;
+        avrora.sim.AtmelInterpreter interp, $stack5;
+        avrora.sim.InterruptTable it;
+        int $stack8, $stack13, cntr#1;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification $stack11;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$FlagRegister;
+
+        interp := @parameter0: avrora.sim.AtmelInterpreter;
+
+        map := @parameter1: int[];
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: int[] mapping> = map;
+
+        this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: avrora.sim.AtmelInterpreter interpreter> = interp;
+
+        $stack5 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: avrora.sim.AtmelInterpreter interpreter>;
+
+        it = virtualinvoke $stack5.<avrora.sim.AtmelInterpreter: avrora.sim.InterruptTable getInterruptTable()>();
+
+        cntr#1 = 0;
+
+     label1:
+        if cntr#1 >= 8 goto label3;
+
+        $stack7 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: int[] mapping>;
+
+        $stack8 = $stack7[cntr#1];
+
+        if $stack8 <= 0 goto label2;
+
+        $stack11 = new avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification;
+
+        specialinvoke $stack11.<avrora.sim.mcu.ATMegaFamily$FlagRegister$Notification: void <init>(avrora.sim.mcu.ATMegaFamily$FlagRegister,int)>(this, cntr#1);
+
+        $stack12 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: int[] mapping>;
+
+        $stack13 = $stack12[cntr#1];
+
+        virtualinvoke it.<avrora.sim.InterruptTable: void registerInternalNotification(avrora.sim.InterruptTable$Notification,int)>($stack11, $stack13);
+
+     label2:
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label3:
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.ATMegaFamily$FlagRegister this;
+        byte val, $stack4, $stack6;
+        int $stack3, $stack5, cntr#1;
+        boolean $stack7;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$FlagRegister;
+
+        val := @parameter0: byte;
+
+        $stack4 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value>;
+
+        $stack3 = val ^ -1;
+
+        $stack5 = $stack4 & $stack3;
+
+        $stack6 = (byte) $stack5;
+
+        this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value> = $stack6;
+
+        cntr#1 = 0;
+
+     label1:
+        if cntr#1 >= 8 goto label4;
+
+        $stack7 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, cntr#1);
+
+        if $stack7 != 0 goto label2;
+
+        goto label3;
+
+     label2:
+        specialinvoke this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: void setPosted(int,boolean)>(cntr#1, 0);
+
+     label3:
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    private void setPosted(int, boolean)
+    {
+        avrora.sim.mcu.ATMegaFamily$FlagRegister this;
+        int inum, $stack4, $stack6;
+        int[] $stack3, $stack5;
+        boolean p;
+        avrora.sim.AtmelInterpreter $stack7;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$FlagRegister;
+
+        inum := @parameter0: int;
+
+        p := @parameter1: boolean;
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: int[] mapping>;
+
+        $stack4 = $stack3[inum];
+
+        if $stack4 <= 0 goto label1;
+
+        $stack7 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack5 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: int[] mapping>;
+
+        $stack6 = $stack5[inum];
+
+        virtualinvoke $stack7.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>($stack6, p);
+
+     label1:
+        return;
+    }
+
+    public void flagBit(int)
+    {
+        avrora.sim.mcu.ATMegaFamily$FlagRegister this;
+        int bit;
+        byte $stack2, $stack3;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$FlagRegister;
+
+        bit := @parameter0: int;
+
+        $stack2 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value>;
+
+        $stack3 = staticinvoke <cck.util.Arithmetic: byte setBit(byte,int)>($stack2, bit);
+
+        this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value> = $stack3;
+
+        specialinvoke this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: void setPosted(int,boolean)>(bit, 1);
+
+        return;
+    }
+
+    public void unflagBit(int)
+    {
+        avrora.sim.mcu.ATMegaFamily$FlagRegister this;
+        int bit;
+        byte $stack2, $stack3;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$FlagRegister;
+
+        bit := @parameter0: int;
+
+        $stack2 = this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value>;
+
+        $stack3 = staticinvoke <cck.util.Arithmetic: byte clearBit(byte,int)>($stack2, bit);
+
+        this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: byte value> = $stack3;
+
+        specialinvoke this.<avrora.sim.mcu.ATMegaFamily$FlagRegister: void setPosted(int,boolean)>(bit, 0);
+
+        return;
+    }
+}

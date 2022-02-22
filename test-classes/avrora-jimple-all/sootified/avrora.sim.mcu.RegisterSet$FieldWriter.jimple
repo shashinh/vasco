@@ -1,0 +1,40 @@
+class avrora.sim.mcu.RegisterSet$FieldWriter extends java.lang.Object
+{
+    int value;
+    int writtenMask;
+    avrora.sim.mcu.RegisterSet$Field fobject;
+
+    void <init>()
+    {
+        avrora.sim.mcu.RegisterSet$FieldWriter this;
+
+        this := @this: avrora.sim.mcu.RegisterSet$FieldWriter;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    void commit()
+    {
+        avrora.sim.mcu.RegisterSet$FieldWriter this;
+        int $stack1, $stack2;
+        avrora.sim.mcu.RegisterSet$Field $stack3;
+
+        this := @this: avrora.sim.mcu.RegisterSet$FieldWriter;
+
+        $stack3 = this.<avrora.sim.mcu.RegisterSet$FieldWriter: avrora.sim.mcu.RegisterSet$Field fobject>;
+
+        $stack2 = this.<avrora.sim.mcu.RegisterSet$FieldWriter: int value>;
+
+        $stack1 = this.<avrora.sim.mcu.RegisterSet$FieldWriter: int writtenMask>;
+
+        virtualinvoke $stack3.<avrora.sim.mcu.RegisterSet$Field: void write(int,int)>($stack2, $stack1);
+
+        this.<avrora.sim.mcu.RegisterSet$FieldWriter: int value> = 0;
+
+        this.<avrora.sim.mcu.RegisterSet$FieldWriter: int writtenMask> = 0;
+
+        return;
+    }
+}

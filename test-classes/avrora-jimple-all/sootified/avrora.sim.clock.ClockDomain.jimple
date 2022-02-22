@@ -1,0 +1,190 @@
+public class avrora.sim.clock.ClockDomain extends java.lang.Object
+{
+    protected final java.util.HashMap clockMap;
+    protected final avrora.sim.clock.MainClock mainClock;
+
+    public void <init>(long)
+    {
+        avrora.sim.clock.ClockDomain this;
+        java.util.HashMap $stack3, $stack6;
+        avrora.sim.clock.MainClock $stack4, $stack5;
+        long mainHz;
+
+        this := @this: avrora.sim.clock.ClockDomain;
+
+        mainHz := @parameter0: long;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack3 = new java.util.HashMap;
+
+        specialinvoke $stack3.<java.util.HashMap: void <init>()>();
+
+        this.<avrora.sim.clock.ClockDomain: java.util.HashMap clockMap> = $stack3;
+
+        $stack4 = new avrora.sim.clock.MainClock;
+
+        specialinvoke $stack4.<avrora.sim.clock.MainClock: void <init>(java.lang.String,long)>("main", mainHz);
+
+        this.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock mainClock> = $stack4;
+
+        $stack6 = this.<avrora.sim.clock.ClockDomain: java.util.HashMap clockMap>;
+
+        $stack5 = this.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock mainClock>;
+
+        virtualinvoke $stack6.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("main", $stack5);
+
+        return;
+    }
+
+    public avrora.sim.clock.MainClock getMainClock()
+    {
+        avrora.sim.clock.ClockDomain this;
+        avrora.sim.clock.MainClock $stack1;
+
+        this := @this: avrora.sim.clock.ClockDomain;
+
+        $stack1 = this.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock mainClock>;
+
+        return $stack1;
+    }
+
+    public avrora.sim.clock.Clock getClock(java.lang.String)
+    {
+        avrora.sim.clock.ClockDomain this;
+        java.lang.String name, $stack7, $stack10;
+        java.util.HashMap $stack3;
+        java.lang.Object $stack4;
+        avrora.sim.clock.Clock clock;
+        java.util.NoSuchElementException $stack5;
+        java.lang.StringBuilder $stack6, $stack8, $stack9;
+
+        this := @this: avrora.sim.clock.ClockDomain;
+
+        name := @parameter0: java.lang.String;
+
+        $stack3 = this.<avrora.sim.clock.ClockDomain: java.util.HashMap clockMap>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(name);
+
+        clock = (avrora.sim.clock.Clock) $stack4;
+
+        if clock != null goto label1;
+
+        $stack5 = new java.util.NoSuchElementException;
+
+        $stack6 = new java.lang.StringBuilder;
+
+        specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(name);
+
+        $stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack7);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" clock not found");
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack5.<java.util.NoSuchElementException: void <init>(java.lang.String)>($stack10);
+
+        throw $stack5;
+
+     label1:
+        return clock;
+    }
+
+    public void addClock(avrora.sim.clock.Clock)
+    {
+        avrora.sim.clock.ClockDomain this;
+        avrora.sim.clock.Clock c;
+        java.util.HashMap $stack2;
+        java.lang.String $stack3;
+
+        this := @this: avrora.sim.clock.ClockDomain;
+
+        c := @parameter0: avrora.sim.clock.Clock;
+
+        $stack2 = this.<avrora.sim.clock.ClockDomain: java.util.HashMap clockMap>;
+
+        $stack3 = virtualinvoke c.<avrora.sim.clock.Clock: java.lang.String getName()>();
+
+        virtualinvoke $stack2.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack3, c);
+
+        return;
+    }
+
+    public avrora.sim.clock.Clock newClock(java.lang.String, long)
+    {
+        long hz, $stack6;
+        avrora.sim.clock.ClockDomain this;
+        avrora.sim.clock.MainClock $stack5, $stack9, $stack10, $stack13;
+        byte $stack7;
+        avrora.sim.clock.DerivedClock $stack8;
+        java.lang.String name;
+        java.util.HashMap $stack11;
+
+        this := @this: avrora.sim.clock.ClockDomain;
+
+        name := @parameter0: java.lang.String;
+
+        hz := @parameter1: long;
+
+        $stack5 = this.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock mainClock>;
+
+        $stack6 = virtualinvoke $stack5.<avrora.sim.clock.MainClock: long getHZ()>();
+
+        $stack7 = hz cmp $stack6;
+
+        if $stack7 != 0 goto label1;
+
+        $stack11 = this.<avrora.sim.clock.ClockDomain: java.util.HashMap clockMap>;
+
+        $stack10 = this.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock mainClock>;
+
+        virtualinvoke $stack11.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(name, $stack10);
+
+        $stack13 = this.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock mainClock>;
+
+        return $stack13;
+
+     label1:
+        $stack8 = new avrora.sim.clock.DerivedClock;
+
+        $stack9 = this.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock mainClock>;
+
+        specialinvoke $stack8.<avrora.sim.clock.DerivedClock: void <init>(java.lang.String,avrora.sim.clock.Clock,long)>(name, $stack9, hz);
+
+        virtualinvoke this.<avrora.sim.clock.ClockDomain: void addClock(avrora.sim.clock.Clock)>($stack8);
+
+        return $stack8;
+    }
+
+    public boolean hasClock(java.lang.String)
+    {
+        avrora.sim.clock.ClockDomain this;
+        java.lang.String name;
+        java.util.HashMap $stack2;
+        java.lang.Object $stack3;
+        boolean $stack4#1;
+
+        this := @this: avrora.sim.clock.ClockDomain;
+
+        name := @parameter0: java.lang.String;
+
+        $stack2 = this.<avrora.sim.clock.ClockDomain: java.util.HashMap clockMap>;
+
+        $stack3 = virtualinvoke $stack2.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(name);
+
+        if $stack3 == null goto label1;
+
+        $stack4#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack4#1 = 0;
+
+     label2:
+        return $stack4#1;
+    }
+}

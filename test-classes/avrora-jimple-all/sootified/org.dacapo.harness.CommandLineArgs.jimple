@@ -1,0 +1,1496 @@
+public class org.dacapo.harness.CommandLineArgs extends java.lang.Object
+{
+    public static final int EXIT_OK;
+    public static final int EXIT_MISSING_CALLBACK;
+    public static final int EXIT_BAD_CALLBACK;
+    public static final int EXIT_BAD_COMMANDLINE;
+    public static final int EXIT_UNKNOWN_BENCHMARK;
+    public static final int EXIT_MISSING_BENCHMARKS;
+    public static final java.lang.String RELEASE_NOTES;
+    public static final java.lang.String DEFAULT_SIZE;
+    public static final java.lang.String DEFAULT_SCRATCH_DIRECTORY;
+    public static final java.lang.String DEFAULT_MAX_ITERATIONS;
+    public static final java.lang.String DEFAULT_WINDOW_SIZE;
+    public static final java.lang.String DEFAULT_VARIANCE;
+    public static final java.lang.String DEFAULT_ITERATIONS;
+    public static final java.lang.String DEFAULT_THREAD_COUNT;
+    public static final java.lang.String DEFAULT_THREAD_FACTOR;
+    public static final java.lang.String DEFAULT_TIMEOUT_DIALATION;
+    private static final java.lang.String OPT_CALLBACK;
+    private static final java.lang.String OPT_HELP;
+    private static final java.lang.String OPT_RELEASE_NOTES;
+    private static final java.lang.String OPT_LIST_BENCHMARKS;
+    private static final java.lang.String OPT_INFORMATION;
+    private static final java.lang.String OPT_SIZE;
+    private static final java.lang.String OPT_SIZES;
+    private static final java.lang.String OPT_SCRATCH_DIRECTORY;
+    private static final java.lang.String OPT_CONVERGE;
+    private static final java.lang.String OPT_MAX_ITERATIONS;
+    private static final java.lang.String OPT_VARIANCE;
+    private static final java.lang.String OPT_WINDOW;
+    private static final java.lang.String OPT_ITERATIONS;
+    private static final java.lang.String OPT_DEBUG;
+    private static final java.lang.String OPT_IGNORE_VALIDATION;
+    private static final java.lang.String OPT_NO_DIGEST_OUTPUT;
+    private static final java.lang.String OPT_NO_VALIDATION;
+    private static final java.lang.String OPT_PRESERVE;
+    private static final java.lang.String OPT_VALIDATION_REPORT;
+    private static final java.lang.String OPT_CONFIG;
+    private static final java.lang.String OPT_VERBOSE;
+    private static final java.lang.String OPT_NO_PRE_ITERATION_GC;
+    private static final java.lang.String OPT_THREAD_COUNT;
+    private static final java.lang.String OPT_THREAD_FACTOR;
+    private static final java.lang.String OPT_TIMEOUT_DIALATION;
+    private static final org.apache.commons.cli.Option[] OPTIONS;
+    private static org.apache.commons.cli.CommandLineParser parser;
+    private static org.apache.commons.cli.Options options;
+    private static org.apache.commons.cli.Options visibleOptions;
+    private org.apache.commons.cli.CommandLine line;
+    private org.dacapo.harness.Callback callback;
+    private java.util.List benchmarks;
+    static final boolean $assertionsDisabled;
+
+    void <init>(java.lang.String[]) throws java.lang.Exception
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.Option[] $stack5, $stack87, $stack91, $stack95;
+        int $stack6, i#1;
+        java.util.ArrayList $stack7;
+        java.lang.String[] args;
+        org.apache.commons.cli.Options $stack8, $stack89, $stack97;
+        org.apache.commons.cli.CommandLineParser $stack9;
+        org.apache.commons.cli.CommandLine $stack10, $stack11, $stack13, $stack15, $stack17, $stack22, $stack29, $stack53, $stack68, $stack73, $stack77, $stack19#10, $stack25#24;
+        boolean $stack12, $stack14, $stack16, $stack18, $stack23, $stack31, $stack34, $stack56, $stack58, $stack70, $stack74, $stack78, i#2, $stack21#14, $stack27#30;
+        java.io.File $stack28;
+        java.lang.String $stack30, $stack33, $stack38, $stack40, $stack41, $stack47, $stack49, $stack63, $stack65, $stack93, $stack103, $stack105, $stack112, $stack114;
+        java.lang.StringBuilder $stack35, $stack37, $stack39, $stack44, $stack46, $stack48, $stack59, $stack61, $stack62, $stack100, $stack102, $stack104, $stack109, $stack111, $stack113;
+        java.io.PrintStream $stack36, $stack45, $stack60, $stack72, $stack101, $stack110;
+        java.util.List $stack42, $stack54, $stack66, $stack69, $stack20#12, i#18, $stack26#27;
+        org.apache.commons.cli.ParseException $stack80, $stack108;
+        org.apache.commons.cli.Option $stack88, $stack92, $stack96;
+        java.lang.Exception $stack99;
+        java.util.Iterator cnfFile#31;
+        java.lang.Object bm#32;
+        org.dacapo.parser.Config bm#34;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        args := @parameter0: java.lang.String[];
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        i#1 = 0;
+
+     label01:
+        $stack5 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option[] OPTIONS>;
+
+        $stack6 = lengthof $stack5;
+
+        if i#1 >= $stack6 goto label03;
+
+        $stack89 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Options options>;
+
+        $stack87 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option[] OPTIONS>;
+
+        $stack88 = $stack87[i#1];
+
+        virtualinvoke $stack89.<org.apache.commons.cli.Options: org.apache.commons.cli.Options addOption(org.apache.commons.cli.Option)>($stack88);
+
+        $stack91 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option[] OPTIONS>;
+
+        $stack92 = $stack91[i#1];
+
+        $stack93 = virtualinvoke $stack92.<org.apache.commons.cli.Option: java.lang.String getDescription()>();
+
+        if $stack93 == null goto label02;
+
+        $stack97 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Options visibleOptions>;
+
+        $stack95 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option[] OPTIONS>;
+
+        $stack96 = $stack95[i#1];
+
+        virtualinvoke $stack97.<org.apache.commons.cli.Options: org.apache.commons.cli.Options addOption(org.apache.commons.cli.Option)>($stack96);
+
+     label02:
+        i#1 = i#1 + 1;
+
+        goto label01;
+
+     label03:
+        this.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.Callback callback> = null;
+
+        $stack7 = new java.util.ArrayList;
+
+        specialinvoke $stack7.<java.util.ArrayList: void <init>()>();
+
+        this.<org.dacapo.harness.CommandLineArgs: java.util.List benchmarks> = $stack7;
+
+     label04:
+        i#2 = 0;
+
+        $stack9 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLineParser parser>;
+
+        $stack8 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Options options>;
+
+        $stack10 = interfaceinvoke $stack9.<org.apache.commons.cli.CommandLineParser: org.apache.commons.cli.CommandLine parse(org.apache.commons.cli.Options,java.lang.String[])>($stack8, args);
+
+        this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line> = $stack10;
+
+        $stack11 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack12 = virtualinvoke $stack11.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("list-benchmarks");
+
+        if $stack12 == 0 goto label05;
+
+        staticinvoke <org.dacapo.harness.CommandLineArgs: void printBenchmarks()>();
+
+        i#2 = 1;
+
+     label05:
+        $stack13 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack14 = virtualinvoke $stack13.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("release-notes");
+
+        if $stack14 == 0 goto label06;
+
+        staticinvoke <org.dacapo.harness.CommandLineArgs: void printReleaseNotes()>();
+
+        i#2 = 1;
+
+     label06:
+        $stack15 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack16 = virtualinvoke $stack15.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("help");
+
+        if $stack16 == 0 goto label07;
+
+        staticinvoke <org.dacapo.harness.CommandLineArgs: void printUsage()>();
+
+        i#2 = 1;
+
+     label07:
+        $stack17 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack18 = virtualinvoke $stack17.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("thread-factor");
+
+        if $stack18 == 0 goto label08;
+
+        $stack77 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack78 = virtualinvoke $stack77.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("thread-count");
+
+        if $stack78 == 0 goto label08;
+
+        $stack80 = new org.apache.commons.cli.ParseException;
+
+        specialinvoke $stack80.<org.apache.commons.cli.ParseException: void <init>(java.lang.String)>("Cannot specify -t and -k options.");
+
+        throw $stack80;
+
+     label08:
+        if i#2 == 0 goto label09;
+
+        staticinvoke <java.lang.System: void exit(int)>(0);
+
+     label09:
+        goto label12;
+
+     label10:
+        $stack108 := @caughtexception;
+
+        $stack110 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack109 = new java.lang.StringBuilder;
+
+        specialinvoke $stack109.<java.lang.StringBuilder: void <init>()>();
+
+        $stack111 = virtualinvoke $stack109.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Command line exception: ");
+
+        $stack112 = virtualinvoke $stack108.<org.apache.commons.cli.ParseException: java.lang.String getMessage()>();
+
+        $stack113 = virtualinvoke $stack111.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack112);
+
+        $stack114 = virtualinvoke $stack113.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack110.<java.io.PrintStream: void println(java.lang.String)>($stack114);
+
+        staticinvoke <java.lang.System: void exit(int)>(4);
+
+        goto label12;
+
+     label11:
+        $stack99 := @caughtexception;
+
+        $stack101 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack100 = new java.lang.StringBuilder;
+
+        specialinvoke $stack100.<java.lang.StringBuilder: void <init>()>();
+
+        $stack102 = virtualinvoke $stack100.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Exception processing command line values: ");
+
+        $stack103 = virtualinvoke $stack99.<java.lang.Exception: java.lang.String getMessage()>();
+
+        $stack104 = virtualinvoke $stack102.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack103);
+
+        $stack105 = virtualinvoke $stack104.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack101.<java.io.PrintStream: void println(java.lang.String)>($stack105);
+
+        staticinvoke <java.lang.System: void exit(int)>(4);
+
+     label12:
+        specialinvoke this.<org.dacapo.harness.CommandLineArgs: void defineCallback()>();
+
+        $stack19#10 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack20#12 = virtualinvoke $stack19#10.<org.apache.commons.cli.CommandLine: java.util.List getArgList()>();
+
+        $stack21#14 = interfaceinvoke $stack20#12.<java.util.List: boolean isEmpty()>();
+
+        if $stack21#14 == 0 goto label13;
+
+        $stack73 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack74 = virtualinvoke $stack73.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("config");
+
+        if $stack74 != 0 goto label13;
+
+        staticinvoke <org.dacapo.harness.CommandLineArgs: void printUsage()>();
+
+        staticinvoke <java.lang.System: void exit(int)>(10);
+
+        goto label14;
+
+     label13:
+        $stack22 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack23 = virtualinvoke $stack22.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("config");
+
+        if $stack23 == 0 goto label14;
+
+        $stack68 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack69 = virtualinvoke $stack68.<org.apache.commons.cli.CommandLine: java.util.List getArgList()>();
+
+        $stack70 = interfaceinvoke $stack69.<java.util.List: boolean isEmpty()>();
+
+        if $stack70 != 0 goto label14;
+
+        $stack72 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack72.<java.io.PrintStream: void println(java.lang.String)>("You may only specify a cnf or a list of benchmarks, but not both");
+
+        staticinvoke <java.lang.System: void exit(int)>(4);
+
+     label14:
+        i#18 = staticinvoke <org.dacapo.harness.CommandLineArgs: java.util.List extractBenchmarkSet()>();
+
+        $stack25#24 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack26#27 = virtualinvoke $stack25#24.<org.apache.commons.cli.CommandLine: java.util.List getArgList()>();
+
+        $stack27#30 = interfaceinvoke $stack26#27.<java.util.List: boolean isEmpty()>();
+
+        if $stack27#30 != 0 goto label19;
+
+        $stack53 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack54 = virtualinvoke $stack53.<org.apache.commons.cli.CommandLine: java.util.List getArgList()>();
+
+        cnfFile#31 = interfaceinvoke $stack54.<java.util.List: java.util.Iterator iterator()>();
+
+     label15:
+        $stack56 = interfaceinvoke cnfFile#31.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack56 == 0 goto label18;
+
+        bm#32 = interfaceinvoke cnfFile#31.<java.util.Iterator: java.lang.Object next()>();
+
+        $stack58 = interfaceinvoke i#18.<java.util.List: boolean contains(java.lang.Object)>(bm#32);
+
+        if $stack58 == 0 goto label16;
+
+        $stack66 = this.<org.dacapo.harness.CommandLineArgs: java.util.List benchmarks>;
+
+        $stack65 = (java.lang.String) bm#32;
+
+        interfaceinvoke $stack66.<java.util.List: boolean add(java.lang.Object)>($stack65);
+
+        goto label17;
+
+     label16:
+        $stack60 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack59 = new java.lang.StringBuilder;
+
+        specialinvoke $stack59.<java.lang.StringBuilder: void <init>()>();
+
+        $stack61 = virtualinvoke $stack59.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unknown benchmark: ");
+
+        $stack62 = virtualinvoke $stack61.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(bm#32);
+
+        $stack63 = virtualinvoke $stack62.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack60.<java.io.PrintStream: void println(java.lang.String)>($stack63);
+
+        staticinvoke <java.lang.System: void exit(int)>(9);
+
+     label17:
+        goto label15;
+
+     label18:
+        goto label22;
+
+     label19:
+        $stack28 = new java.io.File;
+
+        $stack29 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack30 = virtualinvoke $stack29.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String)>("config");
+
+        specialinvoke $stack28.<java.io.File: void <init>(java.lang.String)>($stack30);
+
+        $stack31 = virtualinvoke $stack28.<java.io.File: boolean canRead()>();
+
+        if $stack31 != 0 goto label20;
+
+        $stack45 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack44 = new java.lang.StringBuilder;
+
+        specialinvoke $stack44.<java.lang.StringBuilder: void <init>()>();
+
+        $stack46 = virtualinvoke $stack44.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unknown config file: ");
+
+        $stack47 = virtualinvoke $stack28.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $stack48 = virtualinvoke $stack46.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack47);
+
+        $stack49 = virtualinvoke $stack48.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack45.<java.io.PrintStream: void println(java.lang.String)>($stack49);
+
+        staticinvoke <java.lang.System: void exit(int)>(9);
+
+     label20:
+        bm#34 = staticinvoke <org.dacapo.parser.Config: org.dacapo.parser.Config parse(java.io.File)>($stack28);
+
+        $stack33 = bm#34.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack34 = interfaceinvoke i#18.<java.util.List: boolean contains(java.lang.Object)>($stack33);
+
+        if $stack34 == 0 goto label21;
+
+        $stack42 = this.<org.dacapo.harness.CommandLineArgs: java.util.List benchmarks>;
+
+        $stack41 = bm#34.<org.dacapo.parser.Config: java.lang.String name>;
+
+        interfaceinvoke $stack42.<java.util.List: boolean add(java.lang.Object)>($stack41);
+
+        goto label22;
+
+     label21:
+        $stack36 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack35 = new java.lang.StringBuilder;
+
+        specialinvoke $stack35.<java.lang.StringBuilder: void <init>()>();
+
+        $stack37 = virtualinvoke $stack35.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unknown benchmark specified in cnf file: ");
+
+        $stack38 = bm#34.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack39 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack38);
+
+        $stack40 = virtualinvoke $stack39.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack36.<java.io.PrintStream: void println(java.lang.String)>($stack40);
+
+        staticinvoke <java.lang.System: void exit(int)>(9);
+
+     label22:
+        return;
+
+        catch org.apache.commons.cli.ParseException from label04 to label09 with label10;
+        catch java.lang.Exception from label04 to label09 with label11;
+    }
+
+    static void printUsage()
+    {
+        org.apache.commons.cli.HelpFormatter $stack1;
+        org.apache.commons.cli.Options $stack2;
+
+        $stack1 = new org.apache.commons.cli.HelpFormatter;
+
+        specialinvoke $stack1.<org.apache.commons.cli.HelpFormatter: void <init>()>();
+
+        $stack2 = <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Options visibleOptions>;
+
+        virtualinvoke $stack1.<org.apache.commons.cli.HelpFormatter: void printHelp(java.lang.String,org.apache.commons.cli.Options)>("DaCapo Benchmark suite", $stack2);
+
+        return;
+    }
+
+    static void printReleaseNotes() throws java.io.IOException
+    {
+        java.io.BufferedReader $stack2;
+        java.io.InputStreamReader $stack3;
+        java.lang.Class $stack4;
+        java.lang.ClassLoader $stack5;
+        java.io.InputStream $stack6;
+        java.lang.String $stack7;
+        java.io.PrintStream $stack8;
+
+        $stack2 = new java.io.BufferedReader;
+
+        $stack3 = new java.io.InputStreamReader;
+
+        $stack4 = class "Lorg/dacapo/harness/CommandLineArgs;";
+
+        $stack5 = virtualinvoke $stack4.<java.lang.Class: java.lang.ClassLoader getClassLoader()>();
+
+        $stack6 = virtualinvoke $stack5.<java.lang.ClassLoader: java.io.InputStream getResourceAsStream(java.lang.String)>("RELEASE_NOTES.txt");
+
+        specialinvoke $stack3.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($stack6);
+
+        specialinvoke $stack2.<java.io.BufferedReader: void <init>(java.io.Reader)>($stack3);
+
+     label1:
+        $stack7 = virtualinvoke $stack2.<java.io.BufferedReader: java.lang.String readLine()>();
+
+        if $stack7 == null goto label2;
+
+        $stack8 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack8.<java.io.PrintStream: void println(java.lang.String)>($stack7);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    static void printBenchmarks() throws java.io.IOException
+    {
+        java.util.TreeSet $stack1;
+        java.util.List $stack2;
+        java.util.Iterator iter;
+        java.io.PrintStream $stack5, $stack6, $stack11;
+        java.lang.Object $stack7;
+        java.lang.String $stack8;
+        boolean $stack9, $stack4#4;
+
+        $stack1 = new java.util.TreeSet;
+
+        $stack2 = staticinvoke <org.dacapo.harness.CommandLineArgs: java.util.List extractBenchmarkSet()>();
+
+        specialinvoke $stack1.<java.util.TreeSet: void <init>(java.util.Collection)>($stack2);
+
+        iter = virtualinvoke $stack1.<java.util.TreeSet: java.util.Iterator iterator()>();
+
+     label1:
+        $stack4#4 = interfaceinvoke iter.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack4#4 == 0 goto label2;
+
+        $stack6 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack7 = interfaceinvoke iter.<java.util.Iterator: java.lang.Object next()>();
+
+        $stack8 = (java.lang.String) $stack7;
+
+        virtualinvoke $stack6.<java.io.PrintStream: void print(java.lang.String)>($stack8);
+
+        $stack9 = interfaceinvoke iter.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack9 == 0 goto label1;
+
+        $stack11 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack11.<java.io.PrintStream: void print(java.lang.String)>(" ");
+
+        goto label1;
+
+     label2:
+        $stack5 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack5.<java.io.PrintStream: void println()>();
+
+        return;
+    }
+
+    static java.util.List extractBenchmarkSet() throws java.io.IOException
+    {
+        java.util.ArrayList $stack7;
+        java.lang.Class $stack8;
+        java.lang.ClassLoader $stack9;
+        java.net.URL url;
+        java.lang.String protocol, $stack15, $stack39, entry#3, entry#4, entry#8, entry#9, entry#10;
+        boolean $stack12, $stack13, $stack16, $stack33, $stack37;
+        java.io.File $stack14, $stack20;
+        int $stack19, $stack22, $stack23, $stack24, entry#7;
+        java.net.URLConnection $stack30;
+        java.util.jar.JarFile $stack31;
+        java.lang.Object $stack34;
+        java.util.jar.JarEntry $stack35;
+        java.net.JarURLConnection jarConnection#1;
+        java.util.Enumeration entries#2;
+        java.io.File[] entries#6;
+
+        $stack7 = new java.util.ArrayList;
+
+        specialinvoke $stack7.<java.util.ArrayList: void <init>()>();
+
+        $stack8 = class "Lorg/dacapo/harness/CommandLineArgs;";
+
+        $stack9 = virtualinvoke $stack8.<java.lang.Class: java.lang.ClassLoader getClassLoader()>();
+
+        url = virtualinvoke $stack9.<java.lang.ClassLoader: java.net.URL getResource(java.lang.String)>("cnf");
+
+        protocol = virtualinvoke url.<java.net.URL: java.lang.String getProtocol()>();
+
+        $stack12 = virtualinvoke protocol.<java.lang.String: boolean equals(java.lang.Object)>("jar");
+
+        if $stack12 == 0 goto label4;
+
+        $stack30 = virtualinvoke url.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        jarConnection#1 = (java.net.JarURLConnection) $stack30;
+
+        $stack31 = virtualinvoke jarConnection#1.<java.net.JarURLConnection: java.util.jar.JarFile getJarFile()>();
+
+        entries#2 = virtualinvoke $stack31.<java.util.jar.JarFile: java.util.Enumeration entries()>();
+
+     label1:
+        $stack33 = interfaceinvoke entries#2.<java.util.Enumeration: boolean hasMoreElements()>();
+
+        if $stack33 == 0 goto label3;
+
+        $stack34 = interfaceinvoke entries#2.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+        $stack35 = (java.util.jar.JarEntry) $stack34;
+
+        entry#3 = virtualinvoke $stack35.<java.util.jar.JarEntry: java.lang.String getName()>();
+
+        $stack37 = virtualinvoke entry#3.<java.lang.String: boolean endsWith(java.lang.String)>(".cnf");
+
+        if $stack37 == 0 goto label2;
+
+        $stack39 = virtualinvoke entry#3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("cnf/", "");
+
+        entry#4 = virtualinvoke $stack39.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(".cnf", "");
+
+        interfaceinvoke $stack7.<java.util.List: boolean add(java.lang.Object)>(entry#4);
+
+     label2:
+        goto label1;
+
+     label3:
+        goto label6;
+
+     label4:
+        $stack13 = virtualinvoke protocol.<java.lang.String: boolean equals(java.lang.Object)>("file");
+
+        if $stack13 == 0 goto label6;
+
+        $stack14 = new java.io.File;
+
+        $stack15 = virtualinvoke url.<java.net.URL: java.lang.String getFile()>();
+
+        specialinvoke $stack14.<java.io.File: void <init>(java.lang.String)>($stack15);
+
+        $stack16 = virtualinvoke $stack14.<java.io.File: boolean isDirectory()>();
+
+        if $stack16 == 0 goto label6;
+
+        entries#6 = virtualinvoke $stack14.<java.io.File: java.io.File[] listFiles()>();
+
+        entry#7 = 0;
+
+     label5:
+        $stack19 = lengthof entries#6;
+
+        if entry#7 >= $stack19 goto label6;
+
+        $stack20 = entries#6[entry#7];
+
+        entry#8 = virtualinvoke $stack20.<java.io.File: java.lang.String toString()>();
+
+        $stack22 = virtualinvoke entry#8.<java.lang.String: int lastIndexOf(int)>(47);
+
+        $stack23 = $stack22 + 1;
+
+        $stack24 = virtualinvoke entry#8.<java.lang.String: int length()>();
+
+        entry#9 = virtualinvoke entry#8.<java.lang.String: java.lang.String substring(int,int)>($stack23, $stack24);
+
+        entry#10 = virtualinvoke entry#9.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(".cnf", "");
+
+        interfaceinvoke $stack7.<java.util.List: boolean add(java.lang.Object)>(entry#10);
+
+        entry#7 = entry#7 + 1;
+
+        goto label5;
+
+     label6:
+        return $stack7;
+    }
+
+    public java.lang.Iterable benchmarks()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        java.util.List $stack1;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: java.util.List benchmarks>;
+
+        return $stack1;
+    }
+
+    public boolean getVerbose()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("verbose");
+
+        return $stack2;
+    }
+
+    public org.dacapo.harness.CommandLineArgs$Methodology getMethodology()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2;
+        org.dacapo.harness.CommandLineArgs$Methodology $stack3#1;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("converge");
+
+        if $stack2 == 0 goto label1;
+
+        $stack3#1 = <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology CONVERGE>;
+
+        goto label2;
+
+     label1:
+        $stack3#1 = <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology ITERATE>;
+
+     label2:
+        return $stack3#1;
+    }
+
+    public double getTargetVar()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+        double $stack3, $stack4;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("variance", "3.0");
+
+        $stack3 = staticinvoke <java.lang.Double: double parseDouble(java.lang.String)>($stack2);
+
+        $stack4 = $stack3 / 100.0;
+
+        return $stack4;
+    }
+
+    public int getWindow()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+        int $stack3;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("window", "3");
+
+        $stack3 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($stack2);
+
+        return $stack3;
+    }
+
+    public int getMaxIterations()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+        int $stack3;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("max-iterations", "20");
+
+        $stack3 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($stack2);
+
+        return $stack3;
+    }
+
+    public boolean getIgnoreValidation()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("ignore-validation");
+
+        return $stack2;
+    }
+
+    public int getIterations()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+        int $stack3;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("iterations", "1");
+
+        $stack3 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($stack2);
+
+        return $stack3;
+    }
+
+    public java.lang.String getSize()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("size", "default");
+
+        return $stack2;
+    }
+
+    public boolean getSizes()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("sizes");
+
+        return $stack2;
+    }
+
+    public java.lang.String getScratchDir()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("scratch-directory", "./scratch");
+
+        return $stack2;
+    }
+
+    public org.dacapo.harness.Callback getCallback()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.dacapo.harness.Callback $stack1;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.Callback callback>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getCnfOverride()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("config", null);
+
+        return $stack2;
+    }
+
+    public boolean getInformation()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("information");
+
+        return $stack2;
+    }
+
+    public boolean getSilent()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        boolean $stack1, $stack2#1;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = virtualinvoke this.<org.dacapo.harness.CommandLineArgs: boolean getVerbose()>();
+
+        if $stack1 != 0 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    public boolean getDebug()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("debug");
+
+        return $stack2;
+    }
+
+    public boolean getPreserve()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("preserve");
+
+        return $stack2;
+    }
+
+    public boolean getValidateOutput()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2, $stack3#1;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("no-digest-output");
+
+        if $stack2 != 0 goto label1;
+
+        $stack3#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack3#1 = 0;
+
+     label2:
+        return $stack3#1;
+    }
+
+    public boolean getValidate()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2, $stack3#1;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("no-validation");
+
+        if $stack2 != 0 goto label1;
+
+        $stack3#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack3#1 = 0;
+
+     label2:
+        return $stack3#1;
+    }
+
+    public java.lang.String getValidationReport()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("validation-report", null);
+
+        return $stack2;
+    }
+
+    public boolean getPreIterationGC()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        boolean $stack2, $stack3#1;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("no-pre-iteration-gc");
+
+        if $stack2 != 0 goto label1;
+
+        $stack3#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack3#1 = 0;
+
+     label2:
+        return $stack3#1;
+    }
+
+    public java.lang.String getThreadCount()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("thread-count", "0");
+
+        return $stack2;
+    }
+
+    public java.lang.String getThreadFactor()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("thread-factor", "0");
+
+        return $stack2;
+    }
+
+    public java.lang.String getTimeoutDialation()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String,java.lang.String)>("timeout-dialation", "1");
+
+        return $stack2;
+    }
+
+    public java.util.List getArgList()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.util.List $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.util.List getArgList()>();
+
+        return $stack2;
+    }
+
+    public java.lang.String[] getArgs()
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack1;
+        java.lang.String[] $stack2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack1 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack2 = virtualinvoke $stack1.<org.apache.commons.cli.CommandLine: java.lang.String[] getArgs()>();
+
+        return $stack2;
+    }
+
+    private void defineCallback() throws java.lang.SecurityException, java.lang.NoSuchMethodException, java.lang.IllegalArgumentException, java.lang.InstantiationException, java.lang.IllegalAccessException, java.lang.reflect.InvocationTargetException
+    {
+        org.dacapo.harness.CommandLineArgs this;
+        org.apache.commons.cli.CommandLine $stack3, $stack7, $stack20, $stack30;
+        boolean $stack4, $stack11;
+        org.dacapo.harness.Callback $stack6, $stack16, $stack5#7;
+        java.lang.String $stack8, $stack21, $stack24, $stack31, $stack33;
+        java.lang.Class $stack10, cls#1;
+        java.lang.Class[] $stack12;
+        java.lang.Object[] $stack14;
+        java.lang.Object $stack15;
+        java.lang.StringBuilder $stack18, $stack22, $stack23, $stack27, $stack29, $stack32;
+        java.io.PrintStream $stack19, $stack26, $stack28;
+        java.lang.Exception $stack25;
+        java.lang.reflect.Constructor e#3;
+
+        this := @this: org.dacapo.harness.CommandLineArgs;
+
+        $stack3 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack4 = virtualinvoke $stack3.<org.apache.commons.cli.CommandLine: boolean hasOption(java.lang.String)>("callback");
+
+        if $stack4 == 0 goto label6;
+
+        cls#1 = null;
+
+     label1:
+        $stack7 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack8 = virtualinvoke $stack7.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String)>("callback");
+
+        cls#1 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>($stack8);
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack25 := @caughtexception;
+
+        $stack26 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack26.<java.io.PrintStream: void println(java.lang.Object)>($stack25);
+
+        $stack28 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack27 = new java.lang.StringBuilder;
+
+        specialinvoke $stack27.<java.lang.StringBuilder: void <init>()>();
+
+        $stack29 = virtualinvoke $stack27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Could not find callback class ");
+
+        $stack30 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack31 = virtualinvoke $stack30.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String)>("callback");
+
+        $stack32 = virtualinvoke $stack29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack31);
+
+        $stack33 = virtualinvoke $stack32.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack28.<java.io.PrintStream: void println(java.lang.String)>($stack33);
+
+        staticinvoke <java.lang.System: void exit(int)>(2);
+
+     label4:
+        $stack10 = class "Lorg/dacapo/harness/Callback;";
+
+        $stack11 = virtualinvoke $stack10.<java.lang.Class: boolean isAssignableFrom(java.lang.Class)>(cls#1);
+
+        if $stack11 != 0 goto label5;
+
+        $stack19 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack18 = new java.lang.StringBuilder;
+
+        specialinvoke $stack18.<java.lang.StringBuilder: void <init>()>();
+
+        $stack20 = this.<org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLine line>;
+
+        $stack21 = virtualinvoke $stack20.<org.apache.commons.cli.CommandLine: java.lang.String getOptionValue(java.lang.String)>("callback");
+
+        $stack22 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack21);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is not an instance of Callback");
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack19.<java.io.PrintStream: void println(java.lang.String)>($stack24);
+
+        staticinvoke <java.lang.System: void exit(int)>(3);
+
+        goto label6;
+
+     label5:
+        $stack12 = newarray (java.lang.Class)[1];
+
+        $stack12[0] = class "Lorg/dacapo/harness/CommandLineArgs;";
+
+        e#3 = virtualinvoke cls#1.<java.lang.Class: java.lang.reflect.Constructor getConstructor(java.lang.Class[])>($stack12);
+
+        $stack14 = newarray (java.lang.Object)[1];
+
+        $stack14[0] = this;
+
+        $stack15 = virtualinvoke e#3.<java.lang.reflect.Constructor: java.lang.Object newInstance(java.lang.Object[])>($stack14);
+
+        $stack16 = (org.dacapo.harness.Callback) $stack15;
+
+        this.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.Callback callback> = $stack16;
+
+     label6:
+        $stack5#7 = virtualinvoke this.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.Callback getCallback()>();
+
+        if $stack5#7 != null goto label7;
+
+        $stack6 = new org.dacapo.harness.Callback;
+
+        specialinvoke $stack6.<org.dacapo.harness.Callback: void <init>(org.dacapo.harness.CommandLineArgs)>(this);
+
+        this.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.Callback callback> = $stack6;
+
+     label7:
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }
+
+    private static org.apache.commons.cli.Option makeOption(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    {
+        boolean $stack5, $stack10#1;
+        org.apache.commons.cli.Option $stack6;
+        java.lang.String shortName, longName, argName, description;
+        java.lang.AssertionError $stack14;
+
+        shortName := @parameter0: java.lang.String;
+
+        longName := @parameter1: java.lang.String;
+
+        description := @parameter2: java.lang.String;
+
+        argName := @parameter3: java.lang.String;
+
+        $stack5 = <org.dacapo.harness.CommandLineArgs: boolean $assertionsDisabled>;
+
+        if $stack5 != 0 goto label1;
+
+        if longName != null goto label1;
+
+        $stack14 = new java.lang.AssertionError;
+
+        specialinvoke $stack14.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack14;
+
+     label1:
+        $stack6 = new org.apache.commons.cli.Option;
+
+        if argName == null goto label2;
+
+        $stack10#1 = 1;
+
+        goto label3;
+
+     label2:
+        $stack10#1 = 0;
+
+     label3:
+        specialinvoke $stack6.<org.apache.commons.cli.Option: void <init>(java.lang.String,java.lang.String,boolean,java.lang.String)>(shortName, longName, $stack10#1, description);
+
+        if argName == null goto label4;
+
+        virtualinvoke $stack6.<org.apache.commons.cli.Option: void setValueSeparator(char)>(61);
+
+        virtualinvoke $stack6.<org.apache.commons.cli.Option: void setArgName(java.lang.String)>(argName);
+
+     label4:
+        return $stack6;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.Class $stack0;
+        boolean $stack1, $stack56#1;
+        org.apache.commons.cli.Option[] $stack2;
+        org.apache.commons.cli.Option $stack4, $stack6, $stack8, $stack10, $stack12, $stack14, $stack16, $stack18, $stack20, $stack22, $stack24, $stack26, $stack28, $stack30, $stack32, $stack34, $stack36, $stack38, $stack40, $stack42, $stack44, $stack46, $stack48, $stack50, $stack52;
+        org.apache.commons.cli.PosixParser $stack53;
+        org.apache.commons.cli.Options $stack54, $stack55;
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_TIMEOUT_DIALATION> = "timeout-dialation";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_THREAD_FACTOR> = "thread-factor";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_THREAD_COUNT> = "thread-count";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_NO_PRE_ITERATION_GC> = "no-pre-iteration-gc";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_VERBOSE> = "verbose";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_CONFIG> = "config";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_VALIDATION_REPORT> = "validation-report";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_PRESERVE> = "preserve";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_NO_VALIDATION> = "no-validation";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_NO_DIGEST_OUTPUT> = "no-digest-output";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_IGNORE_VALIDATION> = "ignore-validation";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_DEBUG> = "debug";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_ITERATIONS> = "iterations";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_WINDOW> = "window";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_VARIANCE> = "variance";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_MAX_ITERATIONS> = "max-iterations";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_CONVERGE> = "converge";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_SCRATCH_DIRECTORY> = "scratch-directory";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_SIZES> = "sizes";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_SIZE> = "size";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_INFORMATION> = "information";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_LIST_BENCHMARKS> = "list-benchmarks";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_RELEASE_NOTES> = "release-notes";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_HELP> = "help";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String OPT_CALLBACK> = "callback";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_TIMEOUT_DIALATION> = "1";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_THREAD_FACTOR> = "0";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_THREAD_COUNT> = "0";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_ITERATIONS> = "1";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_VARIANCE> = "3.0";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_WINDOW_SIZE> = "3";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_MAX_ITERATIONS> = "20";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_SCRATCH_DIRECTORY> = "./scratch";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String DEFAULT_SIZE> = "default";
+
+        <org.dacapo.harness.CommandLineArgs: java.lang.String RELEASE_NOTES> = "RELEASE_NOTES.txt";
+
+        <org.dacapo.harness.CommandLineArgs: int EXIT_MISSING_BENCHMARKS> = 10;
+
+        <org.dacapo.harness.CommandLineArgs: int EXIT_UNKNOWN_BENCHMARK> = 9;
+
+        <org.dacapo.harness.CommandLineArgs: int EXIT_BAD_COMMANDLINE> = 4;
+
+        <org.dacapo.harness.CommandLineArgs: int EXIT_BAD_CALLBACK> = 3;
+
+        <org.dacapo.harness.CommandLineArgs: int EXIT_MISSING_CALLBACK> = 2;
+
+        <org.dacapo.harness.CommandLineArgs: int EXIT_OK> = 0;
+
+        $stack0 = class "Lorg/dacapo/harness/CommandLineArgs;";
+
+        $stack1 = virtualinvoke $stack0.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $stack1 != 0 goto label1;
+
+        $stack56#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack56#1 = 0;
+
+     label2:
+        <org.dacapo.harness.CommandLineArgs: boolean $assertionsDisabled> = $stack56#1;
+
+        $stack2 = newarray (org.apache.commons.cli.Option)[25];
+
+        $stack4 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("c", "callback", "Use class <callback> to bracket benchmark runs", "callback");
+
+        $stack2[0] = $stack4;
+
+        $stack6 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("h", "help", "Print this help", null);
+
+        $stack2[1] = $stack6;
+
+        $stack8 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("r", "release-notes", "Print the release notes", null);
+
+        $stack2[2] = $stack8;
+
+        $stack10 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("l", "list-benchmarks", "List available benchmarks", null);
+
+        $stack2[3] = $stack10;
+
+        $stack12 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("i", "information", "Display benchmark information", null);
+
+        $stack2[4] = $stack12;
+
+        $stack14 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("s", "size", "Size of input data", "SIZE");
+
+        $stack2[5] = $stack14;
+
+        $stack16 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "scratch-directory", "Specify an alternate scratch directory <dir>", "dir");
+
+        $stack2[6] = $stack16;
+
+        $stack18 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "sizes", "Report the valid sizes for the specified benchmarks", null);
+
+        $stack2[7] = $stack18;
+
+        $stack20 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("C", "converge", "Allow benchmark times to converge before timing", null);
+
+        $stack2[8] = $stack20;
+
+        $stack22 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "max-iterations", "Run a max of <max_iterations> iterations (default 20)", "max_iterations");
+
+        $stack2[9] = $stack22;
+
+        $stack24 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "variance", "Target coefficient of variation <pct> (default 3.0)", "pct");
+
+        $stack2[10] = $stack24;
+
+        $stack26 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "window", "Measure variance over <window> runs (default 3)", "window");
+
+        $stack2[11] = $stack26;
+
+        $stack28 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("n", "iterations", "Run the benchmark <iter> times", "iter");
+
+        $stack2[12] = $stack28;
+
+        $stack30 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("d", "debug", "Verbose debugging information", null);
+
+        $stack2[13] = $stack30;
+
+        $stack32 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "ignore-validation", "Don\'t halt on validation failure", null);
+
+        $stack2[14] = $stack32;
+
+        $stack34 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "no-digest-output", "Turn off SHA1 digest of stdout/stderr", null);
+
+        $stack2[15] = $stack34;
+
+        $stack36 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "no-validation", "Don\'t validate at all", null);
+
+        $stack2[16] = $stack36;
+
+        $stack38 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "preserve", "Preserve output files (debug)", null);
+
+        $stack2[17] = $stack38;
+
+        $stack40 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "validation-report", "Report digests, line counts etc", "report_file");
+
+        $stack2[18] = $stack40;
+
+        $stack42 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "config", null, "config_file");
+
+        $stack2[19] = $stack42;
+
+        $stack44 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>(null, "no-pre-iteration-gc", "Skip performing System.gc() before the start of each iteration", null);
+
+        $stack2[20] = $stack44;
+
+        $stack46 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("t", "thread-count", "Set the thread count to drive the workload (mutually exclusive -k)", "thread_count");
+
+        $stack2[21] = $stack46;
+
+        $stack48 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("k", "thread-factor", "Set the number of threads per CPU to drive the workload (mutually exclusive with -t)", "thread_per_cpu");
+
+        $stack2[22] = $stack48;
+
+        $stack50 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("f", "timeout-dialation", "Set the time dialation of the timeouts in the benchmark by the given integer factor.", "timeout_dialation");
+
+        $stack2[23] = $stack50;
+
+        $stack52 = staticinvoke <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option makeOption(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("v", "verbose", "Verbose output", null);
+
+        $stack2[24] = $stack52;
+
+        <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Option[] OPTIONS> = $stack2;
+
+        $stack53 = new org.apache.commons.cli.PosixParser;
+
+        specialinvoke $stack53.<org.apache.commons.cli.PosixParser: void <init>()>();
+
+        <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.CommandLineParser parser> = $stack53;
+
+        $stack54 = new org.apache.commons.cli.Options;
+
+        specialinvoke $stack54.<org.apache.commons.cli.Options: void <init>()>();
+
+        <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Options options> = $stack54;
+
+        $stack55 = new org.apache.commons.cli.Options;
+
+        specialinvoke $stack55.<org.apache.commons.cli.Options: void <init>()>();
+
+        <org.dacapo.harness.CommandLineArgs: org.apache.commons.cli.Options visibleOptions> = $stack55;
+
+        return;
+    }
+}

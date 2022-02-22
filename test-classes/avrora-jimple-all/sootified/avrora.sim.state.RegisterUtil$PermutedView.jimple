@@ -1,0 +1,145 @@
+public class avrora.sim.state.RegisterUtil$PermutedView extends java.lang.Object implements avrora.sim.state.RegisterView
+{
+    protected final avrora.sim.state.RegisterView reg;
+    protected final byte[] bits;
+
+    public void <init>(avrora.sim.state.RegisterView, byte[])
+    {
+        avrora.sim.state.RegisterUtil$PermutedView this;
+        byte[] b;
+        avrora.sim.state.RegisterView r;
+
+        this := @this: avrora.sim.state.RegisterUtil$PermutedView;
+
+        r := @parameter0: avrora.sim.state.RegisterView;
+
+        b := @parameter1: byte[];
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.state.RegisterUtil$PermutedView: byte[] bits> = b;
+
+        this.<avrora.sim.state.RegisterUtil$PermutedView: avrora.sim.state.RegisterView reg> = r;
+
+        return;
+    }
+
+    public int getWidth()
+    {
+        avrora.sim.state.RegisterUtil$PermutedView this;
+        byte[] $stack1;
+        int $stack2;
+
+        this := @this: avrora.sim.state.RegisterUtil$PermutedView;
+
+        $stack1 = this.<avrora.sim.state.RegisterUtil$PermutedView: byte[] bits>;
+
+        $stack2 = lengthof $stack1;
+
+        return $stack2;
+    }
+
+    public int getValue()
+    {
+        avrora.sim.state.RegisterUtil$PermutedView this;
+        avrora.sim.state.RegisterView $stack5;
+        int val, $stack8, $stack11, bit, $stack12, res#1, cntr#2;
+        byte[] $stack7, $stack9;
+        byte $stack10;
+
+        this := @this: avrora.sim.state.RegisterUtil$PermutedView;
+
+        $stack5 = this.<avrora.sim.state.RegisterUtil$PermutedView: avrora.sim.state.RegisterView reg>;
+
+        val = interfaceinvoke $stack5.<avrora.sim.state.RegisterView: int getValue()>();
+
+        res#1 = 0;
+
+        cntr#2 = 0;
+
+     label1:
+        $stack7 = this.<avrora.sim.state.RegisterUtil$PermutedView: byte[] bits>;
+
+        $stack8 = lengthof $stack7;
+
+        if cntr#2 >= $stack8 goto label2;
+
+        $stack9 = this.<avrora.sim.state.RegisterUtil$PermutedView: byte[] bits>;
+
+        $stack10 = $stack9[cntr#2];
+
+        $stack11 = val >> $stack10;
+
+        bit = $stack11 & 1;
+
+        $stack12 = bit << cntr#2;
+
+        res#1 = res#1 | $stack12;
+
+        cntr#2 = cntr#2 + 1;
+
+        goto label1;
+
+     label2:
+        return res#1;
+    }
+
+    public void setValue(int)
+    {
+        avrora.sim.state.RegisterUtil$PermutedView this;
+        avrora.sim.state.RegisterView $stack5, $stack9;
+        byte[] $stack7, $stack11, $stack15;
+        int $stack8, val, $stack10, nbit, $stack13, $stack14, $stack17, $stack18, res#1, cntr#2;
+        byte $stack12, $stack16;
+
+        this := @this: avrora.sim.state.RegisterUtil$PermutedView;
+
+        val := @parameter0: int;
+
+        $stack5 = this.<avrora.sim.state.RegisterUtil$PermutedView: avrora.sim.state.RegisterView reg>;
+
+        res#1 = interfaceinvoke $stack5.<avrora.sim.state.RegisterView: int getValue()>();
+
+        cntr#2 = 0;
+
+     label1:
+        $stack7 = this.<avrora.sim.state.RegisterUtil$PermutedView: byte[] bits>;
+
+        $stack8 = lengthof $stack7;
+
+        if cntr#2 >= $stack8 goto label2;
+
+        $stack10 = val >> cntr#2;
+
+        nbit = $stack10 & 1;
+
+        $stack11 = this.<avrora.sim.state.RegisterUtil$PermutedView: byte[] bits>;
+
+        $stack12 = $stack11[cntr#2];
+
+        $stack13 = 1 << $stack12;
+
+        $stack14 = $stack13 ^ -1;
+
+        $stack18 = res#1 & $stack14;
+
+        $stack15 = this.<avrora.sim.state.RegisterUtil$PermutedView: byte[] bits>;
+
+        $stack16 = $stack15[cntr#2];
+
+        $stack17 = nbit << $stack16;
+
+        res#1 = $stack18 | $stack17;
+
+        cntr#2 = cntr#2 + 1;
+
+        goto label1;
+
+     label2:
+        $stack9 = this.<avrora.sim.state.RegisterUtil$PermutedView: avrora.sim.state.RegisterView reg>;
+
+        interfaceinvoke $stack9.<avrora.sim.state.RegisterView: void setValue(int)>(res#1);
+
+        return;
+    }
+}

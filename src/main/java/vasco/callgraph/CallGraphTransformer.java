@@ -20,10 +20,13 @@ package vasco.callgraph;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import soot.Body;
 import soot.Kind;
 import soot.Scene;
 import soot.SceneTransformer;
@@ -31,10 +34,13 @@ import soot.SootMethod;
 import soot.Unit;
 import soot.jimple.InvokeExpr;
 import soot.jimple.Stmt;
+import soot.jimple.toolkits.annotation.logic.Loop;
+import soot.jimple.toolkits.annotation.logic.LoopFinder;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.ContextSensitiveCallGraph;
 import soot.jimple.toolkits.callgraph.ContextSensitiveEdge;
 import soot.jimple.toolkits.callgraph.Edge;
+import soot.tagkit.BytecodeOffsetTag;
 import vasco.CallSite;
 import vasco.Context;
 import vasco.ContextTransitionTable;
@@ -64,6 +70,51 @@ public class CallGraphTransformer extends SceneTransformer {
 
 		// Initialize collections (for creating the soot context-sensitive call graph)
 		final Set<SootMethod> allMethods = pointsToAnalysis.getMethods();
+		
+		//TODO : SHASHIN: think of extracting the units/stmts for each method, and then dumping the ptgs 
+		
+//		Set<Integer> loopHeaders = new HashSet<Integer>();
+//		for(SootMethod method : allMethods) {
+//			LoopFinder lf = new LoopFinder();
+//			Body b = method.getActiveBody();
+//			lf.transform(b);
+//			Set<Loop> loops = lf.getLoops(b);
+//			for(Loop l : loops) {
+//				BytecodeOffsetTag bt = (BytecodeOffsetTag) l.getHead().getTag("BytecodeOffsetTag");
+//				int bci = bt.getBytecodeOffset();
+//				loopHeaders.add(bci);
+//				System.out.println(bci + " is a loop header!");
+//				
+//				Collection<Stmt> stmts = l.getLoopStatements();
+//				if(stmts != null) {
+//					for(Stmt st : stmts) {
+//						System.out.println(st.toString());
+//					}
+//				}
+//			}
+//			
+//			List<Context < SootMethod, Unit, PointsToGraph >> contexts = pointsToAnalysis.getContexts(method);
+//			for(Context <SootMethod, Unit, PointsToGraph> c : contexts) {
+//				Collection<Unit> units = c.getWorkList();
+//				if(units != null) {
+//					for(Unit u : units) {
+//						BytecodeOffsetTag bt = (BytecodeOffsetTag) u.getTag("BytecodeOffsetTag");
+//						int bci = bt.getBytecodeOffset();
+//						if(loopHeaders.contains(bci)) {
+//							PointsToGraph ptg = c.getValueAfter(u);
+//							if(ptg != null)
+//								System.out.println(bci + ":\n" + ptg.toString());
+//						}
+//					}
+//				}
+//			}
+//			
+//		}
+		
+		
+		
+		
+		
 		final Map<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesIntoContext = new HashMap<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
 		final Map<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesOutOfContext = new HashMap<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
 		final Map<CallSite<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesOutOfCallSite = new HashMap<CallSite<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
@@ -91,7 +142,7 @@ public class CallGraphTransformer extends SceneTransformer {
 					k = Kind.INVALID;
 				}
 
-				// The context-insensitive edge
+				// The context-insenst`itive edge
 				Edge cgEdge = new Edge(sourceMethod, stmt, targetMethod, k);
 				
 				// Add it to the context-insensitive call-graph
@@ -180,27 +231,27 @@ public class CallGraphTransformer extends SceneTransformer {
 			}
 			
 			@Override
-			public Iterator<?> edgesOutOf(soot.Context sContext, SootMethod m, Unit stmt) {
+			public Iterator<ContextSensitiveEdge> edgesOutOf(soot.Context sContext, SootMethod m, Unit stmt) {
 				return csEdgesOutOfCallSite.get((vCallSite(sContext, stmt))).iterator();
 			}
 			
 			@Override
-			public Iterator<?> edgesOutOf(soot.Context sContext, SootMethod m) {
+			public Iterator<ContextSensitiveEdge> edgesOutOf(soot.Context sContext, SootMethod m) {
 				return csEdgesOutOfContext.get(vContext(sContext)).iterator();
 			}
 			
 			@Override
-			public Iterator<?> edgesInto(soot.Context sContext, SootMethod m) {
+			public Iterator<ContextSensitiveEdge> edgesInto(soot.Context sContext, SootMethod m) {
 				return csEdgesIntoContext.get(vContext(sContext)).iterator();
 			}
 			
 			@Override
-			public Iterator<?> edgeSources() {
+			public Iterator<SootMethod> edgeSources() {
 				return allMethods.iterator();
 			}
 			
 			@Override
-			public Iterator<?> allEdges() {
+			public Iterator<ContextSensitiveEdge> allEdges() {
 				return csEdges.iterator();
 			}
 		});

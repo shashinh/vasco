@@ -1,0 +1,87 @@
+class avrora.sim.platform.ExternalFlash$Page extends java.lang.Object
+{
+    final short[] bytes;
+    final avrora.sim.platform.ExternalFlash this$0;
+
+    protected void <init>(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash$Page this;
+        avrora.sim.platform.ExternalFlash l1;
+        int numBytes;
+        short[] $stack3;
+
+        this := @this: avrora.sim.platform.ExternalFlash$Page;
+
+        l1 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        numBytes := @parameter1: int;
+
+        this.<avrora.sim.platform.ExternalFlash$Page: avrora.sim.platform.ExternalFlash this$0> = l1;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack3 = newarray (short)[numBytes];
+
+        this.<avrora.sim.platform.ExternalFlash$Page: short[] bytes> = $stack3;
+
+        return;
+    }
+
+    void debug()
+    {
+        avrora.sim.platform.ExternalFlash$Page this;
+        avrora.sim.platform.ExternalFlash $stack2, $stack7;
+        avrora.sim.output.SimPrinter $stack3;
+        short[] $stack4, $stack11;
+        int $stack5, i#1;
+        java.lang.StringBuilder $stack6, $stack8, $stack9, $stack10, $stack13;
+        short $stack12;
+        java.lang.String $stack14;
+
+        this := @this: avrora.sim.platform.ExternalFlash$Page;
+
+        $stack2 = this.<avrora.sim.platform.ExternalFlash$Page: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack3 = $stack2.<avrora.sim.platform.ExternalFlash: avrora.sim.output.SimPrinter printer>;
+
+        if $stack3 == null goto label2;
+
+        i#1 = 0;
+
+     label1:
+        $stack4 = this.<avrora.sim.platform.ExternalFlash$Page: short[] bytes>;
+
+        $stack5 = lengthof $stack4;
+
+        if i#1 >= $stack5 goto label2;
+
+        $stack7 = this.<avrora.sim.platform.ExternalFlash$Page: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack6 = new java.lang.StringBuilder;
+
+        specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>();
+
+        $stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Byte ");
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i#1);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" = ");
+
+        $stack11 = this.<avrora.sim.platform.ExternalFlash$Page: short[] bytes>;
+
+        $stack12 = $stack11[i#1];
+
+        $stack13 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack7, $stack14);
+
+        i#1 = i#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}

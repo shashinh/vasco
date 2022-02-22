@@ -1,0 +1,127 @@
+public class avrora.sim.mcu.USART$Transmitter extends java.lang.Object
+{
+    boolean transmitting;
+    avrora.sim.mcu.USART$Transmitter$Transmit transmit;
+    final avrora.sim.mcu.USART this$0;
+
+    protected void <init>(avrora.sim.mcu.USART)
+    {
+        avrora.sim.mcu.USART$Transmitter this;
+        avrora.sim.mcu.USART this$0;
+        avrora.sim.mcu.USART$Transmitter$Transmit $stack2;
+
+        this := @this: avrora.sim.mcu.USART$Transmitter;
+
+        this$0 := @parameter0: avrora.sim.mcu.USART;
+
+        this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack2 = new avrora.sim.mcu.USART$Transmitter$Transmit;
+
+        specialinvoke $stack2.<avrora.sim.mcu.USART$Transmitter$Transmit: void <init>(avrora.sim.mcu.USART$Transmitter)>(this);
+
+        this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART$Transmitter$Transmit transmit> = $stack2;
+
+        return;
+    }
+
+    protected void enableTransmit()
+    {
+        avrora.sim.mcu.USART$Transmitter this;
+        boolean $stack1, $stack10;
+        avrora.sim.mcu.USART$Frame $stack2;
+        avrora.sim.mcu.USART $stack3, $stack8, $stack11, $stack14, $stack17, $stack18, $stack24, $stack28;
+        avrora.sim.mcu.USART$DataRegister $stack4;
+        avrora.sim.RWRegister $stack5;
+        avrora.sim.mcu.USART$Transmitter$Transmit $stack6, $stack21;
+        byte $stack7;
+        avrora.sim.mcu.USART$ControlRegisterB $stack9;
+        avrora.sim.mcu.USART$ControlRegisterC $stack12, $stack19, $stack25;
+        int $stack13, $stack23, $stack26, $stack27, $stack29, $stack30, $stack31;
+        avrora.sim.mcu.USART$ControlRegisterA $stack15;
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag $stack16;
+        avrora.sim.clock.Clock $stack20;
+        long $stack32;
+
+        this := @this: avrora.sim.mcu.USART$Transmitter;
+
+        $stack1 = this.<avrora.sim.mcu.USART$Transmitter: boolean transmitting>;
+
+        if $stack1 != 0 goto label1;
+
+        $stack6 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART$Transmitter$Transmit transmit>;
+
+        $stack2 = new avrora.sim.mcu.USART$Frame;
+
+        $stack3 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$DataRegister UDRn_reg>;
+
+        $stack5 = $stack4.<avrora.sim.mcu.USART$DataRegister: avrora.sim.RWRegister transmitRegister>;
+
+        $stack7 = virtualinvoke $stack5.<avrora.sim.RWRegister: byte read()>();
+
+        $stack8 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0>;
+
+        $stack9 = $stack8.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterB UCSRnB_reg>;
+
+        $stack10 = virtualinvoke $stack9.<avrora.sim.mcu.USART$ControlRegisterB: boolean readBit(int)>(0);
+
+        $stack11 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0>;
+
+        $stack12 = $stack11.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterC UCSRnC_reg>;
+
+        $stack13 = virtualinvoke $stack12.<avrora.sim.mcu.USART$ControlRegisterC: int getFrameSize()>();
+
+        specialinvoke $stack2.<avrora.sim.mcu.USART$Frame: void <init>(byte,boolean,int)>($stack7, $stack10, $stack13);
+
+        $stack6.<avrora.sim.mcu.USART$Transmitter$Transmit: avrora.sim.mcu.USART$Frame frame> = $stack2;
+
+        $stack14 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0>;
+
+        $stack15 = $stack14.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $stack16 = $stack15.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.mcu.ATMegaFamily$InterruptFlag UDRE_flag>;
+
+        virtualinvoke $stack16.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: void flag(boolean)>(1);
+
+        this.<avrora.sim.mcu.USART$Transmitter: boolean transmitting> = 1;
+
+        $stack17 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0>;
+
+        $stack20 = $stack17.<avrora.sim.mcu.USART: avrora.sim.clock.Clock mainClock>;
+
+        $stack21 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART$Transmitter$Transmit transmit>;
+
+        $stack18 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0>;
+
+        $stack19 = $stack18.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterC UCSRnC_reg>;
+
+        $stack23 = virtualinvoke $stack19.<avrora.sim.mcu.USART$ControlRegisterC: int getFrameSize()>();
+
+        $stack26 = 1 + $stack23;
+
+        $stack24 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0>;
+
+        $stack25 = $stack24.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterC UCSRnC_reg>;
+
+        $stack27 = virtualinvoke $stack25.<avrora.sim.mcu.USART$ControlRegisterC: int getStopBits()>();
+
+        $stack30 = $stack26 + $stack27;
+
+        $stack28 = this.<avrora.sim.mcu.USART$Transmitter: avrora.sim.mcu.USART this$0>;
+
+        $stack29 = $stack28.<avrora.sim.mcu.USART: int period>;
+
+        $stack31 = $stack30 * $stack29;
+
+        $stack32 = (long) $stack31;
+
+        virtualinvoke $stack20.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>($stack21, $stack32);
+
+     label1:
+        return;
+    }
+}

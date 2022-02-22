@@ -1,0 +1,158 @@
+public class avrora.sim.output.SimPrinter extends java.lang.Object
+{
+    private avrora.sim.Simulator simulator;
+
+    public void <init>(avrora.sim.Simulator, java.lang.String)
+    {
+        avrora.sim.output.SimPrinter this;
+        avrora.sim.Simulator simulator;
+        java.lang.String category;
+
+        this := @this: avrora.sim.output.SimPrinter;
+
+        simulator := @parameter0: avrora.sim.Simulator;
+
+        category := @parameter1: java.lang.String;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.output.SimPrinter: avrora.sim.Simulator simulator> = simulator;
+
+        return;
+    }
+
+    public void println(java.lang.String)
+    {
+        java.lang.StringBuffer $stack5;
+        java.lang.String s, $stack10;
+        int $stack6, $stack7;
+        avrora.sim.output.SimPrinter this;
+        avrora.sim.Simulator $stack8;
+        java.lang.Throwable $stack12;
+
+        this := @this: avrora.sim.output.SimPrinter;
+
+        s := @parameter0: java.lang.String;
+
+        entermonitor class "Lcck/text/Terminal;";
+
+     label1:
+        $stack5 = new java.lang.StringBuffer;
+
+        $stack6 = virtualinvoke s.<java.lang.String: int length()>();
+
+        $stack7 = $stack6 + 30;
+
+        specialinvoke $stack5.<java.lang.StringBuffer: void <init>(int)>($stack7);
+
+        $stack8 = this.<avrora.sim.output.SimPrinter: avrora.sim.Simulator simulator>;
+
+        staticinvoke <avrora.sim.util.SimUtil: void getIDTimeString(java.lang.StringBuffer,avrora.sim.Simulator)>($stack5, $stack8);
+
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(s);
+
+        $stack10 = virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack10);
+
+        exitmonitor class "Lcck/text/Terminal;";
+
+     label2:
+        goto label5;
+
+     label3:
+        $stack12 := @caughtexception;
+
+        exitmonitor class "Lcck/text/Terminal;";
+
+     label4:
+        throw $stack12;
+
+     label5:
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+        catch java.lang.Throwable from label3 to label4 with label3;
+    }
+
+    public void printBuffer(java.lang.StringBuffer)
+    {
+        java.lang.StringBuffer buffer;
+        java.lang.String $stack4;
+        java.lang.Throwable $stack6;
+        avrora.sim.output.SimPrinter this;
+
+        this := @this: avrora.sim.output.SimPrinter;
+
+        buffer := @parameter0: java.lang.StringBuffer;
+
+        entermonitor class "Lcck/text/Terminal;";
+
+     label1:
+        $stack4 = virtualinvoke buffer.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack4);
+
+        exitmonitor class "Lcck/text/Terminal;";
+
+     label2:
+        goto label5;
+
+     label3:
+        $stack6 := @caughtexception;
+
+        exitmonitor class "Lcck/text/Terminal;";
+
+     label4:
+        throw $stack6;
+
+     label5:
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+        catch java.lang.Throwable from label3 to label4 with label3;
+    }
+
+    public java.lang.StringBuffer getBuffer()
+    {
+        java.lang.StringBuffer $stack2;
+        avrora.sim.output.SimPrinter this;
+        avrora.sim.Simulator $stack3;
+
+        this := @this: avrora.sim.output.SimPrinter;
+
+        $stack2 = new java.lang.StringBuffer;
+
+        specialinvoke $stack2.<java.lang.StringBuffer: void <init>(int)>(70);
+
+        $stack3 = this.<avrora.sim.output.SimPrinter: avrora.sim.Simulator simulator>;
+
+        staticinvoke <avrora.sim.util.SimUtil: void getIDTimeString(java.lang.StringBuffer,avrora.sim.Simulator)>($stack2, $stack3);
+
+        return $stack2;
+    }
+
+    public java.lang.StringBuffer getBuffer(int)
+    {
+        java.lang.StringBuffer $stack3;
+        int size, $stack4;
+        avrora.sim.output.SimPrinter this;
+        avrora.sim.Simulator $stack5;
+
+        this := @this: avrora.sim.output.SimPrinter;
+
+        size := @parameter0: int;
+
+        $stack3 = new java.lang.StringBuffer;
+
+        $stack4 = 30 + size;
+
+        specialinvoke $stack3.<java.lang.StringBuffer: void <init>(int)>($stack4);
+
+        $stack5 = this.<avrora.sim.output.SimPrinter: avrora.sim.Simulator simulator>;
+
+        staticinvoke <avrora.sim.util.SimUtil: void getIDTimeString(java.lang.StringBuffer,avrora.sim.Simulator)>($stack3, $stack5);
+
+        return $stack3;
+    }
+}

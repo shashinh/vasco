@@ -1,0 +1,464 @@
+public class cck.text.Printer extends java.lang.Object
+{
+    private final java.io.PrintStream o;
+    private boolean begLine;
+    private int listdepth;
+    private boolean first;
+    private boolean nlcomma;
+    private int indent;
+    public static final cck.text.Printer STDOUT;
+    public static final cck.text.Printer STDERR;
+
+    public void <init>(java.io.PrintStream)
+    {
+        cck.text.Printer this;
+        java.io.PrintStream o;
+
+        this := @this: cck.text.Printer;
+
+        o := @parameter0: java.io.PrintStream;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<cck.text.Printer: java.io.PrintStream o> = o;
+
+        this.<cck.text.Printer: boolean begLine> = 1;
+
+        return;
+    }
+
+    public void println(java.lang.String)
+    {
+        cck.text.Printer this;
+        int $stack2;
+        java.lang.String s;
+        boolean $stack4;
+        java.io.PrintStream $stack13, $stack3#8;
+
+        this := @this: cck.text.Printer;
+
+        s := @parameter0: java.lang.String;
+
+        virtualinvoke this.<cck.text.Printer: void spaces()>();
+
+        $stack2 = this.<cck.text.Printer: int listdepth>;
+
+        if $stack2 <= 0 goto label1;
+
+        $stack4 = this.<cck.text.Printer: boolean first>;
+
+        if $stack4 != 0 goto label1;
+
+        $stack13 = this.<cck.text.Printer: java.io.PrintStream o>;
+
+        virtualinvoke $stack13.<java.io.PrintStream: void print(java.lang.String)>(", ");
+
+     label1:
+        this.<cck.text.Printer: boolean first> = 0;
+
+        $stack3#8 = this.<cck.text.Printer: java.io.PrintStream o>;
+
+        virtualinvoke $stack3#8.<java.io.PrintStream: void println(java.lang.String)>(s);
+
+        this.<cck.text.Printer: boolean begLine> = 1;
+
+        this.<cck.text.Printer: boolean first> = 0;
+
+        return;
+    }
+
+    public void print(java.lang.String)
+    {
+        cck.text.Printer this;
+        int $stack2;
+        java.lang.String s;
+        boolean $stack4;
+        java.io.PrintStream $stack9, $stack3#8;
+
+        this := @this: cck.text.Printer;
+
+        s := @parameter0: java.lang.String;
+
+        virtualinvoke this.<cck.text.Printer: void spaces()>();
+
+        $stack2 = this.<cck.text.Printer: int listdepth>;
+
+        if $stack2 <= 0 goto label1;
+
+        $stack4 = this.<cck.text.Printer: boolean first>;
+
+        if $stack4 != 0 goto label1;
+
+        $stack9 = this.<cck.text.Printer: java.io.PrintStream o>;
+
+        virtualinvoke $stack9.<java.io.PrintStream: void print(java.lang.String)>(", ");
+
+     label1:
+        this.<cck.text.Printer: boolean first> = 0;
+
+        $stack3#8 = this.<cck.text.Printer: java.io.PrintStream o>;
+
+        virtualinvoke $stack3#8.<java.io.PrintStream: void print(java.lang.String)>(s);
+
+        return;
+    }
+
+    public void nextln()
+    {
+        cck.text.Printer this;
+        boolean $stack1;
+        java.io.PrintStream $stack2;
+
+        this := @this: cck.text.Printer;
+
+        $stack1 = this.<cck.text.Printer: boolean begLine>;
+
+        if $stack1 != 0 goto label1;
+
+        $stack2 = this.<cck.text.Printer: java.io.PrintStream o>;
+
+        virtualinvoke $stack2.<java.io.PrintStream: void print(java.lang.String)>("\n");
+
+        this.<cck.text.Printer: boolean begLine> = 1;
+
+     label1:
+        return;
+    }
+
+    public void indent()
+    {
+        cck.text.Printer this;
+        int $stack1, $stack2;
+
+        this := @this: cck.text.Printer;
+
+        $stack1 = this.<cck.text.Printer: int indent>;
+
+        $stack2 = $stack1 + 1;
+
+        this.<cck.text.Printer: int indent> = $stack2;
+
+        return;
+    }
+
+    public void spaces()
+    {
+        cck.text.Printer this;
+        boolean $stack2;
+        int $stack3, cntr#1;
+        java.io.PrintStream $stack4;
+
+        this := @this: cck.text.Printer;
+
+        $stack2 = this.<cck.text.Printer: boolean begLine>;
+
+        if $stack2 == 0 goto label3;
+
+        cntr#1 = 0;
+
+     label1:
+        $stack3 = this.<cck.text.Printer: int indent>;
+
+        if cntr#1 >= $stack3 goto label2;
+
+        $stack4 = this.<cck.text.Printer: java.io.PrintStream o>;
+
+        virtualinvoke $stack4.<java.io.PrintStream: void print(java.lang.String)>("    ");
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        this.<cck.text.Printer: boolean begLine> = 0;
+
+     label3:
+        return;
+    }
+
+    public void unindent()
+    {
+        cck.text.Printer this;
+        int $stack1, $stack2, $stack3;
+
+        this := @this: cck.text.Printer;
+
+        $stack1 = this.<cck.text.Printer: int indent>;
+
+        $stack2 = $stack1 - 1;
+
+        this.<cck.text.Printer: int indent> = $stack2;
+
+        $stack3 = this.<cck.text.Printer: int indent>;
+
+        if $stack3 >= 0 goto label1;
+
+        this.<cck.text.Printer: int indent> = 0;
+
+     label1:
+        return;
+    }
+
+    public void startblock()
+    {
+        cck.text.Printer this;
+
+        this := @this: cck.text.Printer;
+
+        virtualinvoke this.<cck.text.Printer: void println(java.lang.String)>("{");
+
+        virtualinvoke this.<cck.text.Printer: void indent()>();
+
+        return;
+    }
+
+    public void startblock(java.lang.String)
+    {
+        cck.text.Printer this;
+        java.lang.StringBuilder $stack2, $stack3, $stack4;
+        java.lang.String name, $stack5;
+
+        this := @this: cck.text.Printer;
+
+        name := @parameter0: java.lang.String;
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack3 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(name);
+
+        $stack4 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" {");
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke this.<cck.text.Printer: void println(java.lang.String)>($stack5);
+
+        virtualinvoke this.<cck.text.Printer: void indent()>();
+
+        return;
+    }
+
+    public void endblock()
+    {
+        cck.text.Printer this;
+
+        this := @this: cck.text.Printer;
+
+        virtualinvoke this.<cck.text.Printer: void unindent()>();
+
+        virtualinvoke this.<cck.text.Printer: void println(java.lang.String)>("}");
+
+        return;
+    }
+
+    public void endblock(java.lang.String)
+    {
+        cck.text.Printer this;
+        java.lang.StringBuilder $stack2, $stack3, $stack4;
+        java.lang.String s, $stack5;
+
+        this := @this: cck.text.Printer;
+
+        s := @parameter0: java.lang.String;
+
+        virtualinvoke this.<cck.text.Printer: void unindent()>();
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack3 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(125);
+
+        $stack4 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(s);
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke this.<cck.text.Printer: void println(java.lang.String)>($stack5);
+
+        return;
+    }
+
+    public void close()
+    {
+        cck.text.Printer this;
+        java.io.PrintStream $stack1;
+
+        this := @this: cck.text.Printer;
+
+        $stack1 = this.<cck.text.Printer: java.io.PrintStream o>;
+
+        virtualinvoke $stack1.<java.io.PrintStream: void close()>();
+
+        return;
+    }
+
+    public void beginList(java.lang.String)
+    {
+        cck.text.Printer this;
+        java.lang.String beg;
+        int $stack2, $stack3;
+
+        this := @this: cck.text.Printer;
+
+        beg := @parameter0: java.lang.String;
+
+        virtualinvoke this.<cck.text.Printer: void print(java.lang.String)>(beg);
+
+        $stack2 = this.<cck.text.Printer: int listdepth>;
+
+        $stack3 = $stack2 + 1;
+
+        this.<cck.text.Printer: int listdepth> = $stack3;
+
+        this.<cck.text.Printer: boolean first> = 1;
+
+        return;
+    }
+
+    public void beginList()
+    {
+        cck.text.Printer this;
+        int $stack1, $stack2;
+
+        this := @this: cck.text.Printer;
+
+        $stack1 = this.<cck.text.Printer: int listdepth>;
+
+        $stack2 = $stack1 + 1;
+
+        this.<cck.text.Printer: int listdepth> = $stack2;
+
+        this.<cck.text.Printer: boolean first> = 1;
+
+        return;
+    }
+
+    public void endList(java.lang.String)
+    {
+        cck.text.Printer this;
+        int $stack2, $stack3, $stack4;
+        java.lang.String end;
+
+        this := @this: cck.text.Printer;
+
+        end := @parameter0: java.lang.String;
+
+        $stack2 = this.<cck.text.Printer: int listdepth>;
+
+        $stack3 = $stack2 - 1;
+
+        this.<cck.text.Printer: int listdepth> = $stack3;
+
+        $stack4 = this.<cck.text.Printer: int listdepth>;
+
+        if $stack4 >= 0 goto label1;
+
+        this.<cck.text.Printer: int listdepth> = 0;
+
+     label1:
+        virtualinvoke this.<cck.text.Printer: void print(java.lang.String)>(end);
+
+        return;
+    }
+
+    public void endListln(java.lang.String)
+    {
+        cck.text.Printer this;
+        int $stack2, $stack3, $stack4;
+        java.lang.String end;
+
+        this := @this: cck.text.Printer;
+
+        end := @parameter0: java.lang.String;
+
+        $stack2 = this.<cck.text.Printer: int listdepth>;
+
+        $stack3 = $stack2 - 1;
+
+        this.<cck.text.Printer: int listdepth> = $stack3;
+
+        $stack4 = this.<cck.text.Printer: int listdepth>;
+
+        if $stack4 >= 0 goto label1;
+
+        this.<cck.text.Printer: int listdepth> = 0;
+
+     label1:
+        virtualinvoke this.<cck.text.Printer: void println(java.lang.String)>(end);
+
+        return;
+    }
+
+    public void endList()
+    {
+        cck.text.Printer this;
+        int $stack1, $stack2, $stack3;
+
+        this := @this: cck.text.Printer;
+
+        $stack1 = this.<cck.text.Printer: int listdepth>;
+
+        $stack2 = $stack1 - 1;
+
+        this.<cck.text.Printer: int listdepth> = $stack2;
+
+        $stack3 = this.<cck.text.Printer: int listdepth>;
+
+        if $stack3 >= 0 goto label1;
+
+        this.<cck.text.Printer: int listdepth> = 0;
+
+     label1:
+        return;
+    }
+
+    public void endListln()
+    {
+        cck.text.Printer this;
+        int $stack1, $stack2, $stack3;
+
+        this := @this: cck.text.Printer;
+
+        $stack1 = this.<cck.text.Printer: int listdepth>;
+
+        $stack2 = $stack1 - 1;
+
+        this.<cck.text.Printer: int listdepth> = $stack2;
+
+        $stack3 = this.<cck.text.Printer: int listdepth>;
+
+        if $stack3 >= 0 goto label1;
+
+        this.<cck.text.Printer: int listdepth> = 0;
+
+     label1:
+        virtualinvoke this.<cck.text.Printer: void nextln()>();
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        cck.text.Printer $stack0, $stack2;
+        java.io.PrintStream $stack1, $stack3;
+
+        $stack0 = new cck.text.Printer;
+
+        $stack1 = <java.lang.System: java.io.PrintStream out>;
+
+        specialinvoke $stack0.<cck.text.Printer: void <init>(java.io.PrintStream)>($stack1);
+
+        <cck.text.Printer: cck.text.Printer STDOUT> = $stack0;
+
+        $stack2 = new cck.text.Printer;
+
+        $stack3 = <java.lang.System: java.io.PrintStream out>;
+
+        specialinvoke $stack2.<cck.text.Printer: void <init>(java.io.PrintStream)>($stack3);
+
+        <cck.text.Printer: cck.text.Printer STDERR> = $stack2;
+
+        return;
+    }
+}

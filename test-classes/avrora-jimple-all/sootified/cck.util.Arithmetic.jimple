@@ -1,0 +1,1220 @@
+public class cck.util.Arithmetic extends java.lang.Object
+{
+    private static final int[] reverseKey;
+    private static final int[] bitcountKey;
+    static final boolean $assertionsDisabled;
+
+    public void <init>()
+    {
+        cck.util.Arithmetic this;
+
+        this := @this: cck.util.Arithmetic;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static short word(byte, byte)
+    {
+        byte b1, b2;
+        int $stack2, $stack3, $stack4;
+        short $stack5;
+
+        b1 := @parameter0: byte;
+
+        b2 := @parameter1: byte;
+
+        $stack3 = b1 & 255;
+
+        $stack2 = b2 << 8;
+
+        $stack4 = $stack3 | $stack2;
+
+        $stack5 = (short) $stack4;
+
+        return $stack5;
+    }
+
+    public static char uword(byte, byte)
+    {
+        byte b1, b2;
+        int $stack2, $stack3, $stack4, $stack5;
+        char $stack6;
+
+        b1 := @parameter0: byte;
+
+        b2 := @parameter1: byte;
+
+        $stack4 = b1 & 255;
+
+        $stack2 = b2 & 255;
+
+        $stack3 = $stack2 << 8;
+
+        $stack5 = $stack4 | $stack3;
+
+        $stack6 = (char) $stack5;
+
+        return $stack6;
+    }
+
+    public static int signExtend(int, int)
+    {
+        int value, signbit, $stack3, $stack4;
+        boolean $stack2;
+
+        value := @parameter0: int;
+
+        signbit := @parameter1: int;
+
+        $stack2 = staticinvoke <cck.util.Arithmetic: boolean getBit(int,int)>(value, signbit);
+
+        if $stack2 == 0 goto label1;
+
+        $stack3 = -1 << signbit;
+
+        $stack4 = value | $stack3;
+
+        return $stack4;
+
+     label1:
+        return value;
+    }
+
+    public static char ubyte(byte)
+    {
+        byte b1;
+        int $stack1;
+        char $stack2;
+
+        b1 := @parameter0: byte;
+
+        $stack1 = b1 & 255;
+
+        $stack2 = (char) $stack1;
+
+        return $stack2;
+    }
+
+    public static byte low(short)
+    {
+        short val;
+        byte $stack1;
+
+        val := @parameter0: short;
+
+        $stack1 = (byte) val;
+
+        return $stack1;
+    }
+
+    public static byte high(short)
+    {
+        short val;
+        int $stack1;
+        byte $stack2;
+
+        val := @parameter0: short;
+
+        $stack1 = val >> 8;
+
+        $stack2 = (byte) $stack1;
+
+        return $stack2;
+    }
+
+    public static byte low(int)
+    {
+        int val;
+        byte $stack1;
+
+        val := @parameter0: int;
+
+        $stack1 = (byte) val;
+
+        return $stack1;
+    }
+
+    public static byte high(int)
+    {
+        int val, $stack1, $stack2;
+        byte $stack3;
+
+        val := @parameter0: int;
+
+        $stack1 = val & 65280;
+
+        $stack2 = $stack1 >> 8;
+
+        $stack3 = (byte) $stack2;
+
+        return $stack3;
+    }
+
+    public static char ulow(char)
+    {
+        char val, $stack2;
+        int $stack1;
+
+        val := @parameter0: char;
+
+        $stack1 = val & 255;
+
+        $stack2 = (char) $stack1;
+
+        return $stack2;
+    }
+
+    public static char uhigh(char)
+    {
+        char val, $stack2;
+        int $stack1;
+
+        val := @parameter0: char;
+
+        $stack1 = val >> 8;
+
+        $stack2 = (char) $stack1;
+
+        return $stack2;
+    }
+
+    public static char ulow(short)
+    {
+        short val;
+        int $stack1;
+        char $stack2;
+
+        val := @parameter0: short;
+
+        $stack1 = val & 255;
+
+        $stack2 = (char) $stack1;
+
+        return $stack2;
+    }
+
+    public static char uhigh(short)
+    {
+        short val;
+        int $stack1, $stack2;
+        char $stack3;
+
+        val := @parameter0: short;
+
+        $stack1 = val & 65280;
+
+        $stack2 = $stack1 >> 8;
+
+        $stack3 = (char) $stack2;
+
+        return $stack3;
+    }
+
+    public static boolean getBit(byte, int)
+    {
+        byte val;
+        int bit, $stack2, $stack3;
+        boolean $stack4#1;
+
+        val := @parameter0: byte;
+
+        bit := @parameter1: int;
+
+        $stack2 = 1 << bit;
+
+        $stack3 = val & $stack2;
+
+        if $stack3 == 0 goto label1;
+
+        $stack4#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack4#1 = 0;
+
+     label2:
+        return $stack4#1;
+    }
+
+    public static boolean getBit(long, int)
+    {
+        long val, $stack3, $stack4;
+        int bit;
+        byte $stack5;
+        boolean $stack6#1;
+
+        val := @parameter0: long;
+
+        bit := @parameter1: int;
+
+        $stack3 = 1L << bit;
+
+        $stack4 = val & $stack3;
+
+        $stack5 = $stack4 cmp 0L;
+
+        if $stack5 == 0 goto label1;
+
+        $stack6#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack6#1 = 0;
+
+     label2:
+        return $stack6#1;
+    }
+
+    public static boolean getBit(int, int)
+    {
+        int val, bit, $stack2, $stack3;
+        boolean $stack4#1;
+
+        val := @parameter0: int;
+
+        bit := @parameter1: int;
+
+        $stack2 = 1 << bit;
+
+        $stack3 = val & $stack2;
+
+        if $stack3 == 0 goto label1;
+
+        $stack4#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack4#1 = 0;
+
+     label2:
+        return $stack4#1;
+    }
+
+    public static byte setBit(byte, int)
+    {
+        byte val, $stack4;
+        int bit, $stack2, $stack3;
+
+        val := @parameter0: byte;
+
+        bit := @parameter1: int;
+
+        $stack2 = 1 << bit;
+
+        $stack3 = val | $stack2;
+
+        $stack4 = (byte) $stack3;
+
+        return $stack4;
+    }
+
+    public static byte setBit(byte, int, boolean)
+    {
+        boolean on;
+        byte val, $stack3, $stack4;
+        int bit;
+
+        val := @parameter0: byte;
+
+        bit := @parameter1: int;
+
+        on := @parameter2: boolean;
+
+        if on == 0 goto label1;
+
+        $stack4 = staticinvoke <cck.util.Arithmetic: byte setBit(byte,int)>(val, bit);
+
+        return $stack4;
+
+     label1:
+        $stack3 = staticinvoke <cck.util.Arithmetic: byte clearBit(byte,int)>(val, bit);
+
+        return $stack3;
+    }
+
+    public static int setBit(int, int, boolean)
+    {
+        int bit, mask, val, $stack4, $stack5#1;
+        boolean on;
+
+        val := @parameter0: int;
+
+        bit := @parameter1: int;
+
+        on := @parameter2: boolean;
+
+        mask = 1 << bit;
+
+        if on == 0 goto label1;
+
+        $stack5#1 = val | mask;
+
+        goto label2;
+
+     label1:
+        $stack4 = mask ^ -1;
+
+        $stack5#1 = val & $stack4;
+
+     label2:
+        return $stack5#1;
+    }
+
+    public static long setBit(long, int, boolean)
+    {
+        int bit;
+        long mask, val, $stack6, $stack7#1;
+        boolean on;
+
+        val := @parameter0: long;
+
+        bit := @parameter1: int;
+
+        on := @parameter2: boolean;
+
+        mask = 1L << bit;
+
+        if on == 0 goto label1;
+
+        $stack7#1 = val | mask;
+
+        goto label2;
+
+     label1:
+        $stack6 = mask ^ -1L;
+
+        $stack7#1 = val & $stack6;
+
+     label2:
+        return $stack7#1;
+    }
+
+    public static byte clearBit(byte, int)
+    {
+        byte val, $stack5;
+        int bit, $stack2, $stack3, $stack4;
+
+        val := @parameter0: byte;
+
+        bit := @parameter1: int;
+
+        $stack2 = 1 << bit;
+
+        $stack3 = $stack2 ^ -1;
+
+        $stack4 = val & $stack3;
+
+        $stack5 = (byte) $stack4;
+
+        return $stack5;
+    }
+
+    public static int lowestBit(long)
+    {
+        int $stack3, low#2, $stack15#3;
+        long $stack4, $stack6, $stack8, $stack10, $stack12, value#1;
+        byte $stack5, $stack7, $stack9, $stack11, $stack13, $stack14;
+
+        value#1 := @parameter0: long;
+
+        low#2 = 0;
+
+        $stack3 = (int) value#1;
+
+        if $stack3 != 0 goto label1;
+
+        low#2 = 0 + 32;
+
+        value#1 = value#1 >> 32;
+
+     label1:
+        $stack4 = value#1 & 65535L;
+
+        $stack5 = $stack4 cmp 0L;
+
+        if $stack5 != 0 goto label2;
+
+        low#2 = low#2 + 16;
+
+        value#1 = value#1 >> 16;
+
+     label2:
+        $stack6 = value#1 & 255L;
+
+        $stack7 = $stack6 cmp 0L;
+
+        if $stack7 != 0 goto label3;
+
+        low#2 = low#2 + 8;
+
+        value#1 = value#1 >> 8;
+
+     label3:
+        $stack8 = value#1 & 15L;
+
+        $stack9 = $stack8 cmp 0L;
+
+        if $stack9 != 0 goto label4;
+
+        low#2 = low#2 + 4;
+
+        value#1 = value#1 >> 4;
+
+     label4:
+        $stack10 = value#1 & 3L;
+
+        $stack11 = $stack10 cmp 0L;
+
+        if $stack11 != 0 goto label5;
+
+        low#2 = low#2 + 2;
+
+        value#1 = value#1 >> 2;
+
+     label5:
+        $stack12 = value#1 & 1L;
+
+        $stack13 = $stack12 cmp 0L;
+
+        if $stack13 != 0 goto label6;
+
+        low#2 = low#2 + 1;
+
+        value#1 = value#1 >> 1;
+
+     label6:
+        $stack14 = value#1 cmp 0L;
+
+        if $stack14 != 0 goto label7;
+
+        $stack15#3 = -1;
+
+        goto label8;
+
+     label7:
+        $stack15#3 = low#2;
+
+     label8:
+        return $stack15#3;
+    }
+
+    public static int highestBit(int)
+    {
+        int $stack2, $stack3, $stack4, $stack5, $stack6, value#1, high#2, $stack7#3;
+
+        value#1 := @parameter0: int;
+
+        high#2 = 31;
+
+        $stack2 = value#1 & -65536;
+
+        if $stack2 != 0 goto label1;
+
+        high#2 = 31 + -16;
+
+        value#1 = value#1 << 16;
+
+     label1:
+        $stack3 = value#1 & -16777216;
+
+        if $stack3 != 0 goto label2;
+
+        high#2 = high#2 + -8;
+
+        value#1 = value#1 << 8;
+
+     label2:
+        $stack4 = value#1 & -268435456;
+
+        if $stack4 != 0 goto label3;
+
+        high#2 = high#2 + -4;
+
+        value#1 = value#1 << 4;
+
+     label3:
+        $stack5 = value#1 & -1073741824;
+
+        if $stack5 != 0 goto label4;
+
+        high#2 = high#2 + -2;
+
+        value#1 = value#1 << 2;
+
+     label4:
+        $stack6 = value#1 & -2147483648;
+
+        if $stack6 != 0 goto label5;
+
+        high#2 = high#2 + -1;
+
+        value#1 = value#1 << 1;
+
+     label5:
+        if value#1 != 0 goto label6;
+
+        $stack7#3 = -1;
+
+        goto label7;
+
+     label6:
+        $stack7#3 = high#2;
+
+     label7:
+        return $stack7#3;
+    }
+
+    public static int log(int)
+    {
+        int value, $stack1, $stack3, $stack4;
+
+        value := @parameter0: int;
+
+        if value != 0 goto label1;
+
+        return 0;
+
+     label1:
+        $stack1 = value - 1;
+
+        $stack3 = staticinvoke <cck.util.Arithmetic: int highestBit(int)>($stack1);
+
+        $stack4 = 1 + $stack3;
+
+        return $stack4;
+    }
+
+    public static int getBitField(int, int[])
+    {
+        int[] permutation;
+        int $stack4, value, $stack5, result#1, cntr#2;
+        boolean $stack6;
+
+        value := @parameter0: int;
+
+        permutation := @parameter1: int[];
+
+        result#1 = 0;
+
+        cntr#2 = 0;
+
+     label1:
+        $stack4 = lengthof permutation;
+
+        if cntr#2 >= $stack4 goto label3;
+
+        result#1 = result#1 << 1;
+
+        $stack5 = permutation[cntr#2];
+
+        $stack6 = staticinvoke <cck.util.Arithmetic: boolean getBit(int,int)>(value, $stack5);
+
+        if $stack6 == 0 goto label2;
+
+        result#1 = result#1 | 1;
+
+     label2:
+        cntr#2 = cntr#2 + 1;
+
+        goto label1;
+
+     label3:
+        return result#1;
+    }
+
+    public static int getBitField(int, int, int)
+    {
+        int value, lowbit, length, $stack3, $stack4, $stack5, $stack6;
+
+        value := @parameter0: int;
+
+        lowbit := @parameter1: int;
+
+        length := @parameter2: int;
+
+        $stack5 = value >> lowbit;
+
+        $stack3 = 32 - length;
+
+        $stack4 = -1 >>> $stack3;
+
+        $stack6 = $stack5 & $stack4;
+
+        return $stack6;
+    }
+
+    public static byte reverseBits(byte)
+    {
+        byte value, $stack10;
+        int $stack1, $stack3, $stack4, $stack5, $stack7, $stack8, $stack9;
+        int[] $stack2, $stack6;
+
+        value := @parameter0: byte;
+
+        $stack2 = <cck.util.Arithmetic: int[] reverseKey>;
+
+        $stack1 = value & 15;
+
+        $stack3 = $stack2[$stack1];
+
+        $stack8 = $stack3 << 4;
+
+        $stack6 = <cck.util.Arithmetic: int[] reverseKey>;
+
+        $stack4 = value >> 4;
+
+        $stack5 = $stack4 & 15;
+
+        $stack7 = $stack6[$stack5];
+
+        $stack9 = $stack8 | $stack7;
+
+        $stack10 = (byte) $stack9;
+
+        return $stack10;
+    }
+
+    public static int bitCount(byte)
+    {
+        byte value;
+        int $stack1, $stack3, $stack4, $stack6, $stack7, $stack8;
+        int[] $stack2, $stack5;
+
+        value := @parameter0: byte;
+
+        $stack2 = <cck.util.Arithmetic: int[] bitcountKey>;
+
+        $stack1 = value & 15;
+
+        $stack7 = $stack2[$stack1];
+
+        $stack5 = <cck.util.Arithmetic: int[] bitcountKey>;
+
+        $stack3 = value >> 4;
+
+        $stack4 = $stack3 & 15;
+
+        $stack6 = $stack5[$stack4];
+
+        $stack8 = $stack7 + $stack6;
+
+        return $stack8;
+    }
+
+    public static int getSingleBitMask(int)
+    {
+        int bit, $stack1;
+
+        bit := @parameter0: int;
+
+        $stack1 = 1 << bit;
+
+        return $stack1;
+    }
+
+    public static int getSingleInverseBitMask(int)
+    {
+        int bit, $stack1, $stack2;
+
+        bit := @parameter0: int;
+
+        $stack1 = 1 << bit;
+
+        $stack2 = $stack1 ^ -1;
+
+        return $stack2;
+    }
+
+    public static int getBitRangeMask(int, int)
+    {
+        int high, low, $stack2, $stack3, $stack4, $stack5;
+
+        low := @parameter0: int;
+
+        high := @parameter1: int;
+
+        $stack2 = high - low;
+
+        $stack3 = 31 - $stack2;
+
+        $stack4 = -1 >>> $stack3;
+
+        $stack5 = $stack4 << low;
+
+        return $stack5;
+    }
+
+    public static int getBitMask(int)
+    {
+        int width, $stack1, $stack2, $stack3;
+
+        width := @parameter0: int;
+
+        $stack1 = width - 1;
+
+        $stack2 = 31 - $stack1;
+
+        $stack3 = -1 >>> $stack2;
+
+        return $stack3;
+    }
+
+    public static long getLongBitRangeMask(int, int)
+    {
+        int high, low, $stack2, $stack3;
+        long $stack4, $stack5;
+
+        low := @parameter0: int;
+
+        high := @parameter1: int;
+
+        $stack2 = high - low;
+
+        $stack3 = 63 - $stack2;
+
+        $stack4 = -1L >>> $stack3;
+
+        $stack5 = $stack4 << low;
+
+        return $stack5;
+    }
+
+    public static int getInverseBitRangeMask(int, int)
+    {
+        int low, high, $stack2, $stack3;
+
+        low := @parameter0: int;
+
+        high := @parameter1: int;
+
+        $stack2 = staticinvoke <cck.util.Arithmetic: int getBitRangeMask(int,int)>(low, high);
+
+        $stack3 = $stack2 ^ -1;
+
+        return $stack3;
+    }
+
+    public static long[] modulus(long, int[])
+    {
+        int[] denom;
+        int $stack6, $stack7, $stack8, radix, $stack11, cntr#2;
+        long[] result;
+        long $stack9, $stack10, $stack12, val#1;
+
+        val#1 := @parameter0: long;
+
+        denom := @parameter1: int[];
+
+        $stack6 = lengthof denom;
+
+        $stack7 = $stack6 + 1;
+
+        result = newarray (long)[$stack7];
+
+        $stack8 = lengthof denom;
+
+        cntr#2 = $stack8 - 1;
+
+     label1:
+        if cntr#2 < 0 goto label2;
+
+        radix = denom[cntr#2];
+
+        $stack11 = cntr#2 + 1;
+
+        $stack9 = (long) radix;
+
+        $stack10 = val#1 % $stack9;
+
+        result[$stack11] = $stack10;
+
+        $stack12 = (long) radix;
+
+        val#1 = val#1 / $stack12;
+
+        cntr#2 = cntr#2 + -1;
+
+        goto label1;
+
+     label2:
+        result[0] = val#1;
+
+        return result;
+    }
+
+    public static long mult(long[], int[])
+    {
+        boolean $stack6;
+        long[] vals;
+        int $stack9, $stack10, $stack17, $stack21, $stack22, $stack23, radix#2, cntr#3, $stack7#9, $stack8#13;
+        long $stack11, $stack12, $stack13, $stack14, $stack15, $stack16, accum#1, accum#14;
+        int[] denom;
+        java.lang.AssertionError $stack25;
+
+        vals := @parameter0: long[];
+
+        denom := @parameter1: int[];
+
+        accum#1 = 0L;
+
+        radix#2 = 1;
+
+        $stack6 = <cck.util.Arithmetic: boolean $assertionsDisabled>;
+
+        if $stack6 != 0 goto label1;
+
+        $stack21 = lengthof vals;
+
+        $stack23 = $stack21 - 1;
+
+        $stack22 = lengthof denom;
+
+        if $stack23 == $stack22 goto label1;
+
+        $stack25 = new java.lang.AssertionError;
+
+        specialinvoke $stack25.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack25;
+
+     label1:
+        cntr#3 = 0;
+
+     label2:
+        $stack7#9 = lengthof vals;
+
+        $stack8#13 = $stack7#9 - 1;
+
+        if cntr#3 >= $stack8#13 goto label3;
+
+        $stack15 = vals[cntr#3];
+
+        $stack14 = (long) radix#2;
+
+        $stack16 = $stack15 * $stack14;
+
+        accum#1 = accum#1 + $stack16;
+
+        $stack17 = denom[cntr#3];
+
+        radix#2 = radix#2 * $stack17;
+
+        cntr#3 = cntr#3 + 1;
+
+        goto label2;
+
+     label3:
+        $stack9 = lengthof vals;
+
+        $stack10 = $stack9 - 1;
+
+        $stack12 = vals[$stack10];
+
+        $stack11 = (long) radix#2;
+
+        $stack13 = $stack12 * $stack11;
+
+        accum#14 = accum#1 + $stack13;
+
+        return accum#14;
+    }
+
+    public static void inc(long[], int[], int)
+    {
+        boolean $stack4;
+        int pos, $stack8, $stack14, $stack15, $stack16, cntr#1, $stack5#7;
+        long[] vals;
+        long $stack6, $stack7, $stack9, $stack10;
+        int[] denom;
+        byte $stack11;
+        java.lang.AssertionError $stack18;
+
+        vals := @parameter0: long[];
+
+        denom := @parameter1: int[];
+
+        pos := @parameter2: int;
+
+        $stack4 = <cck.util.Arithmetic: boolean $assertionsDisabled>;
+
+        if $stack4 != 0 goto label1;
+
+        $stack14 = lengthof vals;
+
+        $stack16 = $stack14 - 1;
+
+        $stack15 = lengthof denom;
+
+        if $stack16 == $stack15 goto label1;
+
+        $stack18 = new java.lang.AssertionError;
+
+        specialinvoke $stack18.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack18;
+
+     label1:
+        cntr#1 = pos;
+
+     label2:
+        $stack5#7 = lengthof vals;
+
+        if cntr#1 >= $stack5#7 goto label4;
+
+        $stack6 = vals[cntr#1];
+
+        $stack7 = $stack6 + 1L;
+
+        vals[cntr#1] = $stack7;
+
+        $stack10 = vals[cntr#1];
+
+        $stack8 = denom[cntr#1];
+
+        $stack9 = (long) $stack8;
+
+        $stack11 = $stack10 cmp $stack9;
+
+        if $stack11 >= 0 goto label3;
+
+        goto label4;
+
+     label3:
+        cntr#1 = cntr#1 + 1;
+
+        goto label2;
+
+     label4:
+        return;
+    }
+
+    public static int max(int, int)
+    {
+        int m1, m2, $stack2#1;
+
+        m1 := @parameter0: int;
+
+        m2 := @parameter1: int;
+
+        if m1 <= m2 goto label1;
+
+        $stack2#1 = m1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = m2;
+
+     label2:
+        return $stack2#1;
+    }
+
+    public static int min(int, int)
+    {
+        int m1, m2, $stack2#1;
+
+        m1 := @parameter0: int;
+
+        m2 := @parameter1: int;
+
+        if m1 >= m2 goto label1;
+
+        $stack2#1 = m1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = m2;
+
+     label2:
+        return $stack2#1;
+    }
+
+    public static byte packBits(boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean)
+    {
+        boolean b0, b1, b2, b3, b4, b5, b6, b7;
+        byte $stack9;
+        int val#1;
+
+        b0 := @parameter0: boolean;
+
+        b1 := @parameter1: boolean;
+
+        b2 := @parameter2: boolean;
+
+        b3 := @parameter3: boolean;
+
+        b4 := @parameter4: boolean;
+
+        b5 := @parameter5: boolean;
+
+        b6 := @parameter6: boolean;
+
+        b7 := @parameter7: boolean;
+
+        val#1 = 0;
+
+        if b0 == 0 goto label1;
+
+        val#1 = 0 | 1;
+
+     label1:
+        if b1 == 0 goto label2;
+
+        val#1 = val#1 | 2;
+
+     label2:
+        if b2 == 0 goto label3;
+
+        val#1 = val#1 | 4;
+
+     label3:
+        if b3 == 0 goto label4;
+
+        val#1 = val#1 | 8;
+
+     label4:
+        if b4 == 0 goto label5;
+
+        val#1 = val#1 | 16;
+
+     label5:
+        if b5 == 0 goto label6;
+
+        val#1 = val#1 | 32;
+
+     label6:
+        if b6 == 0 goto label7;
+
+        val#1 = val#1 | 64;
+
+     label7:
+        if b7 == 0 goto label8;
+
+        val#1 = val#1 | 128;
+
+     label8:
+        $stack9 = (byte) val#1;
+
+        return $stack9;
+    }
+
+    public static int roundup(int, int)
+    {
+        int val, den, $stack2, $stack3, $stack4;
+
+        val := @parameter0: int;
+
+        den := @parameter1: int;
+
+        $stack2 = val + den;
+
+        $stack3 = $stack2 - 1;
+
+        $stack4 = $stack3 / 8;
+
+        return $stack4;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.Class $stack0;
+        boolean $stack1, $stack4#1;
+        int[] $stack2, $stack3;
+
+        $stack0 = class "Lcck/util/Arithmetic;";
+
+        $stack1 = virtualinvoke $stack0.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $stack1 != 0 goto label1;
+
+        $stack4#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack4#1 = 0;
+
+     label2:
+        <cck.util.Arithmetic: boolean $assertionsDisabled> = $stack4#1;
+
+        $stack2 = newarray (int)[16];
+
+        $stack2[0] = 0;
+
+        $stack2[1] = 8;
+
+        $stack2[2] = 4;
+
+        $stack2[3] = 12;
+
+        $stack2[4] = 2;
+
+        $stack2[5] = 10;
+
+        $stack2[6] = 6;
+
+        $stack2[7] = 14;
+
+        $stack2[8] = 1;
+
+        $stack2[9] = 9;
+
+        $stack2[10] = 5;
+
+        $stack2[11] = 13;
+
+        $stack2[12] = 3;
+
+        $stack2[13] = 11;
+
+        $stack2[14] = 7;
+
+        $stack2[15] = 15;
+
+        <cck.util.Arithmetic: int[] reverseKey> = $stack2;
+
+        $stack3 = newarray (int)[16];
+
+        $stack3[0] = 0;
+
+        $stack3[1] = 1;
+
+        $stack3[2] = 1;
+
+        $stack3[3] = 2;
+
+        $stack3[4] = 1;
+
+        $stack3[5] = 2;
+
+        $stack3[6] = 2;
+
+        $stack3[7] = 3;
+
+        $stack3[8] = 1;
+
+        $stack3[9] = 2;
+
+        $stack3[10] = 2;
+
+        $stack3[11] = 3;
+
+        $stack3[12] = 2;
+
+        $stack3[13] = 3;
+
+        $stack3[14] = 3;
+
+        $stack3[15] = 4;
+
+        <cck.util.Arithmetic: int[] bitcountKey> = $stack3;
+
+        return;
+    }
+}

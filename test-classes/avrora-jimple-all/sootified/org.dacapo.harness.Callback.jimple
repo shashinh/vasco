@@ -1,0 +1,775 @@
+public class org.dacapo.harness.Callback extends java.lang.Object
+{
+    protected org.dacapo.harness.Callback$Mode mode;
+    protected final org.dacapo.harness.CommandLineArgs args;
+    protected int iterations;
+    protected long[] times;
+    protected long elapsed;
+    boolean verbose;
+    static final boolean $assertionsDisabled;
+
+    public void <init>(org.dacapo.harness.CommandLineArgs)
+    {
+        org.dacapo.harness.Callback this;
+        org.dacapo.harness.CommandLineArgs args;
+        org.dacapo.harness.CommandLineArgs$Methodology $stack2, $stack3;
+        boolean $stack4, $stack5, $stack6;
+        int $stack7;
+        long[] $stack8;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        args := @parameter0: org.dacapo.harness.CommandLineArgs;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<org.dacapo.harness.Callback: boolean verbose> = 0;
+
+        this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args> = args;
+
+        $stack2 = virtualinvoke args.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.CommandLineArgs$Methodology getMethodology()>();
+
+        $stack3 = <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology CONVERGE>;
+
+        if $stack2 != $stack3 goto label1;
+
+        $stack7 = virtualinvoke args.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        $stack8 = newarray (long)[$stack7];
+
+        this.<org.dacapo.harness.Callback: long[] times> = $stack8;
+
+     label1:
+        $stack4 = this.<org.dacapo.harness.Callback: boolean verbose>;
+
+        $stack5 = virtualinvoke args.<org.dacapo.harness.CommandLineArgs: boolean getDebug()>();
+
+        $stack6 = $stack4 | $stack5;
+
+        this.<org.dacapo.harness.Callback: boolean verbose> = $stack6;
+
+        return;
+    }
+
+    public void init(org.dacapo.parser.Config)
+    {
+        org.dacapo.harness.Callback this;
+        boolean $stack3;
+        org.dacapo.harness.CommandLineArgs $stack4, $stack9, $stack20;
+        int[] $stack5;
+        org.dacapo.harness.CommandLineArgs$Methodology $stack6;
+        int $stack7, $stack8, $stack10, $stack14, $stack21, i#9;
+        org.dacapo.harness.Callback$Mode $stack11, $stack18, $stack22, $stack23;
+        long[] $stack13, $stack15, $stack12#8;
+        java.io.PrintStream $stack24;
+        org.dacapo.parser.Config config;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        config := @parameter0: org.dacapo.parser.Config;
+
+        $stack3 = this.<org.dacapo.harness.Callback: boolean verbose>;
+
+        if $stack3 == 0 goto label1;
+
+        $stack24 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack24.<java.io.PrintStream: void println(java.lang.String)>("Initializing callback");
+
+     label1:
+        this.<org.dacapo.harness.Callback: int iterations> = 0;
+
+        $stack5 = <org.dacapo.harness.Callback$1: int[] $SwitchMap$org$dacapo$harness$CommandLineArgs$Methodology>;
+
+        $stack4 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack6 = virtualinvoke $stack4.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.CommandLineArgs$Methodology getMethodology()>();
+
+        $stack7 = virtualinvoke $stack6.<org.dacapo.harness.CommandLineArgs$Methodology: int ordinal()>();
+
+        $stack8 = $stack5[$stack7];
+
+        lookupswitch($stack8)
+        {
+            case 1: goto label2;
+            case 2: goto label4;
+            default: goto label6;
+        };
+
+     label2:
+        $stack20 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack21 = virtualinvoke $stack20.<org.dacapo.harness.CommandLineArgs: int getIterations()>();
+
+        if $stack21 != 1 goto label3;
+
+        $stack23 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $stack23;
+
+        goto label6;
+
+     label3:
+        $stack22 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $stack22;
+
+        goto label6;
+
+     label4:
+        $stack9 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        if $stack10 != 0 goto label5;
+
+        $stack18 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $stack18;
+
+        goto label6;
+
+     label5:
+        $stack11 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $stack11;
+
+     label6:
+        $stack12#8 = this.<org.dacapo.harness.Callback: long[] times>;
+
+        if $stack12#8 == null goto label8;
+
+        i#9 = 0;
+
+     label7:
+        $stack13 = this.<org.dacapo.harness.Callback: long[] times>;
+
+        $stack14 = lengthof $stack13;
+
+        if i#9 >= $stack14 goto label8;
+
+        $stack15 = this.<org.dacapo.harness.Callback: long[] times>;
+
+        $stack15[i#9] = 0L;
+
+        i#9 = i#9 + 1;
+
+        goto label7;
+
+     label8:
+        return;
+    }
+
+    public boolean runAgain()
+    {
+        org.dacapo.harness.Callback this;
+        boolean $stack1, $stack2, $stack5, $stack34, $stack59, $stack69;
+        int $stack3, $stack4, $stack9, $stack10, $stack12, $stack13, $stack14, $stack17, $stack18, $stack20, $stack22, $stack23, $stack25, $stack26, $stack45, $stack56, $stack57, $stack58, $stack74;
+        org.dacapo.harness.CommandLineArgs $stack6, $stack11, $stack15, $stack21, $stack24, $stack33, $stack48, $stack55, $stack29#10;
+        int[] $stack7;
+        org.dacapo.harness.CommandLineArgs$Methodology $stack8;
+        long[] $stack16, $stack38, $stack27#4;
+        long $stack19;
+        org.dacapo.harness.Callback$Mode $stack32, $stack63, $stack67;
+        java.lang.Object[] $stack37;
+        java.io.PrintStream $stack39, $stack54, $stack61, $stack72, $stack78;
+        double $stack42, $stack43, $stack50, $stack51, $stack28#6, $stack30#12;
+        java.lang.Double $stack44, $stack52;
+        java.lang.Integer $stack47;
+        java.lang.StringBuilder $stack60, $stack62, $stack64, $stack71, $stack73, $stack75;
+        java.lang.String $stack65, $stack76;
+        java.lang.AssertionError $stack70;
+        byte $stack31#14;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        $stack1 = this.<org.dacapo.harness.Callback: boolean verbose>;
+
+        if $stack1 == 0 goto label01;
+
+        $stack78 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack78.<java.io.PrintStream: void println(java.lang.String)>("runAgain");
+
+     label01:
+        $stack2 = virtualinvoke this.<org.dacapo.harness.Callback: boolean isWarmup()>();
+
+        if $stack2 != 0 goto label02;
+
+        return 0;
+
+     label02:
+        $stack3 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack4 = $stack3 + 1;
+
+        this.<org.dacapo.harness.Callback: int iterations> = $stack4;
+
+        $stack5 = this.<org.dacapo.harness.Callback: boolean verbose>;
+
+        if $stack5 == 0 goto label03;
+
+        $stack72 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack71 = new java.lang.StringBuilder;
+
+        specialinvoke $stack71.<java.lang.StringBuilder: void <init>()>();
+
+        $stack73 = virtualinvoke $stack71.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("iterations = ");
+
+        $stack74 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack75 = virtualinvoke $stack73.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack74);
+
+        $stack76 = virtualinvoke $stack75.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack72.<java.io.PrintStream: void println(java.lang.String)>($stack76);
+
+     label03:
+        $stack7 = <org.dacapo.harness.Callback$1: int[] $SwitchMap$org$dacapo$harness$CommandLineArgs$Methodology>;
+
+        $stack6 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack8 = virtualinvoke $stack6.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.CommandLineArgs$Methodology getMethodology()>();
+
+        $stack9 = virtualinvoke $stack8.<org.dacapo.harness.CommandLineArgs$Methodology: int ordinal()>();
+
+        $stack10 = $stack7[$stack9];
+
+        lookupswitch($stack10)
+        {
+            case 1: goto label04;
+            case 2: goto label07;
+            default: goto label12;
+        };
+
+     label04:
+        $stack56 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack55 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack57 = virtualinvoke $stack55.<org.dacapo.harness.CommandLineArgs: int getIterations()>();
+
+        $stack58 = $stack57 - 1;
+
+        if $stack56 != $stack58 goto label05;
+
+        $stack67 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $stack67;
+
+     label05:
+        $stack59 = this.<org.dacapo.harness.Callback: boolean verbose>;
+
+        if $stack59 == 0 goto label06;
+
+        $stack61 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack60 = new java.lang.StringBuilder;
+
+        specialinvoke $stack60.<java.lang.StringBuilder: void <init>()>();
+
+        $stack62 = virtualinvoke $stack60.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("mode = ");
+
+        $stack63 = this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $stack64 = virtualinvoke $stack62.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($stack63);
+
+        $stack65 = virtualinvoke $stack64.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack61.<java.io.PrintStream: void println(java.lang.String)>($stack65);
+
+     label06:
+        return 1;
+
+     label07:
+        $stack12 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack11 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack13 = virtualinvoke $stack11.<org.dacapo.harness.CommandLineArgs: int getMaxIterations()>();
+
+        if $stack12 < $stack13 goto label08;
+
+        $stack54 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack54.<java.io.PrintStream: void println(java.lang.String)>("Benchmark failed to converge.");
+
+        return 0;
+
+     label08:
+        $stack16 = this.<org.dacapo.harness.Callback: long[] times>;
+
+        $stack14 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack17 = $stack14 - 1;
+
+        $stack15 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack18 = virtualinvoke $stack15.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        $stack20 = $stack17 % $stack18;
+
+        $stack19 = this.<org.dacapo.harness.Callback: long elapsed>;
+
+        $stack16[$stack20] = $stack19;
+
+        $stack22 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack21 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack23 = virtualinvoke $stack21.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        if $stack22 >= $stack23 goto label09;
+
+        return 1;
+
+     label09:
+        $stack25 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack24 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack26 = virtualinvoke $stack24.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        if $stack25 < $stack26 goto label10;
+
+        $stack33 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack34 = virtualinvoke $stack33.<org.dacapo.harness.CommandLineArgs: boolean getVerbose()>();
+
+        if $stack34 == 0 goto label10;
+
+        $stack39 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack37 = newarray (java.lang.Object)[3];
+
+        $stack38 = this.<org.dacapo.harness.Callback: long[] times>;
+
+        $stack42 = staticinvoke <org.dacapo.harness.TestHarness: double coeff_of_var(long[])>($stack38);
+
+        $stack43 = $stack42 * 100.0;
+
+        $stack44 = staticinvoke <java.lang.Double: java.lang.Double valueOf(double)>($stack43);
+
+        $stack37[0] = $stack44;
+
+        $stack45 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack47 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($stack45);
+
+        $stack37[1] = $stack47;
+
+        $stack48 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack50 = virtualinvoke $stack48.<org.dacapo.harness.CommandLineArgs: double getTargetVar()>();
+
+        $stack51 = $stack50 * 100.0;
+
+        $stack52 = staticinvoke <java.lang.Double: java.lang.Double valueOf(double)>($stack51);
+
+        $stack37[2] = $stack52;
+
+        virtualinvoke $stack39.<java.io.PrintStream: java.io.PrintStream printf(java.lang.String,java.lang.Object[])>("Variation %4.2f%% achieved after %d iterations, target = %4.2f%%\n", $stack37);
+
+     label10:
+        $stack27#4 = this.<org.dacapo.harness.Callback: long[] times>;
+
+        $stack28#6 = staticinvoke <org.dacapo.harness.TestHarness: double coeff_of_var(long[])>($stack27#4);
+
+        $stack29#10 = this.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $stack30#12 = virtualinvoke $stack29#10.<org.dacapo.harness.CommandLineArgs: double getTargetVar()>();
+
+        $stack31#14 = $stack28#6 cmpl $stack30#12;
+
+        if $stack31#14 <= 0 goto label11;
+
+        return 1;
+
+     label11:
+        $stack32 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $stack32;
+
+        return 1;
+
+     label12:
+        $stack69 = <org.dacapo.harness.Callback: boolean $assertionsDisabled>;
+
+        if $stack69 != 0 goto label13;
+
+        $stack70 = new java.lang.AssertionError;
+
+        specialinvoke $stack70.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack70;
+
+     label13:
+        return 0;
+    }
+
+    public boolean isWarmup()
+    {
+        org.dacapo.harness.Callback this;
+        org.dacapo.harness.Callback$Mode $stack1, $stack2;
+        boolean $stack3#1;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        $stack2 = this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $stack1 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        if $stack2 != $stack1 goto label1;
+
+        $stack3#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack3#1 = 0;
+
+     label2:
+        return $stack3#1;
+    }
+
+    public void start(java.lang.String)
+    {
+        org.dacapo.harness.Callback this;
+        java.lang.String benchmark;
+        org.dacapo.harness.Callback$Mode $stack2, $stack3;
+        boolean $stack5#1;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        benchmark := @parameter0: java.lang.String;
+
+        $stack3 = this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $stack2 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        if $stack3 != $stack2 goto label1;
+
+        $stack5#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack5#1 = 0;
+
+     label2:
+        virtualinvoke this.<org.dacapo.harness.Callback: void start(java.lang.String,boolean)>(benchmark, $stack5#1);
+
+        return;
+    }
+
+    protected void start(java.lang.String, boolean)
+    {
+        java.lang.StringBuilder $stack3, $stack5, $stack7, $stack8, $stack9, $stack10, $stack12, $stack14, $stack15, $stack18, $stack19, $stack22, $stack23;
+        java.io.PrintStream $stack4, $stack13, $stack17;
+        java.lang.String $stack6, benchmark, $stack11, $stack16, $stack24#1;
+        boolean warmup;
+        org.dacapo.harness.Callback this;
+        int $stack20, $stack21;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        benchmark := @parameter0: java.lang.String;
+
+        warmup := @parameter1: boolean;
+
+        $stack4 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("===== DaCapo ");
+
+        $stack6 = staticinvoke <org.dacapo.harness.TestHarness: java.lang.String getBuildVersion()>();
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(benchmark);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" starting ");
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack4.<java.io.PrintStream: void print(java.lang.String)>($stack11);
+
+        $stack13 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack12 = new java.lang.StringBuilder;
+
+        specialinvoke $stack12.<java.lang.StringBuilder: void <init>()>();
+
+        if warmup == 0 goto label1;
+
+        $stack18 = new java.lang.StringBuilder;
+
+        specialinvoke $stack18.<java.lang.StringBuilder: void <init>()>();
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("warmup ");
+
+        $stack20 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack21 = $stack20 + 1;
+
+        $stack22 = virtualinvoke $stack19.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack21);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack24#1 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label2;
+
+     label1:
+        $stack24#1 = "";
+
+     label2:
+        $stack14 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack24#1);
+
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("=====");
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack13.<java.io.PrintStream: void println(java.lang.String)>($stack16);
+
+        $stack17 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack17.<java.io.PrintStream: void flush()>();
+
+        return;
+    }
+
+    public void stop(long)
+    {
+        org.dacapo.harness.Callback this;
+        long duration;
+        org.dacapo.harness.Callback$Mode $stack3, $stack4;
+        boolean $stack6#1;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        duration := @parameter0: long;
+
+        $stack4 = this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $stack3 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        if $stack4 != $stack3 goto label1;
+
+        $stack6#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack6#1 = 0;
+
+     label2:
+        virtualinvoke this.<org.dacapo.harness.Callback: void stop(long,boolean)>(duration, $stack6#1);
+
+        return;
+    }
+
+    public void stop(long, boolean)
+    {
+        org.dacapo.harness.Callback this;
+        long duration;
+        boolean warmup;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        duration := @parameter0: long;
+
+        warmup := @parameter1: boolean;
+
+        this.<org.dacapo.harness.Callback: long elapsed> = duration;
+
+        return;
+    }
+
+    public void complete(java.lang.String, boolean)
+    {
+        org.dacapo.harness.Callback this;
+        java.lang.String benchmark;
+        boolean valid, $stack7#1;
+        org.dacapo.harness.Callback$Mode $stack3, $stack4;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        benchmark := @parameter0: java.lang.String;
+
+        valid := @parameter1: boolean;
+
+        $stack4 = this.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $stack3 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        if $stack4 != $stack3 goto label1;
+
+        $stack7#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack7#1 = 0;
+
+     label2:
+        virtualinvoke this.<org.dacapo.harness.Callback: void complete(java.lang.String,boolean,boolean)>(benchmark, valid, $stack7#1);
+
+        return;
+    }
+
+    protected void complete(java.lang.String, boolean, boolean)
+    {
+        java.lang.StringBuilder $stack4, $stack6, $stack8, $stack9, $stack10, $stack12, $stack14, $stack15, $stack22, $stack24, $stack26, $stack27, $stack29, $stack30, $stack33, $stack34;
+        java.io.PrintStream $stack5, $stack13, $stack21, $stack23, $stack17#4, $stack18#8;
+        java.lang.String $stack7, benchmark, $stack11, $stack16, $stack28, $stack35#1, $stack19#2;
+        boolean valid, warmup;
+        org.dacapo.harness.Callback this;
+        long $stack25;
+        int $stack31, $stack32;
+
+        this := @this: org.dacapo.harness.Callback;
+
+        benchmark := @parameter0: java.lang.String;
+
+        valid := @parameter1: boolean;
+
+        warmup := @parameter2: boolean;
+
+        $stack5 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack4 = new java.lang.StringBuilder;
+
+        specialinvoke $stack4.<java.lang.StringBuilder: void <init>()>();
+
+        $stack6 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("===== DaCapo ");
+
+        $stack7 = staticinvoke <org.dacapo.harness.TestHarness: java.lang.String getBuildVersion()>();
+
+        $stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack7);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(benchmark);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack5.<java.io.PrintStream: void print(java.lang.String)>($stack11);
+
+        if valid == 0 goto label3;
+
+        $stack21 = <java.lang.System: java.io.PrintStream err>;
+
+        if warmup == 0 goto label1;
+
+        $stack29 = new java.lang.StringBuilder;
+
+        specialinvoke $stack29.<java.lang.StringBuilder: void <init>()>();
+
+        $stack30 = virtualinvoke $stack29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" completed warmup ");
+
+        $stack31 = this.<org.dacapo.harness.Callback: int iterations>;
+
+        $stack32 = $stack31 + 1;
+
+        $stack33 = virtualinvoke $stack30.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack32);
+
+        $stack34 = virtualinvoke $stack33.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack35#1 = virtualinvoke $stack34.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label2;
+
+     label1:
+        $stack35#1 = " PASSED ";
+
+     label2:
+        virtualinvoke $stack21.<java.io.PrintStream: void print(java.lang.String)>($stack35#1);
+
+        $stack23 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack22 = new java.lang.StringBuilder;
+
+        specialinvoke $stack22.<java.lang.StringBuilder: void <init>()>();
+
+        $stack24 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("in ");
+
+        $stack25 = this.<org.dacapo.harness.Callback: long elapsed>;
+
+        $stack26 = virtualinvoke $stack24.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($stack25);
+
+        $stack27 = virtualinvoke $stack26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" msec ");
+
+        $stack28 = virtualinvoke $stack27.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack23.<java.io.PrintStream: void print(java.lang.String)>($stack28);
+
+        goto label6;
+
+     label3:
+        $stack13 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack12 = new java.lang.StringBuilder;
+
+        specialinvoke $stack12.<java.lang.StringBuilder: void <init>()>();
+
+        $stack14 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" FAILED ");
+
+        if warmup == 0 goto label4;
+
+        $stack19#2 = "warmup ";
+
+        goto label5;
+
+     label4:
+        $stack19#2 = "";
+
+     label5:
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack19#2);
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack13.<java.io.PrintStream: void print(java.lang.String)>($stack16);
+
+     label6:
+        $stack17#4 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack17#4.<java.io.PrintStream: void println(java.lang.String)>("=====");
+
+        $stack18#8 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack18#8.<java.io.PrintStream: void flush()>();
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.Class $stack0;
+        boolean $stack1, $stack2#1;
+
+        $stack0 = class "Lorg/dacapo/harness/Callback;";
+
+        $stack1 = virtualinvoke $stack0.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $stack1 != 0 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        <org.dacapo.harness.Callback: boolean $assertionsDisabled> = $stack2#1;
+
+        return;
+    }
+}

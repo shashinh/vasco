@@ -1,0 +1,160 @@
+public class avrora.sim.mcu.ATMegaFamily$InterruptFlag extends java.lang.Object implements avrora.sim.InterruptTable$Notification
+{
+    final avrora.sim.AtmelInterpreter interpreter;
+    final boolean autoclear;
+    final int inum;
+    final avrora.sim.state.BooleanView view;
+
+    public void <init>(avrora.sim.AtmelInterpreter, boolean, int, avrora.sim.state.BooleanView)
+    {
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag this;
+        avrora.sim.AtmelInterpreter i, $stack5;
+        boolean auto;
+        int in, $stack7;
+        avrora.sim.InterruptTable $stack6;
+        avrora.sim.state.BooleanView b;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$InterruptFlag;
+
+        i := @parameter0: avrora.sim.AtmelInterpreter;
+
+        auto := @parameter1: boolean;
+
+        in := @parameter2: int;
+
+        b := @parameter3: avrora.sim.state.BooleanView;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.AtmelInterpreter interpreter> = i;
+
+        this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: boolean autoclear> = auto;
+
+        this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: int inum> = in;
+
+        $stack5 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack6 = virtualinvoke $stack5.<avrora.sim.AtmelInterpreter: avrora.sim.InterruptTable getInterruptTable()>();
+
+        $stack7 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: int inum>;
+
+        virtualinvoke $stack6.<avrora.sim.InterruptTable: void registerInternalNotification(avrora.sim.InterruptTable$Notification,int)>(this, $stack7);
+
+        this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.state.BooleanView view> = b;
+
+        return;
+    }
+
+    public void flag(boolean)
+    {
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag this;
+        boolean flag;
+        avrora.sim.state.BooleanView $stack2;
+        int $stack3;
+        avrora.sim.AtmelInterpreter $stack4;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$InterruptFlag;
+
+        flag := @parameter0: boolean;
+
+        $stack2 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.state.BooleanView view>;
+
+        interfaceinvoke $stack2.<avrora.sim.state.BooleanView: void setValue(boolean)>(flag);
+
+        $stack4 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: int inum>;
+
+        virtualinvoke $stack4.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>($stack3, flag);
+
+        return;
+    }
+
+    public boolean get()
+    {
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag this;
+        avrora.sim.state.BooleanView $stack1;
+        boolean $stack2;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$InterruptFlag;
+
+        $stack1 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.state.BooleanView view>;
+
+        $stack2 = interfaceinvoke $stack1.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        return $stack2;
+    }
+
+    public void force(int)
+    {
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag this;
+        avrora.sim.state.BooleanView $stack2;
+        int inum;
+        avrora.sim.AtmelInterpreter $stack3;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$InterruptFlag;
+
+        inum := @parameter0: int;
+
+        $stack2 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.state.BooleanView view>;
+
+        interfaceinvoke $stack2.<avrora.sim.state.BooleanView: void setValue(boolean)>(1);
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.AtmelInterpreter interpreter>;
+
+        virtualinvoke $stack3.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>(inum, 1);
+
+        return;
+    }
+
+    public void sync()
+    {
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag this;
+        avrora.sim.state.BooleanView $stack1;
+        avrora.sim.AtmelInterpreter $stack2;
+        int $stack3;
+        boolean $stack4;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$InterruptFlag;
+
+        $stack2 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: int inum>;
+
+        $stack1 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.state.BooleanView view>;
+
+        $stack4 = interfaceinvoke $stack1.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        virtualinvoke $stack2.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>($stack3, $stack4);
+
+        return;
+    }
+
+    public void invoke(int)
+    {
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag this;
+        boolean $stack2;
+        avrora.sim.state.BooleanView $stack3;
+        int inum;
+        avrora.sim.AtmelInterpreter $stack4;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$InterruptFlag;
+
+        inum := @parameter0: int;
+
+        $stack2 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: boolean autoclear>;
+
+        if $stack2 == 0 goto label1;
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.state.BooleanView view>;
+
+        interfaceinvoke $stack3.<avrora.sim.state.BooleanView: void setValue(boolean)>(0);
+
+        $stack4 = this.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: avrora.sim.AtmelInterpreter interpreter>;
+
+        virtualinvoke $stack4.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>(inum, 0);
+
+     label1:
+        return;
+    }
+}

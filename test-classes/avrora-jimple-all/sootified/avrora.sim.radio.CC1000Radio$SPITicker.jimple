@@ -1,0 +1,156 @@
+class avrora.sim.radio.CC1000Radio$SPITicker extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    protected avrora.sim.mcu.SPIDevice spiDevice;
+    protected boolean activated;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    private void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$SPITicker this;
+        avrora.sim.radio.CC1000Radio l1;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SPITicker;
+
+        l1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0> = l1;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.radio.CC1000Radio$SPITicker this;
+        avrora.sim.radio.CC1000Radio $stack2, $stack4, $stack6, $stack14, $stack15, $stack16;
+        avrora.sim.clock.Clock $stack3, $stack19;
+        long $stack5, $stack18;
+        int $stack7, $stack8;
+        byte $stack9, $stack13;
+        avrora.sim.mcu.SPIDevice $stack10;
+        avrora.sim.mcu.SPI$Frame $stack11, frame;
+        avrora.sim.radio.CC1000Radio$Receiver $stack17;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SPITicker;
+
+        $stack4 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack2 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack3 = $stack2.<avrora.sim.radio.CC1000Radio: avrora.sim.clock.Clock clock>;
+
+        $stack5 = virtualinvoke $stack3.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack4.<avrora.sim.radio.CC1000Radio: long spiTick> = $stack5;
+
+        $stack10 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.mcu.SPIDevice spiDevice>;
+
+        $stack6 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack7 = $stack6.<avrora.sim.radio.CC1000Radio: int rxBuffer>;
+
+        $stack8 = $stack7 >> 8;
+
+        $stack9 = (byte) $stack8;
+
+        $stack11 = staticinvoke <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame newFrame(byte)>($stack9);
+
+        frame = interfaceinvoke $stack10.<avrora.sim.mcu.SPIDevice: avrora.sim.mcu.SPI$Frame exchange(avrora.sim.mcu.SPI$Frame)>($stack11);
+
+        $stack14 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack13 = frame.<avrora.sim.mcu.SPI$Frame: byte data>;
+
+        $stack14.<avrora.sim.radio.CC1000Radio: byte txBuffer> = $stack13;
+
+        $stack15 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack19 = $stack15.<avrora.sim.radio.CC1000Radio: avrora.sim.clock.Clock clock>;
+
+        $stack16 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack17 = $stack16.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Receiver receiver>;
+
+        $stack18 = $stack17.<avrora.sim.radio.CC1000Radio$Receiver: long cyclesPerByte>;
+
+        virtualinvoke $stack19.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>(this, $stack18);
+
+        return;
+    }
+
+    protected void activate()
+    {
+        avrora.sim.radio.CC1000Radio$SPITicker this;
+        boolean $stack1;
+        avrora.sim.radio.CC1000Radio $stack2, $stack3;
+        avrora.sim.radio.CC1000Radio$Receiver $stack4;
+        long $stack5;
+        avrora.sim.clock.Clock $stack6;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SPITicker;
+
+        $stack1 = this.<avrora.sim.radio.CC1000Radio$SPITicker: boolean activated>;
+
+        if $stack1 != 0 goto label1;
+
+        this.<avrora.sim.radio.CC1000Radio$SPITicker: boolean activated> = 1;
+
+        $stack2 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack6 = $stack2.<avrora.sim.radio.CC1000Radio: avrora.sim.clock.Clock clock>;
+
+        $stack3 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack4 = $stack3.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Receiver receiver>;
+
+        $stack5 = $stack4.<avrora.sim.radio.CC1000Radio$Receiver: long cyclesPerByte>;
+
+        virtualinvoke $stack6.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>(this, $stack5);
+
+     label1:
+        return;
+    }
+
+    protected void deactivate()
+    {
+        avrora.sim.radio.CC1000Radio$SPITicker this;
+        boolean $stack1;
+        avrora.sim.radio.CC1000Radio $stack2;
+        avrora.sim.clock.Clock $stack3;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SPITicker;
+
+        $stack1 = this.<avrora.sim.radio.CC1000Radio$SPITicker: boolean activated>;
+
+        if $stack1 == 0 goto label1;
+
+        this.<avrora.sim.radio.CC1000Radio$SPITicker: boolean activated> = 0;
+
+        $stack2 = this.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack3 = $stack2.<avrora.sim.radio.CC1000Radio: avrora.sim.clock.Clock clock>;
+
+        virtualinvoke $stack3.<avrora.sim.clock.Clock: void removeEvent(avrora.sim.Simulator$Event)>(this);
+
+     label1:
+        return;
+    }
+
+    void <init>(avrora.sim.radio.CC1000Radio, avrora.sim.radio.CC1000Radio$1)
+    {
+        avrora.sim.radio.CC1000Radio$SPITicker this;
+        avrora.sim.radio.CC1000Radio x0;
+        avrora.sim.radio.CC1000Radio$1 x1;
+
+        this := @this: avrora.sim.radio.CC1000Radio$SPITicker;
+
+        x0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        x1 := @parameter1: avrora.sim.radio.CC1000Radio$1;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$SPITicker: void <init>(avrora.sim.radio.CC1000Radio)>(x0);
+
+        return;
+    }
+}

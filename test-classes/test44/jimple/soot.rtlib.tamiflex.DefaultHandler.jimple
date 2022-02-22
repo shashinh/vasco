@@ -1,0 +1,196 @@
+public class soot.rtlib.tamiflex.DefaultHandler extends java.lang.Object implements soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler
+{
+
+    public void <init>()
+    {
+        soot.rtlib.tamiflex.DefaultHandler r0;
+
+        r0 := @this: soot.rtlib.tamiflex.DefaultHandler;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void methodInvoke(java.lang.Object, java.lang.reflect.Method)
+    {
+        soot.rtlib.tamiflex.DefaultHandler r0;
+        java.lang.Object r1;
+        java.lang.reflect.Method r2;
+        java.io.PrintStream $r3;
+        java.lang.StringBuilder $r4, $r5, $r6;
+        java.lang.String $r7;
+
+        r0 := @this: soot.rtlib.tamiflex.DefaultHandler;
+
+        r1 := @parameter0: java.lang.Object;
+
+        r2 := @parameter1: java.lang.reflect.Method;
+
+        $r3 = <java.lang.System: java.io.PrintStream err>;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unexpected reflective call to method ");
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r2);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<java.io.PrintStream: void println(java.lang.String)>($r7);
+
+        return;
+    }
+
+    public void constructorNewInstance(java.lang.reflect.Constructor)
+    {
+        soot.rtlib.tamiflex.DefaultHandler r0;
+        java.lang.reflect.Constructor r1;
+        java.io.PrintStream $r2;
+        java.lang.StringBuilder $r3, $r4, $r5;
+        java.lang.String $r6;
+
+        r0 := @this: soot.rtlib.tamiflex.DefaultHandler;
+
+        r1 := @parameter0: java.lang.reflect.Constructor;
+
+        $r2 = <java.lang.System: java.io.PrintStream err>;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unexpected reflective instantiation via constructor ");
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r1);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r2.<java.io.PrintStream: void println(java.lang.String)>($r6);
+
+        return;
+    }
+
+    public void classNewInstance(java.lang.Class)
+    {
+        soot.rtlib.tamiflex.DefaultHandler r0;
+        java.lang.Class r1;
+        java.io.PrintStream $r2;
+        java.lang.StringBuilder $r3, $r4, $r5;
+        java.lang.String $r6;
+
+        r0 := @this: soot.rtlib.tamiflex.DefaultHandler;
+
+        r1 := @parameter0: java.lang.Class;
+
+        $r2 = <java.lang.System: java.io.PrintStream err>;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unexpected reflective instantiation via Class.newInstance on class ");
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r1);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r2.<java.io.PrintStream: void println(java.lang.String)>($r6);
+
+        return;
+    }
+
+    public void classForName(java.lang.String)
+    {
+        soot.rtlib.tamiflex.DefaultHandler r0;
+        java.lang.String r1, $r6;
+        java.io.PrintStream $r2;
+        java.lang.StringBuilder $r3, $r4, $r5;
+
+        r0 := @this: soot.rtlib.tamiflex.DefaultHandler;
+
+        r1 := @parameter0: java.lang.String;
+
+        $r2 = <java.lang.System: java.io.PrintStream err>;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unexpected reflective loading of class ");
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r1);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r2.<java.io.PrintStream: void println(java.lang.String)>($r6);
+
+        return;
+    }
+
+    public void fieldSet(java.lang.Object, java.lang.reflect.Field)
+    {
+        soot.rtlib.tamiflex.DefaultHandler r0;
+        java.lang.Object r1;
+        java.lang.reflect.Field r2;
+        java.io.PrintStream $r3;
+        java.lang.StringBuilder $r4, $r5, $r6;
+        java.lang.String $r7;
+
+        r0 := @this: soot.rtlib.tamiflex.DefaultHandler;
+
+        r1 := @parameter0: java.lang.Object;
+
+        r2 := @parameter1: java.lang.reflect.Field;
+
+        $r3 = <java.lang.System: java.io.PrintStream err>;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unexpected reflective field set: ");
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r2);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<java.io.PrintStream: void println(java.lang.String)>($r7);
+
+        return;
+    }
+
+    public void fieldGet(java.lang.Object, java.lang.reflect.Field)
+    {
+        soot.rtlib.tamiflex.DefaultHandler r0;
+        java.lang.Object r1;
+        java.lang.reflect.Field r2;
+        java.io.PrintStream $r3;
+        java.lang.StringBuilder $r4, $r5, $r6;
+        java.lang.String $r7;
+
+        r0 := @this: soot.rtlib.tamiflex.DefaultHandler;
+
+        r1 := @parameter0: java.lang.Object;
+
+        r2 := @parameter1: java.lang.reflect.Field;
+
+        $r3 = <java.lang.System: java.io.PrintStream err>;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unexpected reflective field get: ");
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r2);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<java.io.PrintStream: void println(java.lang.String)>($r7);
+
+        return;
+    }
+}

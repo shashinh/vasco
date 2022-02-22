@@ -1,0 +1,29 @@
+class avrora.sim.mcu.RegisterSet$UnusedWriter extends avrora.sim.mcu.RegisterSet$SubRegWriter
+{
+
+    void <init>(avrora.sim.mcu.RegisterLayout$SubField)
+    {
+        avrora.sim.mcu.RegisterSet$UnusedWriter this;
+        avrora.sim.mcu.RegisterLayout$SubField sf;
+
+        this := @this: avrora.sim.mcu.RegisterSet$UnusedWriter;
+
+        sf := @parameter0: avrora.sim.mcu.RegisterLayout$SubField;
+
+        specialinvoke this.<avrora.sim.mcu.RegisterSet$SubRegWriter: void <init>(avrora.sim.mcu.RegisterLayout$SubField)>(sf);
+
+        return;
+    }
+
+    void write(byte)
+    {
+        avrora.sim.mcu.RegisterSet$UnusedWriter this;
+        byte val;
+
+        this := @this: avrora.sim.mcu.RegisterSet$UnusedWriter;
+
+        val := @parameter0: byte;
+
+        return;
+    }
+}

@@ -1,0 +1,83 @@
+class org.apache.commons.cli.Util extends java.lang.Object
+{
+
+    void <init>()
+    {
+        org.apache.commons.cli.Util this;
+
+        this := @this: org.apache.commons.cli.Util;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    static java.lang.String stripLeadingHyphens(java.lang.String)
+    {
+        java.lang.String str, $stack5, $stack8;
+        boolean $stack1, $stack2;
+        int $stack4, $stack7;
+
+        str := @parameter0: java.lang.String;
+
+        if str != null goto label1;
+
+        return null;
+
+     label1:
+        $stack1 = virtualinvoke str.<java.lang.String: boolean startsWith(java.lang.String)>("--");
+
+        if $stack1 == 0 goto label2;
+
+        $stack7 = virtualinvoke str.<java.lang.String: int length()>();
+
+        $stack8 = virtualinvoke str.<java.lang.String: java.lang.String substring(int,int)>(2, $stack7);
+
+        return $stack8;
+
+     label2:
+        $stack2 = virtualinvoke str.<java.lang.String: boolean startsWith(java.lang.String)>("-");
+
+        if $stack2 == 0 goto label3;
+
+        $stack4 = virtualinvoke str.<java.lang.String: int length()>();
+
+        $stack5 = virtualinvoke str.<java.lang.String: java.lang.String substring(int,int)>(1, $stack4);
+
+        return $stack5;
+
+     label3:
+        return str;
+    }
+
+    static java.lang.String stripLeadingAndTrailingQuotes(java.lang.String)
+    {
+        boolean $stack1, $stack2;
+        int $stack4, $stack5, $stack9;
+        java.lang.String str#1;
+
+        str#1 := @parameter0: java.lang.String;
+
+        $stack1 = virtualinvoke str#1.<java.lang.String: boolean startsWith(java.lang.String)>("\"");
+
+        if $stack1 == 0 goto label1;
+
+        $stack9 = virtualinvoke str#1.<java.lang.String: int length()>();
+
+        str#1 = virtualinvoke str#1.<java.lang.String: java.lang.String substring(int,int)>(1, $stack9);
+
+     label1:
+        $stack2 = virtualinvoke str#1.<java.lang.String: boolean endsWith(java.lang.String)>("\"");
+
+        if $stack2 == 0 goto label2;
+
+        $stack4 = virtualinvoke str#1.<java.lang.String: int length()>();
+
+        $stack5 = $stack4 - 1;
+
+        str#1 = virtualinvoke str#1.<java.lang.String: java.lang.String substring(int,int)>(0, $stack5);
+
+     label2:
+        return str#1;
+    }
+}

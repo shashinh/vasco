@@ -1,0 +1,95 @@
+public class cck.util.Util$Error extends java.lang.Error
+{
+    protected final java.lang.String message;
+    protected final java.lang.String param;
+    public static boolean STACKTRACES;
+
+    public void <init>(java.lang.String)
+    {
+        cck.util.Util$Error this;
+        java.lang.String p;
+
+        this := @this: cck.util.Util$Error;
+
+        p := @parameter0: java.lang.String;
+
+        specialinvoke this.<java.lang.Error: void <init>(java.lang.String)>(p);
+
+        this.<cck.util.Util$Error: java.lang.String message> = "Error";
+
+        this.<cck.util.Util$Error: java.lang.String param> = p;
+
+        return;
+    }
+
+    public void <init>(java.lang.String, java.lang.String)
+    {
+        cck.util.Util$Error this;
+        java.lang.String n, p;
+
+        this := @this: cck.util.Util$Error;
+
+        n := @parameter0: java.lang.String;
+
+        p := @parameter1: java.lang.String;
+
+        specialinvoke this.<java.lang.Error: void <init>(java.lang.String)>(n);
+
+        this.<cck.util.Util$Error: java.lang.String message> = n;
+
+        this.<cck.util.Util$Error: java.lang.String param> = p;
+
+        return;
+    }
+
+    public java.lang.String getParam()
+    {
+        cck.util.Util$Error this;
+        java.lang.String $stack1;
+
+        this := @this: cck.util.Util$Error;
+
+        $stack1 = this.<cck.util.Util$Error: java.lang.String param>;
+
+        return $stack1;
+    }
+
+    public void report()
+    {
+        cck.util.Util$Error this;
+        java.lang.String $stack1, $stack4, $stack7;
+        java.lang.StringBuilder $stack2, $stack3, $stack5, $stack6;
+        boolean $stack8;
+
+        this := @this: cck.util.Util$Error;
+
+        $stack1 = this.<cck.util.Util$Error: java.lang.String message>;
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(1, $stack1);
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack3 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $stack4 = this.<cck.util.Util$Error: java.lang.String param>;
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack4);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack7);
+
+        $stack8 = <cck.util.Util$Error: boolean STACKTRACES>;
+
+        if $stack8 == 0 goto label1;
+
+        virtualinvoke this.<cck.util.Util$Error: void printStackTrace()>();
+
+     label1:
+        return;
+    }
+}

@@ -1,0 +1,121 @@
+public class cck.elf.ELFProgramHeaderTable$Entry32 extends java.lang.Object
+{
+    public int p_type;
+    public int p_offset;
+    public int p_vaddr;
+    public int p_paddr;
+    public int p_filesz;
+    public int p_memsz;
+    public int p_flags;
+    public int p_align;
+    final cck.elf.ELFProgramHeaderTable this$0;
+
+    public void <init>(cck.elf.ELFProgramHeaderTable)
+    {
+        cck.elf.ELFProgramHeaderTable$Entry32 this;
+        cck.elf.ELFProgramHeaderTable this$0;
+
+        this := @this: cck.elf.ELFProgramHeaderTable$Entry32;
+
+        this$0 := @parameter0: cck.elf.ELFProgramHeaderTable;
+
+        this.<cck.elf.ELFProgramHeaderTable$Entry32: cck.elf.ELFProgramHeaderTable this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public java.lang.String getFlags()
+    {
+        java.lang.StringBuffer $stack2;
+        cck.elf.ELFProgramHeaderTable$Entry32 this;
+        int $stack3, $stack4, $stack5, $stack6, $stack7, $stack8;
+        java.lang.String $stack9;
+
+        this := @this: cck.elf.ELFProgramHeaderTable$Entry32;
+
+        $stack2 = new java.lang.StringBuffer;
+
+        specialinvoke $stack2.<java.lang.StringBuffer: void <init>()>();
+
+        $stack3 = this.<cck.elf.ELFProgramHeaderTable$Entry32: int p_flags>;
+
+        $stack4 = $stack3 & 1;
+
+        if $stack4 == 0 goto label1;
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("EXEC ");
+
+     label1:
+        $stack5 = this.<cck.elf.ELFProgramHeaderTable$Entry32: int p_flags>;
+
+        $stack6 = $stack5 & 2;
+
+        if $stack6 == 0 goto label2;
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("WRITE ");
+
+     label2:
+        $stack7 = this.<cck.elf.ELFProgramHeaderTable$Entry32: int p_flags>;
+
+        $stack8 = $stack7 & 4;
+
+        if $stack8 == 0 goto label3;
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("READ ");
+
+     label3:
+        $stack9 = virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $stack9;
+    }
+
+    public boolean isLoadable()
+    {
+        cck.elf.ELFProgramHeaderTable$Entry32 this;
+        int $stack1;
+        boolean $stack2#1;
+
+        this := @this: cck.elf.ELFProgramHeaderTable$Entry32;
+
+        $stack1 = this.<cck.elf.ELFProgramHeaderTable$Entry32: int p_type>;
+
+        if $stack1 != 1 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    public boolean isExecutable()
+    {
+        cck.elf.ELFProgramHeaderTable$Entry32 this;
+        int $stack1, $stack2;
+        boolean $stack3#1;
+
+        this := @this: cck.elf.ELFProgramHeaderTable$Entry32;
+
+        $stack1 = this.<cck.elf.ELFProgramHeaderTable$Entry32: int p_flags>;
+
+        $stack2 = $stack1 & 1;
+
+        if $stack2 == 0 goto label1;
+
+        $stack3#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack3#1 = 0;
+
+     label2:
+        return $stack3#1;
+    }
+}

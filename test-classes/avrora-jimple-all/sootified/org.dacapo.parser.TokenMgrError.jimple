@@ -1,0 +1,312 @@
+public class org.dacapo.parser.TokenMgrError extends java.lang.Error
+{
+    private static final long serialVersionUID;
+    static final int LEXICAL_ERROR;
+    static final int STATIC_LEXER_ERROR;
+    static final int INVALID_LEXICAL_STATE;
+    static final int LOOP_DETECTED;
+    int errorCode;
+
+    protected static final java.lang.String addEscapes(java.lang.String)
+    {
+        java.lang.StringBuffer $stack5;
+        java.lang.String str, $stack7, $stack22, s, $stack30, $stack32;
+        int $stack6, $stack27, $stack28, $stack29, i#1;
+        char $stack8, $stack19;
+        java.lang.StringBuilder $stack20, $stack21, $stack23, $stack25, $stack26, $stack31;
+
+        str := @parameter0: java.lang.String;
+
+        $stack5 = new java.lang.StringBuffer;
+
+        specialinvoke $stack5.<java.lang.StringBuffer: void <init>()>();
+
+        i#1 = 0;
+
+     label01:
+        $stack6 = virtualinvoke str.<java.lang.String: int length()>();
+
+        if i#1 >= $stack6 goto label15;
+
+        $stack8 = virtualinvoke str.<java.lang.String: char charAt(int)>(i#1);
+
+        lookupswitch($stack8)
+        {
+            case 0: goto label02;
+            case 8: goto label03;
+            case 9: goto label04;
+            case 10: goto label05;
+            case 12: goto label06;
+            case 13: goto label07;
+            case 34: goto label08;
+            case 39: goto label09;
+            case 92: goto label10;
+            default: goto label11;
+        };
+
+     label02:
+        goto label14;
+
+     label03:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\\b");
+
+        goto label14;
+
+     label04:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\\t");
+
+        goto label14;
+
+     label05:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\\n");
+
+        goto label14;
+
+     label06:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\\f");
+
+        goto label14;
+
+     label07:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\\r");
+
+        goto label14;
+
+     label08:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\\\"");
+
+        goto label14;
+
+     label09:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\\\'");
+
+        goto label14;
+
+     label10:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\\\\");
+
+        goto label14;
+
+     label11:
+        $stack19 = virtualinvoke str.<java.lang.String: char charAt(int)>(i#1);
+
+        if $stack19 < 32 goto label12;
+
+        if $stack19 <= 126 goto label13;
+
+     label12:
+        $stack20 = new java.lang.StringBuilder;
+
+        specialinvoke $stack20.<java.lang.StringBuilder: void <init>()>();
+
+        $stack21 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("0000");
+
+        $stack22 = staticinvoke <java.lang.Integer: java.lang.String toString(int,int)>($stack19, 16);
+
+        $stack23 = virtualinvoke $stack21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack22);
+
+        s = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack25 = new java.lang.StringBuilder;
+
+        specialinvoke $stack25.<java.lang.StringBuilder: void <init>()>();
+
+        $stack26 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\\u");
+
+        $stack27 = virtualinvoke s.<java.lang.String: int length()>();
+
+        $stack28 = $stack27 - 4;
+
+        $stack29 = virtualinvoke s.<java.lang.String: int length()>();
+
+        $stack30 = virtualinvoke s.<java.lang.String: java.lang.String substring(int,int)>($stack28, $stack29);
+
+        $stack31 = virtualinvoke $stack26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack30);
+
+        $stack32 = virtualinvoke $stack31.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack32);
+
+        goto label14;
+
+     label13:
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack19);
+
+     label14:
+        i#1 = i#1 + 1;
+
+        goto label01;
+
+     label15:
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $stack7;
+    }
+
+    protected static java.lang.String LexicalError(boolean, int, int, int, java.lang.String, char)
+    {
+        java.lang.StringBuilder $stack6, $stack7, $stack8, $stack9, $stack10, $stack11, $stack12, $stack13, $stack16, $stack17, $stack18, $stack19, $stack20, $stack22, $stack23, $stack25, $stack26;
+        int errorLine, errorColumn, lexState;
+        boolean EOFSeen;
+        char curChar;
+        java.lang.String $stack14, $stack15, errorAfter, $stack24, $stack27, $stack21#1;
+
+        EOFSeen := @parameter0: boolean;
+
+        lexState := @parameter1: int;
+
+        errorLine := @parameter2: int;
+
+        errorColumn := @parameter3: int;
+
+        errorAfter := @parameter4: java.lang.String;
+
+        curChar := @parameter5: char;
+
+        $stack6 = new java.lang.StringBuilder;
+
+        specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Lexical error at line ");
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(errorLine);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", column ");
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(errorColumn);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".  Encountered: ");
+
+        if EOFSeen == 0 goto label1;
+
+        $stack21#1 = "<EOF> ";
+
+        goto label2;
+
+     label1:
+        $stack12 = new java.lang.StringBuilder;
+
+        specialinvoke $stack12.<java.lang.StringBuilder: void <init>()>();
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $stack14 = staticinvoke <java.lang.String: java.lang.String valueOf(char)>(curChar);
+
+        $stack15 = staticinvoke <org.dacapo.parser.TokenMgrError: java.lang.String addEscapes(java.lang.String)>($stack14);
+
+        $stack16 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack15);
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" (");
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(curChar);
+
+        $stack20 = virtualinvoke $stack19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("), ");
+
+        $stack21#1 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label2:
+        $stack22 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack21#1);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("after : \"");
+
+        $stack24 = staticinvoke <org.dacapo.parser.TokenMgrError: java.lang.String addEscapes(java.lang.String)>(errorAfter);
+
+        $stack25 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack24);
+
+        $stack26 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $stack27 = virtualinvoke $stack26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack27;
+    }
+
+    public java.lang.String getMessage()
+    {
+        org.dacapo.parser.TokenMgrError this;
+        java.lang.String $stack1;
+
+        this := @this: org.dacapo.parser.TokenMgrError;
+
+        $stack1 = specialinvoke this.<java.lang.Error: java.lang.String getMessage()>();
+
+        return $stack1;
+    }
+
+    public void <init>()
+    {
+        org.dacapo.parser.TokenMgrError this;
+
+        this := @this: org.dacapo.parser.TokenMgrError;
+
+        specialinvoke this.<java.lang.Error: void <init>()>();
+
+        return;
+    }
+
+    public void <init>(java.lang.String, int)
+    {
+        org.dacapo.parser.TokenMgrError this;
+        java.lang.String message;
+        int reason;
+
+        this := @this: org.dacapo.parser.TokenMgrError;
+
+        message := @parameter0: java.lang.String;
+
+        reason := @parameter1: int;
+
+        specialinvoke this.<java.lang.Error: void <init>(java.lang.String)>(message);
+
+        this.<org.dacapo.parser.TokenMgrError: int errorCode> = reason;
+
+        return;
+    }
+
+    public void <init>(boolean, int, int, int, java.lang.String, char, int)
+    {
+        org.dacapo.parser.TokenMgrError this;
+        boolean EOFSeen;
+        int lexState, errorLine, errorColumn, reason;
+        java.lang.String errorAfter, $stack8;
+        char curChar;
+
+        this := @this: org.dacapo.parser.TokenMgrError;
+
+        EOFSeen := @parameter0: boolean;
+
+        lexState := @parameter1: int;
+
+        errorLine := @parameter2: int;
+
+        errorColumn := @parameter3: int;
+
+        errorAfter := @parameter4: java.lang.String;
+
+        curChar := @parameter5: char;
+
+        reason := @parameter6: int;
+
+        $stack8 = staticinvoke <org.dacapo.parser.TokenMgrError: java.lang.String LexicalError(boolean,int,int,int,java.lang.String,char)>(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar);
+
+        specialinvoke this.<org.dacapo.parser.TokenMgrError: void <init>(java.lang.String,int)>($stack8, reason);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <org.dacapo.parser.TokenMgrError: int LOOP_DETECTED> = 3;
+
+        <org.dacapo.parser.TokenMgrError: int INVALID_LEXICAL_STATE> = 2;
+
+        <org.dacapo.parser.TokenMgrError: int STATIC_LEXER_ERROR> = 1;
+
+        <org.dacapo.parser.TokenMgrError: int LEXICAL_ERROR> = 0;
+
+        <org.dacapo.parser.TokenMgrError: long serialVersionUID> = 1L;
+
+        return;
+    }
+}

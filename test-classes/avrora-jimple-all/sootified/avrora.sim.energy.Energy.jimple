@@ -1,0 +1,419 @@
+public class avrora.sim.energy.Energy extends java.lang.Object implements avrora.sim.FiniteStateMachine$Probe
+{
+    private java.lang.String deviceName;
+    private double[] ampere;
+    private long[] cycles;
+    private int currentMode;
+    private int oldMode;
+    private long lastChange;
+    private static final double voltage;
+    private double cycleTime;
+    private avrora.sim.FiniteStateMachine stateMachine;
+    private avrora.sim.clock.Clock clock;
+    private avrora.sim.energy.EnergyControl energyControl;
+
+    public void <init>(java.lang.String, double[], avrora.sim.FiniteStateMachine, avrora.sim.energy.EnergyControl)
+    {
+        avrora.sim.energy.Energy this;
+        java.lang.String deviceName;
+        avrora.sim.FiniteStateMachine fsm;
+        avrora.sim.clock.Clock $stack6, $stack8;
+        double[] modeAmpere;
+        int $stack7, freq;
+        long $stack9;
+        double $stack10, $stack11;
+        avrora.sim.energy.EnergyControl energyControl;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        deviceName := @parameter0: java.lang.String;
+
+        modeAmpere := @parameter1: double[];
+
+        fsm := @parameter2: avrora.sim.FiniteStateMachine;
+
+        energyControl := @parameter3: avrora.sim.energy.EnergyControl;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.energy.Energy: java.lang.String deviceName> = deviceName;
+
+        $stack6 = virtualinvoke fsm.<avrora.sim.FiniteStateMachine: avrora.sim.clock.Clock getClock()>();
+
+        this.<avrora.sim.energy.Energy: avrora.sim.clock.Clock clock> = $stack6;
+
+        this.<avrora.sim.energy.Energy: double[] ampere> = modeAmpere;
+
+        this.<avrora.sim.energy.Energy: avrora.sim.FiniteStateMachine stateMachine> = fsm;
+
+        $stack7 = virtualinvoke fsm.<avrora.sim.FiniteStateMachine: int getStartState()>();
+
+        this.<avrora.sim.energy.Energy: int currentMode> = $stack7;
+
+        $stack8 = this.<avrora.sim.energy.Energy: avrora.sim.clock.Clock clock>;
+
+        $stack9 = virtualinvoke $stack8.<avrora.sim.clock.Clock: long getHZ()>();
+
+        freq = (int) $stack9;
+
+        $stack10 = (double) freq;
+
+        $stack11 = 1.0 / $stack10;
+
+        this.<avrora.sim.energy.Energy: double cycleTime> = $stack11;
+
+        this.<avrora.sim.energy.Energy: avrora.sim.energy.EnergyControl energyControl> = energyControl;
+
+        virtualinvoke energyControl.<avrora.sim.energy.EnergyControl: void addConsumer(avrora.sim.energy.Energy)>(this);
+
+        return;
+    }
+
+    public void fireBeforeTransition(int, int)
+    {
+        avrora.sim.energy.Energy this;
+        int beforeState, afterState;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        beforeState := @parameter0: int;
+
+        afterState := @parameter1: int;
+
+        return;
+    }
+
+    public void fireAfterTransition(int, int)
+    {
+        int afterState, $stack3, $stack4, $stack12, beforeState;
+        avrora.sim.energy.Energy this;
+        long[] $stack5;
+        avrora.sim.clock.Clock $stack6, $stack13;
+        long $stack7, $stack8, $stack9, $stack10, $stack11, $stack14;
+        avrora.sim.energy.EnergyControl $stack15;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        beforeState := @parameter0: int;
+
+        afterState := @parameter1: int;
+
+        $stack3 = this.<avrora.sim.energy.Energy: int currentMode>;
+
+        if afterState == $stack3 goto label1;
+
+        $stack5 = this.<avrora.sim.energy.Energy: long[] cycles>;
+
+        $stack4 = this.<avrora.sim.energy.Energy: int currentMode>;
+
+        $stack7 = $stack5[$stack4];
+
+        $stack6 = this.<avrora.sim.energy.Energy: avrora.sim.clock.Clock clock>;
+
+        $stack8 = virtualinvoke $stack6.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack9 = this.<avrora.sim.energy.Energy: long lastChange>;
+
+        $stack10 = $stack8 - $stack9;
+
+        $stack11 = $stack7 + $stack10;
+
+        $stack5[$stack4] = $stack11;
+
+        $stack12 = this.<avrora.sim.energy.Energy: int currentMode>;
+
+        this.<avrora.sim.energy.Energy: int oldMode> = $stack12;
+
+        this.<avrora.sim.energy.Energy: int currentMode> = afterState;
+
+        $stack13 = this.<avrora.sim.energy.Energy: avrora.sim.clock.Clock clock>;
+
+        $stack14 = virtualinvoke $stack13.<avrora.sim.clock.Clock: long getCount()>();
+
+        this.<avrora.sim.energy.Energy: long lastChange> = $stack14;
+
+        $stack15 = this.<avrora.sim.energy.Energy: avrora.sim.energy.EnergyControl energyControl>;
+
+        virtualinvoke $stack15.<avrora.sim.energy.EnergyControl: void stateChange(avrora.sim.energy.Energy)>(this);
+
+     label1:
+        return;
+    }
+
+    public double getTotalConsumedEnergy()
+    {
+        avrora.sim.energy.Energy this;
+        double[] $stack4;
+        int $stack5, i#2;
+        double $stack6, total#1;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        total#1 = 0.0;
+
+        i#2 = 0;
+
+     label1:
+        $stack4 = this.<avrora.sim.energy.Energy: double[] ampere>;
+
+        $stack5 = lengthof $stack4;
+
+        if i#2 >= $stack5 goto label2;
+
+        $stack6 = virtualinvoke this.<avrora.sim.energy.Energy: double getConsumedEnergy(int)>(i#2);
+
+        total#1 = total#1 + $stack6;
+
+        i#2 = i#2 + 1;
+
+        goto label1;
+
+     label2:
+        return total#1;
+    }
+
+    public double getConsumedEnergy(int)
+    {
+        avrora.sim.energy.Energy this;
+        int mode;
+        long $stack3;
+        double $stack4, $stack6, $stack7, $stack8, $stack9, $stack10;
+        double[] $stack5;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        mode := @parameter0: int;
+
+        $stack3 = virtualinvoke this.<avrora.sim.energy.Energy: long getCycles(int)>(mode);
+
+        $stack4 = (double) $stack3;
+
+        $stack7 = 3.0 * $stack4;
+
+        $stack5 = this.<avrora.sim.energy.Energy: double[] ampere>;
+
+        $stack6 = $stack5[mode];
+
+        $stack9 = $stack7 * $stack6;
+
+        $stack8 = this.<avrora.sim.energy.Energy: double cycleTime>;
+
+        $stack10 = $stack9 * $stack8;
+
+        return $stack10;
+    }
+
+    public int getModeNumber()
+    {
+        avrora.sim.energy.Energy this;
+        double[] $stack1;
+        int $stack2;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        $stack1 = this.<avrora.sim.energy.Energy: double[] ampere>;
+
+        $stack2 = lengthof $stack1;
+
+        return $stack2;
+    }
+
+    public int getCurrentMode()
+    {
+        avrora.sim.energy.Energy this;
+        int $stack1;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        $stack1 = this.<avrora.sim.energy.Energy: int currentMode>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getModeName(int)
+    {
+        avrora.sim.energy.Energy this;
+        int mode;
+        avrora.sim.FiniteStateMachine $stack2;
+        java.lang.String $stack3;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        mode := @parameter0: int;
+
+        $stack2 = this.<avrora.sim.energy.Energy: avrora.sim.FiniteStateMachine stateMachine>;
+
+        $stack3 = virtualinvoke $stack2.<avrora.sim.FiniteStateMachine: java.lang.String getStateName(int)>(mode);
+
+        return $stack3;
+    }
+
+    public double getModeAmpere(int)
+    {
+        avrora.sim.energy.Energy this;
+        int mode;
+        double[] $stack2;
+        double $stack3;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        mode := @parameter0: int;
+
+        $stack2 = this.<avrora.sim.energy.Energy: double[] ampere>;
+
+        $stack3 = $stack2[mode];
+
+        return $stack3;
+    }
+
+    public long getCycles(int)
+    {
+        avrora.sim.energy.Energy this;
+        long[] $stack4, $stack5;
+        int mode, $stack6;
+        avrora.sim.clock.Clock $stack7;
+        long $stack8, $stack9, $stack10, ret#1;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        mode := @parameter0: int;
+
+        $stack4 = this.<avrora.sim.energy.Energy: long[] cycles>;
+
+        if $stack4 != null goto label1;
+
+        return 0L;
+
+     label1:
+        $stack5 = this.<avrora.sim.energy.Energy: long[] cycles>;
+
+        ret#1 = $stack5[mode];
+
+        $stack6 = this.<avrora.sim.energy.Energy: int currentMode>;
+
+        if mode != $stack6 goto label2;
+
+        $stack7 = this.<avrora.sim.energy.Energy: avrora.sim.clock.Clock clock>;
+
+        $stack8 = virtualinvoke $stack7.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack9 = this.<avrora.sim.energy.Energy: long lastChange>;
+
+        $stack10 = $stack8 - $stack9;
+
+        ret#1 = ret#1 + $stack10;
+
+     label2:
+        return ret#1;
+    }
+
+    public java.lang.String getName()
+    {
+        avrora.sim.energy.Energy this;
+        java.lang.String $stack1;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        $stack1 = this.<avrora.sim.energy.Energy: java.lang.String deviceName>;
+
+        return $stack1;
+    }
+
+    public int getOldMode()
+    {
+        avrora.sim.energy.Energy this;
+        int $stack1;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        $stack1 = this.<avrora.sim.energy.Energy: int oldMode>;
+
+        return $stack1;
+    }
+
+    public double getCurrentAmpere()
+    {
+        avrora.sim.energy.Energy this;
+        int $stack1;
+        double[] $stack2;
+        double $stack3;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        $stack2 = this.<avrora.sim.energy.Energy: double[] ampere>;
+
+        $stack1 = this.<avrora.sim.energy.Energy: int currentMode>;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    public double getOldAmpere()
+    {
+        avrora.sim.energy.Energy this;
+        int $stack1;
+        double[] $stack2;
+        double $stack3;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        $stack2 = this.<avrora.sim.energy.Energy: double[] ampere>;
+
+        $stack1 = this.<avrora.sim.energy.Energy: int oldMode>;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    public void activate()
+    {
+        avrora.sim.energy.Energy this;
+        avrora.sim.FiniteStateMachine $stack2;
+        double[] $stack3;
+        int $stack4, $stack7, i#1;
+        long[] $stack5, $stack6, $stack8;
+
+        this := @this: avrora.sim.energy.Energy;
+
+        $stack2 = this.<avrora.sim.energy.Energy: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $stack2.<avrora.sim.FiniteStateMachine: void insertProbe(avrora.sim.FiniteStateMachine$Probe)>(this);
+
+        $stack3 = this.<avrora.sim.energy.Energy: double[] ampere>;
+
+        $stack4 = lengthof $stack3;
+
+        $stack5 = newarray (long)[$stack4];
+
+        this.<avrora.sim.energy.Energy: long[] cycles> = $stack5;
+
+        i#1 = 0;
+
+     label1:
+        $stack6 = this.<avrora.sim.energy.Energy: long[] cycles>;
+
+        $stack7 = lengthof $stack6;
+
+        if i#1 >= $stack7 goto label2;
+
+        $stack8 = this.<avrora.sim.energy.Energy: long[] cycles>;
+
+        $stack8[i#1] = 0L;
+
+        i#1 = i#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.energy.Energy: double voltage> = 3.0;
+
+        return;
+    }
+}

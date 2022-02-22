@@ -30,14 +30,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import org.junit.Test;
 import soot.PackManager;
 import soot.Scene;
+import soot.SootClass;
 import soot.SootMethod;
 import soot.Transform;
 import soot.Unit;
+import soot.jimple.spark.solver.PropWorklist;
 import soot.jimple.toolkits.callgraph.Edge;
+import soot.jimple.toolkits.reflection.ReflInliner;
+import soot.jimple.toolkits.reflection.ReflectiveCallsInliner;
+import soot.rtlib.tamiflex.DefaultHandler;
+import soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler;
+import soot.rtlib.tamiflex.OpaquePredicate;
+import soot.rtlib.tamiflex.ReflectiveCalls;
+import soot.rtlib.tamiflex.SootSig;
+import soot.rtlib.tamiflex.UnexpectedReflectiveCall;
 import vasco.CallSite;
 import vasco.Context;
 import vasco.ContextTransitionTable;
@@ -59,6 +72,7 @@ public class CallGraphTest {
 		String classPath = System.getProperty("java.class.path");
 		String mainClass = null;
 		int callChainDepth = 10;
+		String reflectionLog = null;
 
 		/* ------------------- OPTIONS ---------------------- */
 		try {
@@ -77,6 +91,9 @@ public class CallGraphTest {
 				} else if (args[i].equals("-k")) { 
 					callChainDepth = Integer.parseInt(args[i+1]);
 					i += 2;
+				} else if (args[i].equals("-reflog")) {
+					reflectionLog = args[i+1];
+					i += 2;
 				} else {
 					mainClass = args[i];
 					i++;
@@ -93,38 +110,133 @@ public class CallGraphTest {
 		/* ------------------- SOOT OPTIONS ---------------------- */
 		String[] sootArgs = {
 				"-cp", classPath, "-pp", 
+				//"-src-prec", "J",
 				"-w", "-app", 
+//				"-x", "soot.*",
+//				"-x", "java.*",
+//				"-x", "jdk.*",
+				//"-no-bodies-for-excluded",
 				"-keep-line-number",
 				"-keep-bytecode-offset",
 				"-p", "cg", "implicit-entry:false",
 				"-p", "cg.spark", "enabled",
 				"-p", "cg.spark", "simulate-natives",
-				"-p", "cg", "safe-forname",
+				//"-p", "cg", "safe-forname",
 				"-p", "cg", "safe-newinstance",
+				//"-p", "cg", "reflection-log:" + reflectionLog,
+				"-include", "org.apache.",
+				"-include", "org.w3c.",
+				 "-allow-phantom-refs",
 				"-main-class", mainClass,
-				"-f", "none", mainClass 
+				"-f", "J", 
+				"-d", "sootOutput", mainClass
 		};
 		
+//		String[] sootArgs = {
+//				"-cp", classPath, "-pp",
+//				"-w", "-app", 
+//				"-src-prec", "J",
+//				"-keep-line-number",
+//				"-keep-bytecode-offset",
+//				"-p", "cg", "implicit-entry:false",
+//				"-p", "cg.spark", "enabled",
+//				"-p", "cg.spark", "simulate-natives",
+//				"-p", "cg", "safe-forname",
+//				"-p", "cg", "safe-newinstance",
+//				"-p", "cg", "reflection-log:" + reflectionLog,
+//				"-include", "org.apache.",
+//				"-include", "org.w3c.",
+//				"-main-class", mainClass,
+//				"-f", "c", 
+//				"-d", "sootOutput", mainClass
+//		};
+		
+//		-cp test-classes/test44/jimple -out test-classes/test44/results -reflog test-classes/test44/out/refl.log Main
+		//-cp .:test-classes/test44 -out test-classes/test44/results -reflog test-classes/test44/out/refl.log Main
+		//-cp test-classes/test45/slf4j.jar:test-classes/test45/logback.jar:test-classes/test45 -out test-classes/test45/results -reflog test-classes/test45/refl.log Main
+		
+//		String[] sootArgs = {
+//				"-cp", classPath+":/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar:out", "-pp", 
+//				"-w", "-app",
+//				"-whole-program",
+//				"-keep-line-number", "-keep-offset",
+//				"-p", "cg", "implicit-entry:false",
+//				"-p", "cg.spark", "enabled",
+//				"-p", "cg.spark", "simulate-natives",
+//				"-p", "cg", "safe-forname",
+//				"-p", "cg", "safe-newinstance",
+//				"-p", "cg", "reflection-log:out/refl.log",
+//				"-d" , "sootified/all",
+//				"-main-class", mainClass,
+//				"-f", "none", mainClass 
+//		};
+		
+//		String[] sootArgs = {
+//				"-cp", classPath+":/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar:out", "-pp", 
+//				"-w", "-app",
+//				"-keep-line-number", "-keep-offset",
+//				"-p", "cg", "implicit-entry:false",
+//				"-p", "cg", "reflection-log:out/refl.log",
+//				"-p", "cg.spark", "enabled",
+//				"-include", "org.apache.",
+//				"-include", "org.w3c.",
+//				"-main-class", mainClass,
+//				"-f", "none", mainClass 
+//		};
+		
+		System.out.println("Soot args are: " + Arrays.toString(sootArgs));
 
 		/* ------------------- ANALYSIS ---------------------- */
 		CallGraphTransformer cgt = new CallGraphTransformer();
 		PackManager.v().getPack("wjtp").add(new Transform("wjtp.fcpa", cgt));
+		
+	    /*PackManager.v().getPack("wjpp").add(new Transform("wjpp.inlineReflCalls", new ReflectiveCallsInliner()));
+	    final Scene scene = Scene.v();
+	    scene.addBasicClass(Object.class.getName());
+	    scene.addBasicClass(SootSig.class.getName(), SootClass.BODIES);
+	    scene.addBasicClass(UnexpectedReflectiveCall.class.getName(), SootClass.BODIES);
+	    scene.addBasicClass(IUnexpectedReflectiveCallHandler.class.getName(), SootClass.BODIES);
+	    scene.addBasicClass(DefaultHandler.class.getName(), SootClass.BODIES);
+	    scene.addBasicClass(OpaquePredicate.class.getName(), SootClass.BODIES);
+	    scene.addBasicClass(ReflectiveCalls.class.getName(), SootClass.BODIES);*/
+	    
+//		Scene.v().addBasicClass("avrora.Main", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("java.security.MessageDigestSpi", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("org.dacapo.harness.Avrora", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("sun.net.www.protocol.jar.Handler", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("sun.security.provider.SHA", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("avrora.Defaults$AutoProgramReader", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("avrora.actions.SimAction", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("avrora.monitors.LEDMonitor", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("avrora.monitors.PacketMonitor", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("avrora.sim.platform.Mica2$Factory", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("avrora.sim.types.SensorSimulation", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("sun.net.www.protocol.jar.Handler", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("sun.security.provider.Sun", SootClass.SIGNATURES);
+//		Scene.v().addBasicClass("org.apache.commons.cli.HelpFormatter", SootClass.SIGNATURES);
+		
+		//ReflInliner.main(sootArgs);
+		
 		soot.Main.main(sootArgs);
+		
 		PointsToAnalysis pointsToAnalysis = cgt.getPointsToAnalysis();
 		
 
 		
 		/* ------------------- LOGGING ---------------------- */
 		try {
-			printCallSiteStats(pointsToAnalysis);
-			printMethodStats(pointsToAnalysis);
-			dumpCallChainStats(pointsToAnalysis, callChainDepth);
+			//printCallSiteStats(pointsToAnalysis);
+			//printMethodStats(pointsToAnalysis);
+			//dumpCallChainStats(pointsToAnalysis, callChainDepth);
+			printLoopInvariantPTGS(pointsToAnalysis);
+			printCallsiteInvariants(pointsToAnalysis);
 		} catch (FileNotFoundException e1) {
 			System.err.println("Oops! Could not create log file: " + e1.getMessage());
 			System.exit(1);
 		}
 		
 	}
+	
 	
 	public static List<SootMethod> getSparkExplicitEdges(Unit callStmt) {
 		Iterator<Edge> edges = Scene.v().getCallGraph().edgesOutOf(callStmt);
@@ -165,6 +277,119 @@ public class CallGraphTest {
 			}
 		}
 	}
+	
+	public static void printLoopInvariantPTGS(PointsToAnalysis pta) throws FileNotFoundException {
+		
+		for(String methodName : pta.loopInvariants.keySet()) {
+
+			PrintWriter pw = new PrintWriter(outputDirectory + "/loop-invariants-" + methodName + ".txt");
+			Map<Integer, PointsToGraph> map = pta.loopInvariants.get(methodName);
+			List<String> sList = new ArrayList<String>();
+			for(Integer i : map.keySet()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append(i + ":");
+				sb.append(map.get(i).prettyPrintInvariant(pta));
+				sList.add(sb.toString());
+			}
+			
+			pw.print(String.join(";", sList));
+			pw.close();
+		}
+	}
+	
+	public static void printCallsiteInvariants(PointsToAnalysis pta) throws FileNotFoundException {
+		Map<String, Map<Integer, Set<String>>> callSiteInvariants = pta.callSiteInvariants;
+		
+		PrintWriter p = new PrintWriter(outputDirectory + "/caller-indices" + ".txt");
+		Map<String, Integer> calleeIndexMap = pta.calleeIndexMap;
+		Map<Integer, String> calleeIndexMapSorted = new HashMap<Integer, String>();
+		for(String key : calleeIndexMap.keySet()) {
+			calleeIndexMapSorted.put(calleeIndexMap.get(key), key);
+		}
+		for(Integer key : calleeIndexMapSorted.keySet()) {
+			p.println(calleeIndexMapSorted.get(key));
+		}
+		p.close();
+		
+		for(String methodName :callSiteInvariants.keySet()) {
+			boolean hasNull = false;
+			boolean hasConst = false;
+			boolean hasString = false;
+			boolean hasGlobal = false;
+			PrintWriter pw = new PrintWriter(outputDirectory + "/callsite-invariant-" + methodName + ".txt");
+			Map<Integer, Set<String>> map = callSiteInvariants.get(methodName);
+
+			List<String> sList = new ArrayList<String>();
+			for(Integer m : map.keySet()) {
+				StringBuilder sb = new StringBuilder();
+				//sb.append(m + ":");
+				//sb.append("(");
+				Set<String> argsList = map.get(m);
+				//do the aggregation here, argsList is of the form 
+				//[Main.main-3, A.foo-3, Main.main-19, Main.main-9, Main.main-27]
+				Map<String, String> calleeMap = new HashMap<String, String>();
+				Set<String> set = new HashSet<String>();
+				for(String s : argsList) {
+					if(s.equals("n"))
+						hasNull = true;
+					else if (s.equals("s")) 
+						hasString = true;
+					else if (s.equals("c")) 
+						hasConst = true;
+					else if (s.equals("g")) 
+						hasGlobal = true;
+					else {
+						String [] temp = s.split("-");
+						String caller = temp[0];
+						String bci = temp[1];
+						if(calleeMap.containsKey(caller)) {
+							String val = calleeMap.get(caller);
+							val += "." + bci;
+							calleeMap.replace(caller, val);
+						} else {
+							calleeMap.put(caller, bci);
+						}
+					}
+				}
+
+				
+				for(String k : calleeMap.keySet()) {
+					set.add(k + "-" + calleeMap.get(k));
+				}
+				
+				if(hasNull) 
+					set.add("n");
+				if(hasConst) 
+					set.add("c");
+				if(hasString) 
+					set.add("s");
+				if(hasGlobal)
+					set.add("g");
+				
+				//System.out.println(set);
+				sb.append(String.join(" ", set));
+				//sb.append(String.join(" ", argsList));
+				
+				
+				
+//				for(int i = 0; i < argsMap.size(); i ++) {
+//					sb.append(i + ":");
+//					sb.append(String.join(" ", argsMa`argsMap.get(i)));
+//					if(i + 1 <argsMap.size())
+//						sb.append(",");
+//				}
+				//sb.append(")");
+				if(sb.length() != 0)
+					sList.add(sb.toString());
+			}
+			
+			pw.print(String.join("\n", sList));
+			pw.close();
+		}
+		
+
+	}
+	
 	
 	public static void printCallSiteStats(PointsToAnalysis pta) throws FileNotFoundException {
 		// Get context-transition table

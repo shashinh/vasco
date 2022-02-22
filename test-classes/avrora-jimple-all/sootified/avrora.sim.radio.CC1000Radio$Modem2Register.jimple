@@ -1,0 +1,44 @@
+public class avrora.sim.radio.CC1000Radio$Modem2Register extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    boolean peakDetect;
+    int peakLevelOffset;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$Modem2Register this;
+        avrora.sim.radio.CC1000Radio this$0;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Modem2Register;
+
+        this$0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem2Register: avrora.sim.radio.CC1000Radio this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(this$0, "MODEM2", -106);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$Modem2Register this;
+        byte val;
+        boolean $stack2;
+        int $stack3;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Modem2Register;
+
+        val := @parameter0: byte;
+
+        $stack2 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 7);
+
+        this.<avrora.sim.radio.CC1000Radio$Modem2Register: boolean peakDetect> = $stack2;
+
+        $stack3 = val & 127;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem2Register: int peakLevelOffset> = $stack3;
+
+        return;
+    }
+}

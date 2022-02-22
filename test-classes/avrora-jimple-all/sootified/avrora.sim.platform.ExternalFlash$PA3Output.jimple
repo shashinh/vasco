@@ -1,0 +1,670 @@
+public class avrora.sim.platform.ExternalFlash$PA3Output extends java.lang.Object implements avrora.sim.mcu.Microcontroller$Pin$Output
+{
+    final avrora.sim.platform.ExternalFlash this$0;
+
+    protected void <init>(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash$PA3Output this;
+        avrora.sim.platform.ExternalFlash this$0;
+
+        this := @this: avrora.sim.platform.ExternalFlash$PA3Output;
+
+        this$0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void write(boolean)
+    {
+        boolean level, $stack5, $stack249;
+        avrora.sim.platform.ExternalFlash$PA3Output this;
+        avrora.sim.platform.ExternalFlash $stack4, $stack6, $stack10, $stack11, $stack13, $stack15, $stack16, $stack19, $stack21, $stack25, $stack55, $stack56, $stack59, $stack61, $stack65, $stack88, $stack89, $stack92, $stack94, $stack98, $stack100, $stack101, $stack104, $stack106, $stack110, $stack112, $stack113, $stack116, $stack118, $stack122, $stack124, $stack125, $stack128, $stack130, $stack134, $stack136, $stack138, $stack140, $stack141, $stack144, $stack145, $stack151, $stack153, $stack158, $stack160, $stack161, $stack167, $stack169, $stack176, $stack178, $stack179, $stack182, $stack183, $stack189, $stack191, $stack196, $stack198, $stack199, $stack205, $stack207, $stack214, $stack216, $stack217, $stack220, $stack222, $stack227, $stack229, $stack230, $stack233, $stack235, $stack240, $stack242, $stack244, $stack248, $stack251, $stack255, $stack257, $stack28#28, $stack27#56, $stack33#140, $stack34#182, $stack39#266, $stack41#335, $stack43#377, $stack45#419, $stack47#461, $stack49#503, $stack51#545, $stack53#587;
+        avrora.sim.clock.Clock $stack7, $stack252, $stack35#154, $stack42#280;
+        long $stack8, dfDelay, $stack253;
+        byte $stack9, $stack254;
+        int $stack14, $stack17, $stack22, $stack57, $stack62, $stack90, $stack95, $stack102, $stack107, $stack114, $stack119, $stack126, $stack131, $stack142, $stack147, $stack154, $stack163, $stack170, $stack180, $stack185, $stack192, $stack201, $stack208, $stack218, $stack223, $stack231, $stack236, $stack30#98;
+        java.lang.StringBuilder $stack18, $stack20, $stack23, $stack58, $stack60, $stack63, $stack91, $stack93, $stack96, $stack103, $stack105, $stack108, $stack115, $stack117, $stack120, $stack127, $stack129, $stack132, $stack150, $stack152, $stack155, $stack156, $stack166, $stack168, $stack171, $stack172, $stack188, $stack190, $stack193, $stack194, $stack204, $stack206, $stack209, $stack210, $stack219, $stack221, $stack224, $stack225, $stack232, $stack234, $stack237, $stack238;
+        java.lang.String $stack24, $stack64, $stack97, $stack109, $stack121, $stack133, $stack157, $stack173, $stack195, $stack211, $stack226, $stack239;
+        avrora.sim.platform.ExternalFlash$Page $stack139, $stack143, $stack177, $stack181;
+        short $stack146, $stack148, $stack162, $stack164, $stack184, $stack186, $stack200, $stack202, $stack29#70, $stack31#112;
+        double $stack36#196, $stack37#224;
+        avrora.sim.platform.ExternalFlash$Delay $stack40#307;
+
+        this := @this: avrora.sim.platform.ExternalFlash$PA3Output;
+
+        level := @parameter0: boolean;
+
+        if level != 0 goto label02;
+
+        $stack248 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack249 = staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$100(avrora.sim.platform.ExternalFlash)>($stack248);
+
+        if $stack249 != 0 goto label02;
+
+        $stack251 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack252 = $stack251.<avrora.sim.platform.ExternalFlash: avrora.sim.clock.Clock clock>;
+
+        $stack253 = virtualinvoke $stack252.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack254 = $stack253 cmp 1500L;
+
+        if $stack254 <= 0 goto label01;
+
+        $stack257 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack257, "Instruction started");
+
+     label01:
+        $stack255 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$102(avrora.sim.platform.ExternalFlash,boolean)>($stack255, 1);
+
+        goto label24;
+
+     label02:
+        if level == 0 goto label24;
+
+        $stack4 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack5 = staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$100(avrora.sim.platform.ExternalFlash)>($stack4);
+
+        if $stack5 == 0 goto label24;
+
+        $stack6 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack7 = $stack6.<avrora.sim.platform.ExternalFlash: avrora.sim.clock.Clock clock>;
+
+        $stack8 = virtualinvoke $stack7.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack9 = $stack8 cmp 1500L;
+
+        if $stack9 >= 0 goto label03;
+
+        $stack244 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack244, "initialized");
+
+        goto label04;
+
+     label03:
+        $stack10 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack10, "Instruction finished");
+
+     label04:
+        $stack11 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$102(avrora.sim.platform.ExternalFlash,boolean)>($stack11, 0);
+
+        $stack13 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack14 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$200(avrora.sim.platform.ExternalFlash)>($stack13);
+
+        lookupswitch($stack14)
+        {
+            case 80: goto label11;
+            case 82: goto label05;
+            case 83: goto label14;
+            case 84: goto label05;
+            case 85: goto label15;
+            case 86: goto label05;
+            case 87: goto label05;
+            case 88: goto label22;
+            case 89: goto label22;
+            case 96: goto label16;
+            case 97: goto label19;
+            case 104: goto label05;
+            case 129: goto label10;
+            case 130: goto label12;
+            case 131: goto label06;
+            case 133: goto label13;
+            case 134: goto label07;
+            case 136: goto label08;
+            case 137: goto label09;
+            case 210: goto label05;
+            case 212: goto label05;
+            case 214: goto label05;
+            case 215: goto label05;
+            case 232: goto label05;
+            default: goto label23;
+        };
+
+     label05:
+        goto label23;
+
+     label06:
+        $stack113 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack112 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack114 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack112);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$400(avrora.sim.platform.ExternalFlash,int)>($stack113, $stack114);
+
+        $stack116 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack115 = new java.lang.StringBuilder;
+
+        specialinvoke $stack115.<java.lang.StringBuilder: void <init>()>();
+
+        $stack117 = virtualinvoke $stack115.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy Buffer1 to Memory Page ");
+
+        $stack118 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack119 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack118);
+
+        $stack120 = virtualinvoke $stack117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack119);
+
+        $stack121 = virtualinvoke $stack120.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack116, $stack121);
+
+        $stack122 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack122, 20.0);
+
+        goto label23;
+
+     label07:
+        $stack89 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack88 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack90 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack88);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$600(avrora.sim.platform.ExternalFlash,int)>($stack89, $stack90);
+
+        $stack92 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack91 = new java.lang.StringBuilder;
+
+        specialinvoke $stack91.<java.lang.StringBuilder: void <init>()>();
+
+        $stack93 = virtualinvoke $stack91.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy Buffer2 to Memory Page ");
+
+        $stack94 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack95 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack94);
+
+        $stack96 = virtualinvoke $stack93.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack95);
+
+        $stack97 = virtualinvoke $stack96.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack92, $stack97);
+
+        $stack98 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack98, 20.0);
+
+        goto label23;
+
+     label08:
+        $stack56 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack55 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack57 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack55);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$400(avrora.sim.platform.ExternalFlash,int)>($stack56, $stack57);
+
+        $stack59 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack58 = new java.lang.StringBuilder;
+
+        specialinvoke $stack58.<java.lang.StringBuilder: void <init>()>();
+
+        $stack60 = virtualinvoke $stack58.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy Buffer1 to Memory Page ");
+
+        $stack61 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack62 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack61);
+
+        $stack63 = virtualinvoke $stack60.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack62);
+
+        $stack64 = virtualinvoke $stack63.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack59, $stack64);
+
+        $stack65 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack65, 14.0);
+
+        goto label23;
+
+     label09:
+        $stack16 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack15 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack17 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack15);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$600(avrora.sim.platform.ExternalFlash,int)>($stack16, $stack17);
+
+        $stack19 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack18 = new java.lang.StringBuilder;
+
+        specialinvoke $stack18.<java.lang.StringBuilder: void <init>()>();
+
+        $stack20 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy Buffer2 to Memory Page ");
+
+        $stack21 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack22 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack21);
+
+        $stack23 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack22);
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack19, $stack24);
+
+        $stack25 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack25, 14.0);
+
+        goto label23;
+
+     label10:
+        $stack136 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack136, 8.0);
+
+        goto label23;
+
+     label11:
+        $stack242 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack242, 12.0);
+
+        goto label23;
+
+     label12:
+        $stack125 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack124 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack126 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack124);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$400(avrora.sim.platform.ExternalFlash,int)>($stack125, $stack126);
+
+        $stack128 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack127 = new java.lang.StringBuilder;
+
+        specialinvoke $stack127.<java.lang.StringBuilder: void <init>()>();
+
+        $stack129 = virtualinvoke $stack127.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy Buffer1 to Memory Page ");
+
+        $stack130 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack131 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack130);
+
+        $stack132 = virtualinvoke $stack129.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack131);
+
+        $stack133 = virtualinvoke $stack132.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack128, $stack133);
+
+        $stack134 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack134, 20.0);
+
+        goto label23;
+
+     label13:
+        $stack101 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack100 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack102 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack100);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$600(avrora.sim.platform.ExternalFlash,int)>($stack101, $stack102);
+
+        $stack104 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack103 = new java.lang.StringBuilder;
+
+        specialinvoke $stack103.<java.lang.StringBuilder: void <init>()>();
+
+        $stack105 = virtualinvoke $stack103.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy Buffer2 to Memory Page ");
+
+        $stack106 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack107 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack106);
+
+        $stack108 = virtualinvoke $stack105.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack107);
+
+        $stack109 = virtualinvoke $stack108.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack104, $stack109);
+
+        $stack110 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack110, 20.0);
+
+        goto label23;
+
+     label14:
+        $stack230 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack229 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack231 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack229);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$700(avrora.sim.platform.ExternalFlash,int)>($stack230, $stack231);
+
+        $stack233 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack232 = new java.lang.StringBuilder;
+
+        specialinvoke $stack232.<java.lang.StringBuilder: void <init>()>();
+
+        $stack234 = virtualinvoke $stack232.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy Memory Page ");
+
+        $stack235 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack236 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack235);
+
+        $stack237 = virtualinvoke $stack234.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack236);
+
+        $stack238 = virtualinvoke $stack237.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" to Buffer1");
+
+        $stack239 = virtualinvoke $stack238.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack233, $stack239);
+
+        $stack240 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack240, 3.0E-4);
+
+        goto label23;
+
+     label15:
+        $stack217 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack216 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack218 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack216);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$800(avrora.sim.platform.ExternalFlash,int)>($stack217, $stack218);
+
+        $stack220 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack219 = new java.lang.StringBuilder;
+
+        specialinvoke $stack219.<java.lang.StringBuilder: void <init>()>();
+
+        $stack221 = virtualinvoke $stack219.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy Memory Page ");
+
+        $stack222 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack223 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack222);
+
+        $stack224 = virtualinvoke $stack221.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack223);
+
+        $stack225 = virtualinvoke $stack224.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" to Buffer2");
+
+        $stack226 = virtualinvoke $stack225.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack220, $stack226);
+
+        $stack227 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack227, 3.0E-4);
+
+        goto label23;
+
+     label16:
+        $stack176 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack177 = staticinvoke <avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page access$900(avrora.sim.platform.ExternalFlash)>($stack176);
+
+        $stack179 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack178 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack180 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack178);
+
+        $stack181 = staticinvoke <avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page access$1000(avrora.sim.platform.ExternalFlash,int)>($stack179, $stack180);
+
+        if $stack177 != $stack181 goto label17;
+
+        $stack199 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack198 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack200 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1100(avrora.sim.platform.ExternalFlash)>($stack198);
+
+        $stack201 = $stack200 & -65;
+
+        $stack202 = (short) $stack201;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: short access$1102(avrora.sim.platform.ExternalFlash,short)>($stack199, $stack202);
+
+        $stack205 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack204 = new java.lang.StringBuilder;
+
+        specialinvoke $stack204.<java.lang.StringBuilder: void <init>()>();
+
+        $stack206 = virtualinvoke $stack204.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("compare Memory Page ");
+
+        $stack207 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack208 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack207);
+
+        $stack209 = virtualinvoke $stack206.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack208);
+
+        $stack210 = virtualinvoke $stack209.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" to Buffer1: identical");
+
+        $stack211 = virtualinvoke $stack210.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack205, $stack211);
+
+        goto label18;
+
+     label17:
+        $stack183 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack182 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack184 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1100(avrora.sim.platform.ExternalFlash)>($stack182);
+
+        $stack185 = $stack184 | 64;
+
+        $stack186 = (short) $stack185;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: short access$1102(avrora.sim.platform.ExternalFlash,short)>($stack183, $stack186);
+
+        $stack189 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack188 = new java.lang.StringBuilder;
+
+        specialinvoke $stack188.<java.lang.StringBuilder: void <init>()>();
+
+        $stack190 = virtualinvoke $stack188.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("compare Memory Page ");
+
+        $stack191 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack192 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack191);
+
+        $stack193 = virtualinvoke $stack190.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack192);
+
+        $stack194 = virtualinvoke $stack193.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" to Buffer1: different");
+
+        $stack195 = virtualinvoke $stack194.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack189, $stack195);
+
+     label18:
+        $stack196 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack196, 3.0E-4);
+
+        goto label23;
+
+     label19:
+        $stack138 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack139 = staticinvoke <avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page access$1200(avrora.sim.platform.ExternalFlash)>($stack138);
+
+        $stack141 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack140 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack142 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack140);
+
+        $stack143 = staticinvoke <avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page access$1000(avrora.sim.platform.ExternalFlash,int)>($stack141, $stack142);
+
+        if $stack139 != $stack143 goto label20;
+
+        $stack161 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack160 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack162 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1100(avrora.sim.platform.ExternalFlash)>($stack160);
+
+        $stack163 = $stack162 & -65;
+
+        $stack164 = (short) $stack163;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: short access$1102(avrora.sim.platform.ExternalFlash,short)>($stack161, $stack164);
+
+        $stack167 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack166 = new java.lang.StringBuilder;
+
+        specialinvoke $stack166.<java.lang.StringBuilder: void <init>()>();
+
+        $stack168 = virtualinvoke $stack166.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("compare Memory Page ");
+
+        $stack169 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack170 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack169);
+
+        $stack171 = virtualinvoke $stack168.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack170);
+
+        $stack172 = virtualinvoke $stack171.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" to Buffer2: identical");
+
+        $stack173 = virtualinvoke $stack172.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack167, $stack173);
+
+        goto label21;
+
+     label20:
+        $stack145 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack144 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack146 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1100(avrora.sim.platform.ExternalFlash)>($stack144);
+
+        $stack147 = $stack146 | 64;
+
+        $stack148 = (short) $stack147;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: short access$1102(avrora.sim.platform.ExternalFlash,short)>($stack145, $stack148);
+
+        $stack151 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack150 = new java.lang.StringBuilder;
+
+        specialinvoke $stack150.<java.lang.StringBuilder: void <init>()>();
+
+        $stack152 = virtualinvoke $stack150.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("compare Memory Page ");
+
+        $stack153 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack154 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($stack153);
+
+        $stack155 = virtualinvoke $stack152.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack154);
+
+        $stack156 = virtualinvoke $stack155.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" to Buffer2: different");
+
+        $stack157 = virtualinvoke $stack156.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($stack151, $stack157);
+
+     label21:
+        $stack158 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack158, 3.0E-4);
+
+        goto label23;
+
+     label22:
+        $stack214 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: double access$502(avrora.sim.platform.ExternalFlash,double)>($stack214, 20.0);
+
+     label23:
+        $stack28#28 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack27#56 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack29#70 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1100(avrora.sim.platform.ExternalFlash)>($stack27#56);
+
+        $stack30#98 = $stack29#70 & -129;
+
+        $stack31#112 = (short) $stack30#98;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: short access$1102(avrora.sim.platform.ExternalFlash,short)>($stack28#28, $stack31#112);
+
+        $stack33#140 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack35#154 = $stack33#140.<avrora.sim.platform.ExternalFlash: avrora.sim.clock.Clock clock>;
+
+        $stack34#182 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack36#196 = staticinvoke <avrora.sim.platform.ExternalFlash: double access$500(avrora.sim.platform.ExternalFlash)>($stack34#182);
+
+        $stack37#224 = $stack36#196 / 1000.0;
+
+        dfDelay = virtualinvoke $stack35#154.<avrora.sim.clock.Clock: long millisToCycles(double)>($stack37#224);
+
+        $stack39#266 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack42#280 = $stack39#266.<avrora.sim.platform.ExternalFlash: avrora.sim.clock.Clock clock>;
+
+        $stack40#307 = new avrora.sim.platform.ExternalFlash$Delay;
+
+        $stack41#335 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        specialinvoke $stack40#307.<avrora.sim.platform.ExternalFlash$Delay: void <init>(avrora.sim.platform.ExternalFlash)>($stack41#335);
+
+        virtualinvoke $stack42#280.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>($stack40#307, dfDelay);
+
+        $stack43#377 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$202(avrora.sim.platform.ExternalFlash,int)>($stack43#377, 0);
+
+        $stack45#419 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($stack45#419, 0);
+
+        $stack47#461 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$302(avrora.sim.platform.ExternalFlash,int)>($stack47#461, 0);
+
+        $stack49#503 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: short access$1402(avrora.sim.platform.ExternalFlash,short)>($stack49#503, 0);
+
+        $stack51#545 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1502(avrora.sim.platform.ExternalFlash,boolean)>($stack51#545, 0);
+
+        $stack53#587 = this.<avrora.sim.platform.ExternalFlash$PA3Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1602(avrora.sim.platform.ExternalFlash,byte)>($stack53#587, 0);
+
+     label24:
+        return;
+    }
+}

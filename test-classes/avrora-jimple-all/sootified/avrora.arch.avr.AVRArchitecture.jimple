@@ -1,0 +1,87 @@
+public class avrora.arch.avr.AVRArchitecture extends java.lang.Object implements avrora.arch.AbstractArchitecture
+{
+    public static final avrora.arch.avr.AVRArchitecture INSTANCE;
+
+    public void <init>()
+    {
+        avrora.arch.avr.AVRArchitecture this;
+
+        this := @this: avrora.arch.avr.AVRArchitecture;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public avrora.arch.AbstractDisassembler getDisassembler()
+    {
+        avrora.arch.avr.AVRArchitecture this;
+        avrora.arch.avr.AVRDisassembler $u0;
+        avrora.arch.AbstractDisassembler $r0;
+
+        this := @this: avrora.arch.avr.AVRArchitecture;
+
+        $u0 = new avrora.arch.avr.AVRDisassembler;
+
+        specialinvoke $u0.<avrora.arch.avr.AVRDisassembler: void <init>()>();
+
+        $r0 = (avrora.arch.AbstractDisassembler) $u0;
+
+        return $r0;
+    }
+
+    public avrora.arch.AbstractAssembler getAssembler()
+    {
+        cck.util.Util$InternalError $stack1;
+        avrora.arch.avr.AVRArchitecture this;
+
+        this := @this: avrora.arch.avr.AVRArchitecture;
+
+        $stack1 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack1;
+    }
+
+    public avrora.arch.AbstractParser getParser()
+    {
+        cck.util.Util$InternalError $stack1;
+        avrora.arch.avr.AVRArchitecture this;
+
+        this := @this: avrora.arch.avr.AVRArchitecture;
+
+        $stack1 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack1;
+    }
+
+    public avrora.arch.AbstractInstr[] newInstrArray(int)
+    {
+        int len;
+        avrora.arch.avr.AVRInstr[] $stack2;
+        avrora.arch.avr.AVRArchitecture this;
+        avrora.arch.AbstractInstr[] $r0;
+
+        this := @this: avrora.arch.avr.AVRArchitecture;
+
+        len := @parameter0: int;
+
+        $stack2 = newarray (avrora.arch.avr.AVRInstr)[len];
+
+        $r0 = (avrora.arch.AbstractInstr[]) $stack2;
+
+        return $r0;
+    }
+
+    static void <clinit>()
+    {
+        avrora.arch.avr.AVRArchitecture $stack0;
+
+        $stack0 = new avrora.arch.avr.AVRArchitecture;
+
+        specialinvoke $stack0.<avrora.arch.avr.AVRArchitecture: void <init>()>();
+
+        <avrora.arch.avr.AVRArchitecture: avrora.arch.avr.AVRArchitecture INSTANCE> = $stack0;
+
+        return;
+    }
+}

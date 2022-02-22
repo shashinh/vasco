@@ -1,0 +1,102 @@
+public abstract class avrora.sim.clock.Clock extends java.lang.Object
+{
+    protected final long hz;
+    protected final java.lang.String name;
+
+    protected void <init>(java.lang.String, long)
+    {
+        avrora.sim.clock.Clock this;
+        long hz;
+        java.lang.String n;
+
+        this := @this: avrora.sim.clock.Clock;
+
+        n := @parameter0: java.lang.String;
+
+        hz := @parameter1: long;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.clock.Clock: long hz> = hz;
+
+        this.<avrora.sim.clock.Clock: java.lang.String name> = n;
+
+        return;
+    }
+
+    public long getHZ()
+    {
+        avrora.sim.clock.Clock this;
+        long $stack1;
+
+        this := @this: avrora.sim.clock.Clock;
+
+        $stack1 = this.<avrora.sim.clock.Clock: long hz>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getName()
+    {
+        avrora.sim.clock.Clock this;
+        java.lang.String $stack1;
+
+        this := @this: avrora.sim.clock.Clock;
+
+        $stack1 = this.<avrora.sim.clock.Clock: java.lang.String name>;
+
+        return $stack1;
+    }
+
+    public abstract long getCount();
+
+    public abstract void insertEvent(avrora.sim.Simulator$Event, long);
+
+    public abstract void removeEvent(avrora.sim.Simulator$Event);
+
+    public long millisToCycles(double)
+    {
+        double ms, $stack4, $stack5, $stack6;
+        avrora.sim.clock.Clock this;
+        long $stack3, $stack7;
+
+        this := @this: avrora.sim.clock.Clock;
+
+        ms := @parameter0: double;
+
+        $stack3 = this.<avrora.sim.clock.Clock: long hz>;
+
+        $stack4 = (double) $stack3;
+
+        $stack5 = ms * $stack4;
+
+        $stack6 = $stack5 / 1000.0;
+
+        $stack7 = (long) $stack6;
+
+        return $stack7;
+    }
+
+    public double cyclesToMillis(long)
+    {
+        long cycles, $stack4;
+        double $stack3, $stack5, $stack6, $stack7;
+        avrora.sim.clock.Clock this;
+
+        this := @this: avrora.sim.clock.Clock;
+
+        cycles := @parameter0: long;
+
+        $stack3 = (double) cycles;
+
+        $stack6 = 1000.0 * $stack3;
+
+        $stack4 = this.<avrora.sim.clock.Clock: long hz>;
+
+        $stack5 = (double) $stack4;
+
+        $stack7 = $stack6 / $stack5;
+
+        return $stack7;
+    }
+}

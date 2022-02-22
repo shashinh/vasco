@@ -1,0 +1,73 @@
+public class avrora.sim.mcu.ReprogrammableCodeSegment$Factory extends java.lang.Object implements avrora.sim.CodeSegment$Factory
+{
+    final int pagesize;
+    final int size;
+
+    void <init>(int, int)
+    {
+        avrora.sim.mcu.ReprogrammableCodeSegment$Factory this;
+        int size, pagesize;
+
+        this := @this: avrora.sim.mcu.ReprogrammableCodeSegment$Factory;
+
+        size := @parameter0: int;
+
+        pagesize := @parameter1: int;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.ReprogrammableCodeSegment$Factory: int size> = size;
+
+        this.<avrora.sim.mcu.ReprogrammableCodeSegment$Factory: int pagesize> = pagesize;
+
+        return;
+    }
+
+    public avrora.sim.CodeSegment newCodeSegment(java.lang.String, avrora.sim.AtmelInterpreter, avrora.core.Program)
+    {
+        avrora.core.Program p;
+        avrora.sim.mcu.ReprogrammableCodeSegment $stack5, $stack8, cs#1;
+        java.lang.String name;
+        avrora.sim.mcu.ReprogrammableCodeSegment$Factory this;
+        avrora.sim.AtmelInterpreter bi;
+        int $stack6, $stack7, $stack9, $stack10;
+
+        this := @this: avrora.sim.mcu.ReprogrammableCodeSegment$Factory;
+
+        name := @parameter0: java.lang.String;
+
+        bi := @parameter1: avrora.sim.AtmelInterpreter;
+
+        p := @parameter2: avrora.core.Program;
+
+        if p == null goto label1;
+
+        $stack8 = new avrora.sim.mcu.ReprogrammableCodeSegment;
+
+        $stack10 = p.<avrora.core.Program: int program_end>;
+
+        $stack9 = this.<avrora.sim.mcu.ReprogrammableCodeSegment$Factory: int pagesize>;
+
+        specialinvoke $stack8.<avrora.sim.mcu.ReprogrammableCodeSegment: void <init>(java.lang.String,int,avrora.sim.AtmelInterpreter,int)>(name, $stack10, bi, $stack9);
+
+        cs#1 = $stack8;
+
+        virtualinvoke $stack8.<avrora.sim.CodeSegment: void load(avrora.core.Program)>(p);
+
+        goto label2;
+
+     label1:
+        $stack5 = new avrora.sim.mcu.ReprogrammableCodeSegment;
+
+        $stack7 = this.<avrora.sim.mcu.ReprogrammableCodeSegment$Factory: int size>;
+
+        $stack6 = this.<avrora.sim.mcu.ReprogrammableCodeSegment$Factory: int pagesize>;
+
+        specialinvoke $stack5.<avrora.sim.mcu.ReprogrammableCodeSegment: void <init>(java.lang.String,int,avrora.sim.AtmelInterpreter,int)>(name, $stack7, bi, $stack6);
+
+        cs#1 = $stack5;
+
+     label2:
+        return cs#1;
+    }
+}

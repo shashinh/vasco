@@ -1,0 +1,282 @@
+class avrora.sim.AtmelInterpreter$SREGBehavior extends avrora.sim.state.VolatileBehavior
+{
+    final avrora.sim.AtmelInterpreter this$0;
+
+    private void <init>(avrora.sim.AtmelInterpreter)
+    {
+        avrora.sim.AtmelInterpreter$SREGBehavior this;
+        avrora.sim.AtmelInterpreter l1;
+
+        this := @this: avrora.sim.AtmelInterpreter$SREGBehavior;
+
+        l1 := @parameter0: avrora.sim.AtmelInterpreter;
+
+        this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0> = l1;
+
+        specialinvoke this.<avrora.sim.state.VolatileBehavior: void <init>()>();
+
+        return;
+    }
+
+    public int read(int)
+    {
+        avrora.sim.AtmelInterpreter$SREGBehavior this;
+        avrora.sim.AtmelInterpreter $stack3, $stack5, $stack7, $stack9, $stack11, $stack13, $stack15, $stack17;
+        boolean $stack4, $stack6, $stack8, $stack10, $stack12, $stack14, $stack16, $stack18;
+        byte $stack19;
+        int cur, val#1;
+
+        this := @this: avrora.sim.AtmelInterpreter$SREGBehavior;
+
+        cur := @parameter0: int;
+
+        val#1 = 0;
+
+        $stack3 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack4 = $stack3.<avrora.sim.AtmelInterpreter: boolean I>;
+
+        if $stack4 == 0 goto label1;
+
+        val#1 = 0 | 128;
+
+     label1:
+        $stack5 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack6 = $stack5.<avrora.sim.AtmelInterpreter: boolean T>;
+
+        if $stack6 == 0 goto label2;
+
+        val#1 = val#1 | 64;
+
+     label2:
+        $stack7 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack8 = $stack7.<avrora.sim.AtmelInterpreter: boolean H>;
+
+        if $stack8 == 0 goto label3;
+
+        val#1 = val#1 | 32;
+
+     label3:
+        $stack9 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack10 = $stack9.<avrora.sim.AtmelInterpreter: boolean S>;
+
+        if $stack10 == 0 goto label4;
+
+        val#1 = val#1 | 16;
+
+     label4:
+        $stack11 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack12 = $stack11.<avrora.sim.AtmelInterpreter: boolean V>;
+
+        if $stack12 == 0 goto label5;
+
+        val#1 = val#1 | 8;
+
+     label5:
+        $stack13 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack14 = $stack13.<avrora.sim.AtmelInterpreter: boolean N>;
+
+        if $stack14 == 0 goto label6;
+
+        val#1 = val#1 | 4;
+
+     label6:
+        $stack15 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack16 = $stack15.<avrora.sim.AtmelInterpreter: boolean Z>;
+
+        if $stack16 == 0 goto label7;
+
+        val#1 = val#1 | 2;
+
+     label7:
+        $stack17 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack18 = $stack17.<avrora.sim.AtmelInterpreter: boolean C>;
+
+        if $stack18 == 0 goto label8;
+
+        val#1 = val#1 | 1;
+
+     label8:
+        $stack19 = (byte) val#1;
+
+        return $stack19;
+    }
+
+    public int write(int, int)
+    {
+        int nv, $stack4, $stack6, $stack8, $stack10, $stack12, $stack14, $stack16, $stack18, cur;
+        avrora.sim.AtmelInterpreter$SREGBehavior this;
+        avrora.sim.AtmelInterpreter $stack5, $stack7, $stack9, $stack11, $stack13, $stack15, $stack17, $stack19, $stack46;
+        boolean $stack50#1, $stack42#2, $stack38#3, $stack34#4, $stack30#5, $stack26#6, $stack22#7, $stack20#8;
+
+        this := @this: avrora.sim.AtmelInterpreter$SREGBehavior;
+
+        cur := @parameter0: int;
+
+        nv := @parameter1: int;
+
+        $stack4 = nv & 128;
+
+        if $stack4 == 0 goto label01;
+
+        $stack50#1 = 1;
+
+        goto label02;
+
+     label01:
+        $stack50#1 = 0;
+
+     label02:
+        if $stack50#1 == 0 goto label03;
+
+        $stack46 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        virtualinvoke $stack46.<avrora.sim.AtmelInterpreter: void enableInterrupts()>();
+
+        goto label04;
+
+     label03:
+        $stack5 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        virtualinvoke $stack5.<avrora.sim.AtmelInterpreter: void disableInterrupts()>();
+
+     label04:
+        $stack7 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack6 = nv & 64;
+
+        if $stack6 == 0 goto label05;
+
+        $stack42#2 = 1;
+
+        goto label06;
+
+     label05:
+        $stack42#2 = 0;
+
+     label06:
+        $stack7.<avrora.sim.AtmelInterpreter: boolean T> = $stack42#2;
+
+        $stack9 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack8 = nv & 32;
+
+        if $stack8 == 0 goto label07;
+
+        $stack38#3 = 1;
+
+        goto label08;
+
+     label07:
+        $stack38#3 = 0;
+
+     label08:
+        $stack9.<avrora.sim.AtmelInterpreter: boolean H> = $stack38#3;
+
+        $stack11 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack10 = nv & 16;
+
+        if $stack10 == 0 goto label09;
+
+        $stack34#4 = 1;
+
+        goto label10;
+
+     label09:
+        $stack34#4 = 0;
+
+     label10:
+        $stack11.<avrora.sim.AtmelInterpreter: boolean S> = $stack34#4;
+
+        $stack13 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack12 = nv & 8;
+
+        if $stack12 == 0 goto label11;
+
+        $stack30#5 = 1;
+
+        goto label12;
+
+     label11:
+        $stack30#5 = 0;
+
+     label12:
+        $stack13.<avrora.sim.AtmelInterpreter: boolean V> = $stack30#5;
+
+        $stack15 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack14 = nv & 4;
+
+        if $stack14 == 0 goto label13;
+
+        $stack26#6 = 1;
+
+        goto label14;
+
+     label13:
+        $stack26#6 = 0;
+
+     label14:
+        $stack15.<avrora.sim.AtmelInterpreter: boolean N> = $stack26#6;
+
+        $stack17 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack16 = nv & 2;
+
+        if $stack16 == 0 goto label15;
+
+        $stack22#7 = 1;
+
+        goto label16;
+
+     label15:
+        $stack22#7 = 0;
+
+     label16:
+        $stack17.<avrora.sim.AtmelInterpreter: boolean Z> = $stack22#7;
+
+        $stack19 = this.<avrora.sim.AtmelInterpreter$SREGBehavior: avrora.sim.AtmelInterpreter this$0>;
+
+        $stack18 = nv & 1;
+
+        if $stack18 == 0 goto label17;
+
+        $stack20#8 = 1;
+
+        goto label18;
+
+     label17:
+        $stack20#8 = 0;
+
+     label18:
+        $stack19.<avrora.sim.AtmelInterpreter: boolean C> = $stack20#8;
+
+        return nv;
+    }
+
+    void <init>(avrora.sim.AtmelInterpreter, avrora.sim.AtmelInterpreter$1)
+    {
+        avrora.sim.AtmelInterpreter$SREGBehavior this;
+        avrora.sim.AtmelInterpreter x0;
+        avrora.sim.AtmelInterpreter$1 x1;
+
+        this := @this: avrora.sim.AtmelInterpreter$SREGBehavior;
+
+        x0 := @parameter0: avrora.sim.AtmelInterpreter;
+
+        x1 := @parameter1: avrora.sim.AtmelInterpreter$1;
+
+        specialinvoke this.<avrora.sim.AtmelInterpreter$SREGBehavior: void <init>(avrora.sim.AtmelInterpreter)>(x0);
+
+        return;
+    }
+}

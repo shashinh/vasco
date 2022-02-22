@@ -1,0 +1,83 @@
+public class avrora.arch.legacy.LegacyInstr$PUSH extends avrora.arch.legacy.LegacyInstr$REG_class
+{
+    static final avrora.arch.legacy.LegacyInstrProperties props;
+    static final avrora.arch.legacy.LegacyInstrProto prototype;
+
+    avrora.arch.legacy.LegacyInstr allocate(int, avrora.arch.legacy.LegacyRegister)
+    {
+        avrora.arch.legacy.LegacyInstr$PUSH $stack3, this;
+        int pc;
+        avrora.arch.legacy.LegacyRegister a;
+
+        this := @this: avrora.arch.legacy.LegacyInstr$PUSH;
+
+        pc := @parameter0: int;
+
+        a := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $stack3 = new avrora.arch.legacy.LegacyInstr$PUSH;
+
+        specialinvoke $stack3.<avrora.arch.legacy.LegacyInstr$PUSH: void <init>(int,avrora.arch.legacy.LegacyRegister)>(pc, a);
+
+        return $stack3;
+    }
+
+    public void <init>(int, avrora.arch.legacy.LegacyRegister)
+    {
+        avrora.arch.legacy.LegacyInstr$PUSH this;
+        avrora.arch.legacy.LegacyRegister a, $stack4;
+        avrora.arch.legacy.LegacyInstrProperties $stack3;
+        int pc;
+
+        this := @this: avrora.arch.legacy.LegacyInstr$PUSH;
+
+        pc := @parameter0: int;
+
+        a := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $stack3 = <avrora.arch.legacy.LegacyInstr$PUSH: avrora.arch.legacy.LegacyInstrProperties props>;
+
+        $stack4 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister access$500(int,avrora.arch.legacy.LegacyRegister)>(1, a);
+
+        specialinvoke this.<avrora.arch.legacy.LegacyInstr$REG_class: void <init>(avrora.arch.legacy.LegacyInstrProperties,avrora.arch.legacy.LegacyRegister)>($stack3, $stack4);
+
+        return;
+    }
+
+    public void accept(avrora.arch.legacy.LegacyInstrVisitor)
+    {
+        avrora.arch.legacy.LegacyInstrVisitor v;
+        avrora.arch.legacy.LegacyInstr$PUSH this;
+
+        this := @this: avrora.arch.legacy.LegacyInstr$PUSH;
+
+        v := @parameter0: avrora.arch.legacy.LegacyInstrVisitor;
+
+        interfaceinvoke v.<avrora.arch.legacy.LegacyInstrVisitor: void visit(avrora.arch.legacy.LegacyInstr$PUSH)>(this);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        avrora.arch.legacy.LegacyInstrProperties $stack0;
+        avrora.arch.legacy.LegacyInstr$PUSH $stack1;
+        avrora.arch.legacy.LegacyRegister $stack3;
+
+        $stack0 = new avrora.arch.legacy.LegacyInstrProperties;
+
+        specialinvoke $stack0.<avrora.arch.legacy.LegacyInstrProperties: void <init>(java.lang.String,java.lang.String,int,int)>("push", "push", 2, 2);
+
+        <avrora.arch.legacy.LegacyInstr$PUSH: avrora.arch.legacy.LegacyInstrProperties props> = $stack0;
+
+        $stack1 = new avrora.arch.legacy.LegacyInstr$PUSH;
+
+        $stack3 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister access$400()>();
+
+        specialinvoke $stack1.<avrora.arch.legacy.LegacyInstr$PUSH: void <init>(int,avrora.arch.legacy.LegacyRegister)>(0, $stack3);
+
+        <avrora.arch.legacy.LegacyInstr$PUSH: avrora.arch.legacy.LegacyInstrProto prototype> = $stack1;
+
+        return;
+    }
+}

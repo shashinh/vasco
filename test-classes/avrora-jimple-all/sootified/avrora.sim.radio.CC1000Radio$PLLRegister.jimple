@@ -1,0 +1,63 @@
+public class avrora.sim.radio.CC1000Radio$PLLRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    boolean extFilter;
+    int refDiv;
+    boolean alarmDisable;
+    boolean alarmHigh;
+    boolean alarmLow;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$PLLRegister this;
+        avrora.sim.radio.CC1000Radio this$0;
+
+        this := @this: avrora.sim.radio.CC1000Radio$PLLRegister;
+
+        this$0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$PLLRegister: avrora.sim.radio.CC1000Radio this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(this$0, "PLL", 16);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$PLLRegister this;
+        byte val, $stack3;
+        boolean $stack2, $stack6, $stack7, $stack8;
+        int $stack4, $stack5;
+
+        this := @this: avrora.sim.radio.CC1000Radio$PLLRegister;
+
+        val := @parameter0: byte;
+
+        $stack2 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 7);
+
+        this.<avrora.sim.radio.CC1000Radio$PLLRegister: boolean extFilter> = $stack2;
+
+        $stack3 = this.<avrora.sim.radio.CC1000Radio$PLLRegister: byte value>;
+
+        $stack4 = $stack3 & 120;
+
+        $stack5 = $stack4 >> 3;
+
+        this.<avrora.sim.radio.CC1000Radio$PLLRegister: int refDiv> = $stack5;
+
+        $stack6 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 2);
+
+        this.<avrora.sim.radio.CC1000Radio$PLLRegister: boolean alarmDisable> = $stack6;
+
+        $stack7 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 1);
+
+        this.<avrora.sim.radio.CC1000Radio$PLLRegister: boolean alarmHigh> = $stack7;
+
+        $stack8 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 0);
+
+        this.<avrora.sim.radio.CC1000Radio$PLLRegister: boolean alarmLow> = $stack8;
+
+        return;
+    }
+}

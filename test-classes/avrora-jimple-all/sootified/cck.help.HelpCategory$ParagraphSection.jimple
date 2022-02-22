@@ -1,0 +1,60 @@
+class cck.help.HelpCategory$ParagraphSection extends cck.help.HelpCategory$Section
+{
+    final java.lang.String title;
+    final java.lang.String para;
+    final cck.help.HelpCategory this$0;
+
+    void <init>(cck.help.HelpCategory, java.lang.String, java.lang.String)
+    {
+        cck.help.HelpCategory$ParagraphSection this;
+        cck.help.HelpCategory l1;
+        java.lang.String t, p;
+
+        this := @this: cck.help.HelpCategory$ParagraphSection;
+
+        l1 := @parameter0: cck.help.HelpCategory;
+
+        t := @parameter1: java.lang.String;
+
+        p := @parameter2: java.lang.String;
+
+        this.<cck.help.HelpCategory$ParagraphSection: cck.help.HelpCategory this$0> = l1;
+
+        specialinvoke this.<cck.help.HelpCategory$Section: void <init>(cck.help.HelpCategory,cck.help.HelpCategory$1)>(l1, null);
+
+        this.<cck.help.HelpCategory$ParagraphSection: java.lang.String title> = t;
+
+        this.<cck.help.HelpCategory$ParagraphSection: java.lang.String para> = p;
+
+        return;
+    }
+
+    void printHelp()
+    {
+        cck.help.HelpCategory$ParagraphSection this;
+        java.lang.String $stack1, $stack2, $stack3, $stack4;
+
+        this := @this: cck.help.HelpCategory$ParagraphSection;
+
+        $stack1 = this.<cck.help.HelpCategory$ParagraphSection: java.lang.String title>;
+
+        if $stack1 == null goto label1;
+
+        $stack4 = this.<cck.help.HelpCategory$ParagraphSection: java.lang.String title>;
+
+        staticinvoke <cck.text.Terminal: void printBrightBlue(java.lang.String)>($stack4);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("\n");
+
+     label1:
+        $stack2 = this.<cck.help.HelpCategory$ParagraphSection: java.lang.String para>;
+
+        $stack3 = staticinvoke <cck.text.StringUtil: java.lang.String formatParagraphs(java.lang.String,int,int,int)>($stack2, 0, 4, 78);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack3);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("");
+
+        return;
+    }
+}

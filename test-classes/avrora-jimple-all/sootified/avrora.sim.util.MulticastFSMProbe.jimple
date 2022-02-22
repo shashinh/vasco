@@ -1,0 +1,80 @@
+public class avrora.sim.util.MulticastFSMProbe extends avrora.sim.util.TransactionalList implements avrora.sim.FiniteStateMachine$Probe
+{
+
+    public void <init>()
+    {
+        avrora.sim.util.MulticastFSMProbe this;
+
+        this := @this: avrora.sim.util.MulticastFSMProbe;
+
+        specialinvoke this.<avrora.sim.util.TransactionalList: void <init>()>();
+
+        return;
+    }
+
+    public void fireBeforeTransition(int, int)
+    {
+        avrora.sim.util.MulticastFSMProbe this;
+        java.lang.Object $stack4;
+        int beforeState, afterState;
+        avrora.sim.FiniteStateMachine$Probe $stack5;
+        avrora.sim.util.TransactionalList$Link pos#1;
+
+        this := @this: avrora.sim.util.MulticastFSMProbe;
+
+        beforeState := @parameter0: int;
+
+        afterState := @parameter1: int;
+
+        pos#1 = this.<avrora.sim.util.MulticastFSMProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if pos#1 == null goto label2;
+
+        $stack4 = pos#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.FiniteStateMachine$Probe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.FiniteStateMachine$Probe: void fireBeforeTransition(int,int)>(beforeState, afterState);
+
+        pos#1 = pos#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void fireAfterTransition(int, int)
+    {
+        avrora.sim.util.MulticastFSMProbe this;
+        java.lang.Object $stack4;
+        int beforeState, afterState;
+        avrora.sim.FiniteStateMachine$Probe $stack5;
+        avrora.sim.util.TransactionalList$Link pos#1;
+
+        this := @this: avrora.sim.util.MulticastFSMProbe;
+
+        beforeState := @parameter0: int;
+
+        afterState := @parameter1: int;
+
+        pos#1 = this.<avrora.sim.util.MulticastFSMProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if pos#1 == null goto label2;
+
+        $stack4 = pos#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.FiniteStateMachine$Probe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.FiniteStateMachine$Probe: void fireAfterTransition(int,int)>(beforeState, afterState);
+
+        pos#1 = pos#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}

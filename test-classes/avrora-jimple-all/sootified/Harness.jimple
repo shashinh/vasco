@@ -1,0 +1,147 @@
+public class Harness extends java.lang.Object
+{
+    private static final java.lang.String HARNESS_PATH;
+    private static final java.lang.String HARNESS_CLASS;
+    private static final java.lang.String HARNESS_METHOD;
+    private static final java.lang.String CALLBACK_CLASSPATH_PROPERTY;
+
+    public void <init>()
+    {
+        Harness l0;
+
+        l0 := @this: Harness;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void main(java.lang.String[]) throws java.lang.Exception
+    {
+        java.lang.ClassLoader l1;
+        java.lang.Thread $stack5;
+        java.lang.Class l2;
+        java.lang.Class[] $stack7;
+        java.lang.reflect.Method l3;
+        java.lang.Object[] $stack9;
+        java.lang.String[] l0;
+
+        l0 := @parameter0: java.lang.String[];
+
+        l1 = staticinvoke <Harness: java.lang.ClassLoader makeHarnessClassLoader()>();
+
+        $stack5 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+
+        virtualinvoke $stack5.<java.lang.Thread: void setContextClassLoader(java.lang.ClassLoader)>(l1);
+
+        l2 = virtualinvoke l1.<java.lang.ClassLoader: java.lang.Class loadClass(java.lang.String)>("org.dacapo.harness.TestHarness");
+
+        $stack7 = newarray (java.lang.Class)[1];
+
+        $stack7[0] = class "[Ljava/lang/String;";
+
+        l3 = virtualinvoke l2.<java.lang.Class: java.lang.reflect.Method getDeclaredMethod(java.lang.String,java.lang.Class[])>("main", $stack7);
+
+        $stack9 = newarray (java.lang.Object)[1];
+
+        $stack9[0] = l0;
+
+        virtualinvoke l3.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>(null, $stack9);
+
+        staticinvoke <java.lang.System: void exit(int)>(0);
+
+        return;
+    }
+
+    private static java.lang.ClassLoader makeHarnessClassLoader() throws java.net.MalformedURLException, java.net.URISyntaxException
+    {
+        java.lang.Thread $stack6;
+        java.lang.ClassLoader l0;
+        java.lang.String l1;
+        java.net.URL l2, $stack17;
+        java.net.URL[] $stack10, $stack15, l3#4;
+        java.net.URLClassLoader $stack11;
+        java.io.File $stack12, $stack21;
+        boolean $stack13;
+        java.net.URI $stack14, l5#3;
+        java.net.URISyntaxException $stack20;
+
+        $stack6 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+
+        l0 = virtualinvoke $stack6.<java.lang.Thread: java.lang.ClassLoader getContextClassLoader()>();
+
+        l1 = staticinvoke <java.lang.System: java.lang.String getProperty(java.lang.String)>("dacapo.callback.classpath");
+
+        l2 = virtualinvoke l0.<java.lang.ClassLoader: java.net.URL getResource(java.lang.String)>("harness/");
+
+        if l1 == null goto label4;
+
+        $stack12 = new java.io.File;
+
+        specialinvoke $stack12.<java.io.File: void <init>(java.lang.String)>(l1);
+
+        $stack13 = virtualinvoke $stack12.<java.io.File: boolean isDirectory()>();
+
+        if $stack13 == 0 goto label1;
+
+        $stack21 = virtualinvoke $stack12.<java.io.File: java.io.File getAbsoluteFile()>();
+
+        l5#3 = virtualinvoke $stack21.<java.io.File: java.net.URI toURI()>();
+
+        goto label2;
+
+     label1:
+        $stack14 = new java.net.URI;
+
+        specialinvoke $stack14.<java.net.URI: void <init>(java.lang.String)>(l1);
+
+        l5#3 = $stack14;
+
+     label2:
+        if l5#3 != null goto label3;
+
+        $stack20 = new java.net.URISyntaxException;
+
+        specialinvoke $stack20.<java.net.URISyntaxException: void <init>(java.lang.String,java.lang.String)>(l1, "is not a URI nor a directory nor a class file");
+
+        throw $stack20;
+
+     label3:
+        $stack15 = newarray (java.net.URL)[2];
+
+        $stack15[0] = l2;
+
+        $stack17 = virtualinvoke l5#3.<java.net.URI: java.net.URL toURL()>();
+
+        $stack15[1] = $stack17;
+
+        l3#4 = $stack15;
+
+        goto label5;
+
+     label4:
+        $stack10 = newarray (java.net.URL)[1];
+
+        $stack10[0] = l2;
+
+        l3#4 = $stack10;
+
+     label5:
+        $stack11 = staticinvoke <java.net.URLClassLoader: java.net.URLClassLoader newInstance(java.net.URL[],java.lang.ClassLoader)>(l3#4, l0);
+
+        return $stack11;
+    }
+
+    public static void <clinit>()
+    {
+        <Harness: java.lang.String CALLBACK_CLASSPATH_PROPERTY> = "dacapo.callback.classpath";
+
+        <Harness: java.lang.String HARNESS_METHOD> = "main";
+
+        <Harness: java.lang.String HARNESS_CLASS> = "org.dacapo.harness.TestHarness";
+
+        <Harness: java.lang.String HARNESS_PATH> = "harness/";
+
+        return;
+    }
+}

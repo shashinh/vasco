@@ -1,0 +1,88 @@
+public class avrora.sim.mcu.ATMegaFamily$MaskRegister extends avrora.sim.RWRegister
+{
+    protected final int[] mapping;
+    protected final avrora.sim.AtmelInterpreter interpreter;
+
+    public void <init>(avrora.sim.AtmelInterpreter, int[])
+    {
+        avrora.sim.mcu.ATMegaFamily$MaskRegister this;
+        int[] map;
+        avrora.sim.AtmelInterpreter interp;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$MaskRegister;
+
+        interp := @parameter0: avrora.sim.AtmelInterpreter;
+
+        map := @parameter1: int[];
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        this.<avrora.sim.mcu.ATMegaFamily$MaskRegister: int[] mapping> = map;
+
+        this.<avrora.sim.mcu.ATMegaFamily$MaskRegister: avrora.sim.AtmelInterpreter interpreter> = interp;
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.ATMegaFamily$MaskRegister this;
+        byte val;
+        boolean $stack3;
+        int cntr#1;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$MaskRegister;
+
+        val := @parameter0: byte;
+
+        this.<avrora.sim.mcu.ATMegaFamily$MaskRegister: byte value> = val;
+
+        cntr#1 = 0;
+
+     label1:
+        if cntr#1 >= 8 goto label2;
+
+        $stack3 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, cntr#1);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMegaFamily$MaskRegister: void setEnabled(int,boolean)>(cntr#1, $stack3);
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    void setEnabled(int, boolean)
+    {
+        avrora.sim.mcu.ATMegaFamily$MaskRegister this;
+        int cntr, $stack4, $stack6;
+        int[] $stack3, $stack5;
+        boolean e;
+        avrora.sim.AtmelInterpreter $stack7;
+
+        this := @this: avrora.sim.mcu.ATMegaFamily$MaskRegister;
+
+        cntr := @parameter0: int;
+
+        e := @parameter1: boolean;
+
+        $stack3 = this.<avrora.sim.mcu.ATMegaFamily$MaskRegister: int[] mapping>;
+
+        $stack4 = $stack3[cntr];
+
+        if $stack4 <= 0 goto label1;
+
+        $stack7 = this.<avrora.sim.mcu.ATMegaFamily$MaskRegister: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack5 = this.<avrora.sim.mcu.ATMegaFamily$MaskRegister: int[] mapping>;
+
+        $stack6 = $stack5[cntr];
+
+        virtualinvoke $stack7.<avrora.sim.AtmelInterpreter: void setEnabled(int,boolean)>($stack6, e);
+
+     label1:
+        return;
+    }
+}

@@ -1,0 +1,22 @@
+soot supports the following reflection constructs:
+
+	1. Class.forName 		--	soot adds a CG edge to the respective class(es)' CLINIT -- should VASCO add <clinit> as a target?
+	2. Class.newInstance		--	soot adds a CG edge to the respective class(es)' Constructor -- this only adds an edge to the default constructor which signature "void <init>()"
+	3. Method.invoke		--	soot adds a CG edge to the method being invoked, sc.getMethod is keyed by method signature from the reflection logs
+						at least in Avrora, method.invoke is only called a certain way
+	4. Constructor.newInstance	--	soot adds a CG edge to the respective class(es)' Constructor(s), by taking into account the constructor signature in the reflection log
+	5. Field.set			--	no effect wrt CG - no need to handle, doesn't seem to be any field reflection going on Avrora
+	6. Field.get			--  	no effect wrt CG
+	
+	
+
+
+
+
+
+
+	
+OnFlyCallGraphBuilder
+
+line 936 -           reflectionModel.classForName(source, s);
+

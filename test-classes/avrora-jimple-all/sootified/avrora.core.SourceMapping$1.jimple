@@ -1,0 +1,70 @@
+final class avrora.core.SourceMapping$1 extends java.lang.Object implements java.util.Comparator
+{
+
+    void <init>()
+    {
+        avrora.core.SourceMapping$1 this;
+
+        this := @this: avrora.core.SourceMapping$1;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public int compare(java.lang.Object, java.lang.Object)
+    {
+        java.lang.Object o1, o2;
+        avrora.core.SourceMapping$Location l1, l2;
+        int $stack5, $stack6, $stack7, $stack8, $stack9, $stack14;
+        java.lang.String $stack10, $stack11, $stack12, $stack13;
+        avrora.core.SourceMapping$1 this;
+
+        this := @this: avrora.core.SourceMapping$1;
+
+        o1 := @parameter0: java.lang.Object;
+
+        o2 := @parameter1: java.lang.Object;
+
+        l1 = (avrora.core.SourceMapping$Location) o1;
+
+        l2 = (avrora.core.SourceMapping$Location) o2;
+
+        $stack6 = l1.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        $stack5 = l2.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        if $stack6 != $stack5 goto label3;
+
+        $stack10 = l1.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        if $stack10 != null goto label1;
+
+        return 1;
+
+     label1:
+        $stack11 = l2.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        if $stack11 != null goto label2;
+
+        return -1;
+
+     label2:
+        $stack13 = l1.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        $stack12 = l2.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        $stack14 = virtualinvoke $stack13.<java.lang.String: int compareTo(java.lang.String)>($stack12);
+
+        return $stack14;
+
+     label3:
+        $stack8 = l1.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        $stack7 = l2.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        $stack9 = $stack8 - $stack7;
+
+        return $stack9;
+    }
+}

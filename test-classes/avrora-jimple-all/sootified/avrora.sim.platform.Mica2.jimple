@@ -1,0 +1,238 @@
+public class avrora.sim.platform.Mica2 extends avrora.sim.platform.Platform
+{
+    protected static final int MAIN_HZ;
+    protected static final int EXT_HZ;
+    protected static final int RADIO_HZ;
+    protected final avrora.sim.Simulator sim;
+    protected avrora.sim.radio.CC1000Radio radio;
+    protected avrora.sim.platform.sensors.SensorBoard sensorboard;
+    protected avrora.sim.platform.ExternalFlash externalFlash;
+    protected avrora.sim.platform.sensors.LightSensor lightSensor;
+    protected avrora.sim.platform.sensors.AccelSensor accelXSensor;
+    protected avrora.sim.platform.sensors.AccelSensor accelYSensor;
+    protected avrora.sim.platform.LED$LEDGroup ledGroup;
+
+    protected void <init>(avrora.sim.mcu.Microcontroller)
+    {
+        avrora.sim.platform.Mica2 this;
+        avrora.sim.mcu.Microcontroller m;
+        avrora.sim.Simulator $stack2;
+
+        this := @this: avrora.sim.platform.Mica2;
+
+        m := @parameter0: avrora.sim.mcu.Microcontroller;
+
+        specialinvoke this.<avrora.sim.platform.Platform: void <init>(avrora.sim.mcu.Microcontroller)>(m);
+
+        $stack2 = interfaceinvoke m.<avrora.sim.mcu.Microcontroller: avrora.sim.Simulator getSimulator()>();
+
+        this.<avrora.sim.platform.Mica2: avrora.sim.Simulator sim> = $stack2;
+
+        virtualinvoke this.<avrora.sim.platform.Mica2: void addDevices()>();
+
+        return;
+    }
+
+    protected void addDevices()
+    {
+        avrora.sim.platform.LED $stack5, $stack7, $stack9;
+        avrora.sim.platform.Mica2 this;
+        avrora.sim.Simulator $stack6, $stack8, $stack10, $stack13, $stack45;
+        avrora.sim.platform.LED$LEDGroup $stack11, $stack14;
+        avrora.sim.platform.LED[] $stack12;
+        avrora.sim.mcu.Microcontroller $stack15, $stack17, $stack19, $stack22, $stack23, $stack28, $stack33, $stack38, $stack47, $stack48;
+        avrora.sim.mcu.Microcontroller$Pin $stack16, $stack18, $stack20, $stack24, $stack29, $stack34, $stack39;
+        avrora.sim.radio.CC1000Radio $stack21, $stack25, $stack30, $stack35, $stack40, $stack43;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface $stack26, $stack31, $stack36, $stack41;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput $stack27;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput $stack32;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput $stack37;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput $stack42;
+        avrora.sim.platform.sensors.SensorBoard $stack44;
+        avrora.sim.platform.ExternalFlash $stack46;
+        avrora.sim.mcu.AtmelMicrocontroller amcu;
+        avrora.sim.platform.sensors.AccelSensor $stack49, $stack50, $stack51, $stack52;
+        avrora.sim.platform.sensors.LightSensor $stack53, $stack54;
+
+        this := @this: avrora.sim.platform.Mica2;
+
+        $stack5 = new avrora.sim.platform.LED;
+
+        $stack6 = this.<avrora.sim.platform.Mica2: avrora.sim.Simulator sim>;
+
+        specialinvoke $stack5.<avrora.sim.platform.LED: void <init>(avrora.sim.Simulator,int,java.lang.String)>($stack6, 11, "Yellow");
+
+        $stack7 = new avrora.sim.platform.LED;
+
+        $stack8 = this.<avrora.sim.platform.Mica2: avrora.sim.Simulator sim>;
+
+        specialinvoke $stack7.<avrora.sim.platform.LED: void <init>(avrora.sim.Simulator,int,java.lang.String)>($stack8, 2, "Green");
+
+        $stack9 = new avrora.sim.platform.LED;
+
+        $stack10 = this.<avrora.sim.platform.Mica2: avrora.sim.Simulator sim>;
+
+        specialinvoke $stack9.<avrora.sim.platform.LED: void <init>(avrora.sim.Simulator,int,java.lang.String)>($stack10, 1, "Red");
+
+        $stack11 = new avrora.sim.platform.LED$LEDGroup;
+
+        $stack13 = this.<avrora.sim.platform.Mica2: avrora.sim.Simulator sim>;
+
+        $stack12 = newarray (avrora.sim.platform.LED)[3];
+
+        $stack12[0] = $stack5;
+
+        $stack12[1] = $stack7;
+
+        $stack12[2] = $stack9;
+
+        specialinvoke $stack11.<avrora.sim.platform.LED$LEDGroup: void <init>(avrora.sim.Simulator,avrora.sim.platform.LED[])>($stack13, $stack12);
+
+        this.<avrora.sim.platform.Mica2: avrora.sim.platform.LED$LEDGroup ledGroup> = $stack11;
+
+        $stack14 = this.<avrora.sim.platform.Mica2: avrora.sim.platform.LED$LEDGroup ledGroup>;
+
+        virtualinvoke this.<avrora.sim.platform.Mica2: void addDevice(java.lang.String,java.lang.Object)>("leds", $stack14);
+
+        $stack15 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack16 = interfaceinvoke $stack15.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)>("PA0");
+
+        interfaceinvoke $stack16.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack5);
+
+        $stack17 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack18 = interfaceinvoke $stack17.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)>("PA1");
+
+        interfaceinvoke $stack18.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack7);
+
+        $stack19 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack20 = interfaceinvoke $stack19.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)>("PA2");
+
+        interfaceinvoke $stack20.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack9);
+
+        $stack21 = new avrora.sim.radio.CC1000Radio;
+
+        $stack22 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        specialinvoke $stack21.<avrora.sim.radio.CC1000Radio: void <init>(avrora.sim.mcu.Microcontroller,long)>($stack22, 14745600L);
+
+        this.<avrora.sim.platform.Mica2: avrora.sim.radio.CC1000Radio radio> = $stack21;
+
+        $stack23 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack24 = interfaceinvoke $stack23.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(int)>(31);
+
+        $stack25 = this.<avrora.sim.platform.Mica2: avrora.sim.radio.CC1000Radio radio>;
+
+        $stack26 = $stack25.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface config>;
+
+        $stack27 = $stack26.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput PCLK_in>;
+
+        interfaceinvoke $stack24.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack27);
+
+        $stack28 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack29 = interfaceinvoke $stack28.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(int)>(32);
+
+        $stack30 = this.<avrora.sim.platform.Mica2: avrora.sim.radio.CC1000Radio radio>;
+
+        $stack31 = $stack30.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface config>;
+
+        $stack32 = $stack31.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput PDATA_in>;
+
+        interfaceinvoke $stack29.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack32);
+
+        $stack33 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack34 = interfaceinvoke $stack33.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(int)>(32);
+
+        $stack35 = this.<avrora.sim.platform.Mica2: avrora.sim.radio.CC1000Radio radio>;
+
+        $stack36 = $stack35.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface config>;
+
+        $stack37 = $stack36.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput PDATA_out>;
+
+        interfaceinvoke $stack34.<avrora.sim.mcu.Microcontroller$Pin: void connectInput(avrora.sim.mcu.Microcontroller$Pin$Input)>($stack37);
+
+        $stack38 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack39 = interfaceinvoke $stack38.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(int)>(29);
+
+        $stack40 = this.<avrora.sim.platform.Mica2: avrora.sim.radio.CC1000Radio radio>;
+
+        $stack41 = $stack40.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface config>;
+
+        $stack42 = $stack41.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput PALE_in>;
+
+        interfaceinvoke $stack39.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack42);
+
+        $stack43 = this.<avrora.sim.platform.Mica2: avrora.sim.radio.CC1000Radio radio>;
+
+        virtualinvoke this.<avrora.sim.platform.Mica2: void addDevice(java.lang.String,java.lang.Object)>("radio", $stack43);
+
+        $stack44 = new avrora.sim.platform.sensors.SensorBoard;
+
+        $stack45 = this.<avrora.sim.platform.Mica2: avrora.sim.Simulator sim>;
+
+        specialinvoke $stack44.<avrora.sim.platform.sensors.SensorBoard: void <init>(avrora.sim.Simulator)>($stack45);
+
+        this.<avrora.sim.platform.Mica2: avrora.sim.platform.sensors.SensorBoard sensorboard> = $stack44;
+
+        $stack46 = new avrora.sim.platform.ExternalFlash;
+
+        $stack47 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        specialinvoke $stack46.<avrora.sim.platform.ExternalFlash: void <init>(avrora.sim.mcu.Microcontroller,int,int)>($stack47, 2048, 264);
+
+        this.<avrora.sim.platform.Mica2: avrora.sim.platform.ExternalFlash externalFlash> = $stack46;
+
+        $stack48 = this.<avrora.sim.platform.Mica2: avrora.sim.mcu.Microcontroller mcu>;
+
+        amcu = (avrora.sim.mcu.AtmelMicrocontroller) $stack48;
+
+        $stack49 = new avrora.sim.platform.sensors.AccelSensor;
+
+        specialinvoke $stack49.<avrora.sim.platform.sensors.AccelSensor: void <init>(avrora.sim.mcu.AtmelMicrocontroller,int,java.lang.String)>(amcu, 3, "PC4");
+
+        this.<avrora.sim.platform.Mica2: avrora.sim.platform.sensors.AccelSensor accelXSensor> = $stack49;
+
+        $stack50 = this.<avrora.sim.platform.Mica2: avrora.sim.platform.sensors.AccelSensor accelXSensor>;
+
+        virtualinvoke this.<avrora.sim.platform.Mica2: void addDevice(java.lang.String,java.lang.Object)>("accelx-sensor", $stack50);
+
+        $stack51 = new avrora.sim.platform.sensors.AccelSensor;
+
+        specialinvoke $stack51.<avrora.sim.platform.sensors.AccelSensor: void <init>(avrora.sim.mcu.AtmelMicrocontroller,int,java.lang.String)>(amcu, 4, "PC4");
+
+        this.<avrora.sim.platform.Mica2: avrora.sim.platform.sensors.AccelSensor accelYSensor> = $stack51;
+
+        $stack52 = this.<avrora.sim.platform.Mica2: avrora.sim.platform.sensors.AccelSensor accelYSensor>;
+
+        virtualinvoke this.<avrora.sim.platform.Mica2: void addDevice(java.lang.String,java.lang.Object)>("accely-sensor", $stack52);
+
+        $stack53 = new avrora.sim.platform.sensors.LightSensor;
+
+        specialinvoke $stack53.<avrora.sim.platform.sensors.LightSensor: void <init>(avrora.sim.mcu.AtmelMicrocontroller,int,java.lang.String,java.lang.String)>(amcu, 1, "PC2", "PE5");
+
+        this.<avrora.sim.platform.Mica2: avrora.sim.platform.sensors.LightSensor lightSensor> = $stack53;
+
+        $stack54 = this.<avrora.sim.platform.Mica2: avrora.sim.platform.sensors.LightSensor lightSensor>;
+
+        virtualinvoke this.<avrora.sim.platform.Mica2: void addDevice(java.lang.String,java.lang.Object)>("light-sensor", $stack54);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.platform.Mica2: int RADIO_HZ> = 14745600;
+
+        <avrora.sim.platform.Mica2: int EXT_HZ> = 32768;
+
+        <avrora.sim.platform.Mica2: int MAIN_HZ> = 7372800;
+
+        return;
+    }
+}

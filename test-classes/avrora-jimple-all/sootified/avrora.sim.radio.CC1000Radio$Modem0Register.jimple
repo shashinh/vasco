@@ -1,0 +1,228 @@
+public class avrora.sim.radio.CC1000Radio$Modem0Register extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    int baudrate;
+    int bitrate;
+    static final int DATA_FORMAT_NRZ;
+    static final int DATA_FORMAT_MANCHESTER;
+    static final int DATA_FORMAT_UART;
+    int dataFormat;
+    int xoscFreqRange;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$Modem0Register this;
+        avrora.sim.radio.CC1000Radio this$0;
+        int[] $stack2;
+        int $stack3;
+        byte $stack4;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Modem0Register;
+
+        this$0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: avrora.sim.radio.CC1000Radio this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(this$0, "MODEM0", 36);
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int baudrate> = 2400;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int bitrate> = 1200;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int dataFormat> = 1;
+
+        $stack2 = <avrora.sim.radio.CC1000Radio: int[] XOSC_FREQ>;
+
+        $stack3 = $stack2[0];
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int xoscFreqRange> = $stack3;
+
+        $stack4 = this.<avrora.sim.radio.CC1000Radio$Modem0Register: byte value>;
+
+        virtualinvoke this.<avrora.sim.radio.CC1000Radio$Modem0Register: void decode(byte)>($stack4);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        byte val, $stack12#1;
+        int $stack4, baudIndex, xoscIndex, $stack5, $stack6, $stack8, $stack9, $stack10, $stack11;
+        avrora.sim.radio.CC1000Radio$Modem0Register this;
+        int[] $stack7;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Modem0Register;
+
+        val := @parameter0: byte;
+
+        $stack4 = val & 112;
+
+        baudIndex = $stack4 >> 4;
+
+        xoscIndex = val & 3;
+
+        $stack5 = val & 12;
+
+        $stack6 = $stack5 >> 2;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int dataFormat> = $stack6;
+
+        $stack7 = <avrora.sim.radio.CC1000Radio: int[] XOSC_FREQ>;
+
+        $stack8 = $stack7[xoscIndex];
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int xoscFreqRange> = $stack8;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$Modem0Register: void calculateBaudRate(int,int)>(baudIndex, xoscIndex);
+
+        $stack10 = this.<avrora.sim.radio.CC1000Radio$Modem0Register: int baudrate>;
+
+        $stack9 = this.<avrora.sim.radio.CC1000Radio$Modem0Register: int dataFormat>;
+
+        if $stack9 != 1 goto label1;
+
+        $stack12#1 = 2;
+
+        goto label2;
+
+     label1:
+        $stack12#1 = 1;
+
+     label2:
+        $stack11 = $stack10 / $stack12#1;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int bitrate> = $stack11;
+
+        return;
+    }
+
+    private void calculateBaudRate(int, int)
+    {
+        int baudIndex, $stack4, $stack7, xoscIndex, $stack14;
+        avrora.sim.radio.CC1000Radio$Modem0Register this;
+        int[] $stack3, $stack6, $stack13;
+        avrora.sim.radio.CC1000Radio $stack5;
+        long $stack8, $stack9;
+        byte $stack10;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Modem0Register;
+
+        baudIndex := @parameter0: int;
+
+        xoscIndex := @parameter1: int;
+
+        if baudIndex != 5 goto label3;
+
+        $stack5 = this.<avrora.sim.radio.CC1000Radio$Modem0Register: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack9 = $stack5.<avrora.sim.radio.CC1000Radio: long xoscFrequency>;
+
+        $stack6 = <avrora.sim.radio.CC1000Radio: int[] XOSC_FREQ>;
+
+        $stack7 = $stack6[2];
+
+        $stack8 = (long) $stack7;
+
+        $stack10 = $stack9 cmp $stack8;
+
+        if $stack10 <= 0 goto label3;
+
+        if xoscIndex != 0 goto label1;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int baudrate> = 76800;
+
+        goto label4;
+
+     label1:
+        if xoscIndex != 1 goto label2;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int baudrate> = 38400;
+
+        goto label4;
+
+     label2:
+        $stack13 = <avrora.sim.radio.CC1000Radio: int[] BAUDRATE>;
+
+        $stack14 = $stack13[baudIndex];
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int baudrate> = $stack14;
+
+        goto label4;
+
+     label3:
+        $stack3 = <avrora.sim.radio.CC1000Radio: int[] BAUDRATE>;
+
+        $stack4 = $stack3[baudIndex];
+
+        this.<avrora.sim.radio.CC1000Radio$Modem0Register: int baudrate> = $stack4;
+
+     label4:
+        return;
+    }
+
+    protected void printStatus()
+    {
+        avrora.sim.radio.CC1000Radio$Modem0Register this;
+        avrora.sim.radio.CC1000Radio $stack1;
+        java.lang.StringBuilder $stack2, $stack4, $stack6, $stack7, $stack9, $stack10, $stack12;
+        avrora.sim.output.SimPrinter $stack3;
+        int $stack5, $stack8, $stack11;
+        java.lang.String $stack13;
+        boolean $stack14#1;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Modem0Register;
+
+        $stack1 = this.<avrora.sim.radio.CC1000Radio$Modem0Register: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack3 = $stack1.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000[MODEM0]: ");
+
+        $stack5 = this.<avrora.sim.radio.CC1000Radio$Modem0Register: int baudrate>;
+
+        $stack6 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack5);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" baud, ");
+
+        $stack8 = this.<avrora.sim.radio.CC1000Radio$Modem0Register: int bitrate>;
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" bit rate, manchester: ");
+
+        $stack11 = this.<avrora.sim.radio.CC1000Radio$Modem0Register: int dataFormat>;
+
+        if $stack11 != 1 goto label1;
+
+        $stack14#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack14#1 = 0;
+
+     label2:
+        $stack12 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($stack14#1);
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack3.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack13);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.radio.CC1000Radio$Modem0Register: int DATA_FORMAT_UART> = 2;
+
+        <avrora.sim.radio.CC1000Radio$Modem0Register: int DATA_FORMAT_MANCHESTER> = 1;
+
+        <avrora.sim.radio.CC1000Radio$Modem0Register: int DATA_FORMAT_NRZ> = 0;
+
+        return;
+    }
+}

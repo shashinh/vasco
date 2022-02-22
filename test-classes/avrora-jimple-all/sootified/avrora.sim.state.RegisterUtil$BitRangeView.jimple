@@ -1,0 +1,117 @@
+public class avrora.sim.state.RegisterUtil$BitRangeView extends java.lang.Object implements avrora.sim.state.RegisterView
+{
+    protected final avrora.sim.state.RegisterView reg;
+    protected final byte low;
+    protected final byte width;
+    protected final int mask;
+
+    public void <init>(avrora.sim.state.RegisterView, byte, byte)
+    {
+        avrora.sim.state.RegisterUtil$BitRangeView this;
+        byte l, h, $stack7;
+        int $stack4, $stack5, $stack6;
+        avrora.sim.state.RegisterView r;
+
+        this := @this: avrora.sim.state.RegisterUtil$BitRangeView;
+
+        r := @parameter0: avrora.sim.state.RegisterView;
+
+        l := @parameter1: byte;
+
+        h := @parameter2: byte;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.state.RegisterUtil$BitRangeView: byte low> = l;
+
+        $stack4 = staticinvoke <cck.util.Arithmetic: int getBitRangeMask(int,int)>(l, h);
+
+        this.<avrora.sim.state.RegisterUtil$BitRangeView: int mask> = $stack4;
+
+        $stack5 = h - l;
+
+        $stack6 = $stack5 + 1;
+
+        $stack7 = (byte) $stack6;
+
+        this.<avrora.sim.state.RegisterUtil$BitRangeView: byte width> = $stack7;
+
+        this.<avrora.sim.state.RegisterUtil$BitRangeView: avrora.sim.state.RegisterView reg> = r;
+
+        return;
+    }
+
+    public int getWidth()
+    {
+        avrora.sim.state.RegisterUtil$BitRangeView this;
+        byte $stack1;
+
+        this := @this: avrora.sim.state.RegisterUtil$BitRangeView;
+
+        $stack1 = this.<avrora.sim.state.RegisterUtil$BitRangeView: byte width>;
+
+        return $stack1;
+    }
+
+    public int getValue()
+    {
+        avrora.sim.state.RegisterUtil$BitRangeView this;
+        avrora.sim.state.RegisterView $stack1;
+        int $stack2, $stack3, $stack5, $stack6;
+        byte $stack4;
+
+        this := @this: avrora.sim.state.RegisterUtil$BitRangeView;
+
+        $stack1 = this.<avrora.sim.state.RegisterUtil$BitRangeView: avrora.sim.state.RegisterView reg>;
+
+        $stack2 = interfaceinvoke $stack1.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack3 = this.<avrora.sim.state.RegisterUtil$BitRangeView: int mask>;
+
+        $stack5 = $stack2 & $stack3;
+
+        $stack4 = this.<avrora.sim.state.RegisterUtil$BitRangeView: byte low>;
+
+        $stack6 = $stack5 >> $stack4;
+
+        return $stack6;
+    }
+
+    public void setValue(int)
+    {
+        avrora.sim.state.RegisterUtil$BitRangeView this;
+        avrora.sim.state.RegisterView $stack2, $stack3;
+        int $stack4, $stack5, $stack6, val, $stack8, $stack9, $stack10, $stack11, $stack12;
+        byte $stack7;
+
+        this := @this: avrora.sim.state.RegisterUtil$BitRangeView;
+
+        val := @parameter0: int;
+
+        $stack3 = this.<avrora.sim.state.RegisterUtil$BitRangeView: avrora.sim.state.RegisterView reg>;
+
+        $stack2 = this.<avrora.sim.state.RegisterUtil$BitRangeView: avrora.sim.state.RegisterView reg>;
+
+        $stack4 = interfaceinvoke $stack2.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack5 = this.<avrora.sim.state.RegisterUtil$BitRangeView: int mask>;
+
+        $stack6 = $stack5 ^ -1;
+
+        $stack11 = $stack4 & $stack6;
+
+        $stack7 = this.<avrora.sim.state.RegisterUtil$BitRangeView: byte low>;
+
+        $stack9 = val << $stack7;
+
+        $stack8 = this.<avrora.sim.state.RegisterUtil$BitRangeView: int mask>;
+
+        $stack10 = $stack9 & $stack8;
+
+        $stack12 = $stack11 | $stack10;
+
+        interfaceinvoke $stack3.<avrora.sim.state.RegisterView: void setValue(int)>($stack12);
+
+        return;
+    }
+}

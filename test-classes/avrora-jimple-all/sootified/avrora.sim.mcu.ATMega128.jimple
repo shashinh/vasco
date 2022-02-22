@@ -1,0 +1,888 @@
+public class avrora.sim.mcu.ATMega128 extends avrora.sim.mcu.ATMegaFamily
+{
+    public static final int _1kb;
+    public static final int ATMEGA128_IOREG_SIZE;
+    public static final int ATMEGA128_SRAM_SIZE;
+    public static final int ATMEGA128_FLASH_SIZE;
+    public static final int ATMEGA128_EEPROM_SIZE;
+    public static final int ATMEGA128_NUM_PINS;
+    public static final int ATMEGA128_NUM_INTS;
+    public static final int MODE_IDLE;
+    public static final int MODE_ADCNRED;
+    public static final int MODE_POWERDOWN;
+    public static final int MODE_POWERSAVE;
+    public static final int MODE_RESERVED1;
+    public static final int MODE_RESERVED2;
+    public static final int MODE_STANDBY;
+    public static final int MODE_EXTSTANDBY;
+    protected static final java.lang.String[] idleModeNames;
+    private static final double[] modeAmpere;
+    protected static final int[] wakeupTimes;
+    protected final avrora.sim.ActiveRegister MCUCR_reg;
+    private static final int[][] transitionTimeMatrix;
+    public static final avrora.arch.avr.AVRProperties props;
+    private static final int[] MCUCR_sm_perm;
+
+    public void <init>(int, avrora.sim.Simulation, avrora.sim.clock.ClockDomain, avrora.core.Program)
+    {
+        avrora.sim.mcu.ATMega128 this;
+        avrora.sim.clock.ClockDomain cd;
+        avrora.sim.FiniteStateMachine $stack5, $stack19;
+        avrora.arch.avr.AVRProperties $stack6;
+        avrora.sim.clock.MainClock $stack7;
+        int[][] $stack8;
+        java.lang.String[] $stack9;
+        avrora.sim.Simulation sim;
+        int id;
+        avrora.core.Program p;
+        avrora.arch.legacy.LegacyInterpreter$Factory $stack10;
+        avrora.sim.Simulator $stack11, $stack12;
+        avrora.sim.Interpreter $stack13;
+        avrora.sim.AtmelInterpreter $stack14;
+        avrora.sim.ActiveRegister $stack15;
+        avrora.sim.energy.Energy $stack16;
+        double[] $stack18;
+        avrora.sim.energy.EnergyControl $stack20;
+
+        this := @this: avrora.sim.mcu.ATMega128;
+
+        id := @parameter0: int;
+
+        sim := @parameter1: avrora.sim.Simulation;
+
+        cd := @parameter2: avrora.sim.clock.ClockDomain;
+
+        p := @parameter3: avrora.core.Program;
+
+        $stack6 = <avrora.sim.mcu.ATMega128: avrora.arch.avr.AVRProperties props>;
+
+        $stack5 = new avrora.sim.FiniteStateMachine;
+
+        $stack7 = virtualinvoke cd.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock getMainClock()>();
+
+        $stack9 = <avrora.sim.mcu.ATMega128: java.lang.String[] idleModeNames>;
+
+        $stack8 = <avrora.sim.mcu.ATMega128: int[][] transitionTimeMatrix>;
+
+        specialinvoke $stack5.<avrora.sim.FiniteStateMachine: void <init>(avrora.sim.clock.Clock,int,java.lang.String[],int[][])>($stack7, 0, $stack9, $stack8);
+
+        specialinvoke this.<avrora.sim.mcu.ATMegaFamily: void <init>(avrora.sim.clock.ClockDomain,avrora.arch.avr.AVRProperties,avrora.sim.FiniteStateMachine)>(cd, $stack6, $stack5);
+
+        $stack10 = <avrora.arch.legacy.LegacyInterpreter: avrora.arch.legacy.LegacyInterpreter$Factory FACTORY>;
+
+        $stack11 = virtualinvoke sim.<avrora.sim.Simulation: avrora.sim.Simulator createSimulator(int,avrora.sim.InterpreterFactory,avrora.sim.mcu.Microcontroller,avrora.core.Program)>(id, $stack10, this, p);
+
+        this.<avrora.sim.mcu.ATMega128: avrora.sim.Simulator simulator> = $stack11;
+
+        $stack12 = this.<avrora.sim.mcu.ATMega128: avrora.sim.Simulator simulator>;
+
+        $stack13 = virtualinvoke $stack12.<avrora.sim.Simulator: avrora.sim.Interpreter getInterpreter()>();
+
+        $stack14 = (avrora.sim.AtmelInterpreter) $stack13;
+
+        this.<avrora.sim.mcu.ATMega128: avrora.sim.AtmelInterpreter interpreter> = $stack14;
+
+        $stack15 = virtualinvoke this.<avrora.sim.mcu.ATMega128: avrora.sim.ActiveRegister getIOReg(java.lang.String)>("MCUCR");
+
+        this.<avrora.sim.mcu.ATMega128: avrora.sim.ActiveRegister MCUCR_reg> = $stack15;
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void installPins()>();
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void installDevices()>();
+
+        $stack16 = new avrora.sim.energy.Energy;
+
+        $stack18 = <avrora.sim.mcu.ATMega128: double[] modeAmpere>;
+
+        $stack19 = this.<avrora.sim.mcu.ATMega128: avrora.sim.FiniteStateMachine sleepState>;
+
+        $stack20 = virtualinvoke sim.<avrora.sim.Simulation: avrora.sim.energy.EnergyControl getEnergyControl()>();
+
+        specialinvoke $stack16.<avrora.sim.energy.Energy: void <init>(java.lang.String,double[],avrora.sim.FiniteStateMachine,avrora.sim.energy.EnergyControl)>("CPU", $stack18, $stack19, $stack20);
+
+        return;
+    }
+
+    protected void installPins()
+    {
+        avrora.sim.mcu.ATMega128 this;
+        avrora.arch.avr.AVRProperties $stack2;
+        int $stack3, cntr#1;
+        avrora.sim.mcu.DefaultMCU$Pin $stack4;
+        avrora.sim.mcu.Microcontroller$Pin[] $stack5;
+
+        this := @this: avrora.sim.mcu.ATMega128;
+
+        cntr#1 = 0;
+
+     label1:
+        $stack2 = this.<avrora.sim.mcu.ATMega128: avrora.arch.avr.AVRProperties properties>;
+
+        $stack3 = $stack2.<avrora.arch.avr.AVRProperties: int num_pins>;
+
+        if cntr#1 >= $stack3 goto label2;
+
+        $stack5 = this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.Microcontroller$Pin[] pins>;
+
+        $stack4 = new avrora.sim.mcu.DefaultMCU$Pin;
+
+        specialinvoke $stack4.<avrora.sim.mcu.DefaultMCU$Pin: void <init>(avrora.sim.mcu.DefaultMCU,int)>(this, cntr#1);
+
+        $stack5[cntr#1] = $stack4;
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    protected void installDevices()
+    {
+        avrora.sim.mcu.ATMega128 this;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister $stack2, $stack3, $stack7, $stack13;
+        avrora.sim.ActiveRegister $stack4;
+        avrora.sim.mcu.ATMegaFamily$MaskRegister $stack5, $stack9, $stack11;
+        int[] $stack6;
+        avrora.sim.AtmelInterpreter $stack8, $stack10;
+        avrora.sim.mcu.ATMegaFamily$Timer0 $stack15;
+        avrora.sim.mcu.ATMegaFamily$Timer1 $stack16;
+        avrora.sim.mcu.ATMegaFamily$Timer2 $stack17;
+        avrora.sim.mcu.ATMegaFamily$Timer3 $stack18;
+        avrora.sim.mcu.EEPROM $stack19;
+        avrora.arch.avr.AVRProperties $stack20;
+        int $stack21;
+        avrora.sim.mcu.USART $stack22, $stack23;
+        avrora.sim.mcu.SPI $stack24;
+        avrora.sim.mcu.ADC $stack25;
+
+        this := @this: avrora.sim.mcu.ATMega128;
+
+        $stack2 = virtualinvoke this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$FlagRegister buildInterruptRange(boolean,java.lang.String,java.lang.String,int,int)>(1, "EIMSK", "EIFR", 2, 8);
+
+        this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$FlagRegister EIFR_reg> = $stack2;
+
+        $stack3 = virtualinvoke this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$FlagRegister buildInterruptRange(boolean,java.lang.String,java.lang.String,int,int)>(0, "TIMSK", "TIFR", 17, 8);
+
+        this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$FlagRegister TIFR_reg> = $stack3;
+
+        $stack4 = virtualinvoke this.<avrora.sim.mcu.ATMega128: avrora.sim.ActiveRegister getIOReg(java.lang.String)>("TIMSK");
+
+        $stack5 = (avrora.sim.mcu.ATMegaFamily$MaskRegister) $stack4;
+
+        this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$MaskRegister TIMSK_reg> = $stack5;
+
+        $stack6 = newarray (int)[8];
+
+        $stack6[0] = 25;
+
+        $stack6[1] = 29;
+
+        $stack6[2] = 30;
+
+        $stack6[3] = 28;
+
+        $stack6[4] = 27;
+
+        $stack6[5] = 26;
+
+        $stack6[6] = -1;
+
+        $stack6[7] = -1;
+
+        $stack7 = new avrora.sim.mcu.ATMegaFamily$FlagRegister;
+
+        $stack8 = this.<avrora.sim.mcu.ATMega128: avrora.sim.AtmelInterpreter interpreter>;
+
+        specialinvoke $stack7.<avrora.sim.mcu.ATMegaFamily$FlagRegister: void <init>(avrora.sim.AtmelInterpreter,int[])>($stack8, $stack6);
+
+        this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$FlagRegister ETIFR_reg> = $stack7;
+
+        $stack9 = new avrora.sim.mcu.ATMegaFamily$MaskRegister;
+
+        $stack10 = this.<avrora.sim.mcu.ATMega128: avrora.sim.AtmelInterpreter interpreter>;
+
+        specialinvoke $stack9.<avrora.sim.mcu.ATMegaFamily$MaskRegister: void <init>(avrora.sim.AtmelInterpreter,int[])>($stack10, $stack6);
+
+        this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$MaskRegister ETIMSK_reg> = $stack9;
+
+        $stack11 = this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$MaskRegister ETIMSK_reg>;
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: avrora.sim.ActiveRegister installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("ETIMSK", $stack11);
+
+        $stack13 = this.<avrora.sim.mcu.ATMega128: avrora.sim.mcu.ATMegaFamily$FlagRegister ETIFR_reg>;
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: avrora.sim.ActiveRegister installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("ETIFR", $stack13);
+
+        $stack15 = new avrora.sim.mcu.ATMegaFamily$Timer0;
+
+        specialinvoke $stack15.<avrora.sim.mcu.ATMegaFamily$Timer0: void <init>(avrora.sim.mcu.ATMegaFamily)>(this);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack15);
+
+        $stack16 = new avrora.sim.mcu.ATMegaFamily$Timer1;
+
+        specialinvoke $stack16.<avrora.sim.mcu.ATMegaFamily$Timer1: void <init>(avrora.sim.mcu.ATMegaFamily,int)>(this, 3);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack16);
+
+        $stack17 = new avrora.sim.mcu.ATMegaFamily$Timer2;
+
+        specialinvoke $stack17.<avrora.sim.mcu.ATMegaFamily$Timer2: void <init>(avrora.sim.mcu.ATMegaFamily)>(this);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack17);
+
+        $stack18 = new avrora.sim.mcu.ATMegaFamily$Timer3;
+
+        specialinvoke $stack18.<avrora.sim.mcu.ATMegaFamily$Timer3: void <init>(avrora.sim.mcu.ATMegaFamily,int)>(this, 3);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack18);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void buildPort(char)>(65);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void buildPort(char)>(66);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void buildPort(char)>(67);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void buildPort(char)>(68);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void buildPort(char)>(69);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void buildPort(char)>(70);
+
+        $stack19 = new avrora.sim.mcu.EEPROM;
+
+        $stack20 = this.<avrora.sim.mcu.ATMega128: avrora.arch.avr.AVRProperties properties>;
+
+        $stack21 = $stack20.<avrora.arch.avr.AVRProperties: int eeprom_size>;
+
+        specialinvoke $stack19.<avrora.sim.mcu.EEPROM: void <init>(int,avrora.sim.mcu.AtmelMicrocontroller)>($stack21, this);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack19);
+
+        $stack22 = new avrora.sim.mcu.USART;
+
+        specialinvoke $stack22.<avrora.sim.mcu.USART: void <init>(java.lang.String,avrora.sim.mcu.AtmelMicrocontroller)>("0", this);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack22);
+
+        $stack23 = new avrora.sim.mcu.USART;
+
+        specialinvoke $stack23.<avrora.sim.mcu.USART: void <init>(java.lang.String,avrora.sim.mcu.AtmelMicrocontroller)>("1", this);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack23);
+
+        $stack24 = new avrora.sim.mcu.SPI;
+
+        specialinvoke $stack24.<avrora.sim.mcu.SPI: void <init>(avrora.sim.mcu.AtmelMicrocontroller)>(this);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack24);
+
+        $stack25 = new avrora.sim.mcu.ADC;
+
+        specialinvoke $stack25.<avrora.sim.mcu.ADC: void <init>(avrora.sim.mcu.AtmelMicrocontroller,int)>(this, 8);
+
+        virtualinvoke this.<avrora.sim.mcu.ATMega128: void addDevice(avrora.sim.mcu.AtmelInternalDevice)>($stack25);
+
+        return;
+    }
+
+    protected int getSleepMode()
+    {
+        avrora.sim.mcu.ATMega128 this;
+        avrora.sim.ActiveRegister $stack3;
+        byte value;
+        boolean sleepEnable;
+        int[] $stack6;
+        int $stack7, $stack8;
+
+        this := @this: avrora.sim.mcu.ATMega128;
+
+        $stack3 = this.<avrora.sim.mcu.ATMega128: avrora.sim.ActiveRegister MCUCR_reg>;
+
+        value = interfaceinvoke $stack3.<avrora.sim.ActiveRegister: byte read()>();
+
+        sleepEnable = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(value, 5);
+
+        if sleepEnable == 0 goto label1;
+
+        $stack6 = <avrora.sim.mcu.ATMega128: int[] MCUCR_sm_perm>;
+
+        $stack7 = staticinvoke <cck.util.Arithmetic: int getBitField(int,int[])>(value, $stack6);
+
+        $stack8 = $stack7 + 1;
+
+        return $stack8;
+
+     label1:
+        return 1;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.String[] $stack3, $stack6;
+        double[] $stack4;
+        int[] $stack5, $stack7, $stack9, $stack10, $stack24;
+        int $stack8, $stack11;
+        int[][] $stack12;
+        java.util.HashMap $stack13, $stack14;
+        avrora.sim.mcu.RegisterLayout $stack15;
+        avrora.arch.avr.AVRProperties $stack16;
+        avrora.sim.mcu.ReprogrammableCodeSegment$Factory $stack17;
+
+        <avrora.sim.mcu.ATMega128: int MODE_EXTSTANDBY> = 8;
+
+        <avrora.sim.mcu.ATMega128: int MODE_STANDBY> = 7;
+
+        <avrora.sim.mcu.ATMega128: int MODE_RESERVED2> = 6;
+
+        <avrora.sim.mcu.ATMega128: int MODE_RESERVED1> = 5;
+
+        <avrora.sim.mcu.ATMega128: int MODE_POWERSAVE> = 4;
+
+        <avrora.sim.mcu.ATMega128: int MODE_POWERDOWN> = 3;
+
+        <avrora.sim.mcu.ATMega128: int MODE_ADCNRED> = 2;
+
+        <avrora.sim.mcu.ATMega128: int MODE_IDLE> = 1;
+
+        <avrora.sim.mcu.ATMega128: int ATMEGA128_NUM_INTS> = 36;
+
+        <avrora.sim.mcu.ATMega128: int ATMEGA128_NUM_PINS> = 65;
+
+        <avrora.sim.mcu.ATMega128: int ATMEGA128_EEPROM_SIZE> = 4096;
+
+        <avrora.sim.mcu.ATMega128: int ATMEGA128_FLASH_SIZE> = 131072;
+
+        <avrora.sim.mcu.ATMega128: int ATMEGA128_SRAM_SIZE> = 4096;
+
+        <avrora.sim.mcu.ATMega128: int ATMEGA128_IOREG_SIZE> = 224;
+
+        <avrora.sim.mcu.ATMega128: int _1kb> = 1024;
+
+        $stack3 = newarray (java.lang.String)[9];
+
+        $stack3[0] = "Active";
+
+        $stack3[1] = "Idle";
+
+        $stack3[2] = "ADC Noise Reduction";
+
+        $stack3[3] = "Power Down";
+
+        $stack3[4] = "Power Save";
+
+        $stack3[5] = "RESERVED 1";
+
+        $stack3[6] = "RESERVED 2";
+
+        $stack3[7] = "Standby";
+
+        $stack3[8] = "Extended Standby";
+
+        <avrora.sim.mcu.ATMega128: java.lang.String[] idleModeNames> = $stack3;
+
+        $stack4 = newarray (double)[9];
+
+        $stack4[0] = 0.0075667;
+
+        $stack4[1] = 0.0033433;
+
+        $stack4[2] = 9.884E-4;
+
+        $stack4[3] = 1.158E-4;
+
+        $stack4[4] = 1.237E-4;
+
+        $stack4[5] = 0.0;
+
+        $stack4[6] = 0.0;
+
+        $stack4[7] = 2.356E-4;
+
+        $stack4[8] = 2.433E-4;
+
+        <avrora.sim.mcu.ATMega128: double[] modeAmpere> = $stack4;
+
+        $stack5 = newarray (int)[9];
+
+        $stack5[0] = 0;
+
+        $stack5[1] = 0;
+
+        $stack5[2] = 0;
+
+        $stack5[3] = 1000;
+
+        $stack5[4] = 1000;
+
+        $stack5[5] = 0;
+
+        $stack5[6] = 0;
+
+        $stack5[7] = 6;
+
+        $stack5[8] = 6;
+
+        <avrora.sim.mcu.ATMega128: int[] wakeupTimes> = $stack5;
+
+        $stack6 = <avrora.sim.mcu.ATMega128: java.lang.String[] idleModeNames>;
+
+        $stack11 = lengthof $stack6;
+
+        $stack10 = <avrora.sim.mcu.ATMega128: int[] wakeupTimes>;
+
+        $stack7 = <avrora.sim.mcu.ATMega128: int[] wakeupTimes>;
+
+        $stack8 = lengthof $stack7;
+
+        $stack9 = newarray (int)[$stack8];
+
+        $stack12 = staticinvoke <avrora.sim.FiniteStateMachine: int[][] buildBimodalTTM(int,int,int[],int[])>($stack11, 0, $stack10, $stack9);
+
+        <avrora.sim.mcu.ATMega128: int[][] transitionTimeMatrix> = $stack12;
+
+        $stack13 = new java.util.HashMap;
+
+        specialinvoke $stack13.<java.util.HashMap: void <init>(int)>(150);
+
+        $stack14 = new java.util.HashMap;
+
+        specialinvoke $stack14.<java.util.HashMap: void <init>(int)>(50);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 1, "PEN");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 2, "PE0", "RXD0", "PDI");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 3, "PE1", "TXD0", "PDO");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 4, "PE2", "XCK0", "AIN0");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 5, "PE3", "OC3A", "AIN1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 6, "PE4", "OC3B", "INT4");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 7, "PE5", "OC3C", "INT5");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 8, "PE6", "T3", "INT6");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 9, "PE7", "IC3", "INT7");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 10, "PB0", "SS");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 11, "PB1", "SCK");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 12, "PB2", "MOSI");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 13, "PB3", "MISO");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 14, "PB4", "OC0");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 15, "PB5", "OC1A");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 16, "PB6", "OC1B");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 17, "PB7", "OC2", "OC1C");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 18, "PG3", "TOSC2");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 19, "PG4", "TOSC1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 20, "RESET");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 21, "VCC");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 22, "GND");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 23, "XTAL2");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 24, "XTAL1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 25, "PD0", "SCL", "INT0");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 26, "PD1", "SDA", "INT1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 27, "PD2", "RXD1", "INT2");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 28, "PD3", "TXD1", "INT3");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 29, "PD4", "IC1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 30, "PD5", "XCK1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 31, "PD6", "T1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 32, "PD7", "T2");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 33, "PG0", "WR");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 34, "PG1", "RD");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 35, "PC0", "A8");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 36, "PC1", "A9");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 37, "PC2", "A10");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 38, "PC3", "A11");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 39, "PC4", "A12");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 40, "PC5", "A13");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 41, "PC6", "A14");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 42, "PC7", "A15");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 43, "PG2", "ALE");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 44, "PA7", "AD7");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 45, "PA6", "AD5");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 46, "PA5", "AD5");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 47, "PA4", "AD4");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 48, "PA3", "AD3");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 49, "PA2", "AD2");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 50, "PA1", "AD1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 51, "PA0", "AD0");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 52, "VCC.b");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 53, "GND.b");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 54, "PF7", "ADC7", "TDI");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 55, "PF6", "ADC6", "TDO");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 56, "PF5", "ADC5", "TMS");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String,java.lang.String)>($stack13, 57, "PF4", "ADC4", "TCK");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 58, "PF3", "ADC3");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 59, "PF2", "ADC2");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 60, "PF1", "ADC1");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String,java.lang.String)>($stack13, 61, "PF0", "ADC0");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 62, "AREF");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 63, "GND.c");
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addPin(java.util.HashMap,int,java.lang.String)>($stack13, 64, "AVCC");
+
+        $stack15 = new avrora.sim.mcu.RegisterLayout;
+
+        specialinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void <init>(int,int)>(224, 8);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UCSR1C", 125);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UDR1", 124);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UCSR1A", 123);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UCSR1B", 122);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UBRR1L", 121);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UBRR1H", 120);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UCSR0C", 117);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UBRR0H", 112);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int,java.lang.String)>("TCCR3C", 108, "FOC3A,FOC3B,FOC3C,.....");
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int,java.lang.String)>("TCCR3A", 107, "COM3A[1:0],COM3B[1:0],COM3C[1:0],WGM3[1:0]");
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int,java.lang.String)>("TCCR3B", 106, ".,ICES3,.,WGM3[3:2],CS3[2:0]");
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TCNT3H", 105);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TCNT3L", 104);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR3AH", 103);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR3AL", 102);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR3BH", 101);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR3BL", 100);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR3CH", 99);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR3CL", 98);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ICR3H", 97);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ICR3L", 96);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ETIMSK", 93);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ETIFR", 92);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int,java.lang.String)>("TCCR1C", 90, "FOC1A,FOC1B,FOC1C,.....");
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR1CH", 89);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR1CL", 88);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TWCR", 84);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TWDR", 83);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TWAR", 82);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TWSR", 81);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TWBR", 80);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OSCCAL", 79);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("XMCRA", 77);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("XMCRB", 76);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("EICRA", 74);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("SPMCSR", 72);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PORTG", 69);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("DDRG", 68);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PING", 67);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PORTF", 66);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("DDRF", 65);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("SREG", 63);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("SPH", 62);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("SPL", 61);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("XDIV", 60);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("RAMPZ", 59);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("EICRB", 58);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("EIMSK", 57);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("EIFR", 56);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TIMSK", 55);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TIFR", 54);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("MCUCR", 53);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("MCUCSR", 52);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TCCR0", 51);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TCNT0", 50);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR0", 49);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ASSR", 48);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int,java.lang.String)>("TCCR1A", 47, "COM1A[1:0],COM1B[1:0],COM1C[1:0],WGM1[1:0]");
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int,java.lang.String)>("TCCR1B", 46, ".,ICES1,.,WGM1[3:2],CS1[2:0]");
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TCNT1H", 45);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TCNT1L", 44);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR1AH", 43);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR1AL", 42);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR1BH", 41);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR1BL", 40);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ICR1H", 39);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ICR1L", 38);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TCCR2", 37);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("TCNT2", 36);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCR2", 35);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("OCDR", 34);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("WDTCR", 33);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("SFIOR", 32);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("EEARH", 31);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("EEARL", 30);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("EEDR", 29);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("EECR", 28);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PORTA", 27);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("DDRA", 26);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PINA", 25);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PORTB", 24);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("DDRB", 23);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PINB", 22);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PORTC", 21);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("DDRC", 20);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PINC", 19);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PORTD", 18);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("DDRD", 17);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PIND", 16);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("SPDR", 15);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("SPSR", 14);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("SPCR", 13);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UDR0", 12);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UCSR0A", 11);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UCSR0B", 10);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("UBRR0L", 9);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ACSR", 8);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ADMUX", 7);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ADCSRA", 6);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ADCH", 5);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("ADCL", 4);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PORTE", 3);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("DDRE", 2);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PINE", 1);
+
+        virtualinvoke $stack15.<avrora.sim.mcu.RegisterLayout: void addIOReg(java.lang.String,int)>("PINF", 0);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "RESET", 1);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "INT0", 2);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "INT1", 3);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "INT2", 4);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "INT3", 5);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "INT4", 6);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "INT5", 7);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "INT6", 8);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "INT7", 9);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER2 COMP", 10);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER2 OVF", 11);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER1 CAPT", 12);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER1 COMPA", 13);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER1 COMPB", 14);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER1 OVF", 15);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER0 COMP", 16);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER0 OVF", 17);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "SPI, STC", 18);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "USART0, RX", 19);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "USART0, UDRE", 20);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "USART0, TX", 21);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "ADC", 22);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "EE READY", 23);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "ANALOG COMP", 24);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER1 COMPC", 25);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER3 CAPT", 26);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER3 COMPA", 27);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER3 COMPB", 28);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER3 COMPC", 29);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TIMER3 OVF", 30);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "USART1, RX", 31);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "USART1, UDRE", 32);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "USART1, TX", 33);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "TWI", 34);
+
+        staticinvoke <avrora.sim.mcu.ATMega128: void addInterrupt(java.util.HashMap,java.lang.String,int)>($stack14, "SPM READY", 35);
+
+        $stack16 = new avrora.arch.avr.AVRProperties;
+
+        $stack17 = new avrora.sim.mcu.ReprogrammableCodeSegment$Factory;
+
+        specialinvoke $stack17.<avrora.sim.mcu.ReprogrammableCodeSegment$Factory: void <init>(int,int)>(131072, 7);
+
+        specialinvoke $stack16.<avrora.arch.avr.AVRProperties: void <init>(int,int,int,int,int,int,avrora.sim.CodeSegment$Factory,java.util.HashMap,avrora.sim.mcu.RegisterLayout,java.util.HashMap)>(224, 4096, 131072, 4096, 65, 36, $stack17, $stack13, $stack15, $stack14);
+
+        <avrora.sim.mcu.ATMega128: avrora.arch.avr.AVRProperties props> = $stack16;
+
+        $stack24 = newarray (int)[3];
+
+        $stack24[0] = 2;
+
+        $stack24[1] = 4;
+
+        $stack24[2] = 3;
+
+        <avrora.sim.mcu.ATMega128: int[] MCUCR_sm_perm> = $stack24;
+
+        return;
+    }
+}

@@ -1,0 +1,118 @@
+class Main extends java.lang.Object
+{
+
+    void <init>()
+    {
+        Main r0;
+
+        r0 := @this: Main;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.Class[] $r0;
+        java.lang.reflect.Method r1;
+        java.lang.Object[] $r2;
+        java.lang.Object r3, r10, $r7, $r8;
+        B $r4;
+        java.lang.Exception $r5;
+        java.io.PrintStream $r6;
+        java.lang.String[] r7;
+        java.lang.Class r8, $r1;
+        boolean $z0, $z1, $z2, $z3;
+
+        r7 := @parameter0: java.lang.String[];
+
+     label01:
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassForName(int,java.lang.String)>(0, "A");
+
+        $z0 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if 0 == $z0 goto label02;
+
+        $r1 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall0()>();
+
+        r8 = $r1;
+
+        goto label03;
+
+     label02:
+        r8 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>("A");
+
+     label03:
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassNewInstance(int,java.lang.Class)>(1, r8);
+
+        $z1 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if 0 == $z1 goto label04;
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall1()>();
+
+        goto label05;
+
+     label04:
+        virtualinvoke r8.<java.lang.Class: java.lang.Object newInstance()>();
+
+     label05:
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassNewInstance(int,java.lang.Class)>(1, r8);
+
+        $z2 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if 0 == $z2 goto label06;
+
+        $r7 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall2()>();
+
+        r10 = $r7;
+
+        goto label07;
+
+     label06:
+        r10 = virtualinvoke r8.<java.lang.Class: java.lang.Object newInstance()>();
+
+     label07:
+        $r0 = newarray (java.lang.Class)[0];
+
+        r1 = virtualinvoke r8.<java.lang.Class: java.lang.reflect.Method getDeclaredMethod(java.lang.String,java.lang.Class[])>("foo", $r0);
+
+        $r2 = newarray (java.lang.Object)[0];
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownMethodInvoke(int,java.lang.Object,java.lang.reflect.Method)>(2, r10, r1);
+
+        $z3 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if 0 == $z3 goto label08;
+
+        $r8 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall3(java.lang.Object,java.lang.Object[])>(r10, $r2);
+
+        r3 = $r8;
+
+        goto label09;
+
+     label08:
+        r3 = virtualinvoke r1.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>(r10, $r2);
+
+     label09:
+        $r4 = (B) r3;
+
+        virtualinvoke $r4.<B: void print()>();
+
+     label10:
+        goto label12;
+
+     label11:
+        $r5 := @caughtexception;
+
+        $r6 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r6.<java.io.PrintStream: void println(java.lang.Object)>($r5);
+
+     label12:
+        return;
+
+        catch java.lang.Exception from label01 to label10 with label11;
+    }
+}

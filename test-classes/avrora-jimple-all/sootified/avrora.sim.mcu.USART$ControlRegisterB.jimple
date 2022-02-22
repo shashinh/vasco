@@ -1,0 +1,41 @@
+public class avrora.sim.mcu.USART$ControlRegisterB extends avrora.sim.mcu.ATMegaFamily$MaskRegister
+{
+    final avrora.sim.state.RegisterView _ucszHigh;
+    final avrora.sim.state.BooleanView _rxb8n;
+    final avrora.sim.mcu.USART this$0;
+
+    void <init>(avrora.sim.mcu.USART)
+    {
+        avrora.sim.mcu.USART$ControlRegisterB this;
+        avrora.sim.mcu.USART this$0;
+        avrora.sim.mcu.USART$USARTProperties $stack2;
+        int[] $stack3;
+        avrora.sim.AtmelInterpreter $stack4;
+        avrora.sim.state.RegisterView $stack5;
+        avrora.sim.state.BooleanView $stack6;
+
+        this := @this: avrora.sim.mcu.USART$ControlRegisterB;
+
+        this$0 := @parameter0: avrora.sim.mcu.USART;
+
+        this.<avrora.sim.mcu.USART$ControlRegisterB: avrora.sim.mcu.USART this$0> = this$0;
+
+        $stack4 = this$0.<avrora.sim.mcu.USART: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack2 = this$0.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$USARTProperties properties>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.USART$USARTProperties: int[] interruptMapping>;
+
+        specialinvoke this.<avrora.sim.mcu.ATMegaFamily$MaskRegister: void <init>(avrora.sim.AtmelInterpreter,int[])>($stack4, $stack3);
+
+        $stack5 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.RegisterView bitView(avrora.sim.state.RegisterView,int)>(this, 2);
+
+        this.<avrora.sim.mcu.USART$ControlRegisterB: avrora.sim.state.RegisterView _ucszHigh> = $stack5;
+
+        $stack6 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>(this, 1);
+
+        this.<avrora.sim.mcu.USART$ControlRegisterB: avrora.sim.state.BooleanView _rxb8n> = $stack6;
+
+        return;
+    }
+}

@@ -1,0 +1,217 @@
+public class avrora.sim.radio.CC1000Radio$CALRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    static final int CAL_START;
+    static final int CAL_DUAL;
+    static final int CAL_WAIT;
+    static final int CAL_CURRENT;
+    static final int CAL_COMPLETE;
+    boolean calStart;
+    boolean calDual;
+    boolean calWait;
+    boolean calCurrent;
+    boolean calComplete;
+    static final int CAL_ITERATE_NORMAL;
+    int calIterate;
+    avrora.sim.radio.CC1000Radio$CALRegister$Calibrate calibrate;
+    boolean calibrating;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$CALRegister this;
+        avrora.sim.radio.CC1000Radio this$0;
+        avrora.sim.radio.CC1000Radio$CALRegister$Calibrate $stack2;
+
+        this := @this: avrora.sim.radio.CC1000Radio$CALRegister;
+
+        this$0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(this$0, "CAL", 5);
+
+        $stack2 = new avrora.sim.radio.CC1000Radio$CALRegister$Calibrate;
+
+        specialinvoke $stack2.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: void <init>(avrora.sim.radio.CC1000Radio$CALRegister)>(this);
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio$CALRegister$Calibrate calibrate> = $stack2;
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$CALRegister this;
+        boolean oldCalStart, $stack5, $stack6, $stack7, $stack8, $stack9, $stack12, $stack13;
+        byte val, $stack10;
+        int $stack11, $stack16;
+        avrora.sim.radio.CC1000Radio $stack14, $stack18, $stack19;
+        avrora.sim.radio.CC1000Radio$PLLRegister $stack15;
+        double $stack17, calMs;
+        avrora.sim.clock.Clock $stack20, $stack21;
+        avrora.sim.radio.CC1000Radio$CALRegister$Calibrate $stack22;
+        long $stack23;
+
+        this := @this: avrora.sim.radio.CC1000Radio$CALRegister;
+
+        val := @parameter0: byte;
+
+        oldCalStart = this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calStart>;
+
+        $stack5 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 7);
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calStart> = $stack5;
+
+        $stack6 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 6);
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calDual> = $stack6;
+
+        $stack7 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 5);
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calWait> = $stack7;
+
+        $stack8 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 4);
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calCurrent> = $stack8;
+
+        $stack9 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 3);
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calComplete> = $stack9;
+
+        $stack10 = this.<avrora.sim.radio.CC1000Radio$CALRegister: byte value>;
+
+        $stack11 = $stack10 & 7;
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: int calIterate> = $stack11;
+
+        if oldCalStart != 0 goto label1;
+
+        $stack12 = this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calStart>;
+
+        if $stack12 == 0 goto label1;
+
+        $stack13 = this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calibrating>;
+
+        if $stack13 != 0 goto label1;
+
+        this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calibrating> = 1;
+
+        $stack14 = this.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack15 = $stack14.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$PLLRegister PLL_reg>;
+
+        $stack16 = $stack15.<avrora.sim.radio.CC1000Radio$PLLRegister: int refDiv>;
+
+        $stack17 = (double) $stack16;
+
+        calMs = 2.3057725694444446 * $stack17;
+
+        $stack18 = this.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack21 = $stack18.<avrora.sim.radio.CC1000Radio: avrora.sim.clock.Clock clock>;
+
+        $stack22 = this.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio$CALRegister$Calibrate calibrate>;
+
+        $stack19 = this.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack20 = $stack19.<avrora.sim.radio.CC1000Radio: avrora.sim.clock.Clock clock>;
+
+        $stack23 = virtualinvoke $stack20.<avrora.sim.clock.Clock: long millisToCycles(double)>(calMs);
+
+        virtualinvoke $stack21.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>($stack22, $stack23);
+
+     label1:
+        return;
+    }
+
+    protected void printStatus()
+    {
+        java.lang.StringBuffer $stack2;
+        avrora.sim.radio.CC1000Radio$CALRegister this;
+        boolean $stack4, $stack8, $stack12, $stack16, $stack20;
+        char $stack5, $stack9, $stack13, $stack17, $stack21;
+        int $stack24;
+        avrora.sim.radio.CC1000Radio $stack26;
+        avrora.sim.output.SimPrinter $stack27;
+        java.lang.String $stack28;
+
+        this := @this: avrora.sim.radio.CC1000Radio$CALRegister;
+
+        $stack2 = new java.lang.StringBuffer;
+
+        specialinvoke $stack2.<java.lang.StringBuffer: void <init>(int)>(100);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("CC1000[CAL]: cal start: ");
+
+        $stack4 = this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calStart>;
+
+        $stack5 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack4);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack5);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", dual: ");
+
+        $stack8 = this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calDual>;
+
+        $stack9 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack8);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack9);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", wait: ");
+
+        $stack12 = this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calWait>;
+
+        $stack13 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack12);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack13);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", current: ");
+
+        $stack16 = this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calCurrent>;
+
+        $stack17 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack16);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack17);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", complete: ");
+
+        $stack20 = this.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calComplete>;
+
+        $stack21 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack20);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack21);
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", iterate: ");
+
+        $stack24 = this.<avrora.sim.radio.CC1000Radio$CALRegister: int calIterate>;
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(int)>($stack24);
+
+        $stack26 = this.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack27 = $stack26.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        $stack28 = virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        virtualinvoke $stack27.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack28);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.radio.CC1000Radio$CALRegister: int CAL_ITERATE_NORMAL> = 6;
+
+        <avrora.sim.radio.CC1000Radio$CALRegister: int CAL_COMPLETE> = 3;
+
+        <avrora.sim.radio.CC1000Radio$CALRegister: int CAL_CURRENT> = 4;
+
+        <avrora.sim.radio.CC1000Radio$CALRegister: int CAL_WAIT> = 5;
+
+        <avrora.sim.radio.CC1000Radio$CALRegister: int CAL_DUAL> = 6;
+
+        <avrora.sim.radio.CC1000Radio$CALRegister: int CAL_START> = 7;
+
+        return;
+    }
+}

@@ -1,0 +1,217 @@
+public class cck.elf.ELFSectionHeaderTable$Entry32 extends java.lang.Object
+{
+    public int sh_name;
+    public int sh_type;
+    public int sh_flags;
+    public int sh_addr;
+    public int sh_offset;
+    public int sh_size;
+    public int sh_link;
+    public int sh_info;
+    public int sh_addralign;
+    public int sh_entsize;
+    final cck.elf.ELFSectionHeaderTable this$0;
+
+    public void <init>(cck.elf.ELFSectionHeaderTable)
+    {
+        cck.elf.ELFSectionHeaderTable$Entry32 this;
+        cck.elf.ELFSectionHeaderTable this$0;
+
+        this := @this: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        this$0 := @parameter0: cck.elf.ELFSectionHeaderTable;
+
+        this.<cck.elf.ELFSectionHeaderTable$Entry32: cck.elf.ELFSectionHeaderTable this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public java.lang.String getType()
+    {
+        cck.elf.ELFSectionHeaderTable$Entry32 this;
+        int $stack1;
+
+        this := @this: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        $stack1 = this.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_type>;
+
+        tableswitch($stack1)
+        {
+            case 0: goto label01;
+            case 1: goto label02;
+            case 2: goto label03;
+            case 3: goto label04;
+            case 4: goto label05;
+            case 5: goto label06;
+            case 6: goto label07;
+            case 7: goto label08;
+            case 8: goto label09;
+            case 9: goto label10;
+            case 10: goto label11;
+            case 11: goto label12;
+            default: goto label13;
+        };
+
+     label01:
+        return "null";
+
+     label02:
+        return "program";
+
+     label03:
+        return "symtab";
+
+     label04:
+        return "strtab";
+
+     label05:
+        return "rela";
+
+     label06:
+        return "hash";
+
+     label07:
+        return "dynamic";
+
+     label08:
+        return "note";
+
+     label09:
+        return "nobits";
+
+     label10:
+        return "rel";
+
+     label11:
+        return "shlib";
+
+     label12:
+        return "dynsym";
+
+     label13:
+        return "unknown";
+    }
+
+    public java.lang.String getFlags()
+    {
+        java.lang.StringBuffer $stack2;
+        cck.elf.ELFSectionHeaderTable$Entry32 this;
+        int $stack3, $stack4, $stack5, $stack6, $stack7, $stack8;
+        java.lang.String $stack9;
+
+        this := @this: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        $stack2 = new java.lang.StringBuffer;
+
+        specialinvoke $stack2.<java.lang.StringBuffer: void <init>()>();
+
+        $stack3 = this.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_flags>;
+
+        $stack4 = $stack3 & 1;
+
+        if $stack4 == 0 goto label1;
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("WRITE ");
+
+     label1:
+        $stack5 = this.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_flags>;
+
+        $stack6 = $stack5 & 2;
+
+        if $stack6 == 0 goto label2;
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("ALLOC ");
+
+     label2:
+        $stack7 = this.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_flags>;
+
+        $stack8 = $stack7 & 4;
+
+        if $stack8 == 0 goto label3;
+
+        virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("EXEC ");
+
+     label3:
+        $stack9 = virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $stack9;
+    }
+
+    public boolean isStringTable()
+    {
+        cck.elf.ELFSectionHeaderTable$Entry32 this;
+        int $stack1;
+        boolean $stack2#1;
+
+        this := @this: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        $stack1 = this.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_type>;
+
+        if $stack1 != 3 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    public boolean isSymbolTable()
+    {
+        cck.elf.ELFSectionHeaderTable$Entry32 this;
+        int $stack1;
+        boolean $stack2#1;
+
+        this := @this: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        $stack1 = this.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_type>;
+
+        if $stack1 != 2 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    public java.lang.String getName()
+    {
+        cck.elf.ELFSectionHeaderTable$Entry32 this;
+        cck.elf.ELFSectionHeaderTable $stack1, $stack3;
+        cck.elf.ELFStringTable $stack2, $stack5;
+        int $stack4;
+        java.lang.String $stack6;
+
+        this := @this: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        $stack1 = this.<cck.elf.ELFSectionHeaderTable$Entry32: cck.elf.ELFSectionHeaderTable this$0>;
+
+        $stack2 = $stack1.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFStringTable strtab>;
+
+        if $stack2 == null goto label1;
+
+        $stack3 = this.<cck.elf.ELFSectionHeaderTable$Entry32: cck.elf.ELFSectionHeaderTable this$0>;
+
+        $stack5 = $stack3.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFStringTable strtab>;
+
+        $stack4 = this.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_name>;
+
+        $stack6 = virtualinvoke $stack5.<cck.elf.ELFStringTable: java.lang.String getString(int)>($stack4);
+
+        return $stack6;
+
+     label1:
+        return "";
+    }
+}

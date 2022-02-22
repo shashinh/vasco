@@ -1,0 +1,63 @@
+class avrora.sim.mcu.Timer8Bit$Mode_Normal extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.mcu.Timer8Bit this$0;
+
+    void <init>(avrora.sim.mcu.Timer8Bit)
+    {
+        avrora.sim.mcu.Timer8Bit$Mode_Normal this;
+        avrora.sim.mcu.Timer8Bit this$0;
+
+        this := @this: avrora.sim.mcu.Timer8Bit$Mode_Normal;
+
+        this$0 := @parameter0: avrora.sim.mcu.Timer8Bit;
+
+        this.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.Timer8Bit$Mode_Normal this;
+        avrora.sim.mcu.Timer8Bit $stack2, $stack5, $stack6, $stack7;
+        avrora.sim.mcu.Timer8Bit$TCNTnRegister $stack3;
+        byte $stack4;
+        int ncount#1, ncount#2;
+
+        this := @this: avrora.sim.mcu.Timer8Bit$Mode_Normal;
+
+        $stack2 = this.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.Timer8Bit: avrora.sim.mcu.Timer8Bit$TCNTnRegister TCNTn_reg>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.mcu.Timer8Bit$TCNTnRegister: byte read()>();
+
+        ncount#1 = $stack4 & 255;
+
+        $stack5 = this.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer8Bit: void access$000(avrora.sim.mcu.Timer8Bit,int)>($stack5, ncount#1);
+
+        if ncount#1 < 255 goto label1;
+
+        $stack7 = this.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0>;
+
+        virtualinvoke $stack7.<avrora.sim.mcu.Timer8Bit: void overflow()>();
+
+        ncount#2 = 0;
+
+        goto label2;
+
+     label1:
+        ncount#2 = ncount#1 + 1;
+
+     label2:
+        $stack6 = this.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer8Bit: void access$100(avrora.sim.mcu.Timer8Bit,avrora.sim.Simulator$Event,int)>($stack6, this, ncount#2);
+
+        return;
+    }
+}

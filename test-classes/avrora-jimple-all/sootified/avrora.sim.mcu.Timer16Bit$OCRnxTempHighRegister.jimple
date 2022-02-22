@@ -1,0 +1,61 @@
+public class avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister extends avrora.sim.RWRegister
+{
+    avrora.sim.RWRegister register;
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    void <init>(avrora.sim.mcu.Timer16Bit, avrora.sim.RWRegister)
+    {
+        avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister this;
+        avrora.sim.mcu.Timer16Bit this$0;
+        avrora.sim.RWRegister register;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister;
+
+        this$0 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        register := @parameter1: avrora.sim.RWRegister;
+
+        this.<avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister: avrora.sim.mcu.Timer16Bit this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        this.<avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister: avrora.sim.RWRegister register> = register;
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister this;
+        avrora.sim.mcu.Timer16Bit $stack2;
+        byte val;
+        avrora.sim.RWRegister $stack3;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister;
+
+        val := @parameter0: byte;
+
+        $stack2 = this.<avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.Timer16Bit: avrora.sim.RWRegister highTempReg>;
+
+        virtualinvoke $stack3.<avrora.sim.RWRegister: void write(byte)>(val);
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister this;
+        avrora.sim.RWRegister $stack1;
+        byte $stack2;
+
+        this := @this: avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister;
+
+        $stack1 = this.<avrora.sim.mcu.Timer16Bit$OCRnxTempHighRegister: avrora.sim.RWRegister register>;
+
+        $stack2 = virtualinvoke $stack1.<avrora.sim.RWRegister: byte read()>();
+
+        return $stack2;
+    }
+}

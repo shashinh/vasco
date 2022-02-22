@@ -1,0 +1,193 @@
+public abstract class avrora.sim.mcu.DefaultMCU extends java.lang.Object implements avrora.sim.mcu.Microcontroller
+{
+    protected final avrora.sim.mcu.Microcontroller$Pin[] pins;
+    protected final avrora.sim.mcu.RegisterSet registers;
+    protected avrora.sim.platform.Platform platform;
+    protected avrora.sim.Simulator simulator;
+    protected avrora.sim.output.SimPrinter pinPrinter;
+    protected final avrora.sim.clock.ClockDomain clockDomain;
+    protected final avrora.sim.FiniteStateMachine sleepState;
+    private boolean pinPrinterInit;
+
+    protected void <init>(avrora.sim.clock.ClockDomain, int, avrora.sim.mcu.RegisterSet, avrora.sim.FiniteStateMachine)
+    {
+        avrora.sim.mcu.DefaultMCU this;
+        avrora.sim.clock.ClockDomain cd;
+        int np;
+        avrora.sim.mcu.Microcontroller$Pin[] $stack5;
+        avrora.sim.FiniteStateMachine sleep;
+        avrora.sim.mcu.RegisterSet regs;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        cd := @parameter0: avrora.sim.clock.ClockDomain;
+
+        np := @parameter1: int;
+
+        regs := @parameter2: avrora.sim.mcu.RegisterSet;
+
+        sleep := @parameter3: avrora.sim.FiniteStateMachine;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.mcu.DefaultMCU: avrora.sim.clock.ClockDomain clockDomain> = cd;
+
+        $stack5 = newarray (avrora.sim.mcu.Microcontroller$Pin)[np];
+
+        this.<avrora.sim.mcu.DefaultMCU: avrora.sim.mcu.Microcontroller$Pin[] pins> = $stack5;
+
+        this.<avrora.sim.mcu.DefaultMCU: avrora.sim.FiniteStateMachine sleepState> = sleep;
+
+        this.<avrora.sim.mcu.DefaultMCU: avrora.sim.mcu.RegisterSet registers> = regs;
+
+        return;
+    }
+
+    public avrora.sim.FiniteStateMachine getFSM()
+    {
+        avrora.sim.mcu.DefaultMCU this;
+        avrora.sim.FiniteStateMachine $stack1;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        $stack1 = this.<avrora.sim.mcu.DefaultMCU: avrora.sim.FiniteStateMachine sleepState>;
+
+        return $stack1;
+    }
+
+    public avrora.sim.mcu.RegisterSet getRegisterSet()
+    {
+        avrora.sim.mcu.DefaultMCU this;
+        avrora.sim.mcu.RegisterSet $stack1;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        $stack1 = this.<avrora.sim.mcu.DefaultMCU: avrora.sim.mcu.RegisterSet registers>;
+
+        return $stack1;
+    }
+
+    public avrora.sim.mcu.Microcontroller$Pin getPin(int)
+    {
+        int num, $stack3;
+        avrora.sim.mcu.DefaultMCU this;
+        avrora.sim.mcu.Microcontroller$Pin[] $stack2, $stack4;
+        avrora.sim.mcu.Microcontroller$Pin $stack5;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        num := @parameter0: int;
+
+        if num < 0 goto label1;
+
+        $stack2 = this.<avrora.sim.mcu.DefaultMCU: avrora.sim.mcu.Microcontroller$Pin[] pins>;
+
+        $stack3 = lengthof $stack2;
+
+        if num <= $stack3 goto label2;
+
+     label1:
+        return null;
+
+     label2:
+        $stack4 = this.<avrora.sim.mcu.DefaultMCU: avrora.sim.mcu.Microcontroller$Pin[] pins>;
+
+        $stack5 = $stack4[num];
+
+        return $stack5;
+    }
+
+    public avrora.sim.clock.Clock getClock(java.lang.String)
+    {
+        avrora.sim.mcu.DefaultMCU this;
+        java.lang.String name;
+        avrora.sim.clock.ClockDomain $stack2;
+        avrora.sim.clock.Clock $stack3;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        name := @parameter0: java.lang.String;
+
+        $stack2 = this.<avrora.sim.mcu.DefaultMCU: avrora.sim.clock.ClockDomain clockDomain>;
+
+        $stack3 = virtualinvoke $stack2.<avrora.sim.clock.ClockDomain: avrora.sim.clock.Clock getClock(java.lang.String)>(name);
+
+        return $stack3;
+    }
+
+    public avrora.sim.Simulator getSimulator()
+    {
+        avrora.sim.mcu.DefaultMCU this;
+        avrora.sim.Simulator $stack1;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        $stack1 = this.<avrora.sim.mcu.DefaultMCU: avrora.sim.Simulator simulator>;
+
+        return $stack1;
+    }
+
+    public avrora.sim.platform.Platform getPlatform()
+    {
+        avrora.sim.mcu.DefaultMCU this;
+        avrora.sim.platform.Platform $stack1;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        $stack1 = this.<avrora.sim.mcu.DefaultMCU: avrora.sim.platform.Platform platform>;
+
+        return $stack1;
+    }
+
+    public void setPlatform(avrora.sim.platform.Platform)
+    {
+        avrora.sim.mcu.DefaultMCU this;
+        avrora.sim.platform.Platform p;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        p := @parameter0: avrora.sim.platform.Platform;
+
+        this.<avrora.sim.mcu.DefaultMCU: avrora.sim.platform.Platform platform> = p;
+
+        return;
+    }
+
+    public avrora.sim.clock.ClockDomain getClockDomain()
+    {
+        avrora.sim.mcu.DefaultMCU this;
+        avrora.sim.clock.ClockDomain $stack1;
+
+        this := @this: avrora.sim.mcu.DefaultMCU;
+
+        $stack1 = this.<avrora.sim.mcu.DefaultMCU: avrora.sim.clock.ClockDomain clockDomain>;
+
+        return $stack1;
+    }
+
+    static boolean access$000(avrora.sim.mcu.DefaultMCU)
+    {
+        avrora.sim.mcu.DefaultMCU x0;
+        boolean $stack1;
+
+        x0 := @parameter0: avrora.sim.mcu.DefaultMCU;
+
+        $stack1 = x0.<avrora.sim.mcu.DefaultMCU: boolean pinPrinterInit>;
+
+        return $stack1;
+    }
+
+    static boolean access$002(avrora.sim.mcu.DefaultMCU, boolean)
+    {
+        avrora.sim.mcu.DefaultMCU x0;
+        boolean x1;
+
+        x0 := @parameter0: avrora.sim.mcu.DefaultMCU;
+
+        x1 := @parameter1: boolean;
+
+        x0.<avrora.sim.mcu.DefaultMCU: boolean pinPrinterInit> = x1;
+
+        return x1;
+    }
+}

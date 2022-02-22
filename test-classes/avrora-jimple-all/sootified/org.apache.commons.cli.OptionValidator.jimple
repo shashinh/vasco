@@ -1,0 +1,148 @@
+class org.apache.commons.cli.OptionValidator extends java.lang.Object
+{
+
+    void <init>()
+    {
+        org.apache.commons.cli.OptionValidator this;
+
+        this := @this: org.apache.commons.cli.OptionValidator;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    static void validateOption(java.lang.String) throws java.lang.IllegalArgumentException
+    {
+        java.lang.String opt, $stack16, $stack24;
+        int $stack3, $stack5, i#3;
+        char $stack6, $stack13, ch#1;
+        boolean $stack7, $stack18;
+        java.lang.IllegalArgumentException $stack10, $stack19;
+        java.lang.StringBuffer $stack11, $stack12, $stack14, $stack15, $stack20, $stack21, $stack22, $stack23;
+        char[] ch#2;
+
+        opt := @parameter0: java.lang.String;
+
+        if opt != null goto label1;
+
+        return;
+
+     label1:
+        $stack3 = virtualinvoke opt.<java.lang.String: int length()>();
+
+        if $stack3 != 1 goto label3;
+
+        ch#1 = virtualinvoke opt.<java.lang.String: char charAt(int)>(0);
+
+        $stack18 = staticinvoke <org.apache.commons.cli.OptionValidator: boolean isValidOpt(char)>(ch#1);
+
+        if $stack18 != 0 goto label2;
+
+        $stack19 = new java.lang.IllegalArgumentException;
+
+        $stack20 = new java.lang.StringBuffer;
+
+        specialinvoke $stack20.<java.lang.StringBuffer: void <init>()>();
+
+        $stack21 = virtualinvoke $stack20.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("illegal option value \'");
+
+        $stack22 = virtualinvoke $stack21.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>(ch#1);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\'");
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke $stack19.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($stack24);
+
+        throw $stack19;
+
+     label2:
+        goto label6;
+
+     label3:
+        ch#2 = virtualinvoke opt.<java.lang.String: char[] toCharArray()>();
+
+        i#3 = 0;
+
+     label4:
+        $stack5 = lengthof ch#2;
+
+        if i#3 >= $stack5 goto label6;
+
+        $stack6 = ch#2[i#3];
+
+        $stack7 = staticinvoke <org.apache.commons.cli.OptionValidator: boolean isValidChar(char)>($stack6);
+
+        if $stack7 != 0 goto label5;
+
+        $stack10 = new java.lang.IllegalArgumentException;
+
+        $stack11 = new java.lang.StringBuffer;
+
+        specialinvoke $stack11.<java.lang.StringBuffer: void <init>()>();
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("opt contains illegal character value \'");
+
+        $stack13 = ch#2[i#3];
+
+        $stack14 = virtualinvoke $stack12.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack13);
+
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\'");
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke $stack10.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($stack16);
+
+        throw $stack10;
+
+     label5:
+        i#3 = i#3 + 1;
+
+        goto label4;
+
+     label6:
+        return;
+    }
+
+    private static boolean isValidOpt(char)
+    {
+        char c;
+        boolean $stack1, $stack2#1;
+
+        c := @parameter0: char;
+
+        $stack1 = staticinvoke <org.apache.commons.cli.OptionValidator: boolean isValidChar(char)>(c);
+
+        if $stack1 != 0 goto label1;
+
+        if c == 32 goto label1;
+
+        if c == 63 goto label1;
+
+        if c != 64 goto label2;
+
+     label1:
+        $stack2#1 = 1;
+
+        goto label3;
+
+     label2:
+        $stack2#1 = 0;
+
+     label3:
+        return $stack2#1;
+    }
+
+    private static boolean isValidChar(char)
+    {
+        char c;
+        boolean $stack1;
+
+        c := @parameter0: char;
+
+        $stack1 = staticinvoke <java.lang.Character: boolean isJavaIdentifierPart(char)>(c);
+
+        return $stack1;
+    }
+}

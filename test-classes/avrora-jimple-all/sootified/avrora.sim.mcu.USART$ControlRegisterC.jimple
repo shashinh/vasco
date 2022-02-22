@@ -1,0 +1,65 @@
+public class avrora.sim.mcu.USART$ControlRegisterC extends avrora.sim.RWRegister
+{
+    final avrora.sim.state.RegisterView _stopBits;
+    final avrora.sim.state.RegisterView _ucszLow;
+    final avrora.sim.state.RegisterView _umsel;
+    final avrora.sim.mcu.USART this$0;
+
+    protected void <init>(avrora.sim.mcu.USART)
+    {
+        avrora.sim.mcu.USART$ControlRegisterC this;
+        avrora.sim.mcu.USART this$0;
+        avrora.sim.state.RegisterView $stack2, $stack3, $stack4;
+
+        this := @this: avrora.sim.mcu.USART$ControlRegisterC;
+
+        this$0 := @parameter0: avrora.sim.mcu.USART;
+
+        this.<avrora.sim.mcu.USART$ControlRegisterC: avrora.sim.mcu.USART this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        $stack2 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.RegisterView bitView(avrora.sim.state.RegisterView,int)>(this, 3);
+
+        this.<avrora.sim.mcu.USART$ControlRegisterC: avrora.sim.state.RegisterView _stopBits> = $stack2;
+
+        $stack3 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.RegisterView bitRangeView(avrora.sim.state.RegisterView,int,int)>(this, 1, 2);
+
+        this.<avrora.sim.mcu.USART$ControlRegisterC: avrora.sim.state.RegisterView _ucszLow> = $stack3;
+
+        $stack4 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.RegisterView bitView(avrora.sim.state.RegisterView,int)>(this, 6);
+
+        this.<avrora.sim.mcu.USART$ControlRegisterC: avrora.sim.state.RegisterView _umsel> = $stack4;
+
+        return;
+    }
+
+    public int getFrameSize()
+    {
+        avrora.sim.mcu.USART$ControlRegisterC this;
+
+        this := @this: avrora.sim.mcu.USART$ControlRegisterC;
+
+        return 8;
+    }
+
+    public int getStopBits()
+    {
+        avrora.sim.mcu.USART$ControlRegisterC this;
+        avrora.sim.state.RegisterView $stack1;
+        int $stack2;
+
+        this := @this: avrora.sim.mcu.USART$ControlRegisterC;
+
+        $stack1 = this.<avrora.sim.mcu.USART$ControlRegisterC: avrora.sim.state.RegisterView _stopBits>;
+
+        $stack2 = interfaceinvoke $stack1.<avrora.sim.state.RegisterView: int getValue()>();
+
+        if $stack2 != 1 goto label1;
+
+        return 2;
+
+     label1:
+        return 1;
+    }
+}

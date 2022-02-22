@@ -1,0 +1,145 @@
+public class avrora.arch.legacy.LegacyRegister$Set extends java.lang.Object
+{
+    public final java.lang.String contents;
+    private final java.util.HashSet registerSet;
+
+    void <init>(avrora.arch.legacy.LegacyRegister[])
+    {
+        avrora.arch.legacy.LegacyRegister$Set this;
+        java.util.HashSet $stack4, $stack13, $stack36;
+        avrora.arch.legacy.LegacyRegister[] regs;
+        int $stack5, $stack6, $stack7, $stack9, $stack22, $stack23, $stack30, $stack31, cntr#1, cntr#3, $stack17#21, $stack18#25;
+        java.lang.StringBuffer $stack8;
+        java.lang.String $stack11;
+        avrora.arch.legacy.LegacyRegister $stack12, $stack35, $stack15#15;
+
+        this := @this: avrora.arch.legacy.LegacyRegister$Set;
+
+        regs := @parameter0: avrora.arch.legacy.LegacyRegister[];
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack4 = new java.util.HashSet;
+
+        $stack5 = lengthof regs;
+
+        $stack6 = 2 * $stack5;
+
+        specialinvoke $stack4.<java.util.HashSet: void <init>(int)>($stack6);
+
+        this.<avrora.arch.legacy.LegacyRegister$Set: java.util.HashSet registerSet> = $stack4;
+
+        cntr#1 = 0;
+
+     label1:
+        $stack7 = lengthof regs;
+
+        if cntr#1 >= $stack7 goto label2;
+
+        $stack36 = this.<avrora.arch.legacy.LegacyRegister$Set: java.util.HashSet registerSet>;
+
+        $stack35 = regs[cntr#1];
+
+        virtualinvoke $stack36.<java.util.HashSet: boolean add(java.lang.Object)>($stack35);
+
+        cntr#1 = cntr#1 + 1;
+
+        goto label1;
+
+     label2:
+        $stack8 = new java.lang.StringBuffer;
+
+        specialinvoke $stack8.<java.lang.StringBuffer: void <init>(java.lang.String)>("{");
+
+        cntr#3 = 0;
+
+     label3:
+        $stack9 = lengthof regs;
+
+        if cntr#3 >= $stack9 goto label7;
+
+        $stack13 = this.<avrora.arch.legacy.LegacyRegister$Set: java.util.HashSet registerSet>;
+
+        $stack12 = regs[cntr#3];
+
+        virtualinvoke $stack13.<java.util.HashSet: boolean add(java.lang.Object)>($stack12);
+
+        if cntr#3 != 2 goto label4;
+
+        $stack31 = lengthof regs;
+
+        if $stack31 <= 4 goto label4;
+
+        virtualinvoke $stack8.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("..., ");
+
+     label4:
+        if cntr#3 < 2 goto label5;
+
+        $stack22 = lengthof regs;
+
+        $stack23 = $stack22 - 1;
+
+        if cntr#3 == $stack23 goto label5;
+
+        $stack30 = lengthof regs;
+
+        if $stack30 >= 5 goto label6;
+
+     label5:
+        $stack15#15 = regs[cntr#3];
+
+        virtualinvoke $stack8.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.Object)>($stack15#15);
+
+        $stack17#21 = lengthof regs;
+
+        $stack18#25 = $stack17#21 - 1;
+
+        if cntr#3 >= $stack18#25 goto label6;
+
+        virtualinvoke $stack8.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", ");
+
+     label6:
+        cntr#3 = cntr#3 + 1;
+
+        goto label3;
+
+     label7:
+        virtualinvoke $stack8.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>(125);
+
+        $stack11 = virtualinvoke $stack8.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        this.<avrora.arch.legacy.LegacyRegister$Set: java.lang.String contents> = $stack11;
+
+        return;
+    }
+
+    public boolean contains(avrora.arch.legacy.LegacyRegister)
+    {
+        avrora.arch.legacy.LegacyRegister$Set this;
+        avrora.arch.legacy.LegacyRegister reg;
+        java.util.HashSet $stack2;
+        boolean $stack3;
+
+        this := @this: avrora.arch.legacy.LegacyRegister$Set;
+
+        reg := @parameter0: avrora.arch.legacy.LegacyRegister;
+
+        $stack2 = this.<avrora.arch.legacy.LegacyRegister$Set: java.util.HashSet registerSet>;
+
+        $stack3 = virtualinvoke $stack2.<java.util.HashSet: boolean contains(java.lang.Object)>(reg);
+
+        return $stack3;
+    }
+
+    public java.lang.String toString()
+    {
+        avrora.arch.legacy.LegacyRegister$Set this;
+        java.lang.String $stack1;
+
+        this := @this: avrora.arch.legacy.LegacyRegister$Set;
+
+        $stack1 = this.<avrora.arch.legacy.LegacyRegister$Set: java.lang.String contents>;
+
+        return $stack1;
+    }
+}

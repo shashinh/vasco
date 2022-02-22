@@ -1,0 +1,690 @@
+public class avrora.actions.SimAction extends avrora.actions.Action
+{
+    public static final java.lang.String HELP;
+    public final cck.util.Option$Bool REPORT_SECONDS;
+    public final cck.util.Option$Long SECONDS_PRECISION;
+    public final cck.util.Option$Str SIMULATION;
+    public final cck.util.Option$Bool THROUGHPUT;
+    protected avrora.sim.Simulation simulation;
+    protected long startms;
+    protected boolean reported;
+
+    public void <init>()
+    {
+        avrora.actions.SimAction this;
+        cck.util.Option$Bool $stack1, $stack4;
+        cck.util.Option$Long $stack2;
+        cck.util.Option$Str $stack3;
+
+        this := @this: avrora.actions.SimAction;
+
+        specialinvoke this.<avrora.actions.Action: void <init>(java.lang.String)>("The \"simulate\" action creates a simulation with the specified program(s) for the specified node(s). The simulation type might be as simple as a single node with a single program, or a multiple-node sensor network simulation or robotics simulation.");
+
+        $stack1 = virtualinvoke this.<avrora.actions.SimAction: cck.util.Option$Bool newOption(java.lang.String,boolean,java.lang.String)>("report-seconds", 0, "This option causes all times printed out by the simulator to be reported in seconds rather than clock cycles.");
+
+        this.<avrora.actions.SimAction: cck.util.Option$Bool REPORT_SECONDS> = $stack1;
+
+        $stack2 = virtualinvoke this.<avrora.actions.SimAction: cck.util.Option$Long newOption(java.lang.String,long,java.lang.String)>("seconds-precision", 6L, "This option sets the precision (number of decimal places) reported for event times in the simulation.");
+
+        this.<avrora.actions.SimAction: cck.util.Option$Long SECONDS_PRECISION> = $stack2;
+
+        $stack3 = virtualinvoke this.<avrora.actions.SimAction: cck.util.Option$Str newOption(java.lang.String,java.lang.String,java.lang.String)>("simulation", "single", "The \"simulation\" option selects from the available simulation types, including a single node simulation, a sensor network simulation, or a robotics simulation.");
+
+        this.<avrora.actions.SimAction: cck.util.Option$Str SIMULATION> = $stack3;
+
+        $stack4 = virtualinvoke this.<avrora.actions.SimAction: cck.util.Option$Bool newOption(java.lang.String,boolean,java.lang.String)>("throughput", 0, "This option enables reporting of simulator throughput (i.e. mhz).");
+
+        this.<avrora.actions.SimAction: cck.util.Option$Bool THROUGHPUT> = $stack4;
+
+        return;
+    }
+
+    public void run(java.lang.String[]) throws java.lang.Exception
+    {
+        avrora.actions.SimAction this;
+        cck.util.Option$Bool $stack5;
+        boolean $stack6;
+        cck.util.Option$Long $stack7;
+        long $stack8, $stack17;
+        int $stack9;
+        cck.util.Option$Str $stack10;
+        java.lang.String $stack11;
+        avrora.sim.Simulation $stack12, $stack14, $stack18, $stack19;
+        java.lang.String[] args;
+        cck.util.Options $stack13;
+        avrora.actions.SimAction$ShutdownThread $stack15;
+        java.lang.Runtime $stack16, $stack20, $stack23, $stack26, $stack28;
+        java.lang.Throwable $stack22, $stack25;
+
+        this := @this: avrora.actions.SimAction;
+
+        args := @parameter0: java.lang.String[];
+
+        $stack5 = this.<avrora.actions.SimAction: cck.util.Option$Bool REPORT_SECONDS>;
+
+        $stack6 = virtualinvoke $stack5.<cck.util.Option$Bool: boolean get()>();
+
+        <avrora.sim.util.SimUtil: boolean REPORT_SECONDS> = $stack6;
+
+        $stack7 = this.<avrora.actions.SimAction: cck.util.Option$Long SECONDS_PRECISION>;
+
+        $stack8 = virtualinvoke $stack7.<cck.util.Option$Long: long get()>();
+
+        $stack9 = (int) $stack8;
+
+        <avrora.sim.util.SimUtil: int SECONDS_PRECISION> = $stack9;
+
+        $stack10 = this.<avrora.actions.SimAction: cck.util.Option$Str SIMULATION>;
+
+        $stack11 = virtualinvoke $stack10.<cck.util.Option$Str: java.lang.String get()>();
+
+        $stack12 = staticinvoke <avrora.Defaults: avrora.sim.Simulation getSimulation(java.lang.String)>($stack11);
+
+        this.<avrora.actions.SimAction: avrora.sim.Simulation simulation> = $stack12;
+
+        $stack14 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        $stack13 = this.<avrora.actions.SimAction: cck.util.Options options>;
+
+        virtualinvoke $stack14.<avrora.sim.Simulation: void process(cck.util.Options,java.lang.String[])>($stack13, args);
+
+        $stack15 = new avrora.actions.SimAction$ShutdownThread;
+
+        specialinvoke $stack15.<avrora.actions.SimAction$ShutdownThread: void <init>(avrora.actions.SimAction)>(this);
+
+        $stack16 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        virtualinvoke $stack16.<java.lang.Runtime: void addShutdownHook(java.lang.Thread)>($stack15);
+
+        staticinvoke <avrora.actions.SimAction: void printSimHeader()>();
+
+     label1:
+        $stack17 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        this.<avrora.actions.SimAction: long startms> = $stack17;
+
+        $stack18 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        virtualinvoke $stack18.<avrora.sim.Simulation: void start()>();
+
+        $stack19 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        virtualinvoke $stack19.<avrora.sim.Simulation: void join()>();
+
+     label2:
+        specialinvoke this.<avrora.actions.SimAction: void exitSimulation(java.lang.Throwable)>(null);
+
+        $stack20 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        virtualinvoke $stack20.<java.lang.Runtime: boolean removeShutdownHook(java.lang.Thread)>($stack15);
+
+        goto label7;
+
+     label3:
+        $stack25 := @caughtexception;
+
+        specialinvoke this.<avrora.actions.SimAction: void exitSimulation(java.lang.Throwable)>($stack25);
+
+        $stack26 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        virtualinvoke $stack26.<java.lang.Runtime: boolean removeShutdownHook(java.lang.Thread)>($stack15);
+
+     label4:
+        specialinvoke this.<avrora.actions.SimAction: void exitSimulation(java.lang.Throwable)>(null);
+
+        $stack28 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        virtualinvoke $stack28.<java.lang.Runtime: boolean removeShutdownHook(java.lang.Thread)>($stack15);
+
+        goto label7;
+
+     label5:
+        $stack22 := @caughtexception;
+
+     label6:
+        specialinvoke this.<avrora.actions.SimAction: void exitSimulation(java.lang.Throwable)>(null);
+
+        $stack23 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        virtualinvoke $stack23.<java.lang.Runtime: boolean removeShutdownHook(java.lang.Thread)>($stack15);
+
+        throw $stack22;
+
+     label7:
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+        catch java.lang.Throwable from label3 to label4 with label5;
+        catch java.lang.Throwable from label5 to label6 with label5;
+    }
+
+    private void exitSimulation(java.lang.Throwable)
+    {
+        avrora.actions.SimAction this;
+        boolean $stack5;
+        java.lang.Throwable thrown, $stack7;
+
+        this := @this: avrora.actions.SimAction;
+
+        thrown := @parameter0: java.lang.Throwable;
+
+        entermonitor this;
+
+     label1:
+        $stack5 = this.<avrora.actions.SimAction: boolean reported>;
+
+        if $stack5 != 0 goto label2;
+
+        this.<avrora.actions.SimAction: boolean reported> = 1;
+
+        specialinvoke this.<avrora.actions.SimAction: void report(java.lang.Throwable)>(thrown);
+
+     label2:
+        exitmonitor this;
+
+     label3:
+        goto label6;
+
+     label4:
+        $stack7 := @caughtexception;
+
+        exitmonitor this;
+
+     label5:
+        throw $stack7;
+
+     label6:
+        return;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+        catch java.lang.Throwable from label4 to label5 with label4;
+    }
+
+    private void report(java.lang.Throwable)
+    {
+        long $stack6, $stack7, delta, $stack40;
+        avrora.actions.SimAction this;
+        java.lang.Throwable thrown, $stack12, $stack17;
+        cck.util.Option$Bool $stack8, $stack13, $stack18, $stack23, $stack28, $stack43, $stack55;
+        avrora.sim.Simulation $stack9, $stack11, $stack14, $stack16, $stack19, $stack21, $stack24, $stack26, $stack29, $stack31, $stack44, $stack46, $stack56, $stack58;
+        boolean $stack10, $stack15, $stack20, $stack25, $stack30, $stack45, $stack57;
+        cck.util.Util$Error $stack22;
+        avrora.actions.SimAction$AsynchronousExit $stack27;
+        avrora.actions.SimAction$TimeoutException $stack32;
+        java.lang.StringBuilder $stack33, $stack34, $stack37, $stack38, $stack41, $stack48, $stack49, $stack52, $stack53;
+        int $stack35, $stack50;
+        java.lang.String $stack36, $stack42, $stack51, $stack54;
+        avrora.sim.State $stack39;
+        avrora.actions.SimAction$BreakPointException $stack47;
+
+        this := @this: avrora.actions.SimAction;
+
+        thrown := @parameter0: java.lang.Throwable;
+
+        $stack6 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $stack7 = this.<avrora.actions.SimAction: long startms>;
+
+        delta = $stack6 - $stack7;
+
+     label01:
+        if thrown == null goto label02;
+
+        throw thrown;
+
+     label02:
+        staticinvoke <cck.text.TermUtil: void printSeparator()>();
+
+        $stack9 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        $stack8 = this.<avrora.actions.SimAction: cck.util.Option$Bool THROUGHPUT>;
+
+        $stack10 = virtualinvoke $stack8.<cck.util.Option$Bool: boolean get()>();
+
+        staticinvoke <avrora.actions.SimAction: void reportTime(avrora.sim.Simulation,long,boolean)>($stack9, delta, $stack10);
+
+        $stack11 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        staticinvoke <avrora.actions.SimAction: void reportMonitors(avrora.sim.Simulation)>($stack11);
+
+        goto label15;
+
+     label03:
+        $stack47 := @caughtexception;
+
+        staticinvoke <cck.text.Terminal: void printYellow(java.lang.String)>("Simulation terminated");
+
+        $stack48 = new java.lang.StringBuilder;
+
+        specialinvoke $stack48.<java.lang.StringBuilder: void <init>()>();
+
+        $stack49 = virtualinvoke $stack48.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": breakpoint at ");
+
+        $stack50 = $stack47.<avrora.actions.SimAction$BreakPointException: int address>;
+
+        $stack51 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>($stack50);
+
+        $stack52 = virtualinvoke $stack49.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack51);
+
+        $stack53 = virtualinvoke $stack52.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" reached.");
+
+        $stack54 = virtualinvoke $stack53.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack54);
+
+     label04:
+        staticinvoke <cck.text.TermUtil: void printSeparator()>();
+
+        $stack56 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        $stack55 = this.<avrora.actions.SimAction: cck.util.Option$Bool THROUGHPUT>;
+
+        $stack57 = virtualinvoke $stack55.<cck.util.Option$Bool: boolean get()>();
+
+        staticinvoke <avrora.actions.SimAction: void reportTime(avrora.sim.Simulation,long,boolean)>($stack56, delta, $stack57);
+
+        $stack58 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        staticinvoke <avrora.actions.SimAction: void reportMonitors(avrora.sim.Simulation)>($stack58);
+
+        goto label15;
+
+     label05:
+        $stack32 := @caughtexception;
+
+        staticinvoke <cck.text.Terminal: void printYellow(java.lang.String)>("Simulation terminated");
+
+        $stack33 = new java.lang.StringBuilder;
+
+        specialinvoke $stack33.<java.lang.StringBuilder: void <init>()>();
+
+        $stack34 = virtualinvoke $stack33.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": timeout reached at pc = ");
+
+        $stack35 = $stack32.<avrora.actions.SimAction$TimeoutException: int address>;
+
+        $stack36 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>($stack35);
+
+        $stack37 = virtualinvoke $stack34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack36);
+
+        $stack38 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", time = ");
+
+        $stack39 = $stack32.<avrora.actions.SimAction$TimeoutException: avrora.sim.State state>;
+
+        $stack40 = interfaceinvoke $stack39.<avrora.sim.State: long getCycles()>();
+
+        $stack41 = virtualinvoke $stack38.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($stack40);
+
+        $stack42 = virtualinvoke $stack41.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack42);
+
+     label06:
+        staticinvoke <cck.text.TermUtil: void printSeparator()>();
+
+        $stack44 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        $stack43 = this.<avrora.actions.SimAction: cck.util.Option$Bool THROUGHPUT>;
+
+        $stack45 = virtualinvoke $stack43.<cck.util.Option$Bool: boolean get()>();
+
+        staticinvoke <avrora.actions.SimAction: void reportTime(avrora.sim.Simulation,long,boolean)>($stack44, delta, $stack45);
+
+        $stack46 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        staticinvoke <avrora.actions.SimAction: void reportMonitors(avrora.sim.Simulation)>($stack46);
+
+        goto label15;
+
+     label07:
+        $stack27 := @caughtexception;
+
+        staticinvoke <cck.text.Terminal: void printYellow(java.lang.String)>("Simulation terminated asynchronously");
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+     label08:
+        staticinvoke <cck.text.TermUtil: void printSeparator()>();
+
+        $stack29 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        $stack28 = this.<avrora.actions.SimAction: cck.util.Option$Bool THROUGHPUT>;
+
+        $stack30 = virtualinvoke $stack28.<cck.util.Option$Bool: boolean get()>();
+
+        staticinvoke <avrora.actions.SimAction: void reportTime(avrora.sim.Simulation,long,boolean)>($stack29, delta, $stack30);
+
+        $stack31 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        staticinvoke <avrora.actions.SimAction: void reportMonitors(avrora.sim.Simulation)>($stack31);
+
+        goto label15;
+
+     label09:
+        $stack22 := @caughtexception;
+
+        staticinvoke <cck.text.Terminal: void printRed(java.lang.String)>("Simulation terminated");
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(": ");
+
+        virtualinvoke $stack22.<cck.util.Util$Error: void report()>();
+
+     label10:
+        staticinvoke <cck.text.TermUtil: void printSeparator()>();
+
+        $stack24 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        $stack23 = this.<avrora.actions.SimAction: cck.util.Option$Bool THROUGHPUT>;
+
+        $stack25 = virtualinvoke $stack23.<cck.util.Option$Bool: boolean get()>();
+
+        staticinvoke <avrora.actions.SimAction: void reportTime(avrora.sim.Simulation,long,boolean)>($stack24, delta, $stack25);
+
+        $stack26 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        staticinvoke <avrora.actions.SimAction: void reportMonitors(avrora.sim.Simulation)>($stack26);
+
+        goto label15;
+
+     label11:
+        $stack17 := @caughtexception;
+
+        staticinvoke <cck.text.Terminal: void printRed(java.lang.String)>("Simulation terminated with unexpected exception");
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(": ");
+
+        virtualinvoke $stack17.<java.lang.Throwable: void printStackTrace()>();
+
+     label12:
+        staticinvoke <cck.text.TermUtil: void printSeparator()>();
+
+        $stack19 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        $stack18 = this.<avrora.actions.SimAction: cck.util.Option$Bool THROUGHPUT>;
+
+        $stack20 = virtualinvoke $stack18.<cck.util.Option$Bool: boolean get()>();
+
+        staticinvoke <avrora.actions.SimAction: void reportTime(avrora.sim.Simulation,long,boolean)>($stack19, delta, $stack20);
+
+        $stack21 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        staticinvoke <avrora.actions.SimAction: void reportMonitors(avrora.sim.Simulation)>($stack21);
+
+        goto label15;
+
+     label13:
+        $stack12 := @caughtexception;
+
+     label14:
+        staticinvoke <cck.text.TermUtil: void printSeparator()>();
+
+        $stack14 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        $stack13 = this.<avrora.actions.SimAction: cck.util.Option$Bool THROUGHPUT>;
+
+        $stack15 = virtualinvoke $stack13.<cck.util.Option$Bool: boolean get()>();
+
+        staticinvoke <avrora.actions.SimAction: void reportTime(avrora.sim.Simulation,long,boolean)>($stack14, delta, $stack15);
+
+        $stack16 = this.<avrora.actions.SimAction: avrora.sim.Simulation simulation>;
+
+        staticinvoke <avrora.actions.SimAction: void reportMonitors(avrora.sim.Simulation)>($stack16);
+
+        throw $stack12;
+
+     label15:
+        return;
+
+        catch avrora.actions.SimAction$BreakPointException from label01 to label02 with label03;
+        catch avrora.actions.SimAction$TimeoutException from label01 to label02 with label05;
+        catch avrora.actions.SimAction$AsynchronousExit from label01 to label02 with label07;
+        catch cck.util.Util$Error from label01 to label02 with label09;
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.lang.Throwable from label03 to label04 with label13;
+        catch java.lang.Throwable from label05 to label06 with label13;
+        catch java.lang.Throwable from label07 to label08 with label13;
+        catch java.lang.Throwable from label09 to label10 with label13;
+        catch java.lang.Throwable from label11 to label12 with label13;
+        catch java.lang.Throwable from label13 to label14 with label13;
+    }
+
+    public static java.util.List getLocationList(avrora.core.Program, java.util.List)
+    {
+        java.util.HashSet $stack7;
+        java.util.List v;
+        int $stack8, $stack9;
+        avrora.core.Program program;
+        avrora.core.SourceMapping lm;
+        java.util.Iterator i;
+        boolean $stack12;
+        java.util.Enumeration $stack13;
+        java.util.Comparator $stack15;
+        java.lang.Object $stack16;
+        avrora.core.SourceMapping$Location l;
+        java.lang.String val#1;
+        java.util.ArrayList val#2;
+
+        program := @parameter0: avrora.core.Program;
+
+        v := @parameter1: java.util.List;
+
+        $stack7 = new java.util.HashSet;
+
+        $stack8 = interfaceinvoke v.<java.util.List: int size()>();
+
+        $stack9 = $stack8 * 2;
+
+        specialinvoke $stack7.<java.util.HashSet: void <init>(int)>($stack9);
+
+        lm = virtualinvoke program.<avrora.core.Program: avrora.core.SourceMapping getSourceMapping()>();
+
+        i = interfaceinvoke v.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $stack12 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack12 == 0 goto label3;
+
+        $stack16 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        val#1 = (java.lang.String) $stack16;
+
+        l = virtualinvoke lm.<avrora.core.SourceMapping: avrora.core.SourceMapping$Location getLocation(java.lang.String)>(val#1);
+
+        if l != null goto label2;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("Label unknown", val#1);
+
+     label2:
+        virtualinvoke $stack7.<java.util.HashSet: boolean add(java.lang.Object)>(l);
+
+        goto label1;
+
+     label3:
+        $stack13 = staticinvoke <java.util.Collections: java.util.Enumeration enumeration(java.util.Collection)>($stack7);
+
+        val#2 = staticinvoke <java.util.Collections: java.util.ArrayList list(java.util.Enumeration)>($stack13);
+
+        $stack15 = <avrora.core.SourceMapping: java.util.Comparator LOCATION_COMPARATOR>;
+
+        staticinvoke <java.util.Collections: void sort(java.util.List,java.util.Comparator)>(val#2, $stack15);
+
+        return val#2;
+    }
+
+    protected static void printSimHeader()
+    {
+        staticinvoke <cck.text.TermUtil: void printSeparator(int,java.lang.String)>(78, "Simulation events");
+
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>("Node          Time   Event");
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        staticinvoke <cck.text.TermUtil: void printThinSeparator(int)>(78);
+
+        return;
+    }
+
+    protected static void reportMonitors(avrora.sim.Simulation)
+    {
+        avrora.sim.Simulation sim;
+        java.util.Iterator i, im;
+        boolean $stack6, $stack10;
+        java.lang.Object $stack7, $stack12;
+        avrora.sim.Simulation$Node n;
+        java.util.List $stack8;
+        avrora.monitors.Monitor m;
+
+        sim := @parameter0: avrora.sim.Simulation;
+
+        i = virtualinvoke sim.<avrora.sim.Simulation: java.util.Iterator getNodeIterator()>();
+
+     label1:
+        $stack6 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack6 == 0 goto label4;
+
+        $stack7 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        n = (avrora.sim.Simulation$Node) $stack7;
+
+        $stack8 = virtualinvoke n.<avrora.sim.Simulation$Node: java.util.List getMonitors()>();
+
+        im = interfaceinvoke $stack8.<java.util.List: java.util.Iterator iterator()>();
+
+     label2:
+        $stack10 = interfaceinvoke im.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack10 == 0 goto label3;
+
+        $stack12 = interfaceinvoke im.<java.util.Iterator: java.lang.Object next()>();
+
+        m = (avrora.monitors.Monitor) $stack12;
+
+        interfaceinvoke m.<avrora.monitors.Monitor: void report()>();
+
+        goto label2;
+
+     label3:
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    protected static void reportTime(avrora.sim.Simulation, long, boolean)
+    {
+        avrora.sim.Simulation sim;
+        java.util.Iterator i;
+        boolean throughput, $stack14#6;
+        long diff, $stack18, count, aggCycles#1, maxCycles#2;
+        java.lang.String $stack16;
+        double $stack19, $stack20, $stack22, $stack23, simulator#10;
+        float $stack21, $stack24;
+        java.lang.Object $stack25;
+        avrora.sim.clock.MainClock $stack27;
+        byte $stack29;
+        avrora.sim.Simulation$Node n#7;
+        avrora.sim.Simulator simulator#8;
+        int n#9;
+
+        sim := @parameter0: avrora.sim.Simulation;
+
+        diff := @parameter1: long;
+
+        throughput := @parameter2: boolean;
+
+        i = virtualinvoke sim.<avrora.sim.Simulation: java.util.Iterator getNodeIterator()>();
+
+        aggCycles#1 = 0L;
+
+        maxCycles#2 = 0L;
+
+     label1:
+        $stack14#6 = interfaceinvoke i.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack14#6 == 0 goto label4;
+
+        $stack25 = interfaceinvoke i.<java.util.Iterator: java.lang.Object next()>();
+
+        n#7 = (avrora.sim.Simulation$Node) $stack25;
+
+        simulator#8 = virtualinvoke n#7.<avrora.sim.Simulation$Node: avrora.sim.Simulator getSimulator()>();
+
+        if simulator#8 != null goto label2;
+
+        goto label1;
+
+     label2:
+        $stack27 = virtualinvoke simulator#8.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        count = virtualinvoke $stack27.<avrora.sim.clock.MainClock: long getCount()>();
+
+        aggCycles#1 = aggCycles#1 + count;
+
+        $stack29 = count cmp maxCycles#2;
+
+        if $stack29 <= 0 goto label3;
+
+        maxCycles#2 = count;
+
+     label3:
+        goto label1;
+
+     label4:
+        staticinvoke <cck.text.TermUtil: void reportQuantity(java.lang.String,long,java.lang.String)>("Simulated time", maxCycles#2, "cycles");
+
+        if throughput == 0 goto label5;
+
+        $stack16 = staticinvoke <cck.util.TimeUtil: java.lang.String milliToSecs(long)>(diff);
+
+        staticinvoke <cck.text.TermUtil: void reportQuantity(java.lang.String,java.lang.String,java.lang.String)>("Time for simulation", $stack16, "seconds");
+
+        n#9 = virtualinvoke sim.<avrora.sim.Simulation: int getNumberOfNodes()>();
+
+        $stack20 = (double) aggCycles#1;
+
+        $stack18 = diff * 1000L;
+
+        $stack19 = (double) $stack18;
+
+        simulator#10 = $stack20 / $stack19;
+
+        $stack21 = (float) simulator#10;
+
+        staticinvoke <cck.text.TermUtil: void reportQuantity(java.lang.String,float,java.lang.String)>("Total throughput", $stack21, "mhz");
+
+        if n#9 <= 1 goto label5;
+
+        $stack22 = (double) n#9;
+
+        $stack23 = simulator#10 / $stack22;
+
+        $stack24 = (float) $stack23;
+
+        staticinvoke <cck.text.TermUtil: void reportQuantity(java.lang.String,float,java.lang.String)>("Throughput per node", $stack24, "mhz");
+
+     label5:
+        return;
+    }
+
+    static void access$000(avrora.actions.SimAction, java.lang.Throwable)
+    {
+        avrora.actions.SimAction x0;
+        java.lang.Throwable x1;
+
+        x0 := @parameter0: avrora.actions.SimAction;
+
+        x1 := @parameter1: java.lang.Throwable;
+
+        specialinvoke x0.<avrora.actions.SimAction: void exitSimulation(java.lang.Throwable)>(x1);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.actions.SimAction: java.lang.String HELP> = "The \"simulate\" action creates a simulation with the specified program(s) for the specified node(s). The simulation type might be as simple as a single node with a single program, or a multiple-node sensor network simulation or robotics simulation.";
+
+        return;
+    }
+}

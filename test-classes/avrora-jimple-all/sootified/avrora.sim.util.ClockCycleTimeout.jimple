@@ -1,0 +1,52 @@
+public class avrora.sim.util.ClockCycleTimeout extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    public final long timeout;
+    private final avrora.sim.Simulator simulator;
+
+    public void <init>(avrora.sim.Simulator, long)
+    {
+        avrora.sim.util.ClockCycleTimeout this;
+        avrora.sim.Simulator sim;
+        long t;
+
+        this := @this: avrora.sim.util.ClockCycleTimeout;
+
+        sim := @parameter0: avrora.sim.Simulator;
+
+        t := @parameter1: long;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<avrora.sim.util.ClockCycleTimeout: avrora.sim.Simulator simulator> = sim;
+
+        this.<avrora.sim.util.ClockCycleTimeout: long timeout> = t;
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.util.ClockCycleTimeout this;
+        avrora.sim.Simulator $stack2;
+        avrora.sim.State state;
+        avrora.actions.SimAction$TimeoutException $stack4;
+        int $stack5;
+        long $stack6;
+
+        this := @this: avrora.sim.util.ClockCycleTimeout;
+
+        $stack2 = this.<avrora.sim.util.ClockCycleTimeout: avrora.sim.Simulator simulator>;
+
+        state = virtualinvoke $stack2.<avrora.sim.Simulator: avrora.sim.State getState()>();
+
+        $stack4 = new avrora.actions.SimAction$TimeoutException;
+
+        $stack5 = interfaceinvoke state.<avrora.sim.State: int getPC()>();
+
+        $stack6 = this.<avrora.sim.util.ClockCycleTimeout: long timeout>;
+
+        specialinvoke $stack4.<avrora.actions.SimAction$TimeoutException: void <init>(int,avrora.sim.State,long,java.lang.String)>($stack5, state, $stack6, "clock cycles");
+
+        throw $stack4;
+    }
+}

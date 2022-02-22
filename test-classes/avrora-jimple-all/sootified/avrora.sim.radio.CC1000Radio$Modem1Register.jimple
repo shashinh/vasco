@@ -1,0 +1,70 @@
+public class avrora.sim.radio.CC1000Radio$Modem1Register extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    int mlimit;
+    boolean lockAvgN;
+    boolean lockAvgMode;
+    int settling;
+    boolean modemResetN;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$Modem1Register this;
+        avrora.sim.radio.CC1000Radio this$0;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Modem1Register;
+
+        this$0 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem1Register: avrora.sim.radio.CC1000Radio this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(this$0, "MODEM1", 103);
+
+        this.<avrora.sim.radio.CC1000Radio$Modem1Register: int settling> = 11;
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$Modem1Register this;
+        byte val;
+        int $stack2, $stack3, $stack6, $stack7, $stack9;
+        boolean $stack4, $stack5, $stack10;
+        int[] $stack8;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Modem1Register;
+
+        val := @parameter0: byte;
+
+        $stack2 = val & 224;
+
+        $stack3 = $stack2 >> 5;
+
+        this.<avrora.sim.radio.CC1000Radio$Modem1Register: int mlimit> = $stack3;
+
+        $stack4 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 4);
+
+        this.<avrora.sim.radio.CC1000Radio$Modem1Register: boolean lockAvgN> = $stack4;
+
+        $stack5 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 3);
+
+        this.<avrora.sim.radio.CC1000Radio$Modem1Register: boolean lockAvgMode> = $stack5;
+
+        $stack8 = <avrora.sim.radio.CC1000Radio: int[] SETTLING>;
+
+        $stack6 = val & 6;
+
+        $stack7 = $stack6 >> 1;
+
+        $stack9 = $stack8[$stack7];
+
+        this.<avrora.sim.radio.CC1000Radio$Modem1Register: int settling> = $stack9;
+
+        $stack10 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(val, 0);
+
+        this.<avrora.sim.radio.CC1000Radio$Modem1Register: boolean modemResetN> = $stack10;
+
+        return;
+    }
+}

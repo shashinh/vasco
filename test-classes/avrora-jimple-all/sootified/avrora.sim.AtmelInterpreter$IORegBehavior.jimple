@@ -1,0 +1,60 @@
+class avrora.sim.AtmelInterpreter$IORegBehavior extends avrora.sim.state.VolatileBehavior
+{
+    final avrora.sim.ActiveRegister reg;
+
+    void <init>(avrora.sim.ActiveRegister)
+    {
+        avrora.sim.AtmelInterpreter$IORegBehavior this;
+        avrora.sim.ActiveRegister r;
+
+        this := @this: avrora.sim.AtmelInterpreter$IORegBehavior;
+
+        r := @parameter0: avrora.sim.ActiveRegister;
+
+        specialinvoke this.<avrora.sim.state.VolatileBehavior: void <init>()>();
+
+        this.<avrora.sim.AtmelInterpreter$IORegBehavior: avrora.sim.ActiveRegister reg> = r;
+
+        return;
+    }
+
+    public int read(int)
+    {
+        avrora.sim.AtmelInterpreter$IORegBehavior this;
+        avrora.sim.ActiveRegister $stack2;
+        byte $stack3;
+        int cur;
+
+        this := @this: avrora.sim.AtmelInterpreter$IORegBehavior;
+
+        cur := @parameter0: int;
+
+        $stack2 = this.<avrora.sim.AtmelInterpreter$IORegBehavior: avrora.sim.ActiveRegister reg>;
+
+        $stack3 = interfaceinvoke $stack2.<avrora.sim.ActiveRegister: byte read()>();
+
+        return $stack3;
+    }
+
+    public int write(int, int)
+    {
+        avrora.sim.AtmelInterpreter$IORegBehavior this;
+        int nv, cur;
+        byte $stack3;
+        avrora.sim.ActiveRegister $stack4;
+
+        this := @this: avrora.sim.AtmelInterpreter$IORegBehavior;
+
+        cur := @parameter0: int;
+
+        nv := @parameter1: int;
+
+        $stack4 = this.<avrora.sim.AtmelInterpreter$IORegBehavior: avrora.sim.ActiveRegister reg>;
+
+        $stack3 = (byte) nv;
+
+        interfaceinvoke $stack4.<avrora.sim.ActiveRegister: void write(byte)>($stack3);
+
+        return nv;
+    }
+}

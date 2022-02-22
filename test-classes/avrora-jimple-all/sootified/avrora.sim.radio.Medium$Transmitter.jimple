@@ -1,0 +1,123 @@
+public abstract class avrora.sim.radio.Medium$Transmitter extends avrora.sim.radio.Medium$TXRX
+{
+    protected avrora.sim.radio.Medium$Transmission transmission;
+    protected final avrora.sim.radio.Medium$Transmitter$Ticker ticker;
+    protected boolean shutdown;
+
+    protected void <init>(avrora.sim.radio.Medium, avrora.sim.clock.Clock)
+    {
+        avrora.sim.radio.Medium$Transmitter this;
+        avrora.sim.radio.Medium m;
+        avrora.sim.clock.Clock c;
+        avrora.sim.radio.Medium$Transmitter$Ticker $stack3;
+
+        this := @this: avrora.sim.radio.Medium$Transmitter;
+
+        m := @parameter0: avrora.sim.radio.Medium;
+
+        c := @parameter1: avrora.sim.clock.Clock;
+
+        specialinvoke this.<avrora.sim.radio.Medium$TXRX: void <init>(avrora.sim.radio.Medium,avrora.sim.clock.Clock)>(m, c);
+
+        $stack3 = new avrora.sim.radio.Medium$Transmitter$Ticker;
+
+        specialinvoke $stack3.<avrora.sim.radio.Medium$Transmitter$Ticker: void <init>(avrora.sim.radio.Medium$Transmitter)>(this);
+
+        this.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmitter$Ticker ticker> = $stack3;
+
+        return;
+    }
+
+    public final void beginTransmit(double, double)
+    {
+        avrora.sim.radio.Medium$Transmitter this;
+        boolean $stack5;
+        double pow, freq;
+        avrora.sim.radio.Medium $stack6;
+        avrora.sim.radio.Medium$Transmission $stack7;
+        long $stack8;
+        avrora.sim.radio.Medium$Transmitter$Ticker $stack9;
+        avrora.sim.clock.Clock $stack10;
+
+        this := @this: avrora.sim.radio.Medium$Transmitter;
+
+        pow := @parameter0: double;
+
+        freq := @parameter1: double;
+
+        $stack5 = this.<avrora.sim.radio.Medium$Transmitter: boolean activated>;
+
+        if $stack5 != 0 goto label1;
+
+        $stack6 = this.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium medium>;
+
+        $stack7 = virtualinvoke $stack6.<avrora.sim.radio.Medium: avrora.sim.radio.Medium$Transmission newTransmission(avrora.sim.radio.Medium$Transmitter,double,double)>(this, pow, freq);
+
+        this.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission> = $stack7;
+
+        this.<avrora.sim.radio.Medium$Transmitter: boolean activated> = 1;
+
+        $stack10 = this.<avrora.sim.radio.Medium$Transmitter: avrora.sim.clock.Clock clock>;
+
+        $stack9 = this.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmitter$Ticker ticker>;
+
+        $stack8 = this.<avrora.sim.radio.Medium$Transmitter: long leadCycles>;
+
+        virtualinvoke $stack10.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>($stack9, $stack8);
+
+     label1:
+        return;
+    }
+
+    public final void endTransmit()
+    {
+        avrora.sim.radio.Medium$Transmitter this;
+        boolean $stack1;
+        avrora.sim.radio.Medium$Transmission $stack2;
+
+        this := @this: avrora.sim.radio.Medium$Transmitter;
+
+        $stack1 = this.<avrora.sim.radio.Medium$Transmitter: boolean activated>;
+
+        if $stack1 == 0 goto label1;
+
+        this.<avrora.sim.radio.Medium$Transmitter: boolean shutdown> = 1;
+
+        $stack2 = this.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission>;
+
+        virtualinvoke $stack2.<avrora.sim.radio.Medium$Transmission: void end()>();
+
+     label1:
+        return;
+    }
+
+    public abstract byte nextByte();
+
+    public volatile void removeProbe(avrora.sim.radio.Medium$Probe)
+    {
+        avrora.sim.radio.Medium$Transmitter this;
+        avrora.sim.radio.Medium$Probe l1;
+
+        this := @this: avrora.sim.radio.Medium$Transmitter;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Probe;
+
+        specialinvoke this.<avrora.sim.radio.Medium$TXRX: void removeProbe(avrora.sim.radio.Medium$Probe)>(l1);
+
+        return;
+    }
+
+    public volatile void insertProbe(avrora.sim.radio.Medium$Probe)
+    {
+        avrora.sim.radio.Medium$Transmitter this;
+        avrora.sim.radio.Medium$Probe l1;
+
+        this := @this: avrora.sim.radio.Medium$Transmitter;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Probe;
+
+        specialinvoke this.<avrora.sim.radio.Medium$TXRX: void insertProbe(avrora.sim.radio.Medium$Probe)>(l1);
+
+        return;
+    }
+}

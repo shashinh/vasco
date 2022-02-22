@@ -1,0 +1,135 @@
+public class avrora.sim.clock.DerivedClock extends avrora.sim.clock.Clock
+{
+    protected final avrora.sim.clock.Clock driveClock;
+    protected final double divider;
+
+    public void <init>(java.lang.String, avrora.sim.clock.Clock, long)
+    {
+        avrora.sim.clock.DerivedClock this;
+        java.lang.String n;
+        long hz, $stack5, $stack7, $stack8;
+        avrora.sim.clock.Clock driver;
+        byte $stack6;
+        double $stack9;
+        cck.util.Util$InternalError $stack10;
+
+        this := @this: avrora.sim.clock.DerivedClock;
+
+        n := @parameter0: java.lang.String;
+
+        driver := @parameter1: avrora.sim.clock.Clock;
+
+        hz := @parameter2: long;
+
+        specialinvoke this.<avrora.sim.clock.Clock: void <init>(java.lang.String,long)>(n, hz);
+
+        this.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock> = driver;
+
+        $stack5 = virtualinvoke driver.<avrora.sim.clock.Clock: long getHZ()>();
+
+        $stack6 = $stack5 cmp hz;
+
+        if $stack6 >= 0 goto label1;
+
+        $stack10 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>("cannot derive faster clock from slower clock");
+
+        throw $stack10;
+
+     label1:
+        $stack7 = virtualinvoke driver.<avrora.sim.clock.Clock: long getHZ()>();
+
+        $stack8 = $stack7 / hz;
+
+        $stack9 = (double) $stack8;
+
+        this.<avrora.sim.clock.DerivedClock: double divider> = $stack9;
+
+        return;
+    }
+
+    public long getCount()
+    {
+        avrora.sim.clock.DerivedClock this;
+        avrora.sim.clock.Clock $stack1;
+        long $stack2, $stack6;
+        double $stack3, $stack4, $stack5;
+
+        this := @this: avrora.sim.clock.DerivedClock;
+
+        $stack1 = this.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock>;
+
+        $stack2 = virtualinvoke $stack1.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack4 = (double) $stack2;
+
+        $stack3 = this.<avrora.sim.clock.DerivedClock: double divider>;
+
+        $stack5 = $stack4 / $stack3;
+
+        $stack6 = (long) $stack5;
+
+        return $stack6;
+    }
+
+    public void insertEvent(avrora.sim.Simulator$Event, long)
+    {
+        avrora.sim.clock.DerivedClock this;
+        avrora.sim.clock.Clock $stack8, $stack19;
+        long driverCount, delta, $stack13, $stack14, nextTick, $stack18;
+        double $stack10, $stack11, $stack12, $stack15, $stack16, $stack17;
+        avrora.sim.Simulator$Event e;
+
+        this := @this: avrora.sim.clock.DerivedClock;
+
+        e := @parameter0: avrora.sim.Simulator$Event;
+
+        delta := @parameter1: long;
+
+        $stack8 = this.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock>;
+
+        driverCount = virtualinvoke $stack8.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack11 = (double) driverCount;
+
+        $stack10 = this.<avrora.sim.clock.DerivedClock: double divider>;
+
+        $stack12 = $stack11 / $stack10;
+
+        $stack13 = (long) $stack12;
+
+        $stack14 = $stack13 + delta;
+
+        $stack16 = (double) $stack14;
+
+        $stack15 = this.<avrora.sim.clock.DerivedClock: double divider>;
+
+        $stack17 = $stack16 * $stack15;
+
+        nextTick = (long) $stack17;
+
+        $stack19 = this.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock>;
+
+        $stack18 = nextTick - driverCount;
+
+        virtualinvoke $stack19.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>(e, $stack18);
+
+        return;
+    }
+
+    public void removeEvent(avrora.sim.Simulator$Event)
+    {
+        avrora.sim.clock.DerivedClock this;
+        avrora.sim.Simulator$Event e;
+        avrora.sim.clock.Clock $stack2;
+
+        this := @this: avrora.sim.clock.DerivedClock;
+
+        e := @parameter0: avrora.sim.Simulator$Event;
+
+        $stack2 = this.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock>;
+
+        virtualinvoke $stack2.<avrora.sim.clock.Clock: void removeEvent(avrora.sim.Simulator$Event)>(e);
+
+        return;
+    }
+}

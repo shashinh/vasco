@@ -1,0 +1,133 @@
+public class avrora.sim.mcu.ADC$MUXRegister extends avrora.sim.RWRegister
+{
+    final avrora.sim.state.RegisterView _mux;
+    final avrora.sim.mcu.ADC this$0;
+
+    protected void <init>(avrora.sim.mcu.ADC)
+    {
+        avrora.sim.mcu.ADC$MUXRegister this;
+        avrora.sim.mcu.ADC this$0;
+        avrora.sim.state.RegisterView $stack2;
+
+        this := @this: avrora.sim.mcu.ADC$MUXRegister;
+
+        this$0 := @parameter0: avrora.sim.mcu.ADC;
+
+        this.<avrora.sim.mcu.ADC$MUXRegister: avrora.sim.mcu.ADC this$0> = this$0;
+
+        specialinvoke this.<avrora.sim.RWRegister: void <init>()>();
+
+        $stack2 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.RegisterView bitRangeView(avrora.sim.state.RegisterView,int,int)>(this, 0, 4);
+
+        this.<avrora.sim.mcu.ADC$MUXRegister: avrora.sim.state.RegisterView _mux> = $stack2;
+
+        return;
+    }
+
+    boolean isSingleEnded()
+    {
+        avrora.sim.mcu.ADC$MUXRegister this;
+        int $stack1;
+        boolean $stack2#1;
+
+        this := @this: avrora.sim.mcu.ADC$MUXRegister;
+
+        $stack1 = virtualinvoke this.<avrora.sim.mcu.ADC$MUXRegister: int getSingleIndex()>();
+
+        if $stack1 < 0 goto label1;
+
+        $stack2#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack2#1 = 0;
+
+     label2:
+        return $stack2#1;
+    }
+
+    int getSingleIndex()
+    {
+        avrora.sim.mcu.ADC$MUXRegister this;
+        avrora.sim.state.RegisterView $stack1;
+        byte[] $stack2;
+        int $stack3;
+        byte $stack4;
+
+        this := @this: avrora.sim.mcu.ADC$MUXRegister;
+
+        $stack2 = <avrora.sim.mcu.ADC: byte[] SINGLE_ENDED_INPUT>;
+
+        $stack1 = this.<avrora.sim.mcu.ADC$MUXRegister: avrora.sim.state.RegisterView _mux>;
+
+        $stack3 = interfaceinvoke $stack1.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack4 = $stack2[$stack3];
+
+        return $stack4;
+    }
+
+    int getPosIndex()
+    {
+        avrora.sim.mcu.ADC$MUXRegister this;
+        avrora.sim.state.RegisterView $stack1;
+        byte[] $stack2;
+        int $stack3;
+        byte $stack4;
+
+        this := @this: avrora.sim.mcu.ADC$MUXRegister;
+
+        $stack2 = <avrora.sim.mcu.ADC: byte[] POS_INPUT>;
+
+        $stack1 = this.<avrora.sim.mcu.ADC$MUXRegister: avrora.sim.state.RegisterView _mux>;
+
+        $stack3 = interfaceinvoke $stack1.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack4 = $stack2[$stack3];
+
+        return $stack4;
+    }
+
+    int getNegIndex()
+    {
+        avrora.sim.mcu.ADC$MUXRegister this;
+        avrora.sim.state.RegisterView $stack1;
+        byte[] $stack2;
+        int $stack3;
+        byte $stack4;
+
+        this := @this: avrora.sim.mcu.ADC$MUXRegister;
+
+        $stack2 = <avrora.sim.mcu.ADC: byte[] NEG_INPUT>;
+
+        $stack1 = this.<avrora.sim.mcu.ADC$MUXRegister: avrora.sim.state.RegisterView _mux>;
+
+        $stack3 = interfaceinvoke $stack1.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack4 = $stack2[$stack3];
+
+        return $stack4;
+    }
+
+    int getGain()
+    {
+        avrora.sim.mcu.ADC$MUXRegister this;
+        avrora.sim.state.RegisterView $stack1;
+        short[] $stack2;
+        int $stack3;
+        short $stack4;
+
+        this := @this: avrora.sim.mcu.ADC$MUXRegister;
+
+        $stack2 = <avrora.sim.mcu.ADC: short[] GAIN>;
+
+        $stack1 = this.<avrora.sim.mcu.ADC$MUXRegister: avrora.sim.state.RegisterView _mux>;
+
+        $stack3 = interfaceinvoke $stack1.<avrora.sim.state.RegisterView: int getValue()>();
+
+        $stack4 = $stack2[$stack3];
+
+        return $stack4;
+    }
+}

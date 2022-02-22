@@ -1,0 +1,159 @@
+class avrora.sim.Simulation$Iter extends java.lang.Object implements java.util.Iterator
+{
+    int cursor;
+    final avrora.sim.Simulation this$0;
+
+    void <init>(avrora.sim.Simulation)
+    {
+        avrora.sim.Simulation$Iter this;
+        avrora.sim.Simulation this$0;
+
+        this := @this: avrora.sim.Simulation$Iter;
+
+        this$0 := @parameter0: avrora.sim.Simulation;
+
+        this.<avrora.sim.Simulation$Iter: avrora.sim.Simulation this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        specialinvoke this.<avrora.sim.Simulation$Iter: void scan()>();
+
+        return;
+    }
+
+    public boolean hasNext()
+    {
+        avrora.sim.Simulation$Iter this;
+        avrora.sim.Simulation $stack1;
+        avrora.sim.Simulation$Node[] $stack2;
+        int $stack3, $stack4;
+        boolean $stack5#1;
+
+        this := @this: avrora.sim.Simulation$Iter;
+
+        $stack4 = this.<avrora.sim.Simulation$Iter: int cursor>;
+
+        $stack1 = this.<avrora.sim.Simulation$Iter: avrora.sim.Simulation this$0>;
+
+        $stack2 = $stack1.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack3 = lengthof $stack2;
+
+        if $stack4 >= $stack3 goto label1;
+
+        $stack5#1 = 1;
+
+        goto label2;
+
+     label1:
+        $stack5#1 = 0;
+
+     label2:
+        return $stack5#1;
+    }
+
+    public java.lang.Object next()
+    {
+        avrora.sim.Simulation$Iter this;
+        avrora.sim.Simulation $stack2, $stack6;
+        avrora.sim.Simulation$Node[] $stack3, $stack8;
+        int $stack4, $stack5, $stack7, $stack9, $stack10;
+        avrora.sim.Simulation$Node o;
+        java.util.NoSuchElementException $stack11;
+
+        this := @this: avrora.sim.Simulation$Iter;
+
+        $stack5 = this.<avrora.sim.Simulation$Iter: int cursor>;
+
+        $stack2 = this.<avrora.sim.Simulation$Iter: avrora.sim.Simulation this$0>;
+
+        $stack3 = $stack2.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack4 = lengthof $stack3;
+
+        if $stack5 < $stack4 goto label1;
+
+        $stack11 = new java.util.NoSuchElementException;
+
+        specialinvoke $stack11.<java.util.NoSuchElementException: void <init>()>();
+
+        throw $stack11;
+
+     label1:
+        $stack6 = this.<avrora.sim.Simulation$Iter: avrora.sim.Simulation this$0>;
+
+        $stack8 = $stack6.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack7 = this.<avrora.sim.Simulation$Iter: int cursor>;
+
+        o = $stack8[$stack7];
+
+        $stack9 = this.<avrora.sim.Simulation$Iter: int cursor>;
+
+        $stack10 = $stack9 + 1;
+
+        this.<avrora.sim.Simulation$Iter: int cursor> = $stack10;
+
+        specialinvoke this.<avrora.sim.Simulation$Iter: void scan()>();
+
+        return o;
+    }
+
+    private void scan()
+    {
+        avrora.sim.Simulation$Iter this;
+        avrora.sim.Simulation $stack1, $stack5;
+        avrora.sim.Simulation$Node[] $stack2, $stack7;
+        int $stack3, $stack4, $stack6, $stack9, $stack10;
+        avrora.sim.Simulation$Node $stack8;
+
+        this := @this: avrora.sim.Simulation$Iter;
+
+     label1:
+        $stack4 = this.<avrora.sim.Simulation$Iter: int cursor>;
+
+        $stack1 = this.<avrora.sim.Simulation$Iter: avrora.sim.Simulation this$0>;
+
+        $stack2 = $stack1.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack3 = lengthof $stack2;
+
+        if $stack4 >= $stack3 goto label3;
+
+        $stack5 = this.<avrora.sim.Simulation$Iter: avrora.sim.Simulation this$0>;
+
+        $stack7 = $stack5.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack6 = this.<avrora.sim.Simulation$Iter: int cursor>;
+
+        $stack8 = $stack7[$stack6];
+
+        if $stack8 == null goto label2;
+
+        return;
+
+     label2:
+        $stack9 = this.<avrora.sim.Simulation$Iter: int cursor>;
+
+        $stack10 = $stack9 + 1;
+
+        this.<avrora.sim.Simulation$Iter: int cursor> = $stack10;
+
+        goto label1;
+
+     label3:
+        return;
+    }
+
+    public void remove()
+    {
+        cck.util.Util$InternalError $stack1;
+        avrora.sim.Simulation$Iter this;
+
+        this := @this: avrora.sim.Simulation$Iter;
+
+        $stack1 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack1;
+    }
+}

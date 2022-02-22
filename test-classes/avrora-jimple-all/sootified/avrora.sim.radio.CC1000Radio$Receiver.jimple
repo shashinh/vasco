@@ -1,0 +1,189 @@
+class avrora.sim.radio.CC1000Radio$Receiver extends avrora.sim.radio.Medium$Receiver
+{
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio, avrora.sim.radio.Medium)
+    {
+        avrora.sim.radio.CC1000Radio$Receiver this;
+        avrora.sim.radio.CC1000Radio l1;
+        avrora.sim.radio.Medium m;
+        avrora.sim.Simulator $stack3;
+        avrora.sim.clock.MainClock $stack4;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Receiver;
+
+        l1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        m := @parameter1: avrora.sim.radio.Medium;
+
+        this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0> = l1;
+
+        $stack3 = l1.<avrora.sim.radio.CC1000Radio: avrora.sim.Simulator sim>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        specialinvoke this.<avrora.sim.radio.Medium$Receiver: void <init>(avrora.sim.radio.Medium,avrora.sim.clock.Clock)>(m, $stack4);
+
+        return;
+    }
+
+    public void setRssiValid(boolean)
+    {
+        avrora.sim.radio.CC1000Radio$Receiver this;
+        boolean v;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Receiver;
+
+        v := @parameter0: boolean;
+
+        return;
+    }
+
+    public boolean getRssiValid()
+    {
+        avrora.sim.radio.CC1000Radio$Receiver this;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Receiver;
+
+        return 0;
+    }
+
+    public void setRSSI(double)
+    {
+        avrora.sim.radio.CC1000Radio$Receiver this;
+        double PRec;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Receiver;
+
+        PRec := @parameter0: double;
+
+        return;
+    }
+
+    public void setBER(double)
+    {
+        avrora.sim.radio.CC1000Radio$Receiver this;
+        double BER;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Receiver;
+
+        BER := @parameter0: double;
+
+        return;
+    }
+
+    public byte nextByte(boolean, byte)
+    {
+        boolean lock;
+        avrora.sim.radio.CC1000Radio$Receiver this;
+        avrora.sim.radio.CC1000Radio $stack5, $stack6, $stack8, $stack13, $stack22, $stack29, $stack30, $stack32;
+        avrora.sim.output.SimPrinter $stack7, $stack9, $stack31, $stack34;
+        byte val;
+        avrora.sim.clock.Clock $stack11;
+        long $stack12, $stack14, $stack15, $stack16, $stack17, $stack18, $stack19, $stack20, $stack21, $stack36;
+        int delta, offset, $stack23, $stack24, $stack25, $stack26, $stack27, $stack28;
+        java.lang.StringBuilder $stack33, $stack35, $stack38;
+        java.lang.String $stack37, $stack39;
+
+        this := @this: avrora.sim.radio.CC1000Radio$Receiver;
+
+        lock := @parameter0: boolean;
+
+        val := @parameter1: byte;
+
+        if lock == 0 goto label2;
+
+        $stack11 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.clock.Clock clock>;
+
+        $stack12 = virtualinvoke $stack11.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack13 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack14 = $stack13.<avrora.sim.radio.CC1000Radio: long spiTick>;
+
+        $stack15 = $stack12 - $stack14;
+
+        delta = (int) $stack15;
+
+        $stack17 = (long) delta;
+
+        $stack16 = this.<avrora.sim.radio.CC1000Radio$Receiver: long cyclesPerByte>;
+
+        $stack18 = $stack17 % $stack16;
+
+        $stack20 = 8L * $stack18;
+
+        $stack19 = this.<avrora.sim.radio.CC1000Radio$Receiver: long cyclesPerByte>;
+
+        $stack21 = $stack20 / $stack19;
+
+        offset = (int) $stack21;
+
+        $stack29 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack22 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack23 = $stack22.<avrora.sim.radio.CC1000Radio: int rxBuffer>;
+
+        $stack27 = $stack23 << 8;
+
+        $stack24 = val ^ -1;
+
+        $stack25 = $stack24 & 255;
+
+        $stack26 = $stack25 << offset;
+
+        $stack28 = $stack27 | $stack26;
+
+        $stack29.<avrora.sim.radio.CC1000Radio: int rxBuffer> = $stack28;
+
+        $stack30 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack31 = $stack30.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        if $stack31 == null goto label1;
+
+        $stack32 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack34 = $stack32.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        $stack33 = new java.lang.StringBuilder;
+
+        specialinvoke $stack33.<java.lang.StringBuilder: void <init>()>();
+
+        $stack35 = virtualinvoke $stack33.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000 <======== ");
+
+        $stack36 = (long) val;
+
+        $stack37 = staticinvoke <cck.text.StringUtil: java.lang.String to0xHex(long,int)>($stack36, 2);
+
+        $stack38 = virtualinvoke $stack35.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack37);
+
+        $stack39 = virtualinvoke $stack38.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack34.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack39);
+
+     label1:
+        goto label3;
+
+     label2:
+        $stack5 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack5.<avrora.sim.radio.CC1000Radio: int rxBuffer> = 0;
+
+        $stack6 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack7 = $stack6.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        if $stack7 == null goto label3;
+
+        $stack8 = this.<avrora.sim.radio.CC1000Radio$Receiver: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack9 = $stack8.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        virtualinvoke $stack9.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("CC1000 lock lost");
+
+     label3:
+        return val;
+    }
+}

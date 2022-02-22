@@ -1,0 +1,173 @@
+public class avrora.sim.radio.Medium$Transmitter$Ticker extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.radio.Medium$Transmitter this$0;
+
+    protected void <init>(avrora.sim.radio.Medium$Transmitter)
+    {
+        avrora.sim.radio.Medium$Transmitter$Ticker this;
+        avrora.sim.radio.Medium$Transmitter this$0;
+
+        this := @this: avrora.sim.radio.Medium$Transmitter$Ticker;
+
+        this$0 := @parameter0: avrora.sim.radio.Medium$Transmitter;
+
+        this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0> = this$0;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.radio.Medium$Transmitter$Ticker this;
+        avrora.sim.radio.Medium$Transmitter $stack4, $stack6, $stack8, $stack12, $stack14, $stack18, $stack21, $stack23, $stack24, $stack27, $stack28, $stack33, $stack38, $stack40, $stack45, $stack51, $stack53, $stack54, $stack55, $stack56, $stack57;
+        boolean $stack5, $stack7;
+        avrora.sim.radio.Medium$Transmission $stack9, $stack15, $stack19, $stack34, $stack39, $stack41, $stack46;
+        int $stack10, $stack11, $stack17, $stack36, $stack37, $stack43;
+        byte val;
+        byte[] $stack16, $stack20, $stack35, ndata, $stack42, $stack44;
+        avrora.sim.radio.Medium$Probe$List $stack22, $stack29, $stack52, $stack58;
+        long $stack25;
+        avrora.sim.clock.Clock $stack26;
+
+        this := @this: avrora.sim.radio.Medium$Transmitter$Ticker;
+
+        $stack4 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack5 = $stack4.<avrora.sim.radio.Medium$Transmitter: boolean shutdown>;
+
+        if $stack5 == 0 goto label2;
+
+        $stack51 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack52 = $stack51.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        if $stack52 == null goto label1;
+
+        $stack56 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack58 = $stack56.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        $stack57 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        virtualinvoke $stack58.<avrora.sim.radio.Medium$Probe$List: void fireBeforeTransmitEnd(avrora.sim.radio.Medium$Transmitter)>($stack57);
+
+     label1:
+        $stack53 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack53.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission> = null;
+
+        $stack54 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack54.<avrora.sim.radio.Medium$Transmitter: boolean shutdown> = 0;
+
+        $stack55 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack55.<avrora.sim.radio.Medium$Transmitter: boolean activated> = 0;
+
+        goto label5;
+
+     label2:
+        $stack6 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack7 = $stack6.<avrora.sim.radio.Medium$Transmitter: boolean activated>;
+
+        if $stack7 == 0 goto label5;
+
+        $stack8 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack9 = $stack8.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission>;
+
+        $stack10 = $stack9.<avrora.sim.radio.Medium$Transmission: int counter>;
+
+        $stack11 = $stack10 + 1;
+
+        $stack9.<avrora.sim.radio.Medium$Transmission: int counter> = $stack11;
+
+        $stack12 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        val = virtualinvoke $stack12.<avrora.sim.radio.Medium$Transmitter: byte nextByte()>();
+
+        $stack14 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack15 = $stack14.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission>;
+
+        $stack16 = $stack15.<avrora.sim.radio.Medium$Transmission: byte[] data>;
+
+        $stack17 = lengthof $stack16;
+
+        if $stack10 < $stack17 goto label3;
+
+        $stack33 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack34 = $stack33.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission>;
+
+        $stack35 = $stack34.<avrora.sim.radio.Medium$Transmission: byte[] data>;
+
+        $stack36 = lengthof $stack35;
+
+        $stack37 = $stack36 + 16;
+
+        ndata = newarray (byte)[$stack37];
+
+        $stack38 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack39 = $stack38.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission>;
+
+        $stack44 = $stack39.<avrora.sim.radio.Medium$Transmission: byte[] data>;
+
+        $stack40 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack41 = $stack40.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission>;
+
+        $stack42 = $stack41.<avrora.sim.radio.Medium$Transmission: byte[] data>;
+
+        $stack43 = lengthof $stack42;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack44, 0, ndata, 0, $stack43);
+
+        $stack45 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack46 = $stack45.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission>;
+
+        $stack46.<avrora.sim.radio.Medium$Transmission: byte[] data> = ndata;
+
+     label3:
+        $stack18 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack19 = $stack18.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Transmission transmission>;
+
+        $stack20 = $stack19.<avrora.sim.radio.Medium$Transmission: byte[] data>;
+
+        $stack20[$stack10] = val;
+
+        $stack21 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack22 = $stack21.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        if $stack22 == null goto label4;
+
+        $stack27 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack29 = $stack27.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        $stack28 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        virtualinvoke $stack29.<avrora.sim.radio.Medium$Probe$List: void fireBeforeTransmit(avrora.sim.radio.Medium$Transmitter,byte)>($stack28, val);
+
+     label4:
+        $stack23 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack26 = $stack23.<avrora.sim.radio.Medium$Transmitter: avrora.sim.clock.Clock clock>;
+
+        $stack24 = this.<avrora.sim.radio.Medium$Transmitter$Ticker: avrora.sim.radio.Medium$Transmitter this$0>;
+
+        $stack25 = $stack24.<avrora.sim.radio.Medium$Transmitter: long cyclesPerByte>;
+
+        virtualinvoke $stack26.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>(this, $stack25);
+
+     label5:
+        return;
+    }
+}

@@ -1,0 +1,51 @@
+public class avrora.Version extends java.lang.Object
+{
+    public static final int commit;
+    public static final cck.util.VersionTag TAG;
+
+    public void <init>()
+    {
+        avrora.Version this;
+
+        this := @this: avrora.Version;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        cck.util.VersionTag $stack1;
+        java.lang.String $stack2;
+        java.io.PrintStream $stack3;
+        java.lang.String[] args;
+
+        args := @parameter0: java.lang.String[];
+
+        $stack3 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack1 = <avrora.Version: cck.util.VersionTag TAG>;
+
+        $stack2 = $stack1.<cck.util.VersionTag: java.lang.String suffix>;
+
+        virtualinvoke $stack3.<java.io.PrintStream: void println(java.lang.String)>($stack2);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        cck.util.VersionTag $stack0;
+
+        <avrora.Version: int commit> = 110;
+
+        $stack0 = new cck.util.VersionTag;
+
+        specialinvoke $stack0.<cck.util.VersionTag: void <init>(java.lang.String,java.lang.String,int,int,int)>("avrora", "Beta", 1, 7, 110);
+
+        <avrora.Version: cck.util.VersionTag TAG> = $stack0;
+
+        return;
+    }
+}

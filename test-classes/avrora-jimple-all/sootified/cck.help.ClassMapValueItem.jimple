@@ -1,0 +1,176 @@
+public class cck.help.ClassMapValueItem extends java.lang.Object implements cck.help.HelpItem
+{
+    public final int indent;
+    public final java.lang.String optname;
+    public final java.lang.String optvalue;
+    public final cck.util.ClassMap map;
+    boolean isHelpCategory;
+    protected java.lang.String help;
+
+    public void <init>(int, java.lang.String, java.lang.String, cck.util.ClassMap)
+    {
+        cck.help.ClassMapValueItem this;
+        java.lang.String optname, optvalue;
+        cck.util.ClassMap map;
+        int indent;
+
+        this := @this: cck.help.ClassMapValueItem;
+
+        indent := @parameter0: int;
+
+        optname := @parameter1: java.lang.String;
+
+        optvalue := @parameter2: java.lang.String;
+
+        map := @parameter3: cck.util.ClassMap;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        this.<cck.help.ClassMapValueItem: java.lang.String optname> = optname;
+
+        this.<cck.help.ClassMapValueItem: java.lang.String optvalue> = optvalue;
+
+        this.<cck.help.ClassMapValueItem: cck.util.ClassMap map> = map;
+
+        this.<cck.help.ClassMapValueItem: int indent> = indent;
+
+        return;
+    }
+
+    public java.lang.String getHelp()
+    {
+        cck.help.ClassMapValueItem this;
+        java.lang.String $stack1, $stack2, $stack3;
+
+        this := @this: cck.help.ClassMapValueItem;
+
+        $stack1 = this.<cck.help.ClassMapValueItem: java.lang.String help>;
+
+        if $stack1 == null goto label1;
+
+        $stack3 = this.<cck.help.ClassMapValueItem: java.lang.String help>;
+
+        return $stack3;
+
+     label1:
+        $stack2 = specialinvoke this.<cck.help.ClassMapValueItem: java.lang.String computeHelp()>();
+
+        return $stack2;
+    }
+
+    public void printHelp()
+    {
+        cck.help.ClassMapValueItem this;
+        java.lang.String h, $stack5, $stack26, $stack29, name#1, $stack7#9, $stack10#29;
+        int $stack4, $stack8#19, $stack9#23;
+        boolean $stack6, $stack11;
+        java.lang.StringBuilder $stack24, $stack25, $stack27, $stack28, $stack30, $stack31;
+
+        this := @this: cck.help.ClassMapValueItem;
+
+        h = virtualinvoke this.<cck.help.ClassMapValueItem: java.lang.String getHelp()>();
+
+        $stack4 = this.<cck.help.ClassMapValueItem: int indent>;
+
+        $stack5 = staticinvoke <cck.text.StringUtil: java.lang.String space(int)>($stack4);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack5);
+
+        $stack6 = this.<cck.help.ClassMapValueItem: boolean isHelpCategory>;
+
+        if $stack6 == 0 goto label1;
+
+        $stack11 = <cck.text.Terminal: boolean htmlColors>;
+
+        if $stack11 == 0 goto label1;
+
+        $stack24 = new java.lang.StringBuilder;
+
+        specialinvoke $stack24.<java.lang.StringBuilder: void <init>()>();
+
+        $stack25 = virtualinvoke $stack24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<a href=");
+
+        $stack26 = this.<cck.help.ClassMapValueItem: java.lang.String optvalue>;
+
+        $stack27 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack26);
+
+        $stack28 = virtualinvoke $stack27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".html>");
+
+        $stack29 = this.<cck.help.ClassMapValueItem: java.lang.String optvalue>;
+
+        $stack30 = virtualinvoke $stack28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack29);
+
+        $stack31 = virtualinvoke $stack30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("</a>");
+
+        name#1 = virtualinvoke $stack31.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label2;
+
+     label1:
+        name#1 = this.<cck.help.ClassMapValueItem: java.lang.String optvalue>;
+
+     label2:
+        $stack7#9 = this.<cck.help.ClassMapValueItem: java.lang.String optname>;
+
+        staticinvoke <cck.text.Terminal: void printPair(int,int,java.lang.String,java.lang.String,java.lang.String)>(2, 11, $stack7#9, "=", name#1);
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        $stack8#19 = this.<cck.help.ClassMapValueItem: int indent>;
+
+        $stack9#23 = $stack8#19 + 4;
+
+        $stack10#29 = staticinvoke <cck.text.StringUtil: java.lang.String formatParagraphs(java.lang.String,int,int,int)>(h, $stack9#23, 0, 78);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack10#29);
+
+        return;
+    }
+
+    private java.lang.String computeHelp()
+    {
+        cck.help.ClassMapValueItem this;
+        java.lang.String $stack2, $stack5, $stack7;
+        cck.util.ClassMap $stack3;
+        java.lang.Object $stack4;
+        boolean $stack6;
+        java.lang.Throwable $stack8;
+        cck.help.HelpItem item#1;
+
+        this := @this: cck.help.ClassMapValueItem;
+
+     label1:
+        $stack3 = this.<cck.help.ClassMapValueItem: cck.util.ClassMap map>;
+
+        $stack2 = this.<cck.help.ClassMapValueItem: java.lang.String optvalue>;
+
+        $stack4 = virtualinvoke $stack3.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>($stack2);
+
+        item#1 = (cck.help.HelpItem) $stack4;
+
+        $stack5 = interfaceinvoke item#1.<cck.help.HelpItem: java.lang.String getHelp()>();
+
+        this.<cck.help.ClassMapValueItem: java.lang.String help> = $stack5;
+
+        $stack6 = item#1 instanceof cck.help.HelpCategory;
+
+        if $stack6 == 0 goto label2;
+
+        this.<cck.help.ClassMapValueItem: boolean isHelpCategory> = 1;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack8 := @caughtexception;
+
+        return "(No help available for this item.)";
+
+     label4:
+        $stack7 = this.<cck.help.ClassMapValueItem: java.lang.String help>;
+
+        return $stack7;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }
+}

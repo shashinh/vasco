@@ -1,0 +1,84 @@
+public final enum class org.dacapo.harness.CommandLineArgs$Methodology extends java.lang.Enum
+{
+    public static final enum org.dacapo.harness.CommandLineArgs$Methodology ITERATE;
+    public static final enum org.dacapo.harness.CommandLineArgs$Methodology CONVERGE;
+    private static final org.dacapo.harness.CommandLineArgs$Methodology[] $VALUES;
+
+    public static org.dacapo.harness.CommandLineArgs$Methodology[] values()
+    {
+        org.dacapo.harness.CommandLineArgs$Methodology[] $stack0, $stack2;
+        java.lang.Object $stack1;
+
+        $stack0 = <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology[] $VALUES>;
+
+        $stack1 = virtualinvoke $stack0.<java.lang.Object: java.lang.Object clone()>();
+
+        $stack2 = (org.dacapo.harness.CommandLineArgs$Methodology[]) $stack1;
+
+        return $stack2;
+    }
+
+    public static org.dacapo.harness.CommandLineArgs$Methodology valueOf(java.lang.String)
+    {
+        java.lang.String name;
+        java.lang.Enum $stack1;
+        org.dacapo.harness.CommandLineArgs$Methodology $stack2;
+
+        name := @parameter0: java.lang.String;
+
+        $stack1 = staticinvoke <java.lang.Enum: java.lang.Enum valueOf(java.lang.Class,java.lang.String)>(class "Lorg/dacapo/harness/CommandLineArgs$Methodology;", name);
+
+        $stack2 = (org.dacapo.harness.CommandLineArgs$Methodology) $stack1;
+
+        return $stack2;
+    }
+
+    private void <init>(java.lang.String, int)
+    {
+        org.dacapo.harness.CommandLineArgs$Methodology this;
+        java.lang.String l1;
+        int l2;
+
+        this := @this: org.dacapo.harness.CommandLineArgs$Methodology;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+        specialinvoke this.<java.lang.Enum: void <init>(java.lang.String,int)>(l1, l2);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        org.dacapo.harness.CommandLineArgs$Methodology $stack0, $stack1, $stack3, $stack4;
+        org.dacapo.harness.CommandLineArgs$Methodology[] $stack2;
+
+        $stack0 = new org.dacapo.harness.CommandLineArgs$Methodology;
+
+        specialinvoke $stack0.<org.dacapo.harness.CommandLineArgs$Methodology: void <init>(java.lang.String,int)>("ITERATE", 0);
+
+        <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology ITERATE> = $stack0;
+
+        $stack1 = new org.dacapo.harness.CommandLineArgs$Methodology;
+
+        specialinvoke $stack1.<org.dacapo.harness.CommandLineArgs$Methodology: void <init>(java.lang.String,int)>("CONVERGE", 1);
+
+        <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology CONVERGE> = $stack1;
+
+        $stack2 = newarray (org.dacapo.harness.CommandLineArgs$Methodology)[2];
+
+        $stack3 = <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology ITERATE>;
+
+        $stack2[0] = $stack3;
+
+        $stack4 = <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology CONVERGE>;
+
+        $stack2[1] = $stack4;
+
+        <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology[] $VALUES> = $stack2;
+
+        return;
+    }
+}

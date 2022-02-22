@@ -1,0 +1,87 @@
+public class avrora.arch.msp430.MSP430Architecture extends java.lang.Object implements avrora.arch.AbstractArchitecture
+{
+    public static final avrora.arch.msp430.MSP430Architecture INSTANCE;
+
+    public void <init>()
+    {
+        avrora.arch.msp430.MSP430Architecture this;
+
+        this := @this: avrora.arch.msp430.MSP430Architecture;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public avrora.arch.AbstractDisassembler getDisassembler()
+    {
+        avrora.arch.msp430.MSP430Architecture this;
+        avrora.arch.msp430.MSP430Disassembler $u0;
+        avrora.arch.AbstractDisassembler $r0;
+
+        this := @this: avrora.arch.msp430.MSP430Architecture;
+
+        $u0 = new avrora.arch.msp430.MSP430Disassembler;
+
+        specialinvoke $u0.<avrora.arch.msp430.MSP430Disassembler: void <init>()>();
+
+        $r0 = (avrora.arch.AbstractDisassembler) $u0;
+
+        return $r0;
+    }
+
+    public avrora.arch.AbstractAssembler getAssembler()
+    {
+        cck.util.Util$InternalError $stack1;
+        avrora.arch.msp430.MSP430Architecture this;
+
+        this := @this: avrora.arch.msp430.MSP430Architecture;
+
+        $stack1 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack1;
+    }
+
+    public avrora.arch.AbstractParser getParser()
+    {
+        cck.util.Util$InternalError $stack1;
+        avrora.arch.msp430.MSP430Architecture this;
+
+        this := @this: avrora.arch.msp430.MSP430Architecture;
+
+        $stack1 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack1;
+    }
+
+    public avrora.arch.AbstractInstr[] newInstrArray(int)
+    {
+        int len;
+        avrora.arch.msp430.MSP430Instr[] $stack2;
+        avrora.arch.msp430.MSP430Architecture this;
+        avrora.arch.AbstractInstr[] $r0;
+
+        this := @this: avrora.arch.msp430.MSP430Architecture;
+
+        len := @parameter0: int;
+
+        $stack2 = newarray (avrora.arch.msp430.MSP430Instr)[len];
+
+        $r0 = (avrora.arch.AbstractInstr[]) $stack2;
+
+        return $r0;
+    }
+
+    static void <clinit>()
+    {
+        avrora.arch.msp430.MSP430Architecture $stack0;
+
+        $stack0 = new avrora.arch.msp430.MSP430Architecture;
+
+        specialinvoke $stack0.<avrora.arch.msp430.MSP430Architecture: void <init>()>();
+
+        <avrora.arch.msp430.MSP430Architecture: avrora.arch.msp430.MSP430Architecture INSTANCE> = $stack0;
+
+        return;
+    }
+}

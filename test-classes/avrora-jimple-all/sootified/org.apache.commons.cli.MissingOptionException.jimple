@@ -1,0 +1,106 @@
+public class org.apache.commons.cli.MissingOptionException extends org.apache.commons.cli.ParseException
+{
+    private java.util.List missingOptions;
+
+    public void <init>(java.lang.String)
+    {
+        org.apache.commons.cli.MissingOptionException this;
+        java.lang.String message;
+
+        this := @this: org.apache.commons.cli.MissingOptionException;
+
+        message := @parameter0: java.lang.String;
+
+        specialinvoke this.<org.apache.commons.cli.ParseException: void <init>(java.lang.String)>(message);
+
+        return;
+    }
+
+    public void <init>(java.util.List)
+    {
+        org.apache.commons.cli.MissingOptionException this;
+        java.util.List missingOptions;
+        java.lang.String $stack2;
+
+        this := @this: org.apache.commons.cli.MissingOptionException;
+
+        missingOptions := @parameter0: java.util.List;
+
+        $stack2 = staticinvoke <org.apache.commons.cli.MissingOptionException: java.lang.String createMessage(java.util.List)>(missingOptions);
+
+        specialinvoke this.<org.apache.commons.cli.MissingOptionException: void <init>(java.lang.String)>($stack2);
+
+        this.<org.apache.commons.cli.MissingOptionException: java.util.List missingOptions> = missingOptions;
+
+        return;
+    }
+
+    public java.util.List getMissingOptions()
+    {
+        org.apache.commons.cli.MissingOptionException this;
+        java.util.List $stack1;
+
+        this := @this: org.apache.commons.cli.MissingOptionException;
+
+        $stack1 = this.<org.apache.commons.cli.MissingOptionException: java.util.List missingOptions>;
+
+        return $stack1;
+    }
+
+    private static java.lang.String createMessage(java.util.List)
+    {
+        java.lang.StringBuffer $stack3;
+        java.util.List missingOptions;
+        int $stack4;
+        java.util.Iterator it;
+        java.lang.String $stack9, $stack15#1;
+        java.lang.Object $stack10;
+        boolean $stack12, $stack8#7;
+
+        missingOptions := @parameter0: java.util.List;
+
+        $stack3 = new java.lang.StringBuffer;
+
+        specialinvoke $stack3.<java.lang.StringBuffer: void <init>(java.lang.String)>("Missing required option");
+
+        $stack4 = interfaceinvoke missingOptions.<java.util.List: int size()>();
+
+        if $stack4 != 1 goto label1;
+
+        $stack15#1 = "";
+
+        goto label2;
+
+     label1:
+        $stack15#1 = "s";
+
+     label2:
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack15#1);
+
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(": ");
+
+        it = interfaceinvoke missingOptions.<java.util.List: java.util.Iterator iterator()>();
+
+     label3:
+        $stack8#7 = interfaceinvoke it.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack8#7 == 0 goto label4;
+
+        $stack10 = interfaceinvoke it.<java.util.Iterator: java.lang.Object next()>();
+
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.Object)>($stack10);
+
+        $stack12 = interfaceinvoke it.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack12 == 0 goto label3;
+
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", ");
+
+        goto label3;
+
+     label4:
+        $stack9 = virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $stack9;
+    }
+}
