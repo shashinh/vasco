@@ -129,7 +129,8 @@ public class CallGraphTest {
 				 "-allow-phantom-refs",
 				"-main-class", mainClass,
 				"-f", "J", 
-				"-d", "sootOutput", mainClass
+				"-d", outputDirectory + "/sootOutput", 
+				mainClass
 		};
 		
 //		String[] sootArgs = {
@@ -311,6 +312,7 @@ public class CallGraphTest {
 		}
 		p.close();
 		
+		//for each method captured in the callsite invariants
 		for(String methodName :callSiteInvariants.keySet()) {
 			boolean hasNull = false;
 			boolean hasConst = false;
@@ -320,16 +322,18 @@ public class CallGraphTest {
 			Map<Integer, Set<String>> map = callSiteInvariants.get(methodName);
 
 			List<String> sList = new ArrayList<String>();
+			//for each entry in the invariants for this method
 			for(Integer m : map.keySet()) {
 				StringBuilder sb = new StringBuilder();
 				//sb.append(m + ":");
 				//sb.append("(");
 				Set<String> argsList = map.get(m);
 				//do the aggregation here, argsList is of the form 
-				//[Main.main-3, A.foo-3, Main.main-19, Main.main-9, Main.main-27]
+				//[Main.main-3, A.foo-3, Main.main-19, Main.main-9, Main.main-27, n, c]
 				Map<String, String> calleeMap = new HashMap<String, String>();
 				Set<String> set = new HashSet<String>();
 				for(String s : argsList) {
+					//argsList contains data in the form  [n, 330-184, 330-17]
 					if(s.equals("n"))
 						hasNull = true;
 					else if (s.equals("s")) 
@@ -366,6 +370,10 @@ public class CallGraphTest {
 				if(hasGlobal)
 					set.add("g");
 				
+				hasNull = false;
+				hasConst = false;
+				hasString = false;
+				hasGlobal = false;
 				//System.out.println(set);
 				sb.append(String.join(" ", set));
 				//sb.append(String.join(" ", argsList));
