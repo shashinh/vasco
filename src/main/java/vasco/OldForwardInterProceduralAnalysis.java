@@ -131,7 +131,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	protected final Map<SootMethod, Set<String>> fieldSetReceivers;
 	protected final Map<SootMethod, Set<String>> fieldGetReceivers;
 
-	private void loadReflectionTrace() {
+	/*private void loadReflectionTrace() {
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		//String logFile = "test-classes/refl02/out/refl.log";
 		//String logFile = "test-classes/test43/out/refl.log";
@@ -290,7 +290,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			return methodsWithRightName;
 		}
 	}
-
+	
 	private boolean coversLineNumber(int lineNumber, Host host) {
 		{
 			SourceLnPosTag tag = (SourceLnPosTag) host.getTag(SourceLnPosTag.IDENTIFIER);
@@ -309,7 +309,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			}
 		}
 		return false;
-	}
+	}*/
 
 	/**
 	 * {@inheritDoc}
@@ -485,9 +485,11 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 
 						SootMethod m = (SootMethod) context.getMethod();
 						String mN = m.getDeclaringClass().getName() + "." + m.getName();
-						Map<Integer, A> map = new HashMap<Integer, A>();
+						Map<Integer, A> map;
 						if (this.loopInvariants.containsKey(mN)) {
 							map = this.loopInvariants.get(mN);
+						} else {
+							map = new HashMap<Integer, A>();
 						}
 						A ptgToAdd;
 						if (map.containsKey(unitBCI)) {
@@ -496,10 +498,11 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 							ptgToAdd = out;
 						}
 						map.put(unitBCI, ptgToAdd);
-						if (this.loopInvariants.containsKey(mN))
-							this.loopInvariants.replace(mN, map);
-						else
-							this.loopInvariants.put(mN, map);
+						this.loopInvariants.put(mN, map);
+//						if (this.loopInvariants.containsKey(mN))
+//							this.loopInvariants.replace(mN, map);
+//						else
+//							this.loopInvariants.put(mN, map);
 //						System.out.println("*******");
 //						System.out.println("Loop Invariant PTG @" + unitBCI);
 //						System.out.println(out.toString());

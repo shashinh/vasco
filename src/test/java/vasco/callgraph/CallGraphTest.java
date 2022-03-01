@@ -280,7 +280,8 @@ public class CallGraphTest {
 	}
 	
 	public static void printLoopInvariantPTGS(PointsToAnalysis pta) throws FileNotFoundException {
-		
+		//TODO: assert that there are no empty/null bci's here
+
 		for(String methodName : pta.loopInvariants.keySet()) {
 
 			PrintWriter pw = new PrintWriter(outputDirectory + "/loop-invariants-" + methodName + ".txt");
@@ -299,6 +300,7 @@ public class CallGraphTest {
 	}
 	
 	public static void printCallsiteInvariants(PointsToAnalysis pta) throws FileNotFoundException {
+		//TODO: assert that there are no empty/null bci's here
 		Map<String, Map<Integer, Set<String>>> callSiteInvariants = pta.callSiteInvariants;
 		
 		PrintWriter p = new PrintWriter(outputDirectory + "/caller-indices" + ".txt");

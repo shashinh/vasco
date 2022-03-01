@@ -104,6 +104,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 	
 
 	public Map<AnyNewExpr, String> bciMap;
+	public Map<AnyNewExpr, BciContainer> bciMap2;
 	public Map<AnyNewExpr, String> exprToMethodMap;
 	
 
@@ -127,6 +128,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		
 
 		this.bciMap = new HashMap<AnyNewExpr, String>();
+		this.bciMap2 = new HashMap<AnyNewExpr, BciContainer>();
 		this.exprToMethodMap = new HashMap<AnyNewExpr, String>();
 	}
 
@@ -331,6 +333,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 						out.assignNew(lhs, anyNewExpr);
 						//SHASHIN - UPDATE BCI TO NODE MAP HERE
 
+						assert(bci != -1);
+						this.bciMap2.put(anyNewExpr, new BciContainer(currentMethodIndex, bci));
 						this.bciMap.put(anyNewExpr, currentMethodIndex + "-" + bci);
 						//this.bciMap.put(anyNewExpr, currentMethodIndex + "-" + bci);
 						String methodSig = context.getMethod().getDeclaringClass().getName() + "." + context.getMethod().getName();
@@ -778,10 +782,11 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					thisBCSet.add("n");
 				}
 				
-				if(calledMethodArgsMap.containsKey(0)) {
-					calledMethodArgsMap.replace(0, thisBCSet);
-				} else 
-					calledMethodArgsMap.put(0, thisBCSet);
+				calledMethodArgsMap.put(0, thisBCSet);
+//				if(calledMethodArgsMap.containsKey(0)) {
+//					calledMethodArgsMap.replace(0, thisBCSet);
+//				} else 
+//					calledMethodArgsMap.put(0, thisBCSet);
 				
 				// Assign parameters...
 				//if( !isReflected) if the invoke statement is reflected, do not bother about mapping parameters
@@ -868,10 +873,11 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 						}
 					}
 					
-					if(calledMethodArgsMap.containsKey(i + 1)) {
-						calledMethodArgsMap.replace(i + 1, argBCSet);
-					} else 
-						calledMethodArgsMap.put(i + 1, argBCSet);
+					calledMethodArgsMap.put(i + 1, argBCSet);
+//					if(calledMethodArgsMap.containsKey(i + 1)) {
+//						calledMethodArgsMap.replace(i + 1, argBCSet);
+//					} else 
+//						calledMethodArgsMap.put(i + 1, argBCSet);
 				}
 				
 //				if(map.containsKey(calledMethodSig)) {
@@ -881,12 +887,13 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 //
 //				}
 				
-				if(this.callSiteInvariants.containsKey(calledMethodSig)) {
-					this.callSiteInvariants.replace(calledMethodSig, calledMethodArgsMap);
-				} else {
-					this.callSiteInvariants.put(calledMethodSig, calledMethodArgsMap);
-
-				}
+				this.callSiteInvariants.put(calledMethodSig, calledMethodArgsMap);
+//				if(this.callSiteInvariants.containsKey(calledMethodSig)) {
+//					this.callSiteInvariants.replace(calledMethodSig, calledMethodArgsMap);
+//				} else {
+//					this.callSiteInvariants.put(calledMethodSig, calledMethodArgsMap);
+//
+//				}
 				// Kill caller data...
 				for (Local callerLocal : callerMethod.getActiveBody().getLocals()) {
 					if (doNotKill.contains(callerLocal) == false)
