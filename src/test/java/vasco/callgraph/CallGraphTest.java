@@ -291,6 +291,9 @@ public class CallGraphTest {
 				StringBuilder sb = new StringBuilder();
 				sb.append(i + ":");
 				sb.append(map.get(i).prettyPrintInvariant(pta));
+				
+				System.out.println(map.get(i).prettyPrintInvariant2(pta));
+				
 				sList.add(sb.toString());
 			}
 			

@@ -771,6 +771,113 @@ public class PointsToGraph {
 	
 	
 	//SHASHIN
+	public String prettyPrintInvariant2(PointsToAnalysis pta) {
+		StringBuilder sbMain = new StringBuilder();
+		//Map<String, Set<String>> map = new HashMap<String, Set<String>>();
+		Map<String, String> varMap = new HashMap<String, String>();
+		for(Local var : roots.keySet()) {
+			boolean containsNull = false;
+			if(var.toString().charAt(0) != '$') {
+				String varName = var.toString();
+				if(var.toString().contains("#")) {
+					varName = varName.split("#")[0];
+				}
+				
+				//this returns a numerical var name, a number that corresponds to its stack slot in bytecode (Don't ask me how!)
+				varName = varName.substring(1);
+
+				Map <Integer, Set<String>> ciToBciMap = new HashMap<Integer, Set<String>>();
+				for(AnyNewExpr node : roots.get(var)) {
+					if(!pta.bciMap2.containsKey(node)) {
+						containsNull = true;
+						
+					} else {
+						BciContainer bciContainer = pta.bciMap2.get(node);
+						//sanity checks
+						assert(bciContainer != null);
+						assert(bciContainer.getCallerIndex() > 0);
+						assert(bciContainer.getBci() >= 0);
+						
+						Set<String> bciList;
+						if(ciToBciMap.containsKey(bciContainer.getCallerIndex())) {
+							bciList = ciToBciMap.get(bciContainer.getCallerIndex());
+						} else {
+							bciList = new HashSet<String>();
+						}
+						
+						bciList.add(String.valueOf(bciContainer.getBci()));
+						ciToBciMap.put(bciContainer.getCallerIndex(), bciList);
+					}
+				}
+				
+				List<String> sList = new ArrayList<String>();
+				for(Integer callerIndex : ciToBciMap.keySet()) {
+					StringBuilder sb = new StringBuilder();
+					sb.append(callerIndex).append("-");
+					Set<String> bcis = ciToBciMap.get(callerIndex);
+					sb.append(String.join(".", bcis));
+					
+					sList.add(sb.toString());
+				}
+				
+				if(containsNull) {
+					sList.add("N");
+				}
+				varMap.put(varName, String.join(" ", sList));
+				
+				//sbMain.append("(").append(String.join(".", sList)).append(")");
+			}
+		}
+		
+		List<String> l = new ArrayList<String>();
+		for(String varName : varMap.keySet()) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(varName).append(":").append(varMap.get(varName));
+			l.add(sb.toString());
+		}
+		
+		sbMain.append("(").append(String.join(",", l)).append(")");
+		
+		//now do the fields
+
+		for(AnyNewExpr source : heap.keySet()) {
+
+			if(pta.bciMap2.containsKey(source)) {
+				BciContainer bciContainer = pta.bciMap2.get(source);
+				//sanity checks
+				assert(bciContainer != null);
+				assert(bciContainer.getCallerIndex() > 0);
+				assert(bciContainer.getBci() >= 0);
+				
+				int callerIndex = bciContainer.getCallerIndex();
+				int bci = bciContainer.getBci();
+				StringBuilder tempSb = new StringBuilder();
+				tempSb.append(callerIndex).append("-").append(bci);
+				tempSb.append("(");
+
+				Map<String, String> fieldMap = new HashMap<String, String>();
+			
+				for(SootField field : heap.get(source).keySet()) {
+					Map <Integer, Set<String>> ciToBciMap = new HashMap<Integer, Set<String>>();
+					String fieldName = field.isStatic() ? field.toString() : field.getName();
+					
+					
+				
+				
+				}
+				
+				tempSb.append(")");
+			
+		}
+
+		//tempSb.append(")");
+		}
+		
+		return sbMain.toString();
+	}
+	
+	
+	
 	public String prettyPrintInvariant(PointsToAnalysis pta) {
 		
 		StringBuilder sbMain = new StringBuilder();
@@ -781,6 +888,7 @@ public class PointsToGraph {
 				if(var.toString().contains("#")) {
 					varName = varName.split("#")[0];
 				}
+				//this returns a numerical var name, which is the stack slot in bytecode
 				varName = varName.substring(1);
 				Set<String> varMap;
 				if(map.containsKey(varName)) {
