@@ -775,10 +775,14 @@ public class PointsToGraph {
 		StringBuilder sbMain = new StringBuilder();
 		//Map<String, Set<String>> map = new HashMap<String, Set<String>>();
 		Map<String, String> varMap = new HashMap<String, String>();
+		
+		//for each variable in the rho map
 		for(Local var : roots.keySet()) {
 			boolean containsNull = false;
+			//we only care about the local variables (in this version of soot, those are the ones that DO NOT begin with $
 			if(var.toString().charAt(0) != '$') {
 				String varName = var.toString();
+				//a WRONG assumption that all variables with a # are uniquely identified by the LHS substring
 				if(var.toString().contains("#")) {
 					varName = varName.split("#")[0];
 				}
@@ -788,10 +792,12 @@ public class PointsToGraph {
 
 				Map <Integer, Set<String>> ciToBciMap = new HashMap<Integer, Set<String>>();
 				for(AnyNewExpr node : roots.get(var)) {
+					//if the New Expr node does not exist in the map, then the current variable contains a null in its points-to set
 					if(!pta.bciMap2.containsKey(node)) {
 						containsNull = true;
 						
 					} else {
+						//if it exists, then fetch the bci container - this gives the bci and the originating method index for the new expr
 						BciContainer bciContainer = pta.bciMap2.get(node);
 						//sanity checks
 						assert(bciContainer != null);
@@ -809,6 +815,8 @@ public class PointsToGraph {
 						ciToBciMap.put(bciContainer.getCallerIndex(), bciList);
 					}
 				}
+				
+				//at this point we have a ciToBciMap for this variable
 				
 				List<String> sList = new ArrayList<String>();
 				for(Integer callerIndex : ciToBciMap.keySet()) {

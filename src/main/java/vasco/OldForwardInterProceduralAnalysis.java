@@ -103,6 +103,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	    this.fieldSetReceivers = new LinkedHashMap<SootMethod, Set<String>>();
 	    this.fieldGetReceivers = new LinkedHashMap<SootMethod, Set<String>>();
 	    
+	    this.methodIndices = new HashMap<String, Integer>();
+	    
 	    //this.loadReflectionTrace();
 	}
 
@@ -130,186 +132,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	protected final Map<SootMethod, Set<String>> methodInvokeReceivers;
 	protected final Map<SootMethod, Set<String>> fieldSetReceivers;
 	protected final Map<SootMethod, Set<String>> fieldGetReceivers;
-
-	/*private void loadReflectionTrace() {
-		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		//String logFile = "test-classes/refl02/out/refl.log";
-		//String logFile = "test-classes/test43/out/refl.log";
-		String logFile = "test-classes/dacapo/refl.log";
-		
-		//-cp .:test-classes/refl02/out  -reflog test-classes/refl02/out/refl.log -out test-classes/refl02/results Main
-		//-cp .:test-classes/refl03/out  -reflog test-classes/refl03/out/refl.log -out test-classes/refl03/results Main
-		//-cp .:test-classes/dacapo -out test-classes/dacapo/results -reflog test-classes/dacapo/refl.log Harness
-		
-		final Options opts = Options.v();
-		
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(logFile)))) {
-	        final Scene sc = Scene.v();
-
-	        final Set<String> ignoredKinds = new HashSet<String>();
-			for (String line; (line = reader.readLine()) != null;) {
-				if (line.isEmpty()) {
-					continue;
-				}
-
-				final String[] portions = line.split(";", -1);
-				final String kind = portions[0];
-				final String target = portions[1];
-				final String source = portions[2];
-				final int lineNumber = portions[3].length() == 0 ? -1 : Integer.parseInt(portions[3]);
-
-				for (SootMethod sourceMethod : inferSource(source, lineNumber)) {
-					switch (kind) {
-					case "Class.forName": {
-						Set<String> receiverNames = classForNameReceivers.get(sourceMethod);
-						if (receiverNames == null) {
-							classForNameReceivers.put(sourceMethod, receiverNames = new LinkedHashSet<String>());
-						}
-						receiverNames.add(target);
-						break;
-					}
-					case "Class.newInstance": {
-						Set<String> receiverNames = classNewInstanceReceivers.get(sourceMethod);
-						if (receiverNames == null) {
-							classNewInstanceReceivers.put(sourceMethod, receiverNames = new LinkedHashSet<String>());
-						}
-						receiverNames.add(target);
-						break;
-					}
-					case "Method.invoke": {
-						if (!sc.containsMethod(target)) {
-							throw new RuntimeException("Unknown method for signature: " + target);
-						}
-						Set<String> receiverNames = methodInvokeReceivers.get(sourceMethod);
-						if (receiverNames == null) {
-							methodInvokeReceivers.put(sourceMethod, receiverNames = new LinkedHashSet<String>());
-						}
-						receiverNames.add(target);
-						break;
-					}
-					case "Constructor.newInstance": {
-						if (!sc.containsMethod(target)) {
-							throw new RuntimeException("Unknown method for signature: " + target);
-						}
-						Set<String> receiverNames = constructorNewInstanceReceivers.get(sourceMethod);
-						if (receiverNames == null) {
-							constructorNewInstanceReceivers.put(sourceMethod,
-									receiverNames = new LinkedHashSet<String>());
-						}
-						receiverNames.add(target);
-						break;
-					}
-					case "Field.set*": {
-						if (!sc.containsField(target)) {
-							throw new RuntimeException("Unknown method for signature: " + target);
-						}
-						Set<String> receiverNames = fieldSetReceivers.get(sourceMethod);
-						if (receiverNames == null) {
-							fieldSetReceivers.put(sourceMethod, receiverNames = new LinkedHashSet<String>());
-						}
-						receiverNames.add(target);
-						break;
-					}
-					case "Field.get*": {
-						if (!sc.containsField(target)) {
-							throw new RuntimeException("Unknown method for signature: " + target);
-						}
-						Set<String> receiverNames = fieldGetReceivers.get(sourceMethod);
-						if (receiverNames == null) {
-							fieldGetReceivers.put(sourceMethod, receiverNames = new LinkedHashSet<String>());
-						}
-						receiverNames.add(target);
-						break;
-					}
-					default:
-						ignoredKinds.add(kind);
-						break;
-					}
-
-				}
-			}
-
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Trace file not found.", e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private Set<SootMethod> inferSource(String source, int lineNumber) {
-		int dotIndex = source.lastIndexOf('.');
-		String className = source.substring(0, dotIndex);
-		String methodName = source.substring(dotIndex + 1);
-		final Scene scene = Scene.v();
-
-		if (!scene.containsClass(className)) {
-			//scene.addBasicClass(className, SootClass.BODIES);
-			//scene.loadBasicClasses();
-			if (!scene.containsClass(className)) {
-				throw new RuntimeException("Trace file refers to unknown class: " + className);
-			}
-		}
-
-		Set<SootMethod> methodsWithRightName = new LinkedHashSet<SootMethod>();
-		for (SootMethod m : scene.getSootClass(className).getMethods()) {
-			if (m.isConcrete() && m.getName().equals(methodName)) {
-				methodsWithRightName.add(m);
-			}
-		}
-
-		if (methodsWithRightName.isEmpty()) {
-			throw new RuntimeException(
-					"Trace file refers to unknown method with name " + methodName + " in Class " + className);
-		} else if (methodsWithRightName.size() == 1) {
-			return Collections.singleton(methodsWithRightName.iterator().next());
-		} else {
-			// more than one method with that name
-			for (SootMethod sootMethod : methodsWithRightName) {
-				if (coversLineNumber(lineNumber, sootMethod)) {
-					return Collections.singleton(sootMethod);
-				}
-				if (sootMethod.isConcrete()) {
-					if (!sootMethod.hasActiveBody()) {
-						sootMethod.retrieveActiveBody();
-					}
-					Body body = sootMethod.getActiveBody();
-					if (coversLineNumber(lineNumber, body)) {
-						return Collections.singleton(sootMethod);
-					}
-					for (Unit u : body.getUnits()) {
-						if (coversLineNumber(lineNumber, u)) {
-							return Collections.singleton(sootMethod);
-						}
-					}
-				}
-			}
-
-			// if we get here then we found no method with the right line number
-			// information;
-			// be conservative and return all method that we found
-			return methodsWithRightName;
-		}
-	}
 	
-	private boolean coversLineNumber(int lineNumber, Host host) {
-		{
-			SourceLnPosTag tag = (SourceLnPosTag) host.getTag(SourceLnPosTag.IDENTIFIER);
-			if (tag != null) {
-				if (tag.startLn() <= lineNumber && tag.endLn() >= lineNumber) {
-					return true;
-				}
-			}
-		}
-		{
-			LineNumberTag tag = (LineNumberTag) host.getTag(LineNumberTag.IDENTIFIER);
-			if (tag != null) {
-				if (tag.getLineNumber() == lineNumber) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}*/
+	public Map<String, Integer> methodIndices;
 
 	/**
 	 * {@inheritDoc}
@@ -451,7 +275,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// immediatePrevContextAnalysed :
 					// 1. stmt was an invoke
 					// 2. the called context was analyzed
-					if ( (!isLoopHeader && immediatePrevContextAnalysed) || out.equals(prevOut) == false) {
+					if ( (!isLoopHeader /*&& immediatePrevContextAnalysed*/) || out.equals(prevOut) == false) {
 						//System.out.println("OUT changed @" + unitBCI);
 
 						// Then add successors to the work-list.
@@ -484,10 +308,11 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 						this.loopFixPointIndicator.replace(unitBCI, 2);
 
 						SootMethod m = (SootMethod) context.getMethod();
-						String mN = m.getDeclaringClass().getName() + "." + m.getName();
+						//String mN = m.getDeclaringClass().getName() + "." + m.getName();
+						String methodSig = getTrimmedByteCodeSignature(m);
 						Map<Integer, A> map;
-						if (this.loopInvariants.containsKey(mN)) {
-							map = this.loopInvariants.get(mN);
+						if (this.loopInvariants.containsKey(methodSig)) {
+							map = this.loopInvariants.get(methodSig);
 						} else {
 							map = new HashMap<Integer, A>();
 						}
@@ -498,7 +323,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 							ptgToAdd = out;
 						}
 						map.put(unitBCI, ptgToAdd);
-						this.loopInvariants.put(mN, map);
+						this.loopInvariants.put(methodSig, map);
 //						if (this.loopInvariants.containsKey(mN))
 //							this.loopInvariants.replace(mN, map);
 //						else
@@ -594,6 +419,12 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		}
 	}
 
+	protected String getTrimmedByteCodeSignature(SootMethod m) {
+		String methodSig = m.getBytecodeSignature();
+		String sig = methodSig.replace(": ", ".").substring(1, methodSig.length() - 2);
+		
+		return sig;
+	}
 	/**
 	 * Creates a new context and initialises data flow values.
 	 * 
@@ -641,7 +472,12 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		// SHASHIN
 
 		SootMethod sMethod = (SootMethod) context.getMethod();
-		String methodName = sMethod.getDeclaringClass().getName() + "." + sMethod.getName();
+		String sig = getTrimmedByteCodeSignature(sMethod);
+		int index = this.methodIndices.size();
+		//maintain an index for each unique method signature
+		if(! this.methodIndices.containsKey(sig)) {
+			this.methodIndices.put(sig, ++index);
+		}
 		//System.out.println(methodName);
 
 		// fetch the loop headers
