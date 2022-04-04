@@ -50,11 +50,13 @@ import soot.jimple.InterfaceInvokeExpr;
 import soot.jimple.InvokeExpr;
 import soot.jimple.InvokeStmt;
 import soot.jimple.NewArrayExpr;
+import soot.jimple.NullConstant;
 import soot.jimple.ReturnStmt;
 import soot.jimple.SpecialInvokeExpr;
 import soot.jimple.StaticFieldRef;
 import soot.jimple.StaticInvokeExpr;
 import soot.jimple.Stmt;
+import soot.jimple.StringConstant;
 import soot.jimple.VirtualInvokeExpr;
 import soot.jimple.internal.JNewArrayExpr;
 import soot.tagkit.BytecodeOffsetTag;
@@ -105,7 +107,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 
 	public Map<AnyNewExpr, String> bciMap;
 	public Map<AnyNewExpr, BciContainer> bciMap2;
-	public Map<AnyNewExpr, String> exprToMethodMap;
+	//public Map<AnyNewExpr, String> exprToMethodMap;
 	
 
 	/**
@@ -129,7 +131,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 
 		this.bciMap = new HashMap<AnyNewExpr, String>();
 		this.bciMap2 = new HashMap<AnyNewExpr, BciContainer>();
-		this.exprToMethodMap = new HashMap<AnyNewExpr, String>();
+		//this.exprToMethodMap = new HashMap<AnyNewExpr, String>();
 	}
 
 	/**
@@ -313,17 +315,17 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					SootMethod currentMethod = context.getMethod();
 					
 					//add each unique calling method to the calleeIndexMap calleeIndex
-					
-					int currentMethodIndex = this.methodIndex;
-					String callerMethodSig = currentMethod.getDeclaringClass().getName() + "." + currentMethod.getName();
-					
-					if(!this.calleeIndexMap.containsKey(callerMethodSig)) {
-						this.calleeIndexMap.put(callerMethodSig, methodIndex);
-						methodIndex++;
-						//currentMethodIndex = methodIndex;
-					} else {
-						currentMethodIndex = this.calleeIndexMap.get(callerMethodSig);
-					}
+//					
+//					int currentMethodIndex = this.methodIndex;
+//					String callerMethodSig = currentMethod.getDeclaringClass().getName() + "." + currentMethod.getName();
+//					
+//					if(!this.calleeIndexMap.containsKey(callerMethodSig)) {
+//						this.calleeIndexMap.put(callerMethodSig, methodIndex);
+//						methodIndex++;
+//						//currentMethodIndex = methodIndex;
+//					} else {
+//						currentMethodIndex = this.calleeIndexMap.get(callerMethodSig);
+//					}
 					//System.out.println(callerMethodSig + " " + currentMethodIndex);
 					
 					//SHASHIN
@@ -334,12 +336,16 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 						//SHASHIN - UPDATE BCI TO NODE MAP HERE
 
 						assert(bci != -1);
+						String currentMethodSignature = getTrimmedByteCodeSignature(context.getMethod());
+						assert(this.methodIndices.containsKey(currentMethodSignature));
+						int currentMethodIndex = this.methodIndices.get(currentMethodSignature);
+						
 						this.bciMap2.put(anyNewExpr, new BciContainer(currentMethodIndex, bci));
 						this.bciMap.put(anyNewExpr, currentMethodIndex + "-" + bci);
 						//this.bciMap.put(anyNewExpr, currentMethodIndex + "-" + bci);
-						String methodSig = context.getMethod().getDeclaringClass().getName() + "." + context.getMethod().getName();
+						//String methodSig = context.getMethod().getDeclaringClass().getName() + "." + context.getMethod().getName();
 
-						this.exprToMethodMap.put(anyNewExpr, methodSig);
+						//this.exprToMethodMap.put(anyNewExpr, methodSig);
 						//SHASHIN
 						
 					} else {
@@ -727,7 +733,9 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				//SHASHIN
 				SootMethod m = (SootMethod) callerContext.getMethod();
 				String mN = m.getDeclaringClass().getName() + "." + m.getName();
-				String calledMethodSig = calledMethod.getDeclaringClass().getName() + "-" + calledMethod.getName();
+				String calledMethodSig = getTrimmedByteCodeSignature(calledMethod);
+				assert(this.methodIndices.containsKey(calledMethodSig));
+				//int methodIndex = this.methodIndices.get(calledMethodSig);
 				//System.out.println(mN);
 				//THIS MAP NOT NEEDED
 				Map<Integer,Set<String>> calledMethodArgsMap;
@@ -822,29 +830,33 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 								
 													String bci;
 													if(tgt == PointsToGraph.STRING_SITE) {
-														bci = "s";
+														bci = "S";
 														argBCSet.add(bci);
 													} else if (tgt instanceof AbstractNullObj) {
-														argBCSet.add("n");
+														argBCSet.add("N");
 													} else if (tgt == PointsToGraph.SUMMARY_NODE) {
-														argBCSet.add("g");
-													}
+														argBCSet.add("G");
+													} //note that we are not handling constants here - TODO : TEST!
 													else {
 														bci = this.bciMap.get(tgt);
-														String temp = this.exprToMethodMap.get(tgt);
-														int ci;
-														if(temp != null && bci != null) {
-															try {
-															ci = this.calleeIndexMap.get(temp);
-															} catch (Exception ex) {
-																System.out.println(ex.toString());
-																//something wrong here, assume default value for the callee index
-																ci = -1;
-															}
-															argBCSet.add(/*ci + "-" + */bci.toString());
-														} else {
-															argBCSet.add("u-u");
-														}
+														assert(this.bciMap2.containsKey(tgt));
+														BciContainer bciContainer = this.bciMap2.get(tgt);
+														
+														//String temp = this.exprToMethodMap.get(tgt);
+														//int ci;
+														argBCSet.add(bciContainer.getCallerIndex() + "-" + bciContainer.getBci());
+//														if(temp != null && bci != null) {
+//															try {
+//															ci = this.calleeIndexMap.get(temp);
+//															} catch (Exception ex) {
+//																System.out.println(ex.toString());
+//																//something wrong here, assume default value for the callee index
+//																ci = -1;
+//															}
+//															argBCSet.add(/*ci + "-" + */bci.toString());
+//														} else {
+//															argBCSet.add("u-u");
+//														}
 								}
 
 								//System.out.println(bci);
@@ -863,7 +875,12 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							// Sticky it!
 							callEdge.assignSticky(PointsToGraph.STICKY_LOCAL, argLocal);
 						} else if (argValue instanceof Constant) {
-												argBCSet.add("c");
+							if(argValue instanceof NullConstant)
+								argBCSet.add("N");
+							else if(argValue instanceof StringConstant) 
+								argBCSet.add("S");
+							else
+								argBCSet.add("C");
 							Constant argConstant = (Constant) argValue;
 							callEdge.assignConstant(parameter, argConstant);
 							doNotKill.add(parameter);

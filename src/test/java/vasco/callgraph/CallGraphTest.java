@@ -118,15 +118,41 @@ public class CallGraphTest {
 				//"-no-bodies-for-excluded",
 				"-keep-line-number",
 				"-keep-bytecode-offset",
-				"-p", "cg", "implicit-entry:false",
-				"-p", "cg.spark", "enabled",
-				"-p", "cg.spark", "simulate-natives",
+				//"-p", "cg", "implicit-entry:false",
+				//"-p", "cg.spark", "enabled",
+				//"-p", "cg.spark", "simulate-natives",
+				
+
+				 
+				"-p", "jb", "preserve-source-annotations:true",
+//				"-p", "jb", "stabilize-local-names:true",
+				"-p", "jb.ulp", "enabled:false",
+				"-p", "jb.dae", "enabled:false",
+				"-p", "jb.cp-ule", "enabled:false",
+				"-p", "jb.cp", "enabled:false",
+				"-p", "jb.lp", "enabled:false",
+				//"-p", "jb.lns", "enabled:false",
+				"-p", "jb.dtr", "enabled:false",
+				"-p", "jb.ese", "enabled:false",
+				//"-p", "jb.sils", "enabled:false",
+				"-p", "jb.a", "enabled:false",
+				"-p", "jb.ule", "enabled:false",
+				"-p", "jb.ne", "enabled:false",
+				"-p", "jb.uce", "enabled:false",
+				"-p", "jb.tt", "enabled:false",
+				
+				
+				
 				//"-p", "cg", "safe-forname",
-				"-p", "cg", "safe-newinstance",
+				//"-p", "cg", "safe-newinstance",
 				//"-p", "cg", "reflection-log:" + reflectionLog,
 				"-include", "org.apache.",
 				"-include", "org.w3c.",
 				 "-allow-phantom-refs",
+				 
+					
+					
+					
 				"-main-class", mainClass,
 				"-f", "J", 
 				"-d", outputDirectory + "/sootOutput", 
@@ -282,16 +308,19 @@ public class CallGraphTest {
 	public static void printLoopInvariantPTGS(PointsToAnalysis pta) throws FileNotFoundException {
 		//TODO: assert that there are no empty/null bci's here
 
-		for(String methodName : pta.loopInvariants.keySet()) {
+		for(String methodSig : pta.loopInvariants.keySet()) {
+			assert(pta.methodIndices.containsKey(methodSig));
+			int methodIndex = pta.methodIndices.get(methodSig);
 
-			PrintWriter pw = new PrintWriter(outputDirectory + "/loop-invariants-" + methodName + ".txt");
-			Map<Integer, PointsToGraph> map = pta.loopInvariants.get(methodName);
+			PrintWriter pw = new PrintWriter(outputDirectory + "/li-" + methodIndex + ".txt");
+			Map<Integer, PointsToGraph> map = pta.loopInvariants.get(methodSig);
 			List<String> sList = new ArrayList<String>();
 			for(Integer i : map.keySet()) {
 				StringBuilder sb = new StringBuilder();
 				sb.append(i + ":");
 				sb.append(map.get(i).prettyPrintInvariant(pta));
 				
+				//get the PTG stored against BCI i (the loop header)
 				System.out.println(map.get(i).prettyPrintInvariant2(pta));
 				
 				sList.add(sb.toString());
@@ -306,25 +335,41 @@ public class CallGraphTest {
 		//TODO: assert that there are no empty/null bci's here
 		Map<String, Map<Integer, Set<String>>> callSiteInvariants = pta.callSiteInvariants;
 		
-		PrintWriter p = new PrintWriter(outputDirectory + "/caller-indices" + ".txt");
-		Map<String, Integer> calleeIndexMap = pta.calleeIndexMap;
-		Map<Integer, String> calleeIndexMapSorted = new HashMap<Integer, String>();
-		for(String key : calleeIndexMap.keySet()) {
-			calleeIndexMapSorted.put(calleeIndexMap.get(key), key);
+//		PrintWriter p = new PrintWriter(outputDirectory + "/caller-indices" + ".txt");
+//		Map<String, Integer> calleeIndexMap = pta.calleeIndexMap;
+//		Map<Integer, String> calleeIndexMapSorted = new HashMap<Integer, String>();
+//		for(String key : calleeIndexMap.keySet()) {
+//			calleeIndexMapSorted.put(calleeIndexMap.get(key), key);
+//		}
+//		for(Integer key : calleeIndexMapSorted.keySet()) {
+//			p.println(calleeIndexMapSorted.get(key));
+//		}
+//		p.close();
+		
+		
+		
+		//print the method indices 
+		PrintWriter pMethodIndices = new PrintWriter(outputDirectory + "/mi" + ".txt");
+		Map<String, Integer> methodIndices = pta.methodIndices;
+		Map<Integer, String> methodIndicesSorted = new HashMap<Integer, String>();
+		for(String key : methodIndices.keySet()) {
+			methodIndicesSorted.put(methodIndices.get(key), key);
 		}
-		for(Integer key : calleeIndexMapSorted.keySet()) {
-			p.println(calleeIndexMapSorted.get(key));
+		for(Integer key : methodIndicesSorted.keySet()) {
+			pMethodIndices.println(methodIndicesSorted.get(key));
 		}
-		p.close();
+		pMethodIndices.close();
 		
 		//for each method captured in the callsite invariants
-		for(String methodName :callSiteInvariants.keySet()) {
+		for(String methodSig :callSiteInvariants.keySet()) {
+			assert(pta.methodIndices.containsKey(methodSig));
+			int methodIndex = pta.methodIndices.get(methodSig);
 			boolean hasNull = false;
 			boolean hasConst = false;
 			boolean hasString = false;
 			boolean hasGlobal = false;
-			PrintWriter pw = new PrintWriter(outputDirectory + "/callsite-invariant-" + methodName + ".txt");
-			Map<Integer, Set<String>> map = callSiteInvariants.get(methodName);
+			PrintWriter pw = new PrintWriter(outputDirectory + "/ci-" + methodIndex + ".txt");
+			Map<Integer, Set<String>> map = callSiteInvariants.get(methodSig);
 
 			List<String> sList = new ArrayList<String>();
 			//for each entry in the invariants for this method
@@ -339,13 +384,13 @@ public class CallGraphTest {
 				Set<String> set = new HashSet<String>();
 				for(String s : argsList) {
 					//argsList contains data in the form  [n, 330-184, 330-17]
-					if(s.equals("n"))
+					if(s.equals("N"))
 						hasNull = true;
-					else if (s.equals("s")) 
+					else if (s.equals("S")) 
 						hasString = true;
-					else if (s.equals("c")) 
+					else if (s.equals("C")) 
 						hasConst = true;
-					else if (s.equals("g")) 
+					else if (s.equals("G")) 
 						hasGlobal = true;
 					else {
 						String [] temp = s.split("-");
@@ -367,13 +412,13 @@ public class CallGraphTest {
 				}
 				
 				if(hasNull) 
-					set.add("n");
+					set.add("N");
 				if(hasConst) 
-					set.add("c");
+					set.add("C");
 				if(hasString) 
-					set.add("s");
+					set.add("S");
 				if(hasGlobal)
-					set.add("g");
+					set.add("G");
 				
 				hasNull = false;
 				hasConst = false;

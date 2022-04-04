@@ -16,6 +16,8 @@ class Main {
 			a1.b = a3.b;
 			x--;
 		}
+
+		C ret = a1.foo(b2);
 	}
 }
 
