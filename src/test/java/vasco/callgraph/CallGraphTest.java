@@ -312,16 +312,19 @@ public class CallGraphTest {
 			assert(pta.methodIndices.containsKey(methodSig));
 			int methodIndex = pta.methodIndices.get(methodSig);
 
-			PrintWriter pw = new PrintWriter(outputDirectory + "/li-" + methodIndex + ".txt");
+			PrintWriter pw = new PrintWriter(outputDirectory + "/li" + methodIndex + ".txt");
 			Map<Integer, PointsToGraph> map = pta.loopInvariants.get(methodSig);
 			List<String> sList = new ArrayList<String>();
 			for(Integer i : map.keySet()) {
+				//the key 'i' is the bci of the loop header
 				StringBuilder sb = new StringBuilder();
 				sb.append(i + ":");
 				sb.append(map.get(i).prettyPrintInvariant(pta));
 				
+				
 				//get the PTG stored against BCI i (the loop header)
-				System.out.println(map.get(i).prettyPrintInvariant2(pta));
+				System.out.println("formatted: ");
+				System.out.println(map.get(i).prettyPrintInvariant4(pta));
 				
 				sList.add(sb.toString());
 			}
@@ -368,7 +371,7 @@ public class CallGraphTest {
 			boolean hasConst = false;
 			boolean hasString = false;
 			boolean hasGlobal = false;
-			PrintWriter pw = new PrintWriter(outputDirectory + "/ci-" + methodIndex + ".txt");
+			PrintWriter pw = new PrintWriter(outputDirectory + "/ci" + methodIndex + ".txt");
 			Map<Integer, Set<String>> map = callSiteInvariants.get(methodSig);
 
 			List<String> sList = new ArrayList<String>();
