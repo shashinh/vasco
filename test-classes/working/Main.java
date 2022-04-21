@@ -13,31 +13,30 @@ class Main {
 		A a2 = new A();
 		A a3 = new A();
 
-		B b1 = new B();
-		B b2 = new B();
-
-//		a1.f = b1;
-//		a2.f = b2;
+		a1.f = new F();
+		a2.f = new F();
+		
+		a1.g = new G();
+		a2.g = new G();
 
 		int x = 10;
-		while (x > 0) {
-			a2 = a1;
-			a1 = a3;
-			a1.foo();
-		a2.foo();
-		a3.foo();
+		while(x > 10) {
+			a2.f = a1.f;
+			a2.g = a1.g;
+			a1.f = a3.f;
+			a1.g = a3.g;
 
 			x--;
+
 		}
-
-
 	}
 
 }
 
 class A {
-	B f;
-	void foo () { }
+	F f;
+	G g;
 }
 
-class B { }
+class F { }
+class G { }
