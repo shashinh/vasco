@@ -787,7 +787,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 						System.out.println(ex.toString());
 					}
 				} else {
-					thisBCSet.add("n");
+					thisBCSet.add("N");
 				}
 				
 				calledMethodArgsMap.put(0, thisBCSet);

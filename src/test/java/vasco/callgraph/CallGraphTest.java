@@ -319,7 +319,7 @@ public class CallGraphTest {
 				//the key 'i' is the bci of the loop header
 				StringBuilder sb = new StringBuilder();
 				sb.append(i + ":");
-				sb.append(map.get(i).prettyPrintInvariant(pta));
+				sb.append(map.get(i).prettyPrintInvariant4(pta));
 				
 				
 				//get the PTG stored against BCI i (the loop header)
