@@ -872,6 +872,40 @@ public class PointsToGraph {
 		return String.join(" ", sList);
 	}
 
+	public String prettyPrintInvariant5(PointsToAnalysis pta) {
+		StringBuilder sbInvariant = new StringBuilder();
+		
+		//first handle the roots
+		// a map to hold the prettified string for each variable
+		Map<String, String> varStringMap = new HashMap<String, String>();
+		// now go over each variable in the root set
+		for (Local var : this.roots.keySet()) {
+
+			// we only care about the local variables (in this version of soot, those are
+			// the ones that DO NOT begin with $
+			if (var.toString().charAt(0) != '$') {
+				String varName = var.toString();
+				// a WRONG assumption that all variables with a # are uniquely identified by the
+				// LHS substring
+				if (var.toString().contains("#")) {
+					varName = varName.split("#")[0];
+				}
+
+				// this returns a numerical var name, a number that corresponds to its stack
+				// slot in bytecode (Don't ask me how!)
+				varName = varName.substring(1);
+
+				String str = flattenCiToBci(this.roots.get(var), pta);
+				varStringMap.put(varName, String.join(" ", str));
+			}
+
+		}
+		
+		//now do the heap
+		
+		return sbInvariant.toString();
+		
+	}
 	public String prettyPrintInvariant4(PointsToAnalysis pta) {
 		StringBuilder sbInvariant = new StringBuilder();
 
@@ -933,7 +967,12 @@ public class PointsToGraph {
 					// fetch the points to set of this object and field
 					Set<AnyNewExpr> pointees = fieldsMap.get(field);
 					// this is a prettified string for this particular field
-					String str = flattenCiToBci(pointees, pta);
+					String str;
+					if(pointees.isEmpty()) {
+						str = "N";
+					} else {
+						str = flattenCiToBci(pointees, pta);
+					}
 					fieldStringMap.put(fieldName, str);
 				}
 
@@ -950,7 +989,30 @@ public class PointsToGraph {
 
 			} // end instanceof JNewExpr
 		}
+		
+		StringBuilder varString = new StringBuilder();
+		List<String> varStringList = new ArrayList<String>();
+		for(String var : varStringMap.keySet()) {
+			StringBuilder sbTemp = new StringBuilder();
+			sbTemp.append(var).append(":");
+			sbTemp.append(varStringMap.get(var));
+			
+			varStringList.add(sbTemp.toString());
+		}
+		varString.append("(").append(String.join(",", varStringList)).append(")");
+		
+		StringBuilder heapString = new StringBuilder();
+		List<String> fieldStringList = new ArrayList<String>();
+		for(String obj : objStringMap.keySet()) {
+			StringBuilder sbTemp = new StringBuilder();
+			sbTemp.append(obj).append("(").append(objStringMap.get(obj)).append(")");
+			
+			fieldStringList.add(sbTemp.toString());
+		}
+		heapString.append("(").append(String.join(",", fieldStringList)).append(")");
 
+		sbInvariant.append(varString).append(heapString);
+		
 		return sbInvariant.toString();
 	}
 
