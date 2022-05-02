@@ -1,0 +1,157 @@
+public class avrora.sim.energy.EnergyControl extends java.lang.Object
+{
+    public final java.util.LinkedList consumer;
+    private final java.util.LinkedList subscriber;
+    private boolean active;
+
+    public void <init>()
+    {
+        avrora.sim.energy.EnergyControl r0;
+        java.util.LinkedList $r1, $r2;
+
+        r0 := @this: avrora.sim.energy.EnergyControl;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r1 = new java.util.LinkedList;
+
+        specialinvoke $r1.<java.util.LinkedList: void <init>()>();
+
+        r0.<avrora.sim.energy.EnergyControl: java.util.LinkedList consumer> = $r1;
+
+        $r2 = new java.util.LinkedList;
+
+        specialinvoke $r2.<java.util.LinkedList: void <init>()>();
+
+        r0.<avrora.sim.energy.EnergyControl: java.util.LinkedList subscriber> = $r2;
+
+        return;
+    }
+
+    public void subscribe(avrora.sim.energy.EnergyObserver)
+    {
+        avrora.sim.energy.EnergyControl r0;
+        avrora.sim.energy.EnergyObserver r1;
+        java.util.LinkedList $r2;
+
+        r0 := @this: avrora.sim.energy.EnergyControl;
+
+        r1 := @parameter0: avrora.sim.energy.EnergyObserver;
+
+        $r2 = r0.<avrora.sim.energy.EnergyControl: java.util.LinkedList subscriber>;
+
+        virtualinvoke $r2.<java.util.LinkedList: boolean add(java.lang.Object)>(r1);
+
+        return;
+    }
+
+    public java.util.LinkedList getConsumers()
+    {
+        avrora.sim.energy.EnergyControl r0;
+        java.util.LinkedList $r1;
+
+        r0 := @this: avrora.sim.energy.EnergyControl;
+
+        $r1 = r0.<avrora.sim.energy.EnergyControl: java.util.LinkedList consumer>;
+
+        return $r1;
+    }
+
+    public void stateChange(avrora.sim.energy.Energy)
+    {
+        avrora.sim.energy.EnergyControl r0;
+        java.util.LinkedList $r1;
+        java.util.Iterator r2;
+        boolean $z0;
+        java.lang.Object $r3;
+        avrora.sim.energy.Energy r4;
+        avrora.sim.energy.EnergyObserver $r5;
+
+        r0 := @this: avrora.sim.energy.EnergyControl;
+
+        r4 := @parameter0: avrora.sim.energy.Energy;
+
+        $r1 = r0.<avrora.sim.energy.EnergyControl: java.util.LinkedList subscriber>;
+
+        r2 = virtualinvoke $r1.<java.util.LinkedList: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke r2.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r3 = interfaceinvoke r2.<java.util.Iterator: java.lang.Object next()>();
+
+        $r5 = (avrora.sim.energy.EnergyObserver) $r3;
+
+        interfaceinvoke $r5.<avrora.sim.energy.EnergyObserver: void stateChange(avrora.sim.energy.Energy)>(r4);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void activate()
+    {
+        avrora.sim.energy.EnergyControl r0;
+        boolean $z0, $z1;
+        java.util.LinkedList $r1;
+        java.util.Iterator r2;
+        java.lang.Object $r3;
+        avrora.sim.energy.Energy $r4;
+
+        r0 := @this: avrora.sim.energy.EnergyControl;
+
+        $z0 = r0.<avrora.sim.energy.EnergyControl: boolean active>;
+
+        if $z0 != 0 goto label2;
+
+        r0.<avrora.sim.energy.EnergyControl: boolean active> = 1;
+
+        $r1 = r0.<avrora.sim.energy.EnergyControl: java.util.LinkedList consumer>;
+
+        r2 = virtualinvoke $r1.<java.util.LinkedList: java.util.Iterator iterator()>();
+
+     label1:
+        $z1 = interfaceinvoke r2.<java.util.Iterator: boolean hasNext()>();
+
+        if $z1 == 0 goto label2;
+
+        $r3 = interfaceinvoke r2.<java.util.Iterator: java.lang.Object next()>();
+
+        $r4 = (avrora.sim.energy.Energy) $r3;
+
+        virtualinvoke $r4.<avrora.sim.energy.Energy: void activate()>();
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void addConsumer(avrora.sim.energy.Energy)
+    {
+        avrora.sim.energy.EnergyControl r0;
+        avrora.sim.energy.Energy r1;
+        java.util.LinkedList $r2;
+        boolean $z1;
+
+        r0 := @this: avrora.sim.energy.EnergyControl;
+
+        r1 := @parameter0: avrora.sim.energy.Energy;
+
+        $r2 = r0.<avrora.sim.energy.EnergyControl: java.util.LinkedList consumer>;
+
+        virtualinvoke $r2.<java.util.LinkedList: boolean add(java.lang.Object)>(r1);
+
+        $z1 = r0.<avrora.sim.energy.EnergyControl: boolean active>;
+
+        if $z1 == 0 goto label1;
+
+        virtualinvoke r1.<avrora.sim.energy.Energy: void activate()>();
+
+     label1:
+        return;
+    }
+}

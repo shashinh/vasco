@@ -1,0 +1,145 @@
+public class avrora.arch.legacy.LegacyRegister$Set extends java.lang.Object
+{
+    public final java.lang.String contents;
+    private final java.util.HashSet registerSet;
+
+    void <init>(avrora.arch.legacy.LegacyRegister[])
+    {
+        avrora.arch.legacy.LegacyRegister$Set r0;
+        java.util.HashSet $r1, $r7, $r12;
+        avrora.arch.legacy.LegacyRegister[] r2;
+        int $i0, $i1, $i2, $i3, $i4, $i5, $i6, $i7, i8, i9, $i10, $i11;
+        java.lang.StringBuffer $r3;
+        java.lang.String $r5;
+        avrora.arch.legacy.LegacyRegister $r6, $r11, $r14;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister$Set;
+
+        r2 := @parameter0: avrora.arch.legacy.LegacyRegister[];
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r1 = new java.util.HashSet;
+
+        $i0 = lengthof r2;
+
+        $i1 = 2 * $i0;
+
+        specialinvoke $r1.<java.util.HashSet: void <init>(int)>($i1);
+
+        r0.<avrora.arch.legacy.LegacyRegister$Set: java.util.HashSet registerSet> = $r1;
+
+        i8 = 0;
+
+     label1:
+        $i2 = lengthof r2;
+
+        if i8 >= $i2 goto label2;
+
+        $r12 = r0.<avrora.arch.legacy.LegacyRegister$Set: java.util.HashSet registerSet>;
+
+        $r11 = r2[i8];
+
+        virtualinvoke $r12.<java.util.HashSet: boolean add(java.lang.Object)>($r11);
+
+        i8 = i8 + 1;
+
+        goto label1;
+
+     label2:
+        $r3 = new java.lang.StringBuffer;
+
+        specialinvoke $r3.<java.lang.StringBuffer: void <init>(java.lang.String)>("{");
+
+        i9 = 0;
+
+     label3:
+        $i3 = lengthof r2;
+
+        if i9 >= $i3 goto label7;
+
+        $r7 = r0.<avrora.arch.legacy.LegacyRegister$Set: java.util.HashSet registerSet>;
+
+        $r6 = r2[i9];
+
+        virtualinvoke $r7.<java.util.HashSet: boolean add(java.lang.Object)>($r6);
+
+        if i9 != 2 goto label4;
+
+        $i7 = lengthof r2;
+
+        if $i7 <= 4 goto label4;
+
+        virtualinvoke $r3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("..., ");
+
+     label4:
+        if i9 < 2 goto label5;
+
+        $i4 = lengthof r2;
+
+        $i5 = $i4 - 1;
+
+        if i9 == $i5 goto label5;
+
+        $i6 = lengthof r2;
+
+        if $i6 >= 5 goto label6;
+
+     label5:
+        $r14 = r2[i9];
+
+        virtualinvoke $r3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.Object)>($r14);
+
+        $i10 = lengthof r2;
+
+        $i11 = $i10 - 1;
+
+        if i9 >= $i11 goto label6;
+
+        virtualinvoke $r3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", ");
+
+     label6:
+        i9 = i9 + 1;
+
+        goto label3;
+
+     label7:
+        virtualinvoke $r3.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>(125);
+
+        $r5 = virtualinvoke $r3.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        r0.<avrora.arch.legacy.LegacyRegister$Set: java.lang.String contents> = $r5;
+
+        return;
+    }
+
+    public boolean contains(avrora.arch.legacy.LegacyRegister)
+    {
+        avrora.arch.legacy.LegacyRegister$Set r0;
+        avrora.arch.legacy.LegacyRegister r1;
+        java.util.HashSet $r2;
+        boolean $z0;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister$Set;
+
+        r1 := @parameter0: avrora.arch.legacy.LegacyRegister;
+
+        $r2 = r0.<avrora.arch.legacy.LegacyRegister$Set: java.util.HashSet registerSet>;
+
+        $z0 = virtualinvoke $r2.<java.util.HashSet: boolean contains(java.lang.Object)>(r1);
+
+        return $z0;
+    }
+
+    public java.lang.String toString()
+    {
+        avrora.arch.legacy.LegacyRegister$Set r0;
+        java.lang.String $r1;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister$Set;
+
+        $r1 = r0.<avrora.arch.legacy.LegacyRegister$Set: java.lang.String contents>;
+
+        return $r1;
+    }
+}

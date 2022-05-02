@@ -1,0 +1,81 @@
+class avrora.sim.mcu.SPI$SPDReg extends java.lang.Object implements avrora.sim.ActiveRegister
+{
+    protected final avrora.sim.RWRegister receiveReg;
+    protected final avrora.sim.mcu.SPI$SPDReg$TransmitRegister transmitReg;
+    final avrora.sim.mcu.SPI this$0;
+
+    void <init>(avrora.sim.mcu.SPI)
+    {
+        avrora.sim.mcu.SPI$SPDReg r0;
+        avrora.sim.mcu.SPI r1;
+        avrora.sim.RWRegister $r2;
+        avrora.sim.mcu.SPI$SPDReg$TransmitRegister $r3;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPDReg;
+
+        r1 := @parameter0: avrora.sim.mcu.SPI;
+
+        r0.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.mcu.SPI this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r2 = new avrora.sim.RWRegister;
+
+        specialinvoke $r2.<avrora.sim.RWRegister: void <init>()>();
+
+        r0.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.RWRegister receiveReg> = $r2;
+
+        $r3 = new avrora.sim.mcu.SPI$SPDReg$TransmitRegister;
+
+        specialinvoke $r3.<avrora.sim.mcu.SPI$SPDReg$TransmitRegister: void <init>(avrora.sim.mcu.SPI$SPDReg)>(r0);
+
+        r0.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.mcu.SPI$SPDReg$TransmitRegister transmitReg> = $r3;
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.SPI$SPDReg r0;
+        avrora.sim.mcu.SPI $r1, $r3;
+        boolean $z0;
+        avrora.sim.RWRegister $r2;
+        byte $b0;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPDReg;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.mcu.SPI this$0>;
+
+        $z0 = $r1.<avrora.sim.mcu.SPI: boolean spifAccessed>;
+
+        if $z0 == 0 goto label1;
+
+        $r3 = r0.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.mcu.SPI this$0>;
+
+        staticinvoke <avrora.sim.mcu.SPI: void access$100(avrora.sim.mcu.SPI)>($r3);
+
+     label1:
+        $r2 = r0.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.RWRegister receiveReg>;
+
+        $b0 = virtualinvoke $r2.<avrora.sim.RWRegister: byte read()>();
+
+        return $b0;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.SPI$SPDReg r0;
+        byte b0;
+        avrora.sim.mcu.SPI$SPDReg$TransmitRegister $r1;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPDReg;
+
+        b0 := @parameter0: byte;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.mcu.SPI$SPDReg$TransmitRegister transmitReg>;
+
+        virtualinvoke $r1.<avrora.sim.mcu.SPI$SPDReg$TransmitRegister: void write(byte)>(b0);
+
+        return;
+    }
+}

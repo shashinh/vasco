@@ -1,0 +1,70 @@
+class avrora.sim.mcu.Timer8Bit$Mode_FastPWM extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.mcu.Timer8Bit this$0;
+
+    void <init>(avrora.sim.mcu.Timer8Bit)
+    {
+        avrora.sim.mcu.Timer8Bit$Mode_FastPWM r0;
+        avrora.sim.mcu.Timer8Bit r1;
+
+        r0 := @this: avrora.sim.mcu.Timer8Bit$Mode_FastPWM;
+
+        r1 := @parameter0: avrora.sim.mcu.Timer8Bit;
+
+        r0.<avrora.sim.mcu.Timer8Bit$Mode_FastPWM: avrora.sim.mcu.Timer8Bit this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.Timer8Bit$Mode_FastPWM r0;
+        avrora.sim.mcu.Timer8Bit $r1, $r3, $r4, $r5, $r6;
+        avrora.sim.mcu.Timer8Bit$TCNTnRegister $r2;
+        byte $b0;
+        avrora.sim.mcu.Timer8Bit$BufferedRegister $r7;
+        int i1, i2;
+
+        r0 := @this: avrora.sim.mcu.Timer8Bit$Mode_FastPWM;
+
+        $r1 = r0.<avrora.sim.mcu.Timer8Bit$Mode_FastPWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        $r2 = $r1.<avrora.sim.mcu.Timer8Bit: avrora.sim.mcu.Timer8Bit$TCNTnRegister TCNTn_reg>;
+
+        $b0 = virtualinvoke $r2.<avrora.sim.mcu.Timer8Bit$TCNTnRegister: byte read()>();
+
+        i1 = $b0 & 255;
+
+        $r3 = r0.<avrora.sim.mcu.Timer8Bit$Mode_FastPWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer8Bit: void access$000(avrora.sim.mcu.Timer8Bit,int)>($r3, i1);
+
+        if i1 < 255 goto label1;
+
+        i2 = 0;
+
+        $r5 = r0.<avrora.sim.mcu.Timer8Bit$Mode_FastPWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        virtualinvoke $r5.<avrora.sim.mcu.Timer8Bit: void overflow()>();
+
+        $r6 = r0.<avrora.sim.mcu.Timer8Bit$Mode_FastPWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        $r7 = $r6.<avrora.sim.mcu.Timer8Bit: avrora.sim.mcu.Timer8Bit$BufferedRegister OCRn_reg>;
+
+        virtualinvoke $r7.<avrora.sim.mcu.Timer8Bit$BufferedRegister: void flush()>();
+
+        goto label2;
+
+     label1:
+        i2 = i1 + 1;
+
+     label2:
+        $r4 = r0.<avrora.sim.mcu.Timer8Bit$Mode_FastPWM: avrora.sim.mcu.Timer8Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer8Bit: void access$100(avrora.sim.mcu.Timer8Bit,avrora.sim.Simulator$Event,int)>($r4, r0, i2);
+
+        return;
+    }
+}

@@ -1,0 +1,38 @@
+public class avrora.sim.radio.CC1000Radio$FSCTRLRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    boolean fsResetN;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$FSCTRLRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FSCTRLRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$FSCTRLRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, "FSCTRL", 1);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$FSCTRLRegister r0;
+        byte b0;
+        boolean $z0;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FSCTRLRegister;
+
+        b0 := @parameter0: byte;
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 0);
+
+        r0.<avrora.sim.radio.CC1000Radio$FSCTRLRegister: boolean fsResetN> = $z0;
+
+        return;
+    }
+}

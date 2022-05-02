@@ -1,0 +1,187 @@
+class avrora.sim.mcu.SPI$SPSReg extends avrora.sim.RWRegister
+{
+    static final int SPIF;
+    static final int WCOL;
+    final avrora.sim.state.BooleanView _spif;
+    final avrora.sim.state.BooleanView _spi2x;
+    byte prev_value;
+    final avrora.sim.mcu.SPI this$0;
+
+    void <init>(avrora.sim.mcu.SPI)
+    {
+        avrora.sim.mcu.SPI$SPSReg r0;
+        avrora.sim.mcu.SPI r1;
+        avrora.sim.state.BooleanView $r2, $r3;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPSReg;
+
+        r1 := @parameter0: avrora.sim.mcu.SPI;
+
+        r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.mcu.SPI this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.RWRegister: void <init>()>();
+
+        $r2 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>(r0, 7);
+
+        r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.state.BooleanView _spif> = $r2;
+
+        $r3 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>(r0, 0);
+
+        r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.state.BooleanView _spi2x> = $r3;
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.SPI$SPSReg r0;
+        avrora.sim.mcu.SPI $r1, $r3;
+        avrora.sim.output.SimPrinter $r2, $r5;
+        byte b0;
+        java.lang.StringBuilder $r4, $r6, $r7, $r8;
+        java.lang.String $r9;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPSReg;
+
+        b0 := @parameter0: byte;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.mcu.SPI this$0>;
+
+        $r2 = $r1.<avrora.sim.mcu.SPI: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $r2 == null goto label1;
+
+        $r3 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.mcu.SPI this$0>;
+
+        $r5 = $r3.<avrora.sim.mcu.SPI: avrora.sim.output.SimPrinter devicePrinter>;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SPI: wrote ");
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(b0);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" to SPSR");
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r5.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($r9);
+
+     label1:
+        specialinvoke r0.<avrora.sim.RWRegister: void write(byte)>(b0);
+
+        virtualinvoke r0.<avrora.sim.mcu.SPI$SPSReg: void decode(byte)>(b0);
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.SPI$SPSReg r0;
+        avrora.sim.state.BooleanView $r1;
+        boolean $z0;
+        byte $b0;
+        avrora.sim.mcu.SPI $r2;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPSReg;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.state.BooleanView _spif>;
+
+        $z0 = interfaceinvoke $r1.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        if $z0 == 0 goto label1;
+
+        $r2 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.mcu.SPI this$0>;
+
+        $r2.<avrora.sim.mcu.SPI: boolean spifAccessed> = 1;
+
+     label1:
+        $b0 = specialinvoke r0.<avrora.sim.RWRegister: byte read()>();
+
+        return $b0;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.mcu.SPI$SPSReg r0;
+        byte $b0, b1;
+        boolean $z0, $z1;
+        avrora.sim.mcu.SPI $r1, $r2;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPSReg;
+
+        b1 := @parameter0: byte;
+
+        $b0 = r0.<avrora.sim.mcu.SPI$SPSReg: byte prev_value>;
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>($b0, 7);
+
+        if $z0 != 0 goto label1;
+
+        $z1 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b1, 7);
+
+        if $z1 == 0 goto label1;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.mcu.SPI this$0>;
+
+        staticinvoke <avrora.sim.mcu.SPI: void access$000(avrora.sim.mcu.SPI)>($r1);
+
+     label1:
+        $r2 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.mcu.SPI this$0>;
+
+        $r2.<avrora.sim.mcu.SPI: boolean spifAccessed> = 0;
+
+        r0.<avrora.sim.mcu.SPI$SPSReg: byte prev_value> = b1;
+
+        return;
+    }
+
+    public void setSPIF()
+    {
+        avrora.sim.mcu.SPI$SPSReg r0;
+        avrora.sim.state.BooleanView $r1;
+        avrora.sim.mcu.SPI $r2;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPSReg;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.state.BooleanView _spif>;
+
+        interfaceinvoke $r1.<avrora.sim.state.BooleanView: void setValue(boolean)>(1);
+
+        $r2 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.mcu.SPI this$0>;
+
+        $r2.<avrora.sim.mcu.SPI: boolean spifAccessed> = 0;
+
+        return;
+    }
+
+    public void clearSPIF()
+    {
+        avrora.sim.mcu.SPI$SPSReg r0;
+        avrora.sim.state.BooleanView $r1;
+        avrora.sim.mcu.SPI $r2;
+
+        r0 := @this: avrora.sim.mcu.SPI$SPSReg;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.state.BooleanView _spif>;
+
+        interfaceinvoke $r1.<avrora.sim.state.BooleanView: void setValue(boolean)>(0);
+
+        $r2 = r0.<avrora.sim.mcu.SPI$SPSReg: avrora.sim.mcu.SPI this$0>;
+
+        $r2.<avrora.sim.mcu.SPI: boolean spifAccessed> = 0;
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.mcu.SPI$SPSReg: int WCOL> = 6;
+
+        <avrora.sim.mcu.SPI$SPSReg: int SPIF> = 7;
+
+        return;
+    }
+}

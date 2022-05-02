@@ -1,0 +1,91 @@
+class avrora.sim.CodeSegment$NoLegacyInstr extends avrora.arch.legacy.LegacyInstr
+{
+    final avrora.sim.CodeSegment this$0;
+
+    void <init>(avrora.sim.CodeSegment)
+    {
+        avrora.sim.CodeSegment$NoLegacyInstr r0;
+        avrora.sim.CodeSegment r1;
+        avrora.arch.legacy.LegacyInstrProperties $r2;
+
+        r0 := @this: avrora.sim.CodeSegment$NoLegacyInstr;
+
+        r1 := @parameter0: avrora.sim.CodeSegment;
+
+        r0.<avrora.sim.CodeSegment$NoLegacyInstr: avrora.sim.CodeSegment this$0> = r1;
+
+        $r2 = <avrora.sim.CodeSegment: avrora.arch.legacy.LegacyInstrProperties NO_INSTR_PROPS>;
+
+        specialinvoke r0.<avrora.arch.legacy.LegacyInstr: void <init>(avrora.arch.legacy.LegacyInstrProperties)>($r2);
+
+        return;
+    }
+
+    public java.lang.String getOperands()
+    {
+        cck.util.Util$InternalError $r0;
+        avrora.sim.CodeSegment$NoLegacyInstr r1;
+
+        r1 := @this: avrora.sim.CodeSegment$NoLegacyInstr;
+
+        $r0 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>("no instruction here");
+
+        throw $r0;
+    }
+
+    public void accept(avrora.arch.legacy.LegacyInstrVisitor)
+    {
+        avrora.sim.InterpreterError$NoSuchInstructionException $r0;
+        avrora.sim.CodeSegment$NoLegacyInstr r1;
+        avrora.sim.CodeSegment $r2;
+        avrora.sim.AtmelInterpreter $r3;
+        avrora.sim.State $r4;
+        int $i0;
+        avrora.arch.legacy.LegacyInstrVisitor r5;
+
+        r1 := @this: avrora.sim.CodeSegment$NoLegacyInstr;
+
+        r5 := @parameter0: avrora.arch.legacy.LegacyInstrVisitor;
+
+        $r0 = new avrora.sim.InterpreterError$NoSuchInstructionException;
+
+        $r2 = r1.<avrora.sim.CodeSegment$NoLegacyInstr: avrora.sim.CodeSegment this$0>;
+
+        $r3 = $r2.<avrora.sim.CodeSegment: avrora.sim.AtmelInterpreter interpreter>;
+
+        $r4 = virtualinvoke $r3.<avrora.sim.AtmelInterpreter: avrora.sim.State getState()>();
+
+        $i0 = interfaceinvoke $r4.<avrora.sim.State: int getPC()>();
+
+        specialinvoke $r0.<avrora.sim.InterpreterError$NoSuchInstructionException: void <init>(int)>($i0);
+
+        throw $r0;
+    }
+
+    public avrora.arch.legacy.LegacyInstr build(int, avrora.arch.legacy.LegacyOperand[])
+    {
+        cck.util.Util$InternalError $r0;
+        avrora.sim.CodeSegment$NoLegacyInstr r1;
+        int i0;
+        avrora.arch.legacy.LegacyOperand[] r2;
+
+        r1 := @this: avrora.sim.CodeSegment$NoLegacyInstr;
+
+        i0 := @parameter0: int;
+
+        r2 := @parameter1: avrora.arch.legacy.LegacyOperand[];
+
+        $r0 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>("no instruction here");
+
+        throw $r0;
+    }
+
+    public avrora.arch.legacy.LegacyInstr asInstr()
+    {
+        avrora.sim.CodeSegment$NoLegacyInstr r0;
+
+        r0 := @this: avrora.sim.CodeSegment$NoLegacyInstr;
+
+        return null;
+    }
+}

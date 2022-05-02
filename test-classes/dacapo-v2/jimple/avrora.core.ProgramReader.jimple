@@ -1,0 +1,138 @@
+public abstract class avrora.core.ProgramReader extends cck.help.HelpCategory
+{
+    public final cck.util.Option$Str ARCH;
+    public final cck.util.Option$List INDIRECT_EDGES;
+
+    public abstract avrora.core.Program read(java.lang.String[]) throws java.lang.Exception;
+
+    protected void <init>(java.lang.String)
+    {
+        avrora.core.ProgramReader r0;
+        java.lang.String r1, $r4;
+        cck.util.Option$Str $r2;
+        cck.util.Option$List $r3;
+        cck.util.Options $r5;
+
+        r0 := @this: avrora.core.ProgramReader;
+
+        r1 := @parameter0: java.lang.String;
+
+        specialinvoke r0.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("reader", r1);
+
+        $r2 = virtualinvoke r0.<avrora.core.ProgramReader: cck.util.Option$Str newOption(java.lang.String,java.lang.String,java.lang.String)>("arch", "avr", "This option specifies the name of the instruction set architecture for the specified program. This architecture option is used to retrieve an appropriate disassembler and interpreter for the program.");
+
+        r0.<avrora.core.ProgramReader: cck.util.Option$Str ARCH> = $r2;
+
+        $r3 = virtualinvoke r0.<avrora.core.ProgramReader: cck.util.Option$List newOptionList(java.lang.String,java.lang.String,java.lang.String)>("indirect-edges", "", "This option can be used to specify the possible targets of indirect calls and jumps within a program, which may be needed in performing stack analysis or building a control flow graph. Each element of the list is a pair of program addresses separated by a colon, where a program address can be a label or a hexadecimal number preceded by \"0x\". The first program address is the address of the indirect call or jump instruction and the second program address is a possible target.");
+
+        r0.<avrora.core.ProgramReader: cck.util.Option$List INDIRECT_EDGES> = $r3;
+
+        $r4 = r0.<avrora.core.ProgramReader: java.lang.String help>;
+
+        virtualinvoke r0.<avrora.core.ProgramReader: void addSection(java.lang.String,java.lang.String)>("OVERVIEW", $r4);
+
+        $r5 = r0.<avrora.core.ProgramReader: cck.util.Options options>;
+
+        virtualinvoke r0.<avrora.core.ProgramReader: void addOptionSection(java.lang.String,cck.util.Options)>("Help for specific options is below.", $r5);
+
+        return;
+    }
+
+    protected void addIndirectEdges(avrora.core.Program)
+    {
+        avrora.core.ProgramReader r0;
+        cck.util.Option$List $r1;
+        java.util.List $r2;
+        java.util.Iterator r3;
+        boolean $z0;
+        java.lang.Object $r4;
+        java.lang.String r5, $r8, $r10, $r14, $r16;
+        int i0, $i1, $i2, $i3;
+        avrora.core.Program r6;
+        avrora.core.SourceMapping r7;
+        avrora.core.SourceMapping$Location r9, r11;
+        java.lang.StringBuilder $r12, $r13, $r15;
+        cck.util.Util$InternalError $r17;
+
+        r0 := @this: avrora.core.ProgramReader;
+
+        r6 := @parameter0: avrora.core.Program;
+
+        $r1 = r0.<avrora.core.ProgramReader: cck.util.Option$List INDIRECT_EDGES>;
+
+        $r2 = virtualinvoke $r1.<cck.util.Option$List: java.util.List get()>();
+
+        r3 = interfaceinvoke $r2.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke r3.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label3;
+
+        $r4 = interfaceinvoke r3.<java.util.Iterator: java.lang.Object next()>();
+
+        r5 = (java.lang.String) $r4;
+
+        i0 = virtualinvoke r5.<java.lang.String: int indexOf(int)>(58);
+
+        if i0 > 0 goto label2;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("invalid indirect edge format: ");
+
+        $r14 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(r5);
+
+        $r15 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r14);
+
+        $r16 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r17 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>($r16);
+
+        throw $r17;
+
+     label2:
+        r7 = virtualinvoke r6.<avrora.core.Program: avrora.core.SourceMapping getSourceMapping()>();
+
+        $r8 = virtualinvoke r5.<java.lang.String: java.lang.String substring(int,int)>(0, i0);
+
+        r9 = virtualinvoke r7.<avrora.core.SourceMapping: avrora.core.SourceMapping$Location getLocation(java.lang.String)>($r8);
+
+        $i1 = i0 + 1;
+
+        $r10 = virtualinvoke r5.<java.lang.String: java.lang.String substring(int)>($i1);
+
+        r11 = virtualinvoke r7.<avrora.core.SourceMapping: avrora.core.SourceMapping$Location getLocation(java.lang.String)>($r10);
+
+        $i3 = r9.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        $i2 = r11.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        virtualinvoke r6.<avrora.core.Program: void addIndirectEdge(int,int)>($i3, $i2);
+
+        goto label1;
+
+     label3:
+        return;
+    }
+
+    public avrora.arch.AbstractArchitecture getArchitecture()
+    {
+        avrora.core.ProgramReader r0;
+        cck.util.Option$Str $r1;
+        java.lang.String $r2;
+        avrora.arch.AbstractArchitecture $r3;
+
+        r0 := @this: avrora.core.ProgramReader;
+
+        $r1 = r0.<avrora.core.ProgramReader: cck.util.Option$Str ARCH>;
+
+        $r2 = virtualinvoke $r1.<cck.util.Option$Str: java.lang.String get()>();
+
+        $r3 = staticinvoke <avrora.arch.ArchitectureRegistry: avrora.arch.AbstractArchitecture getArchitecture(java.lang.String)>($r2);
+
+        return $r3;
+    }
+}

@@ -1,0 +1,100 @@
+public class avrora.arch.legacy.LegacyInstr$LDD extends avrora.arch.legacy.LegacyInstr$REGREGIMM_class
+{
+    static final avrora.arch.legacy.LegacyInstrProperties props;
+    static final avrora.arch.legacy.LegacyInstrProto prototype;
+
+    avrora.arch.legacy.LegacyInstr allocate(int, avrora.arch.legacy.LegacyRegister, avrora.arch.legacy.LegacyRegister, int)
+    {
+        avrora.arch.legacy.LegacyInstr$LDD $r0, r3;
+        int i0, i1;
+        avrora.arch.legacy.LegacyRegister r1, r2;
+
+        r3 := @this: avrora.arch.legacy.LegacyInstr$LDD;
+
+        i0 := @parameter0: int;
+
+        r1 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        r2 := @parameter2: avrora.arch.legacy.LegacyRegister;
+
+        i1 := @parameter3: int;
+
+        $r0 = new avrora.arch.legacy.LegacyInstr$LDD;
+
+        specialinvoke $r0.<avrora.arch.legacy.LegacyInstr$LDD: void <init>(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister,int)>(i0, r1, r2, i1);
+
+        return $r0;
+    }
+
+    public void <init>(int, avrora.arch.legacy.LegacyRegister, avrora.arch.legacy.LegacyRegister, int)
+    {
+        avrora.arch.legacy.LegacyInstr$LDD r0;
+        avrora.arch.legacy.LegacyRegister r1, $r3, r4, $r5;
+        avrora.arch.legacy.LegacyInstrProperties $r2;
+        int i0, $i1, i2;
+
+        r0 := @this: avrora.arch.legacy.LegacyInstr$LDD;
+
+        i2 := @parameter0: int;
+
+        r1 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        r4 := @parameter2: avrora.arch.legacy.LegacyRegister;
+
+        i0 := @parameter3: int;
+
+        $r2 = <avrora.arch.legacy.LegacyInstr$LDD: avrora.arch.legacy.LegacyInstrProperties props>;
+
+        $r3 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister access$500(int,avrora.arch.legacy.LegacyRegister)>(1, r1);
+
+        $r5 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister access$2900(int,avrora.arch.legacy.LegacyRegister)>(2, r4);
+
+        $i1 = staticinvoke <avrora.arch.legacy.LegacyInstr: int access$900(int,int)>(3, i0);
+
+        specialinvoke r0.<avrora.arch.legacy.LegacyInstr$REGREGIMM_class: void <init>(avrora.arch.legacy.LegacyInstrProperties,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister,int)>($r2, $r3, $r5, $i1);
+
+        return;
+    }
+
+    public void accept(avrora.arch.legacy.LegacyInstrVisitor)
+    {
+        avrora.arch.legacy.LegacyInstrVisitor r0;
+        avrora.arch.legacy.LegacyInstr$LDD r1;
+
+        r1 := @this: avrora.arch.legacy.LegacyInstr$LDD;
+
+        r0 := @parameter0: avrora.arch.legacy.LegacyInstrVisitor;
+
+        interfaceinvoke r0.<avrora.arch.legacy.LegacyInstrVisitor: void visit(avrora.arch.legacy.LegacyInstr$LDD)>(r1);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        avrora.arch.legacy.LegacyInstrProperties $r0;
+        avrora.arch.legacy.LegacyInstr$LDD $r1;
+        avrora.arch.legacy.LegacyRegister $r2, $r3;
+        int $i0;
+
+        $r0 = new avrora.arch.legacy.LegacyInstrProperties;
+
+        specialinvoke $r0.<avrora.arch.legacy.LegacyInstrProperties: void <init>(java.lang.String,java.lang.String,int,int)>("ldd", "ldd", 2, 2);
+
+        <avrora.arch.legacy.LegacyInstr$LDD: avrora.arch.legacy.LegacyInstrProperties props> = $r0;
+
+        $r1 = new avrora.arch.legacy.LegacyInstr$LDD;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister access$400()>();
+
+        $r3 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister access$2800()>();
+
+        $i0 = staticinvoke <avrora.arch.legacy.LegacyInstr: int access$700()>();
+
+        specialinvoke $r1.<avrora.arch.legacy.LegacyInstr$LDD: void <init>(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister,int)>(0, $r2, $r3, $i0);
+
+        <avrora.arch.legacy.LegacyInstr$LDD: avrora.arch.legacy.LegacyInstrProto prototype> = $r1;
+
+        return;
+    }
+}

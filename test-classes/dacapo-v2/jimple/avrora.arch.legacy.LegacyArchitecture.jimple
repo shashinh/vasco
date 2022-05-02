@@ -1,0 +1,81 @@
+public class avrora.arch.legacy.LegacyArchitecture extends java.lang.Object implements avrora.arch.AbstractArchitecture
+{
+    public static avrora.arch.legacy.LegacyArchitecture INSTANCE;
+
+    public void <init>()
+    {
+        avrora.arch.legacy.LegacyArchitecture r0;
+
+        r0 := @this: avrora.arch.legacy.LegacyArchitecture;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public avrora.arch.AbstractDisassembler getDisassembler()
+    {
+        avrora.arch.legacy.LegacyDisassembler $r0;
+        avrora.arch.legacy.LegacyArchitecture r1;
+
+        r1 := @this: avrora.arch.legacy.LegacyArchitecture;
+
+        $r0 = new avrora.arch.legacy.LegacyDisassembler;
+
+        specialinvoke $r0.<avrora.arch.legacy.LegacyDisassembler: void <init>()>();
+
+        return $r0;
+    }
+
+    public avrora.arch.AbstractAssembler getAssembler()
+    {
+        cck.util.Util$InternalError $r0;
+        avrora.arch.legacy.LegacyArchitecture r1;
+
+        r1 := @this: avrora.arch.legacy.LegacyArchitecture;
+
+        $r0 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $r0;
+    }
+
+    public avrora.arch.AbstractParser getParser()
+    {
+        cck.util.Util$InternalError $r0;
+        avrora.arch.legacy.LegacyArchitecture r1;
+
+        r1 := @this: avrora.arch.legacy.LegacyArchitecture;
+
+        $r0 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $r0;
+    }
+
+    public avrora.arch.AbstractInstr[] newInstrArray(int)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyInstr[] $r0;
+        avrora.arch.legacy.LegacyArchitecture r1;
+
+        r1 := @this: avrora.arch.legacy.LegacyArchitecture;
+
+        i0 := @parameter0: int;
+
+        $r0 = newarray (avrora.arch.legacy.LegacyInstr)[i0];
+
+        return $r0;
+    }
+
+    static void <clinit>()
+    {
+        avrora.arch.legacy.LegacyArchitecture $r0;
+
+        $r0 = new avrora.arch.legacy.LegacyArchitecture;
+
+        specialinvoke $r0.<avrora.arch.legacy.LegacyArchitecture: void <init>()>();
+
+        <avrora.arch.legacy.LegacyArchitecture: avrora.arch.legacy.LegacyArchitecture INSTANCE> = $r0;
+
+        return;
+    }
+}

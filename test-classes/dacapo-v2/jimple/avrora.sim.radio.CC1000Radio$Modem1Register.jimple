@@ -1,0 +1,70 @@
+public class avrora.sim.radio.CC1000Radio$Modem1Register extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    int mlimit;
+    boolean lockAvgN;
+    boolean lockAvgMode;
+    int settling;
+    boolean modemResetN;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$Modem1Register r0;
+        avrora.sim.radio.CC1000Radio r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$Modem1Register;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$Modem1Register: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, "MODEM1", 103);
+
+        r0.<avrora.sim.radio.CC1000Radio$Modem1Register: int settling> = 11;
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$Modem1Register r0;
+        byte b0;
+        int $i1, $i2, $i3, $i4, $i5;
+        boolean $z0, $z1, $z2;
+        int[] $r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$Modem1Register;
+
+        b0 := @parameter0: byte;
+
+        $i1 = b0 & 224;
+
+        $i2 = $i1 >> 5;
+
+        r0.<avrora.sim.radio.CC1000Radio$Modem1Register: int mlimit> = $i2;
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 4);
+
+        r0.<avrora.sim.radio.CC1000Radio$Modem1Register: boolean lockAvgN> = $z0;
+
+        $z1 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 3);
+
+        r0.<avrora.sim.radio.CC1000Radio$Modem1Register: boolean lockAvgMode> = $z1;
+
+        $r1 = <avrora.sim.radio.CC1000Radio: int[] SETTLING>;
+
+        $i3 = b0 & 6;
+
+        $i4 = $i3 >> 1;
+
+        $i5 = $r1[$i4];
+
+        r0.<avrora.sim.radio.CC1000Radio$Modem1Register: int settling> = $i5;
+
+        $z2 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 0);
+
+        r0.<avrora.sim.radio.CC1000Radio$Modem1Register: boolean modemResetN> = $z2;
+
+        return;
+    }
+}

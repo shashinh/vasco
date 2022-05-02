@@ -1,0 +1,157 @@
+public class avrora.sim.radio.CC1000Radio$PA_POWRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    int paHighPower;
+    int paLowPower;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$PA_POWRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, "PA_POW", 15);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$PA_POWRegister r0;
+        byte $b0, $b3, b7;
+        int $i1, $i2, $i4, $i5, $i6;
+        avrora.sim.radio.CC1000Radio $r1, $r3, $r5, $r7, $r9, $r11;
+        avrora.sim.radio.CC1000Radio$MainRegister $r2, $r4, $r6, $r8, $r10;
+        boolean $z0, $z1, $z2, $z3, $z4;
+        avrora.sim.FiniteStateMachine $r12;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        b7 := @parameter0: byte;
+
+        $b0 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: byte value>;
+
+        $i1 = $b0 & 240;
+
+        $i2 = $i1 >> 4;
+
+        r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int paHighPower> = $i2;
+
+        $b3 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: byte value>;
+
+        $i4 = $b3 & 15;
+
+        r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int paLowPower> = $i4;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r2 = $r1.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $z0 = $r2.<avrora.sim.radio.CC1000Radio$MainRegister: boolean corePd>;
+
+        if $z0 != 0 goto label1;
+
+        $r3 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r4 = $r3.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $z1 = $r4.<avrora.sim.radio.CC1000Radio$MainRegister: boolean biasPd>;
+
+        if $z1 != 0 goto label1;
+
+        $r5 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r6 = $r5.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $z2 = $r6.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fsPd>;
+
+        if $z2 != 0 goto label1;
+
+        $r7 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r8 = $r7.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $z3 = $r8.<avrora.sim.radio.CC1000Radio$MainRegister: boolean rxtx>;
+
+        if $z3 == 0 goto label1;
+
+        $r9 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r10 = $r9.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $z4 = $r10.<avrora.sim.radio.CC1000Radio$MainRegister: boolean txPd>;
+
+        if $z4 != 0 goto label1;
+
+        $r11 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r12 = $r11.<avrora.sim.radio.CC1000Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        $i5 = virtualinvoke r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int getPower()>();
+
+        $i6 = $i5 + 6;
+
+        virtualinvoke $r12.<avrora.sim.FiniteStateMachine: void transition(int)>($i6);
+
+     label1:
+        return;
+    }
+
+    protected int getPower()
+    {
+        avrora.sim.radio.CC1000Radio$PA_POWRegister r0;
+        byte $b0;
+        int $i1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        $b0 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: byte value>;
+
+        $i1 = $b0 & 255;
+
+        return $i1;
+    }
+
+    protected void printStatus()
+    {
+        avrora.sim.radio.CC1000Radio$PA_POWRegister r0;
+        avrora.sim.radio.CC1000Radio $r1;
+        java.lang.StringBuilder $r2, $r4, $r5, $r6, $r7;
+        avrora.sim.output.SimPrinter $r3;
+        int $i0, $i1;
+        java.lang.String $r8;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r3 = $r1.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000[PA_POW]: PA high power: ");
+
+        $i0 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int paHighPower>;
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", PA low power: ");
+
+        $i1 = r0.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int paLowPower>;
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($r8);
+
+        return;
+    }
+}

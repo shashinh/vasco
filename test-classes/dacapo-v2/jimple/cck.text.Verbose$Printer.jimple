@@ -1,0 +1,185 @@
+public class cck.text.Verbose$Printer extends cck.text.Printer
+{
+    public boolean enabled;
+
+    void <init>()
+    {
+        cck.text.Verbose$Printer r0;
+        java.io.PrintStream $r1;
+        boolean $z0;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        $r1 = <java.lang.System: java.io.PrintStream out>;
+
+        specialinvoke r0.<cck.text.Printer: void <init>(java.io.PrintStream)>($r1);
+
+        $z0 = <cck.text.Verbose: boolean ALL>;
+
+        r0.<cck.text.Verbose$Printer: boolean enabled> = $z0;
+
+        return;
+    }
+
+    public void println(java.lang.String)
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+        java.lang.String r1;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        r1 := @parameter0: java.lang.String;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void println(java.lang.String)>(r1);
+
+     label1:
+        return;
+    }
+
+    public void print(java.lang.String)
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+        java.lang.String r1;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        r1 := @parameter0: java.lang.String;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void print(java.lang.String)>(r1);
+
+     label1:
+        return;
+    }
+
+    public void nextln()
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void nextln()>();
+
+     label1:
+        return;
+    }
+
+    public void indent()
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void indent()>();
+
+     label1:
+        return;
+    }
+
+    public void spaces()
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void spaces()>();
+
+     label1:
+        return;
+    }
+
+    public void unindent()
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void unindent()>();
+
+     label1:
+        return;
+    }
+
+    public void startblock()
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void startblock()>();
+
+     label1:
+        return;
+    }
+
+    public void startblock(java.lang.String)
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+        java.lang.String r1;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        r1 := @parameter0: java.lang.String;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void startblock(java.lang.String)>(r1);
+
+     label1:
+        return;
+    }
+
+    public void endblock()
+    {
+        cck.text.Verbose$Printer r0;
+        boolean $z0;
+
+        r0 := @this: cck.text.Verbose$Printer;
+
+        $z0 = r0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $z0 == 0 goto label1;
+
+        specialinvoke r0.<cck.text.Printer: void endblock()>();
+
+     label1:
+        return;
+    }
+}

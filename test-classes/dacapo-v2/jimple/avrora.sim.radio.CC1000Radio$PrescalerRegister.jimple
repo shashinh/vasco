@@ -1,0 +1,72 @@
+public class avrora.sim.radio.CC1000Radio$PrescalerRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    double preSwing;
+    double preCurrent;
+    boolean ifInput;
+    boolean ifFront;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$PrescalerRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$PrescalerRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$PrescalerRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, "PRESCALER", 0);
+
+        r0.<avrora.sim.radio.CC1000Radio$PrescalerRegister: double preSwing> = 1.0;
+
+        r0.<avrora.sim.radio.CC1000Radio$PrescalerRegister: double preCurrent> = 1.0;
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$PrescalerRegister r0;
+        byte b0;
+        int $i1, $i2, $i3, $i4;
+        double[] $r1, $r2;
+        double $d0, $d1;
+        boolean $z0, $z1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$PrescalerRegister;
+
+        b0 := @parameter0: byte;
+
+        $r1 = <avrora.sim.radio.CC1000Radio: double[] PRE_SWING>;
+
+        $i1 = b0 & 192;
+
+        $i2 = $i1 >> 6;
+
+        $d0 = $r1[$i2];
+
+        r0.<avrora.sim.radio.CC1000Radio$PrescalerRegister: double preSwing> = $d0;
+
+        $r2 = <avrora.sim.radio.CC1000Radio: double[] PRE_CURRENT>;
+
+        $i3 = b0 & 48;
+
+        $i4 = $i3 >> 4;
+
+        $d1 = $r2[$i4];
+
+        r0.<avrora.sim.radio.CC1000Radio$PrescalerRegister: double preCurrent> = $d1;
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 3);
+
+        r0.<avrora.sim.radio.CC1000Radio$PrescalerRegister: boolean ifInput> = $z0;
+
+        $z1 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 4);
+
+        r0.<avrora.sim.radio.CC1000Radio$PrescalerRegister: boolean ifFront> = $z1;
+
+        return;
+    }
+}

@@ -1,0 +1,894 @@
+public class avrora.sim.radio.CC1000Radio extends java.lang.Object implements avrora.sim.radio.Radio
+{
+    private static final double FXOSC_FREQUENCY;
+    public static final int MAIN;
+    public static final int FREQ_2A;
+    public static final int FREQ_1A;
+    public static final int FREQ_0A;
+    public static final int FREQ_2B;
+    public static final int FREQ_1B;
+    public static final int FREQ_0B;
+    public static final int FSEP1;
+    public static final int FSEP0;
+    public static final int CURRENT;
+    public static final int FRONT_END;
+    public static final int PA_POW;
+    public static final int PLL;
+    public static final int LOCK;
+    public static final int CAL;
+    public static final int MODEM2;
+    public static final int MODEM1;
+    public static final int MODEM0;
+    public static final int MATCH;
+    public static final int FSCTRL;
+    public static final int PRESCALER;
+    public static final int TEST6;
+    public static final int TEST5;
+    public static final int TEST4;
+    public static final int TEST3;
+    public static final int TEST2;
+    public static final int TEST1;
+    public static final int TEST0;
+    protected static final java.lang.String[] allModeNames;
+    protected static final int[][] ttm;
+    protected avrora.sim.radio.CC1000Radio$RadioRegister[] registers;
+    protected final avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg;
+    protected final avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_A_reg;
+    protected final avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_B_reg;
+    protected final avrora.sim.radio.CC1000Radio$FrequencySeparationRegister FSEP_reg;
+    protected final avrora.sim.radio.CC1000Radio$CurrentRegister CURRENT_reg;
+    protected final avrora.sim.radio.CC1000Radio$FrontEndRegister FRONT_END_reg;
+    protected final avrora.sim.radio.CC1000Radio$PA_POWRegister PA_POW_reg;
+    protected final avrora.sim.radio.CC1000Radio$PLLRegister PLL_reg;
+    protected final avrora.sim.radio.CC1000Radio$LockRegister LOCK_reg;
+    protected final avrora.sim.radio.CC1000Radio$CALRegister CAL_reg;
+    protected final avrora.sim.radio.CC1000Radio$Modem2Register MODEM_2_reg;
+    protected final avrora.sim.radio.CC1000Radio$Modem1Register MODEM_1_reg;
+    protected final avrora.sim.radio.CC1000Radio$Modem0Register MODEM_0_reg;
+    protected final avrora.sim.radio.CC1000Radio$MatchRegister MATCH_reg;
+    protected final avrora.sim.radio.CC1000Radio$FSCTRLRegister FSCTRL_reg;
+    protected final avrora.sim.radio.CC1000Radio$PrescalerRegister PRESCALER_reg;
+    protected final avrora.sim.output.SimPrinter radioPrinter;
+    protected final long xoscFrequency;
+    protected avrora.sim.radio.CC1000Radio$FrequencyRegister currentFrequencyRegister;
+    protected final avrora.sim.mcu.Microcontroller mcu;
+    protected final avrora.sim.Simulator sim;
+    protected final avrora.sim.clock.Clock clock;
+    protected final avrora.sim.FiniteStateMachine stateMachine;
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface config;
+    static final int[] VCO_CURRENT;
+    static final double[] LO_DRIVE;
+    static final int[] PA_DRIVE;
+    static final int[] BUF_CURRENT;
+    static final double[] LNA_CURRENT;
+    static final int[] SETS_LOCK_THRESHOLD;
+    static final int[] RESET_LOCK_THRESHOLD;
+    static final int[] SETTLING;
+    static final int[] BAUDRATE;
+    static final int[] XOSC_FREQ;
+    static final double[] PRE_SWING;
+    static final double[] PRE_CURRENT;
+    protected avrora.sim.radio.Medium medium;
+    protected avrora.sim.radio.CC1000Radio$Transmitter transmitter;
+    protected avrora.sim.radio.CC1000Radio$Receiver receiver;
+    protected avrora.sim.radio.CC1000Radio$SPITicker ticker;
+    protected avrora.sim.radio.CC1000Radio$RSSIOutput rssiOutput;
+    long spiTick;
+    byte txBuffer;
+    int rxBuffer;
+
+    public void <init>(avrora.sim.mcu.Microcontroller, long)
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.radio.CC1000Radio$RadioRegister[] $r1, $r8, $r10, $r14, $r17, $r20, $r24, $r27, $r30, $r34, $r37, $r39, $r41, $r43, $r45, $r47, $r49, $r51, $r53, $r55, $r57, $r59, $r61, $r84;
+        long l0;
+        avrora.sim.mcu.Microcontroller r2;
+        avrora.sim.Simulator $r3, $r4, $r6, $r67, r85;
+        avrora.sim.clock.MainClock $r5, $r63;
+        avrora.sim.output.SimPrinter $r7;
+        int $i1, i2;
+        avrora.sim.radio.CC1000Radio$MainRegister $r9;
+        avrora.sim.radio.CC1000Radio$FrequencyRegister $r11, $r12, $r15, $r18, $r21, $r22, $r25, $r28;
+        avrora.sim.radio.CC1000Radio$FrequencyRegister$FrequencySubRegister $r13, $r16, $r19, $r23, $r26, $r29;
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister $r31, $r32, $r35;
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister $r33, $r36;
+        avrora.sim.radio.CC1000Radio$CurrentRegister $r38;
+        avrora.sim.radio.CC1000Radio$FrontEndRegister $r40;
+        avrora.sim.radio.CC1000Radio$PA_POWRegister $r42;
+        avrora.sim.radio.CC1000Radio$PLLRegister $r44;
+        avrora.sim.radio.CC1000Radio$LockRegister $r46;
+        avrora.sim.radio.CC1000Radio$CALRegister $r48;
+        avrora.sim.radio.CC1000Radio$Modem2Register $r50;
+        avrora.sim.radio.CC1000Radio$Modem1Register $r52;
+        avrora.sim.radio.CC1000Radio$Modem0Register $r54;
+        avrora.sim.radio.CC1000Radio$MatchRegister $r56;
+        avrora.sim.radio.CC1000Radio$FSCTRLRegister $r58;
+        avrora.sim.radio.CC1000Radio$PrescalerRegister $r60;
+        avrora.sim.FiniteStateMachine $r62, $r69;
+        int[][] $r64;
+        java.lang.String[] $r65;
+        avrora.sim.energy.Energy $r66;
+        double[] $r68;
+        avrora.sim.Simulation $r70;
+        avrora.sim.energy.EnergyControl $r71;
+        avrora.sim.mcu.ATMegaFamily r72;
+        avrora.sim.radio.CC1000Radio$SPITicker $r73, $r74;
+        avrora.sim.mcu.AtmelInternalDevice $r75, $r79;
+        avrora.sim.mcu.SPIDevice $r76;
+        avrora.sim.radio.Medium $r77;
+        avrora.sim.radio.CC1000Radio$RSSIOutput $r78, $r81;
+        avrora.sim.mcu.ADC r80;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface $r82;
+        avrora.sim.radio.CC1000Radio$DummyRegister $r83;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        r2 := @parameter0: avrora.sim.mcu.Microcontroller;
+
+        l0 := @parameter1: long;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r1 = newarray (avrora.sim.radio.CC1000Radio$RadioRegister)[71];
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers> = $r1;
+
+        r0.<avrora.sim.radio.CC1000Radio: long xoscFrequency> = l0;
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.mcu.Microcontroller mcu> = r2;
+
+        $r3 = interfaceinvoke r2.<avrora.sim.mcu.Microcontroller: avrora.sim.Simulator getSimulator()>();
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.Simulator sim> = $r3;
+
+        $r4 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.Simulator sim>;
+
+        $r5 = virtualinvoke $r4.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.clock.Clock clock> = $r5;
+
+        $r6 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.Simulator sim>;
+
+        $r7 = virtualinvoke $r6.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter(java.lang.String)>("radio.cc1000");
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter> = $r7;
+
+        i2 = 20;
+
+     label1:
+        $r8 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $i1 = lengthof $r8;
+
+        if i2 >= $i1 goto label2;
+
+        $r84 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r83 = new avrora.sim.radio.CC1000Radio$DummyRegister;
+
+        specialinvoke $r83.<avrora.sim.radio.CC1000Radio$DummyRegister: void <init>(avrora.sim.radio.CC1000Radio,int)>(r0, i2);
+
+        $r84[i2] = $r83;
+
+        i2 = i2 + 1;
+
+        goto label1;
+
+     label2:
+        $r10 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r9 = new avrora.sim.radio.CC1000Radio$MainRegister;
+
+        specialinvoke $r9.<avrora.sim.radio.CC1000Radio$MainRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg> = $r9;
+
+        $r10[0] = $r9;
+
+        $r11 = new avrora.sim.radio.CC1000Radio$FrequencyRegister;
+
+        specialinvoke $r11.<avrora.sim.radio.CC1000Radio$FrequencyRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String)>(r0, "A");
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_A_reg> = $r11;
+
+        $r14 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r12 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_A_reg>;
+
+        $r13 = $r12.<avrora.sim.radio.CC1000Radio$FrequencyRegister: avrora.sim.radio.CC1000Radio$FrequencyRegister$FrequencySubRegister reg2>;
+
+        $r14[1] = $r13;
+
+        $r17 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r15 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_A_reg>;
+
+        $r16 = $r15.<avrora.sim.radio.CC1000Radio$FrequencyRegister: avrora.sim.radio.CC1000Radio$FrequencyRegister$FrequencySubRegister reg1>;
+
+        $r17[2] = $r16;
+
+        $r20 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r18 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_A_reg>;
+
+        $r19 = $r18.<avrora.sim.radio.CC1000Radio$FrequencyRegister: avrora.sim.radio.CC1000Radio$FrequencyRegister$FrequencySubRegister reg0>;
+
+        $r20[3] = $r19;
+
+        $r21 = new avrora.sim.radio.CC1000Radio$FrequencyRegister;
+
+        specialinvoke $r21.<avrora.sim.radio.CC1000Radio$FrequencyRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String)>(r0, "B");
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_B_reg> = $r21;
+
+        $r24 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r22 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_B_reg>;
+
+        $r23 = $r22.<avrora.sim.radio.CC1000Radio$FrequencyRegister: avrora.sim.radio.CC1000Radio$FrequencyRegister$FrequencySubRegister reg2>;
+
+        $r24[4] = $r23;
+
+        $r27 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r25 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_B_reg>;
+
+        $r26 = $r25.<avrora.sim.radio.CC1000Radio$FrequencyRegister: avrora.sim.radio.CC1000Radio$FrequencyRegister$FrequencySubRegister reg1>;
+
+        $r27[5] = $r26;
+
+        $r30 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r28 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_B_reg>;
+
+        $r29 = $r28.<avrora.sim.radio.CC1000Radio$FrequencyRegister: avrora.sim.radio.CC1000Radio$FrequencyRegister$FrequencySubRegister reg0>;
+
+        $r30[6] = $r29;
+
+        $r31 = new avrora.sim.radio.CC1000Radio$FrequencySeparationRegister;
+
+        specialinvoke $r31.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister FSEP_reg> = $r31;
+
+        $r34 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r32 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister FSEP_reg>;
+
+        $r33 = $r32.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg1>;
+
+        $r34[7] = $r33;
+
+        $r37 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r35 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister FSEP_reg>;
+
+        $r36 = $r35.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg0>;
+
+        $r37[8] = $r36;
+
+        $r39 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r38 = new avrora.sim.radio.CC1000Radio$CurrentRegister;
+
+        specialinvoke $r38.<avrora.sim.radio.CC1000Radio$CurrentRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$CurrentRegister CURRENT_reg> = $r38;
+
+        $r39[9] = $r38;
+
+        $r41 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r40 = new avrora.sim.radio.CC1000Radio$FrontEndRegister;
+
+        specialinvoke $r40.<avrora.sim.radio.CC1000Radio$FrontEndRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrontEndRegister FRONT_END_reg> = $r40;
+
+        $r41[10] = $r40;
+
+        $r43 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r42 = new avrora.sim.radio.CC1000Radio$PA_POWRegister;
+
+        specialinvoke $r42.<avrora.sim.radio.CC1000Radio$PA_POWRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$PA_POWRegister PA_POW_reg> = $r42;
+
+        $r43[11] = $r42;
+
+        $r45 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r44 = new avrora.sim.radio.CC1000Radio$PLLRegister;
+
+        specialinvoke $r44.<avrora.sim.radio.CC1000Radio$PLLRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$PLLRegister PLL_reg> = $r44;
+
+        $r45[12] = $r44;
+
+        $r47 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r46 = new avrora.sim.radio.CC1000Radio$LockRegister;
+
+        specialinvoke $r46.<avrora.sim.radio.CC1000Radio$LockRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$LockRegister LOCK_reg> = $r46;
+
+        $r47[13] = $r46;
+
+        $r49 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r48 = new avrora.sim.radio.CC1000Radio$CALRegister;
+
+        specialinvoke $r48.<avrora.sim.radio.CC1000Radio$CALRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$CALRegister CAL_reg> = $r48;
+
+        $r49[14] = $r48;
+
+        $r51 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r50 = new avrora.sim.radio.CC1000Radio$Modem2Register;
+
+        specialinvoke $r50.<avrora.sim.radio.CC1000Radio$Modem2Register: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Modem2Register MODEM_2_reg> = $r50;
+
+        $r51[15] = $r50;
+
+        $r53 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r52 = new avrora.sim.radio.CC1000Radio$Modem1Register;
+
+        specialinvoke $r52.<avrora.sim.radio.CC1000Radio$Modem1Register: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Modem1Register MODEM_1_reg> = $r52;
+
+        $r53[16] = $r52;
+
+        $r55 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r54 = new avrora.sim.radio.CC1000Radio$Modem0Register;
+
+        specialinvoke $r54.<avrora.sim.radio.CC1000Radio$Modem0Register: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Modem0Register MODEM_0_reg> = $r54;
+
+        $r55[17] = $r54;
+
+        $r57 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r56 = new avrora.sim.radio.CC1000Radio$MatchRegister;
+
+        specialinvoke $r56.<avrora.sim.radio.CC1000Radio$MatchRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MatchRegister MATCH_reg> = $r56;
+
+        $r57[18] = $r56;
+
+        $r59 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r58 = new avrora.sim.radio.CC1000Radio$FSCTRLRegister;
+
+        specialinvoke $r58.<avrora.sim.radio.CC1000Radio$FSCTRLRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FSCTRLRegister FSCTRL_reg> = $r58;
+
+        $r59[19] = $r58;
+
+        $r61 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $r60 = new avrora.sim.radio.CC1000Radio$PrescalerRegister;
+
+        specialinvoke $r60.<avrora.sim.radio.CC1000Radio$PrescalerRegister: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$PrescalerRegister PRESCALER_reg> = $r60;
+
+        $r61[28] = $r60;
+
+        r85 = interfaceinvoke r2.<avrora.sim.mcu.Microcontroller: avrora.sim.Simulator getSimulator()>();
+
+        $r62 = new avrora.sim.FiniteStateMachine;
+
+        $r63 = virtualinvoke r85.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $r65 = <avrora.sim.radio.CC1000Radio: java.lang.String[] allModeNames>;
+
+        $r64 = <avrora.sim.radio.CC1000Radio: int[][] ttm>;
+
+        specialinvoke $r62.<avrora.sim.FiniteStateMachine: void <init>(avrora.sim.clock.Clock,int,java.lang.String[],int[][])>($r63, 0, $r65, $r64);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.FiniteStateMachine stateMachine> = $r62;
+
+        $r66 = new avrora.sim.energy.Energy;
+
+        $r68 = <avrora.sim.radio.RadioEnergy: double[] modeAmpere>;
+
+        $r69 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        $r67 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.Simulator sim>;
+
+        $r70 = virtualinvoke $r67.<avrora.sim.Simulator: avrora.sim.Simulation getSimulation()>();
+
+        $r71 = virtualinvoke $r70.<avrora.sim.Simulation: avrora.sim.energy.EnergyControl getEnergyControl()>();
+
+        specialinvoke $r66.<avrora.sim.energy.Energy: void <init>(java.lang.String,double[],avrora.sim.FiniteStateMachine,avrora.sim.energy.EnergyControl)>("Radio", $r68, $r69, $r71);
+
+        r72 = (avrora.sim.mcu.ATMegaFamily) r2;
+
+        $r73 = new avrora.sim.radio.CC1000Radio$SPITicker;
+
+        specialinvoke $r73.<avrora.sim.radio.CC1000Radio$SPITicker: void <init>(avrora.sim.radio.CC1000Radio,avrora.sim.radio.CC1000Radio$1)>(r0, null);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SPITicker ticker> = $r73;
+
+        $r74 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SPITicker ticker>;
+
+        $r75 = virtualinvoke r72.<avrora.sim.mcu.ATMegaFamily: avrora.sim.mcu.AtmelInternalDevice getDevice(java.lang.String)>("spi");
+
+        $r76 = (avrora.sim.mcu.SPIDevice) $r75;
+
+        $r74.<avrora.sim.radio.CC1000Radio$SPITicker: avrora.sim.mcu.SPIDevice spiDevice> = $r76;
+
+        $r77 = staticinvoke <avrora.sim.radio.CC1000Radio: avrora.sim.radio.Medium createMedium(avrora.sim.clock.Synchronizer,avrora.sim.radio.Medium$Arbitrator)>(null, null);
+
+        virtualinvoke r0.<avrora.sim.radio.CC1000Radio: void setMedium(avrora.sim.radio.Medium)>($r77);
+
+        $r78 = new avrora.sim.radio.CC1000Radio$RSSIOutput;
+
+        specialinvoke $r78.<avrora.sim.radio.CC1000Radio$RSSIOutput: void <init>(avrora.sim.radio.CC1000Radio,avrora.sim.radio.CC1000Radio$1)>(r0, null);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RSSIOutput rssiOutput> = $r78;
+
+        $r79 = virtualinvoke r72.<avrora.sim.mcu.ATMegaFamily: avrora.sim.mcu.AtmelInternalDevice getDevice(java.lang.String)>("adc");
+
+        r80 = (avrora.sim.mcu.ADC) $r79;
+
+        $r81 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RSSIOutput rssiOutput>;
+
+        virtualinvoke r80.<avrora.sim.mcu.ADC: void connectADCInput(avrora.sim.mcu.ADC$ADCInput,int)>($r81, 0);
+
+        $r82 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        specialinvoke $r82.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void <init>(avrora.sim.radio.CC1000Radio)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface config> = $r82;
+
+        return;
+    }
+
+    public avrora.sim.FiniteStateMachine getFiniteStateMachine()
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.FiniteStateMachine $r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.FiniteStateMachine stateMachine>;
+
+        return $r1;
+    }
+
+    public double getPower()
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.radio.CC1000Radio$PA_POWRegister $r1;
+        int $i0;
+        double d0, $d1, $d2, d3;
+        byte $b1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$PA_POWRegister PA_POW_reg>;
+
+        $i0 = virtualinvoke $r1.<avrora.sim.radio.CC1000Radio$PA_POWRegister: int getPower()>();
+
+        d0 = (double) $i0;
+
+        $b1 = d0 cmpg 16.0;
+
+        if $b1 >= 0 goto label1;
+
+        $d2 = 0.12 * d0;
+
+        d3 = $d2 - 1.8;
+
+        goto label2;
+
+     label1:
+        $d1 = 0.00431 * d0;
+
+        d3 = $d1 - 0.06459;
+
+     label2:
+        return d3;
+    }
+
+    public double getFrequency()
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.radio.CC1000Radio$PLLRegister $r1;
+        int $i0, $i2, $i3;
+        double $d0, d1, $d2, $d3, $d4;
+        avrora.sim.radio.CC1000Radio$MainRegister $r2;
+        boolean $z0;
+        avrora.sim.radio.CC1000Radio$FrequencyRegister $r3, $r4;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$PLLRegister PLL_reg>;
+
+        $i0 = $r1.<avrora.sim.radio.CC1000Radio$PLLRegister: int refDiv>;
+
+        $d0 = (double) $i0;
+
+        d1 = 1.47456E7 / $d0;
+
+        $r2 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$MainRegister MAIN_reg>;
+
+        $z0 = $r2.<avrora.sim.radio.CC1000Radio$MainRegister: boolean fReg>;
+
+        if $z0 != 0 goto label1;
+
+        $r4 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_A_reg>;
+
+        $i3 = $r4.<avrora.sim.radio.CC1000Radio$FrequencyRegister: int frequency>;
+
+        goto label2;
+
+     label1:
+        $r3 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$FrequencyRegister FREQ_B_reg>;
+
+        $i3 = $r3.<avrora.sim.radio.CC1000Radio$FrequencyRegister: int frequency>;
+
+     label2:
+        $i2 = $i3 + 8192;
+
+        $d2 = (double) $i2;
+
+        $d3 = d1 * $d2;
+
+        $d4 = $d3 / 1.6384E10;
+
+        return $d4;
+    }
+
+    public static avrora.sim.radio.Medium createMedium(avrora.sim.clock.Synchronizer, avrora.sim.radio.Medium$Arbitrator)
+    {
+        avrora.sim.radio.Medium $r0;
+        avrora.sim.clock.Synchronizer r1;
+        avrora.sim.radio.Medium$Arbitrator r2;
+
+        r1 := @parameter0: avrora.sim.clock.Synchronizer;
+
+        r2 := @parameter1: avrora.sim.radio.Medium$Arbitrator;
+
+        $r0 = new avrora.sim.radio.Medium;
+
+        specialinvoke $r0.<avrora.sim.radio.Medium: void <init>(avrora.sim.clock.Synchronizer,avrora.sim.radio.Medium$Arbitrator,int,int,int,int)>(r1, r2, 19200, 4, 8, 1024);
+
+        return $r0;
+    }
+
+    public avrora.sim.Simulator getSimulator()
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.Simulator $r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.Simulator sim>;
+
+        return $r1;
+    }
+
+    public avrora.sim.radio.Medium$Transmitter getTransmitter()
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.radio.CC1000Radio$Transmitter $r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Transmitter transmitter>;
+
+        return $r1;
+    }
+
+    public avrora.sim.radio.Medium$Receiver getReceiver()
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.radio.CC1000Radio$Receiver $r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Receiver receiver>;
+
+        return $r1;
+    }
+
+    public void setMedium(avrora.sim.radio.Medium)
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.radio.Medium r1;
+        avrora.sim.radio.CC1000Radio$Transmitter $r2;
+        avrora.sim.radio.CC1000Radio$Receiver $r3;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        r1 := @parameter0: avrora.sim.radio.Medium;
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.Medium medium> = r1;
+
+        $r2 = new avrora.sim.radio.CC1000Radio$Transmitter;
+
+        specialinvoke $r2.<avrora.sim.radio.CC1000Radio$Transmitter: void <init>(avrora.sim.radio.CC1000Radio,avrora.sim.radio.Medium)>(r0, r1);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Transmitter transmitter> = $r2;
+
+        $r3 = new avrora.sim.radio.CC1000Radio$Receiver;
+
+        specialinvoke $r3.<avrora.sim.radio.CC1000Radio$Receiver: void <init>(avrora.sim.radio.CC1000Radio,avrora.sim.radio.Medium)>(r0, r1);
+
+        r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$Receiver receiver> = $r3;
+
+        return;
+    }
+
+    public avrora.sim.radio.Medium getMedium()
+    {
+        avrora.sim.radio.CC1000Radio r0;
+        avrora.sim.radio.Medium $r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.Medium medium>;
+
+        return $r1;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.String[] $r0, $r1;
+        int $i0;
+        int[][] $r2;
+        int[] $r3, $r5, $r6, $r8, $r9, $r10, $r11, $r12;
+        double[] $r4, $r7, $r13, $r14;
+
+        <avrora.sim.radio.CC1000Radio: int TEST0> = 70;
+
+        <avrora.sim.radio.CC1000Radio: int TEST1> = 69;
+
+        <avrora.sim.radio.CC1000Radio: int TEST2> = 68;
+
+        <avrora.sim.radio.CC1000Radio: int TEST3> = 67;
+
+        <avrora.sim.radio.CC1000Radio: int TEST4> = 66;
+
+        <avrora.sim.radio.CC1000Radio: int TEST5> = 65;
+
+        <avrora.sim.radio.CC1000Radio: int TEST6> = 64;
+
+        <avrora.sim.radio.CC1000Radio: int PRESCALER> = 28;
+
+        <avrora.sim.radio.CC1000Radio: int FSCTRL> = 19;
+
+        <avrora.sim.radio.CC1000Radio: int MATCH> = 18;
+
+        <avrora.sim.radio.CC1000Radio: int MODEM0> = 17;
+
+        <avrora.sim.radio.CC1000Radio: int MODEM1> = 16;
+
+        <avrora.sim.radio.CC1000Radio: int MODEM2> = 15;
+
+        <avrora.sim.radio.CC1000Radio: int CAL> = 14;
+
+        <avrora.sim.radio.CC1000Radio: int LOCK> = 13;
+
+        <avrora.sim.radio.CC1000Radio: int PLL> = 12;
+
+        <avrora.sim.radio.CC1000Radio: int PA_POW> = 11;
+
+        <avrora.sim.radio.CC1000Radio: int FRONT_END> = 10;
+
+        <avrora.sim.radio.CC1000Radio: int CURRENT> = 9;
+
+        <avrora.sim.radio.CC1000Radio: int FSEP0> = 8;
+
+        <avrora.sim.radio.CC1000Radio: int FSEP1> = 7;
+
+        <avrora.sim.radio.CC1000Radio: int FREQ_0B> = 6;
+
+        <avrora.sim.radio.CC1000Radio: int FREQ_1B> = 5;
+
+        <avrora.sim.radio.CC1000Radio: int FREQ_2B> = 4;
+
+        <avrora.sim.radio.CC1000Radio: int FREQ_0A> = 3;
+
+        <avrora.sim.radio.CC1000Radio: int FREQ_1A> = 2;
+
+        <avrora.sim.radio.CC1000Radio: int FREQ_2A> = 1;
+
+        <avrora.sim.radio.CC1000Radio: int MAIN> = 0;
+
+        <avrora.sim.radio.CC1000Radio: double FXOSC_FREQUENCY> = 1.47456E7;
+
+        $r0 = staticinvoke <avrora.sim.radio.RadioEnergy: java.lang.String[] allModeNames()>();
+
+        <avrora.sim.radio.CC1000Radio: java.lang.String[] allModeNames> = $r0;
+
+        $r1 = <avrora.sim.radio.CC1000Radio: java.lang.String[] allModeNames>;
+
+        $i0 = lengthof $r1;
+
+        $r2 = staticinvoke <avrora.sim.FiniteStateMachine: int[][] buildSparseTTM(int,int)>($i0, 0);
+
+        <avrora.sim.radio.CC1000Radio: int[][] ttm> = $r2;
+
+        $r3 = newarray (int)[16];
+
+        $r3[0] = 150;
+
+        $r3[1] = 250;
+
+        $r3[2] = 350;
+
+        $r3[3] = 450;
+
+        $r3[4] = 950;
+
+        $r3[5] = 1050;
+
+        $r3[6] = 1150;
+
+        $r3[7] = 1250;
+
+        $r3[8] = 1450;
+
+        $r3[9] = 1550;
+
+        $r3[10] = 1650;
+
+        $r3[11] = 1750;
+
+        $r3[12] = 2250;
+
+        $r3[13] = 2350;
+
+        $r3[14] = 2450;
+
+        $r3[15] = 2550;
+
+        <avrora.sim.radio.CC1000Radio: int[] VCO_CURRENT> = $r3;
+
+        $r4 = newarray (double)[4];
+
+        $r4[0] = 0.5;
+
+        $r4[1] = 1.0;
+
+        $r4[2] = 1.5;
+
+        $r4[3] = 2.0;
+
+        <avrora.sim.radio.CC1000Radio: double[] LO_DRIVE> = $r4;
+
+        $r5 = newarray (int)[4];
+
+        $r5[0] = 1;
+
+        $r5[1] = 2;
+
+        $r5[2] = 3;
+
+        $r5[3] = 4;
+
+        <avrora.sim.radio.CC1000Radio: int[] PA_DRIVE> = $r5;
+
+        $r6 = newarray (int)[2];
+
+        $r6[0] = 520;
+
+        $r6[1] = 690;
+
+        <avrora.sim.radio.CC1000Radio: int[] BUF_CURRENT> = $r6;
+
+        $r7 = newarray (double)[4];
+
+        $r7[0] = 0.8;
+
+        $r7[1] = 1.4;
+
+        $r7[2] = 1.8;
+
+        $r7[3] = 2.2;
+
+        <avrora.sim.radio.CC1000Radio: double[] LNA_CURRENT> = $r7;
+
+        $r8 = newarray (int)[2];
+
+        $r8[0] = 127;
+
+        $r8[1] = 31;
+
+        <avrora.sim.radio.CC1000Radio: int[] SETS_LOCK_THRESHOLD> = $r8;
+
+        $r9 = newarray (int)[2];
+
+        $r9[0] = 111;
+
+        $r9[1] = 15;
+
+        <avrora.sim.radio.CC1000Radio: int[] RESET_LOCK_THRESHOLD> = $r9;
+
+        $r10 = newarray (int)[4];
+
+        $r10[0] = 11;
+
+        $r10[1] = 22;
+
+        $r10[2] = 43;
+
+        $r10[3] = 86;
+
+        <avrora.sim.radio.CC1000Radio: int[] SETTLING> = $r10;
+
+        $r11 = newarray (int)[8];
+
+        $r11[0] = 600;
+
+        $r11[1] = 1200;
+
+        $r11[2] = 2400;
+
+        $r11[3] = 4800;
+
+        $r11[4] = 9600;
+
+        $r11[5] = 19200;
+
+        $r11[6] = 0;
+
+        $r11[7] = 0;
+
+        <avrora.sim.radio.CC1000Radio: int[] BAUDRATE> = $r11;
+
+        $r12 = newarray (int)[4];
+
+        $r12[0] = 3686400;
+
+        $r12[1] = 7372800;
+
+        $r12[2] = 1105920;
+
+        $r12[3] = 1474560;
+
+        <avrora.sim.radio.CC1000Radio: int[] XOSC_FREQ> = $r12;
+
+        $r13 = newarray (double)[4];
+
+        $r13[0] = 1.0;
+
+        $r13[1] = 0.6666666666666666;
+
+        $r13[2] = 2.3333333333333335;
+
+        $r13[3] = 1.6666666666666667;
+
+        <avrora.sim.radio.CC1000Radio: double[] PRE_SWING> = $r13;
+
+        $r14 = newarray (double)[4];
+
+        $r14[0] = 1.0;
+
+        $r14[1] = 0.6666666666666666;
+
+        $r14[2] = 0.5;
+
+        $r14[3] = 0.4;
+
+        <avrora.sim.radio.CC1000Radio: double[] PRE_CURRENT> = $r14;
+
+        return;
+    }
+}

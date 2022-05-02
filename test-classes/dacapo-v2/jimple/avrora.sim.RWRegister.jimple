@@ -1,0 +1,97 @@
+public class avrora.sim.RWRegister extends java.lang.Object implements avrora.sim.ActiveRegister, avrora.sim.state.RegisterView
+{
+    public byte value;
+
+    public void <init>()
+    {
+        avrora.sim.RWRegister r0;
+
+        r0 := @this: avrora.sim.RWRegister;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.RWRegister r0;
+        byte $b0;
+
+        r0 := @this: avrora.sim.RWRegister;
+
+        $b0 = r0.<avrora.sim.RWRegister: byte value>;
+
+        return $b0;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.RWRegister r0;
+        byte b0;
+
+        r0 := @this: avrora.sim.RWRegister;
+
+        b0 := @parameter0: byte;
+
+        r0.<avrora.sim.RWRegister: byte value> = b0;
+
+        return;
+    }
+
+    public boolean readBit(int)
+    {
+        avrora.sim.RWRegister r0;
+        byte $b0;
+        int i1;
+        boolean $z0;
+
+        r0 := @this: avrora.sim.RWRegister;
+
+        i1 := @parameter0: int;
+
+        $b0 = virtualinvoke r0.<avrora.sim.RWRegister: byte read()>();
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>($b0, i1);
+
+        return $z0;
+    }
+
+    public int getWidth()
+    {
+        avrora.sim.RWRegister r0;
+
+        r0 := @this: avrora.sim.RWRegister;
+
+        return 8;
+    }
+
+    public int getValue()
+    {
+        avrora.sim.RWRegister r0;
+        byte $b0;
+
+        r0 := @this: avrora.sim.RWRegister;
+
+        $b0 = r0.<avrora.sim.RWRegister: byte value>;
+
+        return $b0;
+    }
+
+    public void setValue(int)
+    {
+        avrora.sim.RWRegister r0;
+        int i0;
+        byte $b1;
+
+        r0 := @this: avrora.sim.RWRegister;
+
+        i0 := @parameter0: int;
+
+        $b1 = (byte) i0;
+
+        r0.<avrora.sim.RWRegister: byte value> = $b1;
+
+        return;
+    }
+}

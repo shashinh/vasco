@@ -1,0 +1,114 @@
+public class avrora.sim.output.EventBuffer extends java.lang.Object
+{
+    public final avrora.sim.Simulator sim;
+    protected avrora.sim.output.EventBuffer$Event head;
+    protected avrora.sim.output.EventBuffer$Event tail;
+
+    public void <init>(avrora.sim.Simulator)
+    {
+        avrora.sim.output.EventBuffer r0;
+        avrora.sim.Simulator r1;
+
+        r0 := @this: avrora.sim.output.EventBuffer;
+
+        r1 := @parameter0: avrora.sim.Simulator;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.output.EventBuffer: avrora.sim.Simulator sim> = r1;
+
+        return;
+    }
+
+    protected avrora.sim.output.EventBuffer$Event recordEvent(java.lang.Object, long)
+    {
+        avrora.sim.output.EventBuffer$Event $r0, $r4, $r5;
+        avrora.sim.output.EventBuffer r1;
+        java.lang.Object r2;
+        long l0;
+
+        r1 := @this: avrora.sim.output.EventBuffer;
+
+        r2 := @parameter0: java.lang.Object;
+
+        l0 := @parameter1: long;
+
+        $r0 = new avrora.sim.output.EventBuffer$Event;
+
+        specialinvoke $r0.<avrora.sim.output.EventBuffer$Event: void <init>(avrora.sim.output.EventBuffer,java.lang.Object,long)>(r1, r2, l0);
+
+        $r4 = r1.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail>;
+
+        if $r4 != null goto label1;
+
+        r1.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail> = $r0;
+
+        r1.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head> = $r0;
+
+        goto label2;
+
+     label1:
+        $r5 = r1.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail>;
+
+        $r5.<avrora.sim.output.EventBuffer$Event: avrora.sim.output.EventBuffer$Event next> = $r0;
+
+        r1.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail> = $r0;
+
+     label2:
+        return $r0;
+    }
+
+    public avrora.sim.output.EventBuffer$Event extract(long)
+    {
+        avrora.sim.output.EventBuffer r0;
+        long l0, $l1;
+        byte $b2;
+        avrora.sim.output.EventBuffer$Event r1, r2, r3, r4;
+
+        r0 := @this: avrora.sim.output.EventBuffer;
+
+        l0 := @parameter0: long;
+
+        r1 = null;
+
+        r2 = r0.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head>;
+
+     label1:
+        if r2 == null goto label4;
+
+        $l1 = r2.<avrora.sim.output.EventBuffer$Event: long time>;
+
+        $b2 = $l1 cmp l0;
+
+        if $b2 < 0 goto label3;
+
+        if r1 == null goto label2;
+
+        r1.<avrora.sim.output.EventBuffer$Event: avrora.sim.output.EventBuffer$Event next> = null;
+
+        r3 = r0.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head>;
+
+        r0.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head> = r2;
+
+        return r3;
+
+     label2:
+        return null;
+
+     label3:
+        r1 = r2;
+
+        r2 = r2.<avrora.sim.output.EventBuffer$Event: avrora.sim.output.EventBuffer$Event next>;
+
+        goto label1;
+
+     label4:
+        r4 = r0.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head>;
+
+        r0.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event tail> = null;
+
+        r0.<avrora.sim.output.EventBuffer: avrora.sim.output.EventBuffer$Event head> = null;
+
+        return r4;
+    }
+}

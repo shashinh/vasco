@@ -1,0 +1,274 @@
+public class cck.elf.ELFSectionHeaderTable extends java.lang.Object
+{
+    public static final int SHT_NULL;
+    public static final int SHT_PROGBITS;
+    public static final int SHT_SYMTAB;
+    public static final int SHT_STRTAB;
+    public static final int SHT_RELA;
+    public static final int SHT_HASH;
+    public static final int SHT_DYNAMIC;
+    public static final int SHT_NOTE;
+    public static final int SHT_NOBITS;
+    public static final int SHT_REL;
+    public static final int SHT_SHLIB;
+    public static final int SHT_DYNSYM;
+    public static final int SHT_LOPROC;
+    public static final int SHT_HIPROC;
+    public static final int SHT_LOUSER;
+    public static final int SHT_HIUSER;
+    public static final int SHF_WRITE;
+    public static final int SHF_ALLOC;
+    public static final int SHF_EXECINSTR;
+    public static final int SHF_MASKPROC;
+    public final cck.elf.ELFHeader header;
+    public final cck.elf.ELFSectionHeaderTable$Entry32[] entries;
+    protected cck.elf.ELFStringTable strtab;
+
+    public void <init>(cck.elf.ELFHeader)
+    {
+        cck.elf.ELFSectionHeaderTable r0;
+        cck.elf.ELFHeader r1;
+        short $s0;
+        cck.elf.ELFSectionHeaderTable$Entry32[] $r2;
+
+        r0 := @this: cck.elf.ELFSectionHeaderTable;
+
+        r1 := @parameter0: cck.elf.ELFHeader;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFHeader header> = r1;
+
+        $s0 = r1.<cck.elf.ELFHeader: short e_shnum>;
+
+        $r2 = newarray (cck.elf.ELFSectionHeaderTable$Entry32)[$s0];
+
+        r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries> = $r2;
+
+        return;
+    }
+
+    public void read(java.io.RandomAccessFile) throws java.io.IOException
+    {
+        cck.elf.ELFSectionHeaderTable r0;
+        cck.elf.ELFSectionHeaderTable$Entry32[] $r1, $r7, $r10;
+        int $i0, $i1, $i3, $i4, $i5, $i6, $i7, $i8, $i9, $i10, $i11, $i12, $i13, i16, i17;
+        java.io.RandomAccessFile r2;
+        cck.elf.ELFHeader $r3, $r5, $r11;
+        long $l2;
+        cck.elf.ELFDataInputStream $r4;
+        cck.elf.ELFSectionHeaderTable$Entry32 $r8;
+        short $s14;
+
+        r0 := @this: cck.elf.ELFSectionHeaderTable;
+
+        r2 := @parameter0: java.io.RandomAccessFile;
+
+        $r1 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $i0 = lengthof $r1;
+
+        if $i0 != 0 goto label1;
+
+        return;
+
+     label1:
+        $r3 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFHeader header>;
+
+        $i1 = $r3.<cck.elf.ELFHeader: int e_shoff>;
+
+        $l2 = (long) $i1;
+
+        virtualinvoke r2.<java.io.RandomAccessFile: void seek(long)>($l2);
+
+        $r4 = new cck.elf.ELFDataInputStream;
+
+        $r5 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFHeader header>;
+
+        specialinvoke $r4.<cck.elf.ELFDataInputStream: void <init>(cck.elf.ELFHeader,java.io.RandomAccessFile)>($r5, r2);
+
+        i16 = 0;
+
+     label2:
+        $r7 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $i3 = lengthof $r7;
+
+        if i16 >= $i3 goto label5;
+
+        $r8 = new cck.elf.ELFSectionHeaderTable$Entry32;
+
+        specialinvoke $r8.<cck.elf.ELFSectionHeaderTable$Entry32: void <init>(cck.elf.ELFSectionHeaderTable)>(r0);
+
+        $i4 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_name> = $i4;
+
+        $i5 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_type> = $i5;
+
+        $i6 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_flags> = $i6;
+
+        $i7 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Addr()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_addr> = $i7;
+
+        $i8 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Off()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_offset> = $i8;
+
+        $i9 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_size> = $i9;
+
+        $i10 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_link> = $i10;
+
+        $i11 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_info> = $i11;
+
+        $i12 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_addralign> = $i12;
+
+        $i13 = virtualinvoke $r4.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r8.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_entsize> = $i13;
+
+        $r10 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $r10[i16] = $r8;
+
+        i17 = 40;
+
+     label3:
+        $r11 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFHeader header>;
+
+        $s14 = $r11.<cck.elf.ELFHeader: short e_shentsize>;
+
+        if i17 >= $s14 goto label4;
+
+        virtualinvoke r2.<java.io.RandomAccessFile: int read()>();
+
+        i17 = i17 + 1;
+
+        goto label3;
+
+     label4:
+        i16 = i16 + 1;
+
+        goto label2;
+
+     label5:
+        return;
+    }
+
+    public void setStringTable(cck.elf.ELFStringTable)
+    {
+        cck.elf.ELFSectionHeaderTable r0;
+        cck.elf.ELFStringTable r1;
+
+        r0 := @this: cck.elf.ELFSectionHeaderTable;
+
+        r1 := @parameter0: cck.elf.ELFStringTable;
+
+        r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFStringTable strtab> = r1;
+
+        return;
+    }
+
+    public cck.elf.ELFStringTable getStringTable()
+    {
+        cck.elf.ELFSectionHeaderTable r0;
+        cck.elf.ELFStringTable $r1;
+
+        r0 := @this: cck.elf.ELFSectionHeaderTable;
+
+        $r1 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFStringTable strtab>;
+
+        return $r1;
+    }
+
+    public java.lang.String getSectionName(int)
+    {
+        int i0, $i1;
+        cck.elf.ELFSectionHeaderTable r0;
+        cck.elf.ELFSectionHeaderTable$Entry32[] $r1, $r2;
+        cck.elf.ELFSectionHeaderTable$Entry32 r3;
+        java.lang.String $r4;
+
+        r0 := @this: cck.elf.ELFSectionHeaderTable;
+
+        i0 := @parameter0: int;
+
+        if i0 < 0 goto label1;
+
+        $r1 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $i1 = lengthof $r1;
+
+        if i0 < $i1 goto label2;
+
+     label1:
+        return "";
+
+     label2:
+        $r2 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        r3 = $r2[i0];
+
+        $r4 = virtualinvoke r3.<cck.elf.ELFSectionHeaderTable$Entry32: java.lang.String getName()>();
+
+        return $r4;
+    }
+
+    public static void <clinit>()
+    {
+        <cck.elf.ELFSectionHeaderTable: int SHF_MASKPROC> = -268435456;
+
+        <cck.elf.ELFSectionHeaderTable: int SHF_EXECINSTR> = 4;
+
+        <cck.elf.ELFSectionHeaderTable: int SHF_ALLOC> = 2;
+
+        <cck.elf.ELFSectionHeaderTable: int SHF_WRITE> = 1;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_HIUSER> = -1879048193;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_LOUSER> = -2147483648;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_HIPROC> = 2147483647;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_LOPROC> = 1879048192;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_DYNSYM> = 11;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_SHLIB> = 10;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_REL> = 9;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_NOBITS> = 8;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_NOTE> = 7;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_DYNAMIC> = 6;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_HASH> = 5;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_RELA> = 4;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_STRTAB> = 3;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_SYMTAB> = 2;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_PROGBITS> = 1;
+
+        <cck.elf.ELFSectionHeaderTable: int SHT_NULL> = 0;
+
+        return;
+    }
+}

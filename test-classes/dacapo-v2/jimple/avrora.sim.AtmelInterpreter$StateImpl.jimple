@@ -1,0 +1,443 @@
+public class avrora.sim.AtmelInterpreter$StateImpl extends java.lang.Object implements avrora.arch.legacy.LegacyState
+{
+    final avrora.sim.AtmelInterpreter this$0;
+
+    public void <init>(avrora.sim.AtmelInterpreter)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter r1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        r1 := @parameter0: avrora.sim.AtmelInterpreter;
+
+        r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public avrora.sim.Simulator getSimulator()
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        avrora.sim.Simulator $r2;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r2 = $r1.<avrora.sim.AtmelInterpreter: avrora.sim.Simulator simulator>;
+
+        return $r2;
+    }
+
+    public avrora.sim.InterruptTable getInterruptTable()
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        avrora.sim.InterruptTable $r2;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r2 = $r1.<avrora.sim.AtmelInterpreter: avrora.sim.InterruptTable interrupts>;
+
+        return $r2;
+    }
+
+    public byte getRegisterByte(avrora.arch.legacy.LegacyRegister)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        avrora.arch.legacy.LegacyRegister r2;
+        byte[] $r3;
+        int $i0;
+        byte $b1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        r2 := @parameter0: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r3 = $r1.<avrora.sim.AtmelInterpreter: byte[] sram>;
+
+        $i0 = virtualinvoke r2.<avrora.arch.legacy.LegacyRegister: int getNumber()>();
+
+        $b1 = $r3[$i0];
+
+        return $b1;
+    }
+
+    public int getRegisterUnsigned(avrora.arch.legacy.LegacyRegister)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        avrora.arch.legacy.LegacyRegister r2;
+        byte[] $r3;
+        int $i0, $i2;
+        byte $b1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        r2 := @parameter0: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r3 = $r1.<avrora.sim.AtmelInterpreter: byte[] sram>;
+
+        $i0 = virtualinvoke r2.<avrora.arch.legacy.LegacyRegister: int getNumber()>();
+
+        $b1 = $r3[$i0];
+
+        $i2 = $b1 & 255;
+
+        return $i2;
+    }
+
+    public int getRegisterWord(avrora.arch.legacy.LegacyRegister)
+    {
+        avrora.arch.legacy.LegacyRegister r0;
+        int i0, $i1;
+        avrora.sim.AtmelInterpreter$StateImpl r1;
+        avrora.sim.AtmelInterpreter $r2, $r4;
+        byte[] $r3, $r5;
+        byte $b2, $b3;
+        char $c4;
+
+        r1 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        r0 := @parameter0: avrora.arch.legacy.LegacyRegister;
+
+        i0 = virtualinvoke r0.<avrora.arch.legacy.LegacyRegister: int getNumber()>();
+
+        $r2 = r1.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r3 = $r2.<avrora.sim.AtmelInterpreter: byte[] sram>;
+
+        $b3 = $r3[i0];
+
+        $r4 = r1.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r5 = $r4.<avrora.sim.AtmelInterpreter: byte[] sram>;
+
+        $i1 = i0 + 1;
+
+        $b2 = $r5[$i1];
+
+        $c4 = staticinvoke <cck.util.Arithmetic: char uword(byte,byte)>($b3, $b2);
+
+        return $c4;
+    }
+
+    public byte getSREG()
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8;
+        boolean $z0, $z1, $z2, $z3, $z4, $z5, $z6, $z7;
+        byte $b0;
+        int i1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i1 = 0;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z0 = $r1.<avrora.sim.AtmelInterpreter: boolean I>;
+
+        if $z0 == 0 goto label1;
+
+        i1 = 0 | 128;
+
+     label1:
+        $r2 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z1 = $r2.<avrora.sim.AtmelInterpreter: boolean T>;
+
+        if $z1 == 0 goto label2;
+
+        i1 = i1 | 64;
+
+     label2:
+        $r3 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z2 = $r3.<avrora.sim.AtmelInterpreter: boolean H>;
+
+        if $z2 == 0 goto label3;
+
+        i1 = i1 | 32;
+
+     label3:
+        $r4 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z3 = $r4.<avrora.sim.AtmelInterpreter: boolean S>;
+
+        if $z3 == 0 goto label4;
+
+        i1 = i1 | 16;
+
+     label4:
+        $r5 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z4 = $r5.<avrora.sim.AtmelInterpreter: boolean V>;
+
+        if $z4 == 0 goto label5;
+
+        i1 = i1 | 8;
+
+     label5:
+        $r6 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z5 = $r6.<avrora.sim.AtmelInterpreter: boolean N>;
+
+        if $z5 == 0 goto label6;
+
+        i1 = i1 | 4;
+
+     label6:
+        $r7 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z6 = $r7.<avrora.sim.AtmelInterpreter: boolean Z>;
+
+        if $z6 == 0 goto label7;
+
+        i1 = i1 | 2;
+
+     label7:
+        $r8 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z7 = $r8.<avrora.sim.AtmelInterpreter: boolean C>;
+
+        if $z7 == 0 goto label8;
+
+        i1 = i1 | 1;
+
+     label8:
+        $b0 = (byte) i1;
+
+        return $b0;
+    }
+
+    public boolean getFlag(int)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        int i0;
+        avrora.sim.AtmelInterpreter $r1;
+        boolean $z0;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $z0 = virtualinvoke $r1.<avrora.sim.AtmelInterpreter: boolean getFlag(int)>(i0);
+
+        return $z0;
+    }
+
+    public byte getStackByte()
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        int i0;
+        byte $b1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i0 = virtualinvoke r0.<avrora.sim.AtmelInterpreter$StateImpl: int getSP()>();
+
+        $b1 = virtualinvoke r0.<avrora.sim.AtmelInterpreter$StateImpl: byte getDataByte(int)>(i0);
+
+        return $b1;
+    }
+
+    public int getSP()
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1, $r3;
+        avrora.sim.RWRegister $r2, $r4;
+        byte b0, b1;
+        char $c2;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r2 = $r1.<avrora.sim.AtmelInterpreter: avrora.sim.RWRegister SPL_reg>;
+
+        b0 = $r2.<avrora.sim.RWRegister: byte value>;
+
+        $r3 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r4 = $r3.<avrora.sim.AtmelInterpreter: avrora.sim.RWRegister SPH_reg>;
+
+        b1 = $r4.<avrora.sim.RWRegister: byte value>;
+
+        $c2 = staticinvoke <cck.util.Arithmetic: char uword(byte,byte)>(b0, b1);
+
+        return $c2;
+    }
+
+    public int getPC()
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        int $i0;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $i0 = $r1.<avrora.sim.AtmelInterpreter: int pc>;
+
+        return $i0;
+    }
+
+    public avrora.arch.AbstractInstr getInstr(int)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        int i0;
+        avrora.sim.CodeSegment $r2;
+        avrora.arch.legacy.LegacyInstr $r3;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r2 = $r1.<avrora.sim.AtmelInterpreter: avrora.sim.CodeSegment flash>;
+
+        $r3 = virtualinvoke $r2.<avrora.sim.CodeSegment: avrora.arch.legacy.LegacyInstr readInstr(int)>(i0);
+
+        return $r3;
+    }
+
+    public byte getDataByte(int)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        int i0;
+        avrora.sim.AtmelInterpreter $r1;
+        byte $b1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $b1 = staticinvoke <avrora.sim.AtmelInterpreter: byte access$000(avrora.sim.AtmelInterpreter,boolean,int)>($r1, 0, i0);
+
+        return $b1;
+    }
+
+    public byte getProgramByte(int)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        int i0;
+        avrora.sim.CodeSegment $r2;
+        byte $b1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r2 = $r1.<avrora.sim.AtmelInterpreter: avrora.sim.CodeSegment flash>;
+
+        $b1 = virtualinvoke $r2.<avrora.sim.CodeSegment: byte get(int)>(i0);
+
+        return $b1;
+    }
+
+    public byte getIORegisterByte(int)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        int i0;
+        avrora.sim.ActiveRegister $r1;
+        byte $b1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i0 := @parameter0: int;
+
+        $r1 = specialinvoke r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.ActiveRegister getAR(int)>(i0);
+
+        $b1 = interfaceinvoke $r1.<avrora.sim.ActiveRegister: byte read()>();
+
+        return $b1;
+    }
+
+    public avrora.sim.ActiveRegister getIOReg(int)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        int i0;
+        avrora.sim.ActiveRegister $r1;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i0 := @parameter0: int;
+
+        $r1 = specialinvoke r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.ActiveRegister getAR(int)>(i0);
+
+        return $r1;
+    }
+
+    private avrora.sim.ActiveRegister getAR(int)
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        int i0;
+        avrora.sim.ActiveRegister[] $r2;
+        avrora.sim.ActiveRegister $r3;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r2 = $r1.<avrora.sim.AtmelInterpreter: avrora.sim.ActiveRegister[] ioregs>;
+
+        $r3 = $r2[i0];
+
+        return $r3;
+    }
+
+    public long getCycles()
+    {
+        avrora.sim.AtmelInterpreter$StateImpl r0;
+        avrora.sim.AtmelInterpreter $r1;
+        avrora.sim.clock.MainClock $r2;
+        long $l0;
+
+        r0 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        $r1 = r0.<avrora.sim.AtmelInterpreter$StateImpl: avrora.sim.AtmelInterpreter this$0>;
+
+        $r2 = $r1.<avrora.sim.AtmelInterpreter: avrora.sim.clock.MainClock clock>;
+
+        $l0 = virtualinvoke $r2.<avrora.sim.clock.MainClock: long getCount()>();
+
+        return $l0;
+    }
+
+    public int getSleepMode()
+    {
+        cck.util.Util$InternalError $r0;
+        avrora.sim.AtmelInterpreter$StateImpl r1;
+
+        r1 := @this: avrora.sim.AtmelInterpreter$StateImpl;
+
+        $r0 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $r0;
+    }
+}

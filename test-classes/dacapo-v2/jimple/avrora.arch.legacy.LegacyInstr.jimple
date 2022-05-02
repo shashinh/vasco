@@ -1,0 +1,1026 @@
+public abstract class avrora.arch.legacy.LegacyInstr extends java.lang.Object implements avrora.arch.legacy.LegacyInstrProto, avrora.arch.AbstractInstr
+{
+    public final avrora.arch.legacy.LegacyInstrProperties properties;
+    private static int IMM3_default;
+    private static int IMM5_default;
+    private static int IMM6_default;
+    private static int IMM8_default;
+    private static int SREL_default;
+    private static int LREL_default;
+    private static int PADDR_default;
+    private static int DADDR_default;
+    private static avrora.arch.legacy.LegacyRegister GPR_default;
+    private static avrora.arch.legacy.LegacyRegister MGPR_default;
+    private static avrora.arch.legacy.LegacyRegister HGPR_default;
+    private static avrora.arch.legacy.LegacyRegister EGPR_default;
+    private static avrora.arch.legacy.LegacyRegister ADR_default;
+    private static avrora.arch.legacy.LegacyRegister RDL_default;
+    private static avrora.arch.legacy.LegacyRegister YZ_default;
+    private static avrora.arch.legacy.LegacyRegister Z_default;
+
+    public void <init>(avrora.arch.legacy.LegacyInstrProperties)
+    {
+        avrora.arch.legacy.LegacyInstr r0;
+        avrora.arch.legacy.LegacyInstrProperties r1;
+
+        r0 := @this: avrora.arch.legacy.LegacyInstr;
+
+        r1 := @parameter0: avrora.arch.legacy.LegacyInstrProperties;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties> = r1;
+
+        return;
+    }
+
+    public abstract java.lang.String getOperands();
+
+    public java.lang.String getVariant()
+    {
+        avrora.arch.legacy.LegacyInstr r0;
+        avrora.arch.legacy.LegacyInstrProperties $r1;
+        java.lang.String $r2;
+
+        r0 := @this: avrora.arch.legacy.LegacyInstr;
+
+        $r1 = r0.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $r2 = $r1.<avrora.arch.legacy.LegacyInstrProperties: java.lang.String variant>;
+
+        return $r2;
+    }
+
+    public int getSize()
+    {
+        avrora.arch.legacy.LegacyInstr r0;
+        avrora.arch.legacy.LegacyInstrProperties $r1;
+        int $i0;
+
+        r0 := @this: avrora.arch.legacy.LegacyInstr;
+
+        $r1 = r0.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $i0 = $r1.<avrora.arch.legacy.LegacyInstrProperties: int size>;
+
+        return $i0;
+    }
+
+    public java.lang.String getName()
+    {
+        avrora.arch.legacy.LegacyInstr r0;
+        avrora.arch.legacy.LegacyInstrProperties $r1;
+        java.lang.String $r2;
+
+        r0 := @this: avrora.arch.legacy.LegacyInstr;
+
+        $r1 = r0.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $r2 = $r1.<avrora.arch.legacy.LegacyInstrProperties: java.lang.String name>;
+
+        return $r2;
+    }
+
+    public java.lang.String toString()
+    {
+        java.lang.StringBuilder $r0, $r3, $r4, $r6;
+        avrora.arch.legacy.LegacyInstr r1;
+        java.lang.String $r2, $r5, $r7;
+
+        r1 := @this: avrora.arch.legacy.LegacyInstr;
+
+        $r0 = new java.lang.StringBuilder;
+
+        specialinvoke $r0.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke r1.<avrora.arch.legacy.LegacyInstr: java.lang.String getVariant()>();
+
+        $r3 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $r5 = virtualinvoke r1.<avrora.arch.legacy.LegacyInstr: java.lang.String getOperands()>();
+
+        $r6 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $r7;
+    }
+
+    public int getCycles()
+    {
+        avrora.arch.legacy.LegacyInstr r0;
+        avrora.arch.legacy.LegacyInstrProperties $r1;
+        int $i0;
+
+        r0 := @this: avrora.arch.legacy.LegacyInstr;
+
+        $r1 = r0.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $i0 = $r1.<avrora.arch.legacy.LegacyInstrProperties: int cycles>;
+
+        return $i0;
+    }
+
+    public avrora.arch.legacy.LegacyInstr asInstr()
+    {
+        avrora.arch.legacy.LegacyInstr r0;
+
+        r0 := @this: avrora.arch.legacy.LegacyInstr;
+
+        return r0;
+    }
+
+    public avrora.arch.AbstractArchitecture getArchitecture()
+    {
+        avrora.arch.legacy.LegacyArchitecture $r0;
+        avrora.arch.legacy.LegacyInstr r1;
+
+        r1 := @this: avrora.arch.legacy.LegacyInstr;
+
+        $r0 = <avrora.arch.legacy.LegacyArchitecture: avrora.arch.legacy.LegacyArchitecture INSTANCE>;
+
+        return $r0;
+    }
+
+    public abstract void accept(avrora.arch.legacy.LegacyInstrVisitor);
+
+    private static void need(int, avrora.arch.legacy.LegacyOperand[])
+    {
+        avrora.arch.legacy.LegacyOperand[] r0;
+        int i0, $i1, $i2;
+        avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyOperand[];
+
+        $i1 = lengthof r0;
+
+        if $i1 == i0 goto label1;
+
+        $r1 = new avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands;
+
+        $i2 = lengthof r0;
+
+        specialinvoke $r1.<avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands: void <init>(int,int)>($i2, i0);
+
+        throw $r1;
+
+     label1:
+        return;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister GPR(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        avrora.arch.legacy.LegacyRegister$Set $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set GPR_set>;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister checkReg(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r0, $r1);
+
+        return $r2;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister HGPR(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        avrora.arch.legacy.LegacyRegister$Set $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set HGPR_set>;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister checkReg(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r0, $r1);
+
+        return $r2;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister MGPR(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        avrora.arch.legacy.LegacyRegister$Set $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set MGPR_set>;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister checkReg(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r0, $r1);
+
+        return $r2;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister ADR(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        avrora.arch.legacy.LegacyRegister$Set $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set ADR_set>;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister checkReg(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r0, $r1);
+
+        return $r2;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister RDL(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        avrora.arch.legacy.LegacyRegister$Set $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set RDL_set>;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister checkReg(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r0, $r1);
+
+        return $r2;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister EGPR(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        avrora.arch.legacy.LegacyRegister$Set $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set EGPR_set>;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister checkReg(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r0, $r1);
+
+        return $r2;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister YZ(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        avrora.arch.legacy.LegacyRegister$Set $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set YZ_set>;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister checkReg(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r0, $r1);
+
+        return $r2;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister Z(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        avrora.arch.legacy.LegacyRegister$Set $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set Z_set>;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister checkReg(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r0, $r1);
+
+        return $r2;
+    }
+
+    private static int IMM3(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int checkImm(int,int,int,int)>(i0, i1, 0, 7);
+
+        return $i2;
+    }
+
+    private static int IMM5(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int checkImm(int,int,int,int)>(i0, i1, 0, 31);
+
+        return $i2;
+    }
+
+    private static int IMM6(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int checkImm(int,int,int,int)>(i0, i1, 0, 63);
+
+        return $i2;
+    }
+
+    private static int IMM8(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int checkImm(int,int,int,int)>(i0, i1, 0, 255);
+
+        return $i2;
+    }
+
+    private static int SREL(int, int, int)
+    {
+        int i0, i1, i2, $i3, $i4, $i5;
+
+        i2 := @parameter0: int;
+
+        i0 := @parameter1: int;
+
+        i1 := @parameter2: int;
+
+        $i3 = i1 - i2;
+
+        $i4 = $i3 - 1;
+
+        $i5 = staticinvoke <avrora.arch.legacy.LegacyInstr: int checkImm(int,int,int,int)>(i0, $i4, -64, 63);
+
+        return $i5;
+    }
+
+    private static int LREL(int, int, int)
+    {
+        int i0, i1, i2, $i3, $i4, $i5;
+
+        i2 := @parameter0: int;
+
+        i0 := @parameter1: int;
+
+        i1 := @parameter2: int;
+
+        $i3 = i1 - i2;
+
+        $i4 = $i3 - 1;
+
+        $i5 = staticinvoke <avrora.arch.legacy.LegacyInstr: int checkImm(int,int,int,int)>(i0, $i4, -2048, 2047);
+
+        return $i5;
+    }
+
+    private static int DADDR(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int checkImm(int,int,int,int)>(i0, i1, 0, 65536);
+
+        return $i2;
+    }
+
+    private static int PADDR(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int checkImm(int,int,int,int)>(i0, i1, 0, 65536);
+
+        return $i2;
+    }
+
+    private static int checkImm(int, int, int, int)
+    {
+        int i0, i1, i2, i3;
+        avrora.arch.legacy.LegacyInstr$InvalidImmediate $r0;
+
+        i2 := @parameter0: int;
+
+        i0 := @parameter1: int;
+
+        i1 := @parameter2: int;
+
+        i3 := @parameter3: int;
+
+        if i0 < i1 goto label1;
+
+        if i0 <= i3 goto label2;
+
+     label1:
+        $r0 = new avrora.arch.legacy.LegacyInstr$InvalidImmediate;
+
+        specialinvoke $r0.<avrora.arch.legacy.LegacyInstr$InvalidImmediate: void <init>(int,int,int,int)>(i2, i0, i1, i3);
+
+        throw $r0;
+
+     label2:
+        return i0;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister checkReg(int, avrora.arch.legacy.LegacyRegister, avrora.arch.legacy.LegacyRegister$Set)
+    {
+        avrora.arch.legacy.LegacyRegister$Set r0;
+        avrora.arch.legacy.LegacyRegister r1;
+        boolean $z0;
+        avrora.arch.legacy.LegacyInstr$InvalidRegister $r2;
+        int i0;
+
+        i0 := @parameter0: int;
+
+        r1 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        r0 := @parameter2: avrora.arch.legacy.LegacyRegister$Set;
+
+        $z0 = virtualinvoke r0.<avrora.arch.legacy.LegacyRegister$Set: boolean contains(avrora.arch.legacy.LegacyRegister)>(r1);
+
+        if $z0 == 0 goto label1;
+
+        return r1;
+
+     label1:
+        $r2 = new avrora.arch.legacy.LegacyInstr$InvalidRegister;
+
+        specialinvoke $r2.<avrora.arch.legacy.LegacyInstr$InvalidRegister: void <init>(int,avrora.arch.legacy.LegacyRegister,avrora.arch.legacy.LegacyRegister$Set)>(i0, r1, r0);
+
+        throw $r2;
+    }
+
+    private static avrora.arch.legacy.LegacyRegister REG(avrora.arch.legacy.LegacyOperand)
+    {
+        avrora.arch.legacy.LegacyOperand r0;
+        avrora.arch.legacy.LegacyOperand$Register r1;
+        avrora.arch.legacy.LegacyRegister $r2;
+        avrora.arch.legacy.LegacyInstr$RegisterRequired $r3;
+
+        r0 := @parameter0: avrora.arch.legacy.LegacyOperand;
+
+        r1 = interfaceinvoke r0.<avrora.arch.legacy.LegacyOperand: avrora.arch.legacy.LegacyOperand$Register asRegister()>();
+
+        if r1 != null goto label1;
+
+        $r3 = new avrora.arch.legacy.LegacyInstr$RegisterRequired;
+
+        specialinvoke $r3.<avrora.arch.legacy.LegacyInstr$RegisterRequired: void <init>(avrora.arch.legacy.LegacyOperand)>(r0);
+
+        throw $r3;
+
+     label1:
+        $r2 = interfaceinvoke r1.<avrora.arch.legacy.LegacyOperand$Register: avrora.arch.legacy.LegacyRegister getRegister()>();
+
+        return $r2;
+    }
+
+    private static int IMM(avrora.arch.legacy.LegacyOperand)
+    {
+        avrora.arch.legacy.LegacyOperand r0;
+        avrora.arch.legacy.LegacyOperand$Constant r1;
+        int $i0;
+        avrora.arch.legacy.LegacyInstr$ImmediateRequired $r2;
+
+        r0 := @parameter0: avrora.arch.legacy.LegacyOperand;
+
+        r1 = interfaceinvoke r0.<avrora.arch.legacy.LegacyOperand: avrora.arch.legacy.LegacyOperand$Constant asConstant()>();
+
+        if r1 != null goto label1;
+
+        $r2 = new avrora.arch.legacy.LegacyInstr$ImmediateRequired;
+
+        specialinvoke $r2.<avrora.arch.legacy.LegacyInstr$ImmediateRequired: void <init>(avrora.arch.legacy.LegacyOperand)>(r0);
+
+        throw $r2;
+
+     label1:
+        $i0 = interfaceinvoke r1.<avrora.arch.legacy.LegacyOperand$Constant: int getValue()>();
+
+        return $i0;
+    }
+
+    private static int WORD(avrora.arch.legacy.LegacyOperand)
+    {
+        avrora.arch.legacy.LegacyOperand r0;
+        avrora.arch.legacy.LegacyOperand$Constant r1;
+        int $i0;
+        avrora.arch.legacy.LegacyInstr$ImmediateRequired $r2;
+
+        r0 := @parameter0: avrora.arch.legacy.LegacyOperand;
+
+        r1 = interfaceinvoke r0.<avrora.arch.legacy.LegacyOperand: avrora.arch.legacy.LegacyOperand$Constant asConstant()>();
+
+        if r1 != null goto label1;
+
+        $r2 = new avrora.arch.legacy.LegacyInstr$ImmediateRequired;
+
+        specialinvoke $r2.<avrora.arch.legacy.LegacyInstr$ImmediateRequired: void <init>(avrora.arch.legacy.LegacyOperand)>(r0);
+
+        throw $r2;
+
+     label1:
+        $i0 = interfaceinvoke r1.<avrora.arch.legacy.LegacyOperand$Constant: int getValueAsWord()>();
+
+        return $i0;
+    }
+
+    static void access$000(int, avrora.arch.legacy.LegacyOperand[])
+    {
+        int i0;
+        avrora.arch.legacy.LegacyOperand[] r0;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyOperand[];
+
+        staticinvoke <avrora.arch.legacy.LegacyInstr: void need(int,avrora.arch.legacy.LegacyOperand[])>(i0, r0);
+
+        return;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$100(avrora.arch.legacy.LegacyOperand)
+    {
+        avrora.arch.legacy.LegacyOperand r0;
+        avrora.arch.legacy.LegacyRegister $r1;
+
+        r0 := @parameter0: avrora.arch.legacy.LegacyOperand;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister REG(avrora.arch.legacy.LegacyOperand)>(r0);
+
+        return $r1;
+    }
+
+    static int access$200(avrora.arch.legacy.LegacyOperand)
+    {
+        avrora.arch.legacy.LegacyOperand r0;
+        int $i0;
+
+        r0 := @parameter0: avrora.arch.legacy.LegacyOperand;
+
+        $i0 = staticinvoke <avrora.arch.legacy.LegacyInstr: int IMM(avrora.arch.legacy.LegacyOperand)>(r0);
+
+        return $i0;
+    }
+
+    static int access$300(avrora.arch.legacy.LegacyOperand)
+    {
+        avrora.arch.legacy.LegacyOperand r0;
+        int $i0;
+
+        r0 := @parameter0: avrora.arch.legacy.LegacyOperand;
+
+        $i0 = staticinvoke <avrora.arch.legacy.LegacyInstr: int WORD(avrora.arch.legacy.LegacyOperand)>(r0);
+
+        return $i0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$400()
+    {
+        avrora.arch.legacy.LegacyRegister $r0;
+
+        $r0 = <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister GPR_default>;
+
+        return $r0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$500(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister GPR(int,avrora.arch.legacy.LegacyRegister)>(i0, r0);
+
+        return $r1;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$600()
+    {
+        avrora.arch.legacy.LegacyRegister $r0;
+
+        $r0 = <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister RDL_default>;
+
+        return $r0;
+    }
+
+    static int access$700()
+    {
+        int $i0;
+
+        $i0 = <avrora.arch.legacy.LegacyInstr: int IMM6_default>;
+
+        return $i0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$800(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister RDL(int,avrora.arch.legacy.LegacyRegister)>(i0, r0);
+
+        return $r1;
+    }
+
+    static int access$900(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int IMM6(int,int)>(i0, i1);
+
+        return $i2;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$1000()
+    {
+        avrora.arch.legacy.LegacyRegister $r0;
+
+        $r0 = <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister HGPR_default>;
+
+        return $r0;
+    }
+
+    static int access$1100()
+    {
+        int $i0;
+
+        $i0 = <avrora.arch.legacy.LegacyInstr: int IMM8_default>;
+
+        return $i0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$1200(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister HGPR(int,avrora.arch.legacy.LegacyRegister)>(i0, r0);
+
+        return $r1;
+    }
+
+    static int access$1300(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int IMM8(int,int)>(i0, i1);
+
+        return $i2;
+    }
+
+    static int access$1400()
+    {
+        int $i0;
+
+        $i0 = <avrora.arch.legacy.LegacyInstr: int IMM3_default>;
+
+        return $i0;
+    }
+
+    static int access$1500(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int IMM3(int,int)>(i0, i1);
+
+        return $i2;
+    }
+
+    static int access$1600()
+    {
+        int $i0;
+
+        $i0 = <avrora.arch.legacy.LegacyInstr: int SREL_default>;
+
+        return $i0;
+    }
+
+    static int access$1700(int, int, int)
+    {
+        int i0, i1, i2, $i3;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        i2 := @parameter2: int;
+
+        $i3 = staticinvoke <avrora.arch.legacy.LegacyInstr: int SREL(int,int,int)>(i0, i1, i2);
+
+        return $i3;
+    }
+
+    static int access$1800()
+    {
+        int $i0;
+
+        $i0 = <avrora.arch.legacy.LegacyInstr: int PADDR_default>;
+
+        return $i0;
+    }
+
+    static int access$1900(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int PADDR(int,int)>(i0, i1);
+
+        return $i2;
+    }
+
+    static int access$2000()
+    {
+        int $i0;
+
+        $i0 = <avrora.arch.legacy.LegacyInstr: int IMM5_default>;
+
+        return $i0;
+    }
+
+    static int access$2100(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int IMM5(int,int)>(i0, i1);
+
+        return $i2;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$2200()
+    {
+        avrora.arch.legacy.LegacyRegister $r0;
+
+        $r0 = <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister Z_default>;
+
+        return $r0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$2300(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister Z(int,avrora.arch.legacy.LegacyRegister)>(i0, r0);
+
+        return $r1;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$2400()
+    {
+        avrora.arch.legacy.LegacyRegister $r0;
+
+        $r0 = <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister MGPR_default>;
+
+        return $r0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$2500(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister MGPR(int,avrora.arch.legacy.LegacyRegister)>(i0, r0);
+
+        return $r1;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$2600()
+    {
+        avrora.arch.legacy.LegacyRegister $r0;
+
+        $r0 = <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister ADR_default>;
+
+        return $r0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$2700(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister ADR(int,avrora.arch.legacy.LegacyRegister)>(i0, r0);
+
+        return $r1;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$2800()
+    {
+        avrora.arch.legacy.LegacyRegister $r0;
+
+        $r0 = <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister YZ_default>;
+
+        return $r0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$2900(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister YZ(int,avrora.arch.legacy.LegacyRegister)>(i0, r0);
+
+        return $r1;
+    }
+
+    static int access$3000()
+    {
+        int $i0;
+
+        $i0 = <avrora.arch.legacy.LegacyInstr: int DADDR_default>;
+
+        return $i0;
+    }
+
+    static int access$3100(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        $i2 = staticinvoke <avrora.arch.legacy.LegacyInstr: int DADDR(int,int)>(i0, i1);
+
+        return $i2;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$3200()
+    {
+        avrora.arch.legacy.LegacyRegister $r0;
+
+        $r0 = <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister EGPR_default>;
+
+        return $r0;
+    }
+
+    static avrora.arch.legacy.LegacyRegister access$3300(int, avrora.arch.legacy.LegacyRegister)
+    {
+        int i0;
+        avrora.arch.legacy.LegacyRegister r0, $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister EGPR(int,avrora.arch.legacy.LegacyRegister)>(i0, r0);
+
+        return $r1;
+    }
+
+    static int access$3400()
+    {
+        int $i0;
+
+        $i0 = <avrora.arch.legacy.LegacyInstr: int LREL_default>;
+
+        return $i0;
+    }
+
+    static int access$3500(int, int, int)
+    {
+        int i0, i1, i2, $i3;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        i2 := @parameter2: int;
+
+        $i3 = staticinvoke <avrora.arch.legacy.LegacyInstr: int LREL(int,int,int)>(i0, i1, i2);
+
+        return $i3;
+    }
+
+    static void <clinit>()
+    {
+        avrora.arch.legacy.LegacyRegister $r0, $r1, $r2, $r3, $r4, $r5, $r6, $r7;
+
+        <avrora.arch.legacy.LegacyInstr: int IMM3_default> = 0;
+
+        <avrora.arch.legacy.LegacyInstr: int IMM5_default> = 0;
+
+        <avrora.arch.legacy.LegacyInstr: int IMM6_default> = 0;
+
+        <avrora.arch.legacy.LegacyInstr: int IMM8_default> = 0;
+
+        <avrora.arch.legacy.LegacyInstr: int SREL_default> = 0;
+
+        <avrora.arch.legacy.LegacyInstr: int LREL_default> = 0;
+
+        <avrora.arch.legacy.LegacyInstr: int PADDR_default> = 0;
+
+        <avrora.arch.legacy.LegacyInstr: int DADDR_default> = 0;
+
+        $r0 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R0>;
+
+        <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister GPR_default> = $r0;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R16>;
+
+        <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister MGPR_default> = $r1;
+
+        $r2 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R16>;
+
+        <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister HGPR_default> = $r2;
+
+        $r3 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R0>;
+
+        <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister EGPR_default> = $r3;
+
+        $r4 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister X>;
+
+        <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister ADR_default> = $r4;
+
+        $r5 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R24>;
+
+        <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister RDL_default> = $r5;
+
+        $r6 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Y>;
+
+        <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister YZ_default> = $r6;
+
+        $r7 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Z>;
+
+        <avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyRegister Z_default> = $r7;
+
+        return;
+    }
+}

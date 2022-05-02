@@ -1,0 +1,34 @@
+public class avrora.sim.InterpreterError$NoSuchInstructionException extends cck.util.Util$Error
+{
+    public final int badPc;
+
+    protected void <init>(int)
+    {
+        avrora.sim.InterpreterError$NoSuchInstructionException r0;
+        java.lang.StringBuilder $r1, $r2, $r4;
+        int i0;
+        java.lang.String $r3, $r5;
+
+        r0 := @this: avrora.sim.InterpreterError$NoSuchInstructionException;
+
+        i0 := @parameter0: int;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("attempt to execute non-existant instruction at ");
+
+        $r3 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(i0);
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<cck.util.Util$Error: void <init>(java.lang.String,java.lang.String)>("Program error", $r5);
+
+        r0.<avrora.sim.InterpreterError$NoSuchInstructionException: int badPc> = i0;
+
+        return;
+    }
+}

@@ -1,0 +1,40 @@
+public class avrora.sim.FiniteStateMachine$State extends java.lang.Object
+{
+    final java.lang.String name;
+    final int[] transition_time;
+    final avrora.sim.util.MulticastFSMProbe probes;
+    final avrora.sim.FiniteStateMachine this$0;
+
+    void <init>(avrora.sim.FiniteStateMachine, java.lang.String, int[])
+    {
+        avrora.sim.FiniteStateMachine$State r0;
+        avrora.sim.FiniteStateMachine r1;
+        java.lang.String r2;
+        int[] r3;
+        avrora.sim.util.MulticastFSMProbe $r4;
+
+        r0 := @this: avrora.sim.FiniteStateMachine$State;
+
+        r1 := @parameter0: avrora.sim.FiniteStateMachine;
+
+        r2 := @parameter1: java.lang.String;
+
+        r3 := @parameter2: int[];
+
+        r0.<avrora.sim.FiniteStateMachine$State: avrora.sim.FiniteStateMachine this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.FiniteStateMachine$State: java.lang.String name> = r2;
+
+        r0.<avrora.sim.FiniteStateMachine$State: int[] transition_time> = r3;
+
+        $r4 = new avrora.sim.util.MulticastFSMProbe;
+
+        specialinvoke $r4.<avrora.sim.util.MulticastFSMProbe: void <init>()>();
+
+        r0.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes> = $r4;
+
+        return;
+    }
+}

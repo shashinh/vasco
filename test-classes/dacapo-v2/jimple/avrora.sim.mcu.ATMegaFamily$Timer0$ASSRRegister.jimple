@@ -1,0 +1,93 @@
+public class avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister extends avrora.sim.RWRegister
+{
+    static final int AS0;
+    static final int TCN0UB;
+    static final int OCR0UB;
+    static final int TCR0UB;
+    final avrora.sim.mcu.ATMegaFamily$Timer0 this$1;
+
+    protected void <init>(avrora.sim.mcu.ATMegaFamily$Timer0)
+    {
+        avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister r0;
+        avrora.sim.mcu.ATMegaFamily$Timer0 r1;
+
+        r0 := @this: avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister;
+
+        r1 := @parameter0: avrora.sim.mcu.ATMegaFamily$Timer0;
+
+        r0.<avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: avrora.sim.mcu.ATMegaFamily$Timer0 this$1> = r1;
+
+        specialinvoke r0.<avrora.sim.RWRegister: void <init>()>();
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister r0;
+        byte b0, $b2;
+        int $i1;
+
+        r0 := @this: avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister;
+
+        b0 := @parameter0: byte;
+
+        $i1 = 15 & b0;
+
+        $b2 = (byte) $i1;
+
+        specialinvoke r0.<avrora.sim.RWRegister: void write(byte)>($b2);
+
+        virtualinvoke r0.<avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: void decode(byte)>(b0);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister r0;
+        byte b0;
+        avrora.sim.mcu.ATMegaFamily$Timer0 $r1, $r2, $r3;
+        boolean $z0;
+        avrora.sim.clock.Clock $r4;
+
+        r0 := @this: avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister;
+
+        b0 := @parameter0: byte;
+
+        $r1 = r0.<avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: avrora.sim.mcu.ATMegaFamily$Timer0 this$1>;
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 3);
+
+        if $z0 == 0 goto label1;
+
+        $r3 = r0.<avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: avrora.sim.mcu.ATMegaFamily$Timer0 this$1>;
+
+        $r4 = $r3.<avrora.sim.mcu.ATMegaFamily$Timer0: avrora.sim.clock.Clock externalClock>;
+
+        goto label2;
+
+     label1:
+        $r2 = r0.<avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: avrora.sim.mcu.ATMegaFamily$Timer0 this$1>;
+
+        $r4 = $r2.<avrora.sim.mcu.ATMegaFamily$Timer0: avrora.sim.clock.Clock mainClock>;
+
+     label2:
+        $r1.<avrora.sim.mcu.ATMegaFamily$Timer0: avrora.sim.clock.Clock timerClock> = $r4;
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: int TCR0UB> = 0;
+
+        <avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: int OCR0UB> = 1;
+
+        <avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: int TCN0UB> = 2;
+
+        <avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: int AS0> = 3;
+
+        return;
+    }
+}

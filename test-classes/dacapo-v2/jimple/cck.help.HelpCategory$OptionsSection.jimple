@@ -1,0 +1,93 @@
+class cck.help.HelpCategory$OptionsSection extends cck.help.HelpCategory$Section
+{
+    final java.lang.String para;
+    final cck.util.Options options;
+    final cck.help.HelpCategory this$0;
+
+    void <init>(cck.help.HelpCategory, java.lang.String, cck.util.Options)
+    {
+        cck.help.HelpCategory$OptionsSection r0;
+        cck.help.HelpCategory r1;
+        java.lang.String r2;
+        cck.util.Options r3;
+
+        r0 := @this: cck.help.HelpCategory$OptionsSection;
+
+        r1 := @parameter0: cck.help.HelpCategory;
+
+        r2 := @parameter1: java.lang.String;
+
+        r3 := @parameter2: cck.util.Options;
+
+        r0.<cck.help.HelpCategory$OptionsSection: cck.help.HelpCategory this$0> = r1;
+
+        specialinvoke r0.<cck.help.HelpCategory$Section: void <init>(cck.help.HelpCategory,cck.help.HelpCategory$1)>(r1, null);
+
+        r0.<cck.help.HelpCategory$OptionsSection: java.lang.String para> = r2;
+
+        r0.<cck.help.HelpCategory$OptionsSection: cck.util.Options options> = r3;
+
+        return;
+    }
+
+    void printHelp()
+    {
+        cck.help.HelpCategory$OptionsSection r0;
+        java.lang.String $r1, $r2;
+        cck.util.Options $r3;
+        java.util.Collection r4;
+        java.util.Enumeration $r5;
+        java.util.ArrayList r6;
+        java.util.Comparator $r7;
+        java.util.Iterator r8;
+        boolean $z0;
+        java.lang.Object $r9;
+        cck.util.Option r10;
+
+        r0 := @this: cck.help.HelpCategory$OptionsSection;
+
+        staticinvoke <cck.text.Terminal: void printBrightBlue(java.lang.String)>("OPTIONS");
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("\n");
+
+        $r1 = r0.<cck.help.HelpCategory$OptionsSection: java.lang.String para>;
+
+        $r2 = staticinvoke <cck.text.StringUtil: java.lang.String formatParagraphs(java.lang.String,int,int,int)>($r1, 0, 4, 78);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($r2);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("");
+
+        $r3 = r0.<cck.help.HelpCategory$OptionsSection: cck.util.Options options>;
+
+        r4 = virtualinvoke $r3.<cck.util.Options: java.util.Collection getAllOptions()>();
+
+        $r5 = staticinvoke <java.util.Collections: java.util.Enumeration enumeration(java.util.Collection)>(r4);
+
+        r6 = staticinvoke <java.util.Collections: java.util.ArrayList list(java.util.Enumeration)>($r5);
+
+        $r7 = <cck.util.Option: java.util.Comparator COMPARATOR>;
+
+        staticinvoke <java.util.Collections: void sort(java.util.List,java.util.Comparator)>(r6, $r7);
+
+        r8 = interfaceinvoke r6.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke r8.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r9 = interfaceinvoke r8.<java.util.Iterator: java.lang.Object next()>();
+
+        r10 = (cck.util.Option) $r9;
+
+        virtualinvoke r10.<cck.util.Option: void printHelp()>();
+
+        goto label1;
+
+     label2:
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("");
+
+        return;
+    }
+}

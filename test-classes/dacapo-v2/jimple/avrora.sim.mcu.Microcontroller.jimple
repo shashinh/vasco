@@ -1,0 +1,23 @@
+public interface  avrora.sim.mcu.Microcontroller extends java.lang.Object
+{
+
+    public abstract avrora.sim.Simulator getSimulator();
+
+    public abstract avrora.sim.platform.Platform getPlatform();
+
+    public abstract void setPlatform(avrora.sim.platform.Platform);
+
+    public abstract avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String);
+
+    public abstract avrora.sim.mcu.Microcontroller$Pin getPin(int);
+
+    public abstract void sleep();
+
+    public abstract int wakeup();
+
+    public abstract avrora.sim.clock.ClockDomain getClockDomain();
+
+    public abstract avrora.sim.mcu.RegisterSet getRegisterSet();
+
+    public abstract avrora.sim.mcu.MCUProperties getProperties();
+}

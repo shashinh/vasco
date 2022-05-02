@@ -1,0 +1,13 @@
+public interface  avrora.sim.State extends java.lang.Object
+{
+
+    public abstract int getSP();
+
+    public abstract int getPC();
+
+    public abstract long getCycles();
+
+    public abstract avrora.sim.Simulator getSimulator();
+
+    public abstract avrora.arch.AbstractInstr getInstr(int);
+}

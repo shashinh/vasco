@@ -1,0 +1,180 @@
+public class cck.elf.ELFStringTable extends java.lang.Object
+{
+    protected final java.util.HashMap map;
+    protected final byte[] data;
+    protected final cck.elf.ELFSectionHeaderTable$Entry32 entry;
+
+    public void <init>(cck.elf.ELFHeader, cck.elf.ELFSectionHeaderTable$Entry32)
+    {
+        cck.elf.ELFStringTable r0;
+        cck.elf.ELFSectionHeaderTable$Entry32 r1;
+        int $i0;
+        byte[] $r2;
+        java.util.HashMap $r3;
+        cck.elf.ELFHeader r4;
+
+        r0 := @this: cck.elf.ELFStringTable;
+
+        r4 := @parameter0: cck.elf.ELFHeader;
+
+        r1 := @parameter1: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $i0 = r1.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_size>;
+
+        $r2 = newarray (byte)[$i0];
+
+        r0.<cck.elf.ELFStringTable: byte[] data> = $r2;
+
+        $r3 = new java.util.HashMap;
+
+        specialinvoke $r3.<java.util.HashMap: void <init>()>();
+
+        r0.<cck.elf.ELFStringTable: java.util.HashMap map> = $r3;
+
+        r0.<cck.elf.ELFStringTable: cck.elf.ELFSectionHeaderTable$Entry32 entry> = r1;
+
+        return;
+    }
+
+    public void read(java.io.RandomAccessFile) throws java.io.IOException
+    {
+        cck.elf.ELFStringTable r0;
+        byte[] $r1, $r4, $r5, $r6;
+        int $i0, $i1, $i3, $i4, $i5, $i6, i7;
+        java.io.RandomAccessFile r2;
+        cck.elf.ELFSectionHeaderTable$Entry32 $r3;
+        long $l2;
+
+        r0 := @this: cck.elf.ELFStringTable;
+
+        r2 := @parameter0: java.io.RandomAccessFile;
+
+        $r1 = r0.<cck.elf.ELFStringTable: byte[] data>;
+
+        $i0 = lengthof $r1;
+
+        if $i0 != 0 goto label1;
+
+        return;
+
+     label1:
+        $r3 = r0.<cck.elf.ELFStringTable: cck.elf.ELFSectionHeaderTable$Entry32 entry>;
+
+        $i1 = $r3.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_offset>;
+
+        $l2 = (long) $i1;
+
+        virtualinvoke r2.<java.io.RandomAccessFile: void seek(long)>($l2);
+
+        i7 = 0;
+
+     label2:
+        $r4 = r0.<cck.elf.ELFStringTable: byte[] data>;
+
+        $i3 = lengthof $r4;
+
+        if i7 >= $i3 goto label3;
+
+        $r6 = r0.<cck.elf.ELFStringTable: byte[] data>;
+
+        $r5 = r0.<cck.elf.ELFStringTable: byte[] data>;
+
+        $i4 = lengthof $r5;
+
+        $i5 = $i4 - i7;
+
+        $i6 = virtualinvoke r2.<java.io.RandomAccessFile: int read(byte[],int,int)>($r6, i7, $i5);
+
+        i7 = i7 + $i6;
+
+        goto label2;
+
+     label3:
+        return;
+    }
+
+    public java.lang.String getString(int)
+    {
+        int i0, $i1, $i2, i5;
+        cck.elf.ELFStringTable r0;
+        byte[] $r1, $r7, $r11;
+        java.lang.Integer $r2, $r8;
+        java.util.HashMap $r3, $r9;
+        java.lang.Object $r4;
+        java.lang.StringBuffer $r5;
+        byte b3;
+        char $c4;
+        java.lang.String r13;
+
+        r0 := @this: cck.elf.ELFStringTable;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<cck.elf.ELFStringTable: byte[] data>;
+
+        $i1 = lengthof $r1;
+
+        if i0 < $i1 goto label1;
+
+        return "";
+
+     label1:
+        $r3 = r0.<cck.elf.ELFStringTable: java.util.HashMap map>;
+
+        $r2 = new java.lang.Integer;
+
+        specialinvoke $r2.<java.lang.Integer: void <init>(int)>(i0);
+
+        $r4 = virtualinvoke $r3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r2);
+
+        r13 = (java.lang.String) $r4;
+
+        if r13 != null goto label5;
+
+        $r5 = new java.lang.StringBuffer;
+
+        specialinvoke $r5.<java.lang.StringBuffer: void <init>()>();
+
+        i5 = i0;
+
+     label2:
+        $r7 = r0.<cck.elf.ELFStringTable: byte[] data>;
+
+        $i2 = lengthof $r7;
+
+        if i5 >= $i2 goto label4;
+
+        $r11 = r0.<cck.elf.ELFStringTable: byte[] data>;
+
+        b3 = $r11[i5];
+
+        if b3 != 0 goto label3;
+
+        goto label4;
+
+     label3:
+        $c4 = (char) b3;
+
+        virtualinvoke $r5.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($c4);
+
+        i5 = i5 + 1;
+
+        goto label2;
+
+     label4:
+        r13 = virtualinvoke $r5.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        $r9 = r0.<cck.elf.ELFStringTable: java.util.HashMap map>;
+
+        $r8 = new java.lang.Integer;
+
+        specialinvoke $r8.<java.lang.Integer: void <init>(int)>(i0);
+
+        virtualinvoke $r9.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r8, r13);
+
+     label5:
+        return r13;
+    }
+}

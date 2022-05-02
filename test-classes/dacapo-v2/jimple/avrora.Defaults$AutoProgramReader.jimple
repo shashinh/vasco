@@ -1,0 +1,185 @@
+public class avrora.Defaults$AutoProgramReader extends avrora.core.ProgramReader
+{
+
+    public void <init>()
+    {
+        avrora.Defaults$AutoProgramReader r0;
+
+        r0 := @this: avrora.Defaults$AutoProgramReader;
+
+        specialinvoke r0.<avrora.core.ProgramReader: void <init>(java.lang.String)>("The \"auto\" input format reads a program from a single file at a time. It uses the extension of the filename as a clue to decide what input reader to use for that file. For example, an extension of \".asm\" is considered to be a program in Atmel assembly syntax.");
+
+        return;
+    }
+
+    public avrora.core.Program read(java.lang.String[]) throws java.lang.Exception
+    {
+        java.lang.String[] r0;
+        int $i0, $i1, i2;
+        java.lang.String r1, $r2, r3, $r4, $r5, $r6, $r7, $r11, $r14, $r20, $r23, $r30, $r33;
+        boolean $z0, $z1, $z2, $z3;
+        avrora.Defaults$AutoProgramReader r8;
+        cck.util.Option$List $r9, $r10;
+        cck.util.Option$Str $r12, $r13;
+        cck.util.Options $r15, $r16;
+        avrora.core.Program $r17;
+        java.lang.StringBuilder $r18, $r19, $r21, $r22, $r28, $r29, $r31, $r32;
+        avrora.syntax.elf.ELFParser $r24;
+        avrora.syntax.objdump.ObjDump2ProgramReader $r25;
+        avrora.syntax.objdump.ObjDumpProgramReader $r26;
+        avrora.syntax.atmel.AtmelProgramReader $r27;
+        avrora.core.ProgramReader r34;
+
+        r8 := @this: avrora.Defaults$AutoProgramReader;
+
+        r0 := @parameter0: java.lang.String[];
+
+        $i0 = lengthof r0;
+
+        if $i0 != 0 goto label1;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>("no input files");
+
+     label1:
+        $i1 = lengthof r0;
+
+        if $i1 == 1 goto label2;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>("input type \"auto\" accepts only one file at a time.");
+
+     label2:
+        r1 = r0[0];
+
+        i2 = virtualinvoke r1.<java.lang.String: int lastIndexOf(int)>(46);
+
+        if i2 >= 0 goto label3;
+
+        $r28 = new java.lang.StringBuilder;
+
+        specialinvoke $r28.<java.lang.StringBuilder: void <init>()>();
+
+        $r29 = virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("file ");
+
+        $r30 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(r1);
+
+        $r31 = virtualinvoke $r29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r30);
+
+        $r32 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" does not have an extension");
+
+        $r33 = virtualinvoke $r32.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>($r33);
+
+     label3:
+        $r2 = virtualinvoke r1.<java.lang.String: java.lang.String substring(int)>(i2);
+
+        r3 = virtualinvoke $r2.<java.lang.String: java.lang.String toLowerCase()>();
+
+        r34 = null;
+
+        $r4 = ".asm";
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>(r3);
+
+        if $z0 == 0 goto label4;
+
+        $r27 = new avrora.syntax.atmel.AtmelProgramReader;
+
+        specialinvoke $r27.<avrora.syntax.atmel.AtmelProgramReader: void <init>()>();
+
+        r34 = $r27;
+
+        goto label7;
+
+     label4:
+        $r5 = ".od";
+
+        $z1 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>(r3);
+
+        if $z1 == 0 goto label5;
+
+        $r26 = new avrora.syntax.objdump.ObjDumpProgramReader;
+
+        specialinvoke $r26.<avrora.syntax.objdump.ObjDumpProgramReader: void <init>()>();
+
+        r34 = $r26;
+
+        goto label7;
+
+     label5:
+        $r6 = ".odpp";
+
+        $z2 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>(r3);
+
+        if $z2 == 0 goto label6;
+
+        $r25 = new avrora.syntax.objdump.ObjDump2ProgramReader;
+
+        specialinvoke $r25.<avrora.syntax.objdump.ObjDump2ProgramReader: void <init>()>();
+
+        r34 = $r25;
+
+        goto label7;
+
+     label6:
+        $r7 = ".elf";
+
+        $z3 = virtualinvoke $r7.<java.lang.String: boolean equals(java.lang.Object)>(r3);
+
+        if $z3 == 0 goto label7;
+
+        $r24 = new avrora.syntax.elf.ELFParser;
+
+        specialinvoke $r24.<avrora.syntax.elf.ELFParser: void <init>()>();
+
+        r34 = $r24;
+
+     label7:
+        if r34 != null goto label8;
+
+        $r18 = new java.lang.StringBuilder;
+
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+        $r19 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("file extension ");
+
+        $r20 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(r3);
+
+        $r21 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r20);
+
+        $r22 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" unknown");
+
+        $r23 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>($r23);
+
+        return null;
+
+     label8:
+        $r10 = r34.<avrora.core.ProgramReader: cck.util.Option$List INDIRECT_EDGES>;
+
+        $r9 = r8.<avrora.Defaults$AutoProgramReader: cck.util.Option$List INDIRECT_EDGES>;
+
+        $r11 = virtualinvoke $r9.<cck.util.Option$List: java.lang.String stringValue()>();
+
+        virtualinvoke $r10.<cck.util.Option$List: void set(java.lang.String)>($r11);
+
+        $r13 = r34.<avrora.core.ProgramReader: cck.util.Option$Str ARCH>;
+
+        $r12 = r8.<avrora.Defaults$AutoProgramReader: cck.util.Option$Str ARCH>;
+
+        $r14 = virtualinvoke $r12.<cck.util.Option$Str: java.lang.String stringValue()>();
+
+        virtualinvoke $r13.<cck.util.Option$Str: void set(java.lang.String)>($r14);
+
+        $r16 = r34.<avrora.core.ProgramReader: cck.util.Options options>;
+
+        $r15 = r8.<avrora.Defaults$AutoProgramReader: cck.util.Options options>;
+
+        virtualinvoke $r16.<cck.util.Options: void process(cck.util.Options)>($r15);
+
+        $r17 = virtualinvoke r34.<avrora.core.ProgramReader: avrora.core.Program read(java.lang.String[])>(r0);
+
+        return $r17;
+    }
+}

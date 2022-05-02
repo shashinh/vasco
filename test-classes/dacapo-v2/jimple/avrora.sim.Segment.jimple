@@ -1,0 +1,458 @@
+public class avrora.sim.Segment extends java.lang.Object
+{
+    public final int length;
+    protected final avrora.sim.State state;
+    public final java.lang.String name;
+    public final byte value;
+    protected byte[] segment_data;
+    protected avrora.sim.util.MulticastWatch[] segment_watches;
+    protected avrora.sim.util.MulticastWatch error_watch;
+    protected avrora.sim.Segment$Sharer sharer;
+
+    public void <init>(java.lang.String, int, byte, avrora.sim.State)
+    {
+        avrora.sim.Segment r0;
+        java.lang.String r1;
+        int i0;
+        byte b1;
+        byte[] $r2, $r4;
+        avrora.sim.State r3;
+
+        r0 := @this: avrora.sim.Segment;
+
+        r1 := @parameter0: java.lang.String;
+
+        i0 := @parameter1: int;
+
+        b1 := @parameter2: byte;
+
+        r3 := @parameter3: avrora.sim.State;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.Segment: java.lang.String name> = r1;
+
+        r0.<avrora.sim.Segment: int length> = i0;
+
+        r0.<avrora.sim.Segment: byte value> = b1;
+
+        $r2 = newarray (byte)[i0];
+
+        r0.<avrora.sim.Segment: byte[] segment_data> = $r2;
+
+        r0.<avrora.sim.Segment: avrora.sim.State state> = r3;
+
+        if b1 == 0 goto label1;
+
+        $r4 = r0.<avrora.sim.Segment: byte[] segment_data>;
+
+        staticinvoke <java.util.Arrays: void fill(byte[],byte)>($r4, b1);
+
+     label1:
+        return;
+    }
+
+    public byte[] share(avrora.sim.Segment$Sharer)
+    {
+        avrora.sim.Segment r0;
+        avrora.sim.Segment$Sharer r1;
+        byte[] $r2;
+
+        r0 := @this: avrora.sim.Segment;
+
+        r1 := @parameter0: avrora.sim.Segment$Sharer;
+
+        r0.<avrora.sim.Segment: avrora.sim.Segment$Sharer sharer> = r1;
+
+        $r2 = r0.<avrora.sim.Segment: byte[] segment_data>;
+
+        return $r2;
+    }
+
+    public byte read(int)
+    {
+        avrora.sim.Segment r0;
+        avrora.sim.util.MulticastWatch[] $r1, $r2;
+        int i0;
+        avrora.sim.util.MulticastWatch r3;
+        avrora.sim.State $r4, $r5;
+        byte b1, $b2, $b3;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        if $r1 != null goto label1;
+
+        $b3 = specialinvoke r0.<avrora.sim.Segment: byte checked_read(int)>(i0);
+
+        return $b3;
+
+     label1:
+        $r2 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        r3 = $r2[i0];
+
+        if r3 != null goto label2;
+
+        $b2 = specialinvoke r0.<avrora.sim.Segment: byte checked_read(int)>(i0);
+
+        return $b2;
+
+     label2:
+        $r4 = r0.<avrora.sim.Segment: avrora.sim.State state>;
+
+        virtualinvoke r3.<avrora.sim.util.MulticastWatch: void fireBeforeRead(avrora.sim.State,int)>($r4, i0);
+
+        b1 = specialinvoke r0.<avrora.sim.Segment: byte checked_read(int)>(i0);
+
+        $r5 = r0.<avrora.sim.Segment: avrora.sim.State state>;
+
+        virtualinvoke r3.<avrora.sim.util.MulticastWatch: void fireAfterRead(avrora.sim.State,int,byte)>($r5, i0, b1);
+
+        return b1;
+    }
+
+    private byte checked_read(int)
+    {
+        avrora.sim.Segment r0;
+        int i0;
+        byte $b1, $b2;
+        java.lang.ArrayIndexOutOfBoundsException $r1;
+        avrora.sim.util.MulticastWatch $r3, $r5;
+        avrora.sim.State $r4;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+     label1:
+        $b1 = virtualinvoke r0.<avrora.sim.Segment: byte direct_read(int)>(i0);
+
+     label2:
+        return $b1;
+
+     label3:
+        $r1 := @caughtexception;
+
+        $r3 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch error_watch>;
+
+        if $r3 == null goto label4;
+
+        $r5 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch error_watch>;
+
+        $r4 = r0.<avrora.sim.Segment: avrora.sim.State state>;
+
+        virtualinvoke $r5.<avrora.sim.util.MulticastWatch: void fireBeforeRead(avrora.sim.State,int)>($r4, i0);
+
+     label4:
+        $b2 = r0.<avrora.sim.Segment: byte value>;
+
+        return $b2;
+
+        catch java.lang.ArrayIndexOutOfBoundsException from label1 to label2 with label3;
+    }
+
+    protected byte direct_read(int)
+    {
+        avrora.sim.Segment r0;
+        int i0;
+        byte[] $r1;
+        byte $b1;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.Segment: byte[] segment_data>;
+
+        $b1 = $r1[i0];
+
+        return $b1;
+    }
+
+    public byte get(int)
+    {
+        avrora.sim.Segment r0;
+        int i0;
+        byte $b1;
+        java.lang.ArrayIndexOutOfBoundsException $r1;
+        avrora.sim.Segment$AddressOutOfBoundsException $r3;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+     label1:
+        $b1 = virtualinvoke r0.<avrora.sim.Segment: byte direct_read(int)>(i0);
+
+     label2:
+        return $b1;
+
+     label3:
+        $r1 := @caughtexception;
+
+        $r3 = new avrora.sim.Segment$AddressOutOfBoundsException;
+
+        specialinvoke $r3.<avrora.sim.Segment$AddressOutOfBoundsException: void <init>(avrora.sim.Segment,int)>(r0, i0);
+
+        throw $r3;
+
+        catch java.lang.ArrayIndexOutOfBoundsException from label1 to label2 with label3;
+    }
+
+    public void write(int, byte)
+    {
+        avrora.sim.Segment r0;
+        avrora.sim.util.MulticastWatch[] $r1, $r2;
+        int i0;
+        avrora.sim.util.MulticastWatch r3;
+        byte b1;
+        avrora.sim.State $r4, $r5;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+        b1 := @parameter1: byte;
+
+        $r1 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        if $r1 != null goto label1;
+
+        specialinvoke r0.<avrora.sim.Segment: void checked_write(int,byte)>(i0, b1);
+
+        return;
+
+     label1:
+        $r2 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        r3 = $r2[i0];
+
+        if r3 != null goto label2;
+
+        specialinvoke r0.<avrora.sim.Segment: void checked_write(int,byte)>(i0, b1);
+
+        return;
+
+     label2:
+        $r4 = r0.<avrora.sim.Segment: avrora.sim.State state>;
+
+        virtualinvoke r3.<avrora.sim.util.MulticastWatch: void fireBeforeWrite(avrora.sim.State,int,byte)>($r4, i0, b1);
+
+        specialinvoke r0.<avrora.sim.Segment: void checked_write(int,byte)>(i0, b1);
+
+        $r5 = r0.<avrora.sim.Segment: avrora.sim.State state>;
+
+        virtualinvoke r3.<avrora.sim.util.MulticastWatch: void fireAfterWrite(avrora.sim.State,int,byte)>($r5, i0, b1);
+
+        return;
+    }
+
+    private void checked_write(int, byte)
+    {
+        avrora.sim.Segment r0;
+        int i0;
+        byte b1;
+        java.lang.ArrayIndexOutOfBoundsException $r1;
+        avrora.sim.util.MulticastWatch $r3, $r5;
+        avrora.sim.State $r4;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+        b1 := @parameter1: byte;
+
+     label1:
+        virtualinvoke r0.<avrora.sim.Segment: void direct_write(int,byte)>(i0, b1);
+
+     label2:
+        goto label4;
+
+     label3:
+        $r1 := @caughtexception;
+
+        $r3 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch error_watch>;
+
+        if $r3 == null goto label4;
+
+        $r5 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch error_watch>;
+
+        $r4 = r0.<avrora.sim.Segment: avrora.sim.State state>;
+
+        virtualinvoke $r5.<avrora.sim.util.MulticastWatch: void fireBeforeWrite(avrora.sim.State,int,byte)>($r4, i0, b1);
+
+     label4:
+        return;
+
+        catch java.lang.ArrayIndexOutOfBoundsException from label1 to label2 with label3;
+    }
+
+    protected void direct_write(int, byte)
+    {
+        avrora.sim.Segment r0;
+        int i0;
+        byte b1;
+        byte[] $r1;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+        b1 := @parameter1: byte;
+
+        $r1 = r0.<avrora.sim.Segment: byte[] segment_data>;
+
+        $r1[i0] = b1;
+
+        return;
+    }
+
+    public void set(int, byte)
+    {
+        avrora.sim.Segment r0;
+        int i0;
+        byte b1;
+        java.lang.ArrayIndexOutOfBoundsException $r1;
+        avrora.sim.Segment$AddressOutOfBoundsException $r3;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+        b1 := @parameter1: byte;
+
+     label1:
+        virtualinvoke r0.<avrora.sim.Segment: void direct_write(int,byte)>(i0, b1);
+
+     label2:
+        goto label4;
+
+     label3:
+        $r1 := @caughtexception;
+
+        $r3 = new avrora.sim.Segment$AddressOutOfBoundsException;
+
+        specialinvoke $r3.<avrora.sim.Segment$AddressOutOfBoundsException: void <init>(avrora.sim.Segment,int)>(r0, i0);
+
+        throw $r3;
+
+     label4:
+        return;
+
+        catch java.lang.ArrayIndexOutOfBoundsException from label1 to label2 with label3;
+    }
+
+    public void insertWatch(int, avrora.sim.Simulator$Watch)
+    {
+        avrora.sim.Segment r0;
+        avrora.sim.util.MulticastWatch[] $r1, $r2, $r5, $r6;
+        int i0, $i1;
+        avrora.sim.Simulator$Watch r3;
+        avrora.sim.util.MulticastWatch $r4, r7;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+        r3 := @parameter1: avrora.sim.Simulator$Watch;
+
+        $r1 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        if $r1 != null goto label1;
+
+        $i1 = r0.<avrora.sim.Segment: int length>;
+
+        $r6 = newarray (avrora.sim.util.MulticastWatch)[$i1];
+
+        r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches> = $r6;
+
+     label1:
+        $r2 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        r7 = $r2[i0];
+
+        if r7 != null goto label2;
+
+        $r5 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        $r4 = new avrora.sim.util.MulticastWatch;
+
+        specialinvoke $r4.<avrora.sim.util.MulticastWatch: void <init>()>();
+
+        $r5[i0] = $r4;
+
+        r7 = $r4;
+
+     label2:
+        virtualinvoke r7.<avrora.sim.util.MulticastWatch: void add(java.lang.Object)>(r3);
+
+        return;
+    }
+
+    public void insertErrorWatch(avrora.sim.Simulator$Watch)
+    {
+        avrora.sim.Segment r0;
+        avrora.sim.util.MulticastWatch $r1, $r3, $r4;
+        avrora.sim.Simulator$Watch r2;
+
+        r0 := @this: avrora.sim.Segment;
+
+        r2 := @parameter0: avrora.sim.Simulator$Watch;
+
+        $r1 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch error_watch>;
+
+        if $r1 != null goto label1;
+
+        $r4 = new avrora.sim.util.MulticastWatch;
+
+        specialinvoke $r4.<avrora.sim.util.MulticastWatch: void <init>()>();
+
+        r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch error_watch> = $r4;
+
+     label1:
+        $r3 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch error_watch>;
+
+        virtualinvoke $r3.<avrora.sim.util.MulticastWatch: void add(java.lang.Object)>(r2);
+
+        return;
+    }
+
+    public void removeWatch(int, avrora.sim.Simulator$Watch)
+    {
+        avrora.sim.Segment r0;
+        avrora.sim.util.MulticastWatch[] $r1, $r2;
+        int i0;
+        avrora.sim.util.MulticastWatch r3;
+        avrora.sim.Simulator$Watch r4;
+
+        r0 := @this: avrora.sim.Segment;
+
+        i0 := @parameter0: int;
+
+        r4 := @parameter1: avrora.sim.Simulator$Watch;
+
+        $r1 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        if $r1 != null goto label1;
+
+        return;
+
+     label1:
+        $r2 = r0.<avrora.sim.Segment: avrora.sim.util.MulticastWatch[] segment_watches>;
+
+        r3 = $r2[i0];
+
+        if r3 != null goto label2;
+
+        return;
+
+     label2:
+        virtualinvoke r3.<avrora.sim.util.MulticastWatch: void remove(java.lang.Object)>(r4);
+
+        return;
+    }
+}

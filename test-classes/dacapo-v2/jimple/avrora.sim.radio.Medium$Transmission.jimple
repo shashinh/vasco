@@ -1,0 +1,215 @@
+public class avrora.sim.radio.Medium$Transmission extends java.lang.Object
+{
+    public final avrora.sim.radio.Medium$Transmitter origin;
+    public final long start;
+    public final long firstBit;
+    public final double power;
+    public final double Pt;
+    public final double f;
+    public long lastBit;
+    public long end;
+    protected int counter;
+    protected byte[] data;
+    static final boolean $assertionsDisabled;
+    final avrora.sim.radio.Medium this$0;
+
+    protected void <init>(avrora.sim.radio.Medium, avrora.sim.radio.Medium$Transmitter, double, double)
+    {
+        avrora.sim.radio.Medium$Transmission r0;
+        avrora.sim.radio.Medium r1, $r5;
+        avrora.sim.radio.Medium$Transmitter r2, $r4;
+        double d0, d1;
+        avrora.sim.clock.Clock $r3;
+        long $l0, $l1, $l2, l3, $l4;
+        int $i5, $i6;
+        byte[] $r6;
+
+        r0 := @this: avrora.sim.radio.Medium$Transmission;
+
+        r1 := @parameter0: avrora.sim.radio.Medium;
+
+        r2 := @parameter1: avrora.sim.radio.Medium$Transmitter;
+
+        d0 := @parameter2: double;
+
+        d1 := @parameter3: double;
+
+        r0.<avrora.sim.radio.Medium$Transmission: avrora.sim.radio.Medium this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.radio.Medium$Transmission: avrora.sim.radio.Medium$Transmitter origin> = r2;
+
+        r0.<avrora.sim.radio.Medium$Transmission: double power> = d0;
+
+        r0.<avrora.sim.radio.Medium$Transmission: double Pt> = d0;
+
+        r0.<avrora.sim.radio.Medium$Transmission: double f> = d1;
+
+        $r3 = r2.<avrora.sim.radio.Medium$Transmitter: avrora.sim.clock.Clock clock>;
+
+        $l0 = virtualinvoke $r3.<avrora.sim.clock.Clock: long getCount()>();
+
+        r0.<avrora.sim.radio.Medium$Transmission: long start> = $l0;
+
+        r0.<avrora.sim.radio.Medium$Transmission: long end> = 9223372036854775807L;
+
+        $l2 = r0.<avrora.sim.radio.Medium$Transmission: long start>;
+
+        $l1 = r2.<avrora.sim.radio.Medium$Transmitter: long leadCycles>;
+
+        l3 = $l2 + $l1;
+
+        $r4 = r0.<avrora.sim.radio.Medium$Transmission: avrora.sim.radio.Medium$Transmitter origin>;
+
+        $l4 = virtualinvoke $r4.<avrora.sim.radio.Medium$Transmitter: long getBitNum(long)>(l3);
+
+        r0.<avrora.sim.radio.Medium$Transmission: long firstBit> = $l4;
+
+        r0.<avrora.sim.radio.Medium$Transmission: long lastBit> = 9223372036854775807L;
+
+        $r5 = r2.<avrora.sim.radio.Medium$Transmitter: avrora.sim.radio.Medium medium>;
+
+        $i5 = $r5.<avrora.sim.radio.Medium: int maxLength>;
+
+        $i6 = staticinvoke <cck.util.Arithmetic: int roundup(int,int)>($i5, 8);
+
+        $r6 = newarray (byte)[$i6];
+
+        r0.<avrora.sim.radio.Medium$Transmission: byte[] data> = $r6;
+
+        return;
+    }
+
+    public void end()
+    {
+        avrora.sim.radio.Medium$Transmission r0;
+        avrora.sim.radio.Medium$Transmitter $r1;
+        avrora.sim.clock.Clock $r2;
+        long $l0, $l3, $l4, $l5;
+        int $i1, $i2;
+
+        r0 := @this: avrora.sim.radio.Medium$Transmission;
+
+        $r1 = r0.<avrora.sim.radio.Medium$Transmission: avrora.sim.radio.Medium$Transmitter origin>;
+
+        $r2 = $r1.<avrora.sim.radio.Medium$Transmitter: avrora.sim.clock.Clock clock>;
+
+        $l0 = virtualinvoke $r2.<avrora.sim.clock.Clock: long getCount()>();
+
+        r0.<avrora.sim.radio.Medium$Transmission: long end> = $l0;
+
+        $l4 = r0.<avrora.sim.radio.Medium$Transmission: long firstBit>;
+
+        $i1 = r0.<avrora.sim.radio.Medium$Transmission: int counter>;
+
+        $i2 = $i1 * 8;
+
+        $l3 = (long) $i2;
+
+        $l5 = $l4 + $l3;
+
+        r0.<avrora.sim.radio.Medium$Transmission: long lastBit> = $l5;
+
+        return;
+    }
+
+    public byte getByteAtTime(long)
+    {
+        boolean $z0;
+        long l0, $l1, $l2, $l17;
+        avrora.sim.radio.Medium$Transmission r0;
+        int i3, i4, i5, $i7, i8, $i10, i12, $i13, $i14, $i15;
+        byte[] $r1, $r2;
+        byte $b6, $b9, $b11, $b16, $b18;
+        java.lang.AssertionError $r3;
+
+        r0 := @this: avrora.sim.radio.Medium$Transmission;
+
+        l0 := @parameter0: long;
+
+        $z0 = <avrora.sim.radio.Medium$Transmission: boolean $assertionsDisabled>;
+
+        if $z0 != 0 goto label1;
+
+        $l17 = r0.<avrora.sim.radio.Medium$Transmission: long firstBit>;
+
+        $b18 = l0 cmp $l17;
+
+        if $b18 >= 0 goto label1;
+
+        $r3 = new java.lang.AssertionError;
+
+        specialinvoke $r3.<java.lang.AssertionError: void <init>()>();
+
+        throw $r3;
+
+     label1:
+        $l1 = r0.<avrora.sim.radio.Medium$Transmission: long firstBit>;
+
+        $l2 = l0 - $l1;
+
+        i3 = (int) $l2;
+
+        i4 = i3 & 7;
+
+        i5 = i3 / 8;
+
+        $r1 = r0.<avrora.sim.radio.Medium$Transmission: byte[] data>;
+
+        $b6 = $r1[i5];
+
+        $i7 = $b6 << i4;
+
+        i8 = 255 & $i7;
+
+        if i4 <= 0 goto label2;
+
+        $r2 = r0.<avrora.sim.radio.Medium$Transmission: byte[] data>;
+
+        $i10 = 1 + i5;
+
+        $b11 = $r2[$i10];
+
+        i12 = 255 & $b11;
+
+        $i13 = 8 - i4;
+
+        $i14 = i12 >> $i13;
+
+        $i15 = i8 | $i14;
+
+        $b16 = (byte) $i15;
+
+        return $b16;
+
+     label2:
+        $b9 = (byte) i8;
+
+        return $b9;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.Class $r0;
+        boolean $z0, $z1;
+
+        $r0 = class "Lavrora/sim/radio/Medium;";
+
+        $z0 = virtualinvoke $r0.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $z0 != 0 goto label1;
+
+        $z1 = 1;
+
+        goto label2;
+
+     label1:
+        $z1 = 0;
+
+     label2:
+        <avrora.sim.radio.Medium$Transmission: boolean $assertionsDisabled> = $z1;
+
+        return;
+    }
+}

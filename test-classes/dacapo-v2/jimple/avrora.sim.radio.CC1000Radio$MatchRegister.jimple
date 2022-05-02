@@ -1,0 +1,45 @@
+public class avrora.sim.radio.CC1000Radio$MatchRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    int rxMatch;
+    int txMatch;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$MatchRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$MatchRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$MatchRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, "MATCH", 0);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$MatchRegister r0;
+        byte b0;
+        int $i1, $i2, $i3;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$MatchRegister;
+
+        b0 := @parameter0: byte;
+
+        $i1 = b0 & 240;
+
+        $i2 = $i1 >> 4;
+
+        r0.<avrora.sim.radio.CC1000Radio$MatchRegister: int rxMatch> = $i2;
+
+        $i3 = b0 & 15;
+
+        r0.<avrora.sim.radio.CC1000Radio$MatchRegister: int txMatch> = $i3;
+
+        return;
+    }
+}

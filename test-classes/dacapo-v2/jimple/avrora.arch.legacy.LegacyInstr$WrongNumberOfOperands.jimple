@@ -1,0 +1,41 @@
+public class avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands extends java.lang.RuntimeException
+{
+    public final int expected;
+    public final int found;
+
+    void <init>(int, int)
+    {
+        avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands r0;
+        java.lang.StringBuilder $r1, $r2, $r3, $r4, $r5;
+        int i0, i1;
+        java.lang.String $r6;
+
+        r0 := @this: avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands;
+
+        i1 := @parameter0: int;
+
+        i0 := @parameter1: int;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wrong number of operands, expected ");
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" and found ");
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i1);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<java.lang.RuntimeException: void <init>(java.lang.String)>($r6);
+
+        r0.<avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands: int expected> = i0;
+
+        r0.<avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands: int found> = i1;
+
+        return;
+    }
+}

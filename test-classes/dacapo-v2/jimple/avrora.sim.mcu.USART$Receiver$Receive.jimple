@@ -1,0 +1,140 @@
+public class avrora.sim.mcu.USART$Receiver$Receive extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    avrora.sim.mcu.USART$Frame frame;
+    final avrora.sim.mcu.USART$Receiver this$1;
+
+    protected void <init>(avrora.sim.mcu.USART$Receiver)
+    {
+        avrora.sim.mcu.USART$Receiver$Receive r0;
+        avrora.sim.mcu.USART$Receiver r1;
+
+        r0 := @this: avrora.sim.mcu.USART$Receiver$Receive;
+
+        r1 := @parameter0: avrora.sim.mcu.USART$Receiver;
+
+        r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.USART$Receiver$Receive r0;
+        avrora.sim.mcu.USART$Receiver $r1, $r4, $r7, $r11, $r12, $r16, $r25, $r30, $r35;
+        avrora.sim.mcu.USART$Frame $r2, $r22;
+        avrora.sim.mcu.USART $r3, $r5, $r8, $r13, $r17, $r26, $r31, $r36;
+        avrora.sim.output.SimPrinter $r6, $r15;
+        avrora.sim.mcu.USART$ControlRegisterA $r9;
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag $r10;
+        java.lang.StringBuilder $r14, $r20, $r21, $r23, $r24, $r28, $r29, $r33, $r34, $r37, $r38;
+        avrora.sim.mcu.USART$USARTProperties $r18;
+        java.lang.String $r19, $r39;
+        avrora.sim.mcu.USART$UBRRnHReg $r27;
+        byte $b0, $b1;
+        avrora.sim.mcu.USART$UBRRnLReg $r32;
+        int $i2;
+
+        r0 := @this: avrora.sim.mcu.USART$Receiver$Receive;
+
+        $r1 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r3 = $r1.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $r2 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Frame frame>;
+
+        virtualinvoke $r3.<avrora.sim.mcu.USART: void receiveFrame(avrora.sim.mcu.USART$Frame)>($r2);
+
+        $r4 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r5 = $r4.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $r6 = $r5.<avrora.sim.mcu.USART: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $r6 == null goto label1;
+
+        $r12 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r13 = $r12.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $r15 = $r13.<avrora.sim.mcu.USART: avrora.sim.output.SimPrinter devicePrinter>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        $r16 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r17 = $r16.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $r18 = $r17.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$USARTProperties properties>;
+
+        $r19 = $r18.<avrora.sim.mcu.USART$USARTProperties: java.lang.String USART_name>;
+
+        $r20 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r19);
+
+        $r21 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": Received frame ");
+
+        $r22 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Frame frame>;
+
+        $r23 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r22);
+
+        $r24 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $r25 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r26 = $r25.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $r27 = $r26.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$UBRRnHReg UBRRnH_reg>;
+
+        $b0 = virtualinvoke $r27.<avrora.sim.mcu.USART$UBRRnHReg: byte read()>();
+
+        $r28 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($b0);
+
+        $r29 = virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $r30 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r31 = $r30.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $r32 = $r31.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$UBRRnLReg UBRRnL_reg>;
+
+        $b1 = virtualinvoke $r32.<avrora.sim.mcu.USART$UBRRnLReg: byte read()>();
+
+        $r33 = virtualinvoke $r29.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($b1);
+
+        $r34 = virtualinvoke $r33.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $r35 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r36 = $r35.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $i2 = $r36.<avrora.sim.mcu.USART: int UBRRMultiplier>;
+
+        $r37 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i2);
+
+        $r38 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $r39 = virtualinvoke $r38.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r15.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($r39);
+
+     label1:
+        $r7 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r8 = $r7.<avrora.sim.mcu.USART$Receiver: avrora.sim.mcu.USART this$0>;
+
+        $r9 = $r8.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $r10 = $r9.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.mcu.ATMegaFamily$InterruptFlag RXC_flag>;
+
+        virtualinvoke $r10.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: void flag(boolean)>(1);
+
+        $r11 = r0.<avrora.sim.mcu.USART$Receiver$Receive: avrora.sim.mcu.USART$Receiver this$1>;
+
+        $r11.<avrora.sim.mcu.USART$Receiver: boolean receiving> = 0;
+
+        return;
+    }
+}

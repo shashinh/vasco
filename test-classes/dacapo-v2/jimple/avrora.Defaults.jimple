@@ -1,0 +1,837 @@
+public class avrora.Defaults extends java.lang.Object
+{
+    private static final java.util.HashMap mainCategories;
+    private static cck.util.ClassMap microcontrollers;
+    private static cck.util.ClassMap platforms;
+    private static cck.util.ClassMap actions;
+    private static cck.util.ClassMap inputs;
+    private static cck.util.ClassMap harnessMap;
+    private static cck.util.ClassMap monitorMap;
+    private static cck.util.ClassMap simMap;
+
+    public void <init>()
+    {
+        avrora.Defaults r0;
+
+        r0 := @this: avrora.Defaults;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    private static synchronized void addAll()
+    {
+        staticinvoke <avrora.Defaults: void addMicrocontrollers()>();
+
+        staticinvoke <avrora.Defaults: void addPlatforms()>();
+
+        staticinvoke <avrora.Defaults: void addActions()>();
+
+        staticinvoke <avrora.Defaults: void addInputFormats()>();
+
+        staticinvoke <avrora.Defaults: void addTestHarnesses()>();
+
+        staticinvoke <avrora.Defaults: void addMonitors()>();
+
+        staticinvoke <avrora.Defaults: void addSimulations()>();
+
+        staticinvoke <avrora.arch.ArchitectureRegistry: void addArchitectures()>();
+
+        return;
+    }
+
+    private static synchronized void addMonitors()
+    {
+        cck.util.ClassMap $r0, $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r10, $r11, $r12, $r13, $r14, $r15, $r16, $r17, $r18, $r19, $r20, $r21, $r22, $r23, $r24, $r25, $r26, $r27, $r30, $r31;
+        cck.help.HelpCategory $r28;
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        if $r0 != null goto label1;
+
+        $r1 = new cck.util.ClassMap;
+
+        specialinvoke $r1.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("Monitor", class "Lavrora/monitors/MonitorFactory;");
+
+        <avrora.Defaults: cck.util.ClassMap monitorMap> = $r1;
+
+        $r2 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r2.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("calls", class "Lavrora/monitors/CallMonitor;");
+
+        $r3 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r3.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("break", class "Lavrora/monitors/BreakMonitor;");
+
+        $r4 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r4.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("c-print", class "Lavrora/monitors/PrintMonitor;");
+
+        $r5 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r5.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("c-timer", class "Lavrora/monitors/TimerMonitor;");
+
+        $r6 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r6.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("profile", class "Lavrora/monitors/ProfileMonitor;");
+
+        $r7 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r7.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("memory", class "Lavrora/monitors/MemoryMonitor;");
+
+        $r8 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r8.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("sleep", class "Lavrora/monitors/SleepMonitor;");
+
+        $r9 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r9.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("leds", class "Lavrora/monitors/LEDMonitor;");
+
+        $r10 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r10.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("stack", class "Lavrora/monitors/StackMonitor;");
+
+        $r11 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r11.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("energy", class "Lavrora/monitors/EnergyMonitor;");
+
+        $r12 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r12.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("interrupts", class "Lavrora/monitors/InterruptMonitor;");
+
+        $r13 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r13.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("interactive", class "Lavrora/monitors/InteractiveMonitor;");
+
+        $r14 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r14.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("trace", class "Lavrora/monitors/TraceMonitor;");
+
+        $r15 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r15.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("energy-profile", class "Lavrora/monitors/EnergyProfiler;");
+
+        $r16 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r16.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("packet", class "Lavrora/monitors/PacketMonitor;");
+
+        $r17 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r17.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("gdb", class "Lavrora/monitors/GDBServer;");
+
+        $r18 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r18.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("simperf", class "Lavrora/monitors/SimPerfMonitor;");
+
+        $r19 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r19.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("serial", class "Lavrora/monitors/SerialMonitor;");
+
+        $r20 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r20.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("spi", class "Lavrora/monitors/SPIMonitor;");
+
+        $r21 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r21.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("call-time", class "Lavrora/monitors/CallTimeMonitor;");
+
+        $r22 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r22.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("call-profile", class "Lavrora/monitors/CallTreeProfiler;");
+
+        $r23 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r23.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("trip-time", class "Lavrora/monitors/TripTimeMonitor;");
+
+        $r24 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r24.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("ioregs", class "Lavrora/monitors/IORegMonitor;");
+
+        $r25 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r25.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("virgil", class "Lavrora/monitors/VirgilMonitor;");
+
+        $r26 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r26.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("real-time", class "Lavrora/monitors/RealTimeMonitor;");
+
+        $r27 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r27.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("sniffer", class "Lavrora/monitors/SnifferMonitor;");
+
+        $r28 = new cck.help.HelpCategory;
+
+        specialinvoke $r28.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("monitors", "Help for the supported simulation monitors.");
+
+        $r30 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        virtualinvoke $r28.<cck.help.HelpCategory: void addOptionValueSection(java.lang.String,java.lang.String,java.lang.String,cck.util.ClassMap)>("SIMULATION MONITORS", "Avrora\'s simulator offers the ability to install execution monitors that instrument the program in order to study and analyze its behavior. The \"simulate\" action supports this option that allows a monitor class to be loaded which will instrument the program before it is run and then generate a report after the program has completed execution.", "-monitors", $r30);
+
+        staticinvoke <avrora.Defaults: void addMainCategory(cck.help.HelpCategory)>($r28);
+
+        $r31 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        staticinvoke <avrora.Defaults: void addSubCategories(cck.util.ClassMap)>($r31);
+
+     label1:
+        return;
+    }
+
+    private static synchronized void addTestHarnesses()
+    {
+        cck.util.ClassMap $r0, $r1, $r2, $r3, $r4, $r5, $r6;
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap harnessMap>;
+
+        if $r0 != null goto label1;
+
+        $r1 = new cck.util.ClassMap;
+
+        specialinvoke $r1.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("Test Harness", class "Lcck/test/TestEngine$Harness;");
+
+        <avrora.Defaults: cck.util.ClassMap harnessMap> = $r1;
+
+        $r2 = <avrora.Defaults: cck.util.ClassMap harnessMap>;
+
+        virtualinvoke $r2.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("simulator", class "Lavrora/test/sim/SimTestHarness;");
+
+        $r3 = <avrora.Defaults: cck.util.ClassMap harnessMap>;
+
+        virtualinvoke $r3.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("simplifier", class "Lavrora/test/SimplifierTestHarness;");
+
+        $r4 = <avrora.Defaults: cck.util.ClassMap harnessMap>;
+
+        virtualinvoke $r4.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("probes", class "Lavrora/test/ProbeTestHarness;");
+
+        $r5 = <avrora.Defaults: cck.util.ClassMap harnessMap>;
+
+        virtualinvoke $r5.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("disassembler", class "Lavrora/test/DisassemblerTestHarness;");
+
+        $r6 = <avrora.Defaults: cck.util.ClassMap harnessMap>;
+
+        virtualinvoke $r6.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("interrupt", class "Lavrora/test/InterruptTestHarness;");
+
+     label1:
+        return;
+    }
+
+    private static synchronized void addInputFormats()
+    {
+        cck.util.ClassMap $r0, $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r10, $r11;
+        cck.help.HelpCategory $r8;
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        if $r0 != null goto label1;
+
+        $r1 = new cck.util.ClassMap;
+
+        specialinvoke $r1.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("Input Format", class "Lavrora/core/ProgramReader;");
+
+        <avrora.Defaults: cck.util.ClassMap inputs> = $r1;
+
+        $r2 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        virtualinvoke $r2.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("auto", class "Lavrora/Defaults$AutoProgramReader;");
+
+        $r3 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        virtualinvoke $r3.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("raw", class "Lavrora/syntax/raw/RAWReader;");
+
+        $r4 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        virtualinvoke $r4.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("atmel", class "Lavrora/syntax/atmel/AtmelProgramReader;");
+
+        $r5 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        virtualinvoke $r5.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("objdump", class "Lavrora/syntax/objdump/ObjDumpProgramReader;");
+
+        $r6 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        virtualinvoke $r6.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("odpp", class "Lavrora/syntax/objdump/ObjDump2ProgramReader;");
+
+        $r7 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        virtualinvoke $r7.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("elf", class "Lavrora/syntax/elf/ELFParser;");
+
+        $r8 = new cck.help.HelpCategory;
+
+        specialinvoke $r8.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("inputs", "Help for the supported program input formats.");
+
+        $r10 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        virtualinvoke $r8.<cck.help.HelpCategory: void addOptionValueSection(java.lang.String,java.lang.String,java.lang.String,cck.util.ClassMap)>("INPUT FORMATS", "The input format of the program is specified with the \"-input\" option supplied at the command line. This input format is used by actions that operate on programs to determine how to interpret the input and build a program from the files specified. For example, the input format might be Atmel syntax, GAS syntax, or the output of a disassembler such as avr-objdump. Currently no binary formats are supported.", "-input", $r10);
+
+        staticinvoke <avrora.Defaults: void addMainCategory(cck.help.HelpCategory)>($r8);
+
+        $r11 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        staticinvoke <avrora.Defaults: void addSubCategories(cck.util.ClassMap)>($r11);
+
+     label1:
+        return;
+    }
+
+    private static synchronized void addActions()
+    {
+        cck.util.ClassMap $r0, $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r12, $r13;
+        cck.help.HelpCategory $r10;
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        if $r0 != null goto label1;
+
+        $r1 = new cck.util.ClassMap;
+
+        specialinvoke $r1.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("Action", class "Lavrora/actions/Action;");
+
+        <avrora.Defaults: cck.util.ClassMap actions> = $r1;
+
+        $r2 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r2.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("disassemble", class "Lavrora/actions/DisassembleAction;");
+
+        $r3 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r3.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("simulate", class "Lavrora/actions/SimAction;");
+
+        $r4 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r4.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("analyze-stack", class "Lavrora/actions/AnalyzeStackAction;");
+
+        $r5 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r5.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("test", class "Lavrora/actions/TestAction;");
+
+        $r6 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r6.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("cfg", class "Lavrora/actions/CFGAction;");
+
+        $r7 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r7.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("isea", class "Lavrora/actions/ISEAAction;");
+
+        $r8 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r8.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("odpp", class "Lavrora/syntax/objdump/ODPPAction;");
+
+        $r9 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r9.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("elf-dump", class "Lavrora/actions/ELFDumpAction;");
+
+        $r10 = new cck.help.HelpCategory;
+
+        specialinvoke $r10.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("actions", "Help for Avrora actions.");
+
+        $r12 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        virtualinvoke $r10.<cck.help.HelpCategory: void addOptionValueSection(java.lang.String,java.lang.String,java.lang.String,cck.util.ClassMap)>("ACTIONS", "Avrora accepts the \"-action\" command line option that you can use to select from the available functionality that Avrora provides. This action might be to assemble the file, print a listing, perform a simulation, or run an analysis tool. This flexibility allows this single frontend to select from multiple useful tools. The currently supported actions are given below.", "-action", $r12);
+
+        staticinvoke <avrora.Defaults: void addMainCategory(cck.help.HelpCategory)>($r10);
+
+        $r13 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        staticinvoke <avrora.Defaults: void addSubCategories(cck.util.ClassMap)>($r13);
+
+     label1:
+        return;
+    }
+
+    private static synchronized void addSimulations()
+    {
+        cck.util.ClassMap $r0, $r1, $r2, $r3, $r4, $r7, $r8;
+        cck.help.HelpCategory $r5;
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap simMap>;
+
+        if $r0 != null goto label1;
+
+        $r1 = new cck.util.ClassMap;
+
+        specialinvoke $r1.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("Simulation", class "Lavrora/sim/Simulation;");
+
+        <avrora.Defaults: cck.util.ClassMap simMap> = $r1;
+
+        $r2 = <avrora.Defaults: cck.util.ClassMap simMap>;
+
+        virtualinvoke $r2.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("single", class "Lavrora/sim/types/SingleSimulation;");
+
+        $r3 = <avrora.Defaults: cck.util.ClassMap simMap>;
+
+        virtualinvoke $r3.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("sensor-network", class "Lavrora/sim/types/SensorSimulation;");
+
+        $r4 = <avrora.Defaults: cck.util.ClassMap simMap>;
+
+        virtualinvoke $r4.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("wired", class "Lavrora/sim/types/WiredSimulation;");
+
+        $r5 = new cck.help.HelpCategory;
+
+        specialinvoke $r5.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("simulations", "Help for supported simulation types.");
+
+        $r7 = <avrora.Defaults: cck.util.ClassMap simMap>;
+
+        virtualinvoke $r5.<cck.help.HelpCategory: void addOptionValueSection(java.lang.String,java.lang.String,java.lang.String,cck.util.ClassMap)>("SIMULATION TYPES", "When running a simulation, Avrora accepts the \"-simulation\" command line option that selects the simulation type from multiple different types provided, or a user-supplied Java class of your own. For example, a simulation might be for a sensor network application, a single node simulation, or a robotics simulation. ", "-simulation", $r7);
+
+        staticinvoke <avrora.Defaults: void addMainCategory(cck.help.HelpCategory)>($r5);
+
+        $r8 = <avrora.Defaults: cck.util.ClassMap simMap>;
+
+        staticinvoke <avrora.Defaults: void addSubCategories(cck.util.ClassMap)>($r8);
+
+     label1:
+        return;
+    }
+
+    private static synchronized void addPlatforms()
+    {
+        cck.util.ClassMap $r0, $r1, $r2, $r3, $r4, $r5, $r6;
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap platforms>;
+
+        if $r0 != null goto label1;
+
+        $r1 = new cck.util.ClassMap;
+
+        specialinvoke $r1.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("Platform", class "Lavrora/sim/platform/PlatformFactory;");
+
+        <avrora.Defaults: cck.util.ClassMap platforms> = $r1;
+
+        $r2 = <avrora.Defaults: cck.util.ClassMap platforms>;
+
+        virtualinvoke $r2.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("mica2", class "Lavrora/sim/platform/Mica2$Factory;");
+
+        $r3 = <avrora.Defaults: cck.util.ClassMap platforms>;
+
+        virtualinvoke $r3.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("micaz", class "Lavrora/sim/platform/MicaZ$Factory;");
+
+        $r4 = <avrora.Defaults: cck.util.ClassMap platforms>;
+
+        virtualinvoke $r4.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("seres", class "Lavrora/sim/platform/Seres$Factory;");
+
+        $r5 = <avrora.Defaults: cck.util.ClassMap platforms>;
+
+        virtualinvoke $r5.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("superbot", class "Lavrora/sim/platform/Superbot$Factory;");
+
+        $r6 = <avrora.Defaults: cck.util.ClassMap platforms>;
+
+        virtualinvoke $r6.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>("telos", class "Lavrora/sim/platform/Telos$Factory;");
+
+     label1:
+        return;
+    }
+
+    private static synchronized void addMicrocontrollers()
+    {
+        cck.util.ClassMap $r0, $r1, $r3, $r5, $r7;
+        avrora.sim.mcu.ATMega128$Factory $r2;
+        avrora.sim.mcu.ATMega32$Factory $r4;
+        avrora.sim.mcu.ATMega16$Factory $r6;
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap microcontrollers>;
+
+        if $r0 != null goto label1;
+
+        $r1 = new cck.util.ClassMap;
+
+        specialinvoke $r1.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("Microcontroller", class "Lavrora/sim/mcu/MicrocontrollerFactory;");
+
+        <avrora.Defaults: cck.util.ClassMap microcontrollers> = $r1;
+
+        $r3 = <avrora.Defaults: cck.util.ClassMap microcontrollers>;
+
+        $r2 = new avrora.sim.mcu.ATMega128$Factory;
+
+        specialinvoke $r2.<avrora.sim.mcu.ATMega128$Factory: void <init>()>();
+
+        virtualinvoke $r3.<cck.util.ClassMap: void addInstance(java.lang.String,java.lang.Object)>("atmega128", $r2);
+
+        $r5 = <avrora.Defaults: cck.util.ClassMap microcontrollers>;
+
+        $r4 = new avrora.sim.mcu.ATMega32$Factory;
+
+        specialinvoke $r4.<avrora.sim.mcu.ATMega32$Factory: void <init>()>();
+
+        virtualinvoke $r5.<cck.util.ClassMap: void addInstance(java.lang.String,java.lang.Object)>("atmega32", $r4);
+
+        $r7 = <avrora.Defaults: cck.util.ClassMap microcontrollers>;
+
+        $r6 = new avrora.sim.mcu.ATMega16$Factory;
+
+        specialinvoke $r6.<avrora.sim.mcu.ATMega16$Factory: void <init>()>();
+
+        virtualinvoke $r7.<cck.util.ClassMap: void addInstance(java.lang.String,java.lang.Object)>("atmega16", $r6);
+
+     label1:
+        return;
+    }
+
+    public static avrora.sim.mcu.MicrocontrollerFactory getMicrocontroller(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.util.ClassMap $r1;
+        java.lang.Object $r2;
+        avrora.sim.mcu.MicrocontrollerFactory $r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <avrora.Defaults: void addMicrocontrollers()>();
+
+        $r1 = <avrora.Defaults: cck.util.ClassMap microcontrollers>;
+
+        $r2 = virtualinvoke $r1.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>(r0);
+
+        $r3 = (avrora.sim.mcu.MicrocontrollerFactory) $r2;
+
+        return $r3;
+    }
+
+    public static avrora.sim.platform.PlatformFactory getPlatform(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.util.ClassMap $r1;
+        java.lang.Object $r2;
+        avrora.sim.platform.PlatformFactory $r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <avrora.Defaults: void addPlatforms()>();
+
+        $r1 = <avrora.Defaults: cck.util.ClassMap platforms>;
+
+        $r2 = virtualinvoke $r1.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>(r0);
+
+        $r3 = (avrora.sim.platform.PlatformFactory) $r2;
+
+        return $r3;
+    }
+
+    public static avrora.core.ProgramReader getProgramReader(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.util.ClassMap $r1;
+        java.lang.Object $r2;
+        avrora.core.ProgramReader $r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <avrora.Defaults: void addInputFormats()>();
+
+        $r1 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        $r2 = virtualinvoke $r1.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>(r0);
+
+        $r3 = (avrora.core.ProgramReader) $r2;
+
+        return $r3;
+    }
+
+    public static avrora.actions.Action getAction(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.util.ClassMap $r1;
+        java.lang.Object $r2;
+        avrora.actions.Action $r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <avrora.Defaults: void addActions()>();
+
+        $r1 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        $r2 = virtualinvoke $r1.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>(r0);
+
+        $r3 = (avrora.actions.Action) $r2;
+
+        return $r3;
+    }
+
+    public static avrora.monitors.MonitorFactory getMonitor(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.util.ClassMap $r1;
+        java.lang.Object $r2;
+        avrora.monitors.MonitorFactory $r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <avrora.Defaults: void addMonitors()>();
+
+        $r1 = <avrora.Defaults: cck.util.ClassMap monitorMap>;
+
+        $r2 = virtualinvoke $r1.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>(r0);
+
+        $r3 = (avrora.monitors.MonitorFactory) $r2;
+
+        return $r3;
+    }
+
+    public static avrora.sim.Simulation getSimulation(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.util.ClassMap $r1;
+        java.lang.Object $r2;
+        avrora.sim.Simulation $r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <avrora.Defaults: void addSimulations()>();
+
+        $r1 = <avrora.Defaults: cck.util.ClassMap simMap>;
+
+        $r2 = virtualinvoke $r1.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>(r0);
+
+        $r3 = (avrora.sim.Simulation) $r2;
+
+        return $r3;
+    }
+
+    public static cck.util.ClassMap getTestHarnessMap()
+    {
+        cck.util.ClassMap $r0;
+
+        staticinvoke <avrora.Defaults: void addTestHarnesses()>();
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap harnessMap>;
+
+        return $r0;
+    }
+
+    public static java.util.List getActionList()
+    {
+        cck.util.ClassMap $r0;
+        java.util.List $r1;
+
+        staticinvoke <avrora.Defaults: void addActions()>();
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap actions>;
+
+        $r1 = virtualinvoke $r0.<cck.util.ClassMap: java.util.List getSortedList()>();
+
+        return $r1;
+    }
+
+    public static java.util.List getProgramReaderList()
+    {
+        cck.util.ClassMap $r0;
+        java.util.List $r1;
+
+        staticinvoke <avrora.Defaults: void addInputFormats()>();
+
+        $r0 = <avrora.Defaults: cck.util.ClassMap inputs>;
+
+        $r1 = virtualinvoke $r0.<cck.util.ClassMap: java.util.List getSortedList()>();
+
+        return $r1;
+    }
+
+    public static void addSubCategories(cck.util.ClassMap)
+    {
+        cck.util.ClassMap r0;
+        java.util.List r1;
+        java.util.Iterator r2;
+        boolean $z0, $z1;
+        java.lang.Object $r3;
+        java.lang.String r4;
+        java.lang.Class r5, $r6;
+
+        r0 := @parameter0: cck.util.ClassMap;
+
+        r1 = virtualinvoke r0.<cck.util.ClassMap: java.util.List getSortedList()>();
+
+        r2 = interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke r2.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label3;
+
+        $r3 = interfaceinvoke r2.<java.util.Iterator: java.lang.Object next()>();
+
+        r4 = (java.lang.String) $r3;
+
+        r5 = virtualinvoke r0.<cck.util.ClassMap: java.lang.Class getClass(java.lang.String)>(r4);
+
+        $r6 = class "Lcck/help/HelpCategory;";
+
+        $z1 = virtualinvoke $r6.<java.lang.Class: boolean isAssignableFrom(java.lang.Class)>(r5);
+
+        if $z1 == 0 goto label2;
+
+        staticinvoke <cck.help.HelpSystem: void addCategory(java.lang.String,java.lang.Class)>(r4, r5);
+
+     label2:
+        goto label1;
+
+     label3:
+        return;
+    }
+
+    public static void addMainCategory(cck.help.HelpCategory)
+    {
+        cck.help.HelpCategory r0;
+        java.lang.String $r1, $r2;
+        java.util.HashMap $r3;
+
+        r0 := @parameter0: cck.help.HelpCategory;
+
+        $r1 = r0.<cck.help.HelpCategory: java.lang.String name>;
+
+        staticinvoke <cck.help.HelpSystem: void addCategory(java.lang.String,cck.help.HelpCategory)>($r1, r0);
+
+        $r3 = <avrora.Defaults: java.util.HashMap mainCategories>;
+
+        $r2 = r0.<cck.help.HelpCategory: java.lang.String name>;
+
+        virtualinvoke $r3.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r2, r0);
+
+        return;
+    }
+
+    public static cck.help.HelpCategory getHelpCategory(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.help.HelpCategory $r1;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <avrora.Defaults: void addAll()>();
+
+        $r1 = staticinvoke <cck.help.HelpSystem: cck.help.HelpCategory getCategory(java.lang.String)>(r0);
+
+        return $r1;
+    }
+
+    public static java.util.List getMainCategories()
+    {
+        java.util.HashMap $r0;
+        java.util.Collection $r1;
+        java.util.Enumeration $r2;
+        java.util.ArrayList r3;
+        java.util.Comparator $r4;
+
+        staticinvoke <avrora.Defaults: void addAll()>();
+
+        $r0 = <avrora.Defaults: java.util.HashMap mainCategories>;
+
+        $r1 = virtualinvoke $r0.<java.util.HashMap: java.util.Collection values()>();
+
+        $r2 = staticinvoke <java.util.Collections: java.util.Enumeration enumeration(java.util.Collection)>($r1);
+
+        r3 = staticinvoke <java.util.Collections: java.util.ArrayList list(java.util.Enumeration)>($r2);
+
+        $r4 = <cck.help.HelpCategory: java.util.Comparator COMPARATOR>;
+
+        staticinvoke <java.util.Collections: void sort(java.util.List,java.util.Comparator)>(r3, $r4);
+
+        return r3;
+    }
+
+    public static java.util.List getAllCategories()
+    {
+        java.util.List r0;
+        java.util.LinkedList $r1;
+        java.util.Iterator r3;
+        boolean $z0;
+        java.lang.Object $r4;
+        java.lang.String r5;
+        cck.help.HelpCategory $r6;
+
+        staticinvoke <avrora.Defaults: void addAll()>();
+
+        r0 = staticinvoke <cck.help.HelpSystem: java.util.List getSortedList()>();
+
+        $r1 = new java.util.LinkedList;
+
+        specialinvoke $r1.<java.util.LinkedList: void <init>()>();
+
+        r3 = interfaceinvoke r0.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke r3.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r4 = interfaceinvoke r3.<java.util.Iterator: java.lang.Object next()>();
+
+        r5 = (java.lang.String) $r4;
+
+        $r6 = staticinvoke <cck.help.HelpSystem: cck.help.HelpCategory getCategory(java.lang.String)>(r5);
+
+        virtualinvoke $r1.<java.util.LinkedList: void addLast(java.lang.Object)>($r6);
+
+        goto label1;
+
+     label2:
+        return $r1;
+    }
+
+    public static avrora.sim.Simulator newSimulator(int, avrora.core.Program)
+    {
+        int i0;
+        avrora.core.Program r0;
+        avrora.sim.Simulator $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: avrora.core.Program;
+
+        $r1 = staticinvoke <avrora.Defaults: avrora.sim.Simulator newSimulator(int,java.lang.String,long,long,avrora.core.Program)>(i0, "atmega128", 8000000L, 8000000L, r0);
+
+        return $r1;
+    }
+
+    public static avrora.sim.Simulator newSimulator(int, java.lang.String, long, long, avrora.core.Program)
+    {
+        java.lang.String r0;
+        avrora.sim.mcu.MicrocontrollerFactory r1;
+        avrora.sim.clock.ClockDomain $r2;
+        long l0, l1;
+        int i2;
+        avrora.sim.types.SingleSimulation $r5;
+        avrora.core.Program r6;
+        avrora.sim.mcu.Microcontroller $r7;
+        avrora.sim.Simulator $r8;
+
+        i2 := @parameter0: int;
+
+        r0 := @parameter1: java.lang.String;
+
+        l0 := @parameter2: long;
+
+        l1 := @parameter3: long;
+
+        r6 := @parameter4: avrora.core.Program;
+
+        r1 = staticinvoke <avrora.Defaults: avrora.sim.mcu.MicrocontrollerFactory getMicrocontroller(java.lang.String)>(r0);
+
+        $r2 = new avrora.sim.clock.ClockDomain;
+
+        specialinvoke $r2.<avrora.sim.clock.ClockDomain: void <init>(long)>(l0);
+
+        virtualinvoke $r2.<avrora.sim.clock.ClockDomain: avrora.sim.clock.Clock newClock(java.lang.String,long)>("external", l1);
+
+        $r5 = new avrora.sim.types.SingleSimulation;
+
+        specialinvoke $r5.<avrora.sim.types.SingleSimulation: void <init>()>();
+
+        $r7 = interfaceinvoke r1.<avrora.sim.mcu.MicrocontrollerFactory: avrora.sim.mcu.Microcontroller newMicrocontroller(int,avrora.sim.Simulation,avrora.sim.clock.ClockDomain,avrora.core.Program)>(i2, $r5, $r2, r6);
+
+        $r8 = interfaceinvoke $r7.<avrora.sim.mcu.Microcontroller: avrora.sim.Simulator getSimulator()>();
+
+        return $r8;
+    }
+
+    static void <clinit>()
+    {
+        java.util.HashMap $r0;
+
+        $r0 = new java.util.HashMap;
+
+        specialinvoke $r0.<java.util.HashMap: void <init>()>();
+
+        <avrora.Defaults: java.util.HashMap mainCategories> = $r0;
+
+        return;
+    }
+}

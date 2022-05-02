@@ -1,0 +1,401 @@
+public class avrora.sim.mcu.MCUProperties extends java.lang.Object
+{
+    protected static final int BASE_ADDRESS;
+    protected final java.util.HashMap pinAssignments;
+    protected final avrora.sim.mcu.RegisterLayout layout;
+    protected final java.util.HashMap interruptAssignments;
+    protected final java.lang.String[] ioreg_name;
+    protected final java.lang.String[] interrupt_name;
+    public final int num_interrupts;
+
+    protected void <init>(java.util.HashMap, avrora.sim.mcu.RegisterLayout, java.util.HashMap, int)
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        java.util.HashMap r1, r3;
+        avrora.sim.mcu.RegisterLayout r2;
+        java.lang.String[] $r4, $r5;
+        int i0;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        r1 := @parameter0: java.util.HashMap;
+
+        r2 := @parameter1: avrora.sim.mcu.RegisterLayout;
+
+        r3 := @parameter2: java.util.HashMap;
+
+        i0 := @parameter3: int;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.mcu.MCUProperties: java.util.HashMap pinAssignments> = r1;
+
+        r0.<avrora.sim.mcu.MCUProperties: avrora.sim.mcu.RegisterLayout layout> = r2;
+
+        r0.<avrora.sim.mcu.MCUProperties: java.util.HashMap interruptAssignments> = r3;
+
+        $r4 = virtualinvoke r0.<avrora.sim.mcu.MCUProperties: java.lang.String[] initIORNames()>();
+
+        r0.<avrora.sim.mcu.MCUProperties: java.lang.String[] ioreg_name> = $r4;
+
+        $r5 = virtualinvoke r0.<avrora.sim.mcu.MCUProperties: java.lang.String[] initInterruptNames()>();
+
+        r0.<avrora.sim.mcu.MCUProperties: java.lang.String[] interrupt_name> = $r5;
+
+        r0.<avrora.sim.mcu.MCUProperties: int num_interrupts> = i0;
+
+        return;
+    }
+
+    public avrora.sim.mcu.RegisterLayout getRegisterLayout()
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        avrora.sim.mcu.RegisterLayout $r1;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        $r1 = r0.<avrora.sim.mcu.MCUProperties: avrora.sim.mcu.RegisterLayout layout>;
+
+        return $r1;
+    }
+
+    protected java.lang.String[] initInterruptNames()
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        int i0, $i1, $i2;
+        java.lang.String[] r1;
+        java.util.HashMap $r2, $r7;
+        java.util.Set $r3;
+        java.util.Iterator r4;
+        boolean $z0;
+        java.lang.Object $r5, $r8;
+        java.lang.String r6;
+        java.lang.Integer r9;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        i0 = specialinvoke r0.<avrora.sim.mcu.MCUProperties: int getMax()>();
+
+        $i1 = i0 + 1;
+
+        r1 = newarray (java.lang.String)[$i1];
+
+        $r2 = r0.<avrora.sim.mcu.MCUProperties: java.util.HashMap interruptAssignments>;
+
+        $r3 = virtualinvoke $r2.<java.util.HashMap: java.util.Set keySet()>();
+
+        r4 = interfaceinvoke $r3.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke r4.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r5 = interfaceinvoke r4.<java.util.Iterator: java.lang.Object next()>();
+
+        r6 = (java.lang.String) $r5;
+
+        $r7 = r0.<avrora.sim.mcu.MCUProperties: java.util.HashMap interruptAssignments>;
+
+        $r8 = virtualinvoke $r7.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(r6);
+
+        r9 = (java.lang.Integer) $r8;
+
+        $i2 = virtualinvoke r9.<java.lang.Integer: int intValue()>();
+
+        r1[$i2] = r6;
+
+        goto label1;
+
+     label2:
+        return r1;
+    }
+
+    private int getMax()
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        java.util.HashMap $r1, $r6;
+        java.util.Set $r2;
+        java.util.Iterator r3;
+        boolean $z0;
+        java.lang.Object $r4, $r7;
+        java.lang.String r5;
+        java.lang.Integer $r8;
+        int i0, i1;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        i1 = 0;
+
+        $r1 = r0.<avrora.sim.mcu.MCUProperties: java.util.HashMap interruptAssignments>;
+
+        $r2 = virtualinvoke $r1.<java.util.HashMap: java.util.Set keySet()>();
+
+        r3 = interfaceinvoke $r2.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke r3.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label3;
+
+        $r4 = interfaceinvoke r3.<java.util.Iterator: java.lang.Object next()>();
+
+        r5 = (java.lang.String) $r4;
+
+        $r6 = r0.<avrora.sim.mcu.MCUProperties: java.util.HashMap interruptAssignments>;
+
+        $r7 = virtualinvoke $r6.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(r5);
+
+        $r8 = (java.lang.Integer) $r7;
+
+        i0 = virtualinvoke $r8.<java.lang.Integer: int intValue()>();
+
+        if i1 >= i0 goto label2;
+
+        i1 = i0;
+
+     label2:
+        goto label1;
+
+     label3:
+        return i1;
+    }
+
+    protected java.lang.String[] initIORNames()
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        avrora.sim.mcu.RegisterLayout $r1, $r3, $r4;
+        int $i0, $i1, i2;
+        java.lang.String[] r2;
+        avrora.sim.mcu.RegisterLayout$RegisterInfo[] $r5;
+        avrora.sim.mcu.RegisterLayout$RegisterInfo r6;
+        java.lang.String $r7;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        $r1 = r0.<avrora.sim.mcu.MCUProperties: avrora.sim.mcu.RegisterLayout layout>;
+
+        $i0 = $r1.<avrora.sim.mcu.RegisterLayout: int ioreg_size>;
+
+        r2 = newarray (java.lang.String)[$i0];
+
+        i2 = 0;
+
+     label1:
+        $r3 = r0.<avrora.sim.mcu.MCUProperties: avrora.sim.mcu.RegisterLayout layout>;
+
+        $i1 = $r3.<avrora.sim.mcu.RegisterLayout: int ioreg_size>;
+
+        if i2 >= $i1 goto label3;
+
+        $r4 = r0.<avrora.sim.mcu.MCUProperties: avrora.sim.mcu.RegisterLayout layout>;
+
+        $r5 = $r4.<avrora.sim.mcu.RegisterLayout: avrora.sim.mcu.RegisterLayout$RegisterInfo[] info>;
+
+        r6 = $r5[i2];
+
+        if r6 == null goto label2;
+
+        $r7 = r6.<avrora.sim.mcu.RegisterLayout$RegisterInfo: java.lang.String name>;
+
+        r2[i2] = $r7;
+
+     label2:
+        i2 = i2 + 1;
+
+        goto label1;
+
+     label3:
+        return r2;
+    }
+
+    public int getPin(java.lang.String)
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        java.lang.String r1, $r7, $r10;
+        java.util.HashMap $r2;
+        java.lang.Object $r3;
+        java.lang.Integer r4;
+        int $i0;
+        java.util.NoSuchElementException $r5;
+        java.lang.StringBuilder $r6, $r8, $r9;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        r1 := @parameter0: java.lang.String;
+
+        $r2 = r0.<avrora.sim.mcu.MCUProperties: java.util.HashMap pinAssignments>;
+
+        $r3 = virtualinvoke $r2.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(r1);
+
+        r4 = (java.lang.Integer) $r3;
+
+        if r4 != null goto label1;
+
+        $r5 = new java.util.NoSuchElementException;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(r1);
+
+        $r8 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" pin not found");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r5.<java.util.NoSuchElementException: void <init>(java.lang.String)>($r10);
+
+        throw $r5;
+
+     label1:
+        $i0 = virtualinvoke r4.<java.lang.Integer: int intValue()>();
+
+        return $i0;
+    }
+
+    public int getIOReg(java.lang.String)
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        java.lang.String r1;
+        avrora.sim.mcu.RegisterLayout $r2;
+        int $i0;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        r1 := @parameter0: java.lang.String;
+
+        $r2 = r0.<avrora.sim.mcu.MCUProperties: avrora.sim.mcu.RegisterLayout layout>;
+
+        $i0 = virtualinvoke $r2.<avrora.sim.mcu.RegisterLayout: int getIOReg(java.lang.String)>(r1);
+
+        return $i0;
+    }
+
+    public int getIORegAddr(java.lang.String)
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        java.lang.String r1;
+        int $i0, $i1;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        r1 := @parameter0: java.lang.String;
+
+        $i0 = virtualinvoke r0.<avrora.sim.mcu.MCUProperties: int getIOReg(java.lang.String)>(r1);
+
+        $i1 = $i0 + 32;
+
+        return $i1;
+    }
+
+    public boolean hasIOReg(java.lang.String)
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        java.lang.String r1;
+        avrora.sim.mcu.RegisterLayout $r2;
+        boolean $z0;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        r1 := @parameter0: java.lang.String;
+
+        $r2 = r0.<avrora.sim.mcu.MCUProperties: avrora.sim.mcu.RegisterLayout layout>;
+
+        $z0 = virtualinvoke $r2.<avrora.sim.mcu.RegisterLayout: boolean hasIOReg(java.lang.String)>(r1);
+
+        return $z0;
+    }
+
+    public int getInterrupt(java.lang.String)
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        java.lang.String r1, $r7, $r10;
+        java.util.HashMap $r2;
+        java.lang.Object $r3;
+        java.lang.Integer r4;
+        int $i0;
+        java.util.NoSuchElementException $r5;
+        java.lang.StringBuilder $r6, $r8, $r9;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        r1 := @parameter0: java.lang.String;
+
+        $r2 = r0.<avrora.sim.mcu.MCUProperties: java.util.HashMap interruptAssignments>;
+
+        $r3 = virtualinvoke $r2.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(r1);
+
+        r4 = (java.lang.Integer) $r3;
+
+        if r4 != null goto label1;
+
+        $r5 = new java.util.NoSuchElementException;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(r1);
+
+        $r8 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" interrupt not found");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r5.<java.util.NoSuchElementException: void <init>(java.lang.String)>($r10);
+
+        throw $r5;
+
+     label1:
+        $i0 = virtualinvoke r4.<java.lang.Integer: int intValue()>();
+
+        return $i0;
+    }
+
+    public java.lang.String getIORegName(int)
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        int i0;
+        java.lang.String[] $r1;
+        java.lang.String $r2;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.mcu.MCUProperties: java.lang.String[] ioreg_name>;
+
+        $r2 = $r1[i0];
+
+        return $r2;
+    }
+
+    public java.lang.String getInterruptName(int)
+    {
+        avrora.sim.mcu.MCUProperties r0;
+        int i0;
+        java.lang.String[] $r1;
+        java.lang.String $r2;
+
+        r0 := @this: avrora.sim.mcu.MCUProperties;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.mcu.MCUProperties: java.lang.String[] interrupt_name>;
+
+        $r2 = $r1[i0];
+
+        return $r2;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.mcu.MCUProperties: int BASE_ADDRESS> = 32;
+
+        return;
+    }
+}

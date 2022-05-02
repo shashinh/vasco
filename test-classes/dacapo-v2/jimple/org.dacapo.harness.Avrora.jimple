@@ -1,0 +1,137 @@
+public class org.dacapo.harness.Avrora extends org.dacapo.harness.Benchmark
+{
+    java.lang.String[] args;
+
+    public void <init>(org.dacapo.parser.Config, java.io.File) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora r0;
+        org.dacapo.parser.Config r1;
+        java.io.File r2;
+        java.lang.ClassLoader $r3;
+        java.lang.Class r4, $r0;
+        java.lang.Class[] $r5;
+        java.lang.reflect.Method $r6;
+        boolean $z0;
+
+        r0 := @this: org.dacapo.harness.Avrora;
+
+        r1 := @parameter0: org.dacapo.parser.Config;
+
+        r2 := @parameter1: java.io.File;
+
+        specialinvoke r0.<org.dacapo.harness.Benchmark: void <init>(org.dacapo.parser.Config,java.io.File)>(r1, r2);
+
+        $r3 = r0.<org.dacapo.harness.Avrora: java.lang.ClassLoader loader>;
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassForName(int,java.lang.String)>(0, "avrora.Main");
+
+        $z0 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if 0 == $z0 goto label1;
+
+        $r0 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall0()>();
+
+        r4 = $r0;
+
+        goto label2;
+
+     label1:
+        r4 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String,boolean,java.lang.ClassLoader)>("avrora.Main", 1, $r3);
+
+     label2:
+        $r5 = newarray (java.lang.Class)[1];
+
+        $r5[0] = class "[Ljava/lang/String;";
+
+        $r6 = virtualinvoke r4.<java.lang.Class: java.lang.reflect.Method getMethod(java.lang.String,java.lang.Class[])>("main", $r5);
+
+        r0.<org.dacapo.harness.Avrora: java.lang.reflect.Method method> = $r6;
+
+        return;
+    }
+
+    protected void prepare(java.lang.String) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora r0;
+        java.lang.String r1;
+        java.io.File $r2;
+        org.dacapo.parser.Config $r3;
+        java.lang.String[] $r4;
+
+        r0 := @this: org.dacapo.harness.Avrora;
+
+        r1 := @parameter0: java.lang.String;
+
+        specialinvoke r0.<org.dacapo.harness.Benchmark: void prepare(java.lang.String)>(r1);
+
+        $r3 = r0.<org.dacapo.harness.Avrora: org.dacapo.parser.Config config>;
+
+        $r2 = r0.<org.dacapo.harness.Avrora: java.io.File scratch>;
+
+        $r4 = virtualinvoke $r3.<org.dacapo.parser.Config: java.lang.String[] preprocessArgs(java.lang.String,java.io.File)>(r1, $r2);
+
+        r0.<org.dacapo.harness.Avrora: java.lang.String[] args> = $r4;
+
+        return;
+    }
+
+    public void augmentSystemProperties(java.util.Properties)
+    {
+        java.util.Properties r0;
+        org.dacapo.harness.Avrora r1;
+        org.dacapo.parser.Config $r2;
+        java.lang.String $r3, $r4;
+
+        r1 := @this: org.dacapo.harness.Avrora;
+
+        r0 := @parameter0: java.util.Properties;
+
+        $r2 = r1.<org.dacapo.harness.Avrora: org.dacapo.parser.Config config>;
+
+        $r3 = $r2.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $r4 = virtualinvoke r1.<org.dacapo.harness.Avrora: java.lang.String fileInScratch(java.lang.String)>($r3);
+
+        virtualinvoke r0.<java.util.Properties: java.lang.Object setProperty(java.lang.String,java.lang.String)>("user.home", $r4);
+
+        return;
+    }
+
+    public void iterate(java.lang.String) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora r0;
+        java.lang.Object[] $r1;
+        java.lang.String[] $r2;
+        java.lang.reflect.Method $r3;
+        java.lang.String r5;
+        boolean $z0;
+
+        r0 := @this: org.dacapo.harness.Avrora;
+
+        r5 := @parameter0: java.lang.String;
+
+        $r3 = r0.<org.dacapo.harness.Avrora: java.lang.reflect.Method method>;
+
+        $r1 = newarray (java.lang.Object)[1];
+
+        $r2 = r0.<org.dacapo.harness.Avrora: java.lang.String[] args>;
+
+        $r1[0] = $r2;
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownMethodInvoke(int,java.lang.Object,java.lang.reflect.Method)>(11, null, $r3);
+
+        $z0 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if 0 == $z0 goto label1;
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall24(java.lang.Object,java.lang.Object[])>(null, $r1);
+
+        goto label2;
+
+     label1:
+        virtualinvoke $r3.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>(null, $r1);
+
+     label2:
+        return;
+    }
+}

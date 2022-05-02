@@ -1,0 +1,69 @@
+public class avrora.sim.platform.sensors.SensorBoard extends java.lang.Object
+{
+    protected avrora.sim.Simulator sim;
+    private final java.lang.String[] modeName;
+    private final double[] modeAmpere;
+    private static final int startMode;
+
+    public void <init>(avrora.sim.Simulator)
+    {
+        avrora.sim.platform.sensors.SensorBoard r0;
+        java.lang.String[] $r1, $r6;
+        double[] $r2, $r10;
+        avrora.sim.Simulator r3, $r9;
+        avrora.sim.FiniteStateMachine $r4;
+        avrora.sim.clock.MainClock $r5;
+        avrora.sim.energy.Energy $r8;
+        avrora.sim.Simulation $r11;
+        avrora.sim.energy.EnergyControl $r12;
+
+        r0 := @this: avrora.sim.platform.sensors.SensorBoard;
+
+        r3 := @parameter0: avrora.sim.Simulator;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r1 = newarray (java.lang.String)[1];
+
+        $r1[0] = "on:  ";
+
+        r0.<avrora.sim.platform.sensors.SensorBoard: java.lang.String[] modeName> = $r1;
+
+        $r2 = newarray (double)[1];
+
+        $r2[0] = 7.0E-4;
+
+        r0.<avrora.sim.platform.sensors.SensorBoard: double[] modeAmpere> = $r2;
+
+        r0.<avrora.sim.platform.sensors.SensorBoard: avrora.sim.Simulator sim> = r3;
+
+        $r4 = new avrora.sim.FiniteStateMachine;
+
+        $r5 = virtualinvoke r3.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $r6 = r0.<avrora.sim.platform.sensors.SensorBoard: java.lang.String[] modeName>;
+
+        specialinvoke $r4.<avrora.sim.FiniteStateMachine: void <init>(avrora.sim.clock.Clock,int,java.lang.String[],int)>($r5, 0, $r6, 0);
+
+        $r8 = new avrora.sim.energy.Energy;
+
+        $r10 = r0.<avrora.sim.platform.sensors.SensorBoard: double[] modeAmpere>;
+
+        $r9 = r0.<avrora.sim.platform.sensors.SensorBoard: avrora.sim.Simulator sim>;
+
+        $r11 = virtualinvoke $r9.<avrora.sim.Simulator: avrora.sim.Simulation getSimulation()>();
+
+        $r12 = virtualinvoke $r11.<avrora.sim.Simulation: avrora.sim.energy.EnergyControl getEnergyControl()>();
+
+        specialinvoke $r8.<avrora.sim.energy.Energy: void <init>(java.lang.String,double[],avrora.sim.FiniteStateMachine,avrora.sim.energy.EnergyControl)>("SensorBoard", $r10, $r4, $r12);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.platform.sensors.SensorBoard: int startMode> = 0;
+
+        return;
+    }
+}

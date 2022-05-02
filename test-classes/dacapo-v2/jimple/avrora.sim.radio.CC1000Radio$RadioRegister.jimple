@@ -1,0 +1,72 @@
+public abstract class avrora.sim.radio.CC1000Radio$RadioRegister extends java.lang.Object
+{
+    protected final java.lang.String id;
+    protected byte value;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio, java.lang.String, byte)
+    {
+        avrora.sim.radio.CC1000Radio$RadioRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+        java.lang.String r2;
+        byte b0;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$RadioRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r2 := @parameter1: java.lang.String;
+
+        b0 := @parameter2: byte;
+
+        r0.<avrora.sim.radio.CC1000Radio$RadioRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.radio.CC1000Radio$RadioRegister: java.lang.String id> = r2;
+
+        r0.<avrora.sim.radio.CC1000Radio$RadioRegister: byte value> = b0;
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.radio.CC1000Radio$RadioRegister r0;
+        byte b0, $b1;
+        avrora.sim.radio.CC1000Radio $r1;
+        avrora.sim.output.SimPrinter $r2;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$RadioRegister;
+
+        b0 := @parameter0: byte;
+
+        r0.<avrora.sim.radio.CC1000Radio$RadioRegister: byte value> = b0;
+
+        $b1 = r0.<avrora.sim.radio.CC1000Radio$RadioRegister: byte value>;
+
+        virtualinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void decode(byte)>($b1);
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$RadioRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r2 = $r1.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        if $r2 == null goto label1;
+
+        virtualinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void printStatus()>();
+
+     label1:
+        return;
+    }
+
+    protected abstract void decode(byte);
+
+    protected void printStatus()
+    {
+        avrora.sim.radio.CC1000Radio$RadioRegister r0;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$RadioRegister;
+
+        return;
+    }
+}
