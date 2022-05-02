@@ -1,0 +1,102 @@
+public class avrora.sim.radio.CC1000Radio$FrequencySeparationRegister extends java.lang.Object
+{
+    protected final avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg1;
+    protected final avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg0;
+    int frequencySeparation;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister $r2, $r3;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r2 = new avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister;
+
+        specialinvoke $r2.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister: void <init>(avrora.sim.radio.CC1000Radio$FrequencySeparationRegister,java.lang.String)>(r0, "FSEP1");
+
+        r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg1> = $r2;
+
+        $r3 = new avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister;
+
+        specialinvoke $r3.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister: void <init>(avrora.sim.radio.CC1000Radio$FrequencySeparationRegister,java.lang.String)>(r0, "FSEP0");
+
+        r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg0> = $r3;
+
+        virtualinvoke r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: void setFrequencySeparation(int)>(89);
+
+        return;
+    }
+
+    protected void updateFrequencySeparation()
+    {
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister r0;
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister $r1, $r2;
+        byte $b0, $b3;
+        int $i1, $i2, $i4, $i5;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg1>;
+
+        $b0 = $r1.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister: byte value>;
+
+        $i1 = $b0 & 15;
+
+        $i2 = $i1 << 8;
+
+        r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: int frequencySeparation> = $i2;
+
+        $i4 = r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: int frequencySeparation>;
+
+        $r2 = r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg0>;
+
+        $b3 = $r2.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister: byte value>;
+
+        $i5 = $i4 | $b3;
+
+        r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: int frequencySeparation> = $i5;
+
+        return;
+    }
+
+    protected void setFrequencySeparation(int)
+    {
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister r0;
+        int i0, $i1, $i2, $i4;
+        byte $b3, $b5;
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister $r1, $r2;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg1>;
+
+        $i1 = 3840 & i0;
+
+        $i2 = $i1 >> 8;
+
+        $b3 = (byte) $i2;
+
+        virtualinvoke $r1.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister: void write(byte)>($b3);
+
+        $r2 = r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister reg0>;
+
+        $i4 = 255 & i0;
+
+        $b5 = (byte) $i4;
+
+        virtualinvoke $r2.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister: void write(byte)>($b5);
+
+        return;
+    }
+}

@@ -1,0 +1,63 @@
+public class avrora.sim.radio.CC1000Radio$PLLRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    boolean extFilter;
+    int refDiv;
+    boolean alarmDisable;
+    boolean alarmHigh;
+    boolean alarmLow;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$PLLRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$PLLRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$PLLRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, "PLL", 16);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$PLLRegister r0;
+        byte b0, $b1;
+        boolean $z0, $z1, $z2, $z3;
+        int $i2, $i3;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$PLLRegister;
+
+        b0 := @parameter0: byte;
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 7);
+
+        r0.<avrora.sim.radio.CC1000Radio$PLLRegister: boolean extFilter> = $z0;
+
+        $b1 = r0.<avrora.sim.radio.CC1000Radio$PLLRegister: byte value>;
+
+        $i2 = $b1 & 120;
+
+        $i3 = $i2 >> 3;
+
+        r0.<avrora.sim.radio.CC1000Radio$PLLRegister: int refDiv> = $i3;
+
+        $z1 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 2);
+
+        r0.<avrora.sim.radio.CC1000Radio$PLLRegister: boolean alarmDisable> = $z1;
+
+        $z2 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 1);
+
+        r0.<avrora.sim.radio.CC1000Radio$PLLRegister: boolean alarmHigh> = $z2;
+
+        $z3 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 0);
+
+        r0.<avrora.sim.radio.CC1000Radio$PLLRegister: boolean alarmLow> = $z3;
+
+        return;
+    }
+}

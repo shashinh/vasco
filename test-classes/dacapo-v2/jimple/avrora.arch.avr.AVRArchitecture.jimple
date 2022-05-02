@@ -1,0 +1,87 @@
+public class avrora.arch.avr.AVRArchitecture extends java.lang.Object implements avrora.arch.AbstractArchitecture
+{
+    public static final avrora.arch.avr.AVRArchitecture INSTANCE;
+
+    public void <init>()
+    {
+        avrora.arch.avr.AVRArchitecture r0;
+
+        r0 := @this: avrora.arch.avr.AVRArchitecture;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public avrora.arch.AbstractDisassembler getDisassembler()
+    {
+        avrora.arch.avr.AVRArchitecture r1;
+        avrora.arch.avr.AVRDisassembler $r2;
+        avrora.arch.AbstractDisassembler $r3;
+
+        r1 := @this: avrora.arch.avr.AVRArchitecture;
+
+        $r2 = new avrora.arch.avr.AVRDisassembler;
+
+        specialinvoke $r2.<avrora.arch.avr.AVRDisassembler: void <init>()>();
+
+        $r3 = (avrora.arch.AbstractDisassembler) $r2;
+
+        return $r3;
+    }
+
+    public avrora.arch.AbstractAssembler getAssembler()
+    {
+        cck.util.Util$InternalError $r0;
+        avrora.arch.avr.AVRArchitecture r1;
+
+        r1 := @this: avrora.arch.avr.AVRArchitecture;
+
+        $r0 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $r0;
+    }
+
+    public avrora.arch.AbstractParser getParser()
+    {
+        cck.util.Util$InternalError $r0;
+        avrora.arch.avr.AVRArchitecture r1;
+
+        r1 := @this: avrora.arch.avr.AVRArchitecture;
+
+        $r0 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $r0;
+    }
+
+    public avrora.arch.AbstractInstr[] newInstrArray(int)
+    {
+        int i0;
+        avrora.arch.avr.AVRInstr[] $r0;
+        avrora.arch.avr.AVRArchitecture r1;
+        avrora.arch.AbstractInstr[] $r2;
+
+        r1 := @this: avrora.arch.avr.AVRArchitecture;
+
+        i0 := @parameter0: int;
+
+        $r0 = newarray (avrora.arch.avr.AVRInstr)[i0];
+
+        $r2 = (avrora.arch.AbstractInstr[]) $r0;
+
+        return $r2;
+    }
+
+    static void <clinit>()
+    {
+        avrora.arch.avr.AVRArchitecture $r0;
+
+        $r0 = new avrora.arch.avr.AVRArchitecture;
+
+        specialinvoke $r0.<avrora.arch.avr.AVRArchitecture: void <init>()>();
+
+        <avrora.arch.avr.AVRArchitecture: avrora.arch.avr.AVRArchitecture INSTANCE> = $r0;
+
+        return;
+    }
+}

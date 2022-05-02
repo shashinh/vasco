@@ -1,0 +1,84 @@
+public class avrora.sim.FiniteStateMachine$TransitionEvent extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    protected int oldState;
+    protected int newState;
+    final avrora.sim.FiniteStateMachine this$0;
+
+    protected void <init>(avrora.sim.FiniteStateMachine)
+    {
+        avrora.sim.FiniteStateMachine$TransitionEvent r0;
+        avrora.sim.FiniteStateMachine r1;
+
+        r0 := @this: avrora.sim.FiniteStateMachine$TransitionEvent;
+
+        r1 := @parameter0: avrora.sim.FiniteStateMachine;
+
+        r0.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.FiniteStateMachine$TransitionEvent r0;
+        int $i0, $i1, $i2, $i3, $i4, $i5, $i6, $i7, $i8;
+        avrora.sim.FiniteStateMachine $r1, $r2, $r6, $r10;
+        avrora.sim.FiniteStateMachine$State[] $r3, $r7;
+        avrora.sim.FiniteStateMachine$State $r4, $r8;
+        avrora.sim.util.MulticastFSMProbe $r5, $r9, $r11;
+
+        r0 := @this: avrora.sim.FiniteStateMachine$TransitionEvent;
+
+        $r1 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0>;
+
+        $i0 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        $r1.<avrora.sim.FiniteStateMachine: int curState> = $i0;
+
+        $r2 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0>;
+
+        $r3 = $r2.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $i1 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $r4 = $r3[$i1];
+
+        $r5 = $r4.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        $i3 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $i2 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void access$000(avrora.sim.util.MulticastFSMProbe,int,int)>($r5, $i3, $i2);
+
+        $r6 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0>;
+
+        $r7 = $r6.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $i4 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        $r8 = $r7[$i4];
+
+        $r9 = $r8.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        $i6 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $i5 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void access$000(avrora.sim.util.MulticastFSMProbe,int,int)>($r9, $i6, $i5);
+
+        $r10 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: avrora.sim.FiniteStateMachine this$0>;
+
+        $r11 = $r10.<avrora.sim.FiniteStateMachine: avrora.sim.util.MulticastFSMProbe globalProbe>;
+
+        $i8 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $i7 = r0.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void access$000(avrora.sim.util.MulticastFSMProbe,int,int)>($r11, $i8, $i7);
+
+        return;
+    }
+}

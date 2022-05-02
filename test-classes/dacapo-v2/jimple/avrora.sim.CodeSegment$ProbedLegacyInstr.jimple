@@ -1,0 +1,275 @@
+public class avrora.sim.CodeSegment$ProbedLegacyInstr extends avrora.arch.legacy.LegacyInstr
+{
+    protected final int address;
+    protected final avrora.arch.legacy.LegacyInstr instr;
+    protected final avrora.sim.util.MulticastProbe probe;
+    final avrora.sim.CodeSegment this$0;
+
+    public void <init>(avrora.sim.CodeSegment, avrora.arch.legacy.LegacyInstr, int)
+    {
+        avrora.sim.CodeSegment$ProbedLegacyInstr r0;
+        avrora.sim.CodeSegment r1;
+        avrora.arch.legacy.LegacyInstrProperties $r2, $r4, $r5, $r6;
+        avrora.arch.legacy.LegacyInstr r3;
+        int $i0, i1;
+        java.lang.String $r7, $r8;
+        avrora.sim.util.MulticastProbe $r9;
+
+        r0 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        r1 := @parameter0: avrora.sim.CodeSegment;
+
+        r3 := @parameter1: avrora.arch.legacy.LegacyInstr;
+
+        i1 := @parameter2: int;
+
+        r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.CodeSegment this$0> = r1;
+
+        $r2 = new avrora.arch.legacy.LegacyInstrProperties;
+
+        $r4 = r3.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $r8 = $r4.<avrora.arch.legacy.LegacyInstrProperties: java.lang.String name>;
+
+        $r5 = r3.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $r7 = $r5.<avrora.arch.legacy.LegacyInstrProperties: java.lang.String variant>;
+
+        $r6 = r3.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $i0 = $r6.<avrora.arch.legacy.LegacyInstrProperties: int size>;
+
+        specialinvoke $r2.<avrora.arch.legacy.LegacyInstrProperties: void <init>(java.lang.String,java.lang.String,int,int)>($r8, $r7, $i0, 0);
+
+        specialinvoke r0.<avrora.arch.legacy.LegacyInstr: void <init>(avrora.arch.legacy.LegacyInstrProperties)>($r2);
+
+        r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.arch.legacy.LegacyInstr instr> = r3;
+
+        r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: int address> = i1;
+
+        $r9 = new avrora.sim.util.MulticastProbe;
+
+        specialinvoke $r9.<avrora.sim.util.MulticastProbe: void <init>()>();
+
+        r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe> = $r9;
+
+        return;
+    }
+
+    public void <init>(avrora.sim.CodeSegment, avrora.arch.legacy.LegacyInstr, avrora.sim.CodeSegment$ProbedLegacyInstr)
+    {
+        avrora.sim.CodeSegment$ProbedLegacyInstr r0, r9;
+        avrora.sim.CodeSegment r1;
+        avrora.arch.legacy.LegacyInstrProperties $r2, $r4, $r5, $r6;
+        avrora.arch.legacy.LegacyInstr r3;
+        int $i0, $i1;
+        java.lang.String $r7, $r8;
+        avrora.sim.util.MulticastProbe $r10;
+
+        r0 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        r1 := @parameter0: avrora.sim.CodeSegment;
+
+        r3 := @parameter1: avrora.arch.legacy.LegacyInstr;
+
+        r9 := @parameter2: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.CodeSegment this$0> = r1;
+
+        $r2 = new avrora.arch.legacy.LegacyInstrProperties;
+
+        $r4 = r3.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $r8 = $r4.<avrora.arch.legacy.LegacyInstrProperties: java.lang.String name>;
+
+        $r5 = r3.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $r7 = $r5.<avrora.arch.legacy.LegacyInstrProperties: java.lang.String variant>;
+
+        $r6 = r3.<avrora.arch.legacy.LegacyInstr: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $i0 = $r6.<avrora.arch.legacy.LegacyInstrProperties: int size>;
+
+        specialinvoke $r2.<avrora.arch.legacy.LegacyInstrProperties: void <init>(java.lang.String,java.lang.String,int,int)>($r8, $r7, $i0, 0);
+
+        specialinvoke r0.<avrora.arch.legacy.LegacyInstr: void <init>(avrora.arch.legacy.LegacyInstrProperties)>($r2);
+
+        r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.arch.legacy.LegacyInstr instr> = r3;
+
+        $i1 = r9.<avrora.sim.CodeSegment$ProbedLegacyInstr: int address>;
+
+        r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: int address> = $i1;
+
+        $r10 = r9.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe>;
+
+        r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe> = $r10;
+
+        return;
+    }
+
+    void add(avrora.sim.Simulator$Probe)
+    {
+        avrora.sim.CodeSegment$ProbedLegacyInstr r0;
+        avrora.sim.Simulator$Probe r1;
+        avrora.sim.util.MulticastProbe $r2;
+
+        r0 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        r1 := @parameter0: avrora.sim.Simulator$Probe;
+
+        $r2 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe>;
+
+        virtualinvoke $r2.<avrora.sim.util.MulticastProbe: void add(java.lang.Object)>(r1);
+
+        return;
+    }
+
+    void remove(avrora.sim.Simulator$Probe)
+    {
+        avrora.sim.CodeSegment$ProbedLegacyInstr r0;
+        avrora.sim.Simulator$Probe r1;
+        avrora.sim.util.MulticastProbe $r2;
+
+        r0 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        r1 := @parameter0: avrora.sim.Simulator$Probe;
+
+        $r2 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe>;
+
+        virtualinvoke $r2.<avrora.sim.util.MulticastProbe: void remove(java.lang.Object)>(r1);
+
+        return;
+    }
+
+    boolean isEmpty()
+    {
+        avrora.sim.CodeSegment$ProbedLegacyInstr r0;
+        avrora.sim.util.MulticastProbe $r1;
+        boolean $z0;
+
+        r0 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        $r1 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe>;
+
+        $z0 = virtualinvoke $r1.<avrora.sim.util.MulticastProbe: boolean isEmpty()>();
+
+        return $z0;
+    }
+
+    public void accept(avrora.arch.legacy.LegacyInstrVisitor)
+    {
+        avrora.sim.CodeSegment$ProbedLegacyInstr r0;
+        avrora.sim.CodeSegment $r1, $r5, $r8, $r10, $r16;
+        avrora.sim.AtmelInterpreter $r2, $r6, $r9, $r11;
+        int $i0, $i1, $i2;
+        avrora.sim.AtmelInterpreter$StateImpl $r3, $r12;
+        avrora.sim.util.MulticastProbe $r4, $r13, $r14;
+        avrora.arch.legacy.LegacyInstr $r7, $r15;
+        boolean $z0;
+        avrora.arch.legacy.LegacyInstrVisitor r17;
+
+        r0 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        r17 := @parameter0: avrora.arch.legacy.LegacyInstrVisitor;
+
+        $r4 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe>;
+
+        $r1 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.CodeSegment this$0>;
+
+        $r2 = $r1.<avrora.sim.CodeSegment: avrora.sim.AtmelInterpreter interpreter>;
+
+        $r3 = $r2.<avrora.sim.AtmelInterpreter: avrora.sim.AtmelInterpreter$StateImpl state>;
+
+        $i0 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: int address>;
+
+        virtualinvoke $r4.<avrora.sim.util.MulticastProbe: void fireBefore(avrora.sim.State,int)>($r3, $i0);
+
+        $r7 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.arch.legacy.LegacyInstr instr>;
+
+        $r5 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.CodeSegment this$0>;
+
+        $r6 = $r5.<avrora.sim.CodeSegment: avrora.sim.AtmelInterpreter interpreter>;
+
+        virtualinvoke $r7.<avrora.arch.legacy.LegacyInstr: void accept(avrora.arch.legacy.LegacyInstrVisitor)>($r6);
+
+        $r8 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.CodeSegment this$0>;
+
+        $r9 = $r8.<avrora.sim.CodeSegment: avrora.sim.AtmelInterpreter interpreter>;
+
+        virtualinvoke $r9.<avrora.sim.AtmelInterpreter: void commit()>();
+
+        $r13 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe>;
+
+        $r10 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.CodeSegment this$0>;
+
+        $r11 = $r10.<avrora.sim.CodeSegment: avrora.sim.AtmelInterpreter interpreter>;
+
+        $r12 = $r11.<avrora.sim.AtmelInterpreter: avrora.sim.AtmelInterpreter$StateImpl state>;
+
+        $i1 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: int address>;
+
+        virtualinvoke $r13.<avrora.sim.util.MulticastProbe: void fireAfter(avrora.sim.State,int)>($r12, $i1);
+
+        $r14 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.util.MulticastProbe probe>;
+
+        $z0 = virtualinvoke $r14.<avrora.sim.util.MulticastProbe: boolean isEmpty()>();
+
+        if $z0 == 0 goto label1;
+
+        $r16 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.sim.CodeSegment this$0>;
+
+        $i2 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: int address>;
+
+        $r15 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.arch.legacy.LegacyInstr instr>;
+
+        virtualinvoke $r16.<avrora.sim.CodeSegment: void writeInstr(int,avrora.arch.legacy.LegacyInstr)>($i2, $r15);
+
+     label1:
+        return;
+    }
+
+    public avrora.arch.legacy.LegacyInstr build(int, avrora.arch.legacy.LegacyOperand[])
+    {
+        cck.util.Util$InternalError $r0;
+        avrora.sim.CodeSegment$ProbedLegacyInstr r1;
+        int i0;
+        avrora.arch.legacy.LegacyOperand[] r2;
+
+        r1 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        i0 := @parameter0: int;
+
+        r2 := @parameter1: avrora.arch.legacy.LegacyOperand[];
+
+        $r0 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>("ProbedLegacyInstr should be confined to BaseInterpreter");
+
+        throw $r0;
+    }
+
+    public java.lang.String getOperands()
+    {
+        avrora.sim.CodeSegment$ProbedLegacyInstr r0;
+        avrora.arch.legacy.LegacyInstr $r1;
+        java.lang.String $r2;
+
+        r0 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        $r1 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.arch.legacy.LegacyInstr instr>;
+
+        $r2 = virtualinvoke $r1.<avrora.arch.legacy.LegacyInstr: java.lang.String getOperands()>();
+
+        return $r2;
+    }
+
+    public avrora.arch.legacy.LegacyInstr asInstr()
+    {
+        avrora.sim.CodeSegment$ProbedLegacyInstr r0;
+        avrora.arch.legacy.LegacyInstr $r1;
+
+        r0 := @this: avrora.sim.CodeSegment$ProbedLegacyInstr;
+
+        $r1 = r0.<avrora.sim.CodeSegment$ProbedLegacyInstr: avrora.arch.legacy.LegacyInstr instr>;
+
+        return $r1;
+    }
+}

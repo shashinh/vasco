@@ -1,0 +1,712 @@
+public class cck.text.Terminal extends java.lang.Object
+{
+    public static boolean useColors;
+    public static boolean htmlColors;
+    public static final int MAXLINE;
+    private static java.io.PrintStream out;
+    public static final int COLOR_BLACK;
+    public static final int COLOR_RED;
+    public static final int COLOR_GREEN;
+    public static final int COLOR_BROWN;
+    public static final int COLOR_BLUE;
+    public static final int COLOR_PURPLE;
+    public static final int COLOR_CYAN;
+    public static final int COLOR_LIGHTGRAY;
+    public static final int COLOR_DARKGRAY;
+    public static final int COLOR_BRIGHT_RED;
+    public static final int COLOR_BRIGHT_GREEN;
+    public static final int COLOR_YELLOW;
+    public static final int COLOR_BRIGHT_BLUE;
+    public static final int COLOR_MAGENTA;
+    public static final int COLOR_BRIGHT_CYAN;
+    public static final int COLOR_WHITE;
+    public static final int COLOR_DEFAULT;
+    public static final int MAXCOLORS;
+    private static final java.lang.String CTRL_BLACK;
+    private static final java.lang.String CTRL_RED;
+    private static final java.lang.String CTRL_GREEN;
+    private static final java.lang.String CTRL_BROWN;
+    private static final java.lang.String CTRL_BLUE;
+    private static final java.lang.String CTRL_PURPLE;
+    private static final java.lang.String CTRL_CYAN;
+    private static final java.lang.String CTRL_LIGHTGRAY;
+    private static final java.lang.String CTRL_DARKGRAY;
+    private static final java.lang.String CTRL_BRIGHT_RED;
+    private static final java.lang.String CTRL_BRIGHT_GREEN;
+    private static final java.lang.String CTRL_YELLOW;
+    private static final java.lang.String CTRL_BRIGHT_BLUE;
+    private static final java.lang.String CTRL_MAGENTA;
+    private static final java.lang.String CTRL_BRIGHT_CYAN;
+    private static final java.lang.String CTRL_WHITE;
+    private static final java.lang.String CTRL_DEFAULT;
+    private static final java.lang.String[] COLORS;
+    private static final java.lang.String[] HTML_COLORS;
+    private static final java.lang.String[] HTML_STRINGS;
+    public static final int ERROR_COLOR;
+    public static final int WARN_COLOR;
+
+    public void <init>()
+    {
+        cck.text.Terminal r0;
+
+        r0 := @this: cck.text.Terminal;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void print(int[], java.lang.String[])
+    {
+        java.lang.String[] r0;
+        int $i0, $i1, $i2, i3;
+        int[] r1;
+        java.lang.String $r2, $r3;
+
+        r1 := @parameter0: int[];
+
+        r0 := @parameter1: java.lang.String[];
+
+        i3 = 0;
+
+     label1:
+        $i0 = lengthof r0;
+
+        if i3 >= $i0 goto label4;
+
+        $i1 = lengthof r1;
+
+        if i3 >= $i1 goto label2;
+
+        $i2 = r1[i3];
+
+        $r3 = r0[i3];
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>($i2, $r3);
+
+        goto label3;
+
+     label2:
+        $r2 = r0[i3];
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r2);
+
+     label3:
+        i3 = i3 + 1;
+
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    public static void print(int, java.lang.String)
+    {
+        int i0;
+        java.lang.String r0;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: java.lang.String;
+
+        if i0 >= 16 goto label1;
+
+        if i0 >= 0 goto label2;
+
+     label1:
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(r0);
+
+        goto label3;
+
+     label2:
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(i0, r0);
+
+     label3:
+        return;
+    }
+
+    public static void println(int, java.lang.String)
+    {
+        int i0;
+        java.lang.String r0;
+        java.io.PrintStream $r1;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(i0, r0);
+
+        $r1 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r1.<java.io.PrintStream: void print(char)>(10);
+
+        return;
+    }
+
+    public static void append(int, java.lang.StringBuffer, java.lang.String)
+    {
+        boolean $z0, $z1;
+        java.lang.StringBuffer r0;
+        java.lang.String r1, $r4, $r8, $r11;
+        int i0;
+        java.lang.String[] $r3, $r7, $r10;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: java.lang.StringBuffer;
+
+        r1 := @parameter2: java.lang.String;
+
+        $z0 = <cck.text.Terminal: boolean useColors>;
+
+        if $z0 == 0 goto label2;
+
+        if i0 >= 16 goto label2;
+
+        if i0 < 0 goto label2;
+
+        $z1 = <cck.text.Terminal: boolean htmlColors>;
+
+        if $z1 == 0 goto label1;
+
+        $r10 = <cck.text.Terminal: java.lang.String[] HTML_STRINGS>;
+
+        $r11 = $r10[i0];
+
+        virtualinvoke r0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r11);
+
+        virtualinvoke r0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(r1);
+
+        virtualinvoke r0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("</font>");
+
+        return;
+
+     label1:
+        if i0 == 16 goto label2;
+
+        $r3 = <cck.text.Terminal: java.lang.String[] COLORS>;
+
+        $r4 = $r3[i0];
+
+        virtualinvoke r0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r4);
+
+        virtualinvoke r0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(r1);
+
+        $r7 = <cck.text.Terminal: java.lang.String[] COLORS>;
+
+        $r8 = $r7[16];
+
+        virtualinvoke r0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r8);
+
+        return;
+
+     label2:
+        virtualinvoke r0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(r1);
+
+        return;
+    }
+
+    public static void print(java.lang.String)
+    {
+        java.lang.String r0;
+        java.io.PrintStream $r1;
+
+        r0 := @parameter0: java.lang.String;
+
+        $r1 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r1.<java.io.PrintStream: void print(java.lang.String)>(r0);
+
+        return;
+    }
+
+    public static void println(java.lang.String)
+    {
+        java.lang.String r0;
+        java.io.PrintStream $r1;
+
+        r0 := @parameter0: java.lang.String;
+
+        $r1 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r1.<java.io.PrintStream: void println(java.lang.String)>(r0);
+
+        return;
+    }
+
+    public static void nextln()
+    {
+        java.io.PrintStream $r0;
+
+        $r0 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r0.<java.io.PrintStream: void print(java.lang.String)>("\n");
+
+        return;
+    }
+
+    public static void setOutput(java.io.PrintStream)
+    {
+        java.io.PrintStream r0;
+
+        r0 := @parameter0: java.io.PrintStream;
+
+        <cck.text.Terminal: java.io.PrintStream out> = r0;
+
+        return;
+    }
+
+    public static void printRed(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(1, r0);
+
+        return;
+    }
+
+    public static void printBlue(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(4, r0);
+
+        return;
+    }
+
+    public static void printGreen(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(2, r0);
+
+        return;
+    }
+
+    public static void printYellow(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(11, r0);
+
+        return;
+    }
+
+    public static void printCyan(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(6, r0);
+
+        return;
+    }
+
+    public static void printBrightRed(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(9, r0);
+
+        return;
+    }
+
+    public static void printBrightBlue(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(12, r0);
+
+        return;
+    }
+
+    public static void printBrightGreen(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(10, r0);
+
+        return;
+    }
+
+    public static void printBrightCyan(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void outputColor(int,java.lang.String)>(14, r0);
+
+        return;
+    }
+
+    public static void flush()
+    {
+        java.io.PrintStream $r0;
+
+        $r0 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r0.<java.io.PrintStream: void flush()>();
+
+        return;
+    }
+
+    public static void printPair(int, int, java.lang.String, java.lang.String, java.lang.String)
+    {
+        int i0, i1;
+        java.lang.String r0, r1, r2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        r0 := @parameter2: java.lang.String;
+
+        r1 := @parameter3: java.lang.String;
+
+        r2 := @parameter4: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(i0, r0);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(r1);
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(i1, r2);
+
+        return;
+    }
+
+    public static void printTriple(int, int, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    {
+        int i0, i1, i2;
+        java.lang.String r0, r1, r2, r3, r4;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        i2 := @parameter2: int;
+
+        r0 := @parameter3: java.lang.String;
+
+        r1 := @parameter4: java.lang.String;
+
+        r2 := @parameter5: java.lang.String;
+
+        r3 := @parameter6: java.lang.String;
+
+        r4 := @parameter7: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(i0, r0);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(r1);
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(i1, r2);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(r3);
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(i2, r4);
+
+        return;
+    }
+
+    private static void outputColor(int, java.lang.String)
+    {
+        boolean $z0, $z1;
+        java.lang.String r0, $r3, $r7, $r10;
+        java.io.PrintStream $r1, $r4, $r5, $r8, $r11, $r12, $r13;
+        java.lang.String[] $r2, $r6, $r9;
+        int i0;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: java.lang.String;
+
+        if i0 >= 0 goto label1;
+
+        i0 = 16;
+
+     label1:
+        $z0 = <cck.text.Terminal: boolean useColors>;
+
+        if $z0 == 0 goto label3;
+
+        $z1 = <cck.text.Terminal: boolean htmlColors>;
+
+        if $z1 == 0 goto label2;
+
+        $r11 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        $r9 = <cck.text.Terminal: java.lang.String[] HTML_STRINGS>;
+
+        $r10 = $r9[i0];
+
+        virtualinvoke $r11.<java.io.PrintStream: void print(java.lang.String)>($r10);
+
+        $r12 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r12.<java.io.PrintStream: void print(java.lang.String)>(r0);
+
+        $r13 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r13.<java.io.PrintStream: void print(java.lang.String)>("</font>");
+
+        return;
+
+     label2:
+        if i0 == 16 goto label3;
+
+        $r4 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        $r2 = <cck.text.Terminal: java.lang.String[] COLORS>;
+
+        $r3 = $r2[i0];
+
+        virtualinvoke $r4.<java.io.PrintStream: void print(java.lang.String)>($r3);
+
+        $r5 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r5.<java.io.PrintStream: void print(java.lang.String)>(r0);
+
+        $r8 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        $r6 = <cck.text.Terminal: java.lang.String[] COLORS>;
+
+        $r7 = $r6[16];
+
+        virtualinvoke $r8.<java.io.PrintStream: void print(java.lang.String)>($r7);
+
+        return;
+
+     label3:
+        $r1 = <cck.text.Terminal: java.io.PrintStream out>;
+
+        virtualinvoke $r1.<java.io.PrintStream: void print(java.lang.String)>(r0);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        java.io.PrintStream $r0;
+        java.lang.String[] $r1, $r2, $r3, $r4, $r5, $r7, $r9;
+        int $i0, $i1, i2;
+        java.lang.StringBuilder $r6, $r8, $r11, $r12;
+        java.lang.String $r10, $r13;
+
+        <cck.text.Terminal: int WARN_COLOR> = 11;
+
+        <cck.text.Terminal: int ERROR_COLOR> = 1;
+
+        <cck.text.Terminal: java.lang.String CTRL_DEFAULT> = "\u001b[1;00m";
+
+        <cck.text.Terminal: java.lang.String CTRL_WHITE> = "\u001b[1;37m";
+
+        <cck.text.Terminal: java.lang.String CTRL_BRIGHT_CYAN> = "\u001b[1;36m";
+
+        <cck.text.Terminal: java.lang.String CTRL_MAGENTA> = "\u001b[1;35m";
+
+        <cck.text.Terminal: java.lang.String CTRL_BRIGHT_BLUE> = "\u001b[1;34m";
+
+        <cck.text.Terminal: java.lang.String CTRL_YELLOW> = "\u001b[1;33m";
+
+        <cck.text.Terminal: java.lang.String CTRL_BRIGHT_GREEN> = "\u001b[1;32m";
+
+        <cck.text.Terminal: java.lang.String CTRL_BRIGHT_RED> = "\u001b[1;31m";
+
+        <cck.text.Terminal: java.lang.String CTRL_DARKGRAY> = "\u001b[1;30m";
+
+        <cck.text.Terminal: java.lang.String CTRL_LIGHTGRAY> = "\u001b[0;37m";
+
+        <cck.text.Terminal: java.lang.String CTRL_CYAN> = "\u001b[0;36m";
+
+        <cck.text.Terminal: java.lang.String CTRL_PURPLE> = "\u001b[0;35m";
+
+        <cck.text.Terminal: java.lang.String CTRL_BLUE> = "\u001b[0;34m";
+
+        <cck.text.Terminal: java.lang.String CTRL_BROWN> = "\u001b[0;33m";
+
+        <cck.text.Terminal: java.lang.String CTRL_GREEN> = "\u001b[0;32m";
+
+        <cck.text.Terminal: java.lang.String CTRL_RED> = "\u001b[0;31m";
+
+        <cck.text.Terminal: java.lang.String CTRL_BLACK> = "\u001b[0;30m";
+
+        <cck.text.Terminal: int MAXCOLORS> = 16;
+
+        <cck.text.Terminal: int COLOR_DEFAULT> = 16;
+
+        <cck.text.Terminal: int COLOR_WHITE> = 15;
+
+        <cck.text.Terminal: int COLOR_BRIGHT_CYAN> = 14;
+
+        <cck.text.Terminal: int COLOR_MAGENTA> = 13;
+
+        <cck.text.Terminal: int COLOR_BRIGHT_BLUE> = 12;
+
+        <cck.text.Terminal: int COLOR_YELLOW> = 11;
+
+        <cck.text.Terminal: int COLOR_BRIGHT_GREEN> = 10;
+
+        <cck.text.Terminal: int COLOR_BRIGHT_RED> = 9;
+
+        <cck.text.Terminal: int COLOR_DARKGRAY> = 8;
+
+        <cck.text.Terminal: int COLOR_LIGHTGRAY> = 7;
+
+        <cck.text.Terminal: int COLOR_CYAN> = 6;
+
+        <cck.text.Terminal: int COLOR_PURPLE> = 5;
+
+        <cck.text.Terminal: int COLOR_BLUE> = 4;
+
+        <cck.text.Terminal: int COLOR_BROWN> = 3;
+
+        <cck.text.Terminal: int COLOR_GREEN> = 2;
+
+        <cck.text.Terminal: int COLOR_RED> = 1;
+
+        <cck.text.Terminal: int COLOR_BLACK> = 0;
+
+        <cck.text.Terminal: int MAXLINE> = 78;
+
+        <cck.text.Terminal: boolean useColors> = 1;
+
+        $r0 = <java.lang.System: java.io.PrintStream out>;
+
+        <cck.text.Terminal: java.io.PrintStream out> = $r0;
+
+        $r1 = newarray (java.lang.String)[17];
+
+        $r1[0] = "\u001b[0;30m";
+
+        $r1[1] = "\u001b[0;31m";
+
+        $r1[2] = "\u001b[0;32m";
+
+        $r1[3] = "\u001b[0;33m";
+
+        $r1[4] = "\u001b[0;34m";
+
+        $r1[5] = "\u001b[0;35m";
+
+        $r1[6] = "\u001b[0;36m";
+
+        $r1[7] = "\u001b[0;37m";
+
+        $r1[8] = "\u001b[1;30m";
+
+        $r1[9] = "\u001b[1;31m";
+
+        $r1[10] = "\u001b[1;32m";
+
+        $r1[11] = "\u001b[1;33m";
+
+        $r1[12] = "\u001b[1;34m";
+
+        $r1[13] = "\u001b[1;35m";
+
+        $r1[14] = "\u001b[1;36m";
+
+        $r1[15] = "\u001b[1;37m";
+
+        $r1[16] = "\u001b[1;00m";
+
+        <cck.text.Terminal: java.lang.String[] COLORS> = $r1;
+
+        $r2 = newarray (java.lang.String)[16];
+
+        $r2[0] = "black";
+
+        $r2[1] = "red";
+
+        $r2[2] = "green";
+
+        $r2[3] = "brown";
+
+        $r2[4] = "blue";
+
+        $r2[5] = "purple";
+
+        $r2[6] = "cyan";
+
+        $r2[7] = "lightgray";
+
+        $r2[8] = "gray";
+
+        $r2[9] = "pink";
+
+        $r2[10] = "green";
+
+        $r2[11] = "yellow";
+
+        $r2[12] = "blue";
+
+        $r2[13] = "magenta";
+
+        $r2[14] = "cyan";
+
+        $r2[15] = "white";
+
+        <cck.text.Terminal: java.lang.String[] HTML_COLORS> = $r2;
+
+        $r3 = <cck.text.Terminal: java.lang.String[] HTML_COLORS>;
+
+        $i0 = lengthof $r3;
+
+        $r4 = newarray (java.lang.String)[$i0];
+
+        <cck.text.Terminal: java.lang.String[] HTML_STRINGS> = $r4;
+
+        i2 = 0;
+
+     label1:
+        $r5 = <cck.text.Terminal: java.lang.String[] HTML_STRINGS>;
+
+        $i1 = lengthof $r5;
+
+        if i2 >= $i1 goto label2;
+
+        $r7 = <cck.text.Terminal: java.lang.String[] HTML_STRINGS>;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<font color=");
+
+        $r9 = <cck.text.Terminal: java.lang.String[] HTML_COLORS>;
+
+        $r10 = $r9[i2];
+
+        $r11 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(62);
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7[i2] = $r13;
+
+        i2 = i2 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}

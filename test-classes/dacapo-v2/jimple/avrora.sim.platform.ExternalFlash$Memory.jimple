@@ -1,0 +1,105 @@
+class avrora.sim.platform.ExternalFlash$Memory extends java.lang.Object
+{
+    private final int bytesPerPage;
+    private final avrora.sim.platform.ExternalFlash$Page[] pages;
+    avrora.sim.platform.ExternalFlash$Page buffer1;
+    avrora.sim.platform.ExternalFlash$Page buffer2;
+    final avrora.sim.platform.ExternalFlash this$0;
+
+    protected void <init>(avrora.sim.platform.ExternalFlash, int, int)
+    {
+        avrora.sim.platform.ExternalFlash$Memory r0;
+        avrora.sim.platform.ExternalFlash r1;
+        int i0, i1;
+        avrora.sim.platform.ExternalFlash$Page[] $r2;
+        avrora.sim.platform.ExternalFlash$Page $r3, $r4;
+
+        r0 := @this: avrora.sim.platform.ExternalFlash$Memory;
+
+        r1 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        i0 := @parameter1: int;
+
+        i1 := @parameter2: int;
+
+        r0.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r2 = newarray (avrora.sim.platform.ExternalFlash$Page)[i0];
+
+        r0.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page[] pages> = $r2;
+
+        r0.<avrora.sim.platform.ExternalFlash$Memory: int bytesPerPage> = i1;
+
+        $r3 = new avrora.sim.platform.ExternalFlash$Page;
+
+        specialinvoke $r3.<avrora.sim.platform.ExternalFlash$Page: void <init>(avrora.sim.platform.ExternalFlash,int)>(r1, i1);
+
+        r0.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer1> = $r3;
+
+        $r4 = new avrora.sim.platform.ExternalFlash$Page;
+
+        specialinvoke $r4.<avrora.sim.platform.ExternalFlash$Page: void <init>(avrora.sim.platform.ExternalFlash,int)>(r1, i1);
+
+        r0.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer2> = $r4;
+
+        return;
+    }
+
+    avrora.sim.platform.ExternalFlash$Page getPage(int)
+    {
+        avrora.sim.platform.ExternalFlash$Memory r0;
+        int i0, $i1;
+        avrora.sim.platform.ExternalFlash$Page[] $r1, $r4;
+        avrora.sim.platform.ExternalFlash$Page $r2, r5;
+        avrora.sim.platform.ExternalFlash $r3;
+
+        r0 := @this: avrora.sim.platform.ExternalFlash$Memory;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page[] pages>;
+
+        r5 = $r1[i0];
+
+        if r5 != null goto label1;
+
+        $r2 = new avrora.sim.platform.ExternalFlash$Page;
+
+        $r3 = r0.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i1 = r0.<avrora.sim.platform.ExternalFlash$Memory: int bytesPerPage>;
+
+        specialinvoke $r2.<avrora.sim.platform.ExternalFlash$Page: void <init>(avrora.sim.platform.ExternalFlash,int)>($r3, $i1);
+
+        r5 = $r2;
+
+        $r4 = r0.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page[] pages>;
+
+        $r4[i0] = $r2;
+
+     label1:
+        return r5;
+    }
+
+    void setPage(int, avrora.sim.platform.ExternalFlash$Page)
+    {
+        avrora.sim.platform.ExternalFlash$Memory r0;
+        int i0;
+        avrora.sim.platform.ExternalFlash$Page r1;
+        avrora.sim.platform.ExternalFlash$Page[] $r2;
+
+        r0 := @this: avrora.sim.platform.ExternalFlash$Memory;
+
+        i0 := @parameter0: int;
+
+        r1 := @parameter1: avrora.sim.platform.ExternalFlash$Page;
+
+        $r2 = r0.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page[] pages>;
+
+        $r2[i0] = r1;
+
+        return;
+    }
+}

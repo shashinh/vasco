@@ -1,0 +1,121 @@
+public class org.dacapo.parser.Token extends java.lang.Object implements java.io.Serializable
+{
+    private static final long serialVersionUID;
+    public int kind;
+    public int beginLine;
+    public int beginColumn;
+    public int endLine;
+    public int endColumn;
+    public java.lang.String image;
+    public org.dacapo.parser.Token next;
+    public org.dacapo.parser.Token specialToken;
+
+    public java.lang.Object getValue()
+    {
+        org.dacapo.parser.Token r0;
+
+        r0 := @this: org.dacapo.parser.Token;
+
+        return null;
+    }
+
+    public void <init>()
+    {
+        org.dacapo.parser.Token r0;
+
+        r0 := @this: org.dacapo.parser.Token;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void <init>(int)
+    {
+        org.dacapo.parser.Token r0;
+        int i0;
+
+        r0 := @this: org.dacapo.parser.Token;
+
+        i0 := @parameter0: int;
+
+        specialinvoke r0.<org.dacapo.parser.Token: void <init>(int,java.lang.String)>(i0, null);
+
+        return;
+    }
+
+    public void <init>(int, java.lang.String)
+    {
+        org.dacapo.parser.Token r0;
+        int i0;
+        java.lang.String r1;
+
+        r0 := @this: org.dacapo.parser.Token;
+
+        i0 := @parameter0: int;
+
+        r1 := @parameter1: java.lang.String;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<org.dacapo.parser.Token: int kind> = i0;
+
+        r0.<org.dacapo.parser.Token: java.lang.String image> = r1;
+
+        return;
+    }
+
+    public java.lang.String toString()
+    {
+        org.dacapo.parser.Token r0;
+        java.lang.String $r1;
+
+        r0 := @this: org.dacapo.parser.Token;
+
+        $r1 = r0.<org.dacapo.parser.Token: java.lang.String image>;
+
+        return $r1;
+    }
+
+    public static org.dacapo.parser.Token newToken(int, java.lang.String)
+    {
+        int i0;
+        org.dacapo.parser.Token $r0;
+        java.lang.String r1;
+
+        i0 := @parameter0: int;
+
+        r1 := @parameter1: java.lang.String;
+
+        lookupswitch(i0)
+        {
+            default: goto label1;
+        };
+
+     label1:
+        $r0 = new org.dacapo.parser.Token;
+
+        specialinvoke $r0.<org.dacapo.parser.Token: void <init>(int,java.lang.String)>(i0, r1);
+
+        return $r0;
+    }
+
+    public static org.dacapo.parser.Token newToken(int)
+    {
+        int i0;
+        org.dacapo.parser.Token $r0;
+
+        i0 := @parameter0: int;
+
+        $r0 = staticinvoke <org.dacapo.parser.Token: org.dacapo.parser.Token newToken(int,java.lang.String)>(i0, null);
+
+        return $r0;
+    }
+
+    public static void <clinit>()
+    {
+        <org.dacapo.parser.Token: long serialVersionUID> = 1L;
+
+        return;
+    }
+}

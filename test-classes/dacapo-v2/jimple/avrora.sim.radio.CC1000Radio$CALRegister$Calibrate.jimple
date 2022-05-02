@@ -1,0 +1,114 @@
+public class avrora.sim.radio.CC1000Radio$CALRegister$Calibrate extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.radio.CC1000Radio$CALRegister this$1;
+
+    protected void <init>(avrora.sim.radio.CC1000Radio$CALRegister)
+    {
+        avrora.sim.radio.CC1000Radio$CALRegister$Calibrate r0;
+        avrora.sim.radio.CC1000Radio$CALRegister r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$CALRegister$Calibrate;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio$CALRegister;
+
+        r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.radio.CC1000Radio$CALRegister$Calibrate r0;
+        avrora.sim.radio.CC1000Radio$CALRegister $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r11, $r15, $r18, $r19;
+        byte $b0, $b1, $b2, $b3, $b4, $b5, $b6, $b9;
+        avrora.sim.radio.CC1000Radio $r10, $r12, $r16, $r20;
+        avrora.sim.radio.CC1000Radio$LockRegister $r13, $r14;
+        int $i7, $i8;
+        avrora.sim.output.SimPrinter $r17, $r21;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$CALRegister$Calibrate;
+
+        $r2 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $b0 = $r1.<avrora.sim.radio.CC1000Radio$CALRegister: byte value>;
+
+        $b1 = staticinvoke <cck.util.Arithmetic: byte setBit(byte,int,boolean)>($b0, 7, 0);
+
+        $r2.<avrora.sim.radio.CC1000Radio$CALRegister: byte value> = $b1;
+
+        $r4 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r3 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $b2 = $r3.<avrora.sim.radio.CC1000Radio$CALRegister: byte value>;
+
+        virtualinvoke $r4.<avrora.sim.radio.CC1000Radio$CALRegister: void decode(byte)>($b2);
+
+        $r6 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r5 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $b3 = $r5.<avrora.sim.radio.CC1000Radio$CALRegister: byte value>;
+
+        $b4 = staticinvoke <cck.util.Arithmetic: byte setBit(byte,int,boolean)>($b3, 3, 1);
+
+        $r6.<avrora.sim.radio.CC1000Radio$CALRegister: byte value> = $b4;
+
+        $r8 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r7 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $b5 = $r7.<avrora.sim.radio.CC1000Radio$CALRegister: byte value>;
+
+        virtualinvoke $r8.<avrora.sim.radio.CC1000Radio$CALRegister: void decode(byte)>($b5);
+
+        $r9 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r10 = $r9.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r14 = $r10.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$LockRegister LOCK_reg>;
+
+        $r11 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r12 = $r11.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r13 = $r12.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$LockRegister LOCK_reg>;
+
+        $b6 = virtualinvoke $r13.<avrora.sim.radio.CC1000Radio$LockRegister: byte read()>();
+
+        $i7 = $b6 & 15;
+
+        $i8 = $i7 | 80;
+
+        $b9 = (byte) $i8;
+
+        virtualinvoke $r14.<avrora.sim.radio.CC1000Radio$LockRegister: void write(byte)>($b9);
+
+        $r15 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r16 = $r15.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r17 = $r16.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        if $r17 == null goto label1;
+
+        $r19 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r20 = $r19.<avrora.sim.radio.CC1000Radio$CALRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r21 = $r20.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        virtualinvoke $r21.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("CC1000: Calibration complete ");
+
+     label1:
+        $r18 = r0.<avrora.sim.radio.CC1000Radio$CALRegister$Calibrate: avrora.sim.radio.CC1000Radio$CALRegister this$1>;
+
+        $r18.<avrora.sim.radio.CC1000Radio$CALRegister: boolean calibrating> = 0;
+
+        return;
+    }
+}

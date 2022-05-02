@@ -1,0 +1,89 @@
+public class avrora.sim.mcu.RegisterLayout$Field extends java.lang.Object
+{
+    final java.lang.String name;
+    int length;
+    avrora.sim.mcu.RegisterLayout$SubField[] subfields;
+
+    void <init>(java.lang.String)
+    {
+        avrora.sim.mcu.RegisterLayout$Field r0;
+        java.lang.String r1;
+
+        r0 := @this: avrora.sim.mcu.RegisterLayout$Field;
+
+        r1 := @parameter0: java.lang.String;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.mcu.RegisterLayout$Field: java.lang.String name> = r1;
+
+        return;
+    }
+
+    void add(avrora.sim.mcu.RegisterLayout$SubField)
+    {
+        avrora.sim.mcu.RegisterLayout$Field r0;
+        avrora.sim.mcu.RegisterLayout$SubField[] $r1, $r2, $r3, $r4, $r5, $r7, $r8, r9;
+        int $i0, $i1, $i2, $i3, $i4, $i5, $i6, $i7, i8;
+        avrora.sim.mcu.RegisterLayout$SubField r6;
+
+        r0 := @this: avrora.sim.mcu.RegisterLayout$Field;
+
+        r6 := @parameter0: avrora.sim.mcu.RegisterLayout$SubField;
+
+        $r1 = r0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        if $r1 != null goto label1;
+
+        $r8 = newarray (avrora.sim.mcu.RegisterLayout$SubField)[1];
+
+        r0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields> = $r8;
+
+        goto label2;
+
+     label1:
+        $r2 = r0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $i0 = lengthof $r2;
+
+        $i1 = $i0 + 1;
+
+        r9 = newarray (avrora.sim.mcu.RegisterLayout$SubField)[$i1];
+
+        $r4 = r0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $r3 = r0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $i2 = lengthof $r3;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r4, 0, r9, 0, $i2);
+
+        r0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields> = r9;
+
+     label2:
+        $r7 = r0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $r5 = r0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $i3 = lengthof $r5;
+
+        $i4 = $i3 - 1;
+
+        $r7[$i4] = r6;
+
+        $i6 = r6.<avrora.sim.mcu.RegisterLayout$SubField: int field_low_bit>;
+
+        $i5 = r6.<avrora.sim.mcu.RegisterLayout$SubField: int length>;
+
+        i8 = $i6 + $i5;
+
+        $i7 = r0.<avrora.sim.mcu.RegisterLayout$Field: int length>;
+
+        if i8 <= $i7 goto label3;
+
+        r0.<avrora.sim.mcu.RegisterLayout$Field: int length> = i8;
+
+     label3:
+        return;
+    }
+}

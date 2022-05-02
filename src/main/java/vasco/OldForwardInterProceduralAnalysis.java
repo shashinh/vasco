@@ -275,7 +275,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// immediatePrevContextAnalysed :
 					// 1. stmt was an invoke
 					// 2. the called context was analyzed
-					if ( (!isLoopHeader && immediatePrevContextAnalysed) || out.equals(prevOut) == false) {
+					if ( (!isLoopHeader /*&& immediatePrevContextAnalysed */) || out.equals(prevOut) == false) {
 						//System.out.println("OUT changed @" + unitBCI);
 
 						// Then add successors to the work-list.

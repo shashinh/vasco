@@ -1,0 +1,49 @@
+public class avrora.sim.radio.CC1000Radio$DummyRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio, int)
+    {
+        avrora.sim.radio.CC1000Radio$DummyRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+        java.lang.StringBuilder $r2, $r3, $r5;
+        int i0;
+        java.lang.String $r4, $r6;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$DummyRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        i0 := @parameter1: int;
+
+        r0.<avrora.sim.radio.CC1000Radio$DummyRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Dummy ");
+
+        $r4 = staticinvoke <java.lang.Integer: java.lang.String toHexString(int)>(i0);
+
+        $r5 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, $r6, 0);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$DummyRegister r0;
+        byte b0;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$DummyRegister;
+
+        b0 := @parameter0: byte;
+
+        return;
+    }
+}

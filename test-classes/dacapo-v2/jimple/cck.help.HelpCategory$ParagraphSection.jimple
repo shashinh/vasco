@@ -1,0 +1,60 @@
+class cck.help.HelpCategory$ParagraphSection extends cck.help.HelpCategory$Section
+{
+    final java.lang.String title;
+    final java.lang.String para;
+    final cck.help.HelpCategory this$0;
+
+    void <init>(cck.help.HelpCategory, java.lang.String, java.lang.String)
+    {
+        cck.help.HelpCategory$ParagraphSection r0;
+        cck.help.HelpCategory r1;
+        java.lang.String r2, r3;
+
+        r0 := @this: cck.help.HelpCategory$ParagraphSection;
+
+        r1 := @parameter0: cck.help.HelpCategory;
+
+        r2 := @parameter1: java.lang.String;
+
+        r3 := @parameter2: java.lang.String;
+
+        r0.<cck.help.HelpCategory$ParagraphSection: cck.help.HelpCategory this$0> = r1;
+
+        specialinvoke r0.<cck.help.HelpCategory$Section: void <init>(cck.help.HelpCategory,cck.help.HelpCategory$1)>(r1, null);
+
+        r0.<cck.help.HelpCategory$ParagraphSection: java.lang.String title> = r2;
+
+        r0.<cck.help.HelpCategory$ParagraphSection: java.lang.String para> = r3;
+
+        return;
+    }
+
+    void printHelp()
+    {
+        cck.help.HelpCategory$ParagraphSection r0;
+        java.lang.String $r1, $r2, $r3, $r4;
+
+        r0 := @this: cck.help.HelpCategory$ParagraphSection;
+
+        $r1 = r0.<cck.help.HelpCategory$ParagraphSection: java.lang.String title>;
+
+        if $r1 == null goto label1;
+
+        $r4 = r0.<cck.help.HelpCategory$ParagraphSection: java.lang.String title>;
+
+        staticinvoke <cck.text.Terminal: void printBrightBlue(java.lang.String)>($r4);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("\n");
+
+     label1:
+        $r2 = r0.<cck.help.HelpCategory$ParagraphSection: java.lang.String para>;
+
+        $r3 = staticinvoke <cck.text.StringUtil: java.lang.String formatParagraphs(java.lang.String,int,int,int)>($r2, 0, 4, 78);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($r3);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>("");
+
+        return;
+    }
+}

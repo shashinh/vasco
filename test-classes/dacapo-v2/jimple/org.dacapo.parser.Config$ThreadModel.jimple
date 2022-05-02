@@ -1,0 +1,112 @@
+public final enum class org.dacapo.parser.Config$ThreadModel extends java.lang.Enum
+{
+    public static final enum org.dacapo.parser.Config$ThreadModel SINGLE;
+    public static final enum org.dacapo.parser.Config$ThreadModel FIXED;
+    public static final enum org.dacapo.parser.Config$ThreadModel PER_CPU;
+    private java.lang.String description;
+    private static final org.dacapo.parser.Config$ThreadModel[] $VALUES;
+
+    public static org.dacapo.parser.Config$ThreadModel[] values()
+    {
+        org.dacapo.parser.Config$ThreadModel[] $r0, $r2;
+        java.lang.Object $r1;
+
+        $r0 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel[] $VALUES>;
+
+        $r1 = virtualinvoke $r0.<java.lang.Object: java.lang.Object clone()>();
+
+        $r2 = (org.dacapo.parser.Config$ThreadModel[]) $r1;
+
+        return $r2;
+    }
+
+    public static org.dacapo.parser.Config$ThreadModel valueOf(java.lang.String)
+    {
+        java.lang.String r0;
+        java.lang.Enum $r1;
+        org.dacapo.parser.Config$ThreadModel $r2;
+
+        r0 := @parameter0: java.lang.String;
+
+        $r1 = staticinvoke <java.lang.Enum: java.lang.Enum valueOf(java.lang.Class,java.lang.String)>(class "Lorg/dacapo/parser/Config$ThreadModel;", r0);
+
+        $r2 = (org.dacapo.parser.Config$ThreadModel) $r1;
+
+        return $r2;
+    }
+
+    private void <init>(java.lang.String, int, java.lang.String)
+    {
+        org.dacapo.parser.Config$ThreadModel r0;
+        java.lang.String r1, r2;
+        int i0;
+
+        r0 := @this: org.dacapo.parser.Config$ThreadModel;
+
+        r1 := @parameter0: java.lang.String;
+
+        i0 := @parameter1: int;
+
+        r2 := @parameter2: java.lang.String;
+
+        specialinvoke r0.<java.lang.Enum: void <init>(java.lang.String,int)>(r1, i0);
+
+        r0.<org.dacapo.parser.Config$ThreadModel: java.lang.String description> = r2;
+
+        return;
+    }
+
+    public java.lang.String describe()
+    {
+        org.dacapo.parser.Config$ThreadModel r0;
+        java.lang.String $r1;
+
+        r0 := @this: org.dacapo.parser.Config$ThreadModel;
+
+        $r1 = r0.<org.dacapo.parser.Config$ThreadModel: java.lang.String description>;
+
+        return $r1;
+    }
+
+    static void <clinit>()
+    {
+        org.dacapo.parser.Config$ThreadModel $r0, $r1, $r2, $r4, $r5, $r6;
+        org.dacapo.parser.Config$ThreadModel[] $r3;
+
+        $r0 = new org.dacapo.parser.Config$ThreadModel;
+
+        specialinvoke $r0.<org.dacapo.parser.Config$ThreadModel: void <init>(java.lang.String,int,java.lang.String)>("SINGLE", 0, "single threaded");
+
+        <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE> = $r0;
+
+        $r1 = new org.dacapo.parser.Config$ThreadModel;
+
+        specialinvoke $r1.<org.dacapo.parser.Config$ThreadModel: void <init>(java.lang.String,int,java.lang.String)>("FIXED", 1, "fixed #threads");
+
+        <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED> = $r1;
+
+        $r2 = new org.dacapo.parser.Config$ThreadModel;
+
+        specialinvoke $r2.<org.dacapo.parser.Config$ThreadModel: void <init>(java.lang.String,int,java.lang.String)>("PER_CPU", 2, "scaled to available CPUs");
+
+        <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel PER_CPU> = $r2;
+
+        $r3 = newarray (org.dacapo.parser.Config$ThreadModel)[3];
+
+        $r4 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE>;
+
+        $r3[0] = $r4;
+
+        $r5 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED>;
+
+        $r3[1] = $r5;
+
+        $r6 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel PER_CPU>;
+
+        $r3[2] = $r6;
+
+        <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel[] $VALUES> = $r3;
+
+        return;
+    }
+}

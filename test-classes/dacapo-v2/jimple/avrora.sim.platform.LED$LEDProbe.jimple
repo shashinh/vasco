@@ -1,0 +1,93 @@
+class avrora.sim.platform.LED$LEDProbe extends java.lang.Object implements avrora.sim.FiniteStateMachine$Probe
+{
+    final avrora.sim.output.SimPrinter printer;
+    final avrora.sim.platform.LED this$0;
+
+    void <init>(avrora.sim.platform.LED)
+    {
+        avrora.sim.platform.LED$LEDProbe r0;
+        avrora.sim.platform.LED r1;
+        avrora.sim.Simulator $r2;
+        avrora.sim.output.SimPrinter $r3;
+
+        r0 := @this: avrora.sim.platform.LED$LEDProbe;
+
+        r1 := @parameter0: avrora.sim.platform.LED;
+
+        r0.<avrora.sim.platform.LED$LEDProbe: avrora.sim.platform.LED this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r2 = r1.<avrora.sim.platform.LED: avrora.sim.Simulator sim>;
+
+        $r3 = virtualinvoke $r2.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter()>();
+
+        r0.<avrora.sim.platform.LED$LEDProbe: avrora.sim.output.SimPrinter printer> = $r3;
+
+        return;
+    }
+
+    public void fireBeforeTransition(int, int)
+    {
+        avrora.sim.platform.LED$LEDProbe r0;
+        int i0, i1;
+
+        r0 := @this: avrora.sim.platform.LED$LEDProbe;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        return;
+    }
+
+    public void fireAfterTransition(int, int)
+    {
+        int i0, i1, $i2;
+        avrora.sim.platform.LED$LEDProbe r0;
+        avrora.sim.output.SimPrinter $r1, $r10;
+        java.lang.StringBuffer r2;
+        avrora.sim.platform.LED $r3, $r4;
+        java.lang.String $r5, $r8;
+        java.lang.String[] $r7;
+
+        r0 := @this: avrora.sim.platform.LED$LEDProbe;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        if i0 != i1 goto label1;
+
+        return;
+
+     label1:
+        $r1 = r0.<avrora.sim.platform.LED$LEDProbe: avrora.sim.output.SimPrinter printer>;
+
+        r2 = virtualinvoke $r1.<avrora.sim.output.SimPrinter: java.lang.StringBuffer getBuffer(int)>(20);
+
+        $r3 = r0.<avrora.sim.platform.LED$LEDProbe: avrora.sim.platform.LED this$0>;
+
+        $i2 = $r3.<avrora.sim.platform.LED: int colornum>;
+
+        $r4 = r0.<avrora.sim.platform.LED$LEDProbe: avrora.sim.platform.LED this$0>;
+
+        $r5 = $r4.<avrora.sim.platform.LED: java.lang.String color>;
+
+        staticinvoke <cck.text.Terminal: void append(int,java.lang.StringBuffer,java.lang.String)>($i2, r2, $r5);
+
+        virtualinvoke r2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(": ");
+
+        $r7 = staticinvoke <avrora.sim.platform.LED: java.lang.String[] access$000()>();
+
+        $r8 = $r7[i1];
+
+        virtualinvoke r2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r8);
+
+        $r10 = r0.<avrora.sim.platform.LED$LEDProbe: avrora.sim.output.SimPrinter printer>;
+
+        virtualinvoke $r10.<avrora.sim.output.SimPrinter: void printBuffer(java.lang.StringBuffer)>(r2);
+
+        return;
+    }
+}

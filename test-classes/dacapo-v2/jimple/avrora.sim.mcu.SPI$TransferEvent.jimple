@@ -1,0 +1,165 @@
+public class avrora.sim.mcu.SPI$TransferEvent extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    avrora.sim.mcu.SPI$Frame frame;
+    boolean transmitting;
+    final avrora.sim.mcu.SPI this$0;
+
+    protected void <init>(avrora.sim.mcu.SPI)
+    {
+        avrora.sim.mcu.SPI$TransferEvent r0;
+        avrora.sim.mcu.SPI r1;
+
+        r0 := @this: avrora.sim.mcu.SPI$TransferEvent;
+
+        r1 := @parameter0: avrora.sim.mcu.SPI;
+
+        r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    protected void enableTransfer()
+    {
+        avrora.sim.mcu.SPI$TransferEvent r0;
+        avrora.sim.mcu.SPI $r1, $r4, $r7, $r9, $r11, $r15, $r16, $r18;
+        avrora.sim.mcu.SPI$SPCRReg $r2, $r5;
+        avrora.sim.state.BooleanView $r3, $r6;
+        boolean $z0, $z1, $z2;
+        avrora.sim.output.SimPrinter $r8, $r19;
+        avrora.sim.mcu.SPI$SPSReg $r10;
+        avrora.sim.mcu.SPI$SPDReg $r12;
+        avrora.sim.mcu.SPI$SPDReg$TransmitRegister $r13;
+        byte $b0;
+        avrora.sim.mcu.SPI$Frame $r14;
+        int $i1;
+        long $l2;
+        avrora.sim.clock.Clock $r17;
+
+        r0 := @this: avrora.sim.mcu.SPI$TransferEvent;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r2 = $r1.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPCRReg SPCR_reg>;
+
+        $r3 = $r2.<avrora.sim.mcu.SPI$SPCRReg: avrora.sim.state.BooleanView _master>;
+
+        $z0 = interfaceinvoke $r3.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        if $z0 == 0 goto label2;
+
+        $r4 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r5 = $r4.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPCRReg SPCR_reg>;
+
+        $r6 = $r5.<avrora.sim.mcu.SPI$SPCRReg: avrora.sim.state.BooleanView _enabled>;
+
+        $z1 = interfaceinvoke $r6.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        if $z1 == 0 goto label2;
+
+        $z2 = r0.<avrora.sim.mcu.SPI$TransferEvent: boolean transmitting>;
+
+        if $z2 != 0 goto label2;
+
+        $r7 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r8 = $r7.<avrora.sim.mcu.SPI: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $r8 == null goto label1;
+
+        $r18 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r19 = $r18.<avrora.sim.mcu.SPI: avrora.sim.output.SimPrinter devicePrinter>;
+
+        virtualinvoke $r19.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("SPI: Master mode. Enabling transfer. ");
+
+     label1:
+        $r9 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r10 = $r9.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPSReg SPSR_reg>;
+
+        virtualinvoke $r10.<avrora.sim.mcu.SPI$SPSReg: void clearSPIF()>();
+
+        r0.<avrora.sim.mcu.SPI$TransferEvent: boolean transmitting> = 1;
+
+        $r11 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r12 = $r11.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPDReg SPDR_reg>;
+
+        $r13 = $r12.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.mcu.SPI$SPDReg$TransmitRegister transmitReg>;
+
+        $b0 = virtualinvoke $r13.<avrora.sim.mcu.SPI$SPDReg$TransmitRegister: byte read()>();
+
+        $r14 = staticinvoke <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame newFrame(byte)>($b0);
+
+        r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI$Frame frame> = $r14;
+
+        $r15 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r17 = $r15.<avrora.sim.mcu.SPI: avrora.sim.clock.Clock mainClock>;
+
+        $r16 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $i1 = $r16.<avrora.sim.mcu.SPI: int period>;
+
+        $l2 = (long) $i1;
+
+        virtualinvoke $r17.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>(r0, $l2);
+
+     label2:
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.SPI$TransferEvent r0;
+        avrora.sim.mcu.SPI $r1, $r4, $r6, $r9, $r11;
+        avrora.sim.mcu.SPI$SPCRReg $r2;
+        avrora.sim.state.BooleanView $r3;
+        boolean $z0;
+        avrora.sim.mcu.SPI$SPSReg $r5;
+        avrora.sim.mcu.SPI$Frame $r7, $r10;
+        avrora.sim.mcu.SPIDevice $r8;
+
+        r0 := @this: avrora.sim.mcu.SPI$TransferEvent;
+
+        $r1 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r2 = $r1.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPCRReg SPCR_reg>;
+
+        $r3 = $r2.<avrora.sim.mcu.SPI$SPCRReg: avrora.sim.state.BooleanView _enabled>;
+
+        $z0 = interfaceinvoke $r3.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        if $z0 == 0 goto label1;
+
+        $r4 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r5 = $r4.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPSReg SPSR_reg>;
+
+        virtualinvoke $r5.<avrora.sim.mcu.SPI$SPSReg: void clearSPIF()>();
+
+        $r9 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r6 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        $r8 = $r6.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPIDevice connectedDevice>;
+
+        $r7 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI$Frame frame>;
+
+        $r10 = interfaceinvoke $r8.<avrora.sim.mcu.SPIDevice: avrora.sim.mcu.SPI$Frame exchange(avrora.sim.mcu.SPI$Frame)>($r7);
+
+        virtualinvoke $r9.<avrora.sim.mcu.SPI: void receive(avrora.sim.mcu.SPI$Frame)>($r10);
+
+        r0.<avrora.sim.mcu.SPI$TransferEvent: boolean transmitting> = 0;
+
+        $r11 = r0.<avrora.sim.mcu.SPI$TransferEvent: avrora.sim.mcu.SPI this$0>;
+
+        staticinvoke <avrora.sim.mcu.SPI: void access$000(avrora.sim.mcu.SPI)>($r11);
+
+     label1:
+        return;
+    }
+}

@@ -1,0 +1,908 @@
+public class avrora.sim.platform.ExternalFlash$PD5Output extends java.lang.Object implements avrora.sim.mcu.Microcontroller$Pin$Output
+{
+    private short temp;
+    final avrora.sim.platform.ExternalFlash this$0;
+
+    protected void <init>(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash$PD5Output r0;
+        avrora.sim.platform.ExternalFlash r1;
+
+        r0 := @this: avrora.sim.platform.ExternalFlash$PD5Output;
+
+        r1 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void write(boolean)
+    {
+        avrora.sim.platform.ExternalFlash$PD5Output r0;
+        avrora.sim.platform.ExternalFlash $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r10, $r11, $r12, $r13, $r14, $r15, $r17, $r19, $r20, $r22, $r23, $r25, $r29, $r30, $r31, $r32, $r33, $r34, $r35, $r36, $r37, $r38, $r39;
+        boolean $z0, $z1, z2, $z3, $z4, $z6, $z7;
+        int $i0, $i2, $i3, $i4, $i15, $i19, $i21, $i22, $i23, i25, $i26;
+        byte $b1, $b7, $b13, $b27;
+        short $s11, $s14;
+        avrora.sim.FiniteStateMachine $r16, $r18, $r21;
+        java.lang.StringBuilder $r24, $r26, $r27;
+        java.lang.String $r28;
+
+        r0 := @this: avrora.sim.platform.ExternalFlash$PD5Output;
+
+        z2 := @parameter0: boolean;
+
+        $r1 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $z0 = staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$100(avrora.sim.platform.ExternalFlash)>($r1);
+
+        if $z0 == 0 goto label7;
+
+        $r2 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $z1 = staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1800(avrora.sim.platform.ExternalFlash)>($r2);
+
+        if $z1 == z2 goto label7;
+
+        $r3 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $z3 = staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1800(avrora.sim.platform.ExternalFlash)>($r3);
+
+        if $z3 == 0 goto label2;
+
+        $r19 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $z7 = staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1500(avrora.sim.platform.ExternalFlash)>($r19);
+
+        if $z7 == 0 goto label6;
+
+        specialinvoke r0.<avrora.sim.platform.ExternalFlash$PD5Output: void setSO()>();
+
+        $r20 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r21 = $r20.<avrora.sim.platform.ExternalFlash: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $r21.<avrora.sim.FiniteStateMachine: void transition(int)>(1);
+
+        $r22 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1608(avrora.sim.platform.ExternalFlash)>($r22);
+
+        $r23 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $b13 = staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1600(avrora.sim.platform.ExternalFlash)>($r23);
+
+        if $b13 <= 7 goto label6;
+
+        $r25 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r24 = new java.lang.StringBuilder;
+
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        $r26 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("1 Byte of serial data was output on the SO: ");
+
+        $s14 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: short temp>;
+
+        $r27 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($s14);
+
+        $r28 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r25, $r28);
+
+        $r29 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i15 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r29);
+
+        i25 = $i15 + 1;
+
+        if i25 <= 263 goto label1;
+
+        i25 = i25 + -264;
+
+        $r31 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r30 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i19 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$308(avrora.sim.platform.ExternalFlash)>($r30);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1902(avrora.sim.platform.ExternalFlash,int)>($r31, $i19);
+
+        $r32 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i21 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1900(avrora.sim.platform.ExternalFlash)>($r32);
+
+        if $i21 <= 2047 goto label1;
+
+        $r34 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r33 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i22 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1900(avrora.sim.platform.ExternalFlash)>($r33);
+
+        $i23 = $i22 - 2048;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1902(avrora.sim.platform.ExternalFlash,int)>($r34, $i23);
+
+     label1:
+        $r35 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($r35, i25);
+
+        $r36 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r37 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i26 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1900(avrora.sim.platform.ExternalFlash)>($r37);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$302(avrora.sim.platform.ExternalFlash,int)>($r36, $i26);
+
+        $r38 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1602(avrora.sim.platform.ExternalFlash,byte)>($r38, 0);
+
+        goto label6;
+
+     label2:
+        $r4 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $z4 = staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1500(avrora.sim.platform.ExternalFlash)>($r4);
+
+        if $z4 != 0 goto label6;
+
+        $r6 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r5 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i0 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r5);
+
+        $r7 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $z6 = staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1700(avrora.sim.platform.ExternalFlash)>($r7);
+
+        if $z6 == 0 goto label3;
+
+        $b27 = 1;
+
+        goto label4;
+
+     label3:
+        $b27 = 0;
+
+     label4:
+        $r8 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $b1 = staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1600(avrora.sim.platform.ExternalFlash)>($r8);
+
+        $i2 = 7 - $b1;
+
+        $i3 = $b27 << $i2;
+
+        $i4 = $i0 | $i3;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$2002(avrora.sim.platform.ExternalFlash,int)>($r6, $i4);
+
+        $r9 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1608(avrora.sim.platform.ExternalFlash)>($r9);
+
+        $r10 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $b7 = staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1600(avrora.sim.platform.ExternalFlash)>($r10);
+
+        if $b7 <= 7 goto label6;
+
+        $r11 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1602(avrora.sim.platform.ExternalFlash,byte)>($r11, 0);
+
+        $r12 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: short access$1408(avrora.sim.platform.ExternalFlash)>($r12);
+
+        specialinvoke r0.<avrora.sim.platform.ExternalFlash$PD5Output: void doStep()>();
+
+        $r13 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$2002(avrora.sim.platform.ExternalFlash,int)>($r13, 0);
+
+        $r14 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s11 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1400(avrora.sim.platform.ExternalFlash)>($r14);
+
+        if $s11 > 4 goto label5;
+
+        $r17 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r18 = $r17.<avrora.sim.platform.ExternalFlash: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $r18.<avrora.sim.FiniteStateMachine: void transition(int)>(3);
+
+        goto label6;
+
+     label5:
+        $r15 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r16 = $r15.<avrora.sim.platform.ExternalFlash: avrora.sim.FiniteStateMachine stateMachine>;
+
+        virtualinvoke $r16.<avrora.sim.FiniteStateMachine: void transition(int)>(2);
+
+     label6:
+        $r39 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1802(avrora.sim.platform.ExternalFlash,boolean)>($r39, z2);
+
+     label7:
+        return;
+    }
+
+    private void setSO()
+    {
+        avrora.sim.platform.ExternalFlash$PD5Output r0;
+        avrora.sim.platform.ExternalFlash $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r10, $r11;
+        int $i0, $i2, $i4, $i6, $i7, $i11, $i12, $i13;
+        short $s1, $s3, $s5, $s8, $s9;
+        byte $b10;
+        boolean $z1;
+
+        r0 := @this: avrora.sim.platform.ExternalFlash$PD5Output;
+
+        $r1 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i0 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$200(avrora.sim.platform.ExternalFlash)>($r1);
+
+        lookupswitch($i0)
+        {
+            case 82: goto label1;
+            case 84: goto label1;
+            case 86: goto label2;
+            case 87: goto label3;
+            case 104: goto label1;
+            case 210: goto label1;
+            case 212: goto label1;
+            case 214: goto label2;
+            case 215: goto label3;
+            case 232: goto label1;
+            default: goto label4;
+        };
+
+     label1:
+        $r7 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r6 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i4 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r6);
+
+        $s5 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$2100(avrora.sim.platform.ExternalFlash,int)>($r7, $i4);
+
+        r0.<avrora.sim.platform.ExternalFlash$PD5Output: short temp> = $s5;
+
+        goto label5;
+
+     label2:
+        $r5 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r4 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i2 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r4);
+
+        $s3 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$2200(avrora.sim.platform.ExternalFlash,int)>($r5, $i2);
+
+        r0.<avrora.sim.platform.ExternalFlash$PD5Output: short temp> = $s3;
+
+        goto label5;
+
+     label3:
+        $r2 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s1 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1100(avrora.sim.platform.ExternalFlash)>($r2);
+
+        r0.<avrora.sim.platform.ExternalFlash$PD5Output: short temp> = $s1;
+
+        goto label5;
+
+     label4:
+        $r9 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r8 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i6 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($r8);
+
+        $r10 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i7 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r10);
+
+        $s8 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$2300(avrora.sim.platform.ExternalFlash,int,int)>($r9, $i6, $i7);
+
+        r0.<avrora.sim.platform.ExternalFlash$PD5Output: short temp> = $s8;
+
+     label5:
+        $r3 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s9 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: short temp>;
+
+        $r11 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $b10 = staticinvoke <avrora.sim.platform.ExternalFlash: byte access$1600(avrora.sim.platform.ExternalFlash)>($r11);
+
+        $i11 = 7 - $b10;
+
+        $i12 = 1 << $i11;
+
+        $i13 = $s9 & $i12;
+
+        if $i13 <= 0 goto label6;
+
+        $z1 = 1;
+
+        goto label7;
+
+     label6:
+        $z1 = 0;
+
+     label7:
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$2402(avrora.sim.platform.ExternalFlash,boolean)>($r3, $z1);
+
+        return;
+    }
+
+    private void doStep()
+    {
+        avrora.sim.platform.ExternalFlash$PD5Output r0;
+        avrora.sim.platform.ExternalFlash $r1, $r2, $r3, $r4, $r6, $r8, $r11, $r12, $r13, $r14, $r15, $r17, $r19, $r22, $r23, $r25, $r27, $r30, $r31, $r33, $r35, $r38, $r39, $r40, $r41;
+        short $s0, $s25;
+        int $i1, $i2, $i3, $i5, $i6, $i7, $i8, $i9, $i11, $i12, $i14, $i15, $i16, $i17, $i19, $i20, $i22, $i23, $i24;
+        java.lang.StringBuilder $r5, $r7, $r9, $r16, $r18, $r20, $r24, $r26, $r28, $r32, $r34, $r36;
+        java.lang.String $r10, $r21, $r29, $r37;
+
+        r0 := @this: avrora.sim.platform.ExternalFlash$PD5Output;
+
+        $r1 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s0 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1400(avrora.sim.platform.ExternalFlash)>($r1);
+
+        tableswitch($s0)
+        {
+            case 1: goto label1;
+            case 2: goto label3;
+            case 3: goto label4;
+            case 4: goto label5;
+            default: goto label6;
+        };
+
+     label1:
+        $r31 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r30 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i20 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r30);
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$202(avrora.sim.platform.ExternalFlash,int)>($r31, $i20);
+
+        $r33 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r32 = new java.lang.StringBuilder;
+
+        specialinvoke $r32.<java.lang.StringBuilder: void <init>()>();
+
+        $r34 = virtualinvoke $r32.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Received Opcode: ");
+
+        $r35 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i22 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$200(avrora.sim.platform.ExternalFlash)>($r35);
+
+        $r36 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i22);
+
+        $r37 = virtualinvoke $r36.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r33, $r37);
+
+        $r38 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i23 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$200(avrora.sim.platform.ExternalFlash)>($r38);
+
+        if $i23 == 87 goto label2;
+
+        $r40 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i24 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$200(avrora.sim.platform.ExternalFlash)>($r40);
+
+        if $i24 != 215 goto label7;
+
+     label2:
+        $r39 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1502(avrora.sim.platform.ExternalFlash,boolean)>($r39, 1);
+
+        goto label7;
+
+     label3:
+        $r23 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r22 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i15 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r22);
+
+        $i16 = $i15 << 7;
+
+        $i17 = $i16 & 1920;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$302(avrora.sim.platform.ExternalFlash,int)>($r23, $i17);
+
+        $r25 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r24 = new java.lang.StringBuilder;
+
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        $r26 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Received Address byte 1: ");
+
+        $r27 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i19 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r27);
+
+        $r28 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i19);
+
+        $r29 = virtualinvoke $r28.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r25, $r29);
+
+        goto label7;
+
+     label4:
+        $r12 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r11 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i6 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($r11);
+
+        $r13 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i7 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r13);
+
+        $i8 = $i7 >> 1;
+
+        $i9 = $i6 | $i8;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$302(avrora.sim.platform.ExternalFlash,int)>($r12, $i9);
+
+        $r15 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r14 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i11 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r14);
+
+        $i12 = $i11 & 256;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($r15, $i12);
+
+        $r17 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r18 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Received Address byte 2: ");
+
+        $r19 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i14 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r19);
+
+        $r20 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i14);
+
+        $r21 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r17, $r21);
+
+        goto label7;
+
+     label5:
+        $r3 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r2 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i1 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r2);
+
+        $r4 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i2 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r4);
+
+        $i3 = $i1 | $i2;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($r3, $i3);
+
+        $r6 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Received Address byte 3: ");
+
+        $r8 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i5 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r8);
+
+        $r9 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i5);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r6, $r10);
+
+        goto label7;
+
+     label6:
+        $r41 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s25 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1400(avrora.sim.platform.ExternalFlash)>($r41);
+
+        if $s25 <= 4 goto label7;
+
+        specialinvoke r0.<avrora.sim.platform.ExternalFlash$PD5Output: void doAction()>();
+
+     label7:
+        return;
+    }
+
+    private void doAction()
+    {
+        avrora.sim.platform.ExternalFlash$PD5Output r0;
+        avrora.sim.platform.ExternalFlash $r1, $r2, $r3, $r4, $r5, $r7, $r9, $r12, $r15, $r16, $r17, $r18, $r19, $r21, $r23, $r26, $r29, $r30, $r31, $r32, $r33, $r35, $r37, $r40, $r43, $r44, $r45, $r46, $r47, $r48, $r49, $r51, $r53, $r56, $r59, $r60, $r61, $r62, $r63, $r64, $r65, $r66, $r67, $r68, $r69, $r70;
+        int $i0, $i1, $i2, $i3, $i5, $i7, $i8, $i9, $i11, $i12, $i14, $i16, $i17, $i18, $i20, $i21, $i23, $i25, $i26, $i27, $i30, $i31, $i33, $i35, $i36, $i37, $i42, $i43, $i45, $i46;
+        short $s4, $s6, $s13, $s15, $s22, $s24, $s29, $s32, $s34, $s39, $s40, $s41;
+        java.lang.StringBuilder $r6, $r8, $r10, $r11, $r13, $r20, $r22, $r24, $r25, $r27, $r34, $r36, $r38, $r39, $r41, $r50, $r52, $r54, $r55, $r57;
+        java.lang.String $r14, $r28, $r42, $r58;
+
+        r0 := @this: avrora.sim.platform.ExternalFlash$PD5Output;
+
+        $r1 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i0 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r1);
+
+        if $i0 <= 263 goto label01;
+
+        $r70 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r69 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i45 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r69);
+
+        $i46 = $i45 - 264;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($r70, $i46);
+
+     label01:
+        $r2 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i1 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$200(avrora.sim.platform.ExternalFlash)>($r2);
+
+        lookupswitch($i1)
+        {
+            case 80: goto label13;
+            case 82: goto label03;
+            case 84: goto label04;
+            case 86: goto label05;
+            case 87: goto label06;
+            case 104: goto label02;
+            case 129: goto label12;
+            case 130: goto label14;
+            case 131: goto label08;
+            case 132: goto label06;
+            case 133: goto label15;
+            case 134: goto label09;
+            case 135: goto label07;
+            case 136: goto label10;
+            case 137: goto label11;
+            case 210: goto label03;
+            case 212: goto label04;
+            case 214: goto label05;
+            case 215: goto label06;
+            case 232: goto label02;
+            default: goto label16;
+        };
+
+     label02:
+        $r45 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s29 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1400(avrora.sim.platform.ExternalFlash)>($r45);
+
+        if $s29 != 8 goto label16;
+
+        $r46 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1502(avrora.sim.platform.ExternalFlash,boolean)>($r46, 1);
+
+        goto label16;
+
+     label03:
+        $r65 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s41 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1400(avrora.sim.platform.ExternalFlash)>($r65);
+
+        if $s41 != 8 goto label16;
+
+        $r66 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1502(avrora.sim.platform.ExternalFlash,boolean)>($r66, 1);
+
+        goto label16;
+
+     label04:
+        $r63 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s40 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1400(avrora.sim.platform.ExternalFlash)>($r63);
+
+        if $s40 != 5 goto label16;
+
+        $r64 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1502(avrora.sim.platform.ExternalFlash,boolean)>($r64, 1);
+
+        goto label16;
+
+     label05:
+        $r61 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $s39 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1400(avrora.sim.platform.ExternalFlash)>($r61);
+
+        if $s39 != 5 goto label16;
+
+        $r62 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: boolean access$1502(avrora.sim.platform.ExternalFlash,boolean)>($r62, 1);
+
+        goto label16;
+
+     label06:
+        $r48 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r47 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i30 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r47);
+
+        $r49 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i31 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r49);
+
+        $s32 = (short) $i31;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$2500(avrora.sim.platform.ExternalFlash,int,short)>($r48, $i30, $s32);
+
+        $r51 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r50 = new java.lang.StringBuilder;
+
+        specialinvoke $r50.<java.lang.StringBuilder: void <init>()>();
+
+        $r52 = virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("written Buffer 1 Byte: ");
+
+        $r53 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i33 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r53);
+
+        $s34 = (short) $i33;
+
+        $r54 = virtualinvoke $r52.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($s34);
+
+        $r55 = virtualinvoke $r54.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $r56 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i35 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r56);
+
+        $r57 = virtualinvoke $r55.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i35);
+
+        $r58 = virtualinvoke $r57.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r51, $r58);
+
+        $r60 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r59 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i36 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r59);
+
+        $i37 = $i36 + 1;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($r60, $i37);
+
+        goto label16;
+
+     label07:
+        $r4 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r3 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i2 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r3);
+
+        $r5 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i3 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r5);
+
+        $s4 = (short) $i3;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$2600(avrora.sim.platform.ExternalFlash,int,short)>($r4, $i2, $s4);
+
+        $r7 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("written Buffer 2 Byte: ");
+
+        $r9 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i5 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r9);
+
+        $s6 = (short) $i5;
+
+        $r10 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($s6);
+
+        $r11 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $r12 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i7 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r12);
+
+        $r13 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i7);
+
+        $r14 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r7, $r14);
+
+        $r16 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r15 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i8 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r15);
+
+        $i9 = $i8 + 1;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($r16, $i9);
+
+        goto label16;
+
+     label08:
+        goto label16;
+
+     label09:
+        goto label16;
+
+     label10:
+        goto label16;
+
+     label11:
+        goto label16;
+
+     label12:
+        goto label16;
+
+     label13:
+        $r68 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r67 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i42 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$300(avrora.sim.platform.ExternalFlash)>($r67);
+
+        $i43 = $i42 >> 3;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$302(avrora.sim.platform.ExternalFlash,int)>($r68, $i43);
+
+        goto label16;
+
+     label14:
+        $r32 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r31 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i20 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r31);
+
+        $r33 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i21 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r33);
+
+        $s22 = (short) $i21;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$2500(avrora.sim.platform.ExternalFlash,int,short)>($r32, $i20, $s22);
+
+        $r35 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r34 = new java.lang.StringBuilder;
+
+        specialinvoke $r34.<java.lang.StringBuilder: void <init>()>();
+
+        $r36 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("written Buffer 1 Byte: ");
+
+        $r37 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i23 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r37);
+
+        $s24 = (short) $i23;
+
+        $r38 = virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($s24);
+
+        $r39 = virtualinvoke $r38.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $r40 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i25 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r40);
+
+        $r41 = virtualinvoke $r39.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i25);
+
+        $r42 = virtualinvoke $r41.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r35, $r42);
+
+        $r44 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r43 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i26 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r43);
+
+        $i27 = $i26 + 1;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($r44, $i27);
+
+        goto label16;
+
+     label15:
+        $r18 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r17 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i11 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r17);
+
+        $r19 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i12 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r19);
+
+        $s13 = (short) $i12;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$2600(avrora.sim.platform.ExternalFlash,int,short)>($r18, $i11, $s13);
+
+        $r21 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r22 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("written Buffer 2 Byte: ");
+
+        $r23 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i14 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r23);
+
+        $s15 = (short) $i14;
+
+        $r24 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($s15);
+
+        $r25 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $r26 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i16 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$2000(avrora.sim.platform.ExternalFlash)>($r26);
+
+        $r27 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i16);
+
+        $r28 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: void access$000(avrora.sim.platform.ExternalFlash,java.lang.String)>($r21, $r28);
+
+        $r30 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $r29 = r0.<avrora.sim.platform.ExternalFlash$PD5Output: avrora.sim.platform.ExternalFlash this$0>;
+
+        $i17 = staticinvoke <avrora.sim.platform.ExternalFlash: int access$1300(avrora.sim.platform.ExternalFlash)>($r29);
+
+        $i18 = $i17 + 1;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: int access$1302(avrora.sim.platform.ExternalFlash,int)>($r30, $i18);
+
+     label16:
+        return;
+    }
+}

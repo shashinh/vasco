@@ -1,0 +1,43 @@
+public class avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    final avrora.sim.radio.CC1000Radio$FrequencySeparationRegister this$1;
+
+    void <init>(avrora.sim.radio.CC1000Radio$FrequencySeparationRegister, java.lang.String)
+    {
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister r0;
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister r1;
+        java.lang.String r2;
+        avrora.sim.radio.CC1000Radio $r3;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister;
+
+        r2 := @parameter1: java.lang.String;
+
+        r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister this$1> = r1;
+
+        $r3 = r1.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>($r3, r2, 0);
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister r0;
+        avrora.sim.radio.CC1000Radio$FrequencySeparationRegister $r1;
+        byte b0;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister;
+
+        b0 := @parameter0: byte;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister$SubRegister: avrora.sim.radio.CC1000Radio$FrequencySeparationRegister this$1>;
+
+        virtualinvoke $r1.<avrora.sim.radio.CC1000Radio$FrequencySeparationRegister: void updateFrequencySeparation()>();
+
+        return;
+    }
+}

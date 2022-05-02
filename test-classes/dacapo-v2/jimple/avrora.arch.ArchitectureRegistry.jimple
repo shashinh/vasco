@@ -1,0 +1,89 @@
+public class avrora.arch.ArchitectureRegistry extends java.lang.Object
+{
+    private static cck.util.ClassMap archMap;
+
+    public void <init>()
+    {
+        avrora.arch.ArchitectureRegistry r0;
+
+        r0 := @this: avrora.arch.ArchitectureRegistry;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static synchronized void addArchitectures()
+    {
+        cck.util.ClassMap $r0, $r1, $r3, $r5, $r7, $r10, $r11;
+        avrora.arch.legacy.LegacyArchitecture $r2;
+        avrora.arch.avr.AVRArchitecture $r4;
+        avrora.arch.msp430.MSP430Architecture $r6;
+        cck.help.HelpCategory $r8;
+
+        $r0 = <avrora.arch.ArchitectureRegistry: cck.util.ClassMap archMap>;
+
+        if $r0 != null goto label1;
+
+        $r1 = new cck.util.ClassMap;
+
+        specialinvoke $r1.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("Architecture", class "Lavrora/arch/AbstractArchitecture;");
+
+        <avrora.arch.ArchitectureRegistry: cck.util.ClassMap archMap> = $r1;
+
+        $r3 = <avrora.arch.ArchitectureRegistry: cck.util.ClassMap archMap>;
+
+        $r2 = <avrora.arch.legacy.LegacyArchitecture: avrora.arch.legacy.LegacyArchitecture INSTANCE>;
+
+        virtualinvoke $r3.<cck.util.ClassMap: void addInstance(java.lang.String,java.lang.Object)>("avr", $r2);
+
+        $r5 = <avrora.arch.ArchitectureRegistry: cck.util.ClassMap archMap>;
+
+        $r4 = <avrora.arch.avr.AVRArchitecture: avrora.arch.avr.AVRArchitecture INSTANCE>;
+
+        virtualinvoke $r5.<cck.util.ClassMap: void addInstance(java.lang.String,java.lang.Object)>("avr-new", $r4);
+
+        $r7 = <avrora.arch.ArchitectureRegistry: cck.util.ClassMap archMap>;
+
+        $r6 = <avrora.arch.msp430.MSP430Architecture: avrora.arch.msp430.MSP430Architecture INSTANCE>;
+
+        virtualinvoke $r7.<cck.util.ClassMap: void addInstance(java.lang.String,java.lang.Object)>("msp430", $r6);
+
+        $r8 = new cck.help.HelpCategory;
+
+        specialinvoke $r8.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("architectures", "Help for supported instruction set architectures.");
+
+        $r10 = <avrora.arch.ArchitectureRegistry: cck.util.ClassMap archMap>;
+
+        virtualinvoke $r8.<cck.help.HelpCategory: void addOptionValueSection(java.lang.String,java.lang.String,java.lang.String,cck.util.ClassMap)>("ARCHITECTURES", "When running a simulation or other program analysis tool, Avrora derives information about the CPU architecture from an internal specification. In order to select the appropriate architecture, each one is named and can be selected with command line options.", "-arch", $r10);
+
+        staticinvoke <avrora.Defaults: void addMainCategory(cck.help.HelpCategory)>($r8);
+
+        $r11 = <avrora.arch.ArchitectureRegistry: cck.util.ClassMap archMap>;
+
+        staticinvoke <avrora.Defaults: void addSubCategories(cck.util.ClassMap)>($r11);
+
+     label1:
+        return;
+    }
+
+    public static avrora.arch.AbstractArchitecture getArchitecture(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.util.ClassMap $r1;
+        java.lang.Object $r2;
+        avrora.arch.AbstractArchitecture $r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <avrora.arch.ArchitectureRegistry: void addArchitectures()>();
+
+        $r1 = <avrora.arch.ArchitectureRegistry: cck.util.ClassMap archMap>;
+
+        $r2 = virtualinvoke $r1.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>(r0);
+
+        $r3 = (avrora.arch.AbstractArchitecture) $r2;
+
+        return $r3;
+    }
+}

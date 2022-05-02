@@ -1,0 +1,590 @@
+public class avrora.syntax.elf.ELFParser extends avrora.core.ProgramReader
+{
+    cck.elf.ELFHeader header;
+    cck.elf.ELFProgramHeaderTable pht;
+    cck.elf.ELFSectionHeaderTable sht;
+    java.util.List symbolTables;
+    cck.elf.ELFStringTable shstrtab;
+    avrora.arch.AbstractArchitecture arch;
+    protected final cck.util.Option$Bool SYMBOLS;
+
+    public void <init>()
+    {
+        avrora.syntax.elf.ELFParser r0;
+        cck.util.Option$Bool $r1;
+
+        r0 := @this: avrora.syntax.elf.ELFParser;
+
+        specialinvoke r0.<avrora.core.ProgramReader: void <init>(java.lang.String)>("The \"elf\" format loader reads a program from an ELF (Executable and Linkable Format) as a binary and disassembles the sections corresponding to executable code.");
+
+        $r1 = virtualinvoke r0.<avrora.syntax.elf.ELFParser: cck.util.Option$Bool newOption(java.lang.String,boolean,java.lang.String)>("load-symbols", 1, "This option causes the ELF loader to load the symbol table (if it exists) from the ELF file. The symbol table contains information about the names and sizes of data items and functions within the executable. Enabling this option allows for more source-level information during simulation, but disabling it speeds up loading of ELF files.");
+
+        r0.<avrora.syntax.elf.ELFParser: cck.util.Option$Bool SYMBOLS> = $r1;
+
+        return;
+    }
+
+    public avrora.core.Program read(java.lang.String[]) throws java.lang.Exception
+    {
+        java.lang.String[] r0;
+        int $i0, $i1;
+        java.lang.String r1;
+        java.io.RandomAccessFile $r2;
+        avrora.syntax.elf.ELFParser r4;
+        cck.elf.ELFHeader $r5, $r7, $r10;
+        avrora.arch.AbstractArchitecture $r6;
+        cck.elf.ELFProgramHeaderTable $r8;
+        cck.util.Option$Bool $r9;
+        boolean $z0;
+        cck.elf.ELFSectionHeaderTable $r11, $r12;
+        cck.elf.ELFStringTable $r13;
+        cck.elf.ELFHeader$FormatError $r14;
+        avrora.core.Program r16;
+
+        r4 := @this: avrora.syntax.elf.ELFParser;
+
+        r0 := @parameter0: java.lang.String[];
+
+        $i0 = lengthof r0;
+
+        if $i0 != 0 goto label1;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>("no input files");
+
+     label1:
+        $i1 = lengthof r0;
+
+        if $i1 == 1 goto label2;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>("input type \"elf\" accepts only one file at a time.");
+
+     label2:
+        r1 = r0[0];
+
+        staticinvoke <avrora.Main: void checkFileExists(java.lang.String)>(r1);
+
+        $r2 = new java.io.RandomAccessFile;
+
+        specialinvoke $r2.<java.io.RandomAccessFile: void <init>(java.lang.String,java.lang.String)>(r1, "r");
+
+     label3:
+        $r5 = staticinvoke <cck.elf.ELFLoader: cck.elf.ELFHeader readELFHeader(java.io.RandomAccessFile)>($r2);
+
+        r4.<avrora.syntax.elf.ELFParser: cck.elf.ELFHeader header> = $r5;
+
+     label4:
+        goto label6;
+
+     label5:
+        $r14 := @caughtexception;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>(r1, "invalid ELF header");
+
+     label6:
+        $r6 = virtualinvoke r4.<avrora.syntax.elf.ELFParser: avrora.arch.AbstractArchitecture getArchitecture()>();
+
+        r4.<avrora.syntax.elf.ELFParser: avrora.arch.AbstractArchitecture arch> = $r6;
+
+        $r7 = r4.<avrora.syntax.elf.ELFParser: cck.elf.ELFHeader header>;
+
+        $r8 = staticinvoke <cck.elf.ELFLoader: cck.elf.ELFProgramHeaderTable readPHT(java.io.RandomAccessFile,cck.elf.ELFHeader)>($r2, $r7);
+
+        r4.<avrora.syntax.elf.ELFParser: cck.elf.ELFProgramHeaderTable pht> = $r8;
+
+        $r9 = r4.<avrora.syntax.elf.ELFParser: cck.util.Option$Bool SYMBOLS>;
+
+        $z0 = virtualinvoke $r9.<cck.util.Option$Bool: boolean get()>();
+
+        if $z0 == 0 goto label7;
+
+        $r10 = r4.<avrora.syntax.elf.ELFParser: cck.elf.ELFHeader header>;
+
+        $r11 = staticinvoke <cck.elf.ELFLoader: cck.elf.ELFSectionHeaderTable readSHT(java.io.RandomAccessFile,cck.elf.ELFHeader)>($r2, $r10);
+
+        r4.<avrora.syntax.elf.ELFParser: cck.elf.ELFSectionHeaderTable sht> = $r11;
+
+        $r12 = r4.<avrora.syntax.elf.ELFParser: cck.elf.ELFSectionHeaderTable sht>;
+
+        $r13 = virtualinvoke $r12.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFStringTable getStringTable()>();
+
+        r4.<avrora.syntax.elf.ELFParser: cck.elf.ELFStringTable shstrtab> = $r13;
+
+     label7:
+        r16 = specialinvoke r4.<avrora.syntax.elf.ELFParser: avrora.core.Program loadSections(java.io.RandomAccessFile)>($r2);
+
+        specialinvoke r4.<avrora.syntax.elf.ELFParser: void loadSymbolTables(avrora.core.Program,java.io.RandomAccessFile)>(r16, $r2);
+
+        return r16;
+
+        catch cck.elf.ELFHeader$FormatError from label3 to label4 with label5;
+    }
+
+    private void loadSymbolTables(avrora.core.Program, java.io.RandomAccessFile) throws java.io.IOException
+    {
+        avrora.core.SourceMapping $r0;
+        avrora.core.Program r1;
+        avrora.syntax.elf.ELFParser r3;
+        cck.util.Option$Bool $r4;
+        boolean $z0, $z1;
+        java.io.RandomAccessFile r5;
+        cck.elf.ELFSectionHeaderTable $r6;
+        cck.elf.ELFHeader $r7;
+        java.util.List $r8, $r9;
+        java.util.Iterator r10;
+        java.lang.Object $r11;
+        cck.elf.ELFSymbolTable r12;
+        cck.elf.ELFStringTable $r13;
+
+        r3 := @this: avrora.syntax.elf.ELFParser;
+
+        r1 := @parameter0: avrora.core.Program;
+
+        r5 := @parameter1: java.io.RandomAccessFile;
+
+        $r0 = new avrora.core.SourceMapping;
+
+        specialinvoke $r0.<avrora.core.SourceMapping: void <init>(avrora.core.Program)>(r1);
+
+        virtualinvoke r1.<avrora.core.Program: void setSourceMapping(avrora.core.SourceMapping)>($r0);
+
+        $r4 = r3.<avrora.syntax.elf.ELFParser: cck.util.Option$Bool SYMBOLS>;
+
+        $z0 = virtualinvoke $r4.<cck.util.Option$Bool: boolean get()>();
+
+        if $z0 == 0 goto label2;
+
+        $r7 = r3.<avrora.syntax.elf.ELFParser: cck.elf.ELFHeader header>;
+
+        $r6 = r3.<avrora.syntax.elf.ELFParser: cck.elf.ELFSectionHeaderTable sht>;
+
+        $r8 = staticinvoke <cck.elf.ELFLoader: java.util.List readSymbolTables(java.io.RandomAccessFile,cck.elf.ELFHeader,cck.elf.ELFSectionHeaderTable)>(r5, $r7, $r6);
+
+        r3.<avrora.syntax.elf.ELFParser: java.util.List symbolTables> = $r8;
+
+        $r9 = r3.<avrora.syntax.elf.ELFParser: java.util.List symbolTables>;
+
+        r10 = interfaceinvoke $r9.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $z1 = interfaceinvoke r10.<java.util.Iterator: boolean hasNext()>();
+
+        if $z1 == 0 goto label2;
+
+        $r11 = interfaceinvoke r10.<java.util.Iterator: java.lang.Object next()>();
+
+        r12 = (cck.elf.ELFSymbolTable) $r11;
+
+        $r13 = virtualinvoke r12.<cck.elf.ELFSymbolTable: cck.elf.ELFStringTable getStringTable()>();
+
+        specialinvoke r3.<avrora.syntax.elf.ELFParser: void addSymbols(avrora.core.SourceMapping,cck.elf.ELFSymbolTable,cck.elf.ELFStringTable)>($r0, r12, $r13);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public avrora.arch.AbstractArchitecture getArchitecture()
+    {
+        avrora.syntax.elf.ELFParser r0;
+        cck.util.Option$Str $r1;
+        java.lang.String r2, r4, $r6, $r10, $r13, $r15;
+        cck.elf.ELFHeader $r3;
+        avrora.arch.AbstractArchitecture r5, $r7;
+        boolean $z0;
+        java.lang.StringBuilder $r8, $r9, $r11, $r12, $r14;
+
+        r0 := @this: avrora.syntax.elf.ELFParser;
+
+        $r1 = r0.<avrora.syntax.elf.ELFParser: cck.util.Option$Str ARCH>;
+
+        r2 = virtualinvoke $r1.<cck.util.Option$Str: java.lang.String get()>();
+
+        $r3 = r0.<avrora.syntax.elf.ELFParser: cck.elf.ELFHeader header>;
+
+        r4 = virtualinvoke $r3.<cck.elf.ELFHeader: java.lang.String getArchitecture()>();
+
+        r5 = staticinvoke <avrora.arch.ArchitectureRegistry: avrora.arch.AbstractArchitecture getArchitecture(java.lang.String)>(r4);
+
+        $r6 = "";
+
+        $z0 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>(r2);
+
+        if $z0 != 0 goto label1;
+
+        $r7 = staticinvoke <avrora.arch.ArchitectureRegistry: avrora.arch.AbstractArchitecture getArchitecture(java.lang.String)>(r2);
+
+        if r5 == $r7 goto label1;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("expected ");
+
+        $r10 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(r2);
+
+        $r11 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" architecture, but header reports ");
+
+        $r13 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(r4);
+
+        $r14 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r15 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("ELF Error", $r15);
+
+     label1:
+        return r5;
+    }
+
+    private avrora.core.Program loadSections(java.io.RandomAccessFile) throws java.io.IOException
+    {
+        cck.elf.ELFDataInputStream $r0;
+        avrora.syntax.elf.ELFParser r1;
+        java.io.RandomAccessFile r2;
+        cck.elf.ELFHeader $r3;
+        avrora.core.Program r5;
+        cck.elf.ELFProgramHeaderTable $r6, $r8;
+        cck.elf.ELFProgramHeaderTable$Entry32[] $r7, $r9;
+        int $i0, $i1, $i2, $i4, $i5, $i6, i7;
+        cck.elf.ELFProgramHeaderTable$Entry32 r10;
+        boolean $z0, $z1;
+        long $l3;
+        byte[] r11;
+
+        r1 := @this: avrora.syntax.elf.ELFParser;
+
+        r2 := @parameter0: java.io.RandomAccessFile;
+
+        $r0 = new cck.elf.ELFDataInputStream;
+
+        $r3 = r1.<avrora.syntax.elf.ELFParser: cck.elf.ELFHeader header>;
+
+        specialinvoke $r0.<cck.elf.ELFDataInputStream: void <init>(cck.elf.ELFHeader,java.io.RandomAccessFile)>($r3, r2);
+
+        r5 = specialinvoke r1.<avrora.syntax.elf.ELFParser: avrora.core.Program createProgram()>();
+
+        i7 = 0;
+
+     label1:
+        $r6 = r1.<avrora.syntax.elf.ELFParser: cck.elf.ELFProgramHeaderTable pht>;
+
+        $r7 = $r6.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $i0 = lengthof $r7;
+
+        if i7 >= $i0 goto label3;
+
+        $r8 = r1.<avrora.syntax.elf.ELFParser: cck.elf.ELFProgramHeaderTable pht>;
+
+        $r9 = $r8.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        r10 = $r9[i7];
+
+        $z0 = virtualinvoke r10.<cck.elf.ELFProgramHeaderTable$Entry32: boolean isLoadable()>();
+
+        if $z0 == 0 goto label2;
+
+        $i1 = r10.<cck.elf.ELFProgramHeaderTable$Entry32: int p_filesz>;
+
+        if $i1 <= 0 goto label2;
+
+        $i2 = r10.<cck.elf.ELFProgramHeaderTable$Entry32: int p_offset>;
+
+        $l3 = (long) $i2;
+
+        virtualinvoke r2.<java.io.RandomAccessFile: void seek(long)>($l3);
+
+        $i5 = r10.<cck.elf.ELFProgramHeaderTable$Entry32: int p_offset>;
+
+        $i4 = r10.<cck.elf.ELFProgramHeaderTable$Entry32: int p_filesz>;
+
+        r11 = virtualinvoke $r0.<cck.elf.ELFDataInputStream: byte[] read_section(int,int)>($i5, $i4);
+
+        $i6 = r10.<cck.elf.ELFProgramHeaderTable$Entry32: int p_paddr>;
+
+        virtualinvoke r5.<avrora.core.Program: void writeProgramBytes(byte[],int)>(r11, $i6);
+
+        $z1 = virtualinvoke r10.<cck.elf.ELFProgramHeaderTable$Entry32: boolean isExecutable()>();
+
+        if $z1 == 0 goto label2;
+
+        specialinvoke r1.<avrora.syntax.elf.ELFParser: void disassembleSection(byte[],cck.elf.ELFProgramHeaderTable$Entry32,avrora.core.Program)>(r11, r10, r5);
+
+     label2:
+        i7 = i7 + 1;
+
+        goto label1;
+
+     label3:
+        return r5;
+    }
+
+    private avrora.core.Program createProgram()
+    {
+        avrora.syntax.elf.ELFParser r0;
+        cck.elf.ELFProgramHeaderTable $r1, $r5;
+        cck.elf.ELFProgramHeaderTable$Entry32[] $r2, $r6;
+        int $i0, $i1, i2, $i3, i4, i5, i6, i7;
+        avrora.core.Program $r3;
+        avrora.arch.AbstractArchitecture $r4;
+        cck.elf.ELFProgramHeaderTable$Entry32 r7;
+        boolean $z0;
+
+        r0 := @this: avrora.syntax.elf.ELFParser;
+
+        i5 = 2147483647;
+
+        i6 = 0;
+
+        i7 = 0;
+
+     label1:
+        $r1 = r0.<avrora.syntax.elf.ELFParser: cck.elf.ELFProgramHeaderTable pht>;
+
+        $r2 = $r1.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $i0 = lengthof $r2;
+
+        if i7 >= $i0 goto label4;
+
+        $r5 = r0.<avrora.syntax.elf.ELFParser: cck.elf.ELFProgramHeaderTable pht>;
+
+        $r6 = $r5.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        r7 = $r6[i7];
+
+        $z0 = virtualinvoke r7.<cck.elf.ELFProgramHeaderTable$Entry32: boolean isLoadable()>();
+
+        if $z0 == 0 goto label3;
+
+        $i1 = r7.<cck.elf.ELFProgramHeaderTable$Entry32: int p_filesz>;
+
+        if $i1 <= 0 goto label3;
+
+        i2 = r7.<cck.elf.ELFProgramHeaderTable$Entry32: int p_paddr>;
+
+        $i3 = r7.<cck.elf.ELFProgramHeaderTable$Entry32: int p_filesz>;
+
+        i4 = i2 + $i3;
+
+        if i2 >= i5 goto label2;
+
+        i5 = i2;
+
+     label2:
+        if i4 <= i6 goto label3;
+
+        i6 = i4;
+
+     label3:
+        i7 = i7 + 1;
+
+        goto label1;
+
+     label4:
+        $r3 = new avrora.core.Program;
+
+        $r4 = r0.<avrora.syntax.elf.ELFParser: avrora.arch.AbstractArchitecture arch>;
+
+        specialinvoke $r3.<avrora.core.Program: void <init>(avrora.arch.AbstractArchitecture,int,int)>($r4, i5, i6);
+
+        return $r3;
+    }
+
+    private void disassembleSection(byte[], cck.elf.ELFProgramHeaderTable$Entry32, avrora.core.Program)
+    {
+        avrora.syntax.elf.ELFParser r0;
+        avrora.arch.AbstractArchitecture $r1;
+        avrora.arch.AbstractDisassembler r2;
+        byte[] r3;
+        int $i0, $i1, $i2, $i3, i4;
+        cck.elf.ELFProgramHeaderTable$Entry32 r4;
+        avrora.arch.AbstractInstr r5;
+        avrora.core.Program r6;
+
+        r0 := @this: avrora.syntax.elf.ELFParser;
+
+        r3 := @parameter0: byte[];
+
+        r4 := @parameter1: cck.elf.ELFProgramHeaderTable$Entry32;
+
+        r6 := @parameter2: avrora.core.Program;
+
+        $r1 = r0.<avrora.syntax.elf.ELFParser: avrora.arch.AbstractArchitecture arch>;
+
+        r2 = interfaceinvoke $r1.<avrora.arch.AbstractArchitecture: avrora.arch.AbstractDisassembler getDisassembler()>();
+
+        i4 = 0;
+
+     label1:
+        $i0 = lengthof r3;
+
+        if i4 >= $i0 goto label3;
+
+        $i1 = r4.<cck.elf.ELFProgramHeaderTable$Entry32: int p_paddr>;
+
+        r5 = interfaceinvoke r2.<avrora.arch.AbstractDisassembler: avrora.arch.AbstractInstr disassemble(int,int,byte[])>($i1, i4, r3);
+
+        if r5 == null goto label2;
+
+        $i2 = r4.<cck.elf.ELFProgramHeaderTable$Entry32: int p_paddr>;
+
+        $i3 = $i2 + i4;
+
+        virtualinvoke r6.<avrora.core.Program: void writeInstr(avrora.arch.AbstractInstr,int)>(r5, $i3);
+
+     label2:
+        i4 = i4 + 2;
+
+        goto label1;
+
+     label3:
+        return;
+    }
+
+    private void addSymbols(avrora.core.SourceMapping, cck.elf.ELFSymbolTable, cck.elf.ELFStringTable)
+    {
+        cck.elf.ELFSymbolTable r0;
+        cck.elf.ELFSymbolTable$Entry[] $r1, $r2;
+        int $i0, $i2, $i3, $i4, i5;
+        cck.elf.ELFSymbolTable$Entry r3;
+        boolean $z0, $z1;
+        avrora.syntax.elf.ELFParser r4;
+        short $s1;
+        cck.elf.ELFSectionHeaderTable $r5;
+        java.lang.String r6, r8;
+        cck.elf.ELFStringTable r7;
+        avrora.core.SourceMapping r9;
+
+        r4 := @this: avrora.syntax.elf.ELFParser;
+
+        r9 := @parameter0: avrora.core.SourceMapping;
+
+        r0 := @parameter1: cck.elf.ELFSymbolTable;
+
+        r7 := @parameter2: cck.elf.ELFStringTable;
+
+        i5 = 0;
+
+     label1:
+        $r1 = r0.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries>;
+
+        $i0 = lengthof $r1;
+
+        if i5 >= $i0 goto label4;
+
+        $r2 = r0.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries>;
+
+        r3 = $r2[i5];
+
+        $z0 = virtualinvoke r3.<cck.elf.ELFSymbolTable$Entry: boolean isFunction()>();
+
+        if $z0 != 0 goto label2;
+
+        $z1 = virtualinvoke r3.<cck.elf.ELFSymbolTable$Entry: boolean isObject()>();
+
+        if $z1 == 0 goto label3;
+
+     label2:
+        $r5 = r4.<avrora.syntax.elf.ELFParser: cck.elf.ELFSectionHeaderTable sht>;
+
+        $s1 = r3.<cck.elf.ELFSymbolTable$Entry: short st_shndx>;
+
+        r6 = virtualinvoke $r5.<cck.elf.ELFSectionHeaderTable: java.lang.String getSectionName(int)>($s1);
+
+        $i2 = r3.<cck.elf.ELFSymbolTable$Entry: int st_name>;
+
+        r8 = staticinvoke <avrora.actions.ELFDumpAction: java.lang.String getName(cck.elf.ELFStringTable,int)>(r7, $i2);
+
+        $i3 = r3.<cck.elf.ELFSymbolTable$Entry: int st_value>;
+
+        $i4 = specialinvoke r4.<avrora.syntax.elf.ELFParser: int findLMA(cck.elf.ELFSymbolTable$Entry)>(r3);
+
+        virtualinvoke r9.<avrora.core.SourceMapping: void newLocation(java.lang.String,java.lang.String,int,int)>(r6, r8, $i3, $i4);
+
+     label3:
+        i5 = i5 + 1;
+
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    private int findLMA(cck.elf.ELFSymbolTable$Entry)
+    {
+        avrora.syntax.elf.ELFParser r0;
+        cck.elf.ELFSectionHeaderTable $r1;
+        cck.elf.ELFSymbolTable$Entry r2;
+        short $s0;
+        cck.elf.ELFSectionHeaderTable$Entry32[] $r3;
+        cck.elf.ELFSectionHeaderTable$Entry32 $r4;
+        int i1, $i2, $i3, $i4, $i5, $i6, $i7, i8;
+        cck.elf.ELFProgramHeaderTable $r5, $r7, $r10;
+        cck.elf.ELFProgramHeaderTable$Entry32[] $r6, $r8, $r11;
+        cck.elf.ELFProgramHeaderTable$Entry32 $r9, $r12;
+
+        r0 := @this: avrora.syntax.elf.ELFParser;
+
+        r2 := @parameter0: cck.elf.ELFSymbolTable$Entry;
+
+        $r1 = r0.<avrora.syntax.elf.ELFParser: cck.elf.ELFSectionHeaderTable sht>;
+
+        $r3 = $r1.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $s0 = r2.<cck.elf.ELFSymbolTable$Entry: short st_shndx>;
+
+        $r4 = $r3[$s0];
+
+        i1 = $r4.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_addr>;
+
+        i8 = 0;
+
+     label1:
+        $r5 = r0.<avrora.syntax.elf.ELFParser: cck.elf.ELFProgramHeaderTable pht>;
+
+        $r6 = $r5.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $i2 = lengthof $r6;
+
+        if i8 >= $i2 goto label3;
+
+        $r7 = r0.<avrora.syntax.elf.ELFParser: cck.elf.ELFProgramHeaderTable pht>;
+
+        $r8 = $r7.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $r9 = $r8[i8];
+
+        $i3 = $r9.<cck.elf.ELFProgramHeaderTable$Entry32: int p_vaddr>;
+
+        if $i3 != i1 goto label2;
+
+        $i4 = r2.<cck.elf.ELFSymbolTable$Entry: int st_value>;
+
+        $i6 = $i4 - i1;
+
+        $r10 = r0.<avrora.syntax.elf.ELFParser: cck.elf.ELFProgramHeaderTable pht>;
+
+        $r11 = $r10.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $r12 = $r11[i8];
+
+        $i5 = $r12.<cck.elf.ELFProgramHeaderTable$Entry32: int p_paddr>;
+
+        $i7 = $i6 + $i5;
+
+        return $i7;
+
+     label2:
+        i8 = i8 + 1;
+
+        goto label1;
+
+     label3:
+        return 0;
+    }
+}

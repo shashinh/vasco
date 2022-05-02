@@ -1,0 +1,437 @@
+public class org.dacapo.harness.FileDigest extends java.lang.Object
+{
+    private static final int BUFLEN;
+
+    public void <init>()
+    {
+        org.dacapo.harness.FileDigest r0;
+
+        r0 := @this: org.dacapo.harness.FileDigest;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static byte[] get(java.lang.String, boolean, boolean, java.io.File) throws java.io.IOException
+    {
+        boolean z0, z1;
+        java.io.File $r0, $r8, r9;
+        java.lang.String r1, $r5;
+        byte[] $r2, $r6, $r7, $r10;
+        java.io.PrintStream $r3;
+        java.security.MessageDigest $r4;
+
+        r1 := @parameter0: java.lang.String;
+
+        z0 := @parameter1: boolean;
+
+        z1 := @parameter2: boolean;
+
+        r9 := @parameter3: java.io.File;
+
+        if z0 == 0 goto label1;
+
+        $r8 = new java.io.File;
+
+        specialinvoke $r8.<java.io.File: void <init>(java.lang.String)>(r1);
+
+        $r10 = staticinvoke <org.dacapo.harness.FileDigest: byte[] getText(java.io.File,boolean,java.io.File)>($r8, z1, r9);
+
+        return $r10;
+
+     label1:
+        if z1 == 0 goto label2;
+
+        $r3 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r3.<java.io.PrintStream: void println(java.lang.String)>("ERROR: Cannot filter scratch paths in a binary file");
+
+        $r4 = staticinvoke <org.dacapo.harness.Digest: java.security.MessageDigest create()>();
+
+        $r5 = "ERROR: Cannot filter scratch paths in a binary file";
+
+        $r6 = virtualinvoke $r5.<java.lang.String: byte[] getBytes()>();
+
+        $r7 = virtualinvoke $r4.<java.security.MessageDigest: byte[] digest(byte[])>($r6);
+
+        return $r7;
+
+     label2:
+        $r0 = new java.io.File;
+
+        specialinvoke $r0.<java.io.File: void <init>(java.lang.String)>(r1);
+
+        $r2 = staticinvoke <org.dacapo.harness.FileDigest: byte[] getBinary(java.io.File)>($r0);
+
+        return $r2;
+    }
+
+    private static java.lang.String replaceAllFixed(java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.lang.String r0, $r2, r4, $r6, r8;
+        int $i0, $i2, $i3, $i4, $i5, i6;
+        java.lang.StringBuilder $r1, $r3, $r5, $r7;
+
+        r8 := @parameter0: java.lang.String;
+
+        r0 := @parameter1: java.lang.String;
+
+        r4 := @parameter2: java.lang.String;
+
+        i6 = 0;
+
+     label1:
+        $i0 = virtualinvoke r8.<java.lang.String: int indexOf(java.lang.String,int)>(r0, i6);
+
+        if $i0 == -1 goto label2;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke r8.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r5 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r4);
+
+        $i2 = virtualinvoke r0.<java.lang.String: int length()>();
+
+        $i3 = $i0 + $i2;
+
+        $i4 = virtualinvoke r8.<java.lang.String: int length()>();
+
+        $r6 = virtualinvoke r8.<java.lang.String: java.lang.String substring(int,int)>($i3, $i4);
+
+        $r7 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $i5 = virtualinvoke r4.<java.lang.String: int length()>();
+
+        i6 = $i0 + $i5;
+
+        goto label1;
+
+     label2:
+        return r8;
+    }
+
+    public static byte[] getText(java.io.File, boolean, java.io.File) throws java.io.IOException
+    {
+        java.security.MessageDigest r0;
+        java.io.BufferedReader $r1;
+        java.io.FileReader $r2;
+        java.io.File r3, r8;
+        java.lang.String $r5, $r9, $r10, r14, r15, r16;
+        byte[] $r6, r7;
+        boolean z0, $z1;
+        byte $b0;
+        java.lang.StringBuilder $r11, $r12, $r13;
+        int $i1, i2, i3, $i4;
+
+        r3 := @parameter0: java.io.File;
+
+        z0 := @parameter1: boolean;
+
+        r8 := @parameter2: java.io.File;
+
+        r0 = staticinvoke <org.dacapo.harness.Digest: java.security.MessageDigest create()>();
+
+        $r1 = new java.io.BufferedReader;
+
+        $r2 = new java.io.FileReader;
+
+        specialinvoke $r2.<java.io.FileReader: void <init>(java.io.File)>(r3);
+
+        specialinvoke $r1.<java.io.BufferedReader: void <init>(java.io.Reader)>($r2);
+
+        i2 = 0;
+
+     label1:
+        $r5 = virtualinvoke $r1.<java.io.BufferedReader: java.lang.String readLine()>();
+
+        r14 = $r5;
+
+        if $r5 == null goto label6;
+
+        if z0 == 0 goto label3;
+
+        $z1 = virtualinvoke $r5.<java.lang.String: boolean startsWith(java.lang.String)>("#NOVALIDATE#");
+
+        if $z1 == 0 goto label2;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("#NOVALIDATE#");
+
+        $i1 = i2;
+
+        i2 = i2 + 1;
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        r14 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label2:
+        $r9 = virtualinvoke r8.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        r15 = staticinvoke <org.dacapo.harness.FileDigest: java.lang.String replaceAllFixed(java.lang.String,java.lang.String,java.lang.String)>(r14, $r9, "$SCRATCH");
+
+        $r10 = virtualinvoke r8.<java.io.File: java.lang.String getPath()>();
+
+        r16 = staticinvoke <org.dacapo.harness.FileDigest: java.lang.String replaceAllFixed(java.lang.String,java.lang.String,java.lang.String)>(r15, $r10, "$SCRATCH");
+
+        r14 = staticinvoke <org.dacapo.harness.FileDigest: java.lang.String replaceAllFixed(java.lang.String,java.lang.String,java.lang.String)>(r16, "\\", "/");
+
+     label3:
+        r7 = virtualinvoke r14.<java.lang.String: byte[] getBytes()>();
+
+        i3 = 0;
+
+     label4:
+        $i4 = lengthof r7;
+
+        if i3 >= $i4 goto label5;
+
+        $b0 = r7[i3];
+
+        virtualinvoke r0.<java.security.MessageDigest: void update(byte)>($b0);
+
+        i3 = i3 + 1;
+
+        goto label4;
+
+     label5:
+        goto label1;
+
+     label6:
+        virtualinvoke $r1.<java.io.BufferedReader: void close()>();
+
+        $r6 = virtualinvoke r0.<java.security.MessageDigest: byte[] digest()>();
+
+        return $r6;
+    }
+
+    public static byte[] getBinary(java.io.File) throws java.io.IOException
+    {
+        java.security.MessageDigest r0;
+        java.io.BufferedInputStream $r1;
+        java.io.FileInputStream $r2;
+        java.io.File r3;
+        byte[] r5, $r6;
+        int $i0, i3;
+        byte $b2;
+
+        r3 := @parameter0: java.io.File;
+
+        r0 = staticinvoke <org.dacapo.harness.Digest: java.security.MessageDigest create()>();
+
+        $r1 = new java.io.BufferedInputStream;
+
+        $r2 = new java.io.FileInputStream;
+
+        specialinvoke $r2.<java.io.FileInputStream: void <init>(java.io.File)>(r3);
+
+        specialinvoke $r1.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r2);
+
+        r5 = newarray (byte)[8192];
+
+     label1:
+        $i0 = virtualinvoke $r1.<java.io.BufferedInputStream: int read(byte[])>(r5);
+
+        if $i0 <= 0 goto label4;
+
+        i3 = 0;
+
+     label2:
+        if i3 >= $i0 goto label3;
+
+        $b2 = r5[i3];
+
+        virtualinvoke r0.<java.security.MessageDigest: void update(byte)>($b2);
+
+        i3 = i3 + 1;
+
+        goto label2;
+
+     label3:
+        goto label1;
+
+     label4:
+        virtualinvoke $r1.<java.io.BufferedInputStream: void close()>();
+
+        $r6 = virtualinvoke r0.<java.security.MessageDigest: byte[] digest()>();
+
+        return $r6;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] r0;
+        int $i0, i2, $i3;
+        java.lang.StringBuilder $r1, $r4, $r5, $r10, $r16, $r18, $r20;
+        java.io.PrintStream $r2, $r12, $r17, $r22;
+        java.lang.String $r3, $r7, $r9, $r11, $r13, $r14, $r15, $r19, $r21, r25;
+        java.io.File $r6;
+        byte[] $r8;
+        char $c1;
+        boolean $z0, $z1, z2, z3;
+        java.io.IOException $r23;
+        java.io.FileNotFoundException $r24;
+
+        r0 := @parameter0: java.lang.String[];
+
+     label01:
+        z2 = 0;
+
+        r25 = "";
+
+        z3 = 0;
+
+        i2 = 0;
+
+     label02:
+        $i0 = lengthof r0;
+
+        if i2 >= $i0 goto label06;
+
+        $r13 = r0[i2];
+
+        $c1 = virtualinvoke $r13.<java.lang.String: char charAt(int)>(0);
+
+        if $c1 != 45 goto label06;
+
+        $r14 = r0[i2];
+
+        $z0 = virtualinvoke $r14.<java.lang.String: boolean equals(java.lang.Object)>("-f");
+
+        if $z0 == 0 goto label03;
+
+        z2 = 1;
+
+        i2 = i2 + 1;
+
+        r25 = r0[i2];
+
+        goto label05;
+
+     label03:
+        $r15 = r0[i2];
+
+        $z1 = virtualinvoke $r15.<java.lang.String: boolean equals(java.lang.Object)>("-t");
+
+        if $z1 == 0 goto label04;
+
+        z3 = 1;
+
+        goto label05;
+
+     label04:
+        $r17 = <java.lang.System: java.io.PrintStream err>;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r18 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("invalid flag ");
+
+        $r19 = r0[i2];
+
+        $r20 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r19);
+
+        $r21 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r17.<java.io.PrintStream: void println(java.lang.String)>($r21);
+
+        $r22 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>("Usage: FileDigest [-t [-f scratchDir]] file...");
+
+        staticinvoke <java.lang.System: void exit(int)>(1);
+
+     label05:
+        i2 = i2 + 1;
+
+        goto label02;
+
+     label06:
+        if z2 == 0 goto label07;
+
+        if z3 != 0 goto label07;
+
+        $r12 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r12.<java.io.PrintStream: void println(java.lang.String)>("Can\'t filter scratch in binary input files");
+
+        staticinvoke <java.lang.System: void exit(int)>(2);
+
+     label07:
+        $i3 = lengthof r0;
+
+        if i2 >= $i3 goto label08;
+
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = r0[i2];
+
+        $r4 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r7 = r0[i2];
+
+        $r6 = new java.io.File;
+
+        specialinvoke $r6.<java.io.File: void <init>(java.lang.String)>(r25);
+
+        $r8 = staticinvoke <org.dacapo.harness.FileDigest: byte[] get(java.lang.String,boolean,boolean,java.io.File)>($r7, z3, z2, $r6);
+
+        $r9 = staticinvoke <org.dacapo.harness.Digest: java.lang.String toString(byte[])>($r8);
+
+        $r10 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r11 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r2.<java.io.PrintStream: void println(java.lang.String)>($r11);
+
+        i2 = i2 + 1;
+
+        goto label07;
+
+     label08:
+        goto label11;
+
+     label09:
+        $r24 := @caughtexception;
+
+        virtualinvoke $r24.<java.io.FileNotFoundException: void printStackTrace()>();
+
+        goto label11;
+
+     label10:
+        $r23 := @caughtexception;
+
+        virtualinvoke $r23.<java.io.IOException: void printStackTrace()>();
+
+     label11:
+        return;
+
+        catch java.io.FileNotFoundException from label01 to label08 with label09;
+        catch java.io.IOException from label01 to label08 with label10;
+    }
+
+    public static void <clinit>()
+    {
+        <org.dacapo.harness.FileDigest: int BUFLEN> = 8192;
+
+        return;
+    }
+}

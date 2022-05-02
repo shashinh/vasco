@@ -1,0 +1,84 @@
+public class avrora.syntax.atmel.AtmelProgramReader extends avrora.core.ProgramReader
+{
+
+    public avrora.core.Program read(java.lang.String[]) throws java.lang.Exception
+    {
+        java.lang.String[] r0;
+        int $i0, $i1;
+        avrora.syntax.atmel.AtmelProgramReader r1;
+        avrora.arch.AbstractArchitecture $r2;
+        avrora.arch.legacy.LegacyArchitecture $r3;
+        java.io.File $r4;
+        java.lang.String $r5, $r12;
+        avrora.syntax.Module $r7;
+        java.io.FileInputStream $r9;
+        avrora.syntax.atmel.AtmelParser $r11;
+        avrora.core.Program r14;
+
+        r1 := @this: avrora.syntax.atmel.AtmelProgramReader;
+
+        r0 := @parameter0: java.lang.String[];
+
+        $i0 = lengthof r0;
+
+        if $i0 != 0 goto label1;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>("no input files");
+
+     label1:
+        $i1 = lengthof r0;
+
+        if $i1 == 1 goto label2;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>("input type \"atmel\" accepts only one file at a time.");
+
+     label2:
+        $r2 = virtualinvoke r1.<avrora.syntax.atmel.AtmelProgramReader: avrora.arch.AbstractArchitecture getArchitecture()>();
+
+        $r3 = <avrora.arch.legacy.LegacyArchitecture: avrora.arch.legacy.LegacyArchitecture INSTANCE>;
+
+        if $r2 == $r3 goto label3;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String)>("input type  \"atmel\" parses only the \"legacy\" architecture.");
+
+     label3:
+        $r4 = new java.io.File;
+
+        $r5 = r0[0];
+
+        specialinvoke $r4.<java.io.File: void <init>(java.lang.String)>($r5);
+
+        $r7 = new avrora.syntax.Module;
+
+        specialinvoke $r7.<avrora.syntax.Module: void <init>(boolean,boolean)>(0, 0);
+
+        $r9 = new java.io.FileInputStream;
+
+        specialinvoke $r9.<java.io.FileInputStream: void <init>(java.io.File)>($r4);
+
+        $r11 = new avrora.syntax.atmel.AtmelParser;
+
+        $r12 = virtualinvoke $r4.<java.io.File: java.lang.String getName()>();
+
+        specialinvoke $r11.<avrora.syntax.atmel.AtmelParser: void <init>(java.io.InputStream,avrora.syntax.Module,java.lang.String)>($r9, $r7, $r12);
+
+        virtualinvoke $r11.<avrora.syntax.atmel.AtmelParser: void Module()>();
+
+        r14 = virtualinvoke $r7.<avrora.syntax.Module: avrora.core.Program build()>();
+
+        virtualinvoke r1.<avrora.syntax.atmel.AtmelProgramReader: void addIndirectEdges(avrora.core.Program)>(r14);
+
+        return r14;
+    }
+
+    public void <init>()
+    {
+        avrora.syntax.atmel.AtmelProgramReader r0;
+
+        r0 := @this: avrora.syntax.atmel.AtmelProgramReader;
+
+        specialinvoke r0.<avrora.core.ProgramReader: void <init>(java.lang.String)>("The \"atmel\" input format reads programs that are written in assembly language in the format supported by the Atmel assembler. Nearly all of the directives are supported, except macros.");
+
+        return;
+    }
+}

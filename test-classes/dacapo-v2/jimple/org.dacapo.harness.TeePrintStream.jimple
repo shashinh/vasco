@@ -1,0 +1,96 @@
+public class org.dacapo.harness.TeePrintStream extends java.io.PrintStream
+{
+
+    public void <init>(java.io.OutputStream, java.io.File)
+    {
+        org.dacapo.harness.TeePrintStream r0;
+        org.dacapo.harness.TeeOutputStream $r1;
+        java.io.OutputStream r2;
+        java.io.File r3;
+
+        r0 := @this: org.dacapo.harness.TeePrintStream;
+
+        r2 := @parameter0: java.io.OutputStream;
+
+        r3 := @parameter1: java.io.File;
+
+        $r1 = new org.dacapo.harness.TeeOutputStream;
+
+        specialinvoke $r1.<org.dacapo.harness.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)>(r2, r3);
+
+        specialinvoke r0.<java.io.PrintStream: void <init>(java.io.OutputStream)>($r1);
+
+        return;
+    }
+
+    public void enableOutput(boolean)
+    {
+        org.dacapo.harness.TeePrintStream r0;
+        java.io.OutputStream $r1;
+        boolean z0;
+        org.dacapo.harness.TeeOutputStream $r2;
+
+        r0 := @this: org.dacapo.harness.TeePrintStream;
+
+        z0 := @parameter0: boolean;
+
+        $r1 = r0.<org.dacapo.harness.TeePrintStream: java.io.OutputStream out>;
+
+        $r2 = (org.dacapo.harness.TeeOutputStream) $r1;
+
+        virtualinvoke $r2.<org.dacapo.harness.TeeOutputStream: void enableOutput(boolean)>(z0);
+
+        return;
+    }
+
+    public void version()
+    {
+        org.dacapo.harness.TeePrintStream r0;
+        java.io.OutputStream $r1;
+        org.dacapo.harness.TeeOutputStream $r2;
+
+        r0 := @this: org.dacapo.harness.TeePrintStream;
+
+        $r1 = r0.<org.dacapo.harness.TeePrintStream: java.io.OutputStream out>;
+
+        $r2 = (org.dacapo.harness.TeeOutputStream) $r1;
+
+        virtualinvoke $r2.<org.dacapo.harness.TeeOutputStream: void version()>();
+
+        return;
+    }
+
+    public void openLog()
+    {
+        org.dacapo.harness.TeePrintStream r0;
+        java.io.OutputStream $r1;
+        org.dacapo.harness.TeeOutputStream $r2;
+
+        r0 := @this: org.dacapo.harness.TeePrintStream;
+
+        $r1 = r0.<org.dacapo.harness.TeePrintStream: java.io.OutputStream out>;
+
+        $r2 = (org.dacapo.harness.TeeOutputStream) $r1;
+
+        virtualinvoke $r2.<org.dacapo.harness.TeeOutputStream: void openLog()>();
+
+        return;
+    }
+
+    public void closeLog()
+    {
+        org.dacapo.harness.TeePrintStream r0;
+        java.io.OutputStream $r1;
+        org.dacapo.harness.TeeOutputStream $r2;
+
+        r0 := @this: org.dacapo.harness.TeePrintStream;
+
+        $r1 = r0.<org.dacapo.harness.TeePrintStream: java.io.OutputStream out>;
+
+        $r2 = (org.dacapo.harness.TeeOutputStream) $r1;
+
+        virtualinvoke $r2.<org.dacapo.harness.TeeOutputStream: void closeLog()>();
+
+        return;
+    }
+}

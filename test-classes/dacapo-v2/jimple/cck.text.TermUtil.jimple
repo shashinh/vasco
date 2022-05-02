@@ -1,0 +1,240 @@
+public class cck.text.TermUtil extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        cck.text.TermUtil r0;
+
+        r0 := @this: cck.text.TermUtil;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void reportQuantity(java.lang.String, long, java.lang.String)
+    {
+        java.lang.String r0, $r1, r2;
+        long l0;
+
+        r0 := @parameter0: java.lang.String;
+
+        l0 := @parameter1: long;
+
+        r2 := @parameter2: java.lang.String;
+
+        $r1 = staticinvoke <java.lang.Long: java.lang.String toString(long)>(l0);
+
+        staticinvoke <cck.text.TermUtil: void reportQuantity(java.lang.String,java.lang.String,java.lang.String)>(r0, $r1, r2);
+
+        return;
+    }
+
+    public static void reportProportion(java.lang.String, long, long, java.lang.String)
+    {
+        long l0, l1;
+        java.lang.String r0, r1, r2, $r7, $r8;
+        float f0, $f1, $f2, $f3;
+        int $i2;
+        java.lang.StringBuilder $r3, $r4, $r5, $r6;
+
+        r1 := @parameter0: java.lang.String;
+
+        l0 := @parameter1: long;
+
+        l1 := @parameter2: long;
+
+        r2 := @parameter3: java.lang.String;
+
+        r0 = staticinvoke <java.lang.Long: java.lang.String toString(long)>(l0);
+
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>(r1);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(": ");
+
+        staticinvoke <cck.text.Terminal: void printBrightCyan(java.lang.String)>(r0);
+
+        if r2 == null goto label1;
+
+        $i2 = virtualinvoke r2.<java.lang.String: int length()>();
+
+        if $i2 <= 0 goto label1;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r2);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r7);
+
+        goto label2;
+
+     label1:
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(" ");
+
+     label2:
+        $f1 = (float) l0;
+
+        $f2 = 100.0F * $f1;
+
+        $f3 = (float) l1;
+
+        f0 = $f2 / $f3;
+
+        $r8 = staticinvoke <cck.text.StringUtil: java.lang.String toFixedFloat(float,int)>(f0, 4);
+
+        staticinvoke <cck.text.Terminal: void printBrightCyan(java.lang.String)>($r8);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>(" %");
+
+        return;
+    }
+
+    public static void reportQuantity(java.lang.String, float, java.lang.String)
+    {
+        java.lang.String r0, $r1, r2;
+        float f0;
+
+        r0 := @parameter0: java.lang.String;
+
+        f0 := @parameter1: float;
+
+        r2 := @parameter2: java.lang.String;
+
+        $r1 = staticinvoke <java.lang.Float: java.lang.String toString(float)>(f0);
+
+        staticinvoke <cck.text.TermUtil: void reportQuantity(java.lang.String,java.lang.String,java.lang.String)>(r0, $r1, r2);
+
+        return;
+    }
+
+    public static void reportQuantity(java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.lang.String r0, r1, r4, $r6;
+        java.lang.StringBuilder $r2, $r3, $r5;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 := @parameter1: java.lang.String;
+
+        r4 := @parameter2: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>(r0);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(": ");
+
+        staticinvoke <cck.text.Terminal: void printBrightCyan(java.lang.String)>(r1);
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $r5 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r4);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($r6);
+
+        return;
+    }
+
+    public static void printSeparator(int)
+    {
+        int i0;
+        java.lang.String $r0;
+
+        i0 := @parameter0: int;
+
+        $r0 = staticinvoke <cck.text.StringUtil: java.lang.String dup(char,int)>(61, i0);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($r0);
+
+        return;
+    }
+
+    public static void printSeparator()
+    {
+        java.lang.String $r0;
+
+        $r0 = staticinvoke <cck.text.StringUtil: java.lang.String dup(char,int)>(61, 78);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($r0);
+
+        return;
+    }
+
+    public static void printThinSeparator(int)
+    {
+        int i0;
+        java.lang.String $r0;
+
+        i0 := @parameter0: int;
+
+        $r0 = staticinvoke <cck.text.StringUtil: java.lang.String dup(char,int)>(45, i0);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($r0);
+
+        return;
+    }
+
+    public static void printThinSeparator()
+    {
+        java.lang.String $r0;
+
+        $r0 = staticinvoke <cck.text.StringUtil: java.lang.String dup(char,int)>(45, 78);
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($r0);
+
+        return;
+    }
+
+    public static void printSeparator(int, java.lang.String)
+    {
+        java.lang.String r0, $r1;
+        int i0, $i1, $i2, $i3;
+
+        i0 := @parameter0: int;
+
+        r0 := @parameter1: java.lang.String;
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>("=={ ");
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(r0);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(" }");
+
+        $i1 = i0 - 6;
+
+        $i2 = virtualinvoke r0.<java.lang.String: int length()>();
+
+        $i3 = $i1 - $i2;
+
+        $r1 = staticinvoke <cck.text.StringUtil: java.lang.String dup(char,int)>(61, $i3);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r1);
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        return;
+    }
+
+    public static void printSeparator(java.lang.String)
+    {
+        java.lang.String r0;
+
+        r0 := @parameter0: java.lang.String;
+
+        staticinvoke <cck.text.TermUtil: void printSeparator(int,java.lang.String)>(78, r0);
+
+        return;
+    }
+}

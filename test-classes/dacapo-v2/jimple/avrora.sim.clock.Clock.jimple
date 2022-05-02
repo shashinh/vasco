@@ -1,0 +1,102 @@
+public abstract class avrora.sim.clock.Clock extends java.lang.Object
+{
+    protected final long hz;
+    protected final java.lang.String name;
+
+    protected void <init>(java.lang.String, long)
+    {
+        avrora.sim.clock.Clock r0;
+        long l0;
+        java.lang.String r1;
+
+        r0 := @this: avrora.sim.clock.Clock;
+
+        r1 := @parameter0: java.lang.String;
+
+        l0 := @parameter1: long;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.clock.Clock: long hz> = l0;
+
+        r0.<avrora.sim.clock.Clock: java.lang.String name> = r1;
+
+        return;
+    }
+
+    public long getHZ()
+    {
+        avrora.sim.clock.Clock r0;
+        long $l0;
+
+        r0 := @this: avrora.sim.clock.Clock;
+
+        $l0 = r0.<avrora.sim.clock.Clock: long hz>;
+
+        return $l0;
+    }
+
+    public java.lang.String getName()
+    {
+        avrora.sim.clock.Clock r0;
+        java.lang.String $r1;
+
+        r0 := @this: avrora.sim.clock.Clock;
+
+        $r1 = r0.<avrora.sim.clock.Clock: java.lang.String name>;
+
+        return $r1;
+    }
+
+    public abstract long getCount();
+
+    public abstract void insertEvent(avrora.sim.Simulator$Event, long);
+
+    public abstract void removeEvent(avrora.sim.Simulator$Event);
+
+    public long millisToCycles(double)
+    {
+        double d0, $d1, $d2, $d3;
+        avrora.sim.clock.Clock r0;
+        long $l0, $l1;
+
+        r0 := @this: avrora.sim.clock.Clock;
+
+        d0 := @parameter0: double;
+
+        $l0 = r0.<avrora.sim.clock.Clock: long hz>;
+
+        $d1 = (double) $l0;
+
+        $d2 = d0 * $d1;
+
+        $d3 = $d2 / 1000.0;
+
+        $l1 = (long) $d3;
+
+        return $l1;
+    }
+
+    public double cyclesToMillis(long)
+    {
+        long l0, $l1;
+        double $d0, $d1, $d2, $d3;
+        avrora.sim.clock.Clock r0;
+
+        r0 := @this: avrora.sim.clock.Clock;
+
+        l0 := @parameter0: long;
+
+        $d0 = (double) l0;
+
+        $d2 = 1000.0 * $d0;
+
+        $l1 = r0.<avrora.sim.clock.Clock: long hz>;
+
+        $d1 = (double) $l1;
+
+        $d3 = $d2 / $d1;
+
+        return $d3;
+    }
+}

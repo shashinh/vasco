@@ -1,0 +1,86 @@
+public class avrora.sim.util.MulticastProbe extends avrora.sim.util.TransactionalList implements avrora.sim.Simulator$Probe
+{
+
+    public void <init>()
+    {
+        avrora.sim.util.MulticastProbe r0;
+
+        r0 := @this: avrora.sim.util.MulticastProbe;
+
+        specialinvoke r0.<avrora.sim.util.TransactionalList: void <init>()>();
+
+        return;
+    }
+
+    public void fireBefore(avrora.sim.State, int)
+    {
+        avrora.sim.util.MulticastProbe r0;
+        java.lang.Object $r1;
+        avrora.sim.State r2;
+        int i0;
+        avrora.sim.Simulator$Probe $r3;
+        avrora.sim.util.TransactionalList$Link r4;
+
+        r0 := @this: avrora.sim.util.MulticastProbe;
+
+        r2 := @parameter0: avrora.sim.State;
+
+        i0 := @parameter1: int;
+
+        virtualinvoke r0.<avrora.sim.util.MulticastProbe: void beginTransaction()>();
+
+        r4 = r0.<avrora.sim.util.MulticastProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if r4 == null goto label2;
+
+        $r1 = r4.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $r3 = (avrora.sim.Simulator$Probe) $r1;
+
+        interfaceinvoke $r3.<avrora.sim.Simulator$Probe: void fireBefore(avrora.sim.State,int)>(r2, i0);
+
+        r4 = r4.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void fireAfter(avrora.sim.State, int)
+    {
+        avrora.sim.util.MulticastProbe r0;
+        java.lang.Object $r1;
+        avrora.sim.State r2;
+        int i0;
+        avrora.sim.Simulator$Probe $r3;
+        avrora.sim.util.TransactionalList$Link r4;
+
+        r0 := @this: avrora.sim.util.MulticastProbe;
+
+        r2 := @parameter0: avrora.sim.State;
+
+        i0 := @parameter1: int;
+
+        r4 = r0.<avrora.sim.util.MulticastProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if r4 == null goto label2;
+
+        $r1 = r4.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $r3 = (avrora.sim.Simulator$Probe) $r1;
+
+        interfaceinvoke $r3.<avrora.sim.Simulator$Probe: void fireAfter(avrora.sim.State,int)>(r2, i0);
+
+        r4 = r4.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke r0.<avrora.sim.util.MulticastProbe: void endTransaction()>();
+
+        return;
+    }
+}

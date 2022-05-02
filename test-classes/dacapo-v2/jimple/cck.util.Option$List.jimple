@@ -1,0 +1,173 @@
+public class cck.util.Option$List extends cck.util.Option
+{
+    protected java.util.List value;
+    protected java.lang.String orig;
+
+    public void <init>(java.lang.String, java.lang.String, java.lang.String)
+    {
+        cck.util.Option$List r0;
+        java.lang.String r1, r2, r3;
+
+        r0 := @this: cck.util.Option$List;
+
+        r1 := @parameter0: java.lang.String;
+
+        r3 := @parameter1: java.lang.String;
+
+        r2 := @parameter2: java.lang.String;
+
+        specialinvoke r0.<cck.util.Option: void <init>(java.lang.String,java.lang.String)>(r1, r2);
+
+        specialinvoke r0.<cck.util.Option$List: void parseString(java.lang.String)>(r3);
+
+        return;
+    }
+
+    public void set(java.lang.String)
+    {
+        cck.util.Option$List r0;
+        java.lang.String r1;
+
+        r0 := @this: cck.util.Option$List;
+
+        r1 := @parameter0: java.lang.String;
+
+        specialinvoke r0.<cck.util.Option$List: void parseString(java.lang.String)>(r1);
+
+        return;
+    }
+
+    public void setNewDefault(java.lang.String)
+    {
+        cck.util.Option$List r0;
+        java.lang.String r1;
+
+        r0 := @this: cck.util.Option$List;
+
+        r1 := @parameter0: java.lang.String;
+
+        specialinvoke r0.<cck.util.Option$List: void parseString(java.lang.String)>(r1);
+
+        return;
+    }
+
+    public java.util.List get()
+    {
+        cck.util.Option$List r0;
+        java.util.List $r1;
+
+        r0 := @this: cck.util.Option$List;
+
+        $r1 = r0.<cck.util.Option$List: java.util.List value>;
+
+        return $r1;
+    }
+
+    public java.lang.String stringValue()
+    {
+        cck.util.Option$List r0;
+        java.lang.String $r1;
+
+        r0 := @this: cck.util.Option$List;
+
+        $r1 = r0.<cck.util.Option$List: java.lang.String orig>;
+
+        return $r1;
+    }
+
+    private void parseString(java.lang.String)
+    {
+        cck.util.Option$List r0;
+        java.lang.String r1;
+        java.util.List $r2;
+
+        r0 := @this: cck.util.Option$List;
+
+        r1 := @parameter0: java.lang.String;
+
+        r0.<cck.util.Option$List: java.lang.String orig> = r1;
+
+        $r2 = staticinvoke <cck.text.StringUtil: java.util.List toList(java.lang.String)>(r1);
+
+        r0.<cck.util.Option$List: java.util.List value> = $r2;
+
+        return;
+    }
+
+    public java.lang.String[] toArray()
+    {
+        cck.util.Option$List r0;
+        java.util.List $r1, $r3;
+        int $i0, $i1, i2;
+        java.lang.String[] r2;
+        java.util.Iterator r4;
+        boolean $z0;
+        java.lang.Object $r5;
+        java.lang.String $r6;
+
+        r0 := @this: cck.util.Option$List;
+
+        $r1 = r0.<cck.util.Option$List: java.util.List value>;
+
+        $i0 = interfaceinvoke $r1.<java.util.List: int size()>();
+
+        r2 = newarray (java.lang.String)[$i0];
+
+        $r3 = r0.<cck.util.Option$List: java.util.List value>;
+
+        r4 = interfaceinvoke $r3.<java.util.List: java.util.Iterator iterator()>();
+
+        i2 = 0;
+
+     label1:
+        $z0 = interfaceinvoke r4.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $i1 = i2;
+
+        i2 = i2 + 1;
+
+        $r5 = interfaceinvoke r4.<java.util.Iterator: java.lang.Object next()>();
+
+        $r6 = (java.lang.String) $r5;
+
+        r2[$i1] = $r6;
+
+        goto label1;
+
+     label2:
+        return r2;
+    }
+
+    public void printHelp()
+    {
+        cck.util.Option$List r0;
+        java.lang.String $r1, $r2, $r4;
+        boolean $z0;
+
+        r0 := @this: cck.util.Option$List;
+
+        $r2 = "";
+
+        $r1 = r0.<cck.util.Option$List: java.lang.String orig>;
+
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>($r1);
+
+        if $z0 == 0 goto label1;
+
+        $r4 = "(null)";
+
+        goto label2;
+
+     label1:
+        $r4 = r0.<cck.util.Option$List: java.lang.String orig>;
+
+     label2:
+        virtualinvoke r0.<cck.util.Option$List: void printHeader(java.lang.String,java.lang.String)>("list", $r4);
+
+        virtualinvoke r0.<cck.util.Option$List: void printDescription()>();
+
+        return;
+    }
+}

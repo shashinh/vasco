@@ -1,0 +1,30 @@
+public class avrora.sim.mcu.ATMegaFamily$Timer0 extends avrora.sim.mcu.Timer8Bit
+{
+    final avrora.sim.mcu.ATMegaFamily this$0;
+
+    protected void <init>(avrora.sim.mcu.ATMegaFamily)
+    {
+        avrora.sim.mcu.ATMegaFamily$Timer0 r0;
+        avrora.sim.mcu.ATMegaFamily r1;
+        int[] $r2;
+        avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister $r3;
+
+        r0 := @this: avrora.sim.mcu.ATMegaFamily$Timer0;
+
+        r1 := @parameter0: avrora.sim.mcu.ATMegaFamily;
+
+        r0.<avrora.sim.mcu.ATMegaFamily$Timer0: avrora.sim.mcu.ATMegaFamily this$0> = r1;
+
+        $r2 = <avrora.sim.mcu.ATMegaFamily: int[] periods0>;
+
+        specialinvoke r0.<avrora.sim.mcu.Timer8Bit: void <init>(avrora.sim.mcu.AtmelMicrocontroller,int,int,int,int,int,int[])>(r1, 0, 1, 0, 1, 0, $r2);
+
+        $r3 = new avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister;
+
+        specialinvoke $r3.<avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: void <init>(avrora.sim.mcu.ATMegaFamily$Timer0)>(r0);
+
+        virtualinvoke r0.<avrora.sim.mcu.ATMegaFamily$Timer0: void installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("ASSR", $r3);
+
+        return;
+    }
+}

@@ -1,0 +1,76 @@
+public class avrora.sim.mcu.RegisterSet$MultiFieldRegister extends java.lang.Object implements avrora.sim.ActiveRegister
+{
+    byte value;
+    final avrora.sim.mcu.RegisterSet$SubRegWriter[] subFields;
+    final avrora.sim.mcu.RegisterSet this$0;
+
+    void <init>(avrora.sim.mcu.RegisterSet, avrora.sim.mcu.RegisterSet$SubRegWriter[])
+    {
+        avrora.sim.mcu.RegisterSet$MultiFieldRegister r0;
+        avrora.sim.mcu.RegisterSet r1;
+        avrora.sim.mcu.RegisterSet$SubRegWriter[] r2;
+
+        r0 := @this: avrora.sim.mcu.RegisterSet$MultiFieldRegister;
+
+        r1 := @parameter0: avrora.sim.mcu.RegisterSet;
+
+        r2 := @parameter1: avrora.sim.mcu.RegisterSet$SubRegWriter[];
+
+        r0.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: avrora.sim.mcu.RegisterSet this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: avrora.sim.mcu.RegisterSet$SubRegWriter[] subFields> = r2;
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.RegisterSet$MultiFieldRegister r0;
+        byte $b0;
+
+        r0 := @this: avrora.sim.mcu.RegisterSet$MultiFieldRegister;
+
+        $b0 = r0.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: byte value>;
+
+        return $b0;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.RegisterSet$MultiFieldRegister r0;
+        byte b0;
+        avrora.sim.mcu.RegisterSet$SubRegWriter[] $r1, $r2;
+        int $i1, i2;
+        avrora.sim.mcu.RegisterSet$SubRegWriter r3;
+
+        r0 := @this: avrora.sim.mcu.RegisterSet$MultiFieldRegister;
+
+        b0 := @parameter0: byte;
+
+        r0.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: byte value> = b0;
+
+        i2 = 0;
+
+     label1:
+        $r1 = r0.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: avrora.sim.mcu.RegisterSet$SubRegWriter[] subFields>;
+
+        $i1 = lengthof $r1;
+
+        if i2 >= $i1 goto label2;
+
+        $r2 = r0.<avrora.sim.mcu.RegisterSet$MultiFieldRegister: avrora.sim.mcu.RegisterSet$SubRegWriter[] subFields>;
+
+        r3 = $r2[i2];
+
+        virtualinvoke r3.<avrora.sim.mcu.RegisterSet$SubRegWriter: void write(byte)>(b0);
+
+        i2 = i2 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}

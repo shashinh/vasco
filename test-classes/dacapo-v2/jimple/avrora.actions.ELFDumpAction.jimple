@@ -1,0 +1,580 @@
+public class avrora.actions.ELFDumpAction extends avrora.actions.Action
+{
+    public static final java.lang.String HELP;
+
+    public void <init>()
+    {
+        avrora.actions.ELFDumpAction r0;
+
+        r0 := @this: avrora.actions.ELFDumpAction;
+
+        specialinvoke r0.<avrora.actions.Action: void <init>(java.lang.String)>("The \"elf-dump\" action loads an ELF executable and produces a listing of many important pieces of information, including the architecture, sections, symbol tables and sizes of various structures.");
+
+        return;
+    }
+
+    public void run(java.lang.String[]) throws java.lang.Exception
+    {
+        java.lang.String[] r0;
+        java.lang.String r1;
+        java.io.RandomAccessFile $r2;
+        cck.elf.ELFProgramHeaderTable r4;
+        cck.elf.ELFSectionHeaderTable r5;
+        java.util.List r6;
+        java.util.Iterator r7;
+        boolean $z0;
+        java.lang.Object $r8;
+        cck.elf.ELFSymbolTable r9;
+        cck.elf.ELFHeader$FormatError $r10;
+        avrora.actions.ELFDumpAction r11;
+        cck.elf.ELFHeader r12;
+
+        r11 := @this: avrora.actions.ELFDumpAction;
+
+        r0 := @parameter0: java.lang.String[];
+
+        r1 = r0[0];
+
+        staticinvoke <avrora.Main: void checkFileExists(java.lang.String)>(r1);
+
+        $r2 = new java.io.RandomAccessFile;
+
+        specialinvoke $r2.<java.io.RandomAccessFile: void <init>(java.lang.String,java.lang.String)>(r1, "r");
+
+     label1:
+        r12 = staticinvoke <cck.elf.ELFLoader: cck.elf.ELFHeader readELFHeader(java.io.RandomAccessFile)>($r2);
+
+        staticinvoke <avrora.actions.ELFDumpAction: void printHeader(cck.elf.ELFHeader)>(r12);
+
+        r4 = staticinvoke <cck.elf.ELFLoader: cck.elf.ELFProgramHeaderTable readPHT(java.io.RandomAccessFile,cck.elf.ELFHeader)>($r2, r12);
+
+        staticinvoke <avrora.actions.ELFDumpAction: void printPHT(cck.elf.ELFProgramHeaderTable)>(r4);
+
+        r5 = staticinvoke <cck.elf.ELFLoader: cck.elf.ELFSectionHeaderTable readSHT(java.io.RandomAccessFile,cck.elf.ELFHeader)>($r2, r12);
+
+        staticinvoke <avrora.actions.ELFDumpAction: void printSHT(cck.elf.ELFSectionHeaderTable)>(r5);
+
+        r6 = staticinvoke <cck.elf.ELFLoader: java.util.List readSymbolTables(java.io.RandomAccessFile,cck.elf.ELFHeader,cck.elf.ELFSectionHeaderTable)>($r2, r12, r5);
+
+        r7 = interfaceinvoke r6.<java.util.List: java.util.Iterator iterator()>();
+
+     label2:
+        $z0 = interfaceinvoke r7.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label3;
+
+        $r8 = interfaceinvoke r7.<java.util.Iterator: java.lang.Object next()>();
+
+        r9 = (cck.elf.ELFSymbolTable) $r8;
+
+        staticinvoke <avrora.actions.ELFDumpAction: void printSymbolTable(cck.elf.ELFSymbolTable,cck.elf.ELFSectionHeaderTable)>(r9, r5);
+
+        goto label2;
+
+     label3:
+        goto label5;
+
+     label4:
+        $r10 := @caughtexception;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>(r1, "invalid ELF header");
+
+     label5:
+        return;
+
+        catch cck.elf.ELFHeader$FormatError from label1 to label3 with label4;
+    }
+
+    public static void printHeader(cck.elf.ELFHeader)
+    {
+        cck.elf.ELFHeader r0;
+        int $i0;
+        long $l1, $l3;
+        java.lang.String $r1, $r2, $r3, $r4, $r5, $r6, $r7;
+        short $s2;
+        boolean $z0, $z1;
+
+        r0 := @parameter0: cck.elf.ELFHeader;
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        staticinvoke <cck.text.TermUtil: void printSeparator()>();
+
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>("Ver Machine     Arch     Size  Endian");
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        staticinvoke <cck.text.TermUtil: void printThinSeparator()>();
+
+        $i0 = r0.<cck.elf.ELFHeader: int e_version>;
+
+        $l1 = (long) $i0;
+
+        $r1 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l1, 3);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r1);
+
+        $s2 = r0.<cck.elf.ELFHeader: short e_machine>;
+
+        $l3 = (long) $s2;
+
+        $r2 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l3, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r2);
+
+        $r3 = virtualinvoke r0.<cck.elf.ELFHeader: java.lang.String getArchitecture()>();
+
+        $r4 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(java.lang.String,int)>($r3, 9);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r4);
+
+        $z0 = virtualinvoke r0.<cck.elf.ELFHeader: boolean is64Bit()>();
+
+        if $z0 == 0 goto label1;
+
+        $r6 = "64 bits";
+
+        goto label2;
+
+     label1:
+        $r6 = "32 bits";
+
+     label2:
+        $r5 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(java.lang.String,int)>($r6, 9);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r5);
+
+        $z1 = virtualinvoke r0.<cck.elf.ELFHeader: boolean isLittleEndian()>();
+
+        if $z1 == 0 goto label3;
+
+        $r7 = "  little";
+
+        goto label4;
+
+     label3:
+        $r7 = "  big";
+
+     label4:
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r7);
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        return;
+    }
+
+    public static void printSHT(cck.elf.ELFSectionHeaderTable)
+    {
+        cck.elf.ELFSectionHeaderTable r0;
+        cck.elf.ELFSectionHeaderTable$Entry32[] $r1, $r2;
+        int $i0, $i2, $i4, $i6, i8;
+        cck.elf.ELFSectionHeaderTable$Entry32 r3;
+        long $l1, $l3, $l5, $l7;
+        java.lang.String $r4, $r7, $r8, $r10, $r11, $r12, $r15, $r17, $r18, $r19, $r22, $r24;
+        java.lang.StringBuilder $r5, $r6, $r9, $r13, $r14, $r16, $r20, $r21, $r23;
+
+        r0 := @parameter0: cck.elf.ELFSectionHeaderTable;
+
+        staticinvoke <cck.text.TermUtil: void printSeparator(int,java.lang.String)>(78, "Section Header Table");
+
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>("Ent  Name                        Type   Address  Offset    Size  Flags");
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        staticinvoke <cck.text.TermUtil: void printThinSeparator()>();
+
+        i8 = 0;
+
+     label1:
+        $r1 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $i0 = lengthof $r1;
+
+        if i8 >= $i0 goto label2;
+
+        $r2 = r0.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        r3 = $r2[i8];
+
+        $l1 = (long) i8;
+
+        $r4 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l1, 3);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r4);
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $r7 = virtualinvoke r3.<cck.elf.ELFSectionHeaderTable$Entry32: java.lang.String getName()>();
+
+        $r8 = staticinvoke <cck.text.StringUtil: java.lang.String leftJustify(java.lang.String,int)>($r7, 24);
+
+        $r9 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r10);
+
+        $r11 = virtualinvoke r3.<cck.elf.ELFSectionHeaderTable$Entry32: java.lang.String getType()>();
+
+        $r12 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(java.lang.String,int)>($r11, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r12);
+
+        $r13 = new java.lang.StringBuilder;
+
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        $r14 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $i2 = r3.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_addr>;
+
+        $l3 = (long) $i2;
+
+        $r15 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($l3, 8);
+
+        $r16 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15);
+
+        $r17 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r17);
+
+        $i4 = r3.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_offset>;
+
+        $l5 = (long) $i4;
+
+        $r18 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l5, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r18);
+
+        $i6 = r3.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_size>;
+
+        $l7 = (long) $i6;
+
+        $r19 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l7, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r19);
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r21 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $r22 = virtualinvoke r3.<cck.elf.ELFSectionHeaderTable$Entry32: java.lang.String getFlags()>();
+
+        $r23 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r22);
+
+        $r24 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r24);
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        i8 = i8 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public static java.lang.String getName(cck.elf.ELFStringTable, int)
+    {
+        cck.elf.ELFStringTable r0;
+        int i0;
+        java.lang.String $r1;
+
+        r0 := @parameter0: cck.elf.ELFStringTable;
+
+        i0 := @parameter1: int;
+
+        if r0 != null goto label1;
+
+        return "";
+
+     label1:
+        $r1 = virtualinvoke r0.<cck.elf.ELFStringTable: java.lang.String getString(int)>(i0);
+
+        return $r1;
+    }
+
+    public static void printPHT(cck.elf.ELFProgramHeaderTable)
+    {
+        cck.elf.ELFProgramHeaderTable r0;
+        cck.elf.ELFProgramHeaderTable$Entry32[] $r1, $r2;
+        int $i0, $i2, $i4, $i6, $i8, $i10, i12;
+        cck.elf.ELFProgramHeaderTable$Entry32 r3;
+        long $l1, $l3, $l5, $l7, $l9, $l11;
+        java.lang.String $r4, $r5, $r6, $r9, $r11, $r14, $r16, $r17, $r18, $r19, $r22, $r24;
+        java.lang.StringBuilder $r7, $r8, $r10, $r12, $r13, $r15, $r20, $r21, $r23;
+
+        r0 := @parameter0: cck.elf.ELFProgramHeaderTable;
+
+        staticinvoke <cck.text.TermUtil: void printSeparator(int,java.lang.String)>(78, "Program Header Table");
+
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>("Ent     Type  Virtual   Physical  Offset  Filesize  Memsize  Flags");
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        staticinvoke <cck.text.TermUtil: void printThinSeparator()>();
+
+        i12 = 0;
+
+     label1:
+        $r1 = r0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $i0 = lengthof $r1;
+
+        if i12 >= $i0 goto label2;
+
+        $r2 = r0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        r3 = $r2[i12];
+
+        $l1 = (long) i12;
+
+        $r4 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l1, 3);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r4);
+
+        $r5 = staticinvoke <cck.elf.ELFProgramHeaderTable: java.lang.String getType(cck.elf.ELFProgramHeaderTable$Entry32)>(r3);
+
+        $r6 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(java.lang.String,int)>($r5, 9);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r6);
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $i2 = r3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_vaddr>;
+
+        $l3 = (long) $i2;
+
+        $r9 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($l3, 8);
+
+        $r10 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r11 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r11);
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $i4 = r3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_paddr>;
+
+        $l5 = (long) $i4;
+
+        $r14 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($l5, 8);
+
+        $r15 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r14);
+
+        $r16 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r16);
+
+        $i6 = r3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_offset>;
+
+        $l7 = (long) $i6;
+
+        $r17 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l7, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r17);
+
+        $i8 = r3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_filesz>;
+
+        $l9 = (long) $i8;
+
+        $r18 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l9, 10);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r18);
+
+        $i10 = r3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_memsz>;
+
+        $l11 = (long) $i10;
+
+        $r19 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l11, 9);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r19);
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r21 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $r22 = virtualinvoke r3.<cck.elf.ELFProgramHeaderTable$Entry32: java.lang.String getFlags()>();
+
+        $r23 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r22);
+
+        $r24 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r24);
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        i12 = i12 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public static void printSymbolTable(cck.elf.ELFSymbolTable, cck.elf.ELFSectionHeaderTable)
+    {
+        cck.elf.ELFSymbolTable r0;
+        cck.elf.ELFStringTable r1;
+        cck.elf.ELFSymbolTable$Entry[] $r2, $r3;
+        int $i0, $i3, $i4, $i6, i8;
+        cck.elf.ELFSymbolTable$Entry r4;
+        long $l1, $l5, $l7;
+        java.lang.String $r5, $r8, $r9, $r11, $r15, $r16, $r18, $r19, $r20, $r21, $r22, $r25, $r27, $r30, $r32;
+        java.lang.StringBuilder $r6, $r7, $r10, $r12, $r13, $r17, $r23, $r24, $r26, $r28, $r29, $r31;
+        cck.elf.ELFSectionHeaderTable r14;
+        short $s2;
+
+        r0 := @parameter0: cck.elf.ELFSymbolTable;
+
+        r14 := @parameter1: cck.elf.ELFSectionHeaderTable;
+
+        staticinvoke <cck.text.TermUtil: void printSeparator(int,java.lang.String)>(78, "Symbol Table");
+
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>("Ent  Type     Section     Bind    Name                     Address      Size");
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        staticinvoke <cck.text.TermUtil: void printThinSeparator()>();
+
+        r1 = virtualinvoke r0.<cck.elf.ELFSymbolTable: cck.elf.ELFStringTable getStringTable()>();
+
+        i8 = 0;
+
+     label1:
+        $r2 = r0.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries>;
+
+        $i0 = lengthof $r2;
+
+        if i8 >= $i0 goto label2;
+
+        $r3 = r0.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries>;
+
+        r4 = $r3[i8];
+
+        $l1 = (long) i8;
+
+        $r5 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l1, 3);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r5);
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $r8 = virtualinvoke r4.<cck.elf.ELFSymbolTable$Entry: java.lang.String getType()>();
+
+        $r9 = staticinvoke <cck.text.StringUtil: java.lang.String leftJustify(java.lang.String,int)>($r8, 7);
+
+        $r10 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r11 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r11);
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $s2 = r4.<cck.elf.ELFSymbolTable$Entry: short st_shndx>;
+
+        $r15 = virtualinvoke r14.<cck.elf.ELFSectionHeaderTable: java.lang.String getSectionName(int)>($s2);
+
+        $r16 = staticinvoke <cck.text.StringUtil: java.lang.String leftJustify(java.lang.String,int)>($r15, 12);
+
+        $r17 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r16);
+
+        $r18 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r18);
+
+        $r19 = virtualinvoke r4.<cck.elf.ELFSymbolTable$Entry: java.lang.String getBinding()>();
+
+        $r20 = staticinvoke <cck.text.StringUtil: java.lang.String leftJustify(java.lang.String,int)>($r19, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r20);
+
+        $i3 = r4.<cck.elf.ELFSymbolTable$Entry: int st_name>;
+
+        $r21 = staticinvoke <avrora.actions.ELFDumpAction: java.lang.String getName(cck.elf.ELFStringTable,int)>(r1, $i3);
+
+        $r22 = staticinvoke <cck.text.StringUtil: java.lang.String leftJustify(java.lang.String,int)>($r21, 22);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r22);
+
+        $r23 = new java.lang.StringBuilder;
+
+        specialinvoke $r23.<java.lang.StringBuilder: void <init>()>();
+
+        $r24 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $i4 = r4.<cck.elf.ELFSymbolTable$Entry: int st_value>;
+
+        $l5 = (long) $i4;
+
+        $r25 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($l5, 8);
+
+        $r26 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r25);
+
+        $r27 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r27);
+
+        $r28 = new java.lang.StringBuilder;
+
+        specialinvoke $r28.<java.lang.StringBuilder: void <init>()>();
+
+        $r29 = virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $i6 = r4.<cck.elf.ELFSymbolTable$Entry: int st_size>;
+
+        $l7 = (long) $i6;
+
+        $r30 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($l7, 8);
+
+        $r31 = virtualinvoke $r29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r30);
+
+        $r32 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($r32);
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        i8 = i8 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.actions.ELFDumpAction: java.lang.String HELP> = "The \"elf-dump\" action loads an ELF executable and produces a listing of many important pieces of information, including the architecture, sections, symbol tables and sizes of various structures.";
+
+        return;
+    }
+}

@@ -1,0 +1,209 @@
+public class avrora.sim.SimulatorThread extends java.lang.Thread
+{
+    protected final avrora.sim.Simulation$Node node;
+    protected avrora.sim.clock.Synchronizer synchronizer;
+
+    public void <init>(avrora.sim.Simulation$Node)
+    {
+        avrora.sim.SimulatorThread r0;
+        java.lang.StringBuilder $r1, $r2, $r4;
+        avrora.sim.Simulation$Node r3;
+        int $i0;
+        java.lang.String $r5;
+
+        r0 := @this: avrora.sim.SimulatorThread;
+
+        r3 := @parameter0: avrora.sim.Simulation$Node;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("node-");
+
+        $i0 = r3.<avrora.sim.Simulation$Node: int id>;
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<java.lang.Thread: void <init>(java.lang.String)>($r5);
+
+        r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node> = r3;
+
+        return;
+    }
+
+    public avrora.sim.Simulation$Node getNode()
+    {
+        avrora.sim.SimulatorThread r0;
+        avrora.sim.Simulation$Node $r1;
+
+        r0 := @this: avrora.sim.SimulatorThread;
+
+        $r1 = r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node>;
+
+        return $r1;
+    }
+
+    public avrora.sim.Simulator getSimulator()
+    {
+        avrora.sim.SimulatorThread r0;
+        avrora.sim.Simulation$Node $r1;
+        avrora.sim.Simulator $r2;
+
+        r0 := @this: avrora.sim.SimulatorThread;
+
+        $r1 = r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node>;
+
+        $r2 = virtualinvoke $r1.<avrora.sim.Simulation$Node: avrora.sim.Simulator getSimulator()>();
+
+        return $r2;
+    }
+
+    public void run()
+    {
+        avrora.sim.SimulatorThread r0;
+        avrora.sim.Simulation$Node $r1, $r3, $r8, $r12, $r22, $r26;
+        avrora.sim.clock.Synchronizer $r2, $r4, $r7, $r9, $r11, $r13, $r21, $r23, $r25, $r27;
+        java.lang.Throwable $r5;
+        cck.util.Util$Error $r10;
+        avrora.actions.SimAction$BreakPointException $r14;
+        java.lang.StringBuilder $r15, $r16, $r18, $r19;
+        int $i0;
+        java.lang.String $r17, $r20;
+        avrora.actions.SimAction$TimeoutException $r24;
+        avrora.sim.Simulator r28;
+
+        r0 := @this: avrora.sim.SimulatorThread;
+
+     label01:
+        $r1 = r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node>;
+
+        r28 = virtualinvoke $r1.<avrora.sim.Simulation$Node: avrora.sim.Simulator getSimulator()>();
+
+        virtualinvoke r28.<avrora.sim.Simulator: void start()>();
+
+     label02:
+        $r2 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        if $r2 == null goto label10;
+
+        $r4 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        $r3 = r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node>;
+
+        virtualinvoke $r4.<avrora.sim.clock.Synchronizer: void removeNode(avrora.sim.Simulation$Node)>($r3);
+
+        goto label10;
+
+     label03:
+        $r24 := @caughtexception;
+
+        $r25 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        if $r25 == null goto label10;
+
+        $r27 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        $r26 = r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node>;
+
+        virtualinvoke $r27.<avrora.sim.clock.Synchronizer: void removeNode(avrora.sim.Simulation$Node)>($r26);
+
+        goto label10;
+
+     label04:
+        $r14 := @caughtexception;
+
+        staticinvoke <cck.text.Terminal: void printYellow(java.lang.String)>("Simulation terminated");
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r16 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": breakpoint at ");
+
+        $i0 = $r14.<avrora.actions.SimAction$BreakPointException: int address>;
+
+        $r17 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>($i0);
+
+        $r18 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r17);
+
+        $r19 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" reached.");
+
+        $r20 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($r20);
+
+     label05:
+        $r21 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        if $r21 == null goto label10;
+
+        $r23 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        $r22 = r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node>;
+
+        virtualinvoke $r23.<avrora.sim.clock.Synchronizer: void removeNode(avrora.sim.Simulation$Node)>($r22);
+
+        goto label10;
+
+     label06:
+        $r10 := @caughtexception;
+
+        virtualinvoke $r10.<cck.util.Util$Error: void report()>();
+
+     label07:
+        $r11 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        if $r11 == null goto label10;
+
+        $r13 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        $r12 = r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node>;
+
+        virtualinvoke $r13.<avrora.sim.clock.Synchronizer: void removeNode(avrora.sim.Simulation$Node)>($r12);
+
+        goto label10;
+
+     label08:
+        $r5 := @caughtexception;
+
+        $r7 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        if $r7 == null goto label09;
+
+        $r9 = r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer>;
+
+        $r8 = r0.<avrora.sim.SimulatorThread: avrora.sim.Simulation$Node node>;
+
+        virtualinvoke $r9.<avrora.sim.clock.Synchronizer: void removeNode(avrora.sim.Simulation$Node)>($r8);
+
+     label09:
+        throw $r5;
+
+     label10:
+        return;
+
+        catch avrora.actions.SimAction$TimeoutException from label01 to label02 with label03;
+        catch avrora.actions.SimAction$BreakPointException from label01 to label02 with label04;
+        catch cck.util.Util$Error from label01 to label02 with label06;
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label04 to label05 with label08;
+        catch java.lang.Throwable from label06 to label07 with label08;
+    }
+
+    public void setSynchronizer(avrora.sim.clock.Synchronizer)
+    {
+        avrora.sim.SimulatorThread r0;
+        avrora.sim.clock.Synchronizer r1;
+
+        r0 := @this: avrora.sim.SimulatorThread;
+
+        r1 := @parameter0: avrora.sim.clock.Synchronizer;
+
+        r0.<avrora.sim.SimulatorThread: avrora.sim.clock.Synchronizer synchronizer> = r1;
+
+        return;
+    }
+}

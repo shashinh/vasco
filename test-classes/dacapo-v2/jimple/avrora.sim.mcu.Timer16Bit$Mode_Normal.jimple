@@ -1,0 +1,65 @@
+public class avrora.sim.mcu.Timer16Bit$Mode_Normal extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    protected void <init>(avrora.sim.mcu.Timer16Bit)
+    {
+        avrora.sim.mcu.Timer16Bit$Mode_Normal r0;
+        avrora.sim.mcu.Timer16Bit r1;
+
+        r0 := @this: avrora.sim.mcu.Timer16Bit$Mode_Normal;
+
+        r1 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        r0.<avrora.sim.mcu.Timer16Bit$Mode_Normal: avrora.sim.mcu.Timer16Bit this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.Timer16Bit$Mode_Normal r0;
+        avrora.sim.mcu.Timer16Bit $r1, $r2, $r5, $r6, $r7;
+        avrora.sim.mcu.Timer16Bit$TCNTnRegister $r3;
+        avrora.sim.RWRegister $r4;
+        int i0, i1;
+
+        r0 := @this: avrora.sim.mcu.Timer16Bit$Mode_Normal;
+
+        $r1 = r0.<avrora.sim.mcu.Timer16Bit$Mode_Normal: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $r4 = $r1.<avrora.sim.mcu.Timer16Bit: avrora.sim.RWRegister TCNTnH_reg>;
+
+        $r2 = r0.<avrora.sim.mcu.Timer16Bit$Mode_Normal: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $r3 = $r2.<avrora.sim.mcu.Timer16Bit: avrora.sim.mcu.Timer16Bit$TCNTnRegister TCNTnL_reg>;
+
+        i0 = staticinvoke <avrora.sim.mcu.AtmelInternalDevice: int read16(avrora.sim.RWRegister,avrora.sim.RWRegister)>($r4, $r3);
+
+        $r5 = r0.<avrora.sim.mcu.Timer16Bit$Mode_Normal: avrora.sim.mcu.Timer16Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer16Bit: void access$200(avrora.sim.mcu.Timer16Bit,int)>($r5, i0);
+
+        if i0 < 65535 goto label1;
+
+        $r7 = r0.<avrora.sim.mcu.Timer16Bit$Mode_Normal: avrora.sim.mcu.Timer16Bit this$0>;
+
+        virtualinvoke $r7.<avrora.sim.mcu.Timer16Bit: void overflow()>();
+
+        i1 = 0;
+
+        goto label2;
+
+     label1:
+        i1 = i0 + 1;
+
+     label2:
+        $r6 = r0.<avrora.sim.mcu.Timer16Bit$Mode_Normal: avrora.sim.mcu.Timer16Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer16Bit: void access$300(avrora.sim.mcu.Timer16Bit,avrora.sim.Simulator$Event,int)>($r6, r0, i1);
+
+        return;
+    }
+}

@@ -1,0 +1,99 @@
+public class cck.help.HelpSystem extends java.lang.Object
+{
+    static final cck.util.ClassMap categoryMap;
+
+    public void <init>()
+    {
+        cck.help.HelpSystem r0;
+
+        r0 := @this: cck.help.HelpSystem;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static cck.help.HelpCategory getCategory(java.lang.String)
+    {
+        java.lang.String r0;
+        cck.util.ClassMap $r1;
+        java.lang.Object $r2;
+        cck.help.HelpCategory r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        $r1 = <cck.help.HelpSystem: cck.util.ClassMap categoryMap>;
+
+        $r2 = virtualinvoke $r1.<cck.util.ClassMap: java.lang.Object getObjectOfClass(java.lang.String)>(r0);
+
+        r3 = (cck.help.HelpCategory) $r2;
+
+        if r3 == null goto label1;
+
+        virtualinvoke r3.<cck.help.HelpCategory: void setName(java.lang.String)>(r0);
+
+     label1:
+        return r3;
+    }
+
+    public static void addCategory(java.lang.String, cck.help.HelpCategory)
+    {
+        cck.help.HelpCategory r0;
+        java.lang.String r1;
+        cck.util.ClassMap $r2;
+
+        r1 := @parameter0: java.lang.String;
+
+        r0 := @parameter1: cck.help.HelpCategory;
+
+        virtualinvoke r0.<cck.help.HelpCategory: void setName(java.lang.String)>(r1);
+
+        $r2 = <cck.help.HelpSystem: cck.util.ClassMap categoryMap>;
+
+        virtualinvoke $r2.<cck.util.ClassMap: void addInstance(java.lang.String,java.lang.Object)>(r1, r0);
+
+        return;
+    }
+
+    public static void addCategory(java.lang.String, java.lang.Class)
+    {
+        java.lang.String r0;
+        java.lang.Class r1;
+        cck.util.ClassMap $r2;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 := @parameter1: java.lang.Class;
+
+        $r2 = <cck.help.HelpSystem: cck.util.ClassMap categoryMap>;
+
+        virtualinvoke $r2.<cck.util.ClassMap: void addClass(java.lang.String,java.lang.Class)>(r0, r1);
+
+        return;
+    }
+
+    public static java.util.List getSortedList()
+    {
+        cck.util.ClassMap $r0;
+        java.util.List $r1;
+
+        $r0 = <cck.help.HelpSystem: cck.util.ClassMap categoryMap>;
+
+        $r1 = virtualinvoke $r0.<cck.util.ClassMap: java.util.List getSortedList()>();
+
+        return $r1;
+    }
+
+    static void <clinit>()
+    {
+        cck.util.ClassMap $r0;
+
+        $r0 = new cck.util.ClassMap;
+
+        specialinvoke $r0.<cck.util.ClassMap: void <init>(java.lang.String,java.lang.Class)>("HelpCategory", class "Lcck/help/HelpCategory;");
+
+        <cck.help.HelpSystem: cck.util.ClassMap categoryMap> = $r0;
+
+        return;
+    }
+}

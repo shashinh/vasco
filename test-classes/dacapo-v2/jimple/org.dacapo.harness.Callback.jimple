@@ -1,0 +1,775 @@
+public class org.dacapo.harness.Callback extends java.lang.Object
+{
+    protected org.dacapo.harness.Callback$Mode mode;
+    protected final org.dacapo.harness.CommandLineArgs args;
+    protected int iterations;
+    protected long[] times;
+    protected long elapsed;
+    boolean verbose;
+    static final boolean $assertionsDisabled;
+
+    public void <init>(org.dacapo.harness.CommandLineArgs)
+    {
+        org.dacapo.harness.Callback r0;
+        org.dacapo.harness.CommandLineArgs r1;
+        org.dacapo.harness.CommandLineArgs$Methodology $r2, $r3;
+        boolean $z0, $z1, $z2;
+        int $i0;
+        long[] $r4;
+
+        r0 := @this: org.dacapo.harness.Callback;
+
+        r1 := @parameter0: org.dacapo.harness.CommandLineArgs;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<org.dacapo.harness.Callback: boolean verbose> = 0;
+
+        r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args> = r1;
+
+        $r2 = virtualinvoke r1.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.CommandLineArgs$Methodology getMethodology()>();
+
+        $r3 = <org.dacapo.harness.CommandLineArgs$Methodology: org.dacapo.harness.CommandLineArgs$Methodology CONVERGE>;
+
+        if $r2 != $r3 goto label1;
+
+        $i0 = virtualinvoke r1.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        $r4 = newarray (long)[$i0];
+
+        r0.<org.dacapo.harness.Callback: long[] times> = $r4;
+
+     label1:
+        $z0 = r0.<org.dacapo.harness.Callback: boolean verbose>;
+
+        $z1 = virtualinvoke r1.<org.dacapo.harness.CommandLineArgs: boolean getDebug()>();
+
+        $z2 = $z0 | $z1;
+
+        r0.<org.dacapo.harness.Callback: boolean verbose> = $z2;
+
+        return;
+    }
+
+    public void init(org.dacapo.parser.Config)
+    {
+        org.dacapo.harness.Callback r0;
+        boolean $z0;
+        org.dacapo.harness.CommandLineArgs $r1, $r4, $r9;
+        int[] $r2;
+        org.dacapo.harness.CommandLineArgs$Methodology $r3;
+        int $i0, $i1, $i2, $i3, $i4, i5;
+        org.dacapo.harness.Callback$Mode $r5, $r8, $r10, $r11;
+        long[] $r6, $r7, $r14;
+        java.io.PrintStream $r12;
+        org.dacapo.parser.Config r13;
+
+        r0 := @this: org.dacapo.harness.Callback;
+
+        r13 := @parameter0: org.dacapo.parser.Config;
+
+        $z0 = r0.<org.dacapo.harness.Callback: boolean verbose>;
+
+        if $z0 == 0 goto label1;
+
+        $r12 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r12.<java.io.PrintStream: void println(java.lang.String)>("Initializing callback");
+
+     label1:
+        r0.<org.dacapo.harness.Callback: int iterations> = 0;
+
+        $r2 = <org.dacapo.harness.Callback$1: int[] $SwitchMap$org$dacapo$harness$CommandLineArgs$Methodology>;
+
+        $r1 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $r3 = virtualinvoke $r1.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.CommandLineArgs$Methodology getMethodology()>();
+
+        $i0 = virtualinvoke $r3.<org.dacapo.harness.CommandLineArgs$Methodology: int ordinal()>();
+
+        $i1 = $r2[$i0];
+
+        lookupswitch($i1)
+        {
+            case 1: goto label2;
+            case 2: goto label4;
+            default: goto label6;
+        };
+
+     label2:
+        $r9 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $i4 = virtualinvoke $r9.<org.dacapo.harness.CommandLineArgs: int getIterations()>();
+
+        if $i4 != 1 goto label3;
+
+        $r11 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $r11;
+
+        goto label6;
+
+     label3:
+        $r10 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $r10;
+
+        goto label6;
+
+     label4:
+        $r4 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $i2 = virtualinvoke $r4.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        if $i2 != 0 goto label5;
+
+        $r8 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $r8;
+
+        goto label6;
+
+     label5:
+        $r5 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $r5;
+
+     label6:
+        $r14 = r0.<org.dacapo.harness.Callback: long[] times>;
+
+        if $r14 == null goto label8;
+
+        i5 = 0;
+
+     label7:
+        $r6 = r0.<org.dacapo.harness.Callback: long[] times>;
+
+        $i3 = lengthof $r6;
+
+        if i5 >= $i3 goto label8;
+
+        $r7 = r0.<org.dacapo.harness.Callback: long[] times>;
+
+        $r7[i5] = 0L;
+
+        i5 = i5 + 1;
+
+        goto label7;
+
+     label8:
+        return;
+    }
+
+    public boolean runAgain()
+    {
+        org.dacapo.harness.Callback r0;
+        boolean $z0, $z1, $z2, $z3, $z4, $z5;
+        int $i0, $i1, $i2, $i3, $i4, $i5, $i6, $i7, $i8, $i10, $i11, $i12, $i13, $i14, $i15, $i16, $i17, $i18, $i19;
+        org.dacapo.harness.CommandLineArgs $r1, $r4, $r5, $r7, $r8, $r10, $r16, $r20, $r36;
+        int[] $r2;
+        org.dacapo.harness.CommandLineArgs$Methodology $r3;
+        long[] $r6, $r12, $r35;
+        long $l9;
+        org.dacapo.harness.Callback$Mode $r9, $r24, $r27;
+        java.lang.Object[] $r11;
+        java.io.PrintStream $r13, $r19, $r22, $r30, $r34;
+        double $d0, $d1, $d2, $d3, $d4, $d5;
+        java.lang.Double $r14, $r17;
+        java.lang.Integer $r15;
+        java.lang.StringBuilder $r21, $r23, $r25, $r29, $r31, $r32;
+        java.lang.String $r26, $r33;
+        java.lang.AssertionError $r28;
+        byte $b20;
+
+        r0 := @this: org.dacapo.harness.Callback;
+
+        $z0 = r0.<org.dacapo.harness.Callback: boolean verbose>;
+
+        if $z0 == 0 goto label01;
+
+        $r34 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r34.<java.io.PrintStream: void println(java.lang.String)>("runAgain");
+
+     label01:
+        $z1 = virtualinvoke r0.<org.dacapo.harness.Callback: boolean isWarmup()>();
+
+        if $z1 != 0 goto label02;
+
+        return 0;
+
+     label02:
+        $i0 = r0.<org.dacapo.harness.Callback: int iterations>;
+
+        $i1 = $i0 + 1;
+
+        r0.<org.dacapo.harness.Callback: int iterations> = $i1;
+
+        $z2 = r0.<org.dacapo.harness.Callback: boolean verbose>;
+
+        if $z2 == 0 goto label03;
+
+        $r30 = <java.lang.System: java.io.PrintStream out>;
+
+        $r29 = new java.lang.StringBuilder;
+
+        specialinvoke $r29.<java.lang.StringBuilder: void <init>()>();
+
+        $r31 = virtualinvoke $r29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("iterations = ");
+
+        $i19 = r0.<org.dacapo.harness.Callback: int iterations>;
+
+        $r32 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i19);
+
+        $r33 = virtualinvoke $r32.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r30.<java.io.PrintStream: void println(java.lang.String)>($r33);
+
+     label03:
+        $r2 = <org.dacapo.harness.Callback$1: int[] $SwitchMap$org$dacapo$harness$CommandLineArgs$Methodology>;
+
+        $r1 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $r3 = virtualinvoke $r1.<org.dacapo.harness.CommandLineArgs: org.dacapo.harness.CommandLineArgs$Methodology getMethodology()>();
+
+        $i2 = virtualinvoke $r3.<org.dacapo.harness.CommandLineArgs$Methodology: int ordinal()>();
+
+        $i3 = $r2[$i2];
+
+        lookupswitch($i3)
+        {
+            case 1: goto label04;
+            case 2: goto label07;
+            default: goto label12;
+        };
+
+     label04:
+        $i16 = r0.<org.dacapo.harness.Callback: int iterations>;
+
+        $r20 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $i17 = virtualinvoke $r20.<org.dacapo.harness.CommandLineArgs: int getIterations()>();
+
+        $i18 = $i17 - 1;
+
+        if $i16 != $i18 goto label05;
+
+        $r27 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $r27;
+
+     label05:
+        $z4 = r0.<org.dacapo.harness.Callback: boolean verbose>;
+
+        if $z4 == 0 goto label06;
+
+        $r22 = <java.lang.System: java.io.PrintStream out>;
+
+        $r21 = new java.lang.StringBuilder;
+
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        $r23 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("mode = ");
+
+        $r24 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $r25 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r24);
+
+        $r26 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>($r26);
+
+     label06:
+        return 1;
+
+     label07:
+        $i4 = r0.<org.dacapo.harness.Callback: int iterations>;
+
+        $r4 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $i5 = virtualinvoke $r4.<org.dacapo.harness.CommandLineArgs: int getMaxIterations()>();
+
+        if $i4 < $i5 goto label08;
+
+        $r19 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("Benchmark failed to converge.");
+
+        return 0;
+
+     label08:
+        $r6 = r0.<org.dacapo.harness.Callback: long[] times>;
+
+        $i6 = r0.<org.dacapo.harness.Callback: int iterations>;
+
+        $i7 = $i6 - 1;
+
+        $r5 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $i8 = virtualinvoke $r5.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        $i10 = $i7 % $i8;
+
+        $l9 = r0.<org.dacapo.harness.Callback: long elapsed>;
+
+        $r6[$i10] = $l9;
+
+        $i11 = r0.<org.dacapo.harness.Callback: int iterations>;
+
+        $r7 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $i12 = virtualinvoke $r7.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        if $i11 >= $i12 goto label09;
+
+        return 1;
+
+     label09:
+        $i13 = r0.<org.dacapo.harness.Callback: int iterations>;
+
+        $r8 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $i14 = virtualinvoke $r8.<org.dacapo.harness.CommandLineArgs: int getWindow()>();
+
+        if $i13 < $i14 goto label10;
+
+        $r10 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $z3 = virtualinvoke $r10.<org.dacapo.harness.CommandLineArgs: boolean getVerbose()>();
+
+        if $z3 == 0 goto label10;
+
+        $r13 = <java.lang.System: java.io.PrintStream err>;
+
+        $r11 = newarray (java.lang.Object)[3];
+
+        $r12 = r0.<org.dacapo.harness.Callback: long[] times>;
+
+        $d0 = staticinvoke <org.dacapo.harness.TestHarness: double coeff_of_var(long[])>($r12);
+
+        $d1 = $d0 * 100.0;
+
+        $r14 = staticinvoke <java.lang.Double: java.lang.Double valueOf(double)>($d1);
+
+        $r11[0] = $r14;
+
+        $i15 = r0.<org.dacapo.harness.Callback: int iterations>;
+
+        $r15 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i15);
+
+        $r11[1] = $r15;
+
+        $r16 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $d2 = virtualinvoke $r16.<org.dacapo.harness.CommandLineArgs: double getTargetVar()>();
+
+        $d3 = $d2 * 100.0;
+
+        $r17 = staticinvoke <java.lang.Double: java.lang.Double valueOf(double)>($d3);
+
+        $r11[2] = $r17;
+
+        virtualinvoke $r13.<java.io.PrintStream: java.io.PrintStream printf(java.lang.String,java.lang.Object[])>("Variation %4.2f%% achieved after %d iterations, target = %4.2f%%\n", $r11);
+
+     label10:
+        $r35 = r0.<org.dacapo.harness.Callback: long[] times>;
+
+        $d4 = staticinvoke <org.dacapo.harness.TestHarness: double coeff_of_var(long[])>($r35);
+
+        $r36 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.CommandLineArgs args>;
+
+        $d5 = virtualinvoke $r36.<org.dacapo.harness.CommandLineArgs: double getTargetVar()>();
+
+        $b20 = $d4 cmpl $d5;
+
+        if $b20 <= 0 goto label11;
+
+        return 1;
+
+     label11:
+        $r9 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode TIMING>;
+
+        r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode> = $r9;
+
+        return 1;
+
+     label12:
+        $z5 = <org.dacapo.harness.Callback: boolean $assertionsDisabled>;
+
+        if $z5 != 0 goto label13;
+
+        $r28 = new java.lang.AssertionError;
+
+        specialinvoke $r28.<java.lang.AssertionError: void <init>()>();
+
+        throw $r28;
+
+     label13:
+        return 0;
+    }
+
+    public boolean isWarmup()
+    {
+        org.dacapo.harness.Callback r0;
+        org.dacapo.harness.Callback$Mode $r1, $r2;
+        boolean $z0;
+
+        r0 := @this: org.dacapo.harness.Callback;
+
+        $r2 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $r1 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        if $r2 != $r1 goto label1;
+
+        $z0 = 1;
+
+        goto label2;
+
+     label1:
+        $z0 = 0;
+
+     label2:
+        return $z0;
+    }
+
+    public void start(java.lang.String)
+    {
+        org.dacapo.harness.Callback r0;
+        java.lang.String r1;
+        org.dacapo.harness.Callback$Mode $r2, $r3;
+        boolean $z0;
+
+        r0 := @this: org.dacapo.harness.Callback;
+
+        r1 := @parameter0: java.lang.String;
+
+        $r3 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $r2 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        if $r3 != $r2 goto label1;
+
+        $z0 = 1;
+
+        goto label2;
+
+     label1:
+        $z0 = 0;
+
+     label2:
+        virtualinvoke r0.<org.dacapo.harness.Callback: void start(java.lang.String,boolean)>(r1, $z0);
+
+        return;
+    }
+
+    protected void start(java.lang.String, boolean)
+    {
+        java.lang.StringBuilder $r0, $r2, $r4, $r5, $r7, $r8, $r10, $r12, $r13, $r16, $r17, $r19, $r20;
+        java.io.PrintStream $r1, $r11, $r15;
+        java.lang.String $r3, r6, $r9, $r14, $r21;
+        boolean z0;
+        org.dacapo.harness.Callback r18;
+        int $i0, $i1;
+
+        r18 := @this: org.dacapo.harness.Callback;
+
+        r6 := @parameter0: java.lang.String;
+
+        z0 := @parameter1: boolean;
+
+        $r1 = <java.lang.System: java.io.PrintStream err>;
+
+        $r0 = new java.lang.StringBuilder;
+
+        specialinvoke $r0.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("===== DaCapo ");
+
+        $r3 = staticinvoke <org.dacapo.harness.TestHarness: java.lang.String getBuildVersion()>();
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r7 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r6);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" starting ");
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<java.io.PrintStream: void print(java.lang.String)>($r9);
+
+        $r11 = <java.lang.System: java.io.PrintStream err>;
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        if z0 == 0 goto label1;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r17 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("warmup ");
+
+        $i0 = r18.<org.dacapo.harness.Callback: int iterations>;
+
+        $i1 = $i0 + 1;
+
+        $r19 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r20 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r21 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label2;
+
+     label1:
+        $r21 = "";
+
+     label2:
+        $r12 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r21);
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("=====");
+
+        $r14 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r11.<java.io.PrintStream: void println(java.lang.String)>($r14);
+
+        $r15 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r15.<java.io.PrintStream: void flush()>();
+
+        return;
+    }
+
+    public void stop(long)
+    {
+        org.dacapo.harness.Callback r0;
+        long l0;
+        org.dacapo.harness.Callback$Mode $r1, $r2;
+        boolean $z0;
+
+        r0 := @this: org.dacapo.harness.Callback;
+
+        l0 := @parameter0: long;
+
+        $r2 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $r1 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        if $r2 != $r1 goto label1;
+
+        $z0 = 1;
+
+        goto label2;
+
+     label1:
+        $z0 = 0;
+
+     label2:
+        virtualinvoke r0.<org.dacapo.harness.Callback: void stop(long,boolean)>(l0, $z0);
+
+        return;
+    }
+
+    public void stop(long, boolean)
+    {
+        org.dacapo.harness.Callback r0;
+        long l0;
+        boolean z0;
+
+        r0 := @this: org.dacapo.harness.Callback;
+
+        l0 := @parameter0: long;
+
+        z0 := @parameter1: boolean;
+
+        r0.<org.dacapo.harness.Callback: long elapsed> = l0;
+
+        return;
+    }
+
+    public void complete(java.lang.String, boolean)
+    {
+        org.dacapo.harness.Callback r0;
+        java.lang.String r1;
+        boolean z0, $z2;
+        org.dacapo.harness.Callback$Mode $r2, $r3;
+
+        r0 := @this: org.dacapo.harness.Callback;
+
+        r1 := @parameter0: java.lang.String;
+
+        z0 := @parameter1: boolean;
+
+        $r3 = r0.<org.dacapo.harness.Callback: org.dacapo.harness.Callback$Mode mode>;
+
+        $r2 = <org.dacapo.harness.Callback$Mode: org.dacapo.harness.Callback$Mode WARMUP>;
+
+        if $r3 != $r2 goto label1;
+
+        $z2 = 1;
+
+        goto label2;
+
+     label1:
+        $z2 = 0;
+
+     label2:
+        virtualinvoke r0.<org.dacapo.harness.Callback: void complete(java.lang.String,boolean,boolean)>(r1, z0, $z2);
+
+        return;
+    }
+
+    protected void complete(java.lang.String, boolean, boolean)
+    {
+        java.lang.StringBuilder $r0, $r2, $r4, $r5, $r7, $r9, $r11, $r12, $r15, $r17, $r19, $r20, $r22, $r23, $r24, $r25;
+        java.io.PrintStream $r1, $r10, $r14, $r16, $r28, $r29;
+        java.lang.String $r3, r6, $r8, $r13, $r21, $r26, $r27;
+        boolean z0, z1;
+        org.dacapo.harness.Callback r18;
+        long $l0;
+        int $i1, $i2;
+
+        r18 := @this: org.dacapo.harness.Callback;
+
+        r6 := @parameter0: java.lang.String;
+
+        z0 := @parameter1: boolean;
+
+        z1 := @parameter2: boolean;
+
+        $r1 = <java.lang.System: java.io.PrintStream err>;
+
+        $r0 = new java.lang.StringBuilder;
+
+        specialinvoke $r0.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("===== DaCapo ");
+
+        $r3 = staticinvoke <org.dacapo.harness.TestHarness: java.lang.String getBuildVersion()>();
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r7 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r6);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<java.io.PrintStream: void print(java.lang.String)>($r8);
+
+        if z0 == 0 goto label3;
+
+        $r14 = <java.lang.System: java.io.PrintStream err>;
+
+        if z1 == 0 goto label1;
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r23 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" completed warmup ");
+
+        $i1 = r18.<org.dacapo.harness.Callback: int iterations>;
+
+        $i2 = $i1 + 1;
+
+        $r24 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i2);
+
+        $r25 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r26 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label2;
+
+     label1:
+        $r26 = " PASSED ";
+
+     label2:
+        virtualinvoke $r14.<java.io.PrintStream: void print(java.lang.String)>($r26);
+
+        $r16 = <java.lang.System: java.io.PrintStream err>;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r17 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("in ");
+
+        $l0 = r18.<org.dacapo.harness.Callback: long elapsed>;
+
+        $r19 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r20 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" msec ");
+
+        $r21 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r16.<java.io.PrintStream: void print(java.lang.String)>($r21);
+
+        goto label6;
+
+     label3:
+        $r10 = <java.lang.System: java.io.PrintStream err>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r11 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" FAILED ");
+
+        if z1 == 0 goto label4;
+
+        $r27 = "warmup ";
+
+        goto label5;
+
+     label4:
+        $r27 = "";
+
+     label5:
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r27);
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r10.<java.io.PrintStream: void print(java.lang.String)>($r13);
+
+     label6:
+        $r28 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r28.<java.io.PrintStream: void println(java.lang.String)>("=====");
+
+        $r29 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r29.<java.io.PrintStream: void flush()>();
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.Class $r0;
+        boolean $z0, $z1;
+
+        $r0 = class "Lorg/dacapo/harness/Callback;";
+
+        $z0 = virtualinvoke $r0.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $z0 != 0 goto label1;
+
+        $z1 = 1;
+
+        goto label2;
+
+     label1:
+        $z1 = 0;
+
+     label2:
+        <org.dacapo.harness.Callback: boolean $assertionsDisabled> = $z1;
+
+        return;
+    }
+}

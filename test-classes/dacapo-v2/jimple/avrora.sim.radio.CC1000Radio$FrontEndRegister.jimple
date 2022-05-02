@@ -1,0 +1,89 @@
+public class avrora.sim.radio.CC1000Radio$FrontEndRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    int bufCurrent;
+    double lnaCurrent;
+    static final int IF_RSSI_INACTIVE;
+    static final int IF_RSSI_ACTIVE;
+    static final int IF_RSSI_MIXER;
+    int ifRSSI;
+    boolean xoscBypassExternal;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$FrontEndRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FrontEndRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$FrontEndRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, "FRONT_END", 0);
+
+        r0.<avrora.sim.radio.CC1000Radio$FrontEndRegister: int bufCurrent> = 520;
+
+        r0.<avrora.sim.radio.CC1000Radio$FrontEndRegister: double lnaCurrent> = 0.8;
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$FrontEndRegister r0;
+        byte b0;
+        int $i1, $i2, $i3, $i4, $i5, $i6, $i7;
+        int[] $r1;
+        double[] $r2;
+        double $d0;
+        boolean $z0;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$FrontEndRegister;
+
+        b0 := @parameter0: byte;
+
+        $r1 = <avrora.sim.radio.CC1000Radio: int[] BUF_CURRENT>;
+
+        $i1 = b0 & 32;
+
+        $i2 = $i1 >> 5;
+
+        $i3 = $r1[$i2];
+
+        r0.<avrora.sim.radio.CC1000Radio$FrontEndRegister: int bufCurrent> = $i3;
+
+        $r2 = <avrora.sim.radio.CC1000Radio: double[] LNA_CURRENT>;
+
+        $i4 = b0 & 24;
+
+        $i5 = $i4 >> 3;
+
+        $d0 = $r2[$i5];
+
+        r0.<avrora.sim.radio.CC1000Radio$FrontEndRegister: double lnaCurrent> = $d0;
+
+        $i6 = b0 & 6;
+
+        $i7 = $i6 >> 1;
+
+        r0.<avrora.sim.radio.CC1000Radio$FrontEndRegister: int ifRSSI> = $i7;
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(b0, 0);
+
+        r0.<avrora.sim.radio.CC1000Radio$FrontEndRegister: boolean xoscBypassExternal> = $z0;
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.radio.CC1000Radio$FrontEndRegister: int IF_RSSI_MIXER> = 2;
+
+        <avrora.sim.radio.CC1000Radio$FrontEndRegister: int IF_RSSI_ACTIVE> = 1;
+
+        <avrora.sim.radio.CC1000Radio$FrontEndRegister: int IF_RSSI_INACTIVE> = 0;
+
+        return;
+    }
+}

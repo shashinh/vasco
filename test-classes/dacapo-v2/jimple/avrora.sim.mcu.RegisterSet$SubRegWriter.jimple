@@ -1,0 +1,35 @@
+abstract class avrora.sim.mcu.RegisterSet$SubRegWriter extends java.lang.Object
+{
+    final int ior_low_bit;
+    final int mask;
+    final int length;
+
+    void <init>(avrora.sim.mcu.RegisterLayout$SubField)
+    {
+        avrora.sim.mcu.RegisterSet$SubRegWriter r0;
+        avrora.sim.mcu.RegisterLayout$SubField r1;
+        int $i0, $i1, $i2;
+
+        r0 := @this: avrora.sim.mcu.RegisterSet$SubRegWriter;
+
+        r1 := @parameter0: avrora.sim.mcu.RegisterLayout$SubField;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $i0 = r1.<avrora.sim.mcu.RegisterLayout$SubField: int ior_low_bit>;
+
+        r0.<avrora.sim.mcu.RegisterSet$SubRegWriter: int ior_low_bit> = $i0;
+
+        $i1 = r1.<avrora.sim.mcu.RegisterLayout$SubField: int mask>;
+
+        r0.<avrora.sim.mcu.RegisterSet$SubRegWriter: int mask> = $i1;
+
+        $i2 = r1.<avrora.sim.mcu.RegisterLayout$SubField: int length>;
+
+        r0.<avrora.sim.mcu.RegisterSet$SubRegWriter: int length> = $i2;
+
+        return;
+    }
+
+    abstract void write(byte);
+}

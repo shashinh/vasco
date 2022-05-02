@@ -1,0 +1,335 @@
+public class avrora.sim.radio.CC1000Radio$SerialConfigurationInterface extends java.lang.Object
+{
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput PCLK_in;
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput PDATA_in;
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput PDATA_out;
+    public final avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput PALE_in;
+    byte address;
+    boolean writeCommand;
+    int writeValue;
+    boolean inputPin;
+    byte readData;
+    int bitsRead;
+    avrora.sim.output.SimPrinter readerPrinter;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface r0;
+        avrora.sim.radio.CC1000Radio r1;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput $r2;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput $r3;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput $r4;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput $r5;
+        avrora.sim.Simulator $r6;
+        avrora.sim.output.SimPrinter $r7;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r2 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput;
+
+        specialinvoke $r2.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput: void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PCLKOutput PCLK_in> = $r2;
+
+        $r3 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput;
+
+        specialinvoke $r3.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput: void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAOutput PDATA_in> = $r3;
+
+        $r4 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput;
+
+        specialinvoke $r4.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput: void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput PDATA_out> = $r4;
+
+        $r5 = new avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput;
+
+        specialinvoke $r5.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput: void <init>(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)>(r0);
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PALEOutput PALE_in> = $r5;
+
+        $r6 = r1.<avrora.sim.radio.CC1000Radio: avrora.sim.Simulator sim>;
+
+        $r7 = virtualinvoke $r6.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter(java.lang.String)>("radio.cc1000.pinconfig");
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter> = $r7;
+
+        return;
+    }
+
+    private void clockInBit()
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface r0;
+        int $i0, $i1, $i2, $i7, $i11, $i15, $i18, $i21, $i22, $i23;
+        boolean $z0, $z1, $z2, $z3, $z4;
+        avrora.sim.output.SimPrinter $r1, $r3, $r14, $r16;
+        java.lang.StringBuilder $r2, $r4, $r6, $r7, $r9, $r15, $r17, $r19, $r20, $r22;
+        byte $b3, $b5, $b6, $b8, $b9, $b12, $b13, $b14, $b16, $b17, $b19, $b20;
+        long $l4, $l10;
+        java.lang.String $r5, $r8, $r10, $r18, $r21, $r23;
+        avrora.sim.radio.CC1000Radio $r11, $r24;
+        avrora.sim.radio.CC1000Radio$RadioRegister[] $r12, $r25;
+        avrora.sim.radio.CC1000Radio$RadioRegister $r13, $r26;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        $i0 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        if $i0 >= 7 goto label3;
+
+        $b14 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $i15 = $b14 << 1;
+
+        $b16 = (byte) $i15;
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address> = $b16;
+
+        $b17 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $z4 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean inputPin>;
+
+        if $z4 == 0 goto label1;
+
+        $b20 = 1;
+
+        goto label2;
+
+     label1:
+        $b20 = 0;
+
+     label2:
+        $i18 = $b17 | $b20;
+
+        $b19 = (byte) $i18;
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address> = $b19;
+
+        goto label6;
+
+     label3:
+        $i1 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        if $i1 != 7 goto label4;
+
+        $z2 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean inputPin>;
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean writeCommand> = $z2;
+
+        $z3 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean writeCommand>;
+
+        if $z3 != 0 goto label6;
+
+        $r24 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r25 = $r24.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $b12 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $r26 = $r25[$b12];
+
+        $b13 = $r26.<avrora.sim.radio.CC1000Radio$RadioRegister: byte value>;
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte readData> = $b13;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void outputReadBit()>();
+
+        goto label6;
+
+     label4:
+        $i2 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        if $i2 >= 16 goto label6;
+
+        $z1 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean writeCommand>;
+
+        if $z1 == 0 goto label5;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void inputWriteBit()>();
+
+        goto label6;
+
+     label5:
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void outputReadBit()>();
+
+     label6:
+        $i21 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        $i22 = $i21 + 1;
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead> = $i22;
+
+        $i23 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        if $i23 != 16 goto label9;
+
+        $z0 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean writeCommand>;
+
+        if $z0 == 0 goto label7;
+
+        $r11 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r12 = $r11.<avrora.sim.radio.CC1000Radio: avrora.sim.radio.CC1000Radio$RadioRegister[] registers>;
+
+        $b6 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $r13 = $r12[$b6];
+
+        $i7 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int writeValue>;
+
+        $b8 = (byte) $i7;
+
+        virtualinvoke $r13.<avrora.sim.radio.CC1000Radio$RadioRegister: void write(byte)>($b8);
+
+        $r14 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter>;
+
+        if $r14 == null goto label8;
+
+        $r16 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter>;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r17 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000.Reg[");
+
+        $b9 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $l10 = (long) $b9;
+
+        $r18 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($l10, 2);
+
+        $r19 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r18);
+
+        $r20 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] <= ");
+
+        $i11 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int writeValue>;
+
+        $r21 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>($i11, 8);
+
+        $r22 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r21);
+
+        $r23 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r16.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($r23);
+
+        goto label8;
+
+     label7:
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter>;
+
+        if $r1 == null goto label8;
+
+        $r3 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.output.SimPrinter readerPrinter>;
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000.Reg[");
+
+        $b3 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address>;
+
+        $l4 = (long) $b3;
+
+        $r5 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($l4, 2);
+
+        $r6 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] -> ");
+
+        $b5 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte readData>;
+
+        $r8 = staticinvoke <cck.text.StringUtil: java.lang.String toMultirepString(int,int)>($b5, 8);
+
+        $r9 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($r10);
+
+     label8:
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead> = 0;
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte address> = 0;
+
+     label9:
+        return;
+    }
+
+    private void inputWriteBit()
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface r0;
+        int $i0, $i1, $i2;
+        boolean $z0;
+        byte $b3;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        $i0 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int writeValue>;
+
+        $i1 = $i0 << 1;
+
+        $z0 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: boolean inputPin>;
+
+        if $z0 == 0 goto label1;
+
+        $b3 = 1;
+
+        goto label2;
+
+     label1:
+        $b3 = 0;
+
+     label2:
+        $i2 = $i1 | $b3;
+
+        r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int writeValue> = $i2;
+
+        return;
+    }
+
+    private void outputReadBit()
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface r0;
+        int $i0, $i1;
+        byte $b2;
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput $r1;
+        boolean $z0;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput PDATA_out>;
+
+        $b2 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: byte readData>;
+
+        $i0 = r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: int bitsRead>;
+
+        $i1 = 14 - $i0;
+
+        $z0 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>($b2, $i1);
+
+        $r1.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface$PDATAInput: boolean outputPin> = $z0;
+
+        return;
+    }
+
+    static void access$200(avrora.sim.radio.CC1000Radio$SerialConfigurationInterface)
+    {
+        avrora.sim.radio.CC1000Radio$SerialConfigurationInterface r0;
+
+        r0 := @parameter0: avrora.sim.radio.CC1000Radio$SerialConfigurationInterface;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$SerialConfigurationInterface: void clockInBit()>();
+
+        return;
+    }
+}

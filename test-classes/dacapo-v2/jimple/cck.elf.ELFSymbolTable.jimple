@@ -1,0 +1,203 @@
+public class cck.elf.ELFSymbolTable extends java.lang.Object
+{
+    public static final int STT_NOTYPE;
+    public static final int STT_OBJECT;
+    public static final int STT_FUNC;
+    public static final int STT_SECTION;
+    public static final int STT_FILE;
+    public static final int STT_LOPROC;
+    public static final int STT_HIPROC;
+    public static final int STB_LOCAL;
+    public static final int STB_GLOBAL;
+    public static final int STB_WEAK;
+    public static final int STB_LOPROC;
+    public static final int STB_HIPROC;
+    public final cck.elf.ELFHeader header;
+    public final cck.elf.ELFSectionHeaderTable$Entry32 entry;
+    public final cck.elf.ELFSymbolTable$Entry[] entries;
+    protected cck.elf.ELFStringTable strtab;
+
+    public void <init>(cck.elf.ELFHeader, cck.elf.ELFSectionHeaderTable$Entry32)
+    {
+        cck.elf.ELFSymbolTable r0;
+        cck.elf.ELFHeader r1;
+        cck.elf.ELFSectionHeaderTable$Entry32 r2;
+        int $i0, $i1, $i2;
+        cck.elf.ELFSymbolTable$Entry[] $r3;
+
+        r0 := @this: cck.elf.ELFSymbolTable;
+
+        r1 := @parameter0: cck.elf.ELFHeader;
+
+        r2 := @parameter1: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<cck.elf.ELFSymbolTable: cck.elf.ELFHeader header> = r1;
+
+        r0.<cck.elf.ELFSymbolTable: cck.elf.ELFSectionHeaderTable$Entry32 entry> = r2;
+
+        $i1 = r2.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_size>;
+
+        $i0 = r2.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_entsize>;
+
+        $i2 = $i1 / $i0;
+
+        $r3 = newarray (cck.elf.ELFSymbolTable$Entry)[$i2];
+
+        r0.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries> = $r3;
+
+        return;
+    }
+
+    public void read(java.io.RandomAccessFile) throws java.io.IOException
+    {
+        java.io.RandomAccessFile r0;
+        cck.elf.ELFSymbolTable r1;
+        cck.elf.ELFSectionHeaderTable$Entry32 $r2, $r10;
+        int $i0, $i2, $i3, $i4, $i5, $i6, $i7, $i9, i11, i12;
+        long $l1;
+        cck.elf.ELFDataInputStream $r3;
+        cck.elf.ELFHeader $r4;
+        cck.elf.ELFSymbolTable$Entry[] $r6, $r9;
+        cck.elf.ELFSymbolTable$Entry $r7;
+        short $s8;
+
+        r1 := @this: cck.elf.ELFSymbolTable;
+
+        r0 := @parameter0: java.io.RandomAccessFile;
+
+        $r2 = r1.<cck.elf.ELFSymbolTable: cck.elf.ELFSectionHeaderTable$Entry32 entry>;
+
+        $i0 = $r2.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_offset>;
+
+        $l1 = (long) $i0;
+
+        virtualinvoke r0.<java.io.RandomAccessFile: void seek(long)>($l1);
+
+        $r3 = new cck.elf.ELFDataInputStream;
+
+        $r4 = r1.<cck.elf.ELFSymbolTable: cck.elf.ELFHeader header>;
+
+        specialinvoke $r3.<cck.elf.ELFDataInputStream: void <init>(cck.elf.ELFHeader,java.io.RandomAccessFile)>($r4, r0);
+
+        i11 = 0;
+
+     label1:
+        $r6 = r1.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries>;
+
+        $i2 = lengthof $r6;
+
+        if i11 >= $i2 goto label4;
+
+        $r7 = new cck.elf.ELFSymbolTable$Entry;
+
+        specialinvoke $r7.<cck.elf.ELFSymbolTable$Entry: void <init>(cck.elf.ELFSymbolTable)>(r1);
+
+        $i3 = virtualinvoke $r3.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r7.<cck.elf.ELFSymbolTable$Entry: int st_name> = $i3;
+
+        $i4 = virtualinvoke $r3.<cck.elf.ELFDataInputStream: int read_Elf32_Addr()>();
+
+        $r7.<cck.elf.ELFSymbolTable$Entry: int st_value> = $i4;
+
+        $i5 = virtualinvoke $r3.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        $r7.<cck.elf.ELFSymbolTable$Entry: int st_size> = $i5;
+
+        $i6 = virtualinvoke $r3.<cck.elf.ELFDataInputStream: int read_Elf32_uchar()>();
+
+        $r7.<cck.elf.ELFSymbolTable$Entry: int st_info> = $i6;
+
+        $i7 = virtualinvoke $r3.<cck.elf.ELFDataInputStream: int read_Elf32_uchar()>();
+
+        $r7.<cck.elf.ELFSymbolTable$Entry: int st_other> = $i7;
+
+        $s8 = virtualinvoke $r3.<cck.elf.ELFDataInputStream: short read_Elf32_Half()>();
+
+        $r7.<cck.elf.ELFSymbolTable$Entry: short st_shndx> = $s8;
+
+        $r9 = r1.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries>;
+
+        $r9[i11] = $r7;
+
+        i12 = 16;
+
+     label2:
+        $r10 = r1.<cck.elf.ELFSymbolTable: cck.elf.ELFSectionHeaderTable$Entry32 entry>;
+
+        $i9 = $r10.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_entsize>;
+
+        if i12 >= $i9 goto label3;
+
+        virtualinvoke r0.<java.io.RandomAccessFile: int read()>();
+
+        i12 = i12 + 1;
+
+        goto label2;
+
+     label3:
+        i11 = i11 + 1;
+
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    public void setStringTable(cck.elf.ELFStringTable)
+    {
+        cck.elf.ELFSymbolTable r0;
+        cck.elf.ELFStringTable r1;
+
+        r0 := @this: cck.elf.ELFSymbolTable;
+
+        r1 := @parameter0: cck.elf.ELFStringTable;
+
+        r0.<cck.elf.ELFSymbolTable: cck.elf.ELFStringTable strtab> = r1;
+
+        return;
+    }
+
+    public cck.elf.ELFStringTable getStringTable()
+    {
+        cck.elf.ELFSymbolTable r0;
+        cck.elf.ELFStringTable $r1;
+
+        r0 := @this: cck.elf.ELFSymbolTable;
+
+        $r1 = r0.<cck.elf.ELFSymbolTable: cck.elf.ELFStringTable strtab>;
+
+        return $r1;
+    }
+
+    public static void <clinit>()
+    {
+        <cck.elf.ELFSymbolTable: int STB_HIPROC> = 15;
+
+        <cck.elf.ELFSymbolTable: int STB_LOPROC> = 13;
+
+        <cck.elf.ELFSymbolTable: int STB_WEAK> = 2;
+
+        <cck.elf.ELFSymbolTable: int STB_GLOBAL> = 1;
+
+        <cck.elf.ELFSymbolTable: int STB_LOCAL> = 0;
+
+        <cck.elf.ELFSymbolTable: int STT_HIPROC> = 15;
+
+        <cck.elf.ELFSymbolTable: int STT_LOPROC> = 13;
+
+        <cck.elf.ELFSymbolTable: int STT_FILE> = 4;
+
+        <cck.elf.ELFSymbolTable: int STT_SECTION> = 3;
+
+        <cck.elf.ELFSymbolTable: int STT_FUNC> = 2;
+
+        <cck.elf.ELFSymbolTable: int STT_OBJECT> = 1;
+
+        <cck.elf.ELFSymbolTable: int STT_NOTYPE> = 0;
+
+        return;
+    }
+}

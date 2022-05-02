@@ -1,0 +1,88 @@
+public abstract class avrora.sim.Interpreter extends java.lang.Object
+{
+    protected boolean innerLoop;
+    protected final avrora.sim.Simulator simulator;
+    protected final avrora.sim.clock.MainClock clock;
+    protected avrora.sim.InterruptTable interrupts;
+
+    public abstract void start();
+
+    public abstract int step();
+
+    public abstract void stop();
+
+    public avrora.sim.Simulator getSimulator()
+    {
+        avrora.sim.Interpreter r0;
+        avrora.sim.Simulator $r1;
+
+        r0 := @this: avrora.sim.Interpreter;
+
+        $r1 = r0.<avrora.sim.Interpreter: avrora.sim.Simulator simulator>;
+
+        return $r1;
+    }
+
+    public avrora.sim.clock.MainClock getMainClock()
+    {
+        avrora.sim.Interpreter r0;
+        avrora.sim.clock.MainClock $r1;
+
+        r0 := @this: avrora.sim.Interpreter;
+
+        $r1 = r0.<avrora.sim.Interpreter: avrora.sim.clock.MainClock clock>;
+
+        return $r1;
+    }
+
+    public abstract avrora.sim.State getState();
+
+    protected void <init>(avrora.sim.Simulator)
+    {
+        avrora.sim.Interpreter r0;
+        avrora.sim.Simulator r1;
+        avrora.sim.clock.MainClock $r2;
+
+        r0 := @this: avrora.sim.Interpreter;
+
+        r1 := @parameter0: avrora.sim.Simulator;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.Interpreter: avrora.sim.Simulator simulator> = r1;
+
+        $r2 = r1.<avrora.sim.Simulator: avrora.sim.clock.MainClock clock>;
+
+        r0.<avrora.sim.Interpreter: avrora.sim.clock.MainClock clock> = $r2;
+
+        return;
+    }
+
+    public avrora.sim.InterruptTable getInterruptTable()
+    {
+        avrora.sim.Interpreter r0;
+        avrora.sim.InterruptTable $r1;
+
+        r0 := @this: avrora.sim.Interpreter;
+
+        $r1 = r0.<avrora.sim.Interpreter: avrora.sim.InterruptTable interrupts>;
+
+        return $r1;
+    }
+
+    protected abstract void insertProbe(avrora.sim.Simulator$Probe, int);
+
+    protected abstract void insertErrorWatch(avrora.sim.Simulator$Watch);
+
+    protected abstract void insertProbe(avrora.sim.Simulator$Probe);
+
+    protected abstract void removeProbe(avrora.sim.Simulator$Probe, int);
+
+    public abstract void removeProbe(avrora.sim.Simulator$Probe);
+
+    protected abstract void insertWatch(avrora.sim.Simulator$Watch, int);
+
+    protected abstract void removeWatch(avrora.sim.Simulator$Watch, int);
+
+    protected abstract void delay(long);
+}

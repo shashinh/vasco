@@ -1,0 +1,106 @@
+public class cck.util.Option$Long extends cck.util.Option
+{
+    protected final long defvalue;
+    protected long value;
+
+    public void <init>(java.lang.String, long, java.lang.String)
+    {
+        cck.util.Option$Long r0;
+        java.lang.String r1, r2;
+        long l0;
+
+        r0 := @this: cck.util.Option$Long;
+
+        r1 := @parameter0: java.lang.String;
+
+        l0 := @parameter1: long;
+
+        r2 := @parameter2: java.lang.String;
+
+        specialinvoke r0.<cck.util.Option: void <init>(java.lang.String,java.lang.String)>(r1, r2);
+
+        r0.<cck.util.Option$Long: long value> = l0;
+
+        r0.<cck.util.Option$Long: long defvalue> = l0;
+
+        return;
+    }
+
+    public void set(java.lang.String)
+    {
+        cck.util.Option$Long r0;
+        java.lang.String r1, $r4;
+        long $l0;
+        java.lang.Exception $r2;
+
+        r0 := @this: cck.util.Option$Long;
+
+        r1 := @parameter0: java.lang.String;
+
+     label1:
+        $l0 = staticinvoke <java.lang.Long: long parseLong(java.lang.String)>(r1);
+
+        r0.<cck.util.Option$Long: long value> = $l0;
+
+     label2:
+        goto label4;
+
+     label3:
+        $r2 := @caughtexception;
+
+        $r4 = r0.<cck.util.Option$Long: java.lang.String name>;
+
+        virtualinvoke r0.<cck.util.Option$Long: void parseError(java.lang.String,java.lang.String,java.lang.String)>($r4, "long", r1);
+
+     label4:
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }
+
+    public long get()
+    {
+        cck.util.Option$Long r0;
+        long $l0;
+
+        r0 := @this: cck.util.Option$Long;
+
+        $l0 = r0.<cck.util.Option$Long: long value>;
+
+        return $l0;
+    }
+
+    public java.lang.String stringValue()
+    {
+        cck.util.Option$Long r0;
+        long $l0;
+        java.lang.String $r1;
+
+        r0 := @this: cck.util.Option$Long;
+
+        $l0 = r0.<cck.util.Option$Long: long value>;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l0);
+
+        return $r1;
+    }
+
+    public void printHelp()
+    {
+        cck.util.Option$Long r0;
+        long $l0;
+        java.lang.String $r1;
+
+        r0 := @this: cck.util.Option$Long;
+
+        $l0 = r0.<cck.util.Option$Long: long defvalue>;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l0);
+
+        virtualinvoke r0.<cck.util.Option$Long: void printHeader(java.lang.String,java.lang.String)>("long", $r1);
+
+        virtualinvoke r0.<cck.util.Option$Long: void printDescription()>();
+
+        return;
+    }
+}

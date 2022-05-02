@@ -1,0 +1,234 @@
+class avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO extends avrora.sim.RWRegister
+{
+    java.util.LinkedList readyQueue;
+    java.util.LinkedList waitQueue;
+    final avrora.sim.mcu.USART$DataRegister this$1;
+
+    void <init>(avrora.sim.mcu.USART$DataRegister)
+    {
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO r0;
+        avrora.sim.mcu.USART$DataRegister r1;
+        java.util.LinkedList $r2, $r3, $r5, $r7, $r9;
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper $r4, $r6, $r8;
+
+        r0 := @this: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+        r1 := @parameter0: avrora.sim.mcu.USART$DataRegister;
+
+        r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1> = r1;
+
+        specialinvoke r0.<avrora.sim.RWRegister: void <init>()>();
+
+        $r2 = new java.util.LinkedList;
+
+        specialinvoke $r2.<java.util.LinkedList: void <init>()>();
+
+        r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue> = $r2;
+
+        $r3 = new java.util.LinkedList;
+
+        specialinvoke $r3.<java.util.LinkedList: void <init>()>();
+
+        r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue> = $r3;
+
+        $r5 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $r4 = new avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper;
+
+        specialinvoke $r4.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: void <init>(avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO,avrora.sim.mcu.USART$1)>(r0, null);
+
+        virtualinvoke $r5.<java.util.LinkedList: boolean add(java.lang.Object)>($r4);
+
+        $r7 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $r6 = new avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper;
+
+        specialinvoke $r6.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: void <init>(avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO,avrora.sim.mcu.USART$1)>(r0, null);
+
+        virtualinvoke $r7.<java.util.LinkedList: boolean add(java.lang.Object)>($r6);
+
+        $r9 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $r8 = new avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper;
+
+        specialinvoke $r8.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: void <init>(avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO,avrora.sim.mcu.USART$1)>(r0, null);
+
+        virtualinvoke $r9.<java.util.LinkedList: boolean add(java.lang.Object)>($r8);
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO r0;
+        java.util.LinkedList $r1, $r2, $r5, $r11;
+        boolean $z0, $z1, $z2;
+        java.lang.Object $r3;
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper r4;
+        avrora.sim.mcu.USART$DataRegister $r6, $r13, $r17;
+        avrora.sim.mcu.USART $r7, $r14, $r18;
+        avrora.sim.mcu.USART$ControlRegisterB $r8;
+        avrora.sim.mcu.USART$Frame $r9, $r12;
+        int $i0, $i1;
+        avrora.sim.state.BooleanView $r10;
+        byte $b2;
+        avrora.sim.mcu.USART$ControlRegisterA $r15, $r19;
+        avrora.sim.mcu.ATMegaFamily$InterruptFlag $r16, $r20;
+
+        r0 := @this: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+        $r1 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        $z0 = virtualinvoke $r1.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $z0 == 0 goto label1;
+
+        $r17 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1>;
+
+        $r18 = $r17.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $r19 = $r18.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $r20 = $r19.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.mcu.ATMegaFamily$InterruptFlag UDRE_flag>;
+
+        virtualinvoke $r20.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: void flag(boolean)>(1);
+
+        return 0;
+
+     label1:
+        $r2 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        $r3 = virtualinvoke $r2.<java.util.LinkedList: java.lang.Object removeLast()>();
+
+        r4 = (avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper) $r3;
+
+        $r5 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        $z1 = virtualinvoke $r5.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $z1 == 0 goto label2;
+
+        $r13 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1>;
+
+        $r14 = $r13.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $r15 = $r14.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $r16 = $r15.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.mcu.ATMegaFamily$InterruptFlag RXC_flag>;
+
+        virtualinvoke $r16.<avrora.sim.mcu.ATMegaFamily$InterruptFlag: void flag(boolean)>(0);
+
+     label2:
+        $r6 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1>;
+
+        $r7 = $r6.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $r8 = $r7.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterB UCSRnB_reg>;
+
+        $r10 = $r8.<avrora.sim.mcu.USART$ControlRegisterB: avrora.sim.state.BooleanView _rxb8n>;
+
+        $r9 = r4.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: avrora.sim.mcu.USART$Frame frame>;
+
+        $i0 = $r9.<avrora.sim.mcu.USART$Frame: int value>;
+
+        $z2 = staticinvoke <cck.util.Arithmetic: boolean getBit(int,int)>($i0, 8);
+
+        interfaceinvoke $r10.<avrora.sim.state.BooleanView: void setValue(boolean)>($z2);
+
+        $r11 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        virtualinvoke $r11.<java.util.LinkedList: boolean add(java.lang.Object)>(r4);
+
+        $r12 = r4.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: avrora.sim.mcu.USART$Frame frame>;
+
+        $i1 = $r12.<avrora.sim.mcu.USART$Frame: int value>;
+
+        $b2 = (byte) $i1;
+
+        return $b2;
+    }
+
+    public void writeFrame(avrora.sim.mcu.USART$Frame)
+    {
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO r0;
+        java.util.LinkedList $r1, $r2, $r7;
+        boolean $z0;
+        java.lang.Object $r3;
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper $r4, r5;
+        avrora.sim.mcu.USART$Frame r6;
+        avrora.sim.mcu.USART$DataRegister $r8;
+        avrora.sim.mcu.USART $r9;
+        avrora.sim.mcu.USART$ControlRegisterA $r10;
+        avrora.sim.state.BooleanView $r11;
+
+        r0 := @this: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+        r6 := @parameter0: avrora.sim.mcu.USART$Frame;
+
+        $r1 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $z0 = virtualinvoke $r1.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $z0 == 0 goto label1;
+
+        $r8 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: avrora.sim.mcu.USART$DataRegister this$1>;
+
+        $r9 = $r8.<avrora.sim.mcu.USART$DataRegister: avrora.sim.mcu.USART this$0>;
+
+        $r10 = $r9.<avrora.sim.mcu.USART: avrora.sim.mcu.USART$ControlRegisterA UCSRnA_reg>;
+
+        $r11 = $r10.<avrora.sim.mcu.USART$ControlRegisterA: avrora.sim.state.BooleanView _dor>;
+
+        interfaceinvoke $r11.<avrora.sim.state.BooleanView: void setValue(boolean)>(1);
+
+        goto label2;
+
+     label1:
+        $r2 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $r3 = virtualinvoke $r2.<java.util.LinkedList: java.lang.Object removeLast()>();
+
+        $r4 = (avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper) $r3;
+
+        r5 = (avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper) $r4;
+
+        r5.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper: avrora.sim.mcu.USART$Frame frame> = r6;
+
+        $r7 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        virtualinvoke $r7.<java.util.LinkedList: void addFirst(java.lang.Object)>(r5);
+
+     label2:
+        return;
+    }
+
+    protected void flush()
+    {
+        avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO r0;
+        java.util.LinkedList $r1, $r2, $r3;
+        boolean $z0;
+        java.lang.Object $r4;
+
+        r0 := @this: avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO;
+
+     label1:
+        $r1 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $z0 = virtualinvoke $r1.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $z0 != 0 goto label2;
+
+        $r3 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList readyQueue>;
+
+        $r2 = r0.<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: java.util.LinkedList waitQueue>;
+
+        $r4 = virtualinvoke $r2.<java.util.LinkedList: java.lang.Object removeLast()>();
+
+        virtualinvoke $r3.<java.util.LinkedList: boolean add(java.lang.Object)>($r4);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}

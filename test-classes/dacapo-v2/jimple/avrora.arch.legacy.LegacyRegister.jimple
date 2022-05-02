@@ -1,0 +1,872 @@
+public class avrora.arch.legacy.LegacyRegister extends java.lang.Object
+{
+    private static final java.util.HashMap registers;
+    public static final avrora.arch.legacy.LegacyRegister R0;
+    public static final avrora.arch.legacy.LegacyRegister R1;
+    public static final avrora.arch.legacy.LegacyRegister R2;
+    public static final avrora.arch.legacy.LegacyRegister R3;
+    public static final avrora.arch.legacy.LegacyRegister R4;
+    public static final avrora.arch.legacy.LegacyRegister R5;
+    public static final avrora.arch.legacy.LegacyRegister R6;
+    public static final avrora.arch.legacy.LegacyRegister R7;
+    public static final avrora.arch.legacy.LegacyRegister R8;
+    public static final avrora.arch.legacy.LegacyRegister R9;
+    public static final avrora.arch.legacy.LegacyRegister R10;
+    public static final avrora.arch.legacy.LegacyRegister R11;
+    public static final avrora.arch.legacy.LegacyRegister R12;
+    public static final avrora.arch.legacy.LegacyRegister R13;
+    public static final avrora.arch.legacy.LegacyRegister R14;
+    public static final avrora.arch.legacy.LegacyRegister R15;
+    public static final avrora.arch.legacy.LegacyRegister R16;
+    public static final avrora.arch.legacy.LegacyRegister R17;
+    public static final avrora.arch.legacy.LegacyRegister R18;
+    public static final avrora.arch.legacy.LegacyRegister R19;
+    public static final avrora.arch.legacy.LegacyRegister R20;
+    public static final avrora.arch.legacy.LegacyRegister R21;
+    public static final avrora.arch.legacy.LegacyRegister R22;
+    public static final avrora.arch.legacy.LegacyRegister R23;
+    public static final avrora.arch.legacy.LegacyRegister R24;
+    public static final avrora.arch.legacy.LegacyRegister R25;
+    public static final avrora.arch.legacy.LegacyRegister R26;
+    public static final avrora.arch.legacy.LegacyRegister R27;
+    public static final avrora.arch.legacy.LegacyRegister R28;
+    public static final avrora.arch.legacy.LegacyRegister R29;
+    public static final avrora.arch.legacy.LegacyRegister R30;
+    public static final avrora.arch.legacy.LegacyRegister R31;
+    public static final avrora.arch.legacy.LegacyRegister X;
+    public static final avrora.arch.legacy.LegacyRegister Y;
+    public static final avrora.arch.legacy.LegacyRegister Z;
+    private static final avrora.arch.legacy.LegacyRegister[] REGS_0_31;
+    private static final avrora.arch.legacy.LegacyRegister[] EREGS;
+    private static final avrora.arch.legacy.LegacyRegister[] REGS_16_31;
+    private static final avrora.arch.legacy.LegacyRegister[] REGS_16_23;
+    private static final avrora.arch.legacy.LegacyRegister[] REGS_XYZ;
+    private static final avrora.arch.legacy.LegacyRegister[] REGS_YZ;
+    private static final avrora.arch.legacy.LegacyRegister[] REGS_Z;
+    private static final avrora.arch.legacy.LegacyRegister[] REGS_RDL;
+    public static final avrora.arch.legacy.LegacyRegister$Set GPR_set;
+    public static final avrora.arch.legacy.LegacyRegister$Set HGPR_set;
+    public static final avrora.arch.legacy.LegacyRegister$Set MGPR_set;
+    public static final avrora.arch.legacy.LegacyRegister$Set EGPR_set;
+    public static final avrora.arch.legacy.LegacyRegister$Set ADR_set;
+    public static final avrora.arch.legacy.LegacyRegister$Set RDL_set;
+    public static final avrora.arch.legacy.LegacyRegister$Set YZ_set;
+    public static final avrora.arch.legacy.LegacyRegister$Set Z_set;
+    private final java.lang.String name;
+    private final int number;
+    private final int width;
+
+    private static java.util.HashMap initializeRegisterMap()
+    {
+        java.util.HashMap $r0;
+        avrora.arch.legacy.LegacyRegister $r2, $r5, $r8, $r11;
+        java.lang.StringBuilder $r12, $r13, $r14, $r17, $r18, $r19, $r22, $r23, $r24;
+        java.lang.String $r15, $r20, $r25;
+        int i0;
+
+        $r0 = new java.util.HashMap;
+
+        specialinvoke $r0.<java.util.HashMap: void <init>()>();
+
+        i0 = 0;
+
+     label1:
+        if i0 >= 32 goto label2;
+
+        $r11 = new avrora.arch.legacy.LegacyRegister;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("r");
+
+        $r14 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r15 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r11.<avrora.arch.legacy.LegacyRegister: void <init>(java.lang.String,int,int)>($r15, i0, 8);
+
+        $r17 = new java.lang.StringBuilder;
+
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        $r18 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("r");
+
+        $r19 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r20 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r20, $r11);
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r23 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("R");
+
+        $r24 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r25 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r25, $r11);
+
+        i0 = i0 + 1;
+
+        goto label1;
+
+     label2:
+        $r2 = new avrora.arch.legacy.LegacyRegister;
+
+        specialinvoke $r2.<avrora.arch.legacy.LegacyRegister: void <init>(java.lang.String,int,int)>("X", 26, 16);
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("x", $r2);
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("X", $r2);
+
+        $r5 = new avrora.arch.legacy.LegacyRegister;
+
+        specialinvoke $r5.<avrora.arch.legacy.LegacyRegister: void <init>(java.lang.String,int,int)>("Y", 28, 16);
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("y", $r5);
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("Y", $r5);
+
+        $r8 = new avrora.arch.legacy.LegacyRegister;
+
+        specialinvoke $r8.<avrora.arch.legacy.LegacyRegister: void <init>(java.lang.String,int,int)>("Z", 30, 16);
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("z", $r8);
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("Z", $r8);
+
+        return $r0;
+    }
+
+    public static avrora.arch.legacy.LegacyRegister getRegisterByName(java.lang.String)
+    {
+        java.lang.String r0;
+        java.util.HashMap $r1;
+        java.lang.Object $r2;
+        avrora.arch.legacy.LegacyRegister $r3;
+
+        r0 := @parameter0: java.lang.String;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: java.util.HashMap registers>;
+
+        $r2 = virtualinvoke $r1.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(r0);
+
+        $r3 = (avrora.arch.legacy.LegacyRegister) $r2;
+
+        return $r3;
+    }
+
+    public static avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)
+    {
+        java.lang.StringBuilder $r0, $r1, $r2;
+        int i0;
+        java.lang.String $r3;
+        avrora.arch.legacy.LegacyRegister $r4;
+
+        i0 := @parameter0: int;
+
+        $r0 = new java.lang.StringBuilder;
+
+        specialinvoke $r0.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("r");
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r4 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByName(java.lang.String)>($r3);
+
+        return $r4;
+    }
+
+    private void <init>(java.lang.String, int, int)
+    {
+        avrora.arch.legacy.LegacyRegister r0;
+        java.lang.String r1;
+        int i0, i1;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister;
+
+        r1 := @parameter0: java.lang.String;
+
+        i0 := @parameter1: int;
+
+        i1 := @parameter2: int;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.arch.legacy.LegacyRegister: java.lang.String name> = r1;
+
+        r0.<avrora.arch.legacy.LegacyRegister: int number> = i0;
+
+        r0.<avrora.arch.legacy.LegacyRegister: int width> = i1;
+
+        return;
+    }
+
+    public int hashCode()
+    {
+        avrora.arch.legacy.LegacyRegister r0;
+        java.lang.String $r1;
+        int $i0;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = r0.<avrora.arch.legacy.LegacyRegister: java.lang.String name>;
+
+        $i0 = virtualinvoke $r1.<java.lang.String: int hashCode()>();
+
+        return $i0;
+    }
+
+    public java.lang.String toString()
+    {
+        avrora.arch.legacy.LegacyRegister r0;
+        java.lang.String $r1;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = r0.<avrora.arch.legacy.LegacyRegister: java.lang.String name>;
+
+        return $r1;
+    }
+
+    public java.lang.String getName()
+    {
+        avrora.arch.legacy.LegacyRegister r0;
+        java.lang.String $r1;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = r0.<avrora.arch.legacy.LegacyRegister: java.lang.String name>;
+
+        return $r1;
+    }
+
+    public int getNumber()
+    {
+        avrora.arch.legacy.LegacyRegister r0;
+        int $i0;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister;
+
+        $i0 = r0.<avrora.arch.legacy.LegacyRegister: int number>;
+
+        return $i0;
+    }
+
+    public int getWidth()
+    {
+        avrora.arch.legacy.LegacyRegister r0;
+        int $i0;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister;
+
+        $i0 = r0.<avrora.arch.legacy.LegacyRegister: int width>;
+
+        return $i0;
+    }
+
+    public avrora.arch.legacy.LegacyRegister nextRegister()
+    {
+        avrora.arch.legacy.LegacyRegister r0, $r2;
+        int $i0, $i1;
+        avrora.arch.legacy.LegacyRegister[] $r1;
+
+        r0 := @this: avrora.arch.legacy.LegacyRegister;
+
+        $r1 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_0_31>;
+
+        $i0 = r0.<avrora.arch.legacy.LegacyRegister: int number>;
+
+        $i1 = $i0 + 1;
+
+        $r2 = $r1[$i1];
+
+        return $r2;
+    }
+
+    static void <clinit>()
+    {
+        java.util.HashMap $r0;
+        avrora.arch.legacy.LegacyRegister $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r10, $r11, $r12, $r13, $r14, $r15, $r16, $r17, $r18, $r19, $r20, $r21, $r22, $r23, $r24, $r25, $r26, $r27, $r28, $r29, $r30, $r31, $r32, $r33, $r34, $r35, $r37, $r38, $r39, $r40, $r41, $r42, $r43, $r44, $r45, $r46, $r47, $r48, $r49, $r50, $r51, $r52, $r53, $r54, $r55, $r56, $r57, $r58, $r59, $r60, $r61, $r62, $r63, $r64, $r65, $r66, $r67, $r68, $r70, $r71, $r72, $r73, $r74, $r75, $r76, $r77, $r78, $r79, $r80, $r81, $r82, $r83, $r84, $r85, $r87, $r88, $r89, $r90, $r91, $r92, $r93, $r94, $r95, $r96, $r97, $r98, $r99, $r100, $r101, $r102, $r104, $r105, $r106, $r107, $r108, $r109, $r110, $r111, $r113, $r114, $r115, $r117, $r118, $r120, $r122, $r123, $r124, $r125;
+        avrora.arch.legacy.LegacyRegister[] $r36, $r69, $r86, $r103, $r112, $r116, $r119, $r121, $r127, $r129, $r131, $r133, $r135, $r137, $r139, $r141;
+        avrora.arch.legacy.LegacyRegister$Set $r126, $r128, $r130, $r132, $r134, $r136, $r138, $r140;
+
+        $r0 = staticinvoke <avrora.arch.legacy.LegacyRegister: java.util.HashMap initializeRegisterMap()>();
+
+        <avrora.arch.legacy.LegacyRegister: java.util.HashMap registers> = $r0;
+
+        $r1 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(0);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R0> = $r1;
+
+        $r2 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(1);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R1> = $r2;
+
+        $r3 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(2);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R2> = $r3;
+
+        $r4 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(3);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R3> = $r4;
+
+        $r5 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(4);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R4> = $r5;
+
+        $r6 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(5);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R5> = $r6;
+
+        $r7 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(6);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R6> = $r7;
+
+        $r8 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(7);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R7> = $r8;
+
+        $r9 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(8);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R8> = $r9;
+
+        $r10 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(9);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R9> = $r10;
+
+        $r11 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(10);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R10> = $r11;
+
+        $r12 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(11);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R11> = $r12;
+
+        $r13 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(12);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R12> = $r13;
+
+        $r14 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(13);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R13> = $r14;
+
+        $r15 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(14);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R14> = $r15;
+
+        $r16 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(15);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R15> = $r16;
+
+        $r17 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(16);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R16> = $r17;
+
+        $r18 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(17);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R17> = $r18;
+
+        $r19 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(18);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R18> = $r19;
+
+        $r20 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(19);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R19> = $r20;
+
+        $r21 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(20);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R20> = $r21;
+
+        $r22 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(21);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R21> = $r22;
+
+        $r23 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(22);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R22> = $r23;
+
+        $r24 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(23);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R23> = $r24;
+
+        $r25 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(24);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R24> = $r25;
+
+        $r26 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(25);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R25> = $r26;
+
+        $r27 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(26);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R26> = $r27;
+
+        $r28 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(27);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R27> = $r28;
+
+        $r29 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(28);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R28> = $r29;
+
+        $r30 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(29);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R29> = $r30;
+
+        $r31 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(30);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R30> = $r31;
+
+        $r32 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByNumber(int)>(31);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R31> = $r32;
+
+        $r33 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByName(java.lang.String)>("x");
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister X> = $r33;
+
+        $r34 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByName(java.lang.String)>("y");
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Y> = $r34;
+
+        $r35 = staticinvoke <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister getRegisterByName(java.lang.String)>("z");
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Z> = $r35;
+
+        $r36 = newarray (avrora.arch.legacy.LegacyRegister)[32];
+
+        $r37 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R0>;
+
+        $r36[0] = $r37;
+
+        $r38 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R1>;
+
+        $r36[1] = $r38;
+
+        $r39 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R2>;
+
+        $r36[2] = $r39;
+
+        $r40 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R3>;
+
+        $r36[3] = $r40;
+
+        $r41 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R4>;
+
+        $r36[4] = $r41;
+
+        $r42 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R5>;
+
+        $r36[5] = $r42;
+
+        $r43 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R6>;
+
+        $r36[6] = $r43;
+
+        $r44 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R7>;
+
+        $r36[7] = $r44;
+
+        $r45 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R8>;
+
+        $r36[8] = $r45;
+
+        $r46 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R9>;
+
+        $r36[9] = $r46;
+
+        $r47 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R10>;
+
+        $r36[10] = $r47;
+
+        $r48 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R11>;
+
+        $r36[11] = $r48;
+
+        $r49 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R12>;
+
+        $r36[12] = $r49;
+
+        $r50 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R13>;
+
+        $r36[13] = $r50;
+
+        $r51 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R14>;
+
+        $r36[14] = $r51;
+
+        $r52 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R15>;
+
+        $r36[15] = $r52;
+
+        $r53 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R16>;
+
+        $r36[16] = $r53;
+
+        $r54 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R17>;
+
+        $r36[17] = $r54;
+
+        $r55 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R18>;
+
+        $r36[18] = $r55;
+
+        $r56 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R19>;
+
+        $r36[19] = $r56;
+
+        $r57 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R20>;
+
+        $r36[20] = $r57;
+
+        $r58 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R21>;
+
+        $r36[21] = $r58;
+
+        $r59 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R22>;
+
+        $r36[22] = $r59;
+
+        $r60 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R23>;
+
+        $r36[23] = $r60;
+
+        $r61 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R24>;
+
+        $r36[24] = $r61;
+
+        $r62 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R25>;
+
+        $r36[25] = $r62;
+
+        $r63 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R26>;
+
+        $r36[26] = $r63;
+
+        $r64 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R27>;
+
+        $r36[27] = $r64;
+
+        $r65 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R28>;
+
+        $r36[28] = $r65;
+
+        $r66 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R29>;
+
+        $r36[29] = $r66;
+
+        $r67 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R30>;
+
+        $r36[30] = $r67;
+
+        $r68 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R31>;
+
+        $r36[31] = $r68;
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_0_31> = $r36;
+
+        $r69 = newarray (avrora.arch.legacy.LegacyRegister)[16];
+
+        $r70 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R0>;
+
+        $r69[0] = $r70;
+
+        $r71 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R2>;
+
+        $r69[1] = $r71;
+
+        $r72 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R4>;
+
+        $r69[2] = $r72;
+
+        $r73 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R6>;
+
+        $r69[3] = $r73;
+
+        $r74 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R8>;
+
+        $r69[4] = $r74;
+
+        $r75 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R10>;
+
+        $r69[5] = $r75;
+
+        $r76 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R12>;
+
+        $r69[6] = $r76;
+
+        $r77 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R14>;
+
+        $r69[7] = $r77;
+
+        $r78 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R16>;
+
+        $r69[8] = $r78;
+
+        $r79 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R18>;
+
+        $r69[9] = $r79;
+
+        $r80 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R20>;
+
+        $r69[10] = $r80;
+
+        $r81 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R22>;
+
+        $r69[11] = $r81;
+
+        $r82 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R24>;
+
+        $r69[12] = $r82;
+
+        $r83 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R26>;
+
+        $r69[13] = $r83;
+
+        $r84 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R28>;
+
+        $r69[14] = $r84;
+
+        $r85 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R30>;
+
+        $r69[15] = $r85;
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] EREGS> = $r69;
+
+        $r86 = newarray (avrora.arch.legacy.LegacyRegister)[16];
+
+        $r87 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R16>;
+
+        $r86[0] = $r87;
+
+        $r88 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R17>;
+
+        $r86[1] = $r88;
+
+        $r89 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R18>;
+
+        $r86[2] = $r89;
+
+        $r90 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R19>;
+
+        $r86[3] = $r90;
+
+        $r91 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R20>;
+
+        $r86[4] = $r91;
+
+        $r92 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R21>;
+
+        $r86[5] = $r92;
+
+        $r93 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R22>;
+
+        $r86[6] = $r93;
+
+        $r94 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R23>;
+
+        $r86[7] = $r94;
+
+        $r95 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R24>;
+
+        $r86[8] = $r95;
+
+        $r96 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R25>;
+
+        $r86[9] = $r96;
+
+        $r97 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R26>;
+
+        $r86[10] = $r97;
+
+        $r98 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R27>;
+
+        $r86[11] = $r98;
+
+        $r99 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R28>;
+
+        $r86[12] = $r99;
+
+        $r100 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R29>;
+
+        $r86[13] = $r100;
+
+        $r101 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R30>;
+
+        $r86[14] = $r101;
+
+        $r102 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R31>;
+
+        $r86[15] = $r102;
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_16_31> = $r86;
+
+        $r103 = newarray (avrora.arch.legacy.LegacyRegister)[8];
+
+        $r104 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R16>;
+
+        $r103[0] = $r104;
+
+        $r105 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R17>;
+
+        $r103[1] = $r105;
+
+        $r106 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R18>;
+
+        $r103[2] = $r106;
+
+        $r107 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R19>;
+
+        $r103[3] = $r107;
+
+        $r108 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R20>;
+
+        $r103[4] = $r108;
+
+        $r109 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R21>;
+
+        $r103[5] = $r109;
+
+        $r110 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R22>;
+
+        $r103[6] = $r110;
+
+        $r111 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R23>;
+
+        $r103[7] = $r111;
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_16_23> = $r103;
+
+        $r112 = newarray (avrora.arch.legacy.LegacyRegister)[3];
+
+        $r113 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister X>;
+
+        $r112[0] = $r113;
+
+        $r114 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Y>;
+
+        $r112[1] = $r114;
+
+        $r115 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Z>;
+
+        $r112[2] = $r115;
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_XYZ> = $r112;
+
+        $r116 = newarray (avrora.arch.legacy.LegacyRegister)[2];
+
+        $r117 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Y>;
+
+        $r116[0] = $r117;
+
+        $r118 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Z>;
+
+        $r116[1] = $r118;
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_YZ> = $r116;
+
+        $r119 = newarray (avrora.arch.legacy.LegacyRegister)[1];
+
+        $r120 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister Z>;
+
+        $r119[0] = $r120;
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_Z> = $r119;
+
+        $r121 = newarray (avrora.arch.legacy.LegacyRegister)[4];
+
+        $r122 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R24>;
+
+        $r121[0] = $r122;
+
+        $r123 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R26>;
+
+        $r121[1] = $r123;
+
+        $r124 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R28>;
+
+        $r121[2] = $r124;
+
+        $r125 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister R30>;
+
+        $r121[3] = $r125;
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_RDL> = $r121;
+
+        $r126 = new avrora.arch.legacy.LegacyRegister$Set;
+
+        $r127 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_0_31>;
+
+        specialinvoke $r126.<avrora.arch.legacy.LegacyRegister$Set: void <init>(avrora.arch.legacy.LegacyRegister[])>($r127);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set GPR_set> = $r126;
+
+        $r128 = new avrora.arch.legacy.LegacyRegister$Set;
+
+        $r129 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_16_31>;
+
+        specialinvoke $r128.<avrora.arch.legacy.LegacyRegister$Set: void <init>(avrora.arch.legacy.LegacyRegister[])>($r129);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set HGPR_set> = $r128;
+
+        $r130 = new avrora.arch.legacy.LegacyRegister$Set;
+
+        $r131 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_16_23>;
+
+        specialinvoke $r130.<avrora.arch.legacy.LegacyRegister$Set: void <init>(avrora.arch.legacy.LegacyRegister[])>($r131);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set MGPR_set> = $r130;
+
+        $r132 = new avrora.arch.legacy.LegacyRegister$Set;
+
+        $r133 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] EREGS>;
+
+        specialinvoke $r132.<avrora.arch.legacy.LegacyRegister$Set: void <init>(avrora.arch.legacy.LegacyRegister[])>($r133);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set EGPR_set> = $r132;
+
+        $r134 = new avrora.arch.legacy.LegacyRegister$Set;
+
+        $r135 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_XYZ>;
+
+        specialinvoke $r134.<avrora.arch.legacy.LegacyRegister$Set: void <init>(avrora.arch.legacy.LegacyRegister[])>($r135);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set ADR_set> = $r134;
+
+        $r136 = new avrora.arch.legacy.LegacyRegister$Set;
+
+        $r137 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_RDL>;
+
+        specialinvoke $r136.<avrora.arch.legacy.LegacyRegister$Set: void <init>(avrora.arch.legacy.LegacyRegister[])>($r137);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set RDL_set> = $r136;
+
+        $r138 = new avrora.arch.legacy.LegacyRegister$Set;
+
+        $r139 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_YZ>;
+
+        specialinvoke $r138.<avrora.arch.legacy.LegacyRegister$Set: void <init>(avrora.arch.legacy.LegacyRegister[])>($r139);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set YZ_set> = $r138;
+
+        $r140 = new avrora.arch.legacy.LegacyRegister$Set;
+
+        $r141 = <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister[] REGS_Z>;
+
+        specialinvoke $r140.<avrora.arch.legacy.LegacyRegister$Set: void <init>(avrora.arch.legacy.LegacyRegister[])>($r141);
+
+        <avrora.arch.legacy.LegacyRegister: avrora.arch.legacy.LegacyRegister$Set Z_set> = $r140;
+
+        return;
+    }
+}

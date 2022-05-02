@@ -1,0 +1,118 @@
+public class avrora.sim.radio.CC1000Radio$CurrentRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    int vcoCurrent;
+    double loDrive;
+    int paDrive;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$CurrentRegister r0;
+        avrora.sim.radio.CC1000Radio r1;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$CurrentRegister;
+
+        r1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: avrora.sim.radio.CC1000Radio this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(r1, "CURRENT", -54);
+
+        r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: int vcoCurrent> = 150;
+
+        r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: double loDrive> = 0.5;
+
+        r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: int paDrive> = 1;
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$CurrentRegister r0;
+        byte b0;
+        int $i1, $i2, $i3, $i4, $i5, $i6, $i7;
+        int[] $r1, $r3;
+        double[] $r2;
+        double $d0;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$CurrentRegister;
+
+        b0 := @parameter0: byte;
+
+        $r1 = <avrora.sim.radio.CC1000Radio: int[] VCO_CURRENT>;
+
+        $i1 = b0 & 240;
+
+        $i2 = $i1 >> 4;
+
+        $i3 = $r1[$i2];
+
+        r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: int vcoCurrent> = $i3;
+
+        $r2 = <avrora.sim.radio.CC1000Radio: double[] LO_DRIVE>;
+
+        $i4 = b0 & 12;
+
+        $i5 = $i4 >> 2;
+
+        $d0 = $r2[$i5];
+
+        r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: double loDrive> = $d0;
+
+        $r3 = <avrora.sim.radio.CC1000Radio: int[] PA_DRIVE>;
+
+        $i6 = b0 & 3;
+
+        $i7 = $r3[$i6];
+
+        r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: int paDrive> = $i7;
+
+        return;
+    }
+
+    protected void printStatus()
+    {
+        avrora.sim.radio.CC1000Radio$CurrentRegister r0;
+        avrora.sim.radio.CC1000Radio $r1;
+        java.lang.StringBuilder $r2, $r4, $r5, $r6, $r7, $r8, $r9;
+        avrora.sim.output.SimPrinter $r3;
+        int $i0, $i1;
+        double $d0;
+        java.lang.String $r10;
+
+        r0 := @this: avrora.sim.radio.CC1000Radio$CurrentRegister;
+
+        $r1 = r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $r3 = $r1.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CC1000[CURRENT]: vco current: ");
+
+        $i0 = r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: int vcoCurrent>;
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", LO drive: ");
+
+        $d0 = r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: double loDrive>;
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(double)>($d0);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", PA drive: ");
+
+        $i1 = r0.<avrora.sim.radio.CC1000Radio$CurrentRegister: int paDrive>;
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($r10);
+
+        return;
+    }
+}

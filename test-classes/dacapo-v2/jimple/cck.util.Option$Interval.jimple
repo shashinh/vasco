@@ -1,0 +1,200 @@
+public class cck.util.Option$Interval extends cck.util.Option
+{
+    protected final long default_low;
+    protected final long default_high;
+    protected long low;
+    protected long high;
+
+    public void <init>(java.lang.String, long, long, java.lang.String)
+    {
+        cck.util.Option$Interval r0;
+        java.lang.String r1, r2;
+        long l0, l1;
+
+        r0 := @this: cck.util.Option$Interval;
+
+        r1 := @parameter0: java.lang.String;
+
+        l0 := @parameter1: long;
+
+        l1 := @parameter2: long;
+
+        r2 := @parameter3: java.lang.String;
+
+        specialinvoke r0.<cck.util.Option: void <init>(java.lang.String,java.lang.String)>(r1, r2);
+
+        r0.<cck.util.Option$Interval: long low> = l0;
+
+        r0.<cck.util.Option$Interval: long default_low> = l0;
+
+        r0.<cck.util.Option$Interval: long high> = l1;
+
+        r0.<cck.util.Option$Interval: long default_high> = l1;
+
+        return;
+    }
+
+    public void set(java.lang.String)
+    {
+        java.text.StringCharacterIterator $r0;
+        java.lang.String r1, r4, $r5, $r6, $r7, $r9, r10;
+        boolean $z0, $z1, $z2;
+        cck.util.Option$Interval r3;
+        long $l0, $l1;
+        java.lang.NumberFormatException $r8;
+
+        r3 := @this: cck.util.Option$Interval;
+
+        r1 := @parameter0: java.lang.String;
+
+        $r0 = new java.text.StringCharacterIterator;
+
+        specialinvoke $r0.<java.text.StringCharacterIterator: void <init>(java.lang.String)>(r1);
+
+     label1:
+        $z0 = staticinvoke <cck.text.StringUtil: boolean peekAndEat(java.text.CharacterIterator,char)>($r0, 91);
+
+        if $z0 != 0 goto label2;
+
+        $r7 = r3.<cck.util.Option$Interval: java.lang.String name>;
+
+        virtualinvoke r3.<cck.util.Option$Interval: void parseError(java.lang.String,java.lang.String,java.lang.String)>($r7, "interval", r1);
+
+     label2:
+        r10 = staticinvoke <cck.text.StringUtil: java.lang.String readDecimalString(java.text.CharacterIterator,int)>($r0, 12);
+
+        $l0 = staticinvoke <java.lang.Long: long parseLong(java.lang.String)>(r10);
+
+        r3.<cck.util.Option$Interval: long low> = $l0;
+
+        $z1 = staticinvoke <cck.text.StringUtil: boolean peekAndEat(java.text.CharacterIterator,char)>($r0, 44);
+
+        if $z1 != 0 goto label3;
+
+        $r6 = r3.<cck.util.Option$Interval: java.lang.String name>;
+
+        virtualinvoke r3.<cck.util.Option$Interval: void parseError(java.lang.String,java.lang.String,java.lang.String)>($r6, "interval", r1);
+
+     label3:
+        r4 = staticinvoke <cck.text.StringUtil: java.lang.String readDecimalString(java.text.CharacterIterator,int)>($r0, 12);
+
+        $l1 = staticinvoke <java.lang.Long: long parseLong(java.lang.String)>(r4);
+
+        r3.<cck.util.Option$Interval: long high> = $l1;
+
+        $z2 = staticinvoke <cck.text.StringUtil: boolean peekAndEat(java.text.CharacterIterator,char)>($r0, 93);
+
+        if $z2 != 0 goto label4;
+
+        $r5 = r3.<cck.util.Option$Interval: java.lang.String name>;
+
+        virtualinvoke r3.<cck.util.Option$Interval: void parseError(java.lang.String,java.lang.String,java.lang.String)>($r5, "interval", r1);
+
+     label4:
+        goto label6;
+
+     label5:
+        $r8 := @caughtexception;
+
+        $r9 = r3.<cck.util.Option$Interval: java.lang.String name>;
+
+        virtualinvoke r3.<cck.util.Option$Interval: void parseError(java.lang.String,java.lang.String,java.lang.String)>($r9, "interval", r1);
+
+     label6:
+        return;
+
+        catch java.lang.NumberFormatException from label1 to label4 with label5;
+    }
+
+    public long getLow()
+    {
+        cck.util.Option$Interval r0;
+        long $l0;
+
+        r0 := @this: cck.util.Option$Interval;
+
+        $l0 = r0.<cck.util.Option$Interval: long low>;
+
+        return $l0;
+    }
+
+    public long getHigh()
+    {
+        cck.util.Option$Interval r0;
+        long $l0;
+
+        r0 := @this: cck.util.Option$Interval;
+
+        $l0 = r0.<cck.util.Option$Interval: long high>;
+
+        return $l0;
+    }
+
+    public java.lang.String stringValue()
+    {
+        java.lang.StringBuilder $r0, $r1, $r3, $r4, $r5, $r6;
+        cck.util.Option$Interval r2;
+        long $l0, $l1;
+        java.lang.String $r7;
+
+        r2 := @this: cck.util.Option$Interval;
+
+        $r0 = new java.lang.StringBuilder;
+
+        specialinvoke $r0.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $l0 = r2.<cck.util.Option$Interval: long low>;
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        $l1 = r2.<cck.util.Option$Interval: long high>;
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l1);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(93);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $r7;
+    }
+
+    public void printHelp()
+    {
+        cck.util.Option$Interval r0;
+        java.lang.StringBuilder $r1, $r2, $r3, $r4, $r5, $r6;
+        long $l0, $l1;
+        java.lang.String $r7;
+
+        r0 := @this: cck.util.Option$Interval;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $l0 = r0.<cck.util.Option$Interval: long default_low>;
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(44);
+
+        $l1 = r0.<cck.util.Option$Interval: long default_high>;
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l1);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(93);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke r0.<cck.util.Option$Interval: void printHeader(java.lang.String,java.lang.String)>("interval", $r7);
+
+        virtualinvoke r0.<cck.util.Option$Interval: void printDescription()>();
+
+        return;
+    }
+}

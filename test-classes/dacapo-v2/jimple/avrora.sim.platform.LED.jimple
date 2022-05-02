@@ -1,0 +1,201 @@
+public class avrora.sim.platform.LED extends java.lang.Object implements avrora.sim.mcu.Microcontroller$Pin$Output
+{
+    public avrora.sim.Simulator sim;
+    public final int colornum;
+    public final java.lang.String color;
+    public final avrora.sim.FiniteStateMachine state;
+    protected final avrora.sim.platform.LED$LEDProbe probe;
+    private static final java.lang.String[] modeName;
+    private static final double[] modeAmpere;
+    private static final int startMode;
+
+    protected void <init>(avrora.sim.Simulator, int, java.lang.String)
+    {
+        avrora.sim.platform.LED r0;
+        avrora.sim.Simulator r1, $r3, $r9;
+        int i0;
+        java.lang.String r2;
+        avrora.sim.clock.MainClock r4;
+        avrora.sim.FiniteStateMachine $r5, $r11;
+        java.lang.String[] $r6;
+        avrora.sim.platform.LED$LEDProbe $r7;
+        avrora.sim.energy.Energy $r8;
+        double[] $r10;
+        avrora.sim.Simulation $r12;
+        avrora.sim.energy.EnergyControl $r13;
+
+        r0 := @this: avrora.sim.platform.LED;
+
+        r1 := @parameter0: avrora.sim.Simulator;
+
+        i0 := @parameter1: int;
+
+        r2 := @parameter2: java.lang.String;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<avrora.sim.platform.LED: avrora.sim.Simulator sim> = r1;
+
+        r0.<avrora.sim.platform.LED: int colornum> = i0;
+
+        r0.<avrora.sim.platform.LED: java.lang.String color> = r2;
+
+        $r3 = r0.<avrora.sim.platform.LED: avrora.sim.Simulator sim>;
+
+        r4 = virtualinvoke $r3.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $r5 = new avrora.sim.FiniteStateMachine;
+
+        $r6 = <avrora.sim.platform.LED: java.lang.String[] modeName>;
+
+        specialinvoke $r5.<avrora.sim.FiniteStateMachine: void <init>(avrora.sim.clock.Clock,int,java.lang.String[],int)>(r4, 0, $r6, 0);
+
+        r0.<avrora.sim.platform.LED: avrora.sim.FiniteStateMachine state> = $r5;
+
+        $r7 = new avrora.sim.platform.LED$LEDProbe;
+
+        specialinvoke $r7.<avrora.sim.platform.LED$LEDProbe: void <init>(avrora.sim.platform.LED)>(r0);
+
+        r0.<avrora.sim.platform.LED: avrora.sim.platform.LED$LEDProbe probe> = $r7;
+
+        $r8 = new avrora.sim.energy.Energy;
+
+        $r10 = <avrora.sim.platform.LED: double[] modeAmpere>;
+
+        $r11 = r0.<avrora.sim.platform.LED: avrora.sim.FiniteStateMachine state>;
+
+        $r9 = r0.<avrora.sim.platform.LED: avrora.sim.Simulator sim>;
+
+        $r12 = virtualinvoke $r9.<avrora.sim.Simulator: avrora.sim.Simulation getSimulation()>();
+
+        $r13 = virtualinvoke $r12.<avrora.sim.Simulation: avrora.sim.energy.EnergyControl getEnergyControl()>();
+
+        specialinvoke $r8.<avrora.sim.energy.Energy: void <init>(java.lang.String,double[],avrora.sim.FiniteStateMachine,avrora.sim.energy.EnergyControl)>(r2, $r10, $r11, $r13);
+
+        return;
+    }
+
+    public void write(boolean)
+    {
+        boolean z0;
+        avrora.sim.platform.LED r0;
+        avrora.sim.FiniteStateMachine $r1;
+        byte $b1;
+
+        r0 := @this: avrora.sim.platform.LED;
+
+        z0 := @parameter0: boolean;
+
+        if z0 == 0 goto label1;
+
+        $b1 = 0;
+
+        goto label2;
+
+     label1:
+        $b1 = 1;
+
+     label2:
+        $r1 = r0.<avrora.sim.platform.LED: avrora.sim.FiniteStateMachine state>;
+
+        virtualinvoke $r1.<avrora.sim.FiniteStateMachine: void transition(int)>($b1);
+
+        return;
+    }
+
+    public void enablePrinting()
+    {
+        avrora.sim.platform.LED r0;
+        avrora.sim.platform.LED$LEDProbe $r1;
+        avrora.sim.FiniteStateMachine $r2;
+
+        r0 := @this: avrora.sim.platform.LED;
+
+        $r2 = r0.<avrora.sim.platform.LED: avrora.sim.FiniteStateMachine state>;
+
+        $r1 = r0.<avrora.sim.platform.LED: avrora.sim.platform.LED$LEDProbe probe>;
+
+        virtualinvoke $r2.<avrora.sim.FiniteStateMachine: void insertProbe(avrora.sim.FiniteStateMachine$Probe)>($r1);
+
+        return;
+    }
+
+    public void disablePrinting()
+    {
+        avrora.sim.platform.LED r0;
+        avrora.sim.platform.LED$LEDProbe $r1;
+        avrora.sim.FiniteStateMachine $r2;
+
+        r0 := @this: avrora.sim.platform.LED;
+
+        $r2 = r0.<avrora.sim.platform.LED: avrora.sim.FiniteStateMachine state>;
+
+        $r1 = r0.<avrora.sim.platform.LED: avrora.sim.platform.LED$LEDProbe probe>;
+
+        virtualinvoke $r2.<avrora.sim.FiniteStateMachine: void removeProbe(avrora.sim.FiniteStateMachine$Probe)>($r1);
+
+        return;
+    }
+
+    public int getState()
+    {
+        avrora.sim.platform.LED r0;
+        avrora.sim.FiniteStateMachine $r1;
+        int $i0;
+
+        r0 := @this: avrora.sim.platform.LED;
+
+        $r1 = r0.<avrora.sim.platform.LED: avrora.sim.FiniteStateMachine state>;
+
+        $i0 = virtualinvoke $r1.<avrora.sim.FiniteStateMachine: int getCurrentState()>();
+
+        return $i0;
+    }
+
+    public avrora.sim.FiniteStateMachine getFSM()
+    {
+        avrora.sim.platform.LED r0;
+        avrora.sim.FiniteStateMachine $r1;
+
+        r0 := @this: avrora.sim.platform.LED;
+
+        $r1 = r0.<avrora.sim.platform.LED: avrora.sim.FiniteStateMachine state>;
+
+        return $r1;
+    }
+
+    static java.lang.String[] access$000()
+    {
+        java.lang.String[] $r0;
+
+        $r0 = <avrora.sim.platform.LED: java.lang.String[] modeName>;
+
+        return $r0;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.String[] $r0;
+        double[] $r1;
+
+        <avrora.sim.platform.LED: int startMode> = 0;
+
+        $r0 = newarray (java.lang.String)[2];
+
+        $r0[0] = "off";
+
+        $r0[1] = "on";
+
+        <avrora.sim.platform.LED: java.lang.String[] modeName> = $r0;
+
+        $r1 = newarray (double)[2];
+
+        $r1[0] = 0.0;
+
+        $r1[1] = 0.0022;
+
+        <avrora.sim.platform.LED: double[] modeAmpere> = $r1;
+
+        return;
+    }
+}

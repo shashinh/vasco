@@ -1,0 +1,135 @@
+public class avrora.sim.clock.DerivedClock extends avrora.sim.clock.Clock
+{
+    protected final avrora.sim.clock.Clock driveClock;
+    protected final double divider;
+
+    public void <init>(java.lang.String, avrora.sim.clock.Clock, long)
+    {
+        avrora.sim.clock.DerivedClock r0;
+        java.lang.String r1;
+        long l0, $l1, $l3, $l4;
+        avrora.sim.clock.Clock r2;
+        byte $b2;
+        double $d0;
+        cck.util.Util$InternalError $r3;
+
+        r0 := @this: avrora.sim.clock.DerivedClock;
+
+        r1 := @parameter0: java.lang.String;
+
+        r2 := @parameter1: avrora.sim.clock.Clock;
+
+        l0 := @parameter2: long;
+
+        specialinvoke r0.<avrora.sim.clock.Clock: void <init>(java.lang.String,long)>(r1, l0);
+
+        r0.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock> = r2;
+
+        $l1 = virtualinvoke r2.<avrora.sim.clock.Clock: long getHZ()>();
+
+        $b2 = $l1 cmp l0;
+
+        if $b2 >= 0 goto label1;
+
+        $r3 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>("cannot derive faster clock from slower clock");
+
+        throw $r3;
+
+     label1:
+        $l3 = virtualinvoke r2.<avrora.sim.clock.Clock: long getHZ()>();
+
+        $l4 = $l3 / l0;
+
+        $d0 = (double) $l4;
+
+        r0.<avrora.sim.clock.DerivedClock: double divider> = $d0;
+
+        return;
+    }
+
+    public long getCount()
+    {
+        avrora.sim.clock.DerivedClock r0;
+        avrora.sim.clock.Clock $r1;
+        long $l0, $l1;
+        double $d0, $d1, $d2;
+
+        r0 := @this: avrora.sim.clock.DerivedClock;
+
+        $r1 = r0.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock>;
+
+        $l0 = virtualinvoke $r1.<avrora.sim.clock.Clock: long getCount()>();
+
+        $d1 = (double) $l0;
+
+        $d0 = r0.<avrora.sim.clock.DerivedClock: double divider>;
+
+        $d2 = $d1 / $d0;
+
+        $l1 = (long) $d2;
+
+        return $l1;
+    }
+
+    public void insertEvent(avrora.sim.Simulator$Event, long)
+    {
+        avrora.sim.clock.DerivedClock r0;
+        avrora.sim.clock.Clock $r1, $r3;
+        long l0, l1, $l2, $l3, l4, $l5;
+        double $d0, $d1, $d2, $d3, $d4, $d5;
+        avrora.sim.Simulator$Event r2;
+
+        r0 := @this: avrora.sim.clock.DerivedClock;
+
+        r2 := @parameter0: avrora.sim.Simulator$Event;
+
+        l1 := @parameter1: long;
+
+        $r1 = r0.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock>;
+
+        l0 = virtualinvoke $r1.<avrora.sim.clock.Clock: long getCount()>();
+
+        $d1 = (double) l0;
+
+        $d0 = r0.<avrora.sim.clock.DerivedClock: double divider>;
+
+        $d2 = $d1 / $d0;
+
+        $l2 = (long) $d2;
+
+        $l3 = $l2 + l1;
+
+        $d4 = (double) $l3;
+
+        $d3 = r0.<avrora.sim.clock.DerivedClock: double divider>;
+
+        $d5 = $d4 * $d3;
+
+        l4 = (long) $d5;
+
+        $r3 = r0.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock>;
+
+        $l5 = l4 - l0;
+
+        virtualinvoke $r3.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>(r2, $l5);
+
+        return;
+    }
+
+    public void removeEvent(avrora.sim.Simulator$Event)
+    {
+        avrora.sim.clock.DerivedClock r0;
+        avrora.sim.Simulator$Event r1;
+        avrora.sim.clock.Clock $r2;
+
+        r0 := @this: avrora.sim.clock.DerivedClock;
+
+        r1 := @parameter0: avrora.sim.Simulator$Event;
+
+        $r2 = r0.<avrora.sim.clock.DerivedClock: avrora.sim.clock.Clock driveClock>;
+
+        virtualinvoke $r2.<avrora.sim.clock.Clock: void removeEvent(avrora.sim.Simulator$Event)>(r1);
+
+        return;
+    }
+}

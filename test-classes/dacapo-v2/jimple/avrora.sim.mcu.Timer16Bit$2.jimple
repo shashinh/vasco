@@ -1,0 +1,44 @@
+class avrora.sim.mcu.Timer16Bit$2 extends avrora.sim.mcu.RegisterSet$Field
+{
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    void <init>(avrora.sim.mcu.Timer16Bit)
+    {
+        avrora.sim.mcu.Timer16Bit$2 r0;
+        avrora.sim.mcu.Timer16Bit r1;
+
+        r0 := @this: avrora.sim.mcu.Timer16Bit$2;
+
+        r1 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        r0.<avrora.sim.mcu.Timer16Bit$2: avrora.sim.mcu.Timer16Bit this$0> = r1;
+
+        specialinvoke r0.<avrora.sim.mcu.RegisterSet$Field: void <init>()>();
+
+        return;
+    }
+
+    public void update()
+    {
+        avrora.sim.mcu.Timer16Bit$2 r0;
+        avrora.sim.mcu.Timer16Bit $r1, $r3;
+        int $i0, $i1;
+        int[] $r2;
+
+        r0 := @this: avrora.sim.mcu.Timer16Bit$2;
+
+        $r3 = r0.<avrora.sim.mcu.Timer16Bit$2: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $r1 = r0.<avrora.sim.mcu.Timer16Bit$2: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $r2 = $r1.<avrora.sim.mcu.Timer16Bit: int[] periods>;
+
+        $i0 = r0.<avrora.sim.mcu.Timer16Bit$2: int value>;
+
+        $i1 = $r2[$i0];
+
+        staticinvoke <avrora.sim.mcu.Timer16Bit: void access$100(avrora.sim.mcu.Timer16Bit,int)>($r3, $i1);
+
+        return;
+    }
+}
