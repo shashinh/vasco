@@ -230,7 +230,6 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// Now perform the flow function.
 					this.immediatePrevContextAnalysed = false;
 					
-					//TODO: if the unit being analyzed is a reflective call, then simply bypass this and  set out = in.
 					A out = flowFunction(context, unit, in);
 
 					//System.out.println("\tout for unit <" + unit + "> is ");
@@ -275,7 +274,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// immediatePrevContextAnalysed :
 					// 1. stmt was an invoke
 					// 2. the called context was analyzed
-					if ( (!isLoopHeader /*&& immediatePrevContextAnalysed */) || out.equals(prevOut) == false) {
+					if ( (!isLoopHeader && immediatePrevContextAnalysed ) || out.equals(prevOut) == false) {
 						//System.out.println("OUT changed @" + unitBCI);
 
 						// Then add successors to the work-list.

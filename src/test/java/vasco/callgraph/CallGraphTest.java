@@ -87,6 +87,10 @@ public class CallGraphTest {
 					if (outDirFile.exists() == false && outDirFile.mkdirs() == false) {
 						throw new IOException("Could not make output directory: " + outputDirectory);
 					}
+					File invariantFile = new File(outputDirectory + "/invariants");
+					if (invariantFile.exists() == false && invariantFile.mkdirs() == false) {
+						throw new IOException("Could not make output directory for invariants");
+					}
 					i += 2;
 				} else if (args[i].equals("-k")) { 
 					callChainDepth = Integer.parseInt(args[i+1]);
@@ -154,8 +158,8 @@ public class CallGraphTest {
 					
 					
 				"-main-class", mainClass,
-				"-f", "J", 
-				"-d", outputDirectory + "/sootOutput", 
+				"-f", "c",
+				"-d", outputDirectory, 
 				mainClass
 		};
 		
@@ -312,7 +316,7 @@ public class CallGraphTest {
 			assert(pta.methodIndices.containsKey(methodSig));
 			int methodIndex = pta.methodIndices.get(methodSig);
 
-			PrintWriter pw = new PrintWriter(outputDirectory + "/li" + methodIndex + ".txt");
+			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/li" + methodIndex + ".txt");
 			Map<Integer, PointsToGraph> map = pta.loopInvariants.get(methodSig);
 			List<String> sList = new ArrayList<String>();
 			for(Integer i : map.keySet()) {
@@ -352,7 +356,7 @@ public class CallGraphTest {
 		
 		
 		//print the method indices 
-		PrintWriter pMethodIndices = new PrintWriter(outputDirectory + "/mi" + ".txt");
+		PrintWriter pMethodIndices = new PrintWriter(outputDirectory + "/invariants/mi" + ".txt");
 		Map<String, Integer> methodIndices = pta.methodIndices;
 		Map<Integer, String> methodIndicesSorted = new HashMap<Integer, String>();
 		for(String key : methodIndices.keySet()) {
@@ -371,7 +375,7 @@ public class CallGraphTest {
 			boolean hasConst = false;
 			boolean hasString = false;
 			boolean hasGlobal = false;
-			PrintWriter pw = new PrintWriter(outputDirectory + "/ci" + methodIndex + ".txt");
+			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/ci" + methodIndex + ".txt");
 			Map<Integer, Set<String>> map = callSiteInvariants.get(methodSig);
 
 			List<String> sList = new ArrayList<String>();
