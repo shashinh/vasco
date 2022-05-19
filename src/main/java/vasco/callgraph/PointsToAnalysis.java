@@ -193,7 +193,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		//SHASHIN
 		
 		if(isReflectedStatement(stmt)) {
-			return out;
+		//	return out;
 		} else if (stmt.toString().contains("<org.dacapo.harness.Callback: void init(org.dacapo.parser.Config)>")
 				|| stmt.toString().contains("<org.dacapo.harness.Callback: void start(java.lang.String)>")
 				|| stmt.toString().contains("<org.dacapo.harness.Callback: void stop(long)>")
@@ -700,7 +700,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		} 
 		
 		// Make calls for all target methods
-		this.immediatePrevContextAnalysed = true;
+		if(targets.size() > 0) this.immediatePrevContextAnalysed = true;
 		for (SootMethod calledMethod : targets) {
 
 			// The call-edge is obtained by assign para	meters and THIS, and killing caller's locals

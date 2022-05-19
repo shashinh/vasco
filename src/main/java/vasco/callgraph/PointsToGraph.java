@@ -233,9 +233,12 @@ public class PointsToGraph {
 	public void assignSticky(Local sticky, Local parameter) {
 		Set<AnyNewExpr> rhsTargets = roots.get(parameter);
 		Set<AnyNewExpr> lhsTargets = new HashSet<AnyNewExpr>(roots.get(sticky));
+		try {
 		boolean change = lhsTargets.addAll(rhsTargets);
 		if (change) {
 			roots.put(sticky, Collections.unmodifiableSet(lhsTargets));
+		} } catch (NullPointerException nex) { 
+			System.out.println("assignSticky nex");
 		}
 	}
 
