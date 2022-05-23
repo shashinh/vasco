@@ -1,0 +1,85 @@
+public class avrora.sim.mcu.Timer16Bit$PairedRegister extends avrora.sim.RWRegister
+{
+    avrora.sim.RWRegister high;
+    avrora.sim.RWRegister low;
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    void <init>(avrora.sim.mcu.Timer16Bit, avrora.sim.RWRegister, avrora.sim.RWRegister)
+    {
+        avrora.sim.mcu.Timer16Bit$PairedRegister l0;
+        avrora.sim.mcu.Timer16Bit l1;
+        avrora.sim.RWRegister l2, l3;
+
+        l0 := @this: avrora.sim.mcu.Timer16Bit$PairedRegister;
+
+        l1 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        l2 := @parameter1: avrora.sim.RWRegister;
+
+        l3 := @parameter2: avrora.sim.RWRegister;
+
+        l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.mcu.Timer16Bit this$0> = l1;
+
+        specialinvoke l0.<avrora.sim.RWRegister: void <init>()>();
+
+        l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.RWRegister high> = l2;
+
+        l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.RWRegister low> = l3;
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.Timer16Bit$PairedRegister l0;
+        avrora.sim.mcu.Timer16Bit $stack1;
+        avrora.sim.RWRegister $stack2, $stack3, $stack5;
+        byte $stack4, $stack6;
+
+        l0 := @this: avrora.sim.mcu.Timer16Bit$PairedRegister;
+
+        $stack1 = l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack3 = $stack1.<avrora.sim.mcu.Timer16Bit: avrora.sim.RWRegister highTempReg>;
+
+        $stack2 = l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.RWRegister high>;
+
+        $stack4 = virtualinvoke $stack2.<avrora.sim.RWRegister: byte read()>();
+
+        virtualinvoke $stack3.<avrora.sim.RWRegister: void write(byte)>($stack4);
+
+        $stack5 = l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.RWRegister low>;
+
+        $stack6 = virtualinvoke $stack5.<avrora.sim.RWRegister: byte read()>();
+
+        return $stack6;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.Timer16Bit$PairedRegister l0;
+        byte l1, $stack6;
+        avrora.sim.RWRegister $stack2, $stack4, $stack5;
+        avrora.sim.mcu.Timer16Bit $stack3;
+
+        l0 := @this: avrora.sim.mcu.Timer16Bit$PairedRegister;
+
+        l1 := @parameter0: byte;
+
+        $stack2 = l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.RWRegister low>;
+
+        virtualinvoke $stack2.<avrora.sim.RWRegister: void write(byte)>(l1);
+
+        $stack5 = l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.RWRegister high>;
+
+        $stack3 = l0.<avrora.sim.mcu.Timer16Bit$PairedRegister: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.Timer16Bit: avrora.sim.RWRegister highTempReg>;
+
+        $stack6 = virtualinvoke $stack4.<avrora.sim.RWRegister: byte read()>();
+
+        virtualinvoke $stack5.<avrora.sim.RWRegister: void write(byte)>($stack6);
+
+        return;
+    }
+}

@@ -1,0 +1,79 @@
+public class cck.util.Util$InternalError extends cck.util.Util$Error
+{
+    private static final long serialVersionUID;
+    private java.lang.String category;
+
+    public void <init>(java.lang.String)
+    {
+        cck.util.Util$InternalError l0;
+        java.lang.String l1;
+
+        l0 := @this: cck.util.Util$InternalError;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<cck.util.Util$Error: void <init>(java.lang.String)>(l1);
+
+        l0.<cck.util.Util$InternalError: java.lang.String category> = "Internal Error";
+
+        return;
+    }
+
+    public void <init>(java.lang.String, java.lang.String)
+    {
+        cck.util.Util$InternalError l0;
+        java.lang.String l2, l1;
+
+        l0 := @this: cck.util.Util$InternalError;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        specialinvoke l0.<cck.util.Util$Error: void <init>(java.lang.String)>(l2);
+
+        l0.<cck.util.Util$InternalError: java.lang.String category> = l1;
+
+        return;
+    }
+
+    public void report()
+    {
+        cck.util.Util$InternalError l0;
+        java.lang.String $stack1, $stack4, $stack7;
+        java.lang.StringBuilder $stack2, $stack3, $stack5, $stack6;
+
+        l0 := @this: cck.util.Util$InternalError;
+
+        $stack1 = l0.<cck.util.Util$InternalError: java.lang.String category>;
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(1, $stack1);
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack3 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $stack4 = l0.<cck.util.Util$InternalError: java.lang.String param>;
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack4);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack7);
+
+        virtualinvoke l0.<cck.util.Util$InternalError: void printStackTrace()>();
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <cck.util.Util$InternalError: long serialVersionUID> = 1L;
+
+        return;
+    }
+}

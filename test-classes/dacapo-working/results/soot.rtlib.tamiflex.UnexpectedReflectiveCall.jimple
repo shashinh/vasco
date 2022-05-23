@@ -1,0 +1,146 @@
+public class soot.rtlib.tamiflex.UnexpectedReflectiveCall extends java.lang.Object
+{
+    private static final soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler handler;
+
+    static void <clinit>()
+    {
+        java.lang.String $stack1;
+        java.lang.Class $stack2;
+        java.lang.Object $stack3;
+        soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler $stack4;
+        java.lang.Exception $stack5;
+        java.lang.Error $stack6;
+
+        $stack1 = staticinvoke <java.lang.System: java.lang.String getProperty(java.lang.String,java.lang.String)>("BOOSTER_LISTENER", "soot.rtlib.tamiflex.DefaultHandler");
+
+     label1:
+        $stack2 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>($stack1);
+
+        $stack3 = virtualinvoke $stack2.<java.lang.Class: java.lang.Object newInstance()>();
+
+        $stack4 = (soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler) $stack3;
+
+        <soot.rtlib.tamiflex.UnexpectedReflectiveCall: soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler handler> = $stack4;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack5 := @caughtexception;
+
+        $stack6 = new java.lang.Error;
+
+        specialinvoke $stack6.<java.lang.Error: void <init>(java.lang.String,java.lang.Throwable)>("Error instantiating listener for Booster.", $stack5);
+
+        throw $stack6;
+
+     label4:
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }
+
+    public void <init>()
+    {
+        soot.rtlib.tamiflex.UnexpectedReflectiveCall l0;
+
+        l0 := @this: soot.rtlib.tamiflex.UnexpectedReflectiveCall;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void classForName(java.lang.String)
+    {
+        java.lang.String l0;
+        soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler $stack1;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack1 = <soot.rtlib.tamiflex.UnexpectedReflectiveCall: soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler handler>;
+
+        interfaceinvoke $stack1.<soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler: void classForName(java.lang.String)>(l0);
+
+        return;
+    }
+
+    public static void classNewInstance(java.lang.Class)
+    {
+        java.lang.Class l0;
+        soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler $stack1;
+
+        l0 := @parameter0: java.lang.Class;
+
+        $stack1 = <soot.rtlib.tamiflex.UnexpectedReflectiveCall: soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler handler>;
+
+        interfaceinvoke $stack1.<soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler: void classNewInstance(java.lang.Class)>(l0);
+
+        return;
+    }
+
+    public static void constructorNewInstance(java.lang.reflect.Constructor)
+    {
+        java.lang.reflect.Constructor l0;
+        soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler $stack1;
+
+        l0 := @parameter0: java.lang.reflect.Constructor;
+
+        $stack1 = <soot.rtlib.tamiflex.UnexpectedReflectiveCall: soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler handler>;
+
+        interfaceinvoke $stack1.<soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler: void constructorNewInstance(java.lang.reflect.Constructor)>(l0);
+
+        return;
+    }
+
+    public static void fieldGet(java.lang.Object, java.lang.reflect.Field)
+    {
+        java.lang.Object l0;
+        java.lang.reflect.Field l1;
+        soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler $stack2;
+
+        l0 := @parameter0: java.lang.Object;
+
+        l1 := @parameter1: java.lang.reflect.Field;
+
+        $stack2 = <soot.rtlib.tamiflex.UnexpectedReflectiveCall: soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler handler>;
+
+        interfaceinvoke $stack2.<soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler: void fieldGet(java.lang.Object,java.lang.reflect.Field)>(l0, l1);
+
+        return;
+    }
+
+    public static void fieldSet(java.lang.Object, java.lang.reflect.Field)
+    {
+        java.lang.Object l0;
+        java.lang.reflect.Field l1;
+        soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler $stack2;
+
+        l0 := @parameter0: java.lang.Object;
+
+        l1 := @parameter1: java.lang.reflect.Field;
+
+        $stack2 = <soot.rtlib.tamiflex.UnexpectedReflectiveCall: soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler handler>;
+
+        interfaceinvoke $stack2.<soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler: void fieldSet(java.lang.Object,java.lang.reflect.Field)>(l0, l1);
+
+        return;
+    }
+
+    public static void methodInvoke(java.lang.Object, java.lang.reflect.Method)
+    {
+        java.lang.Object l0;
+        java.lang.reflect.Method l1;
+        soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler $stack2;
+
+        l0 := @parameter0: java.lang.Object;
+
+        l1 := @parameter1: java.lang.reflect.Method;
+
+        $stack2 = <soot.rtlib.tamiflex.UnexpectedReflectiveCall: soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler handler>;
+
+        interfaceinvoke $stack2.<soot.rtlib.tamiflex.IUnexpectedReflectiveCallHandler: void methodInvoke(java.lang.Object,java.lang.reflect.Method)>(l0, l1);
+
+        return;
+    }
+}

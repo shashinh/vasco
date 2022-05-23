@@ -1,0 +1,33 @@
+class B extends java.lang.Object
+{
+    F f;
+
+    public void <init>()
+    {
+        B l0;
+
+        l0 := @this: B;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    B foo()
+    {
+        B $stack1, l0;
+        java.io.PrintStream $stack2;
+
+        l0 := @this: B;
+
+        $stack1 = new B;
+
+        specialinvoke $stack1.<B: void <init>()>();
+
+        $stack2 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack2.<java.io.PrintStream: void println(java.lang.String)>("hello from B");
+
+        return $stack1;
+    }
+}

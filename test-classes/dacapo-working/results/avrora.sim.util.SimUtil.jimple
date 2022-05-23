@@ -1,0 +1,299 @@
+public class avrora.sim.util.SimUtil extends java.lang.Object
+{
+    public static int ID_LENGTH;
+    public static int TIME_LENGTH;
+    public static int SECONDS_PRECISION;
+    public static boolean REPORT_SECONDS;
+
+    static void <clinit>()
+    {
+        <avrora.sim.util.SimUtil: int ID_LENGTH> = 4;
+
+        <avrora.sim.util.SimUtil: int TIME_LENGTH> = 12;
+
+        <avrora.sim.util.SimUtil: int SECONDS_PRECISION> = 6;
+
+        <avrora.sim.util.SimUtil: boolean REPORT_SECONDS> = 0;
+
+        return;
+    }
+
+    public void <init>()
+    {
+        avrora.sim.util.SimUtil l0;
+
+        l0 := @this: avrora.sim.util.SimUtil;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static java.lang.String getIDTimeString(avrora.sim.Simulator)
+    {
+        avrora.sim.Simulator l0;
+        int $stack1;
+        avrora.sim.clock.MainClock $stack2;
+        java.lang.String $stack3;
+
+        l0 := @parameter0: avrora.sim.Simulator;
+
+        $stack1 = virtualinvoke l0.<avrora.sim.Simulator: int getID()>();
+
+        $stack2 = virtualinvoke l0.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack3 = staticinvoke <avrora.sim.util.SimUtil: java.lang.String toIDTimeString(int,avrora.sim.clock.Clock)>($stack1, $stack2);
+
+        return $stack3;
+    }
+
+    public static void getIDTimeString(java.lang.StringBuffer, avrora.sim.Simulator)
+    {
+        java.lang.StringBuffer l0;
+        avrora.sim.Simulator l1;
+        int $stack2;
+        avrora.sim.clock.MainClock $stack3;
+
+        l0 := @parameter0: java.lang.StringBuffer;
+
+        l1 := @parameter1: avrora.sim.Simulator;
+
+        $stack2 = virtualinvoke l1.<avrora.sim.Simulator: int getID()>();
+
+        $stack3 = virtualinvoke l1.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        staticinvoke <avrora.sim.util.SimUtil: void toIDTimeString(java.lang.StringBuffer,int,avrora.sim.clock.Clock)>(l0, $stack2, $stack3);
+
+        return;
+    }
+
+    public static void readError(avrora.sim.Simulator, java.lang.String, int)
+    {
+        avrora.sim.Simulator l0;
+        java.lang.StringBuilder $stack3, $stack4, $stack5, $stack6, $stack8;
+        int l2, $stack11;
+        java.lang.String $stack7, $stack9, $stack13, l1#1;
+        avrora.sim.State $stack10;
+        long $stack12;
+
+        l0 := @parameter0: avrora.sim.Simulator;
+
+        l1#1 := @parameter1: java.lang.String;
+
+        l2 := @parameter2: int;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("illegal read from ");
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l1#1);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" at address ");
+
+        $stack7 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(l2);
+
+        $stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack7);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack10 = virtualinvoke l0.<avrora.sim.Simulator: avrora.sim.State getState()>();
+
+        $stack11 = interfaceinvoke $stack10.<avrora.sim.State: int getPC()>();
+
+        $stack12 = (long) $stack11;
+
+        $stack13 = staticinvoke <cck.text.StringUtil: java.lang.String to0xHex(long,int)>($stack12, 4);
+
+        staticinvoke <avrora.sim.util.SimUtil: void warning(avrora.sim.Simulator,java.lang.String,java.lang.String)>(l0, $stack13, $stack9);
+
+        return;
+    }
+
+    private static void toIDTimeString(java.lang.StringBuffer, int, avrora.sim.clock.Clock)
+    {
+        java.lang.StringBuffer l0, l1#2;
+        int $stack7, $stack13, $stack15, $stack16, $stack23, $stack26, l1#1;
+        long $stack8, $stack12, $stack17, $stack18, l5, $stack19;
+        boolean $stack10;
+        avrora.sim.clock.Clock l2;
+        double $stack20, $stack21, $stack22;
+        java.lang.String $stack25;
+
+        l0 := @parameter0: java.lang.StringBuffer;
+
+        l1#1 := @parameter1: int;
+
+        l2 := @parameter2: avrora.sim.clock.Clock;
+
+        $stack8 = (long) l1#1;
+
+        $stack7 = <avrora.sim.util.SimUtil: int ID_LENGTH>;
+
+        staticinvoke <cck.text.StringUtil: void justify(boolean,java.lang.StringBuffer,long,int)>(1, l0, $stack8, $stack7);
+
+        virtualinvoke l0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("  ");
+
+        $stack10 = <avrora.sim.util.SimUtil: boolean REPORT_SECONDS>;
+
+        if $stack10 == 0 goto label1;
+
+        l1#2 = new java.lang.StringBuffer;
+
+        $stack15 = <avrora.sim.util.SimUtil: int TIME_LENGTH>;
+
+        $stack16 = $stack15 + 1;
+
+        specialinvoke l1#2.<java.lang.StringBuffer: void <init>(int)>($stack16);
+
+        $stack17 = virtualinvoke l2.<avrora.sim.clock.Clock: long getHZ()>();
+
+        $stack18 = virtualinvoke l2.<avrora.sim.clock.Clock: long getCount()>();
+
+        l5 = $stack18 / $stack17;
+
+        $stack19 = $stack18 % $stack17;
+
+        $stack21 = (double) $stack19;
+
+        $stack20 = (double) $stack17;
+
+        $stack22 = $stack21 / $stack20;
+
+        staticinvoke <cck.util.TimeUtil: void appendSecs(java.lang.StringBuffer,long)>(l1#2, l5);
+
+        $stack23 = <avrora.sim.util.SimUtil: int SECONDS_PRECISION>;
+
+        staticinvoke <cck.text.StringUtil: void appendFract(java.lang.StringBuffer,double,int)>(l1#2, $stack22, $stack23);
+
+        $stack25 = virtualinvoke l1#2.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        $stack26 = <avrora.sim.util.SimUtil: int TIME_LENGTH>;
+
+        staticinvoke <cck.text.StringUtil: void justify(boolean,java.lang.StringBuffer,java.lang.String,int)>(1, l0, $stack25, $stack26);
+
+        goto label2;
+
+     label1:
+        $stack12 = virtualinvoke l2.<avrora.sim.clock.Clock: long getCount()>();
+
+        $stack13 = <avrora.sim.util.SimUtil: int TIME_LENGTH>;
+
+        staticinvoke <cck.text.StringUtil: void justify(boolean,java.lang.StringBuffer,long,int)>(1, l0, $stack12, $stack13);
+
+     label2:
+        virtualinvoke l0.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("  ");
+
+        return;
+    }
+
+    public static java.lang.String toIDTimeString(int, avrora.sim.clock.Clock)
+    {
+        java.lang.StringBuffer l2;
+        int l0;
+        avrora.sim.clock.Clock l1;
+        java.lang.String $stack3;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: avrora.sim.clock.Clock;
+
+        l2 = new java.lang.StringBuffer;
+
+        specialinvoke l2.<java.lang.StringBuffer: void <init>(int)>(40);
+
+        staticinvoke <avrora.sim.util.SimUtil: void toIDTimeString(java.lang.StringBuffer,int,avrora.sim.clock.Clock)>(l2, l0, l1);
+
+        $stack3 = virtualinvoke l2.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $stack3;
+    }
+
+    public static void warning(avrora.sim.Simulator, java.lang.String, java.lang.String)
+    {
+        java.lang.StringBuffer l3;
+        java.lang.String l1, l2, $stack11;
+        int $stack5, $stack6, $stack7, $stack8;
+        avrora.sim.Simulator l0;
+
+        l0 := @parameter0: avrora.sim.Simulator;
+
+        l1 := @parameter1: java.lang.String;
+
+        l2 := @parameter2: java.lang.String;
+
+        l3 = new java.lang.StringBuffer;
+
+        $stack5 = virtualinvoke l1.<java.lang.String: int length()>();
+
+        $stack6 = 40 + $stack5;
+
+        $stack7 = virtualinvoke l2.<java.lang.String: int length()>();
+
+        $stack8 = $stack6 + $stack7;
+
+        specialinvoke l3.<java.lang.StringBuffer: void <init>(int)>($stack8);
+
+        staticinvoke <avrora.sim.util.SimUtil: void getIDTimeString(java.lang.StringBuffer,avrora.sim.Simulator)>(l3, l0);
+
+        staticinvoke <cck.text.Terminal: void append(int,java.lang.StringBuffer,java.lang.String)>(11, l3, l1);
+
+        virtualinvoke l3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(": ");
+
+        virtualinvoke l3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(l2);
+
+        $stack11 = virtualinvoke l3.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack11);
+
+        return;
+    }
+
+    public static void writeError(avrora.sim.Simulator, java.lang.String, int, byte)
+    {
+        avrora.sim.Simulator l0;
+        java.lang.StringBuilder $stack4, $stack5, $stack6, $stack7, $stack9;
+        int l2, $stack12;
+        java.lang.String $stack8, $stack10, $stack14, l1#1;
+        avrora.sim.State $stack11;
+        long $stack13;
+        byte l3;
+
+        l0 := @parameter0: avrora.sim.Simulator;
+
+        l1#1 := @parameter1: java.lang.String;
+
+        l2 := @parameter2: int;
+
+        l3 := @parameter3: byte;
+
+        $stack4 = new java.lang.StringBuilder;
+
+        specialinvoke $stack4.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("illegal write to ");
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l1#1);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" at address ");
+
+        $stack8 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(l2);
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack11 = virtualinvoke l0.<avrora.sim.Simulator: avrora.sim.State getState()>();
+
+        $stack12 = interfaceinvoke $stack11.<avrora.sim.State: int getPC()>();
+
+        $stack13 = (long) $stack12;
+
+        $stack14 = staticinvoke <cck.text.StringUtil: java.lang.String to0xHex(long,int)>($stack13, 4);
+
+        staticinvoke <avrora.sim.util.SimUtil: void warning(avrora.sim.Simulator,java.lang.String,java.lang.String)>(l0, $stack14, $stack10);
+
+        return;
+    }
+}

@@ -1,0 +1,80 @@
+public class cck.util.Util$Unexpected extends cck.util.Util$Error
+{
+    private static final long serialVersionUID;
+    public final java.lang.Throwable thrown;
+
+    public void <init>(java.lang.Throwable)
+    {
+        cck.util.Util$Unexpected l0;
+        java.lang.Throwable l1;
+        java.lang.Class $stack2;
+        java.lang.String $stack3;
+
+        l0 := @this: cck.util.Util$Unexpected;
+
+        l1 := @parameter0: java.lang.Throwable;
+
+        $stack2 = virtualinvoke l1.<java.lang.Object: java.lang.Class getClass()>();
+
+        $stack3 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>($stack2);
+
+        specialinvoke l0.<cck.util.Util$Error: void <init>(java.lang.String)>($stack3);
+
+        l0.<cck.util.Util$Unexpected: java.lang.Throwable thrown> = l1;
+
+        return;
+    }
+
+    public void report()
+    {
+        java.lang.StringBuilder $stack1, $stack2, $stack4, $stack5;
+        cck.util.Util$Unexpected l0;
+        java.lang.String $stack3, $stack6;
+        java.lang.Throwable $stack7;
+
+        l0 := @this: cck.util.Util$Unexpected;
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(1, "Unexpected exception");
+
+        $stack1 = new java.lang.StringBuilder;
+
+        specialinvoke $stack1.<java.lang.StringBuilder: void <init>()>();
+
+        $stack2 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $stack3 = l0.<cck.util.Util$Unexpected: java.lang.String param>;
+
+        $stack4 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack3);
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack6);
+
+        $stack7 = l0.<cck.util.Util$Unexpected: java.lang.Throwable thrown>;
+
+        virtualinvoke $stack7.<java.lang.Throwable: void printStackTrace()>();
+
+        return;
+    }
+
+    public void rethrow() throws java.lang.Throwable
+    {
+        cck.util.Util$Unexpected l0;
+        java.lang.Throwable $stack1;
+
+        l0 := @this: cck.util.Util$Unexpected;
+
+        $stack1 = l0.<cck.util.Util$Unexpected: java.lang.Throwable thrown>;
+
+        throw $stack1;
+    }
+
+    public static void <clinit>()
+    {
+        <cck.util.Util$Unexpected: long serialVersionUID> = 1L;
+
+        return;
+    }
+}

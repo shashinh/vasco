@@ -1,0 +1,73 @@
+class org.dacapo.parser.Config$1 extends java.lang.Object
+{
+    static final int[] $SwitchMap$org$dacapo$parser$Config$ThreadModel;
+
+    static void <clinit>()
+    {
+        org.dacapo.parser.Config$ThreadModel[] $stack1;
+        int $stack2, $stack6, $stack9, $stack12;
+        int[] $stack3, $stack5, $stack8, $stack11;
+        org.dacapo.parser.Config$ThreadModel $stack4, $stack7, $stack10;
+        java.lang.NoSuchFieldError $stack13, $stack14, $stack16;
+
+        $stack1 = staticinvoke <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel[] values()>();
+
+        $stack2 = lengthof $stack1;
+
+        $stack3 = newarray (int)[$stack2];
+
+        <org.dacapo.parser.Config$1: int[] $SwitchMap$org$dacapo$parser$Config$ThreadModel> = $stack3;
+
+     label01:
+        $stack5 = <org.dacapo.parser.Config$1: int[] $SwitchMap$org$dacapo$parser$Config$ThreadModel>;
+
+        $stack4 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE>;
+
+        $stack6 = virtualinvoke $stack4.<org.dacapo.parser.Config$ThreadModel: int ordinal()>();
+
+        $stack5[$stack6] = 1;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack16 := @caughtexception;
+
+     label04:
+        $stack8 = <org.dacapo.parser.Config$1: int[] $SwitchMap$org$dacapo$parser$Config$ThreadModel>;
+
+        $stack7 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED>;
+
+        $stack9 = virtualinvoke $stack7.<org.dacapo.parser.Config$ThreadModel: int ordinal()>();
+
+        $stack8[$stack9] = 2;
+
+     label05:
+        goto label07;
+
+     label06:
+        $stack14 := @caughtexception;
+
+     label07:
+        $stack11 = <org.dacapo.parser.Config$1: int[] $SwitchMap$org$dacapo$parser$Config$ThreadModel>;
+
+        $stack10 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel PER_CPU>;
+
+        $stack12 = virtualinvoke $stack10.<org.dacapo.parser.Config$ThreadModel: int ordinal()>();
+
+        $stack11[$stack12] = 3;
+
+     label08:
+        goto label10;
+
+     label09:
+        $stack13 := @caughtexception;
+
+     label10:
+        return;
+
+        catch java.lang.NoSuchFieldError from label01 to label02 with label03;
+        catch java.lang.NoSuchFieldError from label04 to label05 with label06;
+        catch java.lang.NoSuchFieldError from label07 to label08 with label09;
+    }
+}

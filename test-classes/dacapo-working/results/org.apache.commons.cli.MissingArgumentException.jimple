@@ -1,0 +1,60 @@
+public class org.apache.commons.cli.MissingArgumentException extends org.apache.commons.cli.ParseException
+{
+    private org.apache.commons.cli.Option option;
+
+    public void <init>(java.lang.String)
+    {
+        org.apache.commons.cli.MissingArgumentException l0;
+        java.lang.String l1;
+
+        l0 := @this: org.apache.commons.cli.MissingArgumentException;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<org.apache.commons.cli.ParseException: void <init>(java.lang.String)>(l1);
+
+        return;
+    }
+
+    public void <init>(org.apache.commons.cli.Option)
+    {
+        org.apache.commons.cli.MissingArgumentException l0;
+        java.lang.StringBuffer $stack2, $stack3, $stack5;
+        org.apache.commons.cli.Option l1;
+        java.lang.String $stack4, $stack6;
+
+        l0 := @this: org.apache.commons.cli.MissingArgumentException;
+
+        l1 := @parameter0: org.apache.commons.cli.Option;
+
+        $stack2 = new java.lang.StringBuffer;
+
+        specialinvoke $stack2.<java.lang.StringBuffer: void <init>()>();
+
+        $stack3 = virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("Missing argument for option: ");
+
+        $stack4 = virtualinvoke l1.<org.apache.commons.cli.Option: java.lang.String getKey()>();
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack4);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke l0.<org.apache.commons.cli.MissingArgumentException: void <init>(java.lang.String)>($stack6);
+
+        l0.<org.apache.commons.cli.MissingArgumentException: org.apache.commons.cli.Option option> = l1;
+
+        return;
+    }
+
+    public org.apache.commons.cli.Option getOption()
+    {
+        org.apache.commons.cli.MissingArgumentException l0;
+        org.apache.commons.cli.Option $stack1;
+
+        l0 := @this: org.apache.commons.cli.MissingArgumentException;
+
+        $stack1 = l0.<org.apache.commons.cli.MissingArgumentException: org.apache.commons.cli.Option option>;
+
+        return $stack1;
+    }
+}

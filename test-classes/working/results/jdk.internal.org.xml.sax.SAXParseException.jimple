@@ -1,0 +1,294 @@
+public class jdk.internal.org.xml.sax.SAXParseException extends jdk.internal.org.xml.sax.SAXException
+{
+    private java.lang.String publicId;
+    private java.lang.String systemId;
+    private int lineNumber;
+    private int columnNumber;
+    static final long serialVersionUID;
+
+    public void <init>(java.lang.String, jdk.internal.org.xml.sax.Locator)
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        java.lang.String l1, $stack3, $stack4;
+        jdk.internal.org.xml.sax.Locator l2;
+        int $stack5, $stack6;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: jdk.internal.org.xml.sax.Locator;
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXException: void <init>(java.lang.String)>(l1);
+
+        if l2 == null goto label1;
+
+        $stack3 = interfaceinvoke l2.<jdk.internal.org.xml.sax.Locator: java.lang.String getPublicId()>();
+
+        $stack4 = interfaceinvoke l2.<jdk.internal.org.xml.sax.Locator: java.lang.String getSystemId()>();
+
+        $stack5 = interfaceinvoke l2.<jdk.internal.org.xml.sax.Locator: int getLineNumber()>();
+
+        $stack6 = interfaceinvoke l2.<jdk.internal.org.xml.sax.Locator: int getColumnNumber()>();
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXParseException: void init(java.lang.String,java.lang.String,int,int)>($stack3, $stack4, $stack5, $stack6);
+
+        goto label2;
+
+     label1:
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXParseException: void init(java.lang.String,java.lang.String,int,int)>(null, null, -1, -1);
+
+     label2:
+        return;
+    }
+
+    public void <init>(java.lang.String, jdk.internal.org.xml.sax.Locator, java.lang.Exception)
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        java.lang.String l1, $stack4, $stack5;
+        java.lang.Exception l3;
+        jdk.internal.org.xml.sax.Locator l2;
+        int $stack6, $stack7;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: jdk.internal.org.xml.sax.Locator;
+
+        l3 := @parameter2: java.lang.Exception;
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXException: void <init>(java.lang.String,java.lang.Exception)>(l1, l3);
+
+        if l2 == null goto label1;
+
+        $stack4 = interfaceinvoke l2.<jdk.internal.org.xml.sax.Locator: java.lang.String getPublicId()>();
+
+        $stack5 = interfaceinvoke l2.<jdk.internal.org.xml.sax.Locator: java.lang.String getSystemId()>();
+
+        $stack6 = interfaceinvoke l2.<jdk.internal.org.xml.sax.Locator: int getLineNumber()>();
+
+        $stack7 = interfaceinvoke l2.<jdk.internal.org.xml.sax.Locator: int getColumnNumber()>();
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXParseException: void init(java.lang.String,java.lang.String,int,int)>($stack4, $stack5, $stack6, $stack7);
+
+        goto label2;
+
+     label1:
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXParseException: void init(java.lang.String,java.lang.String,int,int)>(null, null, -1, -1);
+
+     label2:
+        return;
+    }
+
+    public void <init>(java.lang.String, java.lang.String, java.lang.String, int, int)
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        java.lang.String l1, l2, l3;
+        int l4, l5;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 := @parameter3: int;
+
+        l5 := @parameter4: int;
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXException: void <init>(java.lang.String)>(l1);
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXParseException: void init(java.lang.String,java.lang.String,int,int)>(l2, l3, l4, l5);
+
+        return;
+    }
+
+    public void <init>(java.lang.String, java.lang.String, java.lang.String, int, int, java.lang.Exception)
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        java.lang.String l1, l2, l3;
+        java.lang.Exception l6;
+        int l4, l5;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 := @parameter3: int;
+
+        l5 := @parameter4: int;
+
+        l6 := @parameter5: java.lang.Exception;
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXException: void <init>(java.lang.String,java.lang.Exception)>(l1, l6);
+
+        specialinvoke l0.<jdk.internal.org.xml.sax.SAXParseException: void init(java.lang.String,java.lang.String,int,int)>(l2, l3, l4, l5);
+
+        return;
+    }
+
+    private void init(java.lang.String, java.lang.String, int, int)
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        java.lang.String l1, l2;
+        int l3, l4;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: int;
+
+        l4 := @parameter3: int;
+
+        l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String publicId> = l1;
+
+        l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String systemId> = l2;
+
+        l0.<jdk.internal.org.xml.sax.SAXParseException: int lineNumber> = l3;
+
+        l0.<jdk.internal.org.xml.sax.SAXParseException: int columnNumber> = l4;
+
+        return;
+    }
+
+    public java.lang.String getPublicId()
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        java.lang.String $stack1;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        $stack1 = l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String publicId>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getSystemId()
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        java.lang.String $stack1;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        $stack1 = l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String systemId>;
+
+        return $stack1;
+    }
+
+    public int getLineNumber()
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        int $stack1;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        $stack1 = l0.<jdk.internal.org.xml.sax.SAXParseException: int lineNumber>;
+
+        return $stack1;
+    }
+
+    public int getColumnNumber()
+    {
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        int $stack1;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        $stack1 = l0.<jdk.internal.org.xml.sax.SAXParseException: int columnNumber>;
+
+        return $stack1;
+    }
+
+    public java.lang.String toString()
+    {
+        java.lang.StringBuilder $stack3, $stack12, $stack15, $stack19, $stack24, $stack29;
+        jdk.internal.org.xml.sax.SAXParseException l0;
+        java.lang.Class $stack4;
+        java.lang.String $stack5, $stack6, $stack7, $stack8, $stack11, $stack25, $stack30;
+        int $stack9, $stack10, $stack16, $stack20;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXParseException;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        $stack4 = virtualinvoke l0.<java.lang.Object: java.lang.Class getClass()>();
+
+        $stack5 = virtualinvoke $stack4.<java.lang.Class: java.lang.String getName()>();
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>(java.lang.String)>($stack5);
+
+        $stack6 = virtualinvoke l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String getLocalizedMessage()>();
+
+        $stack7 = l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String publicId>;
+
+        if $stack7 == null goto label1;
+
+        $stack29 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("publicId: ");
+
+        $stack30 = l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String publicId>;
+
+        virtualinvoke $stack29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack30);
+
+     label1:
+        $stack8 = l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String systemId>;
+
+        if $stack8 == null goto label2;
+
+        $stack24 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("; systemId: ");
+
+        $stack25 = l0.<jdk.internal.org.xml.sax.SAXParseException: java.lang.String systemId>;
+
+        virtualinvoke $stack24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack25);
+
+     label2:
+        $stack9 = l0.<jdk.internal.org.xml.sax.SAXParseException: int lineNumber>;
+
+        if $stack9 == -1 goto label3;
+
+        $stack19 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("; lineNumber: ");
+
+        $stack20 = l0.<jdk.internal.org.xml.sax.SAXParseException: int lineNumber>;
+
+        virtualinvoke $stack19.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack20);
+
+     label3:
+        $stack10 = l0.<jdk.internal.org.xml.sax.SAXParseException: int columnNumber>;
+
+        if $stack10 == -1 goto label4;
+
+        $stack15 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("; columnNumber: ");
+
+        $stack16 = l0.<jdk.internal.org.xml.sax.SAXParseException: int columnNumber>;
+
+        virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack16);
+
+     label4:
+        if $stack6 == null goto label5;
+
+        $stack12 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("; ");
+
+        virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+     label5:
+        $stack11 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack11;
+    }
+
+    public static void <clinit>()
+    {
+        <jdk.internal.org.xml.sax.SAXParseException: long serialVersionUID> = -5651165872476709336L;
+
+        return;
+    }
+}

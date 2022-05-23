@@ -1,0 +1,269 @@
+public class org.dacapo.harness.DacapoClassLoader extends java.net.URLClassLoader
+{
+
+    public void <init>(java.net.URL[])
+    {
+        org.dacapo.harness.DacapoClassLoader l0;
+        java.net.URL[] l1;
+
+        l0 := @this: org.dacapo.harness.DacapoClassLoader;
+
+        l1 := @parameter0: java.net.URL[];
+
+        specialinvoke l0.<java.net.URLClassLoader: void <init>(java.net.URL[])>(l1);
+
+        return;
+    }
+
+    public void <init>(java.net.URL[], java.lang.ClassLoader)
+    {
+        org.dacapo.harness.DacapoClassLoader l0;
+        java.net.URL[] l1;
+        java.lang.ClassLoader l2;
+
+        l0 := @this: org.dacapo.harness.DacapoClassLoader;
+
+        l1 := @parameter0: java.net.URL[];
+
+        l2 := @parameter1: java.lang.ClassLoader;
+
+        specialinvoke l0.<java.net.URLClassLoader: void <init>(java.net.URL[],java.lang.ClassLoader)>(l1, l2);
+
+        return;
+    }
+
+    public void <init>(java.net.URL[], java.lang.ClassLoader, java.net.URLStreamHandlerFactory)
+    {
+        org.dacapo.harness.DacapoClassLoader l0;
+        java.net.URL[] l1;
+        java.lang.ClassLoader l2;
+        java.net.URLStreamHandlerFactory l3;
+
+        l0 := @this: org.dacapo.harness.DacapoClassLoader;
+
+        l1 := @parameter0: java.net.URL[];
+
+        l2 := @parameter1: java.lang.ClassLoader;
+
+        l3 := @parameter2: java.net.URLStreamHandlerFactory;
+
+        specialinvoke l0.<java.net.URLClassLoader: void <init>(java.net.URL[],java.lang.ClassLoader,java.net.URLStreamHandlerFactory)>(l1, l2, l3);
+
+        return;
+    }
+
+    public static org.dacapo.harness.DacapoClassLoader create(org.dacapo.parser.Config, java.io.File)
+    {
+        org.dacapo.parser.Config l0;
+        java.net.URL[] $stack8;
+        boolean $stack9;
+        org.dacapo.harness.DacapoClassLoader $stack10, l5#2;
+        java.lang.ClassLoader $stack11;
+        java.io.PrintStream $stack12, l2, $stack24;
+        java.lang.StringBuilder $stack14, $stack16, $stack18, $stack23, $stack25, $stack27, $stack28;
+        java.net.URL $stack15;
+        java.lang.String $stack17, $stack19, $stack26, $stack29;
+        java.lang.Exception $stack22;
+        java.io.File l1#1;
+        int l1#3, l7#4;
+
+        l0 := @parameter0: org.dacapo.parser.Config;
+
+        l1#1 := @parameter1: java.io.File;
+
+        l5#2 = null;
+
+     label1:
+        $stack8 = staticinvoke <org.dacapo.harness.DacapoClassLoader: java.net.URL[] getJars(org.dacapo.parser.Config,java.io.File)>(l0, l1#1);
+
+        $stack9 = staticinvoke <org.dacapo.harness.Benchmark: boolean getVerbose()>();
+
+        if $stack9 == 0 goto label3;
+
+        $stack12 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack12.<java.io.PrintStream: void println(java.lang.String)>("Benchmark classpath:");
+
+        l1#3 = lengthof $stack8;
+
+        l7#4 = 0;
+
+     label2:
+        if l7#4 >= l1#3 goto label3;
+
+        $stack15 = $stack8[l7#4];
+
+        l2 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack14 = new java.lang.StringBuilder;
+
+        specialinvoke $stack14.<java.lang.StringBuilder: void <init>()>();
+
+        $stack16 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
+
+        $stack17 = virtualinvoke $stack15.<java.net.URL: java.lang.String toString()>();
+
+        $stack18 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack17);
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l2.<java.io.PrintStream: void println(java.lang.String)>($stack19);
+
+        l7#4 = l7#4 + 1;
+
+        goto label2;
+
+     label3:
+        $stack10 = new org.dacapo.harness.DacapoClassLoader;
+
+        $stack11 = staticinvoke <java.lang.ClassLoader: java.lang.ClassLoader getSystemClassLoader()>();
+
+        specialinvoke $stack10.<org.dacapo.harness.DacapoClassLoader: void <init>(java.net.URL[],java.lang.ClassLoader)>($stack8, $stack11);
+
+        l5#2 = $stack10;
+
+     label4:
+        goto label6;
+
+     label5:
+        $stack22 := @caughtexception;
+
+        $stack24 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack23 = new java.lang.StringBuilder;
+
+        specialinvoke $stack23.<java.lang.StringBuilder: void <init>()>();
+
+        $stack25 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unable to create loader for ");
+
+        $stack26 = l0.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack27 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack26);
+
+        $stack28 = virtualinvoke $stack27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":");
+
+        $stack29 = virtualinvoke $stack28.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack24.<java.io.PrintStream: void println(java.lang.String)>($stack29);
+
+        virtualinvoke $stack22.<java.lang.Exception: void printStackTrace()>();
+
+        staticinvoke <java.lang.System: void exit(int)>(-1);
+
+     label6:
+        return l5#2;
+
+        catch java.lang.Exception from label1 to label4 with label5;
+    }
+
+    private static java.net.URL[] getJars(org.dacapo.parser.Config, java.io.File) throws java.net.MalformedURLException
+    {
+        java.util.ArrayList l2;
+        java.io.File l3, $stack13, l1#1;
+        org.dacapo.parser.Config l0;
+        java.lang.String[] $stack4, $stack9, $stack14;
+        int $stack5, $stack10, l1#2;
+        java.net.URL[] $stack6, $stack8;
+        java.lang.Object[] $stack7;
+        java.lang.String $stack15;
+        java.net.URL $stack16;
+
+        l0 := @parameter0: org.dacapo.parser.Config;
+
+        l1#1 := @parameter1: java.io.File;
+
+        l2 = new java.util.ArrayList;
+
+        specialinvoke l2.<java.util.ArrayList: void <init>()>();
+
+        l3 = new java.io.File;
+
+        specialinvoke l3.<java.io.File: void <init>(java.io.File,java.lang.String)>(l1#1, "jar");
+
+        $stack4 = l0.<org.dacapo.parser.Config: java.lang.String[] jars>;
+
+        if $stack4 == null goto label2;
+
+        l1#2 = 0;
+
+     label1:
+        $stack9 = l0.<org.dacapo.parser.Config: java.lang.String[] jars>;
+
+        $stack10 = lengthof $stack9;
+
+        if l1#2 >= $stack10 goto label2;
+
+        $stack13 = new java.io.File;
+
+        $stack14 = l0.<org.dacapo.parser.Config: java.lang.String[] jars>;
+
+        $stack15 = $stack14[l1#2];
+
+        specialinvoke $stack13.<java.io.File: void <init>(java.io.File,java.lang.String)>(l3, $stack15);
+
+        $stack16 = virtualinvoke $stack13.<java.io.File: java.net.URL toURL()>();
+
+        interfaceinvoke l2.<java.util.List: boolean add(java.lang.Object)>($stack16);
+
+        l1#2 = l1#2 + 1;
+
+        goto label1;
+
+     label2:
+        $stack5 = interfaceinvoke l2.<java.util.List: int size()>();
+
+        $stack6 = newarray (java.net.URL)[$stack5];
+
+        $stack7 = interfaceinvoke l2.<java.util.List: java.lang.Object[] toArray(java.lang.Object[])>($stack6);
+
+        $stack8 = (java.net.URL[]) $stack7;
+
+        return $stack8;
+    }
+
+    protected synchronized java.lang.Class loadClass(java.lang.String, boolean) throws java.lang.ClassNotFoundException
+    {
+        org.dacapo.harness.DacapoClassLoader l0;
+        java.lang.String l1;
+        java.lang.Class $stack4, $stack6, $stack9, l3#1;
+        boolean l2;
+        java.lang.ClassNotFoundException $stack8;
+
+        l0 := @this: org.dacapo.harness.DacapoClassLoader;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: boolean;
+
+        $stack4 = virtualinvoke l0.<org.dacapo.harness.DacapoClassLoader: java.lang.Class findLoadedClass(java.lang.String)>(l1);
+
+        l3#1 = $stack4;
+
+        if $stack4 != null goto label4;
+
+     label1:
+        $stack6 = specialinvoke l0.<java.net.URLClassLoader: java.lang.Class findClass(java.lang.String)>(l1);
+
+        l3#1 = $stack6;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack8 := @caughtexception;
+
+        $stack9 = specialinvoke l0.<java.net.URLClassLoader: java.lang.Class loadClass(java.lang.String,boolean)>(l1, l2);
+
+        l3#1 = $stack9;
+
+     label4:
+        if l2 == 0 goto label5;
+
+        virtualinvoke l0.<org.dacapo.harness.DacapoClassLoader: void resolveClass(java.lang.Class)>(l3#1);
+
+     label5:
+        return l3#1;
+
+        catch java.lang.ClassNotFoundException from label1 to label2 with label3;
+    }
+}

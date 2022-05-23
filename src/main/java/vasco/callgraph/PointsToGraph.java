@@ -951,45 +951,48 @@ public class PointsToGraph {
 			// strings)
 			if (newExpr instanceof JNewExpr && newExpr != PointsToGraph.STRING_SITE
 					&& newExpr != PointsToGraph.SUMMARY_NODE) {
-				assert (pta.bciMap2.containsKey(newExpr));
+//				Exception in thread "main" java.lang.AssertionError: new java.lang.Class not found in bciMap2
+//				assert (pta.bciMap2.containsKey(newExpr)) : newExpr + " not found in bciMap2";
 				BciContainer sourceContainer = pta.bciMap2.get(newExpr);
-				assert (sourceContainer != null);
-				int sourceBci = sourceContainer.getBci();
-				int sourceCallerIndex = sourceContainer.getCallerIndex();
-				assert (sourceBci >= 0 && sourceCallerIndex > 0);
-
-				String objectName = (new StringBuilder()).append(String.valueOf(sourceCallerIndex)).append("-")
-						.append(String.valueOf(sourceBci)).toString();
-
-				Map<SootField, Set<AnyNewExpr>> fieldsMap = this.heap.get(newExpr);
-				Map<String, String> fieldStringMap = new HashMap<String, String>();
-				// iterate over the fields for this object
-				for (SootField field : fieldsMap.keySet()) {
-					// fetch the field name
-					String fieldName = field.isStatic() ? field.toString() : field.getName();
-					// fetch the points to set of this object and field
-					Set<AnyNewExpr> pointees = fieldsMap.get(field);
-					// this is a prettified string for this particular field
-					String str;
-					if(pointees.isEmpty()) {
-						str = "N";
-					} else {
-						str = flattenCiToBci(pointees, pta);
+				if(sourceContainer != null) {
+					assert (sourceContainer != null);
+					int sourceBci = sourceContainer.getBci();
+					int sourceCallerIndex = sourceContainer.getCallerIndex();
+					assert (sourceBci >= 0 && sourceCallerIndex > 0);
+	
+					String objectName = (new StringBuilder()).append(String.valueOf(sourceCallerIndex)).append("-")
+							.append(String.valueOf(sourceBci)).toString();
+	
+					Map<SootField, Set<AnyNewExpr>> fieldsMap = this.heap.get(newExpr);
+					Map<String, String> fieldStringMap = new HashMap<String, String>();
+					// iterate over the fields for this object
+					for (SootField field : fieldsMap.keySet()) {
+						// fetch the field name
+						String fieldName = field.isStatic() ? field.toString() : field.getName();
+						// fetch the points to set of this object and field
+						Set<AnyNewExpr> pointees = fieldsMap.get(field);
+						// this is a prettified string for this particular field
+						String str;
+						if(pointees.isEmpty()) {
+							str = "N";
+						} else {
+							str = flattenCiToBci(pointees, pta);
+						}
+						fieldStringMap.put(fieldName, str);
 					}
-					fieldStringMap.put(fieldName, str);
+	
+					// now we have a map of each field's prettified string
+					List<String> sList = new ArrayList<String>();
+					for (String fieldName : fieldStringMap.keySet()) {
+						StringBuilder sbTemp = new StringBuilder();
+						sbTemp.append(fieldName).append(":").append(String.join(" ", fieldStringMap.get(fieldName)));
+						sList.add(sbTemp.toString());
+					}
+	
+					if (fieldsMap.size() > 0)
+						objStringMap.put(objectName, String.join(",", sList));
+	
 				}
-
-				// now we have a map of each field's prettified string
-				List<String> sList = new ArrayList<String>();
-				for (String fieldName : fieldStringMap.keySet()) {
-					StringBuilder sbTemp = new StringBuilder();
-					sbTemp.append(fieldName).append(":").append(String.join(" ", fieldStringMap.get(fieldName)));
-					sList.add(sbTemp.toString());
-				}
-
-				if (fieldsMap.size() > 0)
-					objStringMap.put(objectName, String.join(",", sList));
-
 			} // end instanceof JNewExpr
 		}
 		

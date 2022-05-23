@@ -1,0 +1,25 @@
+class avrora.sim.clock.DeltaQueue$EventList extends java.lang.Object
+{
+    avrora.sim.Simulator$Event event;
+    avrora.sim.clock.DeltaQueue$EventList next;
+
+    void <init>(avrora.sim.Simulator$Event, avrora.sim.clock.DeltaQueue$EventList)
+    {
+        avrora.sim.clock.DeltaQueue$EventList l0, l2;
+        avrora.sim.Simulator$Event l1;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue$EventList;
+
+        l1 := @parameter0: avrora.sim.Simulator$Event;
+
+        l2 := @parameter1: avrora.sim.clock.DeltaQueue$EventList;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.Simulator$Event event> = l1;
+
+        l0.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next> = l2;
+
+        return;
+    }
+}

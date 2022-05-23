@@ -1,0 +1,89 @@
+public class avrora.sim.mcu.RegisterLayout$Field extends java.lang.Object
+{
+    final java.lang.String name;
+    int length;
+    avrora.sim.mcu.RegisterLayout$SubField[] subfields;
+
+    void <init>(java.lang.String)
+    {
+        avrora.sim.mcu.RegisterLayout$Field l0;
+        java.lang.String l1;
+
+        l0 := @this: avrora.sim.mcu.RegisterLayout$Field;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.sim.mcu.RegisterLayout$Field: java.lang.String name> = l1;
+
+        return;
+    }
+
+    void add(avrora.sim.mcu.RegisterLayout$SubField)
+    {
+        avrora.sim.mcu.RegisterLayout$Field l0;
+        avrora.sim.mcu.RegisterLayout$SubField[] $stack3, $stack4, l2, $stack7, $stack9, $stack10, $stack13, $stack17;
+        int $stack5, $stack6, $stack8, $stack11, $stack12, $stack14, $stack15, $stack16, $stack24;
+        avrora.sim.mcu.RegisterLayout$SubField l1#1;
+
+        l0 := @this: avrora.sim.mcu.RegisterLayout$Field;
+
+        l1#1 := @parameter0: avrora.sim.mcu.RegisterLayout$SubField;
+
+        $stack3 = l0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        if $stack3 != null goto label1;
+
+        $stack17 = newarray (avrora.sim.mcu.RegisterLayout$SubField)[1];
+
+        l0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields> = $stack17;
+
+        goto label2;
+
+     label1:
+        $stack9 = l0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $stack4 = l0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $stack5 = lengthof $stack4;
+
+        $stack6 = $stack5 + 1;
+
+        l2 = newarray (avrora.sim.mcu.RegisterLayout$SubField)[$stack6];
+
+        $stack7 = l0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $stack8 = lengthof $stack7;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack9, 0, l2, 0, $stack8);
+
+        l0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields> = l2;
+
+     label2:
+        $stack13 = l0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $stack10 = l0.<avrora.sim.mcu.RegisterLayout$Field: avrora.sim.mcu.RegisterLayout$SubField[] subfields>;
+
+        $stack11 = lengthof $stack10;
+
+        $stack12 = $stack11 - 1;
+
+        $stack13[$stack12] = l1#1;
+
+        $stack15 = l1#1.<avrora.sim.mcu.RegisterLayout$SubField: int field_low_bit>;
+
+        $stack14 = l1#1.<avrora.sim.mcu.RegisterLayout$SubField: int length>;
+
+        $stack24 = $stack15 + $stack14;
+
+        $stack16 = l0.<avrora.sim.mcu.RegisterLayout$Field: int length>;
+
+        if $stack24 <= $stack16 goto label3;
+
+        l0.<avrora.sim.mcu.RegisterLayout$Field: int length> = $stack24;
+
+     label3:
+        return;
+    }
+}

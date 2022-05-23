@@ -1,0 +1,123 @@
+class jdk.internal.org.objectweb.asm.Handler extends java.lang.Object
+{
+    jdk.internal.org.objectweb.asm.Label start;
+    jdk.internal.org.objectweb.asm.Label end;
+    jdk.internal.org.objectweb.asm.Label handler;
+    java.lang.String desc;
+    int type;
+    jdk.internal.org.objectweb.asm.Handler next;
+
+    void <init>()
+    {
+        jdk.internal.org.objectweb.asm.Handler l0;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.Handler;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    static jdk.internal.org.objectweb.asm.Handler remove(jdk.internal.org.objectweb.asm.Handler, jdk.internal.org.objectweb.asm.Label, jdk.internal.org.objectweb.asm.Label)
+    {
+        jdk.internal.org.objectweb.asm.Label l1, l2, $stack10, $stack11, $stack14, $stack15;
+        jdk.internal.org.objectweb.asm.Handler $stack8, $stack9, $stack13, $stack18, l0#1;
+        int l3, l4, l5, $stack17, $stack19#2;
+        java.lang.String $stack16;
+
+        l0#1 := @parameter0: jdk.internal.org.objectweb.asm.Handler;
+
+        l1 := @parameter1: jdk.internal.org.objectweb.asm.Label;
+
+        l2 := @parameter2: jdk.internal.org.objectweb.asm.Label;
+
+        if l0#1 != null goto label1;
+
+        return null;
+
+     label1:
+        $stack8 = l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Handler next>;
+
+        $stack9 = staticinvoke <jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Handler remove(jdk.internal.org.objectweb.asm.Handler,jdk.internal.org.objectweb.asm.Label,jdk.internal.org.objectweb.asm.Label)>($stack8, l1, l2);
+
+        l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Handler next> = $stack9;
+
+        $stack10 = l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label start>;
+
+        l3 = $stack10.<jdk.internal.org.objectweb.asm.Label: int position>;
+
+        $stack11 = l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label end>;
+
+        l4 = $stack11.<jdk.internal.org.objectweb.asm.Label: int position>;
+
+        l5 = l1.<jdk.internal.org.objectweb.asm.Label: int position>;
+
+        if l2 != null goto label2;
+
+        $stack19#2 = 2147483647;
+
+        goto label3;
+
+     label2:
+        $stack19#2 = l2.<jdk.internal.org.objectweb.asm.Label: int position>;
+
+     label3:
+        if l5 >= l4 goto label7;
+
+        if $stack19#2 <= l3 goto label7;
+
+        if l5 > l3 goto label5;
+
+        if $stack19#2 < l4 goto label4;
+
+        l0#1 = l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Handler next>;
+
+        goto label7;
+
+     label4:
+        l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label start> = l2;
+
+        goto label7;
+
+     label5:
+        if $stack19#2 < l4 goto label6;
+
+        l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label end> = l1;
+
+        goto label7;
+
+     label6:
+        $stack13 = new jdk.internal.org.objectweb.asm.Handler;
+
+        specialinvoke $stack13.<jdk.internal.org.objectweb.asm.Handler: void <init>()>();
+
+        $stack13.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label start> = l2;
+
+        $stack14 = l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label end>;
+
+        $stack13.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label end> = $stack14;
+
+        $stack15 = l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label handler>;
+
+        $stack13.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label handler> = $stack15;
+
+        $stack16 = l0#1.<jdk.internal.org.objectweb.asm.Handler: java.lang.String desc>;
+
+        $stack13.<jdk.internal.org.objectweb.asm.Handler: java.lang.String desc> = $stack16;
+
+        $stack17 = l0#1.<jdk.internal.org.objectweb.asm.Handler: int type>;
+
+        $stack13.<jdk.internal.org.objectweb.asm.Handler: int type> = $stack17;
+
+        $stack18 = l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Handler next>;
+
+        $stack13.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Handler next> = $stack18;
+
+        l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Label end> = l1;
+
+        l0#1.<jdk.internal.org.objectweb.asm.Handler: jdk.internal.org.objectweb.asm.Handler next> = $stack13;
+
+     label7:
+        return l0#1;
+    }
+}

@@ -1,0 +1,81 @@
+public class avrora.sim.mcu.RegisterSet$Field extends java.lang.Object
+{
+    public int value;
+
+    public void <init>()
+    {
+        avrora.sim.mcu.RegisterSet$Field l0;
+
+        l0 := @this: avrora.sim.mcu.RegisterSet$Field;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void set(int)
+    {
+        cck.util.Util$InternalError $stack2;
+        avrora.sim.mcu.RegisterSet$Field l0;
+        int l1;
+
+        l0 := @this: avrora.sim.mcu.RegisterSet$Field;
+
+        l1 := @parameter0: int;
+
+        $stack2 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack2;
+    }
+
+    public void update()
+    {
+        avrora.sim.mcu.RegisterSet$Field l0;
+
+        l0 := @this: avrora.sim.mcu.RegisterSet$Field;
+
+        return;
+    }
+
+    public void write(int, int)
+    {
+        avrora.sim.mcu.RegisterSet$Field l0;
+        int l2, $stack3, $stack4, l1, $stack5, $stack6;
+
+        l0 := @this: avrora.sim.mcu.RegisterSet$Field;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        $stack4 = l0.<avrora.sim.mcu.RegisterSet$Field: int value>;
+
+        $stack3 = l2 ^ -1;
+
+        $stack5 = $stack4 & $stack3;
+
+        $stack6 = $stack5 | l1;
+
+        l0.<avrora.sim.mcu.RegisterSet$Field: int value> = $stack6;
+
+        virtualinvoke l0.<avrora.sim.mcu.RegisterSet$Field: void update()>();
+
+        return;
+    }
+
+    public void write(int)
+    {
+        avrora.sim.mcu.RegisterSet$Field l0;
+        int l1;
+
+        l0 := @this: avrora.sim.mcu.RegisterSet$Field;
+
+        l1 := @parameter0: int;
+
+        l0.<avrora.sim.mcu.RegisterSet$Field: int value> = l1;
+
+        virtualinvoke l0.<avrora.sim.mcu.RegisterSet$Field: void update()>();
+
+        return;
+    }
+}

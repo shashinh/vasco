@@ -1,0 +1,853 @@
+public class avrora.sim.FiniteStateMachine extends java.lang.Object
+{
+    public static final int IN_TRANSITION;
+    protected final int numStates;
+    protected final int startState;
+    protected final avrora.sim.clock.Clock clock;
+    protected final avrora.sim.FiniteStateMachine$TransitionEvent transEvent;
+    protected final avrora.sim.util.MulticastFSMProbe globalProbe;
+    protected avrora.sim.FiniteStateMachine$State[] states;
+    protected int curState;
+
+    public void <init>(avrora.sim.clock.Clock, int, java.lang.String[], int)
+    {
+        avrora.sim.FiniteStateMachine l0;
+        avrora.sim.FiniteStateMachine$TransitionEvent $stack5;
+        avrora.sim.util.MulticastFSMProbe $stack6;
+        avrora.sim.clock.Clock l1;
+        int l2, $stack7, $stack8, l4, $stack10;
+        java.lang.String[] l3;
+        avrora.sim.FiniteStateMachine$State[] $stack9;
+        int[][] $stack11;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: avrora.sim.clock.Clock;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: java.lang.String[];
+
+        l4 := @parameter3: int;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack5 = new avrora.sim.FiniteStateMachine$TransitionEvent;
+
+        specialinvoke $stack5.<avrora.sim.FiniteStateMachine$TransitionEvent: void <init>(avrora.sim.FiniteStateMachine)>(l0);
+
+        l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$TransitionEvent transEvent> = $stack5;
+
+        $stack6 = new avrora.sim.util.MulticastFSMProbe;
+
+        specialinvoke $stack6.<avrora.sim.util.MulticastFSMProbe: void <init>()>();
+
+        l0.<avrora.sim.FiniteStateMachine: avrora.sim.util.MulticastFSMProbe globalProbe> = $stack6;
+
+        l0.<avrora.sim.FiniteStateMachine: avrora.sim.clock.Clock clock> = l1;
+
+        l0.<avrora.sim.FiniteStateMachine: int startState> = l2;
+
+        l0.<avrora.sim.FiniteStateMachine: int curState> = l2;
+
+        $stack7 = lengthof l3;
+
+        l0.<avrora.sim.FiniteStateMachine: int numStates> = $stack7;
+
+        $stack8 = l0.<avrora.sim.FiniteStateMachine: int numStates>;
+
+        $stack9 = newarray (avrora.sim.FiniteStateMachine$State)[$stack8];
+
+        l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states> = $stack9;
+
+        $stack10 = l0.<avrora.sim.FiniteStateMachine: int numStates>;
+
+        $stack11 = staticinvoke <avrora.sim.FiniteStateMachine: int[][] buildUniformTTM(int,int)>($stack10, l4);
+
+        specialinvoke l0.<avrora.sim.FiniteStateMachine: void buildStates(java.lang.String[],int[][])>(l3, $stack11);
+
+        return;
+    }
+
+    public void <init>(avrora.sim.clock.Clock, int, java.lang.String[], int[][])
+    {
+        avrora.sim.FiniteStateMachine l0;
+        avrora.sim.FiniteStateMachine$TransitionEvent $stack5;
+        avrora.sim.util.MulticastFSMProbe $stack6;
+        avrora.sim.clock.Clock l1;
+        int l2, $stack7, $stack8;
+        java.lang.String[] l3;
+        avrora.sim.FiniteStateMachine$State[] $stack9;
+        int[][] l4;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: avrora.sim.clock.Clock;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: java.lang.String[];
+
+        l4 := @parameter3: int[][];
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack5 = new avrora.sim.FiniteStateMachine$TransitionEvent;
+
+        specialinvoke $stack5.<avrora.sim.FiniteStateMachine$TransitionEvent: void <init>(avrora.sim.FiniteStateMachine)>(l0);
+
+        l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$TransitionEvent transEvent> = $stack5;
+
+        $stack6 = new avrora.sim.util.MulticastFSMProbe;
+
+        specialinvoke $stack6.<avrora.sim.util.MulticastFSMProbe: void <init>()>();
+
+        l0.<avrora.sim.FiniteStateMachine: avrora.sim.util.MulticastFSMProbe globalProbe> = $stack6;
+
+        l0.<avrora.sim.FiniteStateMachine: avrora.sim.clock.Clock clock> = l1;
+
+        l0.<avrora.sim.FiniteStateMachine: int startState> = l2;
+
+        l0.<avrora.sim.FiniteStateMachine: int curState> = l2;
+
+        $stack7 = lengthof l3;
+
+        l0.<avrora.sim.FiniteStateMachine: int numStates> = $stack7;
+
+        $stack8 = l0.<avrora.sim.FiniteStateMachine: int numStates>;
+
+        $stack9 = newarray (avrora.sim.FiniteStateMachine$State)[$stack8];
+
+        l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states> = $stack9;
+
+        specialinvoke l0.<avrora.sim.FiniteStateMachine: void buildStates(java.lang.String[],int[][])>(l3, l4);
+
+        return;
+    }
+
+    static void access$000(avrora.sim.util.MulticastFSMProbe, int, int)
+    {
+        avrora.sim.util.MulticastFSMProbe l0;
+        int l1, l2;
+
+        l0 := @parameter0: avrora.sim.util.MulticastFSMProbe;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: int;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void fireAfter(avrora.sim.util.MulticastFSMProbe,int,int)>(l0, l1, l2);
+
+        return;
+    }
+
+    public static int[][] buildBimodalTTM(int, int, int[], int[])
+    {
+        int l0, l1, $stack10, $stack12, l5#1, l6#2;
+        int[][] $stack7;
+        int[] l2, $stack11, l3, $stack13;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: int[];
+
+        l3 := @parameter3: int[];
+
+        $stack7 = staticinvoke <avrora.sim.FiniteStateMachine: int[][] newTTM(int)>(l0);
+
+        l5#1 = 0;
+
+     label1:
+        if l5#1 >= l0 goto label4;
+
+        l6#2 = 0;
+
+     label2:
+        if l6#2 >= l0 goto label3;
+
+        $stack11 = $stack7[l5#1];
+
+        $stack10 = l2[l5#1];
+
+        $stack11[l1] = $stack10;
+
+        $stack13 = $stack7[l1];
+
+        $stack12 = l3[l5#1];
+
+        $stack13[l5#1] = $stack12;
+
+        l6#2 = l6#2 + 1;
+
+        goto label2;
+
+     label3:
+        l5#1 = l5#1 + 1;
+
+        goto label1;
+
+     label4:
+        return $stack7;
+    }
+
+    public static int[][] buildSparseTTM(int, int)
+    {
+        int l0, l1, l4#1;
+        int[][] l2;
+        int[] l3;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: int;
+
+        l2 = newarray (int[])[l0];
+
+        l3 = newarray (int)[l0];
+
+        l4#1 = 0;
+
+     label1:
+        if l4#1 >= l0 goto label2;
+
+        l2[l4#1] = l3;
+
+        l3[l4#1] = l1;
+
+        l4#1 = l4#1 + 1;
+
+        goto label1;
+
+     label2:
+        return l2;
+    }
+
+    private void buildStates(java.lang.String[], int[][])
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int $stack4, l3#1;
+        avrora.sim.FiniteStateMachine$State $stack5;
+        java.lang.String[] l1;
+        int[][] l2;
+        int[] $stack6;
+        java.lang.String $stack7;
+        avrora.sim.FiniteStateMachine$State[] $stack8;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: java.lang.String[];
+
+        l2 := @parameter1: int[][];
+
+        l3#1 = 0;
+
+     label1:
+        $stack4 = l0.<avrora.sim.FiniteStateMachine: int numStates>;
+
+        if l3#1 >= $stack4 goto label2;
+
+        $stack8 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack5 = new avrora.sim.FiniteStateMachine$State;
+
+        $stack7 = l1[l3#1];
+
+        $stack6 = l2[l3#1];
+
+        specialinvoke $stack5.<avrora.sim.FiniteStateMachine$State: void <init>(avrora.sim.FiniteStateMachine,java.lang.String,int[])>(l0, $stack7, $stack6);
+
+        $stack8[l3#1] = $stack5;
+
+        l3#1 = l3#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public static int[][] buildUniformTTM(int, int)
+    {
+        int l0, l1, l3#1, l4#2;
+        int[][] l2;
+        int[] $stack8;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: int;
+
+        l2 = newmultiarray (int)[l0][l0];
+
+        if l1 == 0 goto label4;
+
+        l3#1 = 0;
+
+     label1:
+        if l3#1 >= l0 goto label4;
+
+        l4#2 = 0;
+
+     label2:
+        if l4#2 >= l0 goto label3;
+
+        $stack8 = l2[l3#1];
+
+        $stack8[l4#2] = l1;
+
+        l4#2 = l4#2 + 1;
+
+        goto label2;
+
+     label3:
+        l3#1 = l3#1 + 1;
+
+        goto label1;
+
+     label4:
+        return l2;
+    }
+
+    private static void fireAfter(avrora.sim.util.MulticastFSMProbe, int, int)
+    {
+        avrora.sim.util.MulticastFSMProbe l0;
+        boolean $stack3;
+        int l1, l2;
+
+        l0 := @parameter0: avrora.sim.util.MulticastFSMProbe;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: int;
+
+        $stack3 = virtualinvoke l0.<avrora.sim.util.MulticastFSMProbe: boolean isEmpty()>();
+
+        if $stack3 != 0 goto label1;
+
+        virtualinvoke l0.<avrora.sim.util.MulticastFSMProbe: void fireAfterTransition(int,int)>(l1, l2);
+
+     label1:
+        return;
+    }
+
+    private static void fireBefore(avrora.sim.util.MulticastFSMProbe, int, int)
+    {
+        avrora.sim.util.MulticastFSMProbe l0;
+        boolean $stack3;
+        int l1, l2;
+
+        l0 := @parameter0: avrora.sim.util.MulticastFSMProbe;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: int;
+
+        $stack3 = virtualinvoke l0.<avrora.sim.util.MulticastFSMProbe: boolean isEmpty()>();
+
+        if $stack3 != 0 goto label1;
+
+        virtualinvoke l0.<avrora.sim.util.MulticastFSMProbe: void fireBeforeTransition(int,int)>(l1, l2);
+
+     label1:
+        return;
+    }
+
+    public avrora.sim.clock.Clock getClock()
+    {
+        avrora.sim.FiniteStateMachine l0;
+        avrora.sim.clock.Clock $stack1;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        $stack1 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.clock.Clock clock>;
+
+        return $stack1;
+    }
+
+    public int getCurrentState()
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int $stack1;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        $stack1 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getCurrentStateName()
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int $stack1;
+        avrora.sim.FiniteStateMachine$State[] $stack2;
+        avrora.sim.FiniteStateMachine$State $stack3;
+        java.lang.String $stack4;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        $stack2 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack1 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        $stack3 = $stack2[$stack1];
+
+        $stack4 = $stack3.<avrora.sim.FiniteStateMachine$State: java.lang.String name>;
+
+        return $stack4;
+    }
+
+    public int getNumberOfStates()
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int $stack1;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        $stack1 = l0.<avrora.sim.FiniteStateMachine: int numStates>;
+
+        return $stack1;
+    }
+
+    public int getStartState()
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int $stack1;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        $stack1 = l0.<avrora.sim.FiniteStateMachine: int startState>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getStateName(int)
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int l1;
+        avrora.sim.FiniteStateMachine$State[] $stack2;
+        avrora.sim.FiniteStateMachine$State $stack3;
+        java.lang.String $stack4;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack3 = $stack2[l1];
+
+        $stack4 = $stack3.<avrora.sim.FiniteStateMachine$State: java.lang.String name>;
+
+        return $stack4;
+    }
+
+    public int getTransitionTime(int, int)
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int l1, l2, $stack6;
+        avrora.sim.FiniteStateMachine$State[] $stack3;
+        avrora.sim.FiniteStateMachine$State $stack4;
+        int[] $stack5;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        $stack3 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack4 = $stack3[l1];
+
+        $stack5 = $stack4.<avrora.sim.FiniteStateMachine$State: int[] transition_time>;
+
+        $stack6 = $stack5[l2];
+
+        return $stack6;
+    }
+
+    public void insertProbe(avrora.sim.FiniteStateMachine$Probe)
+    {
+        avrora.sim.FiniteStateMachine l0;
+        avrora.sim.FiniteStateMachine$Probe l1;
+        avrora.sim.util.MulticastFSMProbe $stack2;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: avrora.sim.FiniteStateMachine$Probe;
+
+        $stack2 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.util.MulticastFSMProbe globalProbe>;
+
+        virtualinvoke $stack2.<avrora.sim.util.MulticastFSMProbe: void add(java.lang.Object)>(l1);
+
+        return;
+    }
+
+    public void insertProbe(avrora.sim.FiniteStateMachine$Probe, int)
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int l2;
+        avrora.sim.FiniteStateMachine$State[] $stack3;
+        avrora.sim.FiniteStateMachine$State $stack4;
+        avrora.sim.FiniteStateMachine$Probe l1;
+        avrora.sim.util.MulticastFSMProbe $stack5;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: avrora.sim.FiniteStateMachine$Probe;
+
+        l2 := @parameter1: int;
+
+        $stack3 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack4 = $stack3[l2];
+
+        $stack5 = $stack4.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        virtualinvoke $stack5.<avrora.sim.util.MulticastFSMProbe: void add(java.lang.Object)>(l1);
+
+        return;
+    }
+
+    public static int[][] newTTM(int)
+    {
+        int l0, l2#1, l3#2;
+        int[][] l1;
+        int[] $stack6;
+
+        l0 := @parameter0: int;
+
+        l1 = newmultiarray (int)[l0][l0];
+
+        l2#1 = 0;
+
+     label1:
+        if l2#1 >= l0 goto label4;
+
+        l3#2 = 0;
+
+     label2:
+        if l3#2 >= l0 goto label3;
+
+        $stack6 = l1[l2#1];
+
+        $stack6[l3#2] = -1;
+
+        l3#2 = l3#2 + 1;
+
+        goto label2;
+
+     label3:
+        l2#1 = l2#1 + 1;
+
+        goto label1;
+
+     label4:
+        return l1;
+    }
+
+    public void removeProbe(avrora.sim.FiniteStateMachine$Probe)
+    {
+        avrora.sim.FiniteStateMachine l0;
+        avrora.sim.FiniteStateMachine$Probe l1;
+        avrora.sim.util.MulticastFSMProbe $stack2;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: avrora.sim.FiniteStateMachine$Probe;
+
+        $stack2 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.util.MulticastFSMProbe globalProbe>;
+
+        virtualinvoke $stack2.<avrora.sim.util.MulticastFSMProbe: void remove(java.lang.Object)>(l1);
+
+        return;
+    }
+
+    public void removeProbe(avrora.sim.FiniteStateMachine$Probe, int)
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int l2;
+        avrora.sim.FiniteStateMachine$State[] $stack3;
+        avrora.sim.FiniteStateMachine$State $stack4;
+        avrora.sim.FiniteStateMachine$Probe l1;
+        avrora.sim.util.MulticastFSMProbe $stack5;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: avrora.sim.FiniteStateMachine$Probe;
+
+        l2 := @parameter1: int;
+
+        $stack3 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack4 = $stack3[l2];
+
+        $stack5 = $stack4.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        virtualinvoke $stack5.<avrora.sim.util.MulticastFSMProbe: void remove(java.lang.Object)>(l1);
+
+        return;
+    }
+
+    public static int[][] setCircularTTM(int[][], int[], int[])
+    {
+        int[][] l0;
+        int l3, $stack5, $stack6, $stack7, $stack8, $stack9, $stack10, $stack12, $stack13, $stack14, $stack15, $stack16, $stack17, l4#1;
+        int[] l1, l2, $stack11, $stack18;
+
+        l0 := @parameter0: int[][];
+
+        l1 := @parameter1: int[];
+
+        l2 := @parameter2: int[];
+
+        l3 = lengthof l0;
+
+        l4#1 = 0;
+
+     label1:
+        $stack5 = l3 - 1;
+
+        if l4#1 >= $stack5 goto label2;
+
+        $stack12 = l1[l4#1];
+
+        $stack18 = l0[$stack12];
+
+        $stack13 = l4#1 + 1;
+
+        $stack17 = l1[$stack13];
+
+        $stack14 = l4#1 + 1;
+
+        $stack15 = l1[$stack14];
+
+        $stack16 = l2[$stack15];
+
+        $stack18[$stack17] = $stack16;
+
+        l4#1 = l4#1 + 1;
+
+        goto label1;
+
+     label2:
+        $stack6 = l3 - 1;
+
+        $stack7 = l1[$stack6];
+
+        $stack11 = l0[$stack7];
+
+        $stack10 = l1[0];
+
+        $stack8 = l1[0];
+
+        $stack9 = l2[$stack8];
+
+        $stack11[$stack10] = $stack9;
+
+        return l0;
+    }
+
+    public static int[][] setDiagonal(int[][], int)
+    {
+        int[][] l0;
+        int $stack3, l1, l2#1;
+        int[] $stack4;
+
+        l0 := @parameter0: int[][];
+
+        l1 := @parameter1: int;
+
+        l2#1 = 0;
+
+     label1:
+        $stack3 = lengthof l0;
+
+        if l2#1 >= $stack3 goto label2;
+
+        $stack4 = l0[l2#1];
+
+        $stack4[l2#1] = l1;
+
+        l2#1 = l2#1 + 1;
+
+        goto label1;
+
+     label2:
+        return l0;
+    }
+
+    public void transition(int)
+    {
+        avrora.sim.FiniteStateMachine l0;
+        int $stack3, $stack4, l1, $stack8, $stack10, $stack13, $stack17, $stack19, $stack34, $stack45, $stack49, l2#1, l2#2;
+        avrora.sim.FiniteStateMachine$State[] $stack5, $stack11, $stack15, $stack25, $stack28;
+        avrora.sim.FiniteStateMachine$State $stack6, $stack12, $stack16, $stack26, $stack29;
+        int[] $stack7;
+        avrora.sim.util.MulticastFSMProbe $stack9, $stack14, $stack18, $stack27, $stack30, $stack31;
+        avrora.sim.FiniteStateMachine$TransitionEvent $stack20, $stack21, $stack23, $stack44, $stack48;
+        long $stack22;
+        avrora.sim.clock.Clock $stack24;
+        java.lang.StringBuilder $stack32, $stack33, $stack35, $stack36, $stack37, $stack40, $stack41, $stack42, $stack43, $stack46, $stack47, $stack50;
+        java.lang.String $stack38, $stack51;
+        cck.util.Util$InternalError $stack39, $stack52;
+
+        l0 := @this: avrora.sim.FiniteStateMachine;
+
+        l1 := @parameter0: int;
+
+        $stack3 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        if $stack3 != -1 goto label1;
+
+        $stack40 = new java.lang.StringBuilder;
+
+        specialinvoke $stack40.<java.lang.StringBuilder: void <init>()>();
+
+        $stack41 = virtualinvoke $stack40.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("cannot transition to state ");
+
+        $stack42 = virtualinvoke $stack41.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l1);
+
+        $stack43 = virtualinvoke $stack42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" while in transition: ");
+
+        $stack44 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$TransitionEvent transEvent>;
+
+        $stack45 = $stack44.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState>;
+
+        $stack46 = virtualinvoke $stack43.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack45);
+
+        $stack47 = virtualinvoke $stack46.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" -> ");
+
+        $stack48 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$TransitionEvent transEvent>;
+
+        $stack49 = $stack48.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState>;
+
+        $stack50 = virtualinvoke $stack47.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack49);
+
+        $stack51 = virtualinvoke $stack50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack52 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>($stack51);
+
+        throw $stack52;
+
+     label1:
+        $stack5 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack4 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        $stack6 = $stack5[$stack4];
+
+        $stack7 = $stack6.<avrora.sim.FiniteStateMachine$State: int[] transition_time>;
+
+        l2#1 = $stack7[l1];
+
+        if l2#1 >= 0 goto label2;
+
+        $stack32 = new java.lang.StringBuilder;
+
+        specialinvoke $stack32.<java.lang.StringBuilder: void <init>()>();
+
+        $stack33 = virtualinvoke $stack32.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("cannot transition from state ");
+
+        $stack34 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        $stack35 = virtualinvoke $stack33.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack34);
+
+        $stack36 = virtualinvoke $stack35.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" -> ");
+
+        $stack37 = virtualinvoke $stack36.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l1);
+
+        $stack38 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack39 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>($stack38);
+
+        throw $stack39;
+
+     label2:
+        $stack9 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.util.MulticastFSMProbe globalProbe>;
+
+        $stack8 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void fireBefore(avrora.sim.util.MulticastFSMProbe,int,int)>($stack9, $stack8, l1);
+
+        $stack11 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack10 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        $stack12 = $stack11[$stack10];
+
+        $stack14 = $stack12.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        $stack13 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void fireBefore(avrora.sim.util.MulticastFSMProbe,int,int)>($stack14, $stack13, l1);
+
+        $stack15 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack16 = $stack15[l1];
+
+        $stack18 = $stack16.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        $stack17 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void fireBefore(avrora.sim.util.MulticastFSMProbe,int,int)>($stack18, $stack17, l1);
+
+        if l2#1 != 0 goto label3;
+
+        l2#2 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        l0.<avrora.sim.FiniteStateMachine: int curState> = l1;
+
+        $stack25 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack26 = $stack25[l2#2];
+
+        $stack27 = $stack26.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void fireAfter(avrora.sim.util.MulticastFSMProbe,int,int)>($stack27, l2#2, l1);
+
+        $stack28 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$State[] states>;
+
+        $stack29 = $stack28[l1];
+
+        $stack30 = $stack29.<avrora.sim.FiniteStateMachine$State: avrora.sim.util.MulticastFSMProbe probes>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void fireAfter(avrora.sim.util.MulticastFSMProbe,int,int)>($stack30, l2#2, l1);
+
+        $stack31 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.util.MulticastFSMProbe globalProbe>;
+
+        staticinvoke <avrora.sim.FiniteStateMachine: void fireAfter(avrora.sim.util.MulticastFSMProbe,int,int)>($stack31, l2#2, l1);
+
+        goto label4;
+
+     label3:
+        $stack20 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$TransitionEvent transEvent>;
+
+        $stack19 = l0.<avrora.sim.FiniteStateMachine: int curState>;
+
+        $stack20.<avrora.sim.FiniteStateMachine$TransitionEvent: int oldState> = $stack19;
+
+        $stack21 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$TransitionEvent transEvent>;
+
+        $stack21.<avrora.sim.FiniteStateMachine$TransitionEvent: int newState> = l1;
+
+        $stack24 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.clock.Clock clock>;
+
+        $stack23 = l0.<avrora.sim.FiniteStateMachine: avrora.sim.FiniteStateMachine$TransitionEvent transEvent>;
+
+        $stack22 = (long) l2#1;
+
+        virtualinvoke $stack24.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>($stack23, $stack22);
+
+     label4:
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.FiniteStateMachine: int IN_TRANSITION> = -1;
+
+        return;
+    }
+}

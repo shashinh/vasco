@@ -1,0 +1,63 @@
+public class jdk.internal.util.xml.BasicXmlPropertiesProvider extends sun.util.spi.XmlPropertiesProvider
+{
+
+    public void <init>()
+    {
+        jdk.internal.util.xml.BasicXmlPropertiesProvider l0;
+
+        l0 := @this: jdk.internal.util.xml.BasicXmlPropertiesProvider;
+
+        specialinvoke l0.<sun.util.spi.XmlPropertiesProvider: void <init>()>();
+
+        return;
+    }
+
+    public void load(java.util.Properties, java.io.InputStream) throws java.io.IOException, java.util.InvalidPropertiesFormatException
+    {
+        jdk.internal.util.xml.PropertiesDefaultHandler $stack4;
+        java.util.Properties l1;
+        java.io.InputStream l2;
+        jdk.internal.util.xml.BasicXmlPropertiesProvider l0;
+
+        l0 := @this: jdk.internal.util.xml.BasicXmlPropertiesProvider;
+
+        l1 := @parameter0: java.util.Properties;
+
+        l2 := @parameter1: java.io.InputStream;
+
+        $stack4 = new jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        specialinvoke $stack4.<jdk.internal.util.xml.PropertiesDefaultHandler: void <init>()>();
+
+        virtualinvoke $stack4.<jdk.internal.util.xml.PropertiesDefaultHandler: void load(java.util.Properties,java.io.InputStream)>(l1, l2);
+
+        return;
+    }
+
+    public void store(java.util.Properties, java.io.OutputStream, java.lang.String, java.lang.String) throws java.io.IOException
+    {
+        jdk.internal.util.xml.PropertiesDefaultHandler $stack6;
+        java.util.Properties l1;
+        java.io.OutputStream l2;
+        java.lang.String l3, l4;
+        jdk.internal.util.xml.BasicXmlPropertiesProvider l0;
+
+        l0 := @this: jdk.internal.util.xml.BasicXmlPropertiesProvider;
+
+        l1 := @parameter0: java.util.Properties;
+
+        l2 := @parameter1: java.io.OutputStream;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 := @parameter3: java.lang.String;
+
+        $stack6 = new jdk.internal.util.xml.PropertiesDefaultHandler;
+
+        specialinvoke $stack6.<jdk.internal.util.xml.PropertiesDefaultHandler: void <init>()>();
+
+        virtualinvoke $stack6.<jdk.internal.util.xml.PropertiesDefaultHandler: void store(java.util.Properties,java.io.OutputStream,java.lang.String,java.lang.String)>(l1, l2, l3, l4);
+
+        return;
+    }
+}

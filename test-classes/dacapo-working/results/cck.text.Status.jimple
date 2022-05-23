@@ -1,0 +1,275 @@
+public class cck.text.Status extends java.lang.Object
+{
+    static java.util.Stack stack;
+    static boolean inside;
+    public static boolean ENABLED;
+    public static boolean TIMING;
+
+    static void <clinit>()
+    {
+        java.util.Stack $stack0;
+
+        $stack0 = new java.util.Stack;
+
+        specialinvoke $stack0.<java.util.Stack: void <init>()>();
+
+        <cck.text.Status: java.util.Stack stack> = $stack0;
+
+        <cck.text.Status: boolean inside> = 0;
+
+        <cck.text.Status: boolean ENABLED> = 1;
+
+        <cck.text.Status: boolean TIMING> = 1;
+
+        return;
+    }
+
+    public void <init>()
+    {
+        cck.text.Status l0;
+
+        l0 := @this: cck.text.Status;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void begin(java.lang.String)
+    {
+        boolean $stack1, $stack2;
+        java.util.Stack $stack3, $stack8;
+        int $stack4, $stack5;
+        java.lang.String $stack6, l0;
+        cck.text.Status$Item $stack7;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack1 = <cck.text.Status: boolean ENABLED>;
+
+        if $stack1 != 0 goto label1;
+
+        return;
+
+     label1:
+        $stack2 = <cck.text.Status: boolean inside>;
+
+        if $stack2 == 0 goto label2;
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+     label2:
+        $stack3 = <cck.text.Status: java.util.Stack stack>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.Stack: int size()>();
+
+        $stack5 = $stack4 * 4;
+
+        $stack6 = staticinvoke <cck.text.StringUtil: java.lang.String space(int)>($stack5);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack6);
+
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(3, l0);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>("...");
+
+        staticinvoke <cck.text.Terminal: void flush()>();
+
+        $stack8 = <cck.text.Status: java.util.Stack stack>;
+
+        $stack7 = new cck.text.Status$Item;
+
+        specialinvoke $stack7.<cck.text.Status$Item: void <init>(java.lang.String)>(l0);
+
+        virtualinvoke $stack8.<java.util.Stack: java.lang.Object push(java.lang.Object)>($stack7);
+
+        <cck.text.Status: boolean inside> = 1;
+
+        return;
+    }
+
+    public static void error()
+    {
+        boolean $stack0;
+
+        $stack0 = <cck.text.Status: boolean ENABLED>;
+
+        if $stack0 != 0 goto label1;
+
+        return;
+
+     label1:
+        staticinvoke <cck.text.Status: void print(int,java.lang.String)>(1, "ERROR");
+
+        return;
+    }
+
+    public static void error(java.lang.String)
+    {
+        boolean $stack1;
+        java.lang.String l0;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack1 = <cck.text.Status: boolean ENABLED>;
+
+        if $stack1 != 0 goto label1;
+
+        return;
+
+     label1:
+        staticinvoke <cck.text.Status: void print(int,java.lang.String)>(1, l0);
+
+        return;
+    }
+
+    public static void error(java.lang.Throwable)
+    {
+        boolean $stack1;
+        java.lang.Throwable l0;
+
+        l0 := @parameter0: java.lang.Throwable;
+
+        $stack1 = <cck.text.Status: boolean ENABLED>;
+
+        if $stack1 != 0 goto label1;
+
+        return;
+
+     label1:
+        staticinvoke <cck.text.Status: void print(int,java.lang.String)>(1, "UNEXPECTED EXCEPTION");
+
+        return;
+    }
+
+    public static void error(cck.util.Util$Error)
+    {
+        boolean $stack1;
+        cck.util.Util$Error l0;
+
+        l0 := @parameter0: cck.util.Util$Error;
+
+        $stack1 = <cck.text.Status: boolean ENABLED>;
+
+        if $stack1 != 0 goto label1;
+
+        return;
+
+     label1:
+        staticinvoke <cck.text.Status: void print(int,java.lang.String)>(1, "ERROR");
+
+        return;
+    }
+
+    private static void print(int, java.lang.String)
+    {
+        java.util.Stack $stack5;
+        java.lang.Object $stack6;
+        cck.text.Status$Item l2;
+        boolean $stack7, $stack8;
+        int l0;
+        java.lang.String l1, $stack12, $stack15;
+        byte $stack9;
+        java.lang.StringBuilder $stack11, $stack13, $stack14;
+        long $stack19, $stack20, l3#1;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: java.lang.String;
+
+        l3#1 = -1L;
+
+        $stack5 = <cck.text.Status: java.util.Stack stack>;
+
+        $stack6 = virtualinvoke $stack5.<java.util.Stack: java.lang.Object pop()>();
+
+        l2 = (cck.text.Status$Item) $stack6;
+
+        if l2 == null goto label1;
+
+        $stack19 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $stack20 = l2.<cck.text.Status$Item: long starttime>;
+
+        l3#1 = $stack19 - $stack20;
+
+     label1:
+        $stack7 = <cck.text.Status: boolean TIMING>;
+
+        if $stack7 == 0 goto label2;
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>("[");
+
+     label2:
+        staticinvoke <cck.text.Terminal: void print(int,java.lang.String)>(l0, l1);
+
+        $stack8 = <cck.text.Status: boolean TIMING>;
+
+        if $stack8 == 0 goto label4;
+
+        $stack9 = l3#1 cmp 0L;
+
+        if $stack9 < 0 goto label3;
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(": ");
+
+        $stack11 = new java.lang.StringBuilder;
+
+        specialinvoke $stack11.<java.lang.StringBuilder: void <init>()>();
+
+        $stack12 = staticinvoke <cck.util.TimeUtil: java.lang.String milliToSecs(long)>(l3#1);
+
+        $stack13 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" seconds");
+
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack15);
+
+     label3:
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>("]");
+
+     label4:
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        <cck.text.Status: boolean inside> = 0;
+
+        return;
+    }
+
+    public static void success()
+    {
+        boolean $stack0;
+
+        $stack0 = <cck.text.Status: boolean ENABLED>;
+
+        if $stack0 != 0 goto label1;
+
+        return;
+
+     label1:
+        staticinvoke <cck.text.Status: void print(int,java.lang.String)>(2, "OK");
+
+        return;
+    }
+
+    public static void success(java.lang.String)
+    {
+        boolean $stack1;
+        java.lang.String l0;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack1 = <cck.text.Status: boolean ENABLED>;
+
+        if $stack1 != 0 goto label1;
+
+        return;
+
+     label1:
+        staticinvoke <cck.text.Status: void print(int,java.lang.String)>(2, l0);
+
+        return;
+    }
+}

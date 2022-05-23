@@ -1,0 +1,85 @@
+public abstract class avrora.arch.legacy.LegacyInstr$NONE_class extends avrora.arch.legacy.LegacyInstr
+{
+
+    void <init>(avrora.arch.legacy.LegacyInstrProperties)
+    {
+        avrora.arch.legacy.LegacyInstr$NONE_class l0;
+        avrora.arch.legacy.LegacyInstrProperties l1;
+
+        l0 := @this: avrora.arch.legacy.LegacyInstr$NONE_class;
+
+        l1 := @parameter0: avrora.arch.legacy.LegacyInstrProperties;
+
+        specialinvoke l0.<avrora.arch.legacy.LegacyInstr: void <init>(avrora.arch.legacy.LegacyInstrProperties)>(l1);
+
+        return;
+    }
+
+    abstract avrora.arch.legacy.LegacyInstr allocate(int);
+
+    public avrora.arch.legacy.LegacyInstr build(int, avrora.arch.legacy.LegacyOperand[])
+    {
+        avrora.arch.legacy.LegacyOperand[] l2;
+        avrora.arch.legacy.LegacyInstr$NONE_class l0;
+        int l1;
+        avrora.arch.legacy.LegacyInstr $stack3;
+
+        l0 := @this: avrora.arch.legacy.LegacyInstr$NONE_class;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: avrora.arch.legacy.LegacyOperand[];
+
+        staticinvoke <avrora.arch.legacy.LegacyInstr: void access$000(int,avrora.arch.legacy.LegacyOperand[])>(0, l2);
+
+        $stack3 = virtualinvoke l0.<avrora.arch.legacy.LegacyInstr$NONE_class: avrora.arch.legacy.LegacyInstr allocate(int)>(l1);
+
+        return $stack3;
+    }
+
+    public boolean equals(java.lang.Object)
+    {
+        java.lang.Object l1;
+        avrora.arch.legacy.LegacyInstr$NONE_class l0, $stack3;
+        boolean $stack2;
+        avrora.arch.legacy.LegacyInstrProperties $stack4, $stack5;
+
+        l0 := @this: avrora.arch.legacy.LegacyInstr$NONE_class;
+
+        l1 := @parameter0: java.lang.Object;
+
+        if l1 != l0 goto label1;
+
+        return 1;
+
+     label1:
+        $stack2 = l1 instanceof avrora.arch.legacy.LegacyInstr$NONE_class;
+
+        if $stack2 != 0 goto label2;
+
+        return 0;
+
+     label2:
+        $stack3 = (avrora.arch.legacy.LegacyInstr$NONE_class) l1;
+
+        $stack5 = $stack3.<avrora.arch.legacy.LegacyInstr$NONE_class: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        $stack4 = l0.<avrora.arch.legacy.LegacyInstr$NONE_class: avrora.arch.legacy.LegacyInstrProperties properties>;
+
+        if $stack5 == $stack4 goto label3;
+
+        return 0;
+
+     label3:
+        return 1;
+    }
+
+    public java.lang.String getOperands()
+    {
+        avrora.arch.legacy.LegacyInstr$NONE_class l0;
+
+        l0 := @this: avrora.arch.legacy.LegacyInstr$NONE_class;
+
+        return "";
+    }
+}

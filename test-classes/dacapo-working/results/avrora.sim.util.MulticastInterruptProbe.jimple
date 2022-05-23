@@ -1,0 +1,238 @@
+public class avrora.sim.util.MulticastInterruptProbe extends avrora.sim.util.TransactionalList implements avrora.sim.Simulator$InterruptProbe
+{
+
+    public void <init>()
+    {
+        avrora.sim.util.MulticastInterruptProbe l0;
+
+        l0 := @this: avrora.sim.util.MulticastInterruptProbe;
+
+        specialinvoke l0.<avrora.sim.util.TransactionalList: void <init>()>();
+
+        return;
+    }
+
+    public void fireAfterInvoke(avrora.sim.State, int)
+    {
+        avrora.sim.util.MulticastInterruptProbe l0;
+        java.lang.Object $stack4;
+        avrora.sim.State l1;
+        int l2;
+        avrora.sim.Simulator$InterruptProbe $stack5;
+        avrora.sim.util.TransactionalList$Link l3#1;
+
+        l0 := @this: avrora.sim.util.MulticastInterruptProbe;
+
+        l1 := @parameter0: avrora.sim.State;
+
+        l2 := @parameter1: int;
+
+        l3#1 = l0.<avrora.sim.util.MulticastInterruptProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l3#1 == null goto label2;
+
+        $stack4 = l3#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.Simulator$InterruptProbe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.Simulator$InterruptProbe: void fireAfterInvoke(avrora.sim.State,int)>(l1, l2);
+
+        l3#1 = l3#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void endTransaction()>();
+
+        return;
+    }
+
+    public void fireBeforeInvoke(avrora.sim.State, int)
+    {
+        java.lang.Object $stack3;
+        avrora.sim.State l1;
+        int l2;
+        avrora.sim.Simulator$InterruptProbe $stack4;
+        avrora.sim.util.MulticastInterruptProbe l0#1;
+        avrora.sim.util.TransactionalList$Link l0#2;
+
+        l0#1 := @this: avrora.sim.util.MulticastInterruptProbe;
+
+        l1 := @parameter0: avrora.sim.State;
+
+        l2 := @parameter1: int;
+
+        virtualinvoke l0#1.<avrora.sim.util.MulticastInterruptProbe: void beginTransaction()>();
+
+        l0#2 = l0#1.<avrora.sim.util.MulticastInterruptProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l0#2 == null goto label2;
+
+        $stack3 = l0#2.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack4 = (avrora.sim.Simulator$InterruptProbe) $stack3;
+
+        interfaceinvoke $stack4.<avrora.sim.Simulator$InterruptProbe: void fireBeforeInvoke(avrora.sim.State,int)>(l1, l2);
+
+        l0#2 = l0#2.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void fireWhenDisabled(avrora.sim.State, int)
+    {
+        avrora.sim.util.MulticastInterruptProbe l0;
+        java.lang.Object $stack4;
+        avrora.sim.State l1;
+        int l2;
+        avrora.sim.Simulator$InterruptProbe $stack5;
+        avrora.sim.util.TransactionalList$Link l3#1;
+
+        l0 := @this: avrora.sim.util.MulticastInterruptProbe;
+
+        l1 := @parameter0: avrora.sim.State;
+
+        l2 := @parameter1: int;
+
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void beginTransaction()>();
+
+        l3#1 = l0.<avrora.sim.util.MulticastInterruptProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l3#1 == null goto label2;
+
+        $stack4 = l3#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.Simulator$InterruptProbe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.Simulator$InterruptProbe: void fireWhenDisabled(avrora.sim.State,int)>(l1, l2);
+
+        l3#1 = l3#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void endTransaction()>();
+
+        return;
+    }
+
+    public void fireWhenEnabled(avrora.sim.State, int)
+    {
+        avrora.sim.util.MulticastInterruptProbe l0;
+        java.lang.Object $stack4;
+        avrora.sim.State l1;
+        int l2;
+        avrora.sim.Simulator$InterruptProbe $stack5;
+        avrora.sim.util.TransactionalList$Link l3#1;
+
+        l0 := @this: avrora.sim.util.MulticastInterruptProbe;
+
+        l1 := @parameter0: avrora.sim.State;
+
+        l2 := @parameter1: int;
+
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void beginTransaction()>();
+
+        l3#1 = l0.<avrora.sim.util.MulticastInterruptProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l3#1 == null goto label2;
+
+        $stack4 = l3#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.Simulator$InterruptProbe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.Simulator$InterruptProbe: void fireWhenEnabled(avrora.sim.State,int)>(l1, l2);
+
+        l3#1 = l3#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void endTransaction()>();
+
+        return;
+    }
+
+    public void fireWhenPosted(avrora.sim.State, int)
+    {
+        avrora.sim.util.MulticastInterruptProbe l0;
+        java.lang.Object $stack4;
+        avrora.sim.State l1;
+        int l2;
+        avrora.sim.Simulator$InterruptProbe $stack5;
+        avrora.sim.util.TransactionalList$Link l3#1;
+
+        l0 := @this: avrora.sim.util.MulticastInterruptProbe;
+
+        l1 := @parameter0: avrora.sim.State;
+
+        l2 := @parameter1: int;
+
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void beginTransaction()>();
+
+        l3#1 = l0.<avrora.sim.util.MulticastInterruptProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l3#1 == null goto label2;
+
+        $stack4 = l3#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.Simulator$InterruptProbe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.Simulator$InterruptProbe: void fireWhenPosted(avrora.sim.State,int)>(l1, l2);
+
+        l3#1 = l3#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void endTransaction()>();
+
+        return;
+    }
+
+    public void fireWhenUnposted(avrora.sim.State, int)
+    {
+        avrora.sim.util.MulticastInterruptProbe l0;
+        java.lang.Object $stack4;
+        avrora.sim.State l1;
+        int l2;
+        avrora.sim.Simulator$InterruptProbe $stack5;
+        avrora.sim.util.TransactionalList$Link l3#1;
+
+        l0 := @this: avrora.sim.util.MulticastInterruptProbe;
+
+        l1 := @parameter0: avrora.sim.State;
+
+        l2 := @parameter1: int;
+
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void beginTransaction()>();
+
+        l3#1 = l0.<avrora.sim.util.MulticastInterruptProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l3#1 == null goto label2;
+
+        $stack4 = l3#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.Simulator$InterruptProbe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.Simulator$InterruptProbe: void fireWhenUnposted(avrora.sim.State,int)>(l1, l2);
+
+        l3#1 = l3#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.util.MulticastInterruptProbe: void endTransaction()>();
+
+        return;
+    }
+}

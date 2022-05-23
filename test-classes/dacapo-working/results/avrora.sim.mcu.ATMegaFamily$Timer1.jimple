@@ -1,0 +1,82 @@
+public class avrora.sim.mcu.ATMegaFamily$Timer1 extends avrora.sim.mcu.Timer16Bit
+{
+    final avrora.sim.mcu.ATMegaFamily this$0;
+
+    protected void <init>(avrora.sim.mcu.ATMegaFamily, int)
+    {
+        avrora.sim.mcu.ATMegaFamily$Timer1 l0;
+        avrora.sim.mcu.ATMegaFamily l1;
+        int l2;
+
+        l0 := @this: avrora.sim.mcu.ATMegaFamily$Timer1;
+
+        l1 := @parameter0: avrora.sim.mcu.ATMegaFamily;
+
+        l2 := @parameter1: int;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily this$0> = l1;
+
+        specialinvoke l0.<avrora.sim.mcu.Timer16Bit: void <init>(int,int,avrora.sim.mcu.AtmelMicrocontroller)>(1, l2, l1);
+
+        return;
+    }
+
+    protected void initValues()
+    {
+        avrora.sim.mcu.ATMegaFamily$Timer1 l0;
+        int[] $stack1;
+        avrora.sim.mcu.ATMegaFamily $stack2, $stack4, $stack6, $stack8;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister $stack3, $stack7;
+        avrora.sim.mcu.ATMegaFamily$MaskRegister $stack5, $stack9;
+
+        l0 := @this: avrora.sim.mcu.ATMegaFamily$Timer1;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int OCIEnA> = 4;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int OCIEnB> = 3;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int OCIEnC> = 0;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int TOIEn> = 2;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int TOVn> = 2;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int OCFnA> = 4;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int OCFnB> = 3;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int OCFnC> = 0;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int ICFn> = 5;
+
+        $stack1 = <avrora.sim.mcu.ATMegaFamily: int[] periods1>;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: int[] periods> = $stack1;
+
+        $stack2 = l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily this$0>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.ATMegaFamily: avrora.sim.mcu.ATMegaFamily$FlagRegister TIFR_reg>;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily$FlagRegister xTIFR_reg> = $stack3;
+
+        $stack4 = l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily this$0>;
+
+        $stack5 = $stack4.<avrora.sim.mcu.ATMegaFamily: avrora.sim.mcu.ATMegaFamily$MaskRegister TIMSK_reg>;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily$MaskRegister xTIMSK_reg> = $stack5;
+
+        $stack6 = l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily this$0>;
+
+        $stack7 = $stack6.<avrora.sim.mcu.ATMegaFamily: avrora.sim.mcu.ATMegaFamily$FlagRegister ETIFR_reg>;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily$FlagRegister cTIFR_reg> = $stack7;
+
+        $stack8 = l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily this$0>;
+
+        $stack9 = $stack8.<avrora.sim.mcu.ATMegaFamily: avrora.sim.mcu.ATMegaFamily$MaskRegister ETIMSK_reg>;
+
+        l0.<avrora.sim.mcu.ATMegaFamily$Timer1: avrora.sim.mcu.ATMegaFamily$MaskRegister cTIMSK_reg> = $stack9;
+
+        return;
+    }
+}

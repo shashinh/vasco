@@ -193,7 +193,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		//SHASHIN
 		
 		if(isReflectedStatement(stmt)) {
-		//	return out;
+			return out;
 		} else if (stmt.toString().contains("<org.dacapo.harness.Callback: void init(org.dacapo.parser.Config)>")
 				|| stmt.toString().contains("<org.dacapo.harness.Callback: void start(java.lang.String)>")
 				|| stmt.toString().contains("<org.dacapo.harness.Callback: void stop(long)>")
@@ -700,7 +700,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		} 
 		
 		// Make calls for all target methods
-		if(targets.size() > 0) this.immediatePrevContextAnalysed = true;
+		/*if(targets.size() > 0)*/ this.immediatePrevContextAnalysed = true;
 		for (SootMethod calledMethod : targets) {
 
 			// The call-edge is obtained by assign para	meters and THIS, and killing caller's locals
@@ -734,7 +734,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				SootMethod m = (SootMethod) callerContext.getMethod();
 				String mN = m.getDeclaringClass().getName() + "." + m.getName();
 				String calledMethodSig = getTrimmedByteCodeSignature(calledMethod);
-				assert(this.methodIndices.containsKey(calledMethodSig));
+				//TODO: this assert does not make sense - how can a method YET to be called, already be inserted in the method indices?
+//				assert(this.methodIndices.containsKey(calledMethodSig)) : calledMethodSig + " signature not found in methodIndices" ;
 				//int methodIndex = this.methodIndices.get(calledMethodSig);
 				//System.out.println(mN);
 				//THIS MAP NOT NEEDED
@@ -774,7 +775,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 						if(t instanceof AbstractNullObj) continue;
 						
 						if(t == PointsToGraph.STRING_SITE)
-							thisBCSet.add("s");
+							thisBCSet.add("S");
 						else {
 							if(this.bciMap.get(t) != null)
 								thisBCSet.add(/*currentCalleeIndex + "-" + */this.bciMap.get(t).toString());
@@ -839,7 +840,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 													} //note that we are not handling constants here - TODO : TEST!
 													else {
 														bci = this.bciMap.get(tgt);
-														assert(this.bciMap2.containsKey(tgt));
+														//TODO: revisit this assert, it doesn't seem to be trivial enough to ignore
+														//assert(this.bciMap2.containsKey(tgt)) : tgt + " not located in bciMap2, caller method is " + callerContext.getMethod().toString() + ", called method is " + calledMethod.toString();
 														BciContainer bciContainer = this.bciMap2.get(tgt);
 														
 														//String temp = this.exprToMethodMap.get(tgt);

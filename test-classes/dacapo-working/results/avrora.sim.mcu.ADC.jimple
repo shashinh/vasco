@@ -1,0 +1,489 @@
+public class avrora.sim.mcu.ADC extends avrora.sim.mcu.AtmelInternalDevice
+{
+    public static final float VBG_LEVEL;
+    public static final float GND_LEVEL;
+    private final avrora.sim.mcu.ADC$ADCInput VBG_INPUT;
+    private static final avrora.sim.mcu.ADC$ADCInput GND_INPUT;
+    final avrora.sim.mcu.ADC$MUXRegister ADMUX_reg;
+    final avrora.sim.mcu.ADC$ControlRegister ADCSRA_reg;
+    final avrora.sim.RWRegister ADCH_reg;
+    final avrora.sim.RWRegister ADCL_reg;
+    final int channels;
+    final int interruptNum;
+    final avrora.sim.mcu.ADC$ADCInput[] connectedDevices;
+    float voltageRef;
+    static final byte[] SINGLE_ENDED_INPUT;
+    static final short[] GAIN;
+    static final byte[] POS_INPUT;
+    static final byte[] NEG_INPUT;
+    static final short[] PRESCALER;
+
+    static void <clinit>()
+    {
+        avrora.sim.mcu.ADC$2 $stack1;
+        byte[] l0#1, l0#3, l0#4;
+        short[] l0#2, l0#5;
+
+        <avrora.sim.mcu.ADC: float GND_LEVEL> = 0.0F;
+
+        <avrora.sim.mcu.ADC: float VBG_LEVEL> = 1.0F;
+
+        $stack1 = new avrora.sim.mcu.ADC$2;
+
+        specialinvoke $stack1.<avrora.sim.mcu.ADC$2: void <init>()>();
+
+        <avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ADCInput GND_INPUT> = $stack1;
+
+        l0#1 = newarray (byte)[32];
+
+        l0#1[0] = 0;
+
+        l0#1[1] = 1;
+
+        l0#1[2] = 2;
+
+        l0#1[3] = 3;
+
+        l0#1[4] = 4;
+
+        l0#1[5] = 5;
+
+        l0#1[6] = 6;
+
+        l0#1[7] = 7;
+
+        l0#1[8] = -1;
+
+        l0#1[9] = -1;
+
+        l0#1[10] = -1;
+
+        l0#1[11] = -1;
+
+        l0#1[12] = -1;
+
+        l0#1[13] = -1;
+
+        l0#1[14] = -1;
+
+        l0#1[15] = -1;
+
+        l0#1[16] = -1;
+
+        l0#1[17] = -1;
+
+        l0#1[18] = -1;
+
+        l0#1[19] = -1;
+
+        l0#1[20] = -1;
+
+        l0#1[21] = -1;
+
+        l0#1[22] = -1;
+
+        l0#1[23] = -1;
+
+        l0#1[24] = -1;
+
+        l0#1[25] = -1;
+
+        l0#1[26] = -1;
+
+        l0#1[27] = -1;
+
+        l0#1[28] = -1;
+
+        l0#1[29] = -1;
+
+        l0#1[30] = 8;
+
+        l0#1[31] = 9;
+
+        <avrora.sim.mcu.ADC: byte[] SINGLE_ENDED_INPUT> = l0#1;
+
+        l0#2 = newarray (short)[32];
+
+        l0#2[0] = -1;
+
+        l0#2[1] = -1;
+
+        l0#2[2] = -1;
+
+        l0#2[3] = -1;
+
+        l0#2[4] = -1;
+
+        l0#2[5] = -1;
+
+        l0#2[6] = -1;
+
+        l0#2[7] = -1;
+
+        l0#2[8] = 10;
+
+        l0#2[9] = 10;
+
+        l0#2[10] = 200;
+
+        l0#2[11] = 200;
+
+        l0#2[12] = 10;
+
+        l0#2[13] = 10;
+
+        l0#2[14] = 200;
+
+        l0#2[15] = 200;
+
+        l0#2[16] = 1;
+
+        l0#2[17] = 1;
+
+        l0#2[18] = 1;
+
+        l0#2[19] = 1;
+
+        l0#2[20] = 1;
+
+        l0#2[21] = 1;
+
+        l0#2[22] = 1;
+
+        l0#2[23] = 1;
+
+        l0#2[24] = 1;
+
+        l0#2[25] = 1;
+
+        l0#2[26] = 1;
+
+        l0#2[27] = 1;
+
+        l0#2[28] = 1;
+
+        l0#2[29] = 1;
+
+        l0#2[30] = -1;
+
+        l0#2[31] = -1;
+
+        <avrora.sim.mcu.ADC: short[] GAIN> = l0#2;
+
+        l0#3 = newarray (byte)[32];
+
+        l0#3[0] = -1;
+
+        l0#3[1] = -1;
+
+        l0#3[2] = -1;
+
+        l0#3[3] = -1;
+
+        l0#3[4] = -1;
+
+        l0#3[5] = -1;
+
+        l0#3[6] = -1;
+
+        l0#3[7] = -1;
+
+        l0#3[8] = 0;
+
+        l0#3[9] = 1;
+
+        l0#3[10] = 0;
+
+        l0#3[11] = 1;
+
+        l0#3[12] = 2;
+
+        l0#3[13] = 3;
+
+        l0#3[14] = 2;
+
+        l0#3[15] = 3;
+
+        l0#3[16] = 0;
+
+        l0#3[17] = 1;
+
+        l0#3[18] = 2;
+
+        l0#3[19] = 3;
+
+        l0#3[20] = 4;
+
+        l0#3[21] = 5;
+
+        l0#3[22] = 6;
+
+        l0#3[23] = 7;
+
+        l0#3[24] = 0;
+
+        l0#3[25] = 1;
+
+        l0#3[26] = 2;
+
+        l0#3[27] = 3;
+
+        l0#3[28] = 4;
+
+        l0#3[29] = 5;
+
+        l0#3[30] = -1;
+
+        l0#3[31] = -1;
+
+        <avrora.sim.mcu.ADC: byte[] POS_INPUT> = l0#3;
+
+        l0#4 = newarray (byte)[32];
+
+        l0#4[0] = -1;
+
+        l0#4[1] = -1;
+
+        l0#4[2] = -1;
+
+        l0#4[3] = -1;
+
+        l0#4[4] = -1;
+
+        l0#4[5] = -1;
+
+        l0#4[6] = -1;
+
+        l0#4[7] = -1;
+
+        l0#4[8] = 0;
+
+        l0#4[9] = 0;
+
+        l0#4[10] = 0;
+
+        l0#4[11] = 0;
+
+        l0#4[12] = 2;
+
+        l0#4[13] = 2;
+
+        l0#4[14] = 2;
+
+        l0#4[15] = 2;
+
+        l0#4[16] = 1;
+
+        l0#4[17] = 1;
+
+        l0#4[18] = 1;
+
+        l0#4[19] = 1;
+
+        l0#4[20] = 1;
+
+        l0#4[21] = 1;
+
+        l0#4[22] = 1;
+
+        l0#4[23] = 1;
+
+        l0#4[24] = 2;
+
+        l0#4[25] = 2;
+
+        l0#4[26] = 2;
+
+        l0#4[27] = 2;
+
+        l0#4[28] = 2;
+
+        l0#4[29] = 2;
+
+        l0#4[30] = -1;
+
+        l0#4[31] = -1;
+
+        <avrora.sim.mcu.ADC: byte[] NEG_INPUT> = l0#4;
+
+        l0#5 = newarray (short)[8];
+
+        l0#5[0] = 2;
+
+        l0#5[1] = 2;
+
+        l0#5[2] = 4;
+
+        l0#5[3] = 8;
+
+        l0#5[4] = 16;
+
+        l0#5[5] = 32;
+
+        l0#5[6] = 64;
+
+        l0#5[7] = 128;
+
+        <avrora.sim.mcu.ADC: short[] PRESCALER> = l0#5;
+
+        return;
+    }
+
+    public void <init>(avrora.sim.mcu.AtmelMicrocontroller, int)
+    {
+        avrora.sim.mcu.ADC l0;
+        avrora.sim.mcu.AtmelMicrocontroller l1;
+        avrora.sim.mcu.ADC$1 $stack3;
+        avrora.sim.mcu.ADC$MUXRegister $stack4, $stack17;
+        avrora.sim.mcu.ADC$ControlRegister $stack5, $stack20, $stack24;
+        avrora.sim.RWRegister $stack6, $stack7, $stack18, $stack19;
+        int l2, $stack8, $stack13, $stack16, $stack23;
+        avrora.sim.mcu.ADC$ADCInput[] $stack9, $stack11, $stack14;
+        avrora.sim.mcu.ADC$ADCInput $stack10, $stack12;
+        avrora.sim.mcu.MCUProperties $stack15;
+        avrora.sim.AtmelInterpreter $stack21;
+        avrora.sim.InterruptTable $stack22;
+
+        l0 := @this: avrora.sim.mcu.ADC;
+
+        l1 := @parameter0: avrora.sim.mcu.AtmelMicrocontroller;
+
+        l2 := @parameter1: int;
+
+        specialinvoke l0.<avrora.sim.mcu.AtmelInternalDevice: void <init>(java.lang.String,avrora.sim.mcu.AtmelMicrocontroller)>("adc", l1);
+
+        $stack3 = new avrora.sim.mcu.ADC$1;
+
+        specialinvoke $stack3.<avrora.sim.mcu.ADC$1: void <init>(avrora.sim.mcu.ADC)>(l0);
+
+        l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ADCInput VBG_INPUT> = $stack3;
+
+        $stack4 = new avrora.sim.mcu.ADC$MUXRegister;
+
+        specialinvoke $stack4.<avrora.sim.mcu.ADC$MUXRegister: void <init>(avrora.sim.mcu.ADC)>(l0);
+
+        l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$MUXRegister ADMUX_reg> = $stack4;
+
+        $stack5 = new avrora.sim.mcu.ADC$ControlRegister;
+
+        specialinvoke $stack5.<avrora.sim.mcu.ADC$ControlRegister: void <init>(avrora.sim.mcu.ADC)>(l0);
+
+        l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ControlRegister ADCSRA_reg> = $stack5;
+
+        $stack6 = new avrora.sim.RWRegister;
+
+        specialinvoke $stack6.<avrora.sim.RWRegister: void <init>()>();
+
+        l0.<avrora.sim.mcu.ADC: avrora.sim.RWRegister ADCH_reg> = $stack6;
+
+        $stack7 = new avrora.sim.RWRegister;
+
+        specialinvoke $stack7.<avrora.sim.RWRegister: void <init>()>();
+
+        l0.<avrora.sim.mcu.ADC: avrora.sim.RWRegister ADCL_reg> = $stack7;
+
+        l0.<avrora.sim.mcu.ADC: float voltageRef> = 1.0F;
+
+        l0.<avrora.sim.mcu.ADC: int channels> = l2;
+
+        $stack8 = l2 + 2;
+
+        $stack9 = newarray (avrora.sim.mcu.ADC$ADCInput)[$stack8];
+
+        l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ADCInput[] connectedDevices> = $stack9;
+
+        $stack11 = l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ADCInput[] connectedDevices>;
+
+        $stack10 = l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ADCInput VBG_INPUT>;
+
+        $stack11[l2] = $stack10;
+
+        $stack14 = l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ADCInput[] connectedDevices>;
+
+        $stack13 = l2 + 1;
+
+        $stack12 = <avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ADCInput GND_INPUT>;
+
+        $stack14[$stack13] = $stack12;
+
+        $stack15 = virtualinvoke l1.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.mcu.MCUProperties getProperties()>();
+
+        $stack16 = virtualinvoke $stack15.<avrora.sim.mcu.MCUProperties: int getInterrupt(java.lang.String)>("ADC");
+
+        l0.<avrora.sim.mcu.ADC: int interruptNum> = $stack16;
+
+        $stack17 = l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$MUXRegister ADMUX_reg>;
+
+        virtualinvoke l0.<avrora.sim.mcu.ADC: void installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("ADMUX", $stack17);
+
+        $stack18 = l0.<avrora.sim.mcu.ADC: avrora.sim.RWRegister ADCH_reg>;
+
+        virtualinvoke l0.<avrora.sim.mcu.ADC: void installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("ADCH", $stack18);
+
+        $stack19 = l0.<avrora.sim.mcu.ADC: avrora.sim.RWRegister ADCL_reg>;
+
+        virtualinvoke l0.<avrora.sim.mcu.ADC: void installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("ADCL", $stack19);
+
+        $stack20 = l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ControlRegister ADCSRA_reg>;
+
+        virtualinvoke l0.<avrora.sim.mcu.ADC: void installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("ADCSRA", $stack20);
+
+        $stack21 = l0.<avrora.sim.mcu.ADC: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack22 = virtualinvoke $stack21.<avrora.sim.AtmelInterpreter: avrora.sim.InterruptTable getInterruptTable()>();
+
+        $stack24 = l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ControlRegister ADCSRA_reg>;
+
+        $stack23 = l0.<avrora.sim.mcu.ADC: int interruptNum>;
+
+        virtualinvoke $stack22.<avrora.sim.InterruptTable: void registerInternalNotification(avrora.sim.InterruptTable$Notification,int)>($stack24, $stack23);
+
+        return;
+    }
+
+    public void connectADCInput(avrora.sim.mcu.ADC$ADCInput, int)
+    {
+        avrora.sim.mcu.ADC l0;
+        int l2;
+        avrora.sim.mcu.ADC$ADCInput l1;
+        avrora.sim.mcu.ADC$ADCInput[] $stack3;
+
+        l0 := @this: avrora.sim.mcu.ADC;
+
+        l1 := @parameter0: avrora.sim.mcu.ADC$ADCInput;
+
+        l2 := @parameter1: int;
+
+        $stack3 = l0.<avrora.sim.mcu.ADC: avrora.sim.mcu.ADC$ADCInput[] connectedDevices>;
+
+        $stack3[l2] = l1;
+
+        return;
+    }
+
+    public float getVoltageRef()
+    {
+        avrora.sim.mcu.ADC l0;
+        float $stack1;
+
+        l0 := @this: avrora.sim.mcu.ADC;
+
+        $stack1 = l0.<avrora.sim.mcu.ADC: float voltageRef>;
+
+        return $stack1;
+    }
+
+    public void setVoltageRef(float)
+    {
+        avrora.sim.mcu.ADC l0;
+        float l1;
+
+        l0 := @this: avrora.sim.mcu.ADC;
+
+        l1 := @parameter0: float;
+
+        l0.<avrora.sim.mcu.ADC: float voltageRef> = l1;
+
+        return;
+    }
+}

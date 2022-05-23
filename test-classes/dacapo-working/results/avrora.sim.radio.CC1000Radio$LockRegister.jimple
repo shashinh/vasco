@@ -1,0 +1,248 @@
+public class avrora.sim.radio.CC1000Radio$LockRegister extends avrora.sim.radio.CC1000Radio$RadioRegister
+{
+    static final int LOCK_NORMAL;
+    static final int LOCK_CONTINUOUS;
+    static final int LOCK_INSTANT;
+    static final int ALARM_H;
+    static final int ALARM_L;
+    static final int CAL_COMPLETE;
+    static final int IF_OUT;
+    static final int REFERENCE_DIVIDER;
+    static final int TX_DPB;
+    static final int MANCHESTER_VIOLATION;
+    static final int RX_PDB;
+    static final int LOCK_AVG_FILTER;
+    static final int N_DIVIDER;
+    static final int F_COMP;
+    final java.lang.String[] LOCK_SELECT;
+    int lockSelect;
+    boolean pllLockLength;
+    int setsLockThreshold;
+    int resetLockThreshold;
+    boolean lockInstant;
+    boolean lockContinuous;
+    final avrora.sim.radio.CC1000Radio this$0;
+
+    void <init>(avrora.sim.radio.CC1000Radio)
+    {
+        avrora.sim.radio.CC1000Radio$LockRegister l0;
+        avrora.sim.radio.CC1000Radio l1#1;
+        java.lang.String[] l1#2;
+
+        l0 := @this: avrora.sim.radio.CC1000Radio$LockRegister;
+
+        l1#1 := @parameter0: avrora.sim.radio.CC1000Radio;
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: avrora.sim.radio.CC1000Radio this$0> = l1#1;
+
+        specialinvoke l0.<avrora.sim.radio.CC1000Radio$RadioRegister: void <init>(avrora.sim.radio.CC1000Radio,java.lang.String,byte)>(l1#1, "LOCK", 0);
+
+        l1#2 = newarray (java.lang.String)[16];
+
+        l1#2[0] = "LOCK NORMAL";
+
+        l1#2[1] = "LOCK CONTINUOUS";
+
+        l1#2[2] = "LOCK INSTANT";
+
+        l1#2[3] = "ALARM HIGH";
+
+        l1#2[4] = "ALARM LOW";
+
+        l1#2[5] = "CAL COMPLETE";
+
+        l1#2[6] = "IF OUT";
+
+        l1#2[7] = "REFERENCE DIVIDER";
+
+        l1#2[8] = "TX DPB";
+
+        l1#2[9] = "MANCHESTER VIOLATION";
+
+        l1#2[10] = "RX PDB";
+
+        l1#2[11] = "NOT DEFINED (11)";
+
+        l1#2[12] = "NOT DEFINED (12)";
+
+        l1#2[13] = "LOCK AVG FILTER";
+
+        l1#2[14] = "N DIVIDER";
+
+        l1#2[15] = "F COMP";
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: java.lang.String[] LOCK_SELECT> = l1#2;
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: int setsLockThreshold> = 127;
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: int resetLockThreshold> = 111;
+
+        return;
+    }
+
+    protected void decode(byte)
+    {
+        avrora.sim.radio.CC1000Radio$LockRegister l0;
+        byte l1;
+        int $stack3, $stack4, $stack5, l2, $stack7, $stack9;
+        int[] $stack6, $stack8;
+        boolean $stack10, $stack11, $stack12;
+
+        l0 := @this: avrora.sim.radio.CC1000Radio$LockRegister;
+
+        l1 := @parameter0: byte;
+
+        $stack3 = l1 & 240;
+
+        $stack4 = $stack3 >> 4;
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: int lockSelect> = $stack4;
+
+        $stack6 = <avrora.sim.radio.CC1000Radio: int[] SETS_LOCK_THRESHOLD>;
+
+        $stack5 = l1 & 12;
+
+        l2 = $stack5 >> 2;
+
+        $stack7 = $stack6[l2];
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: int setsLockThreshold> = $stack7;
+
+        $stack8 = <avrora.sim.radio.CC1000Radio: int[] RESET_LOCK_THRESHOLD>;
+
+        $stack9 = $stack8[l2];
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: int resetLockThreshold> = $stack9;
+
+        $stack10 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(l1, 2);
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: boolean pllLockLength> = $stack10;
+
+        $stack11 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(l1, 1);
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: boolean lockInstant> = $stack11;
+
+        $stack12 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(l1, 0);
+
+        l0.<avrora.sim.radio.CC1000Radio$LockRegister: boolean lockContinuous> = $stack12;
+
+        return;
+    }
+
+    protected void printStatus()
+    {
+        java.lang.StringBuffer l1;
+        avrora.sim.radio.CC1000Radio$LockRegister l0;
+        int $stack3, $stack8, $stack11;
+        java.lang.String[] $stack4;
+        java.lang.String $stack5, $stack23;
+        boolean $stack14, $stack18;
+        char $stack15, $stack19;
+        avrora.sim.radio.CC1000Radio $stack21;
+        avrora.sim.output.SimPrinter $stack22;
+
+        l0 := @this: avrora.sim.radio.CC1000Radio$LockRegister;
+
+        l1 = new java.lang.StringBuffer;
+
+        specialinvoke l1.<java.lang.StringBuffer: void <init>(int)>(100);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("CC1000[LOCK]: lock select: ");
+
+        $stack4 = l0.<avrora.sim.radio.CC1000Radio$LockRegister: java.lang.String[] LOCK_SELECT>;
+
+        $stack3 = l0.<avrora.sim.radio.CC1000Radio$LockRegister: int lockSelect>;
+
+        $stack5 = $stack4[$stack3];
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack5);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", set thr: ");
+
+        $stack8 = l0.<avrora.sim.radio.CC1000Radio$LockRegister: int setsLockThreshold>;
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(int)>($stack8);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", reset thr: ");
+
+        $stack11 = l0.<avrora.sim.radio.CC1000Radio$LockRegister: int resetLockThreshold>;
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(int)>($stack11);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", inst: ");
+
+        $stack14 = l0.<avrora.sim.radio.CC1000Radio$LockRegister: boolean lockInstant>;
+
+        $stack15 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack14);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack15);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(", contin: ");
+
+        $stack18 = l0.<avrora.sim.radio.CC1000Radio$LockRegister: boolean lockContinuous>;
+
+        $stack19 = staticinvoke <cck.text.StringUtil: char toBit(boolean)>($stack18);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack19);
+
+        $stack21 = l0.<avrora.sim.radio.CC1000Radio$LockRegister: avrora.sim.radio.CC1000Radio this$0>;
+
+        $stack22 = $stack21.<avrora.sim.radio.CC1000Radio: avrora.sim.output.SimPrinter radioPrinter>;
+
+        $stack23 = virtualinvoke l1.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        virtualinvoke $stack22.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack23);
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.radio.CC1000Radio$LockRegister l0;
+        byte $stack1, $stack3;
+        int $stack2;
+
+        l0 := @this: avrora.sim.radio.CC1000Radio$LockRegister;
+
+        $stack1 = l0.<avrora.sim.radio.CC1000Radio$LockRegister: byte value>;
+
+        $stack2 = $stack1 & 3;
+
+        $stack3 = (byte) $stack2;
+
+        return $stack3;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.radio.CC1000Radio$LockRegister: int F_COMP> = 15;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int N_DIVIDER> = 14;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int LOCK_AVG_FILTER> = 13;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int RX_PDB> = 10;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int MANCHESTER_VIOLATION> = 9;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int TX_DPB> = 8;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int REFERENCE_DIVIDER> = 7;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int IF_OUT> = 6;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int CAL_COMPLETE> = 5;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int ALARM_L> = 4;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int ALARM_H> = 3;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int LOCK_INSTANT> = 2;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int LOCK_CONTINUOUS> = 1;
+
+        <avrora.sim.radio.CC1000Radio$LockRegister: int LOCK_NORMAL> = 0;
+
+        return;
+    }
+}

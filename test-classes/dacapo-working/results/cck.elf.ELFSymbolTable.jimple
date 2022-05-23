@@ -1,0 +1,203 @@
+public class cck.elf.ELFSymbolTable extends java.lang.Object
+{
+    public static final int STT_NOTYPE;
+    public static final int STT_OBJECT;
+    public static final int STT_FUNC;
+    public static final int STT_SECTION;
+    public static final int STT_FILE;
+    public static final int STT_LOPROC;
+    public static final int STT_HIPROC;
+    public static final int STB_LOCAL;
+    public static final int STB_GLOBAL;
+    public static final int STB_WEAK;
+    public static final int STB_LOPROC;
+    public static final int STB_HIPROC;
+    public final cck.elf.ELFHeader header;
+    public final cck.elf.ELFSectionHeaderTable$Entry32 entry;
+    public final cck.elf.ELFSymbolTable$Entry[] entries;
+    protected cck.elf.ELFStringTable strtab;
+
+    public void <init>(cck.elf.ELFHeader, cck.elf.ELFSectionHeaderTable$Entry32)
+    {
+        cck.elf.ELFSymbolTable l0;
+        cck.elf.ELFHeader l1;
+        cck.elf.ELFSectionHeaderTable$Entry32 l2;
+        int $stack3, $stack4, $stack5;
+        cck.elf.ELFSymbolTable$Entry[] $stack6;
+
+        l0 := @this: cck.elf.ELFSymbolTable;
+
+        l1 := @parameter0: cck.elf.ELFHeader;
+
+        l2 := @parameter1: cck.elf.ELFSectionHeaderTable$Entry32;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<cck.elf.ELFSymbolTable: cck.elf.ELFHeader header> = l1;
+
+        l0.<cck.elf.ELFSymbolTable: cck.elf.ELFSectionHeaderTable$Entry32 entry> = l2;
+
+        $stack4 = l2.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_size>;
+
+        $stack3 = l2.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_entsize>;
+
+        $stack5 = $stack4 / $stack3;
+
+        $stack6 = newarray (cck.elf.ELFSymbolTable$Entry)[$stack5];
+
+        l0.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries> = $stack6;
+
+        return;
+    }
+
+    public cck.elf.ELFStringTable getStringTable()
+    {
+        cck.elf.ELFSymbolTable l0;
+        cck.elf.ELFStringTable $stack1;
+
+        l0 := @this: cck.elf.ELFSymbolTable;
+
+        $stack1 = l0.<cck.elf.ELFSymbolTable: cck.elf.ELFStringTable strtab>;
+
+        return $stack1;
+    }
+
+    public void read(java.io.RandomAccessFile) throws java.io.IOException
+    {
+        java.io.RandomAccessFile l1;
+        cck.elf.ELFSymbolTable l0;
+        cck.elf.ELFSectionHeaderTable$Entry32 $stack5, $stack18;
+        int $stack6, $stack10, $stack11, $stack12, $stack13, $stack14, $stack15, $stack19, l4#1, l3#3;
+        long $stack7;
+        cck.elf.ELFDataInputStream l2;
+        cck.elf.ELFHeader $stack8;
+        cck.elf.ELFSymbolTable$Entry[] $stack9, $stack17;
+        short $stack16;
+        cck.elf.ELFSymbolTable$Entry l3#2;
+
+        l0 := @this: cck.elf.ELFSymbolTable;
+
+        l1 := @parameter0: java.io.RandomAccessFile;
+
+        $stack5 = l0.<cck.elf.ELFSymbolTable: cck.elf.ELFSectionHeaderTable$Entry32 entry>;
+
+        $stack6 = $stack5.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_offset>;
+
+        $stack7 = (long) $stack6;
+
+        virtualinvoke l1.<java.io.RandomAccessFile: void seek(long)>($stack7);
+
+        l2 = new cck.elf.ELFDataInputStream;
+
+        $stack8 = l0.<cck.elf.ELFSymbolTable: cck.elf.ELFHeader header>;
+
+        specialinvoke l2.<cck.elf.ELFDataInputStream: void <init>(cck.elf.ELFHeader,java.io.RandomAccessFile)>($stack8, l1);
+
+        l4#1 = 0;
+
+     label1:
+        $stack9 = l0.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries>;
+
+        $stack10 = lengthof $stack9;
+
+        if l4#1 >= $stack10 goto label4;
+
+        l3#2 = new cck.elf.ELFSymbolTable$Entry;
+
+        specialinvoke l3#2.<cck.elf.ELFSymbolTable$Entry: void <init>(cck.elf.ELFSymbolTable)>(l0);
+
+        $stack11 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        l3#2.<cck.elf.ELFSymbolTable$Entry: int st_name> = $stack11;
+
+        $stack12 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Addr()>();
+
+        l3#2.<cck.elf.ELFSymbolTable$Entry: int st_value> = $stack12;
+
+        $stack13 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        l3#2.<cck.elf.ELFSymbolTable$Entry: int st_size> = $stack13;
+
+        $stack14 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_uchar()>();
+
+        l3#2.<cck.elf.ELFSymbolTable$Entry: int st_info> = $stack14;
+
+        $stack15 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_uchar()>();
+
+        l3#2.<cck.elf.ELFSymbolTable$Entry: int st_other> = $stack15;
+
+        $stack16 = virtualinvoke l2.<cck.elf.ELFDataInputStream: short read_Elf32_Half()>();
+
+        l3#2.<cck.elf.ELFSymbolTable$Entry: short st_shndx> = $stack16;
+
+        $stack17 = l0.<cck.elf.ELFSymbolTable: cck.elf.ELFSymbolTable$Entry[] entries>;
+
+        $stack17[l4#1] = l3#2;
+
+        l3#3 = 16;
+
+     label2:
+        $stack18 = l0.<cck.elf.ELFSymbolTable: cck.elf.ELFSectionHeaderTable$Entry32 entry>;
+
+        $stack19 = $stack18.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_entsize>;
+
+        if l3#3 >= $stack19 goto label3;
+
+        virtualinvoke l1.<java.io.RandomAccessFile: int read()>();
+
+        l3#3 = l3#3 + 1;
+
+        goto label2;
+
+     label3:
+        l4#1 = l4#1 + 1;
+
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    public void setStringTable(cck.elf.ELFStringTable)
+    {
+        cck.elf.ELFSymbolTable l0;
+        cck.elf.ELFStringTable l1;
+
+        l0 := @this: cck.elf.ELFSymbolTable;
+
+        l1 := @parameter0: cck.elf.ELFStringTable;
+
+        l0.<cck.elf.ELFSymbolTable: cck.elf.ELFStringTable strtab> = l1;
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <cck.elf.ELFSymbolTable: int STB_HIPROC> = 15;
+
+        <cck.elf.ELFSymbolTable: int STB_LOPROC> = 13;
+
+        <cck.elf.ELFSymbolTable: int STB_WEAK> = 2;
+
+        <cck.elf.ELFSymbolTable: int STB_GLOBAL> = 1;
+
+        <cck.elf.ELFSymbolTable: int STB_LOCAL> = 0;
+
+        <cck.elf.ELFSymbolTable: int STT_HIPROC> = 15;
+
+        <cck.elf.ELFSymbolTable: int STT_LOPROC> = 13;
+
+        <cck.elf.ELFSymbolTable: int STT_FILE> = 4;
+
+        <cck.elf.ELFSymbolTable: int STT_SECTION> = 3;
+
+        <cck.elf.ELFSymbolTable: int STT_FUNC> = 2;
+
+        <cck.elf.ELFSymbolTable: int STT_OBJECT> = 1;
+
+        <cck.elf.ELFSymbolTable: int STT_NOTYPE> = 0;
+
+        return;
+    }
+}

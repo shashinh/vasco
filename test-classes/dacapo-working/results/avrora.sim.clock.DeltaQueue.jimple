@@ -1,0 +1,582 @@
+public class avrora.sim.clock.DeltaQueue extends java.lang.Object
+{
+    protected avrora.sim.clock.DeltaQueue$Link head;
+    protected avrora.sim.clock.DeltaQueue$Link freeLinks;
+    protected avrora.sim.clock.DeltaQueue$EventList freeEventLists;
+    protected long count;
+
+    public void <init>()
+    {
+        avrora.sim.clock.DeltaQueue l0;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    static avrora.sim.clock.DeltaQueue$EventList access$000(avrora.sim.clock.DeltaQueue, avrora.sim.Simulator$Event, avrora.sim.clock.DeltaQueue$EventList)
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.Simulator$Event l1;
+        avrora.sim.clock.DeltaQueue$EventList l2, $stack3;
+
+        l0 := @parameter0: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter1: avrora.sim.Simulator$Event;
+
+        l2 := @parameter2: avrora.sim.clock.DeltaQueue$EventList;
+
+        $stack3 = specialinvoke l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList newEventList(avrora.sim.Simulator$Event,avrora.sim.clock.DeltaQueue$EventList)>(l1, l2);
+
+        return $stack3;
+    }
+
+    static void access$100(avrora.sim.clock.DeltaQueue, avrora.sim.clock.DeltaQueue$EventList)
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$EventList l1;
+
+        l0 := @parameter0: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter1: avrora.sim.clock.DeltaQueue$EventList;
+
+        specialinvoke l0.<avrora.sim.clock.DeltaQueue: void free(avrora.sim.clock.DeltaQueue$EventList)>(l1);
+
+        return;
+    }
+
+    public void advance(long)
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$Link $stack3, $stack4, $stack9;
+        long l1, $stack5, $stack7, $stack8, $stack10, $stack11, $stack12, $stack13;
+        byte $stack6;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter0: long;
+
+        $stack3 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        if $stack3 != null goto label1;
+
+        $stack12 = l0.<avrora.sim.clock.DeltaQueue: long count>;
+
+        $stack13 = $stack12 + l1;
+
+        l0.<avrora.sim.clock.DeltaQueue: long count> = $stack13;
+
+        return;
+
+     label1:
+        $stack4 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        $stack5 = $stack4.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        $stack6 = $stack5 cmp l1;
+
+        if $stack6 <= 0 goto label2;
+
+        $stack7 = l0.<avrora.sim.clock.DeltaQueue: long count>;
+
+        $stack8 = $stack7 + l1;
+
+        l0.<avrora.sim.clock.DeltaQueue: long count> = $stack8;
+
+        $stack9 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        $stack10 = $stack9.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        $stack11 = $stack10 - l1;
+
+        $stack9.<avrora.sim.clock.DeltaQueue$Link: long delta> = $stack11;
+
+        return;
+
+     label2:
+        specialinvoke l0.<avrora.sim.clock.DeltaQueue: void advanceSlow(long)>(l1);
+
+        return;
+    }
+
+    private void advanceSlow(long)
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$Link $stack9, l3, l4;
+        long $stack10, $stack11, l5, l7, $stack17, $stack18, $stack20, $stack21, $stack22, l1#1;
+        byte $stack12, $stack16;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1#1 := @parameter0: long;
+
+     label1:
+        $stack9 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        if $stack9 == null goto label3;
+
+        $stack12 = l1#1 cmp 0L;
+
+        if $stack12 <= 0 goto label3;
+
+        l3 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        l4 = l3.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        l5 = l3.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        l7 = l1#1 - l5;
+
+        $stack16 = l7 cmp 0L;
+
+        if $stack16 >= 0 goto label2;
+
+        $stack20 = l0.<avrora.sim.clock.DeltaQueue: long count>;
+
+        $stack21 = $stack20 + l1#1;
+
+        l0.<avrora.sim.clock.DeltaQueue: long count> = $stack21;
+
+        $stack22 = neg l7;
+
+        l3.<avrora.sim.clock.DeltaQueue$Link: long delta> = $stack22;
+
+        return;
+
+     label2:
+        $stack17 = l0.<avrora.sim.clock.DeltaQueue: long count>;
+
+        $stack18 = $stack17 + l5;
+
+        l0.<avrora.sim.clock.DeltaQueue: long count> = $stack18;
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head> = l4;
+
+        virtualinvoke l3.<avrora.sim.clock.DeltaQueue$Link: void fire()>();
+
+        specialinvoke l0.<avrora.sim.clock.DeltaQueue: void free(avrora.sim.clock.DeltaQueue$Link)>(l3);
+
+        l1#1 = l7;
+
+        goto label1;
+
+     label3:
+        $stack10 = l0.<avrora.sim.clock.DeltaQueue: long count>;
+
+        $stack11 = $stack10 + l1#1;
+
+        l0.<avrora.sim.clock.DeltaQueue: long count> = $stack11;
+
+        return;
+    }
+
+    private void free(avrora.sim.clock.DeltaQueue$Link)
+    {
+        avrora.sim.clock.DeltaQueue$Link l1, $stack2;
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$EventList $stack3, $stack4;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter0: avrora.sim.clock.DeltaQueue$Link;
+
+        $stack2 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link freeLinks>;
+
+        l1.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next> = $stack2;
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link freeLinks> = l1;
+
+        $stack3 = l1.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events>;
+
+        if $stack3 == null goto label1;
+
+        $stack4 = l1.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events>;
+
+        specialinvoke l0.<avrora.sim.clock.DeltaQueue: void free(avrora.sim.clock.DeltaQueue$EventList)>($stack4);
+
+        l1.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events> = null;
+
+     label1:
+        return;
+    }
+
+    private void free(avrora.sim.clock.DeltaQueue$EventList)
+    {
+        avrora.sim.clock.DeltaQueue$EventList l1, $stack2;
+        avrora.sim.clock.DeltaQueue l0;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter0: avrora.sim.clock.DeltaQueue$EventList;
+
+        l1.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.Simulator$Event event> = null;
+
+        $stack2 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList freeEventLists>;
+
+        l1.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next> = $stack2;
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList freeEventLists> = l1;
+
+        return;
+    }
+
+    public long getCount()
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        long $stack1;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        $stack1 = l0.<avrora.sim.clock.DeltaQueue: long count>;
+
+        return $stack1;
+    }
+
+    public long getFirstEventTime()
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$Link $stack1, $stack2;
+        long $stack3;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        $stack1 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        if $stack1 == null goto label1;
+
+        $stack2 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        $stack3 = $stack2.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        return $stack3;
+
+     label1:
+        return -1L;
+    }
+
+    private void insertAfter(avrora.sim.clock.DeltaQueue$Link, avrora.sim.Simulator$Event, long, avrora.sim.clock.DeltaQueue$Link)
+    {
+        avrora.sim.clock.DeltaQueue$Link l1, l5, $stack6, $stack7;
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.Simulator$Event l2;
+        long l3;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter0: avrora.sim.clock.DeltaQueue$Link;
+
+        l2 := @parameter1: avrora.sim.Simulator$Event;
+
+        l3 := @parameter2: long;
+
+        l5 := @parameter3: avrora.sim.clock.DeltaQueue$Link;
+
+        if l1 == null goto label1;
+
+        $stack7 = specialinvoke l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link newLink(avrora.sim.Simulator$Event,long,avrora.sim.clock.DeltaQueue$Link)>(l2, l3, l5);
+
+        l1.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next> = $stack7;
+
+        goto label2;
+
+     label1:
+        $stack6 = specialinvoke l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link newLink(avrora.sim.Simulator$Event,long,avrora.sim.clock.DeltaQueue$Link)>(l2, l3, l5);
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head> = $stack6;
+
+     label2:
+        return;
+    }
+
+    public void insertEvent(avrora.sim.Simulator$Event, long)
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$Link $stack6, $stack14, l4#2, l5#3;
+        long $stack7, $stack9, $stack12, l2#1;
+        byte $stack8, $stack10;
+        avrora.sim.Simulator$Event l1;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter0: avrora.sim.Simulator$Event;
+
+        l2#1 := @parameter1: long;
+
+        $stack6 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        if $stack6 != null goto label1;
+
+        $stack14 = specialinvoke l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link newLink(avrora.sim.Simulator$Event,long,avrora.sim.clock.DeltaQueue$Link)>(l1, l2#1, null);
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head> = $stack14;
+
+        return;
+
+     label1:
+        l4#2 = null;
+
+        l5#3 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+     label2:
+        if l5#3 == null goto label3;
+
+        $stack9 = l5#3.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        $stack10 = l2#1 cmp $stack9;
+
+        if $stack10 <= 0 goto label3;
+
+        $stack12 = l5#3.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        l2#1 = l2#1 - $stack12;
+
+        l4#2 = l5#3;
+
+        l5#3 = l5#3.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        goto label2;
+
+     label3:
+        if l5#3 != null goto label4;
+
+        specialinvoke l0.<avrora.sim.clock.DeltaQueue: void insertAfter(avrora.sim.clock.DeltaQueue$Link,avrora.sim.Simulator$Event,long,avrora.sim.clock.DeltaQueue$Link)>(l4#2, l1, l2#1, null);
+
+        goto label6;
+
+     label4:
+        $stack7 = l5#3.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        $stack8 = l2#1 cmp $stack7;
+
+        if $stack8 != 0 goto label5;
+
+        virtualinvoke l5#3.<avrora.sim.clock.DeltaQueue$Link: void add(avrora.sim.Simulator$Event)>(l1);
+
+        goto label6;
+
+     label5:
+        specialinvoke l0.<avrora.sim.clock.DeltaQueue: void insertAfter(avrora.sim.clock.DeltaQueue$Link,avrora.sim.Simulator$Event,long,avrora.sim.clock.DeltaQueue$Link)>(l4#2, l1, l2#1, l5#3);
+
+     label6:
+        return;
+    }
+
+    private avrora.sim.clock.DeltaQueue$EventList newEventList(avrora.sim.Simulator$Event, avrora.sim.clock.DeltaQueue$EventList)
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$EventList $stack4, $stack5, $stack6, l2, $stack7, l3#1;
+        avrora.sim.Simulator$Event l1;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter0: avrora.sim.Simulator$Event;
+
+        l2 := @parameter1: avrora.sim.clock.DeltaQueue$EventList;
+
+        $stack4 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList freeEventLists>;
+
+        if $stack4 != null goto label1;
+
+        $stack7 = new avrora.sim.clock.DeltaQueue$EventList;
+
+        specialinvoke $stack7.<avrora.sim.clock.DeltaQueue$EventList: void <init>(avrora.sim.Simulator$Event,avrora.sim.clock.DeltaQueue$EventList)>(l1, l2);
+
+        l3#1 = $stack7;
+
+        goto label2;
+
+     label1:
+        l3#1 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList freeEventLists>;
+
+        $stack5 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList freeEventLists>;
+
+        $stack6 = $stack5.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next>;
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$EventList freeEventLists> = $stack6;
+
+        l3#1.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.clock.DeltaQueue$EventList next> = l2;
+
+        l3#1.<avrora.sim.clock.DeltaQueue$EventList: avrora.sim.Simulator$Event event> = l1;
+
+     label2:
+        return l3#1;
+    }
+
+    private avrora.sim.clock.DeltaQueue$Link newLink(avrora.sim.Simulator$Event, long, avrora.sim.clock.DeltaQueue$Link)
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$Link $stack6, $stack7, $stack8, l4, $stack14, l5#1;
+        long l2, $stack9, $stack10;
+        avrora.sim.Simulator$Event l1;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter0: avrora.sim.Simulator$Event;
+
+        l2 := @parameter1: long;
+
+        l4 := @parameter2: avrora.sim.clock.DeltaQueue$Link;
+
+        $stack6 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link freeLinks>;
+
+        if $stack6 != null goto label1;
+
+        $stack14 = new avrora.sim.clock.DeltaQueue$Link;
+
+        specialinvoke $stack14.<avrora.sim.clock.DeltaQueue$Link: void <init>(avrora.sim.clock.DeltaQueue,avrora.sim.Simulator$Event,long)>(l0, l1, l2);
+
+        l5#1 = $stack14;
+
+        goto label2;
+
+     label1:
+        l5#1 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link freeLinks>;
+
+        $stack7 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link freeLinks>;
+
+        $stack8 = $stack7.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link freeLinks> = $stack8;
+
+        l5#1.<avrora.sim.clock.DeltaQueue$Link: long delta> = l2;
+
+        virtualinvoke l5#1.<avrora.sim.clock.DeltaQueue$Link: void add(avrora.sim.Simulator$Event)>(l1);
+
+     label2:
+        if l4 == null goto label3;
+
+        $stack9 = l4.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        $stack10 = $stack9 - l2;
+
+        l4.<avrora.sim.clock.DeltaQueue$Link: long delta> = $stack10;
+
+     label3:
+        l5#1.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next> = l4;
+
+        return l5#1;
+    }
+
+    public void removeEvent(avrora.sim.Simulator$Event)
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$Link $stack5, l2, $stack8, $stack9, $stack11, $stack17, l3#1, l4#2;
+        avrora.sim.Simulator$Event l1;
+        avrora.sim.clock.DeltaQueue$EventList $stack6;
+        long $stack12, $stack13, $stack14;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        l1 := @parameter0: avrora.sim.Simulator$Event;
+
+        $stack5 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        if $stack5 != null goto label1;
+
+        return;
+
+     label1:
+        l3#1 = null;
+
+        l4#2 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+     label2:
+        if l4#2 == null goto label8;
+
+        l2 = l4#2.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        virtualinvoke l4#2.<avrora.sim.clock.DeltaQueue$Link: void remove(avrora.sim.Simulator$Event)>(l1);
+
+        $stack6 = l4#2.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$EventList events>;
+
+        if $stack6 != null goto label6;
+
+        if l3#1 != null goto label3;
+
+        $stack17 = l4#2.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head> = $stack17;
+
+        goto label4;
+
+     label3:
+        $stack8 = l4#2.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        l3#1.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next> = $stack8;
+
+     label4:
+        $stack9 = l4#2.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        if $stack9 == null goto label5;
+
+        $stack11 = l4#2.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        $stack13 = $stack11.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        $stack12 = l4#2.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        $stack14 = $stack13 + $stack12;
+
+        $stack11.<avrora.sim.clock.DeltaQueue$Link: long delta> = $stack14;
+
+     label5:
+        specialinvoke l0.<avrora.sim.clock.DeltaQueue: void free(avrora.sim.clock.DeltaQueue$Link)>(l4#2);
+
+        goto label7;
+
+     label6:
+        l3#1 = l4#2;
+
+     label7:
+        l4#2 = l2;
+
+        goto label2;
+
+     label8:
+        return;
+    }
+
+    public void skipAhead()
+    {
+        avrora.sim.clock.DeltaQueue l0;
+        avrora.sim.clock.DeltaQueue$Link $stack2, l1, $stack6;
+        long $stack3, $stack4, $stack5, $stack7, $stack8;
+
+        l0 := @this: avrora.sim.clock.DeltaQueue;
+
+        $stack2 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        if $stack2 != null goto label1;
+
+        $stack7 = l0.<avrora.sim.clock.DeltaQueue: long count>;
+
+        $stack8 = $stack7 + 1L;
+
+        l0.<avrora.sim.clock.DeltaQueue: long count> = $stack8;
+
+        return;
+
+     label1:
+        l1 = l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head>;
+
+        $stack4 = l0.<avrora.sim.clock.DeltaQueue: long count>;
+
+        $stack3 = l1.<avrora.sim.clock.DeltaQueue$Link: long delta>;
+
+        $stack5 = $stack4 + $stack3;
+
+        l0.<avrora.sim.clock.DeltaQueue: long count> = $stack5;
+
+        $stack6 = l1.<avrora.sim.clock.DeltaQueue$Link: avrora.sim.clock.DeltaQueue$Link next>;
+
+        l0.<avrora.sim.clock.DeltaQueue: avrora.sim.clock.DeltaQueue$Link head> = $stack6;
+
+        virtualinvoke l1.<avrora.sim.clock.DeltaQueue$Link: void fire()>();
+
+        specialinvoke l0.<avrora.sim.clock.DeltaQueue: void free(avrora.sim.clock.DeltaQueue$Link)>(l1);
+
+        return;
+    }
+}

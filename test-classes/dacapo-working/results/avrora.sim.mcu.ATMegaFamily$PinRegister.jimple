@@ -1,0 +1,193 @@
+public class avrora.sim.mcu.ATMegaFamily$PinRegister extends java.lang.Object implements avrora.sim.ActiveRegister
+{
+    protected avrora.sim.mcu.DefaultMCU$Pin[] pins;
+
+    protected void <init>(avrora.sim.mcu.DefaultMCU$Pin[])
+    {
+        avrora.sim.mcu.ATMegaFamily$PinRegister l0;
+        avrora.sim.mcu.DefaultMCU$Pin[] l1;
+
+        l0 := @this: avrora.sim.mcu.ATMegaFamily$PinRegister;
+
+        l1 := @parameter0: avrora.sim.mcu.DefaultMCU$Pin[];
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins> = l1;
+
+        return;
+    }
+
+    public byte read()
+    {
+        avrora.sim.mcu.DefaultMCU$Pin[] $stack3, $stack6, $stack9, $stack12, $stack15, $stack18, $stack21, $stack24;
+        avrora.sim.mcu.DefaultMCU$Pin $stack4, $stack7, $stack10, $stack13, $stack16, $stack19, $stack22, $stack25;
+        boolean $stack5, $stack8, $stack11, $stack14, $stack17, $stack20, $stack23, $stack26;
+        int $stack27, $stack33, $stack38, $stack43, $stack48, $stack53, $stack58, $stack63;
+        byte $stack28, l1#2, l2#4, l2#6, l2#8, l2#10, l2#12, l2#14;
+        avrora.sim.mcu.ATMegaFamily$PinRegister l0#1;
+        short l0#16;
+
+        l0#1 := @this: avrora.sim.mcu.ATMegaFamily$PinRegister;
+
+        $stack3 = l0#1.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack4 = $stack3[0];
+
+        $stack5 = virtualinvoke $stack4.<avrora.sim.mcu.DefaultMCU$Pin: boolean read()>();
+
+        if $stack5 == 0 goto label01;
+
+        l1#2 = 1;
+
+        goto label02;
+
+     label01:
+        l1#2 = 0;
+
+     label02:
+        $stack63 = 0 | l1#2;
+
+        $stack6 = l0#1.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack7 = $stack6[1];
+
+        $stack8 = virtualinvoke $stack7.<avrora.sim.mcu.DefaultMCU$Pin: boolean read()>();
+
+        if $stack8 == 0 goto label03;
+
+        l2#4 = 2;
+
+        goto label04;
+
+     label03:
+        l2#4 = 0;
+
+     label04:
+        $stack58 = $stack63 | l2#4;
+
+        $stack9 = l0#1.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack10 = $stack9[2];
+
+        $stack11 = virtualinvoke $stack10.<avrora.sim.mcu.DefaultMCU$Pin: boolean read()>();
+
+        if $stack11 == 0 goto label05;
+
+        l2#6 = 4;
+
+        goto label06;
+
+     label05:
+        l2#6 = 0;
+
+     label06:
+        $stack53 = $stack58 | l2#6;
+
+        $stack12 = l0#1.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack13 = $stack12[3];
+
+        $stack14 = virtualinvoke $stack13.<avrora.sim.mcu.DefaultMCU$Pin: boolean read()>();
+
+        if $stack14 == 0 goto label07;
+
+        l2#8 = 8;
+
+        goto label08;
+
+     label07:
+        l2#8 = 0;
+
+     label08:
+        $stack48 = $stack53 | l2#8;
+
+        $stack15 = l0#1.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack16 = $stack15[4];
+
+        $stack17 = virtualinvoke $stack16.<avrora.sim.mcu.DefaultMCU$Pin: boolean read()>();
+
+        if $stack17 == 0 goto label09;
+
+        l2#10 = 16;
+
+        goto label10;
+
+     label09:
+        l2#10 = 0;
+
+     label10:
+        $stack43 = $stack48 | l2#10;
+
+        $stack18 = l0#1.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack19 = $stack18[5];
+
+        $stack20 = virtualinvoke $stack19.<avrora.sim.mcu.DefaultMCU$Pin: boolean read()>();
+
+        if $stack20 == 0 goto label11;
+
+        l2#12 = 32;
+
+        goto label12;
+
+     label11:
+        l2#12 = 0;
+
+     label12:
+        $stack38 = $stack43 | l2#12;
+
+        $stack21 = l0#1.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack22 = $stack21[6];
+
+        $stack23 = virtualinvoke $stack22.<avrora.sim.mcu.DefaultMCU$Pin: boolean read()>();
+
+        if $stack23 == 0 goto label13;
+
+        l2#14 = 64;
+
+        goto label14;
+
+     label13:
+        l2#14 = 0;
+
+     label14:
+        $stack33 = $stack38 | l2#14;
+
+        $stack24 = l0#1.<avrora.sim.mcu.ATMegaFamily$PinRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack25 = $stack24[7];
+
+        $stack26 = virtualinvoke $stack25.<avrora.sim.mcu.DefaultMCU$Pin: boolean read()>();
+
+        if $stack26 == 0 goto label15;
+
+        l0#16 = 128;
+
+        goto label16;
+
+     label15:
+        l0#16 = 0;
+
+     label16:
+        $stack27 = $stack33 | l0#16;
+
+        $stack28 = (byte) $stack27;
+
+        return $stack28;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.ATMegaFamily$PinRegister l0;
+        byte l1;
+
+        l0 := @this: avrora.sim.mcu.ATMegaFamily$PinRegister;
+
+        l1 := @parameter0: byte;
+
+        return;
+    }
+}
