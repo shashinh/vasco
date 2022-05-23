@@ -1,0 +1,154 @@
+public class avrora.core.SourceMapping$Location extends java.lang.Object
+{
+    public final java.lang.String section;
+    public final java.lang.String name;
+    public final int vma_addr;
+    public final int lma_addr;
+    public final int size;
+    final avrora.core.SourceMapping this$0;
+
+    void <init>(avrora.core.SourceMapping, java.lang.String, java.lang.String, int, int, int)
+    {
+        avrora.core.SourceMapping$Location l0;
+        java.lang.String l2, l3, $stack9;
+        int l4, l5, l6, l1#2;
+        avrora.core.SourceMapping l1#1;
+
+        l0 := @this: avrora.core.SourceMapping$Location;
+
+        l1#1 := @parameter0: avrora.core.SourceMapping;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 := @parameter3: int;
+
+        l5 := @parameter4: int;
+
+        l6 := @parameter5: int;
+
+        l0.<avrora.core.SourceMapping$Location: avrora.core.SourceMapping this$0> = l1#1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.core.SourceMapping$Location: java.lang.String section> = l2;
+
+        if l3 != null goto label1;
+
+        $stack9 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(l5);
+
+        l0.<avrora.core.SourceMapping$Location: java.lang.String name> = $stack9;
+
+        goto label2;
+
+     label1:
+        l0.<avrora.core.SourceMapping$Location: java.lang.String name> = l3;
+
+     label2:
+        l0.<avrora.core.SourceMapping$Location: int vma_addr> = l4;
+
+        l0.<avrora.core.SourceMapping$Location: int lma_addr> = l5;
+
+        if l6 >= 1 goto label3;
+
+        l1#2 = 1;
+
+        goto label4;
+
+     label3:
+        l1#2 = l6;
+
+     label4:
+        l0.<avrora.core.SourceMapping$Location: int size> = l1#2;
+
+        return;
+    }
+
+    public boolean equals(java.lang.Object)
+    {
+        boolean $stack2, $stack5, l0#4;
+        java.lang.String $stack3, $stack4;
+        int $stack6, $stack7;
+        avrora.core.SourceMapping$Location l0#1, l1#3;
+        java.lang.Object l1#2;
+
+        l0#1 := @this: avrora.core.SourceMapping$Location;
+
+        l1#2 := @parameter0: java.lang.Object;
+
+        if l1#2 != l0#1 goto label1;
+
+        return 1;
+
+     label1:
+        $stack2 = l1#2 instanceof avrora.core.SourceMapping$Location;
+
+        if $stack2 != 0 goto label2;
+
+        return 0;
+
+     label2:
+        l1#3 = (avrora.core.SourceMapping$Location) l1#2;
+
+        $stack4 = l1#3.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        $stack3 = l0#1.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        $stack5 = virtualinvoke $stack4.<java.lang.String: boolean equals(java.lang.Object)>($stack3);
+
+        if $stack5 == 0 goto label3;
+
+        $stack7 = l1#3.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        $stack6 = l0#1.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        if $stack7 != $stack6 goto label3;
+
+        l0#4 = 1;
+
+        goto label4;
+
+     label3:
+        l0#4 = 0;
+
+     label4:
+        return l0#4;
+    }
+
+    public int hashCode()
+    {
+        avrora.core.SourceMapping$Location l0;
+        java.lang.String $stack1, $stack2;
+        int $stack3, $stack4;
+
+        l0 := @this: avrora.core.SourceMapping$Location;
+
+        $stack1 = l0.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        if $stack1 != null goto label1;
+
+        $stack4 = l0.<avrora.core.SourceMapping$Location: int lma_addr>;
+
+        return $stack4;
+
+     label1:
+        $stack2 = l0.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        $stack3 = virtualinvoke $stack2.<java.lang.String: int hashCode()>();
+
+        return $stack3;
+    }
+
+    public java.lang.String toString()
+    {
+        avrora.core.SourceMapping$Location l0;
+        java.lang.String $stack1;
+
+        l0 := @this: avrora.core.SourceMapping$Location;
+
+        $stack1 = l0.<avrora.core.SourceMapping$Location: java.lang.String name>;
+
+        return $stack1;
+    }
+}

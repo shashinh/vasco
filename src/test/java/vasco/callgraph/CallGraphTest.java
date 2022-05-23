@@ -158,7 +158,7 @@ public class CallGraphTest {
 					
 					
 				"-main-class", mainClass,
-				"-f", "c",
+				"-f", "J",
 				"-d", outputDirectory, 
 				mainClass
 		};

@@ -1,0 +1,160 @@
+public class avrora.sim.radio.Medium$Probe$List extends avrora.sim.util.TransactionalList implements avrora.sim.radio.Medium$Probe
+{
+
+    public void <init>()
+    {
+        avrora.sim.radio.Medium$Probe$List l0;
+
+        l0 := @this: avrora.sim.radio.Medium$Probe$List;
+
+        specialinvoke l0.<avrora.sim.util.TransactionalList: void <init>()>();
+
+        return;
+    }
+
+    public void fireAfterReceive(avrora.sim.radio.Medium$Receiver, char)
+    {
+        avrora.sim.radio.Medium$Probe$List l0;
+        java.lang.Object $stack4;
+        avrora.sim.radio.Medium$Receiver l1;
+        char l2;
+        avrora.sim.radio.Medium$Probe $stack5;
+        avrora.sim.util.TransactionalList$Link l3#1;
+
+        l0 := @this: avrora.sim.radio.Medium$Probe$List;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        l2 := @parameter1: char;
+
+        virtualinvoke l0.<avrora.sim.radio.Medium$Probe$List: void beginTransaction()>();
+
+        l3#1 = l0.<avrora.sim.radio.Medium$Probe$List: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l3#1 == null goto label2;
+
+        $stack4 = l3#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.radio.Medium$Probe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.radio.Medium$Probe: void fireAfterReceive(avrora.sim.radio.Medium$Receiver,char)>(l1, l2);
+
+        l3#1 = l3#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.radio.Medium$Probe$List: void endTransaction()>();
+
+        return;
+    }
+
+    public void fireAfterReceiveEnd(avrora.sim.radio.Medium$Receiver)
+    {
+        avrora.sim.radio.Medium$Probe$List l0;
+        java.lang.Object $stack3;
+        avrora.sim.radio.Medium$Receiver l1;
+        avrora.sim.radio.Medium$Probe $stack4;
+        avrora.sim.util.TransactionalList$Link l2#1;
+
+        l0 := @this: avrora.sim.radio.Medium$Probe$List;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        virtualinvoke l0.<avrora.sim.radio.Medium$Probe$List: void beginTransaction()>();
+
+        l2#1 = l0.<avrora.sim.radio.Medium$Probe$List: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l2#1 == null goto label2;
+
+        $stack3 = l2#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack4 = (avrora.sim.radio.Medium$Probe) $stack3;
+
+        interfaceinvoke $stack4.<avrora.sim.radio.Medium$Probe: void fireAfterReceiveEnd(avrora.sim.radio.Medium$Receiver)>(l1);
+
+        l2#1 = l2#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.radio.Medium$Probe$List: void endTransaction()>();
+
+        return;
+    }
+
+    public void fireBeforeTransmit(avrora.sim.radio.Medium$Transmitter, byte)
+    {
+        avrora.sim.radio.Medium$Probe$List l0;
+        java.lang.Object $stack4;
+        avrora.sim.radio.Medium$Transmitter l1;
+        byte l2;
+        avrora.sim.radio.Medium$Probe $stack5;
+        avrora.sim.util.TransactionalList$Link l3#1;
+
+        l0 := @this: avrora.sim.radio.Medium$Probe$List;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Transmitter;
+
+        l2 := @parameter1: byte;
+
+        virtualinvoke l0.<avrora.sim.radio.Medium$Probe$List: void beginTransaction()>();
+
+        l3#1 = l0.<avrora.sim.radio.Medium$Probe$List: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l3#1 == null goto label2;
+
+        $stack4 = l3#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack5 = (avrora.sim.radio.Medium$Probe) $stack4;
+
+        interfaceinvoke $stack5.<avrora.sim.radio.Medium$Probe: void fireBeforeTransmit(avrora.sim.radio.Medium$Transmitter,byte)>(l1, l2);
+
+        l3#1 = l3#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.radio.Medium$Probe$List: void endTransaction()>();
+
+        return;
+    }
+
+    public void fireBeforeTransmitEnd(avrora.sim.radio.Medium$Transmitter)
+    {
+        avrora.sim.radio.Medium$Probe$List l0;
+        java.lang.Object $stack3;
+        avrora.sim.radio.Medium$Transmitter l1;
+        avrora.sim.radio.Medium$Probe $stack4;
+        avrora.sim.util.TransactionalList$Link l2#1;
+
+        l0 := @this: avrora.sim.radio.Medium$Probe$List;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Transmitter;
+
+        virtualinvoke l0.<avrora.sim.radio.Medium$Probe$List: void beginTransaction()>();
+
+        l2#1 = l0.<avrora.sim.radio.Medium$Probe$List: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l2#1 == null goto label2;
+
+        $stack3 = l2#1.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack4 = (avrora.sim.radio.Medium$Probe) $stack3;
+
+        interfaceinvoke $stack4.<avrora.sim.radio.Medium$Probe: void fireBeforeTransmitEnd(avrora.sim.radio.Medium$Transmitter)>(l1);
+
+        l2#1 = l2#1.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        virtualinvoke l0.<avrora.sim.radio.Medium$Probe$List: void endTransaction()>();
+
+        return;
+    }
+}

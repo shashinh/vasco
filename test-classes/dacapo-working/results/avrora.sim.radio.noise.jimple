@@ -1,0 +1,193 @@
+public class avrora.sim.radio.noise extends java.lang.Object
+{
+    private static java.util.List noise;
+
+    static void <clinit>()
+    {
+        java.util.ArrayList $stack0;
+
+        $stack0 = new java.util.ArrayList;
+
+        specialinvoke $stack0.<java.util.ArrayList: void <init>()>();
+
+        <avrora.sim.radio.noise: java.util.List noise> = $stack0;
+
+        return;
+    }
+
+    public void <init>(java.lang.String) throws java.io.IOException
+    {
+        avrora.sim.radio.noise l0;
+        java.io.BufferedReader $stack2;
+        java.io.FileReader $stack3;
+        java.lang.String l1;
+
+        l0 := @this: avrora.sim.radio.noise;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack2 = new java.io.BufferedReader;
+
+        $stack3 = new java.io.FileReader;
+
+        specialinvoke $stack3.<java.io.FileReader: void <init>(java.lang.String)>(l1);
+
+        specialinvoke $stack2.<java.io.BufferedReader: void <init>(java.io.Reader)>($stack3);
+
+        specialinvoke l0.<avrora.sim.radio.noise: void parse(java.io.BufferedReader)>($stack2);
+
+        return;
+    }
+
+    public void <init>()
+    {
+        avrora.sim.radio.noise l0;
+        java.lang.Integer $stack1;
+        java.util.List $stack2;
+
+        l0 := @this: avrora.sim.radio.noise;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack2 = <avrora.sim.radio.noise: java.util.List noise>;
+
+        $stack1 = new java.lang.Integer;
+
+        specialinvoke $stack1.<java.lang.Integer: void <init>(int)>(-95);
+
+        interfaceinvoke $stack2.<java.util.List: boolean add(java.lang.Object)>($stack1);
+
+        return;
+    }
+
+    public static int getNoise(int)
+    {
+        int l0, $stack4;
+        java.util.List $stack1;
+        java.lang.Object $stack2;
+        java.lang.Integer $stack3;
+
+        l0 := @parameter0: int;
+
+        $stack1 = <avrora.sim.radio.noise: java.util.List noise>;
+
+        $stack2 = interfaceinvoke $stack1.<java.util.List: java.lang.Object get(int)>(l0);
+
+        $stack3 = (java.lang.Integer) $stack2;
+
+        $stack4 = virtualinvoke $stack3.<java.lang.Integer: int intValue()>();
+
+        return $stack4;
+    }
+
+    private void parse(java.io.BufferedReader) throws java.io.IOException
+    {
+        java.io.BufferedReader l1;
+        java.lang.String $stack3;
+        avrora.sim.radio.noise l0;
+
+        l0 := @this: avrora.sim.radio.noise;
+
+        l1 := @parameter0: java.io.BufferedReader;
+
+     label1:
+        $stack3 = virtualinvoke l1.<java.io.BufferedReader: java.lang.String readLine()>();
+
+        if $stack3 == null goto label2;
+
+        specialinvoke l0.<avrora.sim.radio.noise: void parseLine(java.lang.String)>($stack3);
+
+        goto label1;
+
+     label2:
+        virtualinvoke l1.<java.io.BufferedReader: void close()>();
+
+        return;
+    }
+
+    private void parseLine(java.lang.String)
+    {
+        boolean $stack3, $stack4;
+        java.lang.Integer $stack5;
+        java.util.List $stack6;
+        java.lang.String $stack9, l1#2;
+        int $stack10, l2#3, l1#5;
+        java.util.NoSuchElementException $stack11;
+        cck.util.Util$InternalError $stack12;
+        avrora.sim.radio.noise l0#1;
+        java.util.StringTokenizer l0#4;
+
+        l0#1 := @this: avrora.sim.radio.noise;
+
+        l1#2 := @parameter0: java.lang.String;
+
+        l2#3 = 0;
+
+        $stack3 = virtualinvoke l1#2.<java.lang.String: boolean startsWith(java.lang.String)>("#");
+
+        if $stack3 != 0 goto label7;
+
+        l0#4 = new java.util.StringTokenizer;
+
+        specialinvoke l0#4.<java.util.StringTokenizer: void <init>(java.lang.String,java.lang.String)>(l1#2, " ");
+
+        l1#5 = 0;
+
+     label1:
+        $stack4 = virtualinvoke l0#4.<java.util.StringTokenizer: boolean hasMoreTokens()>();
+
+        if $stack4 == 0 goto label6;
+
+     label2:
+        if l1#5 != 0 goto label3;
+
+        $stack9 = virtualinvoke l0#4.<java.util.StringTokenizer: java.lang.String nextToken()>();
+
+        $stack10 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($stack9);
+
+        l2#3 = $stack10;
+
+     label3:
+        l1#5 = l1#5 + 1;
+
+     label4:
+        goto label1;
+
+     label5:
+        $stack11 := @caughtexception;
+
+        $stack12 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>("Error reading Noise file");
+
+        throw $stack12;
+
+     label6:
+        if l1#5 != 1 goto label7;
+
+        $stack6 = <avrora.sim.radio.noise: java.util.List noise>;
+
+        $stack5 = new java.lang.Integer;
+
+        specialinvoke $stack5.<java.lang.Integer: void <init>(int)>(l2#3);
+
+        interfaceinvoke $stack6.<java.util.List: boolean add(java.lang.Object)>($stack5);
+
+     label7:
+        return;
+
+        catch java.util.NoSuchElementException from label2 to label4 with label5;
+    }
+
+    public static int sizeNoise()
+    {
+        java.util.List $stack0;
+        int $stack1;
+
+        $stack0 = <avrora.sim.radio.noise: java.util.List noise>;
+
+        $stack1 = interfaceinvoke $stack0.<java.util.List: int size()>();
+
+        return $stack1;
+    }
+}

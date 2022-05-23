@@ -1,0 +1,1149 @@
+public class avrora.sim.platform.ExternalFlash extends java.lang.Object
+{
+    protected final avrora.sim.Simulator sim;
+    protected final avrora.sim.clock.Clock clock;
+    protected avrora.sim.mcu.Microcontroller mcu;
+    protected final avrora.sim.output.SimPrinter printer;
+    private boolean isSelected;
+    private boolean isReading;
+    private int dfOpcode;
+    private int dfPageAddress;
+    private int dfByteOffset;
+    private int dfTempByte;
+    private short dfStatus;
+    private double delay;
+    private avrora.sim.state.BooleanView so;
+    private boolean si;
+    private int icPage;
+    private boolean tick;
+    private short step;
+    private byte i;
+    public static final int DF_STATUS_REGISTER_DENSITY;
+    public static final int DF_STATUS_READY;
+    public static final int DF_STATUS_COMPARE;
+    public static final int DF_TEP;
+    public static final int DF_TP;
+    public static final int DF_TPE;
+    public static final int DF_TBE;
+    public static final double DF_TXFR;
+    private static final java.lang.String[] modeName;
+    private static final double[] modeAmpere;
+    private static final int startMode;
+    public avrora.sim.platform.ExternalFlash$Memory memory;
+    protected final avrora.sim.FiniteStateMachine stateMachine;
+
+    static void <clinit>()
+    {
+        java.lang.String[] l0#1;
+        double[] l0#2;
+
+        <avrora.sim.platform.ExternalFlash: int startMode> = 0;
+
+        <avrora.sim.platform.ExternalFlash: double DF_TXFR> = 3.0E-4;
+
+        <avrora.sim.platform.ExternalFlash: int DF_TBE> = 12;
+
+        <avrora.sim.platform.ExternalFlash: int DF_TPE> = 8;
+
+        <avrora.sim.platform.ExternalFlash: int DF_TP> = 14;
+
+        <avrora.sim.platform.ExternalFlash: int DF_TEP> = 20;
+
+        <avrora.sim.platform.ExternalFlash: int DF_STATUS_COMPARE> = 64;
+
+        <avrora.sim.platform.ExternalFlash: int DF_STATUS_READY> = 128;
+
+        <avrora.sim.platform.ExternalFlash: int DF_STATUS_REGISTER_DENSITY> = 24;
+
+        l0#1 = newarray (java.lang.String)[4];
+
+        l0#1[0] = "standby";
+
+        l0#1[1] = "read";
+
+        l0#1[2] = "write";
+
+        l0#1[3] = "load";
+
+        <avrora.sim.platform.ExternalFlash: java.lang.String[] modeName> = l0#1;
+
+        l0#2 = newarray (double)[4];
+
+        l0#2[0] = 2.0E-6;
+
+        l0#2[1] = 0.004;
+
+        l0#2[2] = 0.015;
+
+        l0#2[3] = 2.0E-6;
+
+        <avrora.sim.platform.ExternalFlash: double[] modeAmpere> = l0#2;
+
+        return;
+    }
+
+    public void <init>(avrora.sim.mcu.Microcontroller, int, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.state.Register $stack4;
+        avrora.sim.state.BooleanView $stack5;
+        avrora.sim.platform.ExternalFlash$Memory $stack6;
+        int l2, l3;
+        avrora.sim.mcu.Microcontroller l1, $stack7, $stack16, $stack19, $stack22, $stack25;
+        avrora.sim.Simulator $stack8, $stack9, $stack11, $stack28;
+        avrora.sim.output.SimPrinter $stack10;
+        avrora.sim.clock.MainClock $stack12;
+        avrora.sim.FiniteStateMachine $stack13, $stack32;
+        java.lang.String[] $stack14;
+        avrora.sim.clock.Clock $stack15;
+        avrora.sim.mcu.Microcontroller$Pin $stack17, $stack20, $stack23, $stack26;
+        avrora.sim.platform.ExternalFlash$PA3Output $stack18;
+        avrora.sim.platform.ExternalFlash$PD3Output $stack21;
+        avrora.sim.platform.ExternalFlash$PD5Output $stack24;
+        avrora.sim.platform.ExternalFlash$PD2Input $stack27;
+        avrora.sim.energy.Energy $stack29;
+        double[] $stack31;
+        avrora.sim.energy.EnergyControl $stack33;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: avrora.sim.mcu.Microcontroller;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack4 = new avrora.sim.state.Register;
+
+        specialinvoke $stack4.<avrora.sim.state.Register: void <init>(int)>(1);
+
+        $stack5 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>($stack4, 0);
+
+        l0.<avrora.sim.platform.ExternalFlash: avrora.sim.state.BooleanView so> = $stack5;
+
+        $stack6 = new avrora.sim.platform.ExternalFlash$Memory;
+
+        specialinvoke $stack6.<avrora.sim.platform.ExternalFlash$Memory: void <init>(avrora.sim.platform.ExternalFlash,int,int)>(l0, l2, l3);
+
+        l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory> = $stack6;
+
+        l0.<avrora.sim.platform.ExternalFlash: avrora.sim.mcu.Microcontroller mcu> = l1;
+
+        $stack7 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack8 = interfaceinvoke $stack7.<avrora.sim.mcu.Microcontroller: avrora.sim.Simulator getSimulator()>();
+
+        l0.<avrora.sim.platform.ExternalFlash: avrora.sim.Simulator sim> = $stack8;
+
+        $stack9 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.Simulator sim>;
+
+        $stack10 = virtualinvoke $stack9.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter(java.lang.String)>("mica2.flash");
+
+        l0.<avrora.sim.platform.ExternalFlash: avrora.sim.output.SimPrinter printer> = $stack10;
+
+        $stack11 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.Simulator sim>;
+
+        $stack12 = virtualinvoke $stack11.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        l0.<avrora.sim.platform.ExternalFlash: avrora.sim.clock.Clock clock> = $stack12;
+
+        l0.<avrora.sim.platform.ExternalFlash: short dfStatus> = 152;
+
+        l0.<avrora.sim.platform.ExternalFlash: boolean tick> = 0;
+
+        l0.<avrora.sim.platform.ExternalFlash: byte i> = 0;
+
+        l0.<avrora.sim.platform.ExternalFlash: short step> = 0;
+
+        $stack13 = new avrora.sim.FiniteStateMachine;
+
+        $stack15 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.clock.Clock clock>;
+
+        $stack14 = <avrora.sim.platform.ExternalFlash: java.lang.String[] modeName>;
+
+        specialinvoke $stack13.<avrora.sim.FiniteStateMachine: void <init>(avrora.sim.clock.Clock,int,java.lang.String[],int)>($stack15, 0, $stack14, 0);
+
+        l0.<avrora.sim.platform.ExternalFlash: avrora.sim.FiniteStateMachine stateMachine> = $stack13;
+
+        $stack16 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack17 = interfaceinvoke $stack16.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)>("PA3");
+
+        $stack18 = new avrora.sim.platform.ExternalFlash$PA3Output;
+
+        specialinvoke $stack18.<avrora.sim.platform.ExternalFlash$PA3Output: void <init>(avrora.sim.platform.ExternalFlash)>(l0);
+
+        interfaceinvoke $stack17.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack18);
+
+        $stack19 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack20 = interfaceinvoke $stack19.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)>("PD3");
+
+        $stack21 = new avrora.sim.platform.ExternalFlash$PD3Output;
+
+        specialinvoke $stack21.<avrora.sim.platform.ExternalFlash$PD3Output: void <init>(avrora.sim.platform.ExternalFlash)>(l0);
+
+        interfaceinvoke $stack20.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack21);
+
+        $stack22 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack23 = interfaceinvoke $stack22.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)>("PD5");
+
+        $stack24 = new avrora.sim.platform.ExternalFlash$PD5Output;
+
+        specialinvoke $stack24.<avrora.sim.platform.ExternalFlash$PD5Output: void <init>(avrora.sim.platform.ExternalFlash)>(l0);
+
+        interfaceinvoke $stack23.<avrora.sim.mcu.Microcontroller$Pin: void connectOutput(avrora.sim.mcu.Microcontroller$Pin$Output)>($stack24);
+
+        $stack25 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.mcu.Microcontroller mcu>;
+
+        $stack26 = interfaceinvoke $stack25.<avrora.sim.mcu.Microcontroller: avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)>("PD2");
+
+        $stack27 = new avrora.sim.platform.ExternalFlash$PD2Input;
+
+        specialinvoke $stack27.<avrora.sim.platform.ExternalFlash$PD2Input: void <init>(avrora.sim.platform.ExternalFlash)>(l0);
+
+        interfaceinvoke $stack26.<avrora.sim.mcu.Microcontroller$Pin: void connectInput(avrora.sim.mcu.Microcontroller$Pin$Input)>($stack27);
+
+        $stack29 = new avrora.sim.energy.Energy;
+
+        $stack31 = <avrora.sim.platform.ExternalFlash: double[] modeAmpere>;
+
+        $stack32 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.FiniteStateMachine stateMachine>;
+
+        $stack28 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.Simulator sim>;
+
+        $stack33 = virtualinvoke $stack28.<avrora.sim.Simulator: avrora.sim.energy.EnergyControl getEnergyControl()>();
+
+        specialinvoke $stack29.<avrora.sim.energy.Energy: void <init>(java.lang.String,double[],avrora.sim.FiniteStateMachine,avrora.sim.energy.EnergyControl)>("flash", $stack31, $stack32, $stack33);
+
+        return;
+    }
+
+    static void access$000(avrora.sim.platform.ExternalFlash, java.lang.String)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        java.lang.String l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: java.lang.String;
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void echo(java.lang.String)>(l1);
+
+        return;
+    }
+
+    static boolean access$100(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        boolean $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: boolean isSelected>;
+
+        return $stack1;
+    }
+
+    static avrora.sim.platform.ExternalFlash$Page access$1000(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        avrora.sim.platform.ExternalFlash$Page $stack2;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        $stack2 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page getMemoryPage(int)>(l1);
+
+        return $stack2;
+    }
+
+    static boolean access$102(avrora.sim.platform.ExternalFlash, boolean)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        boolean l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: boolean;
+
+        l0.<avrora.sim.platform.ExternalFlash: boolean isSelected> = l1;
+
+        return l1;
+    }
+
+    static short access$1100(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        short $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: short dfStatus>;
+
+        return $stack1;
+    }
+
+    static short access$1102(avrora.sim.platform.ExternalFlash, short)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        short l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: short;
+
+        l0.<avrora.sim.platform.ExternalFlash: short dfStatus> = l1;
+
+        return l1;
+    }
+
+    static avrora.sim.platform.ExternalFlash$Page access$1200(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Page $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page getBuffer2()>();
+
+        return $stack1;
+    }
+
+    static int access$1300(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: int dfByteOffset>;
+
+        return $stack1;
+    }
+
+    static int access$1302(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        l0.<avrora.sim.platform.ExternalFlash: int dfByteOffset> = l1;
+
+        return l1;
+    }
+
+    static short access$1400(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        short $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: short step>;
+
+        return $stack1;
+    }
+
+    static short access$1402(avrora.sim.platform.ExternalFlash, short)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        short l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: short;
+
+        l0.<avrora.sim.platform.ExternalFlash: short step> = l1;
+
+        return l1;
+    }
+
+    static short access$1408(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        short $stack2, l1;
+        int $stack3;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash: short step>;
+
+        $stack3 = $stack2 + 1;
+
+        l1 = (short) $stack3;
+
+        l0.<avrora.sim.platform.ExternalFlash: short step> = l1;
+
+        return $stack2;
+    }
+
+    static boolean access$1500(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        boolean $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: boolean isReading>;
+
+        return $stack1;
+    }
+
+    static boolean access$1502(avrora.sim.platform.ExternalFlash, boolean)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        boolean l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: boolean;
+
+        l0.<avrora.sim.platform.ExternalFlash: boolean isReading> = l1;
+
+        return l1;
+    }
+
+    static byte access$1600(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        byte $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: byte i>;
+
+        return $stack1;
+    }
+
+    static byte access$1602(avrora.sim.platform.ExternalFlash, byte)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        byte l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: byte;
+
+        l0.<avrora.sim.platform.ExternalFlash: byte i> = l1;
+
+        return l1;
+    }
+
+    static byte access$1608(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        byte $stack2, l1;
+        int $stack3;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash: byte i>;
+
+        $stack3 = $stack2 + 1;
+
+        l1 = (byte) $stack3;
+
+        l0.<avrora.sim.platform.ExternalFlash: byte i> = l1;
+
+        return $stack2;
+    }
+
+    static boolean access$1700(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        boolean $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: boolean si>;
+
+        return $stack1;
+    }
+
+    static boolean access$1702(avrora.sim.platform.ExternalFlash, boolean)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        boolean l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: boolean;
+
+        l0.<avrora.sim.platform.ExternalFlash: boolean si> = l1;
+
+        return l1;
+    }
+
+    static boolean access$1800(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        boolean $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: boolean tick>;
+
+        return $stack1;
+    }
+
+    static boolean access$1802(avrora.sim.platform.ExternalFlash, boolean)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        boolean l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: boolean;
+
+        l0.<avrora.sim.platform.ExternalFlash: boolean tick> = l1;
+
+        return l1;
+    }
+
+    static int access$1900(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: int icPage>;
+
+        return $stack1;
+    }
+
+    static int access$1902(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        l0.<avrora.sim.platform.ExternalFlash: int icPage> = l1;
+
+        return l1;
+    }
+
+    static int access$200(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: int dfOpcode>;
+
+        return $stack1;
+    }
+
+    static int access$2000(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: int dfTempByte>;
+
+        return $stack1;
+    }
+
+    static int access$2002(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        l0.<avrora.sim.platform.ExternalFlash: int dfTempByte> = l1;
+
+        return l1;
+    }
+
+    static int access$202(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        l0.<avrora.sim.platform.ExternalFlash: int dfOpcode> = l1;
+
+        return l1;
+    }
+
+    static short access$2100(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        short $stack2;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        $stack2 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: short getBuffer1(int)>(l1);
+
+        return $stack2;
+    }
+
+    static short access$2200(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        short $stack2;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        $stack2 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: short getBuffer2(int)>(l1);
+
+        return $stack2;
+    }
+
+    static short access$2300(avrora.sim.platform.ExternalFlash, int, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1, l2;
+        short $stack3;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: int;
+
+        $stack3 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: short getMemoryPageAt(int,int)>(l1, l2);
+
+        return $stack3;
+    }
+
+    static avrora.sim.state.BooleanView access$2400(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.state.BooleanView $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.state.BooleanView so>;
+
+        return $stack1;
+    }
+
+    static void access$2500(avrora.sim.platform.ExternalFlash, int, short)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        short l2;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: short;
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void setBuffer1(int,short)>(l1, l2);
+
+        return;
+    }
+
+    static void access$2600(avrora.sim.platform.ExternalFlash, int, short)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        short l2;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: short;
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void setBuffer2(int,short)>(l1, l2);
+
+        return;
+    }
+
+    static int access$300(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: int dfPageAddress>;
+
+        return $stack1;
+    }
+
+    static int access$302(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        l0.<avrora.sim.platform.ExternalFlash: int dfPageAddress> = l1;
+
+        return l1;
+    }
+
+    static int access$308(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int $stack2, l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash: int dfPageAddress>;
+
+        l1 = $stack2 + 1;
+
+        l0.<avrora.sim.platform.ExternalFlash: int dfPageAddress> = l1;
+
+        return $stack2;
+    }
+
+    static void access$400(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void copyBuffer1toPage(int)>(l1);
+
+        return;
+    }
+
+    static double access$500(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        double $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: double delay>;
+
+        return $stack1;
+    }
+
+    static double access$502(avrora.sim.platform.ExternalFlash, double)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        double l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: double;
+
+        l0.<avrora.sim.platform.ExternalFlash: double delay> = l1;
+
+        return l1;
+    }
+
+    static void access$600(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void copyBuffer2toPage(int)>(l1);
+
+        return;
+    }
+
+    static void access$700(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void copyPageToBuffer1(int)>(l1);
+
+        return;
+    }
+
+    static void access$800(avrora.sim.platform.ExternalFlash, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter1: int;
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void copyPageToBuffer2(int)>(l1);
+
+        return;
+    }
+
+    static avrora.sim.platform.ExternalFlash$Page access$900(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Page $stack1;
+
+        l0 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page getBuffer1()>();
+
+        return $stack1;
+    }
+
+    private void copyBuffer1toPage(int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        avrora.sim.platform.ExternalFlash$Page $stack2;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        $stack2 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page getBuffer1()>();
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void setMemoryPage(int,avrora.sim.platform.ExternalFlash$Page)>(l1, $stack2);
+
+        return;
+    }
+
+    private void copyBuffer2toPage(int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        avrora.sim.platform.ExternalFlash$Page $stack2;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        $stack2 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page getBuffer2()>();
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void setMemoryPage(int,avrora.sim.platform.ExternalFlash$Page)>(l1, $stack2);
+
+        return;
+    }
+
+    private void copyPageToBuffer1(int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        avrora.sim.platform.ExternalFlash$Page $stack2;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        $stack2 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page getMemoryPage(int)>(l1);
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void setBuffer1(avrora.sim.platform.ExternalFlash$Page)>($stack2);
+
+        return;
+    }
+
+    private void copyPageToBuffer2(int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        avrora.sim.platform.ExternalFlash$Page $stack2;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        $stack2 = specialinvoke l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Page getMemoryPage(int)>(l1);
+
+        specialinvoke l0.<avrora.sim.platform.ExternalFlash: void setBuffer2(avrora.sim.platform.ExternalFlash$Page)>($stack2);
+
+        return;
+    }
+
+    private void echo(java.lang.String)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.output.SimPrinter $stack3, $stack4, $stack8;
+        java.lang.StringBuffer $stack5;
+        java.lang.String l1;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack3 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.output.SimPrinter printer>;
+
+        if $stack3 == null goto label1;
+
+        $stack4 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.output.SimPrinter printer>;
+
+        $stack5 = virtualinvoke $stack4.<avrora.sim.output.SimPrinter: java.lang.StringBuffer getBuffer(int)>(20);
+
+        staticinvoke <cck.text.Terminal: void append(int,java.lang.StringBuffer,java.lang.String)>(4, $stack5, "Dataflash");
+
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(": ");
+
+        virtualinvoke $stack5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(l1);
+
+        $stack8 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.output.SimPrinter printer>;
+
+        virtualinvoke $stack8.<avrora.sim.output.SimPrinter: void printBuffer(java.lang.StringBuffer)>($stack5);
+
+     label1:
+        return;
+    }
+
+    private avrora.sim.platform.ExternalFlash$Page getBuffer1()
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Memory $stack1;
+        avrora.sim.platform.ExternalFlash$Page $stack2;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack2 = $stack1.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer1>;
+
+        return $stack2;
+    }
+
+    private short getBuffer1(int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Memory $stack2;
+        avrora.sim.platform.ExternalFlash$Page $stack3;
+        int l1;
+        short[] $stack4;
+        short $stack5;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack3 = $stack2.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer1>;
+
+        $stack4 = $stack3.<avrora.sim.platform.ExternalFlash$Page: short[] bytes>;
+
+        $stack5 = $stack4[l1];
+
+        return $stack5;
+    }
+
+    private avrora.sim.platform.ExternalFlash$Page getBuffer2()
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Memory $stack1;
+        avrora.sim.platform.ExternalFlash$Page $stack2;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack2 = $stack1.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer2>;
+
+        return $stack2;
+    }
+
+    private short getBuffer2(int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Memory $stack2;
+        avrora.sim.platform.ExternalFlash$Page $stack3;
+        int l1;
+        short[] $stack4;
+        short $stack5;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack3 = $stack2.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer2>;
+
+        $stack4 = $stack3.<avrora.sim.platform.ExternalFlash$Page: short[] bytes>;
+
+        $stack5 = $stack4[l1];
+
+        return $stack5;
+    }
+
+    private avrora.sim.platform.ExternalFlash$Page getMemoryPage(int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        avrora.sim.platform.ExternalFlash$Memory $stack2;
+        avrora.sim.platform.ExternalFlash$Page $stack3;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack3 = virtualinvoke $stack2.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page getPage(int)>(l1);
+
+        return $stack3;
+    }
+
+    private short getMemoryPageAt(int, int)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1, l2;
+        avrora.sim.platform.ExternalFlash$Memory $stack3;
+        avrora.sim.platform.ExternalFlash$Page $stack4;
+        short[] $stack5;
+        short $stack6;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        $stack3 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page getPage(int)>(l1);
+
+        $stack5 = $stack4.<avrora.sim.platform.ExternalFlash$Page: short[] bytes>;
+
+        $stack6 = $stack5[l2];
+
+        return $stack6;
+    }
+
+    private void setBuffer1(avrora.sim.platform.ExternalFlash$Page)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Page l1;
+        avrora.sim.platform.ExternalFlash$Memory $stack2;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: avrora.sim.platform.ExternalFlash$Page;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack2.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer1> = l1;
+
+        return;
+    }
+
+    private void setBuffer1(int, short)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Memory $stack3;
+        avrora.sim.platform.ExternalFlash$Page $stack4;
+        int l1;
+        short l2;
+        short[] $stack5;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: short;
+
+        $stack3 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack4 = $stack3.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer1>;
+
+        $stack5 = $stack4.<avrora.sim.platform.ExternalFlash$Page: short[] bytes>;
+
+        $stack5[l1] = l2;
+
+        return;
+    }
+
+    private void setBuffer2(avrora.sim.platform.ExternalFlash$Page)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Page l1;
+        avrora.sim.platform.ExternalFlash$Memory $stack2;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: avrora.sim.platform.ExternalFlash$Page;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack2.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer2> = l1;
+
+        return;
+    }
+
+    private void setBuffer2(int, short)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        avrora.sim.platform.ExternalFlash$Memory $stack3;
+        avrora.sim.platform.ExternalFlash$Page $stack4;
+        int l1;
+        short l2;
+        short[] $stack5;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: short;
+
+        $stack3 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        $stack4 = $stack3.<avrora.sim.platform.ExternalFlash$Memory: avrora.sim.platform.ExternalFlash$Page buffer2>;
+
+        $stack5 = $stack4.<avrora.sim.platform.ExternalFlash$Page: short[] bytes>;
+
+        $stack5[l1] = l2;
+
+        return;
+    }
+
+    private void setMemoryPage(int, avrora.sim.platform.ExternalFlash$Page)
+    {
+        avrora.sim.platform.ExternalFlash l0;
+        int l1;
+        avrora.sim.platform.ExternalFlash$Page l2;
+        avrora.sim.platform.ExternalFlash$Memory $stack3;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: avrora.sim.platform.ExternalFlash$Page;
+
+        $stack3 = l0.<avrora.sim.platform.ExternalFlash: avrora.sim.platform.ExternalFlash$Memory memory>;
+
+        virtualinvoke $stack3.<avrora.sim.platform.ExternalFlash$Memory: void setPage(int,avrora.sim.platform.ExternalFlash$Page)>(l1, l2);
+
+        virtualinvoke l2.<avrora.sim.platform.ExternalFlash$Page: void debug()>();
+
+        return;
+    }
+}

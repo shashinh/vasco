@@ -1,0 +1,56 @@
+public class avrora.sim.Segment$AddressOutOfBoundsException extends cck.util.Util$Error
+{
+    private static final long serialVersionUID;
+    public final int data_addr;
+    final avrora.sim.Segment this$0;
+
+    protected void <init>(avrora.sim.Segment, int)
+    {
+        avrora.sim.Segment$AddressOutOfBoundsException l0;
+        avrora.sim.Segment l1;
+        java.lang.StringBuilder $stack3, $stack5, $stack8, $stack9, $stack11;
+        java.lang.String $stack6, $stack7, $stack10, $stack12;
+        int l2;
+
+        l0 := @this: avrora.sim.Segment$AddressOutOfBoundsException;
+
+        l1 := @parameter0: avrora.sim.Segment;
+
+        l2 := @parameter1: int;
+
+        l0.<avrora.sim.Segment$AddressOutOfBoundsException: avrora.sim.Segment this$0> = l1;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("illegal access of ");
+
+        $stack6 = l1.<avrora.sim.Segment: java.lang.String name>;
+
+        $stack7 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>($stack6);
+
+        $stack8 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack7);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" at ");
+
+        $stack10 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(l2);
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack10);
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l0.<cck.util.Util$Error: void <init>(java.lang.String,java.lang.String)>("Segment access error", $stack12);
+
+        l0.<avrora.sim.Segment$AddressOutOfBoundsException: int data_addr> = l2;
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.Segment$AddressOutOfBoundsException: long serialVersionUID> = 1L;
+
+        return;
+    }
+}

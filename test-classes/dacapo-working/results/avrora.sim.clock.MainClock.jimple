@@ -1,0 +1,126 @@
+public class avrora.sim.clock.MainClock extends avrora.sim.clock.Clock
+{
+    protected final avrora.sim.clock.DeltaQueue eventQueue;
+
+    public void <init>(java.lang.String, long)
+    {
+        avrora.sim.clock.MainClock l0;
+        java.lang.String l1;
+        long l2;
+        avrora.sim.clock.DeltaQueue $stack4;
+
+        l0 := @this: avrora.sim.clock.MainClock;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: long;
+
+        specialinvoke l0.<avrora.sim.clock.Clock: void <init>(java.lang.String,long)>(l1, l2);
+
+        $stack4 = new avrora.sim.clock.DeltaQueue;
+
+        specialinvoke $stack4.<avrora.sim.clock.DeltaQueue: void <init>()>();
+
+        l0.<avrora.sim.clock.MainClock: avrora.sim.clock.DeltaQueue eventQueue> = $stack4;
+
+        return;
+    }
+
+    public void advance(long)
+    {
+        avrora.sim.clock.MainClock l0;
+        long l1;
+        avrora.sim.clock.DeltaQueue $stack3;
+
+        l0 := @this: avrora.sim.clock.MainClock;
+
+        l1 := @parameter0: long;
+
+        $stack3 = l0.<avrora.sim.clock.MainClock: avrora.sim.clock.DeltaQueue eventQueue>;
+
+        virtualinvoke $stack3.<avrora.sim.clock.DeltaQueue: void advance(long)>(l1);
+
+        return;
+    }
+
+    public long getCount()
+    {
+        avrora.sim.clock.MainClock l0;
+        avrora.sim.clock.DeltaQueue $stack1;
+        long $stack2;
+
+        l0 := @this: avrora.sim.clock.MainClock;
+
+        $stack1 = l0.<avrora.sim.clock.MainClock: avrora.sim.clock.DeltaQueue eventQueue>;
+
+        $stack2 = virtualinvoke $stack1.<avrora.sim.clock.DeltaQueue: long getCount()>();
+
+        return $stack2;
+    }
+
+    public long getFirstEventDelta()
+    {
+        avrora.sim.clock.MainClock l0;
+        avrora.sim.clock.DeltaQueue $stack1;
+        long $stack2;
+
+        l0 := @this: avrora.sim.clock.MainClock;
+
+        $stack1 = l0.<avrora.sim.clock.MainClock: avrora.sim.clock.DeltaQueue eventQueue>;
+
+        $stack2 = virtualinvoke $stack1.<avrora.sim.clock.DeltaQueue: long getFirstEventTime()>();
+
+        return $stack2;
+    }
+
+    public void insertEvent(avrora.sim.Simulator$Event, long)
+    {
+        avrora.sim.clock.MainClock l0;
+        avrora.sim.Simulator$Event l1;
+        long l2;
+        avrora.sim.clock.DeltaQueue $stack4;
+
+        l0 := @this: avrora.sim.clock.MainClock;
+
+        l1 := @parameter0: avrora.sim.Simulator$Event;
+
+        l2 := @parameter1: long;
+
+        $stack4 = l0.<avrora.sim.clock.MainClock: avrora.sim.clock.DeltaQueue eventQueue>;
+
+        virtualinvoke $stack4.<avrora.sim.clock.DeltaQueue: void insertEvent(avrora.sim.Simulator$Event,long)>(l1, l2);
+
+        return;
+    }
+
+    public void removeEvent(avrora.sim.Simulator$Event)
+    {
+        avrora.sim.clock.MainClock l0;
+        avrora.sim.Simulator$Event l1;
+        avrora.sim.clock.DeltaQueue $stack2;
+
+        l0 := @this: avrora.sim.clock.MainClock;
+
+        l1 := @parameter0: avrora.sim.Simulator$Event;
+
+        $stack2 = l0.<avrora.sim.clock.MainClock: avrora.sim.clock.DeltaQueue eventQueue>;
+
+        virtualinvoke $stack2.<avrora.sim.clock.DeltaQueue: void removeEvent(avrora.sim.Simulator$Event)>(l1);
+
+        return;
+    }
+
+    public void skipAhead()
+    {
+        avrora.sim.clock.MainClock l0;
+        avrora.sim.clock.DeltaQueue $stack1;
+
+        l0 := @this: avrora.sim.clock.MainClock;
+
+        $stack1 = l0.<avrora.sim.clock.MainClock: avrora.sim.clock.DeltaQueue eventQueue>;
+
+        virtualinvoke $stack1.<avrora.sim.clock.DeltaQueue: void skipAhead()>();
+
+        return;
+    }
+}

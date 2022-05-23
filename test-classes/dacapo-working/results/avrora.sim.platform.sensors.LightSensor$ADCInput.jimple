@@ -1,0 +1,71 @@
+class avrora.sim.platform.sensors.LightSensor$ADCInput extends java.lang.Object implements avrora.sim.mcu.ADC$ADCInput
+{
+    final avrora.sim.platform.sensors.LightSensor this$0;
+
+    void <init>(avrora.sim.platform.sensors.LightSensor)
+    {
+        avrora.sim.platform.sensors.LightSensor$ADCInput l0;
+        avrora.sim.platform.sensors.LightSensor l1;
+
+        l0 := @this: avrora.sim.platform.sensors.LightSensor$ADCInput;
+
+        l1 := @parameter0: avrora.sim.platform.sensors.LightSensor;
+
+        l0.<avrora.sim.platform.sensors.LightSensor$ADCInput: avrora.sim.platform.sensors.LightSensor this$0> = l1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public float getVoltage()
+    {
+        avrora.sim.platform.sensors.LightSensor$ADCInput l0;
+        avrora.sim.platform.sensors.LightSensor $stack1, $stack3, $stack5, $stack8;
+        avrora.sim.platform.sensors.SensorData $stack2, $stack6;
+        boolean $stack4;
+        int $stack7;
+        avrora.sim.mcu.ADC $stack9;
+        float $stack10, $stack11, $stack12, $stack13;
+
+        l0 := @this: avrora.sim.platform.sensors.LightSensor$ADCInput;
+
+        $stack1 = l0.<avrora.sim.platform.sensors.LightSensor$ADCInput: avrora.sim.platform.sensors.LightSensor this$0>;
+
+        $stack2 = $stack1.<avrora.sim.platform.sensors.LightSensor: avrora.sim.platform.sensors.SensorData data>;
+
+        if $stack2 != null goto label1;
+
+        return 0.0F;
+
+     label1:
+        $stack3 = l0.<avrora.sim.platform.sensors.LightSensor$ADCInput: avrora.sim.platform.sensors.LightSensor this$0>;
+
+        $stack4 = $stack3.<avrora.sim.platform.sensors.LightSensor: boolean on>;
+
+        if $stack4 != 0 goto label2;
+
+        return 0.0F;
+
+     label2:
+        $stack5 = l0.<avrora.sim.platform.sensors.LightSensor$ADCInput: avrora.sim.platform.sensors.LightSensor this$0>;
+
+        $stack6 = $stack5.<avrora.sim.platform.sensors.LightSensor: avrora.sim.platform.sensors.SensorData data>;
+
+        $stack7 = interfaceinvoke $stack6.<avrora.sim.platform.sensors.SensorData: int reading()>();
+
+        $stack10 = (float) $stack7;
+
+        $stack8 = l0.<avrora.sim.platform.sensors.LightSensor$ADCInput: avrora.sim.platform.sensors.LightSensor this$0>;
+
+        $stack9 = $stack8.<avrora.sim.platform.sensors.LightSensor: avrora.sim.mcu.ADC adcDevice>;
+
+        $stack11 = virtualinvoke $stack9.<avrora.sim.mcu.ADC: float getVoltageRef()>();
+
+        $stack12 = $stack10 * $stack11;
+
+        $stack13 = $stack12 / 1023.0F;
+
+        return $stack13;
+    }
+}

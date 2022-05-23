@@ -1,0 +1,126 @@
+public class avrora.core.LoadableProgram extends java.lang.Object
+{
+    public final java.lang.String fname;
+    public final java.io.File file;
+    protected avrora.core.Program program;
+
+    public void <init>(java.io.File)
+    {
+        avrora.core.LoadableProgram l0;
+        java.io.File l1;
+        java.lang.String $stack2;
+
+        l0 := @this: avrora.core.LoadableProgram;
+
+        l1 := @parameter0: java.io.File;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.core.LoadableProgram: java.io.File file> = l1;
+
+        $stack2 = virtualinvoke l1.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        l0.<avrora.core.LoadableProgram: java.lang.String fname> = $stack2;
+
+        return;
+    }
+
+    public void <init>(java.lang.String)
+    {
+        avrora.core.LoadableProgram l0;
+        java.io.File $stack2;
+        java.lang.String l1;
+
+        l0 := @this: avrora.core.LoadableProgram;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack2 = new java.io.File;
+
+        specialinvoke $stack2.<java.io.File: void <init>(java.lang.String)>(l1);
+
+        l0.<avrora.core.LoadableProgram: java.io.File file> = $stack2;
+
+        l0.<avrora.core.LoadableProgram: java.lang.String fname> = l1;
+
+        return;
+    }
+
+    public java.lang.String getName()
+    {
+        avrora.core.LoadableProgram l0;
+        java.io.File $stack1;
+        java.lang.String $stack2;
+
+        l0 := @this: avrora.core.LoadableProgram;
+
+        $stack1 = l0.<avrora.core.LoadableProgram: java.io.File file>;
+
+        $stack2 = virtualinvoke $stack1.<java.io.File: java.lang.String getName()>();
+
+        return $stack2;
+    }
+
+    public avrora.core.Program getProgram()
+    {
+        avrora.core.LoadableProgram l0;
+        avrora.core.Program $stack1, $stack2;
+        java.lang.StringBuilder $stack3, $stack4, $stack6, $stack7;
+        java.io.File $stack5;
+        java.lang.String $stack8;
+        cck.util.Util$InternalError $stack9;
+
+        l0 := @this: avrora.core.LoadableProgram;
+
+        $stack1 = l0.<avrora.core.LoadableProgram: avrora.core.Program program>;
+
+        if $stack1 != null goto label1;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Program ");
+
+        $stack5 = l0.<avrora.core.LoadableProgram: java.io.File file>;
+
+        $stack6 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($stack5);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" must be loaded before use");
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack9 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>($stack8);
+
+        throw $stack9;
+
+     label1:
+        $stack2 = l0.<avrora.core.LoadableProgram: avrora.core.Program program>;
+
+        return $stack2;
+    }
+
+    public void load() throws java.lang.Exception
+    {
+        avrora.core.LoadableProgram l0;
+        java.lang.String[] $stack1;
+        java.lang.String $stack2;
+        avrora.core.Program $stack3;
+
+        l0 := @this: avrora.core.LoadableProgram;
+
+        $stack1 = newarray (java.lang.String)[1];
+
+        $stack2 = l0.<avrora.core.LoadableProgram: java.lang.String fname>;
+
+        $stack1[0] = $stack2;
+
+        $stack3 = staticinvoke <avrora.Main: avrora.core.Program loadProgram(java.lang.String[])>($stack1);
+
+        l0.<avrora.core.LoadableProgram: avrora.core.Program program> = $stack3;
+
+        return;
+    }
+}

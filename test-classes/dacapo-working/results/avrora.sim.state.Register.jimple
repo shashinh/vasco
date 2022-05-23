@@ -1,0 +1,300 @@
+public class avrora.sim.state.Register extends avrora.sim.state.AbstractRegisterView implements avrora.sim.state.RegisterView
+{
+    public final int width;
+    public final int mask;
+    protected int value;
+    protected avrora.sim.state.VolatileBehavior behavior;
+    protected avrora.sim.util.TransactionalList watches;
+
+    public void <init>(int)
+    {
+        avrora.sim.state.Register l0;
+        int l1, $stack2, $stack3;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        l1 := @parameter0: int;
+
+        specialinvoke l0.<avrora.sim.state.AbstractRegisterView: void <init>()>();
+
+        l0.<avrora.sim.state.Register: int width> = l1;
+
+        $stack2 = -1 << l1;
+
+        $stack3 = $stack2 ^ -1;
+
+        l0.<avrora.sim.state.Register: int mask> = $stack3;
+
+        return;
+    }
+
+    public void addWatch(avrora.sim.state.Register$Watch)
+    {
+        avrora.sim.state.Register l0;
+        avrora.sim.util.TransactionalList $stack2, $stack3, $stack4;
+        avrora.sim.state.Register$Watch l1;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        l1 := @parameter0: avrora.sim.state.Register$Watch;
+
+        $stack2 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        if $stack2 != null goto label1;
+
+        $stack4 = new avrora.sim.util.TransactionalList;
+
+        specialinvoke $stack4.<avrora.sim.util.TransactionalList: void <init>()>();
+
+        l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches> = $stack4;
+
+     label1:
+        $stack3 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        virtualinvoke $stack3.<avrora.sim.util.TransactionalList: void add(java.lang.Object)>(l1);
+
+        return;
+    }
+
+    public int getValue()
+    {
+        avrora.sim.state.Register l0;
+        int $stack1;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        $stack1 = l0.<avrora.sim.state.Register: int value>;
+
+        return $stack1;
+    }
+
+    public int getWidth()
+    {
+        avrora.sim.state.Register l0;
+        int $stack1;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        $stack1 = l0.<avrora.sim.state.Register: int width>;
+
+        return $stack1;
+    }
+
+    public int read()
+    {
+        avrora.sim.state.Register l0;
+        int l1, $stack6, $stack15, $stack17, $stack18, $stack19, l2#1;
+        avrora.sim.state.VolatileBehavior $stack4, $stack16;
+        avrora.sim.util.TransactionalList $stack5, $stack7, $stack8, $stack10;
+        avrora.sim.util.TransactionalList$Link $stack9, l3#2;
+        java.lang.Object $stack12;
+        avrora.sim.state.Register$Watch $stack13;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        l1 = l0.<avrora.sim.state.Register: int value>;
+
+        l2#1 = l0.<avrora.sim.state.Register: int value>;
+
+        $stack4 = l0.<avrora.sim.state.Register: avrora.sim.state.VolatileBehavior behavior>;
+
+        if $stack4 == null goto label1;
+
+        $stack17 = l0.<avrora.sim.state.Register: int mask>;
+
+        $stack16 = l0.<avrora.sim.state.Register: avrora.sim.state.VolatileBehavior behavior>;
+
+        $stack15 = l0.<avrora.sim.state.Register: int value>;
+
+        $stack18 = virtualinvoke $stack16.<avrora.sim.state.VolatileBehavior: int read(int)>($stack15);
+
+        $stack19 = $stack17 & $stack18;
+
+        l2#1 = $stack19;
+
+        l0.<avrora.sim.state.Register: int value> = $stack19;
+
+     label1:
+        $stack5 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        if $stack5 == null goto label4;
+
+        $stack7 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        virtualinvoke $stack7.<avrora.sim.util.TransactionalList: void beginTransaction()>();
+
+        $stack8 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        $stack9 = virtualinvoke $stack8.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link getHead()>();
+
+        l3#2 = $stack9;
+
+     label2:
+        if l3#2 == null goto label3;
+
+        $stack12 = l3#2.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack13 = (avrora.sim.state.Register$Watch) $stack12;
+
+        interfaceinvoke $stack13.<avrora.sim.state.Register$Watch: void fireAfterRead(avrora.sim.state.Register,int,int)>(l0, l1, l2#1);
+
+        l3#2 = l3#2.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label2;
+
+     label3:
+        $stack10 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        virtualinvoke $stack10.<avrora.sim.util.TransactionalList: void endTransaction()>();
+
+     label4:
+        $stack6 = l0.<avrora.sim.state.Register: int value>;
+
+        return $stack6;
+    }
+
+    public void removeWatch(avrora.sim.state.Register$Watch)
+    {
+        avrora.sim.state.Register l0;
+        avrora.sim.state.Register$Watch l1;
+        avrora.sim.util.TransactionalList $stack2, $stack3;
+        boolean $stack4;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        l1 := @parameter0: avrora.sim.state.Register$Watch;
+
+        $stack2 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        virtualinvoke $stack2.<avrora.sim.util.TransactionalList: void remove(java.lang.Object)>(l1);
+
+        $stack3 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.util.TransactionalList: boolean isEmpty()>();
+
+        if $stack4 == 0 goto label1;
+
+        l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches> = null;
+
+     label1:
+        return;
+    }
+
+    public void setBehavior(avrora.sim.state.VolatileBehavior)
+    {
+        avrora.sim.state.Register l0;
+        avrora.sim.state.VolatileBehavior l1;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        l1 := @parameter0: avrora.sim.state.VolatileBehavior;
+
+        l0.<avrora.sim.state.Register: avrora.sim.state.VolatileBehavior behavior> = l1;
+
+        return;
+    }
+
+    public void setValue(int)
+    {
+        avrora.sim.state.Register l0;
+        int l1, $stack2, $stack3, $stack4, $stack5;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        l1 := @parameter0: int;
+
+        $stack4 = l0.<avrora.sim.state.Register: int value>;
+
+        $stack2 = l0.<avrora.sim.state.Register: int mask>;
+
+        $stack3 = l1 & $stack2;
+
+        l0.<avrora.sim.state.Register: int value> = $stack3;
+
+        $stack5 = l0.<avrora.sim.state.Register: int value>;
+
+        virtualinvoke l0.<avrora.sim.state.Register: void notify(int,int)>($stack4, $stack5);
+
+        return;
+    }
+
+    public void write(int)
+    {
+        avrora.sim.state.Register l0;
+        int l2, $stack4, $stack17, $stack19, $stack20, l1#1, l1#2, l3#3;
+        avrora.sim.state.VolatileBehavior $stack5, $stack18;
+        avrora.sim.util.TransactionalList $stack6, $stack7, $stack8, $stack10;
+        avrora.sim.util.TransactionalList$Link $stack9, l3#4;
+        java.lang.Object $stack14;
+        avrora.sim.state.Register$Watch $stack15;
+
+        l0 := @this: avrora.sim.state.Register;
+
+        l1#1 := @parameter0: int;
+
+        l2 = l0.<avrora.sim.state.Register: int value>;
+
+        $stack4 = l0.<avrora.sim.state.Register: int mask>;
+
+        l1#2 = l1#1 & $stack4;
+
+        $stack5 = l0.<avrora.sim.state.Register: avrora.sim.state.VolatileBehavior behavior>;
+
+        if $stack5 == null goto label1;
+
+        $stack19 = l0.<avrora.sim.state.Register: int mask>;
+
+        $stack18 = l0.<avrora.sim.state.Register: avrora.sim.state.VolatileBehavior behavior>;
+
+        $stack17 = l0.<avrora.sim.state.Register: int value>;
+
+        $stack20 = virtualinvoke $stack18.<avrora.sim.state.VolatileBehavior: int write(int,int)>($stack17, l1#2);
+
+        l3#3 = $stack19 & $stack20;
+
+        goto label2;
+
+     label1:
+        l3#3 = l1#2;
+
+     label2:
+        l0.<avrora.sim.state.Register: int value> = l3#3;
+
+        $stack6 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        if $stack6 == null goto label5;
+
+        $stack7 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        virtualinvoke $stack7.<avrora.sim.util.TransactionalList: void beginTransaction()>();
+
+        $stack8 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        $stack9 = virtualinvoke $stack8.<avrora.sim.util.TransactionalList: avrora.sim.util.TransactionalList$Link getHead()>();
+
+        l3#4 = $stack9;
+
+     label3:
+        if l3#4 == null goto label4;
+
+        $stack14 = l3#4.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack15 = (avrora.sim.state.Register$Watch) $stack14;
+
+        interfaceinvoke $stack15.<avrora.sim.state.Register$Watch: void fireAfterWrite(avrora.sim.state.Register,int,int)>(l0, l2, l1#2);
+
+        l3#4 = l3#4.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label3;
+
+     label4:
+        $stack10 = l0.<avrora.sim.state.Register: avrora.sim.util.TransactionalList watches>;
+
+        virtualinvoke $stack10.<avrora.sim.util.TransactionalList: void endTransaction()>();
+
+     label5:
+        virtualinvoke l0.<avrora.sim.state.Register: void notify(int,int)>(l2, l1#2);
+
+        return;
+    }
+}

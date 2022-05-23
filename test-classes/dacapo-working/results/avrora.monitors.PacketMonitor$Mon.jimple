@@ -1,0 +1,971 @@
+class avrora.monitors.PacketMonitor$Mon extends java.lang.Object implements avrora.monitors.Monitor, avrora.sim.radio.Medium$Probe
+{
+    char[] bufferData;
+    int bufferPos;
+    final avrora.sim.Simulator simulator;
+    final avrora.sim.output.SimPrinter printer;
+    final boolean showPackets;
+    final boolean bits;
+    int bytesTransmitted;
+    int packetsTransmitted;
+    int bytesReceived;
+    int packetsReceived;
+    int bytesCorrupted;
+    int packetsLostinMiddle;
+    boolean matchStart;
+    byte startSymbol;
+    long startCycle;
+    boolean cc2420radio;
+    final avrora.monitors.PacketMonitor this$0;
+
+    void <init>(avrora.monitors.PacketMonitor, avrora.sim.Simulator)
+    {
+        avrora.monitors.PacketMonitor$Mon l0;
+        avrora.monitors.PacketMonitor l1;
+        avrora.sim.Simulator $stack3, $stack9, l2#1;
+        avrora.sim.mcu.Microcontroller $stack4;
+        avrora.sim.platform.Platform $stack5;
+        java.lang.Object $stack6;
+        avrora.sim.radio.Medium$Transmitter $stack7;
+        avrora.sim.radio.Medium$Receiver $stack8;
+        avrora.sim.output.SimPrinter $stack10;
+        cck.util.Option$Bool $stack11, $stack13;
+        boolean $stack12, $stack14, $stack16, $stack17, $stack18;
+        cck.util.Option$Str $stack15, $stack25;
+        java.text.StringCharacterIterator $stack24;
+        java.lang.String $stack26;
+        int $stack27;
+        byte $stack28;
+        avrora.sim.radio.Radio l2#2;
+        java.util.List $stack19#5;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1 := @parameter0: avrora.monitors.PacketMonitor;
+
+        l2#1 := @parameter1: avrora.sim.Simulator;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: avrora.monitors.PacketMonitor this$0> = l1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.Simulator simulator> = l2#1;
+
+        $stack3 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.Simulator simulator>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.Simulator: avrora.sim.mcu.Microcontroller getMicrocontroller()>();
+
+        $stack5 = interfaceinvoke $stack4.<avrora.sim.mcu.Microcontroller: avrora.sim.platform.Platform getPlatform()>();
+
+        $stack6 = virtualinvoke $stack5.<avrora.sim.platform.Platform: java.lang.Object getDevice(java.lang.String)>("radio");
+
+        l2#2 = (avrora.sim.radio.Radio) $stack6;
+
+        $stack7 = interfaceinvoke l2#2.<avrora.sim.radio.Radio: avrora.sim.radio.Medium$Transmitter getTransmitter()>();
+
+        virtualinvoke $stack7.<avrora.sim.radio.Medium$Transmitter: void insertProbe(avrora.sim.radio.Medium$Probe)>(l0);
+
+        $stack8 = interfaceinvoke l2#2.<avrora.sim.radio.Radio: avrora.sim.radio.Medium$Receiver getReceiver()>();
+
+        virtualinvoke $stack8.<avrora.sim.radio.Medium$Receiver: void insertProbe(avrora.sim.radio.Medium$Probe)>(l0);
+
+        $stack9 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.Simulator simulator>;
+
+        $stack10 = virtualinvoke $stack9.<avrora.sim.Simulator: avrora.sim.output.SimPrinter getPrinter()>();
+
+        l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.output.SimPrinter printer> = $stack10;
+
+        $stack11 = l1.<avrora.monitors.PacketMonitor: cck.util.Option$Bool PACKETS>;
+
+        $stack12 = virtualinvoke $stack11.<cck.util.Option$Bool: boolean get()>();
+
+        l0.<avrora.monitors.PacketMonitor$Mon: boolean showPackets> = $stack12;
+
+        $stack13 = l1.<avrora.monitors.PacketMonitor: cck.util.Option$Bool BITS>;
+
+        $stack14 = virtualinvoke $stack13.<cck.util.Option$Bool: boolean get()>();
+
+        l0.<avrora.monitors.PacketMonitor$Mon: boolean bits> = $stack14;
+
+        $stack15 = l1.<avrora.monitors.PacketMonitor: cck.util.Option$Str START_SYMBOL>;
+
+        $stack16 = virtualinvoke $stack15.<cck.util.Option$Str: boolean isBlank()>();
+
+        if $stack16 != 0 goto label1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: boolean matchStart> = 1;
+
+        $stack24 = new java.text.StringCharacterIterator;
+
+        $stack25 = l1.<avrora.monitors.PacketMonitor: cck.util.Option$Str START_SYMBOL>;
+
+        $stack26 = virtualinvoke $stack25.<cck.util.Option$Str: java.lang.String get()>();
+
+        specialinvoke $stack24.<java.text.StringCharacterIterator: void <init>(java.lang.String)>($stack26);
+
+        $stack27 = staticinvoke <cck.text.StringUtil: int readHexValue(java.text.CharacterIterator,int)>($stack24, 2);
+
+        $stack28 = (byte) $stack27;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: byte startSymbol> = $stack28;
+
+        goto label3;
+
+     label1:
+        $stack17 = l2#2 instanceof avrora.sim.radio.CC1000Radio;
+
+        if $stack17 == 0 goto label2;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: boolean cc2420radio> = 0;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: boolean matchStart> = 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: byte startSymbol> = 51;
+
+     label2:
+        $stack18 = l2#2 instanceof avrora.sim.radio.CC2420Radio;
+
+        if $stack18 == 0 goto label3;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: boolean cc2420radio> = 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: boolean matchStart> = 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: byte startSymbol> = -89;
+
+     label3:
+        $stack19#5 = l1.<avrora.monitors.PacketMonitor: java.util.List monitors>;
+
+        interfaceinvoke $stack19#5.<java.util.List: boolean add(java.lang.Object)>(l0);
+
+        return;
+    }
+
+    private void append(char)
+    {
+        avrora.monitors.PacketMonitor$Mon l0;
+        char[] $stack3, $stack4, $stack9, $stack12, $stack14, $stack22, l2#1, $stack8#4;
+        int $stack5, $stack6, $stack10, $stack11, $stack13, $stack7#8, $stack18#13;
+        char l1;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1 := @parameter0: char;
+
+        $stack3 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        if $stack3 != null goto label1;
+
+        $stack22 = newarray (char)[64];
+
+        l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData> = $stack22;
+
+        goto label2;
+
+     label1:
+        $stack4 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack6 = lengthof $stack4;
+
+        $stack5 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        if $stack6 != $stack5 goto label2;
+
+        $stack14 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack9 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack10 = lengthof $stack9;
+
+        $stack11 = $stack10 * 2;
+
+        l2#1 = newarray (char)[$stack11];
+
+        $stack12 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack13 = lengthof $stack12;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack14, 0, l2#1, 0, $stack13);
+
+        l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData> = l2#1;
+
+     label2:
+        $stack8#4 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack7#8 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        $stack18#13 = $stack7#8 + 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos> = $stack18#13;
+
+        $stack8#4[$stack7#8] = l1;
+
+        return;
+    }
+
+    private void appendTime(java.lang.StringBuffer)
+    {
+        java.lang.StringBuffer l1;
+        avrora.monitors.PacketMonitor$Mon l0;
+        avrora.sim.Simulator $stack4, $stack8;
+        avrora.sim.clock.MainClock $stack5, $stack9;
+        long $stack6, $stack7, l2;
+        double $stack10;
+        float $stack12;
+        java.lang.String $stack13;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1 := @parameter0: java.lang.StringBuffer;
+
+        $stack4 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.Simulator simulator>;
+
+        $stack5 = virtualinvoke $stack4.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack6 = virtualinvoke $stack5.<avrora.sim.clock.MainClock: long getCount()>();
+
+        $stack7 = l0.<avrora.monitors.PacketMonitor$Mon: long startCycle>;
+
+        l2 = $stack6 - $stack7;
+
+        $stack8 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.Simulator simulator>;
+
+        $stack9 = virtualinvoke $stack8.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack10 = virtualinvoke $stack9.<avrora.sim.clock.MainClock: double cyclesToMillis(long)>(l2);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("  ");
+
+        $stack12 = (float) $stack10;
+
+        $stack13 = staticinvoke <cck.text.StringUtil: java.lang.String toFixedFloat(float,int)>($stack12, 3);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack13);
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" ms");
+
+        return;
+    }
+
+    private void clear()
+    {
+        avrora.monitors.PacketMonitor$Mon l0;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos> = 0;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData> = null;
+
+        return;
+    }
+
+    public void fireAfterReceive(avrora.sim.radio.Medium$Receiver, char)
+    {
+        avrora.monitors.PacketMonitor$Mon l0;
+        int $stack3, $stack5, $stack6, $stack7, $stack8;
+        char l2;
+        boolean $stack4;
+        avrora.sim.Simulator $stack14;
+        avrora.sim.clock.MainClock $stack15;
+        long $stack16;
+        avrora.sim.radio.Medium$Receiver l1;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        l2 := @parameter1: char;
+
+        $stack3 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        if $stack3 != 0 goto label1;
+
+        $stack14 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.Simulator simulator>;
+
+        $stack15 = virtualinvoke $stack14.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack16 = virtualinvoke $stack15.<avrora.sim.clock.MainClock: long getCount()>();
+
+        l0.<avrora.monitors.PacketMonitor$Mon: long startCycle> = $stack16;
+
+     label1:
+        $stack4 = staticinvoke <avrora.sim.radio.Medium: boolean isCorruptedByte(char)>(l2);
+
+        if $stack4 == 0 goto label2;
+
+        $stack7 = l0.<avrora.monitors.PacketMonitor$Mon: int bytesCorrupted>;
+
+        $stack8 = $stack7 + 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int bytesCorrupted> = $stack8;
+
+     label2:
+        $stack5 = l0.<avrora.monitors.PacketMonitor$Mon: int bytesReceived>;
+
+        $stack6 = $stack5 + 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int bytesReceived> = $stack6;
+
+        specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: void append(char)>(l2);
+
+        return;
+    }
+
+    public void fireAfterReceiveEnd(avrora.sim.radio.Medium$Receiver)
+    {
+        avrora.monitors.PacketMonitor$Mon l0;
+        int $stack6, $stack9, $stack10, $stack12, $stack16, $stack17, $stack18, $stack19, $stack20, $stack21, $stack22, $stack26, $stack29, $stack30, $stack32, $stack33, $stack39, $stack43, $stack46, $stack47, $stack49, l4#3, l5#5, l3#6, l2#7, l3#8;
+        char[] $stack7, $stack27, $stack37, $stack44;
+        boolean $stack8, $stack11, $stack34, l1#2, l2#4;
+        avrora.sim.output.SimPrinter $stack13, $stack35;
+        java.lang.StringBuffer $stack14, $stack36;
+        char $stack28, $stack38, $stack45;
+        avrora.sim.radio.Medium$Receiver l1#1;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1#1 := @parameter0: avrora.sim.radio.Medium$Receiver;
+
+        $stack6 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        if $stack6 == 0 goto label01;
+
+        $stack7 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        if $stack7 != null goto label02;
+
+     label01:
+        return;
+
+     label02:
+        $stack8 = l0.<avrora.monitors.PacketMonitor$Mon: boolean cc2420radio>;
+
+        if $stack8 == 0 goto label14;
+
+        l1#2 = 0;
+
+        l4#3 = 0;
+
+     label03:
+        $stack17 = l4#3 + 4;
+
+        $stack16 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        if $stack17 > $stack16 goto label12;
+
+        l2#4 = 0;
+
+        l5#5 = 0;
+
+        l3#6 = l4#3;
+
+     label04:
+        $stack21 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        $stack22 = $stack21 - 4;
+
+        if l3#6 > $stack22 goto label08;
+
+        $stack37 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack38 = $stack37[l3#6];
+
+        $stack39 = $stack38 & 255;
+
+        if $stack39 != 15 goto label07;
+
+        $stack44 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack43 = l3#6 + 1;
+
+        $stack45 = $stack44[$stack43];
+
+        $stack46 = $stack45 & 255;
+
+        if $stack46 != 167 goto label07;
+
+        $stack47 = l4#3 + 3;
+
+        if l3#6 >= $stack47 goto label05;
+
+        $stack49 = l3#6 - l4#3;
+
+        l5#5 = 3 - $stack49;
+
+        goto label06;
+
+     label05:
+        l4#3 = l3#6 - 3;
+
+     label06:
+        l2#4 = 1;
+
+        goto label08;
+
+     label07:
+        l3#6 = l3#6 + 1;
+
+        goto label04;
+
+     label08:
+        if l2#4 == 0 goto label10;
+
+        $stack27 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack26 = l3#6 + 2;
+
+        $stack28 = $stack27[$stack26];
+
+        l2#7 = $stack28 & 255;
+
+        $stack29 = l3#6 + 3;
+
+        l3#8 = $stack29 + l2#7;
+
+        if l2#7 <= 0 goto label09;
+
+        $stack30 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        if l3#8 > $stack30 goto label09;
+
+        $stack32 = l0.<avrora.monitors.PacketMonitor$Mon: int packetsReceived>;
+
+        $stack33 = $stack32 + 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int packetsReceived> = $stack33;
+
+        l1#2 = 1;
+
+        $stack34 = l0.<avrora.monitors.PacketMonitor$Mon: boolean showPackets>;
+
+        if $stack34 == 0 goto label09;
+
+        $stack35 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.output.SimPrinter printer>;
+
+        $stack36 = specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: java.lang.StringBuffer renderPacket(java.lang.String,int,int,int)>("<==== ", l5#5, l4#3, l3#8);
+
+        virtualinvoke $stack35.<avrora.sim.output.SimPrinter: void printBuffer(java.lang.StringBuffer)>($stack36);
+
+     label09:
+        l4#3 = l3#8;
+
+        goto label11;
+
+     label10:
+        l4#3 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+     label11:
+        goto label03;
+
+     label12:
+        $stack18 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        if $stack18 < 5 goto label13;
+
+        if l1#2 != 0 goto label13;
+
+        $stack19 = l0.<avrora.monitors.PacketMonitor$Mon: int packetsLostinMiddle>;
+
+        $stack20 = $stack19 + 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int packetsLostinMiddle> = $stack20;
+
+     label13:
+        goto label15;
+
+     label14:
+        $stack9 = l0.<avrora.monitors.PacketMonitor$Mon: int packetsReceived>;
+
+        $stack10 = $stack9 + 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int packetsReceived> = $stack10;
+
+        $stack11 = l0.<avrora.monitors.PacketMonitor$Mon: boolean showPackets>;
+
+        if $stack11 == 0 goto label15;
+
+        $stack13 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.output.SimPrinter printer>;
+
+        $stack12 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        $stack14 = specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: java.lang.StringBuffer renderPacket(java.lang.String,int,int,int)>("<==== ", 0, 0, $stack12);
+
+        virtualinvoke $stack13.<avrora.sim.output.SimPrinter: void printBuffer(java.lang.StringBuffer)>($stack14);
+
+     label15:
+        specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: void clear()>();
+
+        return;
+    }
+
+    public void fireBeforeTransmit(avrora.sim.radio.Medium$Transmitter, byte)
+    {
+        avrora.monitors.PacketMonitor$Mon l0;
+        int $stack3, $stack4, $stack6, $stack7;
+        byte l2;
+        char $stack5;
+        avrora.sim.Simulator $stack8;
+        avrora.sim.clock.MainClock $stack9;
+        long $stack10;
+        avrora.sim.radio.Medium$Transmitter l1;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Transmitter;
+
+        l2 := @parameter1: byte;
+
+        $stack3 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        if $stack3 != 0 goto label1;
+
+        $stack8 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.Simulator simulator>;
+
+        $stack9 = virtualinvoke $stack8.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack10 = virtualinvoke $stack9.<avrora.sim.clock.MainClock: long getCount()>();
+
+        l0.<avrora.monitors.PacketMonitor$Mon: long startCycle> = $stack10;
+
+     label1:
+        $stack4 = l2 & 255;
+
+        $stack5 = (char) $stack4;
+
+        specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: void append(char)>($stack5);
+
+        $stack6 = l0.<avrora.monitors.PacketMonitor$Mon: int bytesTransmitted>;
+
+        $stack7 = $stack6 + 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int bytesTransmitted> = $stack7;
+
+        return;
+    }
+
+    public void fireBeforeTransmitEnd(avrora.sim.radio.Medium$Transmitter)
+    {
+        avrora.monitors.PacketMonitor$Mon l0;
+        int $stack2, $stack3, $stack5;
+        boolean $stack4;
+        avrora.sim.output.SimPrinter $stack6;
+        java.lang.StringBuffer $stack7;
+        avrora.sim.radio.Medium$Transmitter l1;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Transmitter;
+
+        $stack2 = l0.<avrora.monitors.PacketMonitor$Mon: int packetsTransmitted>;
+
+        $stack3 = $stack2 + 1;
+
+        l0.<avrora.monitors.PacketMonitor$Mon: int packetsTransmitted> = $stack3;
+
+        $stack4 = l0.<avrora.monitors.PacketMonitor$Mon: boolean showPackets>;
+
+        if $stack4 == 0 goto label1;
+
+        $stack6 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.output.SimPrinter printer>;
+
+        $stack5 = l0.<avrora.monitors.PacketMonitor$Mon: int bufferPos>;
+
+        $stack7 = specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: java.lang.StringBuffer renderPacket(java.lang.String,int,int,int)>("----> ", 0, 0, $stack5);
+
+        virtualinvoke $stack6.<avrora.sim.output.SimPrinter: void printBuffer(java.lang.StringBuffer)>($stack7);
+
+     label1:
+        specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: void clear()>();
+
+        return;
+    }
+
+    private boolean renderByte(int, char, boolean, java.lang.StringBuffer)
+    {
+        char l2;
+        byte l5, $stack15, l6#2;
+        avrora.monitors.PacketMonitor$Mon l0;
+        boolean $stack7, $stack8, $stack16, l3#1;
+        java.lang.StringBuffer l4;
+        int l1;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: char;
+
+        l3#1 := @parameter2: boolean;
+
+        l4 := @parameter3: java.lang.StringBuffer;
+
+        l6#2 = 16;
+
+        l5 = (byte) l2;
+
+        $stack7 = l0.<avrora.monitors.PacketMonitor$Mon: boolean bits>;
+
+        if $stack7 != 0 goto label1;
+
+        $stack16 = staticinvoke <avrora.sim.radio.Medium: boolean isCorruptedByte(char)>(l2);
+
+        if $stack16 == 0 goto label1;
+
+        l6#2 = 1;
+
+        goto label3;
+
+     label1:
+        $stack8 = l0.<avrora.monitors.PacketMonitor$Mon: boolean matchStart>;
+
+        if $stack8 == 0 goto label3;
+
+        if l1 <= 4 goto label3;
+
+        if l3#1 == 0 goto label2;
+
+        if l1 != 5 goto label2;
+
+        $stack15 = l0.<avrora.monitors.PacketMonitor$Mon: byte startSymbol>;
+
+        if l5 != $stack15 goto label3;
+
+        l6#2 = 11;
+
+        l3#1 = 0;
+
+        goto label3;
+
+     label2:
+        if l3#1 != 0 goto label3;
+
+        if l1 <= 5 goto label3;
+
+        l6#2 = 2;
+
+     label3:
+        specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: void renderByte(java.lang.StringBuffer,int,char)>(l4, l6#2, l2);
+
+        return l3#1;
+    }
+
+    private void renderByte(java.lang.StringBuffer, int, char)
+    {
+        boolean $stack6, l5#4;
+        int l2, $stack11, $stack12, $stack13, $stack14, l4#3;
+        java.lang.StringBuffer l1;
+        char l3;
+        byte $stack7, $stack10;
+        long $stack8;
+        java.lang.String $stack9, l5#5, l5#6;
+        avrora.monitors.PacketMonitor$Mon l0#1;
+
+        l0#1 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1 := @parameter0: java.lang.StringBuffer;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: char;
+
+        $stack6 = l0#1.<avrora.monitors.PacketMonitor$Mon: boolean bits>;
+
+        if $stack6 == 0 goto label11;
+
+        $stack10 = staticinvoke <avrora.sim.radio.Medium: byte getCorruptedBits(char)>(l3);
+
+        l4#3 = 7;
+
+     label01:
+        if l4#3 < 0 goto label10;
+
+        $stack11 = l3 >> l4#3;
+
+        $stack12 = $stack11 & 1;
+
+        if $stack12 == 0 goto label02;
+
+        l5#4 = 1;
+
+        goto label03;
+
+     label02:
+        l5#4 = 0;
+
+     label03:
+        $stack13 = $stack10 >> l4#3;
+
+        $stack14 = $stack13 & 1;
+
+        if $stack14 == 0 goto label06;
+
+        if l5#4 == 0 goto label04;
+
+        l5#5 = "1";
+
+        goto label05;
+
+     label04:
+        l5#5 = "0";
+
+     label05:
+        staticinvoke <cck.text.Terminal: void append(int,java.lang.StringBuffer,java.lang.String)>(1, l1, l5#5);
+
+        goto label09;
+
+     label06:
+        if l5#4 == 0 goto label07;
+
+        l5#6 = "1";
+
+        goto label08;
+
+     label07:
+        l5#6 = "0";
+
+     label08:
+        staticinvoke <cck.text.Terminal: void append(int,java.lang.StringBuffer,java.lang.String)>(l2, l1, l5#6);
+
+     label09:
+        l4#3 = l4#3 + -1;
+
+        goto label01;
+
+     label10:
+        goto label12;
+
+     label11:
+        $stack7 = (byte) l3;
+
+        $stack8 = (long) $stack7;
+
+        $stack9 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($stack8, 2);
+
+        staticinvoke <cck.text.Terminal: void append(int,java.lang.StringBuffer,java.lang.String)>(l2, l1, $stack9);
+
+     label12:
+        return;
+    }
+
+    private java.lang.StringBuffer renderPacket(java.lang.String, int, int, int)
+    {
+        int l3, l2, $stack7, $stack8, $stack9, $stack12, $stack15, $stack17, l4#2, l4#3, l1#4, l6#6;
+        avrora.monitors.PacketMonitor$Mon l0;
+        avrora.sim.output.SimPrinter $stack10;
+        java.lang.StringBuffer $stack11;
+        char[] $stack13;
+        char $stack14;
+        boolean $stack16, l1#5;
+        java.lang.String l1#1;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        l1#1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        l4#2 := @parameter3: int;
+
+        l4#3 = l4#2 - l3;
+
+        $stack10 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.sim.output.SimPrinter printer>;
+
+        $stack7 = l2 + l4#3;
+
+        $stack8 = 3 * $stack7;
+
+        $stack9 = $stack8 + 15;
+
+        $stack11 = virtualinvoke $stack10.<avrora.sim.output.SimPrinter: java.lang.StringBuffer getBuffer(int)>($stack9);
+
+        staticinvoke <cck.text.Terminal: void append(int,java.lang.StringBuffer,java.lang.String)>(14, $stack11, l1#1);
+
+        l1#4 = 0;
+
+     label1:
+        if l1#4 >= l2 goto label2;
+
+        specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: boolean renderByte(int,char,boolean,java.lang.StringBuffer)>(l1#4, 0, 1, $stack11);
+
+        virtualinvoke $stack11.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>(46);
+
+        l1#4 = l1#4 + 1;
+
+        goto label1;
+
+     label2:
+        l1#5 = 1;
+
+        l6#6 = 0;
+
+     label3:
+        if l6#6 >= l4#3 goto label5;
+
+        $stack15 = l6#6 + l2;
+
+        $stack13 = l0.<avrora.monitors.PacketMonitor$Mon: char[] bufferData>;
+
+        $stack12 = l3 + l6#6;
+
+        $stack14 = $stack13[$stack12];
+
+        $stack16 = specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: boolean renderByte(int,char,boolean,java.lang.StringBuffer)>($stack15, $stack14, l1#5, $stack11);
+
+        l1#5 = $stack16;
+
+        $stack17 = l4#3 - 1;
+
+        if l6#6 >= $stack17 goto label4;
+
+        virtualinvoke $stack11.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>(46);
+
+     label4:
+        l6#6 = l6#6 + 1;
+
+        goto label3;
+
+     label5:
+        specialinvoke l0.<avrora.monitors.PacketMonitor$Mon: void appendTime(java.lang.StringBuffer)>($stack11);
+
+        return $stack11;
+    }
+
+    public void report()
+    {
+        avrora.monitors.PacketMonitor$Mon l0, l2;
+        avrora.monitors.PacketMonitor $stack3, $stack6, $stack10;
+        java.util.List $stack4, $stack7;
+        boolean $stack5, $stack31, $stack9#3;
+        java.util.Iterator $stack8;
+        java.lang.Object $stack11;
+        avrora.sim.Simulator $stack12;
+        int $stack13, $stack16, $stack19, $stack22, $stack25, $stack28, $stack33;
+        long $stack14, $stack17, $stack20, $stack23, $stack26, $stack29, $stack34;
+        java.lang.String $stack15, $stack18, $stack21, $stack24, $stack27, $stack30, $stack35;
+
+        l0 := @this: avrora.monitors.PacketMonitor$Mon;
+
+        $stack3 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.monitors.PacketMonitor this$0>;
+
+        $stack4 = $stack3.<avrora.monitors.PacketMonitor: java.util.List monitors>;
+
+        if $stack4 == null goto label6;
+
+        staticinvoke <cck.text.TermUtil: void printSeparator(int,java.lang.String)>(78, "Packet monitor results");
+
+        $stack5 = l0.<avrora.monitors.PacketMonitor$Mon: boolean cc2420radio>;
+
+        if $stack5 == 0 goto label1;
+
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>("Node     sent (b/p)          recv (b/p)    corrupted (b)   lostinMiddle(p)");
+
+        goto label2;
+
+     label1:
+        staticinvoke <cck.text.Terminal: void printGreen(java.lang.String)>("Node     sent (b/p)          recv (b/p)    corrupted (b)");
+
+     label2:
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        staticinvoke <cck.text.TermUtil: void printThinSeparator()>();
+
+        $stack6 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.monitors.PacketMonitor this$0>;
+
+        $stack7 = $stack6.<avrora.monitors.PacketMonitor: java.util.List monitors>;
+
+        $stack8 = interfaceinvoke $stack7.<java.util.List: java.util.Iterator iterator()>();
+
+     label3:
+        $stack9#3 = interfaceinvoke $stack8.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack9#3 == 0 goto label5;
+
+        $stack11 = interfaceinvoke $stack8.<java.util.Iterator: java.lang.Object next()>();
+
+        l2 = (avrora.monitors.PacketMonitor$Mon) $stack11;
+
+        $stack12 = l2.<avrora.monitors.PacketMonitor$Mon: avrora.sim.Simulator simulator>;
+
+        $stack13 = virtualinvoke $stack12.<avrora.sim.Simulator: int getID()>();
+
+        $stack14 = (long) $stack13;
+
+        $stack15 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($stack14, 4);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack15);
+
+        $stack16 = l2.<avrora.monitors.PacketMonitor$Mon: int bytesTransmitted>;
+
+        $stack17 = (long) $stack16;
+
+        $stack18 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($stack17, 10);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack18);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(" / ");
+
+        $stack19 = l2.<avrora.monitors.PacketMonitor$Mon: int packetsTransmitted>;
+
+        $stack20 = (long) $stack19;
+
+        $stack21 = staticinvoke <cck.text.StringUtil: java.lang.String leftJustify(long,int)>($stack20, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack21);
+
+        $stack22 = l2.<avrora.monitors.PacketMonitor$Mon: int bytesReceived>;
+
+        $stack23 = (long) $stack22;
+
+        $stack24 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($stack23, 10);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack24);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>(" / ");
+
+        $stack25 = l2.<avrora.monitors.PacketMonitor$Mon: int packetsReceived>;
+
+        $stack26 = (long) $stack25;
+
+        $stack27 = staticinvoke <cck.text.StringUtil: java.lang.String leftJustify(long,int)>($stack26, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack27);
+
+        $stack28 = l2.<avrora.monitors.PacketMonitor$Mon: int bytesCorrupted>;
+
+        $stack29 = (long) $stack28;
+
+        $stack30 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($stack29, 10);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack30);
+
+        $stack31 = l0.<avrora.monitors.PacketMonitor$Mon: boolean cc2420radio>;
+
+        if $stack31 == 0 goto label4;
+
+        $stack33 = l2.<avrora.monitors.PacketMonitor$Mon: int packetsLostinMiddle>;
+
+        $stack34 = (long) $stack33;
+
+        $stack35 = staticinvoke <cck.text.StringUtil: java.lang.String rightJustify(long,int)>($stack34, 8);
+
+        staticinvoke <cck.text.Terminal: void print(java.lang.String)>($stack35);
+
+     label4:
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+        goto label3;
+
+     label5:
+        $stack10 = l0.<avrora.monitors.PacketMonitor$Mon: avrora.monitors.PacketMonitor this$0>;
+
+        $stack10.<avrora.monitors.PacketMonitor: java.util.List monitors> = null;
+
+        staticinvoke <cck.text.Terminal: void nextln()>();
+
+     label6:
+        return;
+    }
+}

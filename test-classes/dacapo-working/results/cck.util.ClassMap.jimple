@@ -1,0 +1,478 @@
+public class cck.util.ClassMap extends java.lang.Object
+{
+    protected final java.lang.String type;
+    protected final java.lang.Class clazz;
+    protected final java.util.HashMap classMap;
+    protected final java.util.HashMap reverseMap;
+    protected final java.util.HashMap objMap;
+
+    public void <init>(java.lang.String, java.lang.Class)
+    {
+        cck.util.ClassMap l0;
+        java.lang.Class l2;
+        java.util.HashMap $stack3, $stack4, $stack5;
+        java.lang.String l1;
+
+        l0 := @this: cck.util.ClassMap;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.Class;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<cck.util.ClassMap: java.lang.Class clazz> = l2;
+
+        $stack3 = new java.util.HashMap;
+
+        specialinvoke $stack3.<java.util.HashMap: void <init>()>();
+
+        l0.<cck.util.ClassMap: java.util.HashMap classMap> = $stack3;
+
+        $stack4 = new java.util.HashMap;
+
+        specialinvoke $stack4.<java.util.HashMap: void <init>()>();
+
+        l0.<cck.util.ClassMap: java.util.HashMap reverseMap> = $stack4;
+
+        $stack5 = new java.util.HashMap;
+
+        specialinvoke $stack5.<java.util.HashMap: void <init>()>();
+
+        l0.<cck.util.ClassMap: java.util.HashMap objMap> = $stack5;
+
+        l0.<cck.util.ClassMap: java.lang.String type> = l1;
+
+        return;
+    }
+
+    public void addClass(java.lang.String, java.lang.Class)
+    {
+        cck.util.ClassMap l0;
+        java.lang.String l1;
+        java.lang.Class l2;
+        java.util.HashMap $stack3, $stack5;
+
+        l0 := @this: cck.util.ClassMap;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.Class;
+
+        $stack3 = l0.<cck.util.ClassMap: java.util.HashMap classMap>;
+
+        virtualinvoke $stack3.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l2);
+
+        $stack5 = l0.<cck.util.ClassMap: java.util.HashMap reverseMap>;
+
+        virtualinvoke $stack5.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l2, l1);
+
+        return;
+    }
+
+    public void addInstance(java.lang.String, java.lang.Object)
+    {
+        java.lang.Object l2;
+        java.lang.Class $stack4, $stack5, $stack18;
+        cck.util.ClassMap l0;
+        boolean $stack6;
+        java.lang.String l1, $stack15, $stack19, $stack21;
+        java.util.HashMap $stack7, $stack9, $stack11;
+        java.lang.StringBuilder $stack13, $stack14, $stack16, $stack17, $stack20;
+        cck.util.Util$InternalError $stack22;
+
+        l0 := @this: cck.util.ClassMap;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.Object;
+
+        $stack4 = virtualinvoke l2.<java.lang.Object: java.lang.Class getClass()>();
+
+        $stack5 = l0.<cck.util.ClassMap: java.lang.Class clazz>;
+
+        $stack6 = virtualinvoke $stack5.<java.lang.Class: boolean isAssignableFrom(java.lang.Class)>($stack4);
+
+        if $stack6 != 0 goto label1;
+
+        $stack13 = new java.lang.StringBuilder;
+
+        specialinvoke $stack13.<java.lang.StringBuilder: void <init>()>();
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Object of class ");
+
+        $stack15 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>($stack4);
+
+        $stack16 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack15);
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is not an instance of ");
+
+        $stack18 = l0.<cck.util.ClassMap: java.lang.Class clazz>;
+
+        $stack19 = virtualinvoke $stack18.<java.lang.Class: java.lang.String getName()>();
+
+        $stack20 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack19);
+
+        $stack21 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack22 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>($stack21);
+
+        throw $stack22;
+
+     label1:
+        $stack7 = l0.<cck.util.ClassMap: java.util.HashMap objMap>;
+
+        virtualinvoke $stack7.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l2);
+
+        $stack9 = l0.<cck.util.ClassMap: java.util.HashMap classMap>;
+
+        virtualinvoke $stack9.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, $stack4);
+
+        $stack11 = l0.<cck.util.ClassMap: java.util.HashMap reverseMap>;
+
+        virtualinvoke $stack11.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack4, l1);
+
+        return;
+    }
+
+    public java.lang.String getAlias(java.lang.Object)
+    {
+        cck.util.ClassMap l0;
+        java.lang.Object l1, $stack4, $stack10;
+        java.util.HashMap $stack3, $stack8;
+        java.lang.Class $stack5, $stack9;
+        java.lang.String $stack6, l2#1;
+
+        l0 := @this: cck.util.ClassMap;
+
+        l1 := @parameter0: java.lang.Object;
+
+        $stack3 = l0.<cck.util.ClassMap: java.util.HashMap reverseMap>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        l2#1 = (java.lang.String) $stack4;
+
+        if l2#1 != null goto label1;
+
+        $stack8 = l0.<cck.util.ClassMap: java.util.HashMap reverseMap>;
+
+        $stack9 = virtualinvoke l1.<java.lang.Object: java.lang.Class getClass()>();
+
+        $stack10 = virtualinvoke $stack8.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($stack9);
+
+        l2#1 = (java.lang.String) $stack10;
+
+     label1:
+        if l2#1 != null goto label2;
+
+        $stack5 = virtualinvoke l1.<java.lang.Object: java.lang.Class getClass()>();
+
+        $stack6 = virtualinvoke $stack5.<java.lang.Class: java.lang.String getName()>();
+
+        l2#1 = $stack6;
+
+     label2:
+        return l2#1;
+    }
+
+    public java.lang.Class getClass(java.lang.String)
+    {
+        cck.util.ClassMap l0;
+        java.lang.String l1;
+        java.util.HashMap $stack3, $stack5;
+        java.lang.Object $stack4, $stack6;
+        java.lang.Class $stack7, $stack8;
+
+        l0 := @this: cck.util.ClassMap;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack3 = l0.<cck.util.ClassMap: java.util.HashMap objMap>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        if $stack4 == null goto label1;
+
+        $stack8 = virtualinvoke $stack4.<java.lang.Object: java.lang.Class getClass()>();
+
+        return $stack8;
+
+     label1:
+        $stack5 = l0.<cck.util.ClassMap: java.util.HashMap classMap>;
+
+        $stack6 = virtualinvoke $stack5.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        $stack7 = (java.lang.Class) $stack6;
+
+        return $stack7;
+    }
+
+    public java.util.Iterator getIterator()
+    {
+        cck.util.ClassMap l0;
+        java.util.HashMap $stack1;
+        java.util.Set $stack2;
+        java.util.Iterator $stack3;
+
+        l0 := @this: cck.util.ClassMap;
+
+        $stack1 = l0.<cck.util.ClassMap: java.util.HashMap classMap>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Set: java.util.Iterator iterator()>();
+
+        return $stack3;
+    }
+
+    public java.lang.Object getObjectOfClass(java.lang.String)
+    {
+        java.util.HashMap $stack4, $stack7;
+        java.lang.Object $stack5, $stack8, $stack24, $stack25, $stack27, $stack28, $stack29, $stack30, $stack31, l0#15;
+        java.lang.String $stack6, $stack12, $stack15, $stack35, $stack37, $stack48, $stack51, l1#2, l2#4;
+        java.lang.StringBuilder $stack9, $stack10, $stack11, $stack13, $stack14, $stack32, $stack33, $stack36, $stack47, $stack49, $stack50;
+        boolean $stack18, $stack19, $stack20, $stack21, $stack22, $stack23, $stack17#13;
+        java.lang.Class $stack34, $stack40, l3#5, $stack16#9;
+        java.lang.IllegalAccessException $stack43;
+        cck.util.Util$InternalError $stack44;
+        java.lang.InstantiationException $stack45;
+        java.lang.ClassNotFoundException $stack46;
+        cck.util.ClassMap l0#1;
+
+        l0#1 := @this: cck.util.ClassMap;
+
+        l1#2 := @parameter0: java.lang.String;
+
+        $stack4 = l0#1.<cck.util.ClassMap: java.util.HashMap objMap>;
+
+        $stack5 = virtualinvoke $stack4.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1#2);
+
+        if $stack5 == null goto label01;
+
+        return $stack5;
+
+     label01:
+        $stack6 = staticinvoke <cck.text.StringUtil: java.lang.String quote(java.lang.Object)>(l1#2);
+
+        l2#4 = $stack6;
+
+        $stack7 = l0#1.<cck.util.ClassMap: java.util.HashMap classMap>;
+
+        $stack8 = virtualinvoke $stack7.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1#2);
+
+        l3#5 = (java.lang.Class) $stack8;
+
+        if l3#5 != null goto label05;
+
+     label02:
+        $stack40 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(l1#2);
+
+        l3#5 = $stack40;
+
+     label03:
+        goto label06;
+
+     label04:
+        $stack46 := @caughtexception;
+
+        $stack47 = new java.lang.StringBuilder;
+
+        specialinvoke $stack47.<java.lang.StringBuilder: void <init>()>();
+
+        $stack48 = l0#1.<cck.util.ClassMap: java.lang.String type>;
+
+        $stack49 = virtualinvoke $stack47.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack48);
+
+        $stack50 = virtualinvoke $stack49.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" class not found");
+
+        $stack51 = virtualinvoke $stack50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>($stack51, $stack6);
+
+        goto label06;
+
+     label05:
+        $stack9 = new java.lang.StringBuilder;
+
+        specialinvoke $stack9.<java.lang.StringBuilder: void <init>()>();
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" (");
+
+        $stack12 = virtualinvoke l3#5.<java.lang.Class: java.lang.String toString()>();
+
+        $stack13 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(41);
+
+        $stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        l2#4 = $stack15;
+
+     label06:
+        $stack16#9 = l0#1.<cck.util.ClassMap: java.lang.Class clazz>;
+
+        $stack17#13 = virtualinvoke $stack16#9.<java.lang.Class: boolean isAssignableFrom(java.lang.Class)>(l3#5);
+
+        if $stack17#13 != 0 goto label07;
+
+        $stack32 = new java.lang.StringBuilder;
+
+        specialinvoke $stack32.<java.lang.StringBuilder: void <init>()>();
+
+        $stack33 = virtualinvoke $stack32.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("The specified class does not extend ");
+
+        $stack34 = l0#1.<cck.util.ClassMap: java.lang.Class clazz>;
+
+        $stack35 = virtualinvoke $stack34.<java.lang.Class: java.lang.String getName()>();
+
+        $stack36 = virtualinvoke $stack33.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack35);
+
+        $stack37 = virtualinvoke $stack36.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>($stack37, l2#4);
+
+     label07:
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassNewInstance(int,java.lang.Class)>(6, l3#5);
+
+        $stack18 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack18 == 0 goto label08;
+
+        $stack31 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall6()>();
+
+        l0#15 = $stack31;
+
+        goto label14;
+
+     label08:
+        $stack19 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack19 == 0 goto label09;
+
+        $stack30 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall7()>();
+
+        l0#15 = $stack30;
+
+        goto label14;
+
+     label09:
+        $stack20 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack20 == 0 goto label10;
+
+        $stack29 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall8()>();
+
+        l0#15 = $stack29;
+
+        goto label14;
+
+     label10:
+        $stack21 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack21 == 0 goto label11;
+
+        $stack28 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall9()>();
+
+        l0#15 = $stack28;
+
+        goto label14;
+
+     label11:
+        $stack22 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack22 == 0 goto label12;
+
+        $stack27 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall10()>();
+
+        l0#15 = $stack27;
+
+        goto label14;
+
+     label12:
+        $stack23 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack23 == 0 goto label13;
+
+        $stack25 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall11()>();
+
+        l0#15 = $stack25;
+
+        goto label14;
+
+     label13:
+        $stack24 = virtualinvoke l3#5.<java.lang.Class: java.lang.Object newInstance()>();
+
+        l0#15 = $stack24;
+
+     label14:
+        return l0#15;
+
+     label15:
+        $stack45 := @caughtexception;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("The specified class does not have a default constructor", l2#4);
+
+        goto label17;
+
+     label16:
+        $stack43 := @caughtexception;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("Illegal access to class", l2#4);
+
+     label17:
+        $stack44 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unreachable()>();
+
+        throw $stack44;
+
+        catch java.lang.ClassNotFoundException from label02 to label03 with label04;
+        catch java.lang.InstantiationException from label07 to label14 with label15;
+        catch java.lang.IllegalAccessException from label07 to label14 with label16;
+    }
+
+    public java.util.List getSortedList()
+    {
+        cck.util.ClassMap l0;
+        java.util.HashMap $stack1;
+        java.util.Set $stack2;
+        java.util.Enumeration $stack3;
+        java.util.ArrayList $stack4;
+        java.util.Comparator $stack5;
+
+        l0 := @this: cck.util.ClassMap;
+
+        $stack1 = l0.<cck.util.ClassMap: java.util.HashMap classMap>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack3 = staticinvoke <java.util.Collections: java.util.Enumeration enumeration(java.util.Collection)>($stack2);
+
+        $stack4 = staticinvoke <java.util.Collections: java.util.ArrayList list(java.util.Enumeration)>($stack3);
+
+        $stack5 = <java.lang.String: java.util.Comparator CASE_INSENSITIVE_ORDER>;
+
+        staticinvoke <java.util.Collections: void sort(java.util.List,java.util.Comparator)>($stack4, $stack5);
+
+        return $stack4;
+    }
+
+    public java.util.Iterator iterator()
+    {
+        cck.util.ClassMap l0;
+        java.util.HashMap $stack1;
+        java.util.Set $stack2;
+        java.util.Iterator $stack3;
+
+        l0 := @this: cck.util.ClassMap;
+
+        $stack1 = l0.<cck.util.ClassMap: java.util.HashMap classMap>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Set: java.util.Iterator iterator()>();
+
+        return $stack3;
+    }
+}

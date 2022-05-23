@@ -1,0 +1,44 @@
+public class avrora.sim.platform.ExternalFlash$Delay extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.platform.ExternalFlash this$0;
+
+    protected void <init>(avrora.sim.platform.ExternalFlash)
+    {
+        avrora.sim.platform.ExternalFlash$Delay l0;
+        avrora.sim.platform.ExternalFlash l1;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash$Delay;
+
+        l1 := @parameter0: avrora.sim.platform.ExternalFlash;
+
+        l0.<avrora.sim.platform.ExternalFlash$Delay: avrora.sim.platform.ExternalFlash this$0> = l1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.platform.ExternalFlash$Delay l0;
+        avrora.sim.platform.ExternalFlash $stack1, $stack2;
+        short $stack3, $stack5;
+        int $stack4;
+
+        l0 := @this: avrora.sim.platform.ExternalFlash$Delay;
+
+        $stack2 = l0.<avrora.sim.platform.ExternalFlash$Delay: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack1 = l0.<avrora.sim.platform.ExternalFlash$Delay: avrora.sim.platform.ExternalFlash this$0>;
+
+        $stack3 = staticinvoke <avrora.sim.platform.ExternalFlash: short access$1100(avrora.sim.platform.ExternalFlash)>($stack1);
+
+        $stack4 = $stack3 | 128;
+
+        $stack5 = (short) $stack4;
+
+        staticinvoke <avrora.sim.platform.ExternalFlash: short access$1102(avrora.sim.platform.ExternalFlash,short)>($stack2, $stack5);
+
+        return;
+    }
+}

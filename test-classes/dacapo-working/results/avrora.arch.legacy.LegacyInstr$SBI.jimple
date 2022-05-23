@@ -1,0 +1,89 @@
+public class avrora.arch.legacy.LegacyInstr$SBI extends avrora.arch.legacy.LegacyInstr$IMMIMM_class
+{
+    static final avrora.arch.legacy.LegacyInstrProperties props;
+    static final avrora.arch.legacy.LegacyInstrProto prototype;
+
+    static void <clinit>()
+    {
+        avrora.arch.legacy.LegacyInstrProperties $stack0;
+        avrora.arch.legacy.LegacyInstr$SBI $stack1;
+        int $stack3, $stack4;
+
+        $stack0 = new avrora.arch.legacy.LegacyInstrProperties;
+
+        specialinvoke $stack0.<avrora.arch.legacy.LegacyInstrProperties: void <init>(java.lang.String,java.lang.String,int,int)>("sbi", "sbi", 2, 2);
+
+        <avrora.arch.legacy.LegacyInstr$SBI: avrora.arch.legacy.LegacyInstrProperties props> = $stack0;
+
+        $stack1 = new avrora.arch.legacy.LegacyInstr$SBI;
+
+        $stack3 = staticinvoke <avrora.arch.legacy.LegacyInstr: int access$2000()>();
+
+        $stack4 = staticinvoke <avrora.arch.legacy.LegacyInstr: int access$1400()>();
+
+        specialinvoke $stack1.<avrora.arch.legacy.LegacyInstr$SBI: void <init>(int,int,int)>(0, $stack3, $stack4);
+
+        <avrora.arch.legacy.LegacyInstr$SBI: avrora.arch.legacy.LegacyInstrProto prototype> = $stack1;
+
+        return;
+    }
+
+    public void <init>(int, int, int)
+    {
+        avrora.arch.legacy.LegacyInstr$SBI l0;
+        int l2, $stack5, l3, $stack6, l1;
+        avrora.arch.legacy.LegacyInstrProperties $stack4;
+
+        l0 := @this: avrora.arch.legacy.LegacyInstr$SBI;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        $stack4 = <avrora.arch.legacy.LegacyInstr$SBI: avrora.arch.legacy.LegacyInstrProperties props>;
+
+        $stack5 = staticinvoke <avrora.arch.legacy.LegacyInstr: int access$2100(int,int)>(1, l2);
+
+        $stack6 = staticinvoke <avrora.arch.legacy.LegacyInstr: int access$1500(int,int)>(2, l3);
+
+        specialinvoke l0.<avrora.arch.legacy.LegacyInstr$IMMIMM_class: void <init>(avrora.arch.legacy.LegacyInstrProperties,int,int)>($stack4, $stack5, $stack6);
+
+        return;
+    }
+
+    public void accept(avrora.arch.legacy.LegacyInstrVisitor)
+    {
+        avrora.arch.legacy.LegacyInstrVisitor l1;
+        avrora.arch.legacy.LegacyInstr$SBI l0;
+
+        l0 := @this: avrora.arch.legacy.LegacyInstr$SBI;
+
+        l1 := @parameter0: avrora.arch.legacy.LegacyInstrVisitor;
+
+        interfaceinvoke l1.<avrora.arch.legacy.LegacyInstrVisitor: void visit(avrora.arch.legacy.LegacyInstr$SBI)>(l0);
+
+        return;
+    }
+
+    avrora.arch.legacy.LegacyInstr allocate(int, int, int)
+    {
+        avrora.arch.legacy.LegacyInstr$SBI $stack4, l0;
+        int l1, l2, l3;
+
+        l0 := @this: avrora.arch.legacy.LegacyInstr$SBI;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        $stack4 = new avrora.arch.legacy.LegacyInstr$SBI;
+
+        specialinvoke $stack4.<avrora.arch.legacy.LegacyInstr$SBI: void <init>(int,int,int)>(l1, l2, l3);
+
+        return $stack4;
+    }
+}

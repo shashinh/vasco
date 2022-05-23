@@ -1,0 +1,769 @@
+public class avrora.sim.clock.RippleSynchronizer extends avrora.sim.clock.Synchronizer
+{
+    protected long notifyPeriod;
+    protected final java.util.HashMap threadMap;
+    protected final avrora.sim.Simulator$Event action;
+    protected int goal;
+    protected long wallTime;
+    protected int meet_count;
+    protected int wait_count;
+    protected avrora.sim.clock.RippleSynchronizer$WaitLink waitListHead;
+    static final boolean $assertionsDisabled;
+
+    static void <clinit>()
+    {
+        java.lang.Class $stack1;
+        boolean $stack2, l0#1;
+
+        $stack1 = class "Lavrora/sim/clock/RippleSynchronizer;";
+
+        $stack2 = virtualinvoke $stack1.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $stack2 != 0 goto label1;
+
+        l0#1 = 1;
+
+        goto label2;
+
+     label1:
+        l0#1 = 0;
+
+     label2:
+        <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled> = l0#1;
+
+        return;
+    }
+
+    public void <init>(long, avrora.sim.Simulator$Event)
+    {
+        avrora.sim.clock.RippleSynchronizer l0;
+        long l1;
+        java.util.HashMap $stack5;
+        avrora.sim.clock.RippleSynchronizer$WaitLink l4, l3#2;
+        int $stack6;
+        avrora.sim.Simulator$Event l3#1;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter0: long;
+
+        l3#1 := @parameter1: avrora.sim.Simulator$Event;
+
+        specialinvoke l0.<avrora.sim.clock.Synchronizer: void <init>()>();
+
+        l0.<avrora.sim.clock.RippleSynchronizer: long notifyPeriod> = l1;
+
+        l0.<avrora.sim.clock.RippleSynchronizer: avrora.sim.Simulator$Event action> = l3#1;
+
+        $stack5 = new java.util.HashMap;
+
+        specialinvoke $stack5.<java.util.HashMap: void <init>()>();
+
+        l0.<avrora.sim.clock.RippleSynchronizer: java.util.HashMap threadMap> = $stack5;
+
+        l3#2 = new avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        specialinvoke l3#2.<avrora.sim.clock.RippleSynchronizer$WaitLink: void <init>(long)>(9223372036854775807L);
+
+        l4 = new avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        specialinvoke l4.<avrora.sim.clock.RippleSynchronizer$WaitLink: void <init>(long)>(-1L);
+
+        $stack6 = l0.<avrora.sim.clock.RippleSynchronizer: int goal>;
+
+        l4.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed> = $stack6;
+
+        l4.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next> = l3#2;
+
+        l0.<avrora.sim.clock.RippleSynchronizer: avrora.sim.clock.RippleSynchronizer$WaitLink waitListHead> = l4;
+
+        return;
+    }
+
+    static avrora.sim.clock.RippleSynchronizer$WaitLink access$000(avrora.sim.clock.RippleSynchronizer, long, avrora.sim.clock.RippleSynchronizer$WaitLink)
+    {
+        avrora.sim.clock.RippleSynchronizer l0;
+        long l1;
+        avrora.sim.clock.RippleSynchronizer$WaitLink l3, $stack4;
+
+        l0 := @parameter0: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter1: long;
+
+        l3 := @parameter2: avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        $stack4 = specialinvoke l0.<avrora.sim.clock.RippleSynchronizer: avrora.sim.clock.RippleSynchronizer$WaitLink advance(long,avrora.sim.clock.RippleSynchronizer$WaitLink)>(l1, l3);
+
+        return $stack4;
+    }
+
+    public synchronized void addNode(avrora.sim.Simulation$Node)
+    {
+        avrora.sim.SimulatorThread $stack3;
+        avrora.sim.clock.RippleSynchronizer l0;
+        java.util.HashMap $stack4, $stack6;
+        boolean $stack5;
+        avrora.sim.clock.RippleSynchronizer$NotifyEvent l2;
+        long $stack8;
+        avrora.sim.clock.MainClock $stack9;
+        int $stack10, $stack11;
+        avrora.sim.Simulation$Node l1#1;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1#1 := @parameter0: avrora.sim.Simulation$Node;
+
+        $stack3 = virtualinvoke l1#1.<avrora.sim.Simulation$Node: avrora.sim.SimulatorThread getThread()>();
+
+        $stack4 = l0.<avrora.sim.clock.RippleSynchronizer: java.util.HashMap threadMap>;
+
+        $stack5 = virtualinvoke $stack4.<java.util.HashMap: boolean containsKey(java.lang.Object)>($stack3);
+
+        if $stack5 == 0 goto label1;
+
+        return;
+
+     label1:
+        virtualinvoke $stack3.<avrora.sim.SimulatorThread: void setSynchronizer(avrora.sim.clock.Synchronizer)>(l0);
+
+        l2 = new avrora.sim.clock.RippleSynchronizer$NotifyEvent;
+
+        specialinvoke l2.<avrora.sim.clock.RippleSynchronizer$NotifyEvent: void <init>(avrora.sim.clock.RippleSynchronizer,avrora.sim.SimulatorThread)>(l0, $stack3);
+
+        $stack6 = l0.<avrora.sim.clock.RippleSynchronizer: java.util.HashMap threadMap>;
+
+        virtualinvoke $stack6.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack3, l2);
+
+        $stack9 = l2.<avrora.sim.clock.RippleSynchronizer$NotifyEvent: avrora.sim.clock.MainClock clock>;
+
+        $stack8 = l0.<avrora.sim.clock.RippleSynchronizer: long notifyPeriod>;
+
+        virtualinvoke $stack9.<avrora.sim.clock.MainClock: void insertEvent(avrora.sim.Simulator$Event,long)>(l2, $stack8);
+
+        $stack10 = l0.<avrora.sim.clock.RippleSynchronizer: int goal>;
+
+        $stack11 = $stack10 + 1;
+
+        l0.<avrora.sim.clock.RippleSynchronizer: int goal> = $stack11;
+
+        return;
+    }
+
+    private avrora.sim.clock.RippleSynchronizer$WaitLink advance(long, avrora.sim.clock.RippleSynchronizer$WaitLink)
+    {
+        boolean $stack6, $stack9, $stack15;
+        long l1, $stack7, $stack10, $stack12, $stack26;
+        byte $stack8, $stack11, $stack13, $stack27;
+        avrora.sim.clock.RippleSynchronizer l0;
+        int $stack14;
+        avrora.sim.clock.RippleSynchronizer$WaitLink $stack16, l3#1, l4#2, l5#3, l3#4;
+        java.lang.AssertionError $stack22, $stack25, $stack30;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter0: long;
+
+        l3#1 := @parameter1: avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        $stack6 = <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled>;
+
+        if $stack6 != 0 goto label1;
+
+        $stack26 = l3#1.<avrora.sim.clock.RippleSynchronizer$WaitLink: long time>;
+
+        $stack27 = l1 cmp $stack26;
+
+        if $stack27 >= 0 goto label1;
+
+        $stack30 = new java.lang.AssertionError;
+
+        specialinvoke $stack30.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack30;
+
+     label1:
+        $stack7 = l3#1.<avrora.sim.clock.RippleSynchronizer$WaitLink: long time>;
+
+        $stack8 = l1 cmp $stack7;
+
+        if $stack8 != 0 goto label2;
+
+        return l3#1;
+
+     label2:
+        l4#2 = l3#1;
+
+        l5#3 = l3#1.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next>;
+
+     label3:
+        $stack9 = <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled>;
+
+        if $stack9 != 0 goto label4;
+
+        if l5#3 != null goto label4;
+
+        $stack25 = new java.lang.AssertionError;
+
+        specialinvoke $stack25.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack25;
+
+     label4:
+        $stack10 = l5#3.<avrora.sim.clock.RippleSynchronizer$WaitLink: long time>;
+
+        $stack11 = l1 cmp $stack10;
+
+        if $stack11 >= 0 goto label6;
+
+        l3#4 = new avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        specialinvoke l3#4.<avrora.sim.clock.RippleSynchronizer$WaitLink: void <init>(long)>(l1);
+
+        $stack14 = l5#3.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed>;
+
+        l3#4.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed> = $stack14;
+
+        l3#4.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next> = l5#3;
+
+        $stack15 = <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled>;
+
+        if $stack15 != 0 goto label5;
+
+        $stack16 = l4#2.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next>;
+
+        if $stack16 == l5#3 goto label5;
+
+        $stack22 = new java.lang.AssertionError;
+
+        specialinvoke $stack22.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack22;
+
+     label5:
+        l4#2.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next> = l3#4;
+
+        specialinvoke l0.<avrora.sim.clock.RippleSynchronizer: void notifyLink(avrora.sim.clock.RippleSynchronizer$WaitLink)>(l3#4);
+
+        return l3#4;
+
+     label6:
+        $stack12 = l5#3.<avrora.sim.clock.RippleSynchronizer$WaitLink: long time>;
+
+        $stack13 = l1 cmp $stack12;
+
+        if $stack13 != 0 goto label7;
+
+        specialinvoke l0.<avrora.sim.clock.RippleSynchronizer: void notifyLink(avrora.sim.clock.RippleSynchronizer$WaitLink)>(l5#3);
+
+        return l5#3;
+
+     label7:
+        specialinvoke l0.<avrora.sim.clock.RippleSynchronizer: void notifyLink(avrora.sim.clock.RippleSynchronizer$WaitLink)>(l5#3);
+
+        l4#2 = l5#3;
+
+        l5#3 = l5#3.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next>;
+
+        goto label3;
+    }
+
+    private avrora.sim.clock.RippleSynchronizer$WaitLink insertLink(long, avrora.sim.clock.RippleSynchronizer$WaitLink, avrora.sim.clock.RippleSynchronizer$WaitLink)
+    {
+        long l1;
+        avrora.sim.clock.RippleSynchronizer$WaitLink l4, l3, $stack8, l0#2;
+        int $stack5;
+        boolean $stack6, $stack7;
+        java.lang.AssertionError $stack12, $stack13;
+        avrora.sim.clock.RippleSynchronizer l0#1;
+
+        l0#1 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        l4 := @parameter2: avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        l0#2 = new avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        specialinvoke l0#2.<avrora.sim.clock.RippleSynchronizer$WaitLink: void <init>(long)>(l1);
+
+        $stack5 = l4.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed>;
+
+        l0#2.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed> = $stack5;
+
+        l0#2.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next> = l4;
+
+        $stack6 = <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled>;
+
+        if $stack6 != 0 goto label1;
+
+        if l3 != null goto label1;
+
+        $stack13 = new java.lang.AssertionError;
+
+        specialinvoke $stack13.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack13;
+
+     label1:
+        $stack7 = <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled>;
+
+        if $stack7 != 0 goto label2;
+
+        $stack8 = l3.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next>;
+
+        if $stack8 == l4 goto label2;
+
+        $stack12 = new java.lang.AssertionError;
+
+        specialinvoke $stack12.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack12;
+
+     label2:
+        l3.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next> = l0#2;
+
+        return l0#2;
+    }
+
+    public void join() throws java.lang.InterruptedException
+    {
+        java.util.HashMap $stack1;
+        java.util.Set $stack2;
+        java.util.Iterator $stack3;
+        boolean $stack4;
+        java.lang.Object $stack5;
+        avrora.sim.SimulatorThread $stack6;
+        avrora.sim.clock.RippleSynchronizer l0#1;
+
+        l0#1 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        $stack1 = l0#1.<avrora.sim.clock.RippleSynchronizer: java.util.HashMap threadMap>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $stack4 = interfaceinvoke $stack3.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack4 == 0 goto label2;
+
+        $stack5 = interfaceinvoke $stack3.<java.util.Iterator: java.lang.Object next()>();
+
+        $stack6 = (avrora.sim.SimulatorThread) $stack5;
+
+        virtualinvoke $stack6.<avrora.sim.SimulatorThread: void join()>();
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    private void notifyLink(avrora.sim.clock.RippleSynchronizer$WaitLink)
+    {
+        avrora.sim.clock.RippleSynchronizer$WaitLink l1;
+        int $stack3, l2, $stack4;
+        avrora.sim.clock.RippleSynchronizer l0;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter0: avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        $stack3 = l1.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed>;
+
+        l2 = $stack3 + 1;
+
+        l1.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed> = l2;
+
+        $stack4 = l0.<avrora.sim.clock.RippleSynchronizer: int goal>;
+
+        if l2 < $stack4 goto label1;
+
+        virtualinvoke l0.<java.lang.Object: void notifyAll()>();
+
+        l0.<avrora.sim.clock.RippleSynchronizer: avrora.sim.clock.RippleSynchronizer$WaitLink waitListHead> = l1;
+
+     label1:
+        return;
+    }
+
+    public synchronized void pause()
+    {
+        cck.util.Util$InternalError $stack1;
+        avrora.sim.clock.RippleSynchronizer l0;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        $stack1 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack1;
+    }
+
+    public synchronized void removeNode(avrora.sim.Simulation$Node)
+    {
+        avrora.sim.SimulatorThread $stack3;
+        avrora.sim.clock.RippleSynchronizer l0;
+        java.util.HashMap $stack4;
+        boolean $stack5;
+        avrora.sim.Simulator $stack6;
+        avrora.sim.clock.MainClock $stack7;
+        long $stack8;
+        int $stack10, $stack11;
+        java.lang.Throwable $stack13;
+        avrora.sim.Simulation$Node l1#1;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1#1 := @parameter0: avrora.sim.Simulation$Node;
+
+        $stack3 = virtualinvoke l1#1.<avrora.sim.Simulation$Node: avrora.sim.SimulatorThread getThread()>();
+
+        $stack4 = l0.<avrora.sim.clock.RippleSynchronizer: java.util.HashMap threadMap>;
+
+        $stack5 = virtualinvoke $stack4.<java.util.HashMap: boolean containsKey(java.lang.Object)>($stack3);
+
+        if $stack5 == 0 goto label5;
+
+        $stack6 = virtualinvoke l1#1.<avrora.sim.Simulation$Node: avrora.sim.Simulator getSimulator()>();
+
+        $stack7 = virtualinvoke $stack6.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack8 = virtualinvoke $stack7.<avrora.sim.clock.MainClock: long getCount()>();
+
+        virtualinvoke l0.<avrora.sim.clock.RippleSynchronizer: void waitForNeighbors(long)>($stack8);
+
+        entermonitor l0;
+
+     label1:
+        $stack10 = l0.<avrora.sim.clock.RippleSynchronizer: int goal>;
+
+        $stack11 = $stack10 - 1;
+
+        l0.<avrora.sim.clock.RippleSynchronizer: int goal> = $stack11;
+
+        virtualinvoke l0.<java.lang.Object: void notifyAll()>();
+
+        exitmonitor l0;
+
+     label2:
+        goto label5;
+
+     label3:
+        $stack13 := @caughtexception;
+
+        exitmonitor l0;
+
+     label4:
+        throw $stack13;
+
+     label5:
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+        catch java.lang.Throwable from label3 to label4 with label3;
+    }
+
+    public synchronized void start()
+    {
+        java.util.HashMap $stack1;
+        java.util.Set $stack2;
+        java.util.Iterator $stack3;
+        boolean $stack4;
+        java.lang.Object $stack5;
+        avrora.sim.SimulatorThread $stack6;
+        avrora.sim.clock.RippleSynchronizer l0#1;
+
+        l0#1 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        $stack1 = l0#1.<avrora.sim.clock.RippleSynchronizer: java.util.HashMap threadMap>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $stack4 = interfaceinvoke $stack3.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack4 == 0 goto label2;
+
+        $stack5 = interfaceinvoke $stack3.<java.util.Iterator: java.lang.Object next()>();
+
+        $stack6 = (avrora.sim.SimulatorThread) $stack5;
+
+        virtualinvoke $stack6.<avrora.sim.SimulatorThread: void start()>();
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public synchronized void stop()
+    {
+        java.util.HashMap $stack1;
+        java.util.Set $stack2;
+        java.util.Iterator $stack3;
+        boolean $stack4;
+        java.lang.Object $stack5;
+        avrora.sim.SimulatorThread $stack6;
+        avrora.sim.Simulator $stack7;
+        avrora.sim.clock.RippleSynchronizer l0#1;
+
+        l0#1 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        $stack1 = l0#1.<avrora.sim.clock.RippleSynchronizer: java.util.HashMap threadMap>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $stack4 = interfaceinvoke $stack3.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack4 == 0 goto label2;
+
+        $stack5 = interfaceinvoke $stack3.<java.util.Iterator: java.lang.Object next()>();
+
+        $stack6 = (avrora.sim.SimulatorThread) $stack5;
+
+        $stack7 = virtualinvoke $stack6.<avrora.sim.SimulatorThread: avrora.sim.Simulator getSimulator()>();
+
+        virtualinvoke $stack7.<avrora.sim.Simulator: void stop()>();
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public synchronized void synch(long)
+    {
+        cck.util.Util$InternalError $stack3;
+        avrora.sim.clock.RippleSynchronizer l0;
+        long l1;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter0: long;
+
+        $stack3 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack3;
+    }
+
+    private void waitFor(long, avrora.sim.clock.RippleSynchronizer$WaitLink) throws java.lang.InterruptedException
+    {
+        long l1, $stack5, $stack8, $stack10;
+        byte $stack6, $stack9, $stack11;
+        boolean $stack7;
+        avrora.sim.clock.RippleSynchronizer l0;
+        avrora.sim.clock.RippleSynchronizer$WaitLink $stack12, l3#1, l4#2, l3#3;
+        java.lang.AssertionError $stack15;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter0: long;
+
+        l3#1 := @parameter1: avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        $stack5 = l3#1.<avrora.sim.clock.RippleSynchronizer$WaitLink: long time>;
+
+        $stack6 = l1 cmp $stack5;
+
+        if $stack6 > 0 goto label1;
+
+        specialinvoke l0.<avrora.sim.clock.RippleSynchronizer: void waitForLink(avrora.sim.clock.RippleSynchronizer$WaitLink)>(l3#1);
+
+        return;
+
+     label1:
+        l4#2 = l3#1;
+
+        l3#3 = l3#1.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next>;
+
+     label2:
+        $stack7 = <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled>;
+
+        if $stack7 != 0 goto label3;
+
+        if l3#3 != null goto label3;
+
+        $stack15 = new java.lang.AssertionError;
+
+        specialinvoke $stack15.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack15;
+
+     label3:
+        $stack8 = l3#3.<avrora.sim.clock.RippleSynchronizer$WaitLink: long time>;
+
+        $stack9 = l1 cmp $stack8;
+
+        if $stack9 >= 0 goto label4;
+
+        $stack12 = specialinvoke l0.<avrora.sim.clock.RippleSynchronizer: avrora.sim.clock.RippleSynchronizer$WaitLink insertLink(long,avrora.sim.clock.RippleSynchronizer$WaitLink,avrora.sim.clock.RippleSynchronizer$WaitLink)>(l1, l4#2, l3#3);
+
+        specialinvoke l0.<avrora.sim.clock.RippleSynchronizer: void waitForLink(avrora.sim.clock.RippleSynchronizer$WaitLink)>($stack12);
+
+        return;
+
+     label4:
+        $stack10 = l3#3.<avrora.sim.clock.RippleSynchronizer$WaitLink: long time>;
+
+        $stack11 = l1 cmp $stack10;
+
+        if $stack11 != 0 goto label5;
+
+        specialinvoke l0.<avrora.sim.clock.RippleSynchronizer: void waitForLink(avrora.sim.clock.RippleSynchronizer$WaitLink)>(l3#3);
+
+        return;
+
+     label5:
+        l4#2 = l3#3;
+
+        l3#3 = l3#3.<avrora.sim.clock.RippleSynchronizer$WaitLink: avrora.sim.clock.RippleSynchronizer$WaitLink next>;
+
+        goto label2;
+    }
+
+    private void waitForLink(avrora.sim.clock.RippleSynchronizer$WaitLink) throws java.lang.InterruptedException
+    {
+        boolean $stack2;
+        avrora.sim.clock.RippleSynchronizer$WaitLink l1;
+        avrora.sim.clock.RippleSynchronizer l0;
+        int $stack7, $stack4#3, $stack3#7;
+        java.lang.AssertionError $stack8;
+
+        l0 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter0: avrora.sim.clock.RippleSynchronizer$WaitLink;
+
+        $stack2 = <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled>;
+
+        if $stack2 != 0 goto label1;
+
+        $stack7 = l1.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed>;
+
+        if $stack7 >= 1 goto label1;
+
+        $stack8 = new java.lang.AssertionError;
+
+        specialinvoke $stack8.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack8;
+
+     label1:
+        $stack4#3 = l1.<avrora.sim.clock.RippleSynchronizer$WaitLink: int numPassed>;
+
+        $stack3#7 = l0.<avrora.sim.clock.RippleSynchronizer: int goal>;
+
+        if $stack4#3 >= $stack3#7 goto label2;
+
+        virtualinvoke l0.<java.lang.Object: void wait()>();
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void waitForNeighbors(long)
+    {
+        java.lang.Thread $stack7;
+        java.util.HashMap $stack8;
+        java.lang.Object $stack9;
+        avrora.sim.clock.RippleSynchronizer$NotifyEvent l4;
+        avrora.sim.Simulator $stack10;
+        avrora.sim.clock.MainClock $stack11;
+        long $stack12, l1;
+        boolean $stack13;
+        avrora.sim.clock.RippleSynchronizer$WaitLink $stack15, $stack16;
+        byte $stack18;
+        java.lang.AssertionError $stack27;
+        java.lang.InterruptedException $stack28;
+        cck.util.Util$InternalError $stack29;
+        java.lang.Throwable $stack30;
+        avrora.sim.clock.RippleSynchronizer l0#1;
+        avrora.sim.SimulatorThread l3#2;
+
+        l0#1 := @this: avrora.sim.clock.RippleSynchronizer;
+
+        l1 := @parameter0: long;
+
+        $stack7 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+
+        l3#2 = (avrora.sim.SimulatorThread) $stack7;
+
+        $stack8 = l0#1.<avrora.sim.clock.RippleSynchronizer: java.util.HashMap threadMap>;
+
+        $stack9 = virtualinvoke $stack8.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l3#2);
+
+        l4 = (avrora.sim.clock.RippleSynchronizer$NotifyEvent) $stack9;
+
+     label1:
+        $stack10 = virtualinvoke l3#2.<avrora.sim.SimulatorThread: avrora.sim.Simulator getSimulator()>();
+
+        $stack11 = virtualinvoke $stack10.<avrora.sim.Simulator: avrora.sim.clock.MainClock getClock()>();
+
+        $stack12 = virtualinvoke $stack11.<avrora.sim.clock.MainClock: long getCount()>();
+
+        $stack13 = <avrora.sim.clock.RippleSynchronizer: boolean $assertionsDisabled>;
+
+        if $stack13 != 0 goto label2;
+
+        $stack18 = l1 cmp $stack12;
+
+        if $stack18 <= 0 goto label2;
+
+        $stack27 = new java.lang.AssertionError;
+
+        specialinvoke $stack27.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack27;
+
+     label2:
+        entermonitor l0#1;
+
+     label3:
+        $stack15 = staticinvoke <avrora.sim.clock.RippleSynchronizer$NotifyEvent: avrora.sim.clock.RippleSynchronizer$WaitLink access$100(avrora.sim.clock.RippleSynchronizer$NotifyEvent)>(l4);
+
+        $stack16 = specialinvoke l0#1.<avrora.sim.clock.RippleSynchronizer: avrora.sim.clock.RippleSynchronizer$WaitLink advance(long,avrora.sim.clock.RippleSynchronizer$WaitLink)>($stack12, $stack15);
+
+        l4.<avrora.sim.clock.RippleSynchronizer$NotifyEvent: avrora.sim.clock.RippleSynchronizer$WaitLink lastLink> = $stack16;
+
+        specialinvoke l0#1.<avrora.sim.clock.RippleSynchronizer: void waitFor(long,avrora.sim.clock.RippleSynchronizer$WaitLink)>(l1, $stack15);
+
+        exitmonitor l0#1;
+
+     label4:
+        goto label7;
+
+     label5:
+        $stack30 := @caughtexception;
+
+        exitmonitor l0#1;
+
+     label6:
+        throw $stack30;
+
+     label7:
+        goto label9;
+
+     label8:
+        $stack28 := @caughtexception;
+
+        $stack29 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack29;
+
+     label9:
+        return;
+
+        catch java.lang.Throwable from label3 to label4 with label5;
+        catch java.lang.Throwable from label5 to label6 with label5;
+        catch java.lang.InterruptedException from label1 to label7 with label8;
+    }
+}

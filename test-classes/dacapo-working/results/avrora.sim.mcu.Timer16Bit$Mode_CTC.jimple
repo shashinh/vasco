@@ -1,0 +1,95 @@
+public class avrora.sim.mcu.Timer16Bit$Mode_CTC extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    protected final avrora.sim.RWRegister compareRegHigh;
+    protected final avrora.sim.RWRegister compareRegLow;
+    final avrora.sim.mcu.Timer16Bit this$0;
+
+    public void <init>(avrora.sim.mcu.Timer16Bit, avrora.sim.RWRegister, avrora.sim.RWRegister)
+    {
+        avrora.sim.mcu.Timer16Bit$Mode_CTC l0;
+        avrora.sim.mcu.Timer16Bit l1;
+        avrora.sim.RWRegister l2, l3;
+
+        l0 := @this: avrora.sim.mcu.Timer16Bit$Mode_CTC;
+
+        l1 := @parameter0: avrora.sim.mcu.Timer16Bit;
+
+        l2 := @parameter1: avrora.sim.RWRegister;
+
+        l3 := @parameter2: avrora.sim.RWRegister;
+
+        l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.mcu.Timer16Bit this$0> = l1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.RWRegister compareRegHigh> = l2;
+
+        l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.RWRegister compareRegLow> = l3;
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.Timer16Bit$Mode_CTC l0;
+        avrora.sim.mcu.Timer16Bit $stack2, $stack3, $stack7, $stack19, $stack9#6;
+        avrora.sim.mcu.Timer16Bit$TCNTnRegister $stack4;
+        avrora.sim.RWRegister $stack5, $stack8, $stack10, $stack11;
+        int $stack6, $stack12, $stack15, l1#2;
+
+        l0 := @this: avrora.sim.mcu.Timer16Bit$Mode_CTC;
+
+        $stack2 = l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack5 = $stack2.<avrora.sim.mcu.Timer16Bit: avrora.sim.RWRegister TCNTnH_reg>;
+
+        $stack3 = l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.mcu.Timer16Bit this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.Timer16Bit: avrora.sim.mcu.Timer16Bit$TCNTnRegister TCNTnL_reg>;
+
+        $stack6 = staticinvoke <avrora.sim.mcu.AtmelInternalDevice: int read16(avrora.sim.RWRegister,avrora.sim.RWRegister)>($stack5, $stack4);
+
+        $stack7 = l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.mcu.Timer16Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer16Bit: void access$200(avrora.sim.mcu.Timer16Bit,int)>($stack7, $stack6);
+
+        if $stack6 < 65535 goto label1;
+
+        $stack19 = l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.mcu.Timer16Bit this$0>;
+
+        virtualinvoke $stack19.<avrora.sim.mcu.Timer16Bit: void overflow()>();
+
+        l1#2 = 0;
+
+        goto label3;
+
+     label1:
+        $stack8 = l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.RWRegister compareRegHigh>;
+
+        if $stack8 == null goto label2;
+
+        $stack11 = l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.RWRegister compareRegHigh>;
+
+        $stack10 = l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.RWRegister compareRegLow>;
+
+        $stack12 = staticinvoke <avrora.sim.mcu.AtmelInternalDevice: int read16(avrora.sim.RWRegister,avrora.sim.RWRegister)>($stack11, $stack10);
+
+        if $stack6 != $stack12 goto label2;
+
+        l1#2 = 0;
+
+        goto label3;
+
+     label2:
+        $stack15 = $stack6 + 1;
+
+        l1#2 = $stack15;
+
+     label3:
+        $stack9#6 = l0.<avrora.sim.mcu.Timer16Bit$Mode_CTC: avrora.sim.mcu.Timer16Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer16Bit: void access$300(avrora.sim.mcu.Timer16Bit,avrora.sim.Simulator$Event,int)>($stack9#6, l0, l1#2);
+
+        return;
+    }
+}

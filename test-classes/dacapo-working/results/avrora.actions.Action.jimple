@@ -1,0 +1,28 @@
+public abstract class avrora.actions.Action extends cck.help.HelpCategory
+{
+
+    protected void <init>(java.lang.String)
+    {
+        avrora.actions.Action l0;
+        java.lang.String l1, $stack2;
+        cck.util.Options $stack3;
+
+        l0 := @this: avrora.actions.Action;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>("action", l1);
+
+        $stack2 = l0.<avrora.actions.Action: java.lang.String help>;
+
+        virtualinvoke l0.<avrora.actions.Action: void addSection(java.lang.String,java.lang.String)>("ACTION OVERVIEW", $stack2);
+
+        $stack3 = l0.<avrora.actions.Action: cck.util.Options options>;
+
+        virtualinvoke l0.<avrora.actions.Action: void addOptionSection(java.lang.String,cck.util.Options)>("Help for the specific options accepted by this action is below.", $stack3);
+
+        return;
+    }
+
+    public abstract void run(java.lang.String[]) throws java.lang.Exception;
+}

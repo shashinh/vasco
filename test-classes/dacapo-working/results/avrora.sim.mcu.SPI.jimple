@@ -1,0 +1,330 @@
+public class avrora.sim.mcu.SPI extends avrora.sim.mcu.AtmelInternalDevice implements avrora.sim.mcu.SPIDevice, avrora.sim.InterruptTable$Notification
+{
+    final avrora.sim.mcu.SPI$SPDReg SPDR_reg;
+    final avrora.sim.mcu.SPI$SPCRReg SPCR_reg;
+    final avrora.sim.mcu.SPI$SPSReg SPSR_reg;
+    avrora.sim.mcu.SPIDevice connectedDevice;
+    final avrora.sim.mcu.SPI$TransferEvent transferEvent;
+    boolean spifAccessed;
+    int interruptNum;
+    protected int period;
+    private static final avrora.sim.mcu.SPI$Frame[] frameCache;
+    public static final avrora.sim.mcu.SPI$Frame ZERO_FRAME;
+    public static final avrora.sim.mcu.SPI$Frame FF_FRAME;
+
+    static void <clinit>()
+    {
+        avrora.sim.mcu.SPI$Frame[] $stack1, $stack2, $stack4, $stack8;
+        avrora.sim.mcu.SPI$Frame $stack3, $stack5, $stack6;
+        byte $stack7;
+        int l0#1;
+
+        $stack1 = newarray (avrora.sim.mcu.SPI$Frame)[256];
+
+        <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame[] frameCache> = $stack1;
+
+        l0#1 = 0;
+
+     label1:
+        if l0#1 >= 256 goto label2;
+
+        $stack8 = <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame[] frameCache>;
+
+        $stack6 = new avrora.sim.mcu.SPI$Frame;
+
+        $stack7 = (byte) l0#1;
+
+        specialinvoke $stack6.<avrora.sim.mcu.SPI$Frame: void <init>(byte)>($stack7);
+
+        $stack8[l0#1] = $stack6;
+
+        l0#1 = l0#1 + 1;
+
+        goto label1;
+
+     label2:
+        $stack2 = <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame[] frameCache>;
+
+        $stack3 = $stack2[0];
+
+        <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame ZERO_FRAME> = $stack3;
+
+        $stack4 = <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame[] frameCache>;
+
+        $stack5 = $stack4[255];
+
+        <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame FF_FRAME> = $stack5;
+
+        return;
+    }
+
+    public void <init>(avrora.sim.mcu.AtmelMicrocontroller)
+    {
+        avrora.sim.mcu.SPI l0;
+        avrora.sim.mcu.AtmelMicrocontroller l1;
+        avrora.sim.mcu.SPI$TransferEvent $stack2;
+        avrora.sim.mcu.SPI$SPDReg $stack3, $stack8;
+        avrora.sim.mcu.SPI$SPCRReg $stack4, $stack10;
+        avrora.sim.mcu.SPI$SPSReg $stack5, $stack9;
+        avrora.sim.mcu.MCUProperties $stack6;
+        int $stack7, $stack13;
+        avrora.sim.AtmelInterpreter $stack11;
+        avrora.sim.InterruptTable $stack12;
+
+        l0 := @this: avrora.sim.mcu.SPI;
+
+        l1 := @parameter0: avrora.sim.mcu.AtmelMicrocontroller;
+
+        specialinvoke l0.<avrora.sim.mcu.AtmelInternalDevice: void <init>(java.lang.String,avrora.sim.mcu.AtmelMicrocontroller)>("spi", l1);
+
+        $stack2 = new avrora.sim.mcu.SPI$TransferEvent;
+
+        specialinvoke $stack2.<avrora.sim.mcu.SPI$TransferEvent: void <init>(avrora.sim.mcu.SPI)>(l0);
+
+        l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$TransferEvent transferEvent> = $stack2;
+
+        $stack3 = new avrora.sim.mcu.SPI$SPDReg;
+
+        specialinvoke $stack3.<avrora.sim.mcu.SPI$SPDReg: void <init>(avrora.sim.mcu.SPI)>(l0);
+
+        l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPDReg SPDR_reg> = $stack3;
+
+        $stack4 = new avrora.sim.mcu.SPI$SPCRReg;
+
+        specialinvoke $stack4.<avrora.sim.mcu.SPI$SPCRReg: void <init>(avrora.sim.mcu.SPI)>(l0);
+
+        l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPCRReg SPCR_reg> = $stack4;
+
+        $stack5 = new avrora.sim.mcu.SPI$SPSReg;
+
+        specialinvoke $stack5.<avrora.sim.mcu.SPI$SPSReg: void <init>(avrora.sim.mcu.SPI)>(l0);
+
+        l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPSReg SPSR_reg> = $stack5;
+
+        $stack6 = virtualinvoke l1.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.mcu.MCUProperties getProperties()>();
+
+        $stack7 = virtualinvoke $stack6.<avrora.sim.mcu.MCUProperties: int getInterrupt(java.lang.String)>("SPI, STC");
+
+        l0.<avrora.sim.mcu.SPI: int interruptNum> = $stack7;
+
+        $stack8 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPDReg SPDR_reg>;
+
+        virtualinvoke l0.<avrora.sim.mcu.SPI: void installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("SPDR", $stack8);
+
+        $stack9 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPSReg SPSR_reg>;
+
+        virtualinvoke l0.<avrora.sim.mcu.SPI: void installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("SPSR", $stack9);
+
+        $stack10 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPCRReg SPCR_reg>;
+
+        virtualinvoke l0.<avrora.sim.mcu.SPI: void installIOReg(java.lang.String,avrora.sim.ActiveRegister)>("SPCR", $stack10);
+
+        $stack11 = l0.<avrora.sim.mcu.SPI: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack12 = virtualinvoke $stack11.<avrora.sim.AtmelInterpreter: avrora.sim.InterruptTable getInterruptTable()>();
+
+        $stack13 = l0.<avrora.sim.mcu.SPI: int interruptNum>;
+
+        virtualinvoke $stack12.<avrora.sim.InterruptTable: void registerInternalNotification(avrora.sim.InterruptTable$Notification,int)>(l0, $stack13);
+
+        return;
+    }
+
+    static void access$000(avrora.sim.mcu.SPI)
+    {
+        avrora.sim.mcu.SPI l0;
+
+        l0 := @parameter0: avrora.sim.mcu.SPI;
+
+        specialinvoke l0.<avrora.sim.mcu.SPI: void postSPIInterrupt()>();
+
+        return;
+    }
+
+    static void access$100(avrora.sim.mcu.SPI)
+    {
+        avrora.sim.mcu.SPI l0;
+
+        l0 := @parameter0: avrora.sim.mcu.SPI;
+
+        specialinvoke l0.<avrora.sim.mcu.SPI: void unpostSPIInterrupt()>();
+
+        return;
+    }
+
+    public void connect(avrora.sim.mcu.SPIDevice)
+    {
+        avrora.sim.mcu.SPI l0;
+        avrora.sim.mcu.SPIDevice l1;
+
+        l0 := @this: avrora.sim.mcu.SPI;
+
+        l1 := @parameter0: avrora.sim.mcu.SPIDevice;
+
+        l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPIDevice connectedDevice> = l1;
+
+        return;
+    }
+
+    public avrora.sim.mcu.SPI$Frame exchange(avrora.sim.mcu.SPI$Frame)
+    {
+        avrora.sim.mcu.SPI l0;
+        avrora.sim.mcu.SPI$SPDReg $stack2;
+        avrora.sim.mcu.SPI$SPDReg$TransmitRegister $stack3;
+        byte $stack4;
+        avrora.sim.mcu.SPI$Frame $stack5, l1;
+
+        l0 := @this: avrora.sim.mcu.SPI;
+
+        l1 := @parameter0: avrora.sim.mcu.SPI$Frame;
+
+        $stack2 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPDReg SPDR_reg>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.mcu.SPI$SPDReg$TransmitRegister transmitReg>;
+
+        $stack4 = virtualinvoke $stack3.<avrora.sim.mcu.SPI$SPDReg$TransmitRegister: byte read()>();
+
+        $stack5 = staticinvoke <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame newFrame(byte)>($stack4);
+
+        virtualinvoke l0.<avrora.sim.mcu.SPI: void receive(avrora.sim.mcu.SPI$Frame)>(l1);
+
+        return $stack5;
+    }
+
+    public void force(int)
+    {
+        avrora.sim.mcu.SPI l0;
+        avrora.sim.mcu.SPI$SPSReg $stack2;
+        int l1;
+
+        l0 := @this: avrora.sim.mcu.SPI;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPSReg SPSR_reg>;
+
+        virtualinvoke $stack2.<avrora.sim.mcu.SPI$SPSReg: void setSPIF()>();
+
+        return;
+    }
+
+    public void invoke(int)
+    {
+        avrora.sim.mcu.SPI l0;
+        int l1;
+
+        l0 := @this: avrora.sim.mcu.SPI;
+
+        l1 := @parameter0: int;
+
+        specialinvoke l0.<avrora.sim.mcu.SPI: void unpostSPIInterrupt()>();
+
+        return;
+    }
+
+    public static avrora.sim.mcu.SPI$Frame newFrame(byte)
+    {
+        byte l0;
+        int $stack1;
+        avrora.sim.mcu.SPI$Frame[] $stack2;
+        avrora.sim.mcu.SPI$Frame $stack3;
+
+        l0 := @parameter0: byte;
+
+        $stack2 = <avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$Frame[] frameCache>;
+
+        $stack1 = l0 & 255;
+
+        $stack3 = $stack2[$stack1];
+
+        return $stack3;
+    }
+
+    private void postSPIInterrupt()
+    {
+        avrora.sim.mcu.SPI l0;
+        int $stack1;
+        avrora.sim.AtmelInterpreter $stack2;
+        avrora.sim.mcu.SPI$SPSReg $stack3;
+
+        l0 := @this: avrora.sim.mcu.SPI;
+
+        $stack2 = l0.<avrora.sim.mcu.SPI: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack1 = l0.<avrora.sim.mcu.SPI: int interruptNum>;
+
+        virtualinvoke $stack2.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>($stack1, 1);
+
+        $stack3 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPSReg SPSR_reg>;
+
+        virtualinvoke $stack3.<avrora.sim.mcu.SPI$SPSReg: void setSPIF()>();
+
+        return;
+    }
+
+    public void receive(avrora.sim.mcu.SPI$Frame)
+    {
+        avrora.sim.mcu.SPI l0;
+        avrora.sim.mcu.SPI$SPDReg $stack2;
+        avrora.sim.mcu.SPI$Frame l1;
+        byte $stack3;
+        avrora.sim.RWRegister $stack4;
+        avrora.sim.mcu.SPI$SPCRReg $stack5;
+        avrora.sim.state.BooleanView $stack6;
+        boolean $stack7, $stack9;
+        avrora.sim.mcu.SPI$TransferEvent $stack8;
+
+        l0 := @this: avrora.sim.mcu.SPI;
+
+        l1 := @parameter0: avrora.sim.mcu.SPI$Frame;
+
+        $stack2 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPDReg SPDR_reg>;
+
+        $stack4 = $stack2.<avrora.sim.mcu.SPI$SPDReg: avrora.sim.RWRegister receiveReg>;
+
+        $stack3 = l1.<avrora.sim.mcu.SPI$Frame: byte data>;
+
+        virtualinvoke $stack4.<avrora.sim.RWRegister: void write(byte)>($stack3);
+
+        $stack5 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPCRReg SPCR_reg>;
+
+        $stack6 = $stack5.<avrora.sim.mcu.SPI$SPCRReg: avrora.sim.state.BooleanView _master>;
+
+        $stack7 = interfaceinvoke $stack6.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        if $stack7 != 0 goto label1;
+
+        $stack8 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$TransferEvent transferEvent>;
+
+        $stack9 = $stack8.<avrora.sim.mcu.SPI$TransferEvent: boolean transmitting>;
+
+        if $stack9 != 0 goto label1;
+
+        specialinvoke l0.<avrora.sim.mcu.SPI: void postSPIInterrupt()>();
+
+     label1:
+        return;
+    }
+
+    private void unpostSPIInterrupt()
+    {
+        avrora.sim.mcu.SPI l0;
+        int $stack1;
+        avrora.sim.AtmelInterpreter $stack2;
+        avrora.sim.mcu.SPI$SPSReg $stack3;
+
+        l0 := @this: avrora.sim.mcu.SPI;
+
+        $stack2 = l0.<avrora.sim.mcu.SPI: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack1 = l0.<avrora.sim.mcu.SPI: int interruptNum>;
+
+        virtualinvoke $stack2.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>($stack1, 0);
+
+        $stack3 = l0.<avrora.sim.mcu.SPI: avrora.sim.mcu.SPI$SPSReg SPSR_reg>;
+
+        virtualinvoke $stack3.<avrora.sim.mcu.SPI$SPSReg: void clearSPIF()>();
+
+        return;
+    }
+}

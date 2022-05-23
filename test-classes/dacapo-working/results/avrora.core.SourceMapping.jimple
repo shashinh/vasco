@@ -1,0 +1,193 @@
+public class avrora.core.SourceMapping extends java.lang.Object
+{
+    protected final avrora.core.Program program;
+    protected final java.util.HashMap labels;
+    protected final java.util.HashMap reverseMap;
+    public static java.util.Comparator LOCATION_COMPARATOR;
+
+    static void <clinit>()
+    {
+        avrora.core.SourceMapping$1 $stack0;
+
+        $stack0 = new avrora.core.SourceMapping$1;
+
+        specialinvoke $stack0.<avrora.core.SourceMapping$1: void <init>()>();
+
+        <avrora.core.SourceMapping: java.util.Comparator LOCATION_COMPARATOR> = $stack0;
+
+        return;
+    }
+
+    public void <init>(avrora.core.Program)
+    {
+        avrora.core.SourceMapping l0;
+        avrora.core.Program l1;
+        java.util.HashMap $stack2, $stack3;
+
+        l0 := @this: avrora.core.SourceMapping;
+
+        l1 := @parameter0: avrora.core.Program;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.core.SourceMapping: avrora.core.Program program> = l1;
+
+        $stack2 = new java.util.HashMap;
+
+        specialinvoke $stack2.<java.util.HashMap: void <init>()>();
+
+        l0.<avrora.core.SourceMapping: java.util.HashMap labels> = $stack2;
+
+        $stack3 = new java.util.HashMap;
+
+        specialinvoke $stack3.<java.util.HashMap: void <init>()>();
+
+        l0.<avrora.core.SourceMapping: java.util.HashMap reverseMap> = $stack3;
+
+        return;
+    }
+
+    public java.util.Iterator getIterator()
+    {
+        avrora.core.SourceMapping l0;
+        java.util.HashMap $stack1;
+        java.util.Collection $stack2;
+        java.util.Iterator $stack3;
+
+        l0 := @this: avrora.core.SourceMapping;
+
+        $stack1 = l0.<avrora.core.SourceMapping: java.util.HashMap labels>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Collection values()>();
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Collection: java.util.Iterator iterator()>();
+
+        return $stack3;
+    }
+
+    public avrora.core.SourceMapping$Location getLocation(java.lang.String)
+    {
+        java.lang.String l1;
+        boolean $stack2;
+        avrora.core.SourceMapping l0;
+        java.util.HashMap $stack3;
+        java.lang.Object $stack4;
+        avrora.core.SourceMapping$Location $stack5, $stack6;
+        int $stack9;
+
+        l0 := @this: avrora.core.SourceMapping;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = staticinvoke <cck.text.StringUtil: boolean isHex(java.lang.String)>(l1);
+
+        if $stack2 == 0 goto label1;
+
+        $stack6 = new avrora.core.SourceMapping$Location;
+
+        $stack9 = staticinvoke <cck.text.StringUtil: int evaluateIntegerLiteral(java.lang.String)>(l1);
+
+        specialinvoke $stack6.<avrora.core.SourceMapping$Location: void <init>(avrora.core.SourceMapping,java.lang.String,java.lang.String,int,int,int)>(l0, null, null, $stack9, $stack9, 1);
+
+        return $stack6;
+
+     label1:
+        $stack3 = l0.<avrora.core.SourceMapping: java.util.HashMap labels>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        $stack5 = (avrora.core.SourceMapping$Location) $stack4;
+
+        return $stack5;
+    }
+
+    public java.lang.String getName(int)
+    {
+        java.lang.Integer $stack2;
+        int l1;
+        java.util.HashMap $stack3;
+        java.lang.Object $stack4;
+        java.lang.String $stack5, l0#2, l0#3;
+        avrora.core.SourceMapping l0#1;
+
+        l0#1 := @this: avrora.core.SourceMapping;
+
+        l1 := @parameter0: int;
+
+        $stack3 = l0#1.<avrora.core.SourceMapping: java.util.HashMap reverseMap>;
+
+        $stack2 = new java.lang.Integer;
+
+        specialinvoke $stack2.<java.lang.Integer: void <init>(int)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($stack2);
+
+        l0#2 = (java.lang.String) $stack4;
+
+        if l0#2 != null goto label1;
+
+        $stack5 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(l1);
+
+        l0#3 = $stack5;
+
+        goto label2;
+
+     label1:
+        l0#3 = l0#2;
+
+     label2:
+        return l0#3;
+    }
+
+    public avrora.core.Program getProgram()
+    {
+        avrora.core.SourceMapping l0;
+        avrora.core.Program $stack1;
+
+        l0 := @this: avrora.core.SourceMapping;
+
+        $stack1 = l0.<avrora.core.SourceMapping: avrora.core.Program program>;
+
+        return $stack1;
+    }
+
+    public void newLocation(java.lang.String, java.lang.String, int, int, int)
+    {
+        avrora.core.SourceMapping$Location l6;
+        avrora.core.SourceMapping l0;
+        java.lang.String l1, l2;
+        int l3, l4, l5;
+        java.util.HashMap $stack7, $stack10;
+        java.lang.Integer $stack9;
+
+        l0 := @this: avrora.core.SourceMapping;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: int;
+
+        l4 := @parameter3: int;
+
+        l5 := @parameter4: int;
+
+        l6 = new avrora.core.SourceMapping$Location;
+
+        specialinvoke l6.<avrora.core.SourceMapping$Location: void <init>(avrora.core.SourceMapping,java.lang.String,java.lang.String,int,int,int)>(l0, l1, l2, l3, l4, l5);
+
+        $stack7 = l0.<avrora.core.SourceMapping: java.util.HashMap labels>;
+
+        virtualinvoke $stack7.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l2, l6);
+
+        $stack10 = l0.<avrora.core.SourceMapping: java.util.HashMap reverseMap>;
+
+        $stack9 = new java.lang.Integer;
+
+        specialinvoke $stack9.<java.lang.Integer: void <init>(int)>(l4);
+
+        virtualinvoke $stack10.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack9, l2);
+
+        return;
+    }
+}

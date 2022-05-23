@@ -1,0 +1,171 @@
+public class cck.elf.ELFLoader extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        cck.elf.ELFLoader l0;
+
+        l0 := @this: cck.elf.ELFLoader;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static cck.elf.ELFHeader readELFHeader(java.io.RandomAccessFile) throws java.io.IOException, cck.elf.ELFHeader$FormatError
+    {
+        cck.elf.ELFHeader l1;
+        java.io.RandomAccessFile l0;
+
+        l0 := @parameter0: java.io.RandomAccessFile;
+
+        l1 = new cck.elf.ELFHeader;
+
+        specialinvoke l1.<cck.elf.ELFHeader: void <init>()>();
+
+        virtualinvoke l1.<cck.elf.ELFHeader: void read(java.io.RandomAccessFile)>(l0);
+
+        return l1;
+    }
+
+    public static cck.elf.ELFProgramHeaderTable readPHT(java.io.RandomAccessFile, cck.elf.ELFHeader) throws java.io.IOException
+    {
+        cck.elf.ELFProgramHeaderTable l2;
+        cck.elf.ELFHeader l1;
+        java.io.RandomAccessFile l0;
+
+        l0 := @parameter0: java.io.RandomAccessFile;
+
+        l1 := @parameter1: cck.elf.ELFHeader;
+
+        l2 = new cck.elf.ELFProgramHeaderTable;
+
+        specialinvoke l2.<cck.elf.ELFProgramHeaderTable: void <init>(cck.elf.ELFHeader)>(l1);
+
+        virtualinvoke l2.<cck.elf.ELFProgramHeaderTable: void read(java.io.RandomAccessFile)>(l0);
+
+        return l2;
+    }
+
+    public static cck.elf.ELFSectionHeaderTable readSHT(java.io.RandomAccessFile, cck.elf.ELFHeader) throws java.io.IOException
+    {
+        cck.elf.ELFSectionHeaderTable l2;
+        cck.elf.ELFHeader l1;
+        java.io.RandomAccessFile l0;
+        cck.elf.ELFSectionHeaderTable$Entry32[] $stack4, $stack8;
+        int $stack5;
+        short $stack6, $stack7;
+        cck.elf.ELFStringTable l3;
+        cck.elf.ELFSectionHeaderTable$Entry32 $stack9;
+
+        l0 := @parameter0: java.io.RandomAccessFile;
+
+        l1 := @parameter1: cck.elf.ELFHeader;
+
+        l2 = new cck.elf.ELFSectionHeaderTable;
+
+        specialinvoke l2.<cck.elf.ELFSectionHeaderTable: void <init>(cck.elf.ELFHeader)>(l1);
+
+        virtualinvoke l2.<cck.elf.ELFSectionHeaderTable: void read(java.io.RandomAccessFile)>(l0);
+
+        $stack6 = l1.<cck.elf.ELFHeader: short e_shstrndx>;
+
+        $stack4 = l2.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $stack5 = lengthof $stack4;
+
+        if $stack6 >= $stack5 goto label1;
+
+        l3 = new cck.elf.ELFStringTable;
+
+        $stack8 = l2.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $stack7 = l1.<cck.elf.ELFHeader: short e_shstrndx>;
+
+        $stack9 = $stack8[$stack7];
+
+        specialinvoke l3.<cck.elf.ELFStringTable: void <init>(cck.elf.ELFHeader,cck.elf.ELFSectionHeaderTable$Entry32)>(l1, $stack9);
+
+        virtualinvoke l3.<cck.elf.ELFStringTable: void read(java.io.RandomAccessFile)>(l0);
+
+        virtualinvoke l2.<cck.elf.ELFSectionHeaderTable: void setStringTable(cck.elf.ELFStringTable)>(l3);
+
+     label1:
+        return l2;
+    }
+
+    public static java.util.List readSymbolTables(java.io.RandomAccessFile, cck.elf.ELFHeader, cck.elf.ELFSectionHeaderTable) throws java.io.IOException
+    {
+        java.util.LinkedList l3;
+        cck.elf.ELFSectionHeaderTable l2;
+        cck.elf.ELFSectionHeaderTable$Entry32[] $stack8, $stack10, $stack16;
+        int $stack9, $stack15, l7#1;
+        boolean $stack11, $stack17;
+        cck.elf.ELFSymbolTable l5;
+        cck.elf.ELFHeader l1;
+        java.io.RandomAccessFile l0;
+        cck.elf.ELFStringTable l6;
+        cck.elf.ELFSectionHeaderTable$Entry32 l4#2, l4#3;
+
+        l0 := @parameter0: java.io.RandomAccessFile;
+
+        l1 := @parameter1: cck.elf.ELFHeader;
+
+        l2 := @parameter2: cck.elf.ELFSectionHeaderTable;
+
+        l3 = new java.util.LinkedList;
+
+        specialinvoke l3.<java.util.LinkedList: void <init>()>();
+
+        l7#1 = 0;
+
+     label1:
+        $stack8 = l2.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $stack9 = lengthof $stack8;
+
+        if l7#1 >= $stack9 goto label3;
+
+        $stack10 = l2.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        l4#2 = $stack10[l7#1];
+
+        $stack11 = virtualinvoke l4#2.<cck.elf.ELFSectionHeaderTable$Entry32: boolean isSymbolTable()>();
+
+        if $stack11 == 0 goto label2;
+
+        l5 = new cck.elf.ELFSymbolTable;
+
+        specialinvoke l5.<cck.elf.ELFSymbolTable: void <init>(cck.elf.ELFHeader,cck.elf.ELFSectionHeaderTable$Entry32)>(l1, l4#2);
+
+        virtualinvoke l5.<cck.elf.ELFSymbolTable: void read(java.io.RandomAccessFile)>(l0);
+
+        interfaceinvoke l3.<java.util.List: boolean add(java.lang.Object)>(l5);
+
+        $stack16 = l2.<cck.elf.ELFSectionHeaderTable: cck.elf.ELFSectionHeaderTable$Entry32[] entries>;
+
+        $stack15 = l4#2.<cck.elf.ELFSectionHeaderTable$Entry32: int sh_link>;
+
+        l4#3 = $stack16[$stack15];
+
+        $stack17 = virtualinvoke l4#3.<cck.elf.ELFSectionHeaderTable$Entry32: boolean isStringTable()>();
+
+        if $stack17 == 0 goto label2;
+
+        l6 = new cck.elf.ELFStringTable;
+
+        specialinvoke l6.<cck.elf.ELFStringTable: void <init>(cck.elf.ELFHeader,cck.elf.ELFSectionHeaderTable$Entry32)>(l1, l4#3);
+
+        virtualinvoke l6.<cck.elf.ELFStringTable: void read(java.io.RandomAccessFile)>(l0);
+
+        virtualinvoke l5.<cck.elf.ELFSymbolTable: void setStringTable(cck.elf.ELFStringTable)>(l6);
+
+     label2:
+        l7#1 = l7#1 + 1;
+
+        goto label1;
+
+     label3:
+        return l3;
+    }
+}

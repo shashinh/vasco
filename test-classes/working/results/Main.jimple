@@ -1,0 +1,86 @@
+class Main extends java.lang.Object
+{
+
+    void <init>()
+    {
+        Main l0;
+
+        l0 := @this: Main;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.Class[] $stack2;
+        java.lang.Class $stack3;
+        java.lang.reflect.Constructor $stack4;
+        boolean $stack5;
+        java.lang.Object $stack6, $stack10, l0#4;
+        B $stack7, $stack8;
+        F $stack9;
+        java.lang.Exception $stack12;
+        java.lang.String $stack13;
+        java.lang.String[] l0#1;
+        java.lang.Object[] l0#3;
+        java.io.PrintStream l0#5;
+
+        l0#1 := @parameter0: java.lang.String[];
+
+     label1:
+        $stack3 = class "LB;";
+
+        $stack2 = newarray (java.lang.Class)[0];
+
+        $stack4 = virtualinvoke $stack3.<java.lang.Class: java.lang.reflect.Constructor getConstructor(java.lang.Class[])>($stack2);
+
+        l0#3 = newarray (java.lang.Object)[0];
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownConstructorNewInstance(int,java.lang.reflect.Constructor)>(0, $stack4);
+
+        $stack5 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack5 == 0 goto label2;
+
+        $stack10 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall0(java.lang.Object[])>(l0#3);
+
+        l0#4 = $stack10;
+
+        goto label3;
+
+     label2:
+        $stack6 = virtualinvoke $stack4.<java.lang.reflect.Constructor: java.lang.Object newInstance(java.lang.Object[])>(l0#3);
+
+        l0#4 = $stack6;
+
+     label3:
+        $stack7 = (B) l0#4;
+
+        $stack8 = virtualinvoke $stack7.<B: B foo()>();
+
+        $stack9 = new F;
+
+        specialinvoke $stack9.<F: void <init>()>();
+
+        $stack8.<B: F f> = $stack9;
+
+     label4:
+        goto label6;
+
+     label5:
+        $stack12 := @caughtexception;
+
+        l0#5 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack13 = virtualinvoke $stack12.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke l0#5.<java.io.PrintStream: void println(java.lang.String)>($stack13);
+
+     label6:
+        return;
+
+        catch java.lang.Exception from label1 to label4 with label5;
+    }
+}

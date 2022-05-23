@@ -1,0 +1,192 @@
+public class avrora.sim.radio.Medium$TXRX extends java.lang.Object
+{
+    public final avrora.sim.radio.Medium medium;
+    public final avrora.sim.clock.Clock clock;
+    public final long cyclesPerByte;
+    public final long leadCycles;
+    public final long cyclesPerBit;
+    protected avrora.sim.radio.Medium$Probe$List probeList;
+    public boolean activated;
+    static final boolean $assertionsDisabled;
+
+    static void <clinit>()
+    {
+        java.lang.Class $stack1;
+        boolean $stack2, l0#1;
+
+        $stack1 = class "Lavrora/sim/radio/Medium;";
+
+        $stack2 = virtualinvoke $stack1.<java.lang.Class: boolean desiredAssertionStatus()>();
+
+        if $stack2 != 0 goto label1;
+
+        l0#1 = 1;
+
+        goto label2;
+
+     label1:
+        l0#1 = 0;
+
+     label2:
+        <avrora.sim.radio.Medium$TXRX: boolean $assertionsDisabled> = l0#1;
+
+        return;
+    }
+
+    protected void <init>(avrora.sim.radio.Medium, avrora.sim.clock.Clock)
+    {
+        avrora.sim.radio.Medium$TXRX l0;
+        avrora.sim.clock.Clock l2;
+        long $stack5, $stack8, $stack9, $stack10, $stack11, $stack14, $stack15, $stack16, $stack17, $stack18;
+        avrora.sim.radio.Medium $stack6, $stack12, l1#1;
+        boolean $stack7;
+        int $stack13, l1#2;
+        byte $stack19;
+        java.lang.AssertionError $stack30;
+
+        l0 := @this: avrora.sim.radio.Medium$TXRX;
+
+        l1#1 := @parameter0: avrora.sim.radio.Medium;
+
+        l2 := @parameter1: avrora.sim.clock.Clock;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.radio.Medium medium> = l1#1;
+
+        l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.clock.Clock clock> = l2;
+
+        $stack5 = virtualinvoke l2.<avrora.sim.clock.Clock: long getHZ()>();
+
+        $stack6 = l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.radio.Medium medium>;
+
+        l1#2 = $stack6.<avrora.sim.radio.Medium: int bitsPerSecond>;
+
+        $stack7 = <avrora.sim.radio.Medium$TXRX: boolean $assertionsDisabled>;
+
+        if $stack7 != 0 goto label1;
+
+        $stack18 = (long) l1#2;
+
+        $stack19 = $stack5 cmp $stack18;
+
+        if $stack19 > 0 goto label1;
+
+        $stack30 = new java.lang.AssertionError;
+
+        specialinvoke $stack30.<java.lang.AssertionError: void <init>()>();
+
+        throw $stack30;
+
+     label1:
+        $stack8 = (long) l1#2;
+
+        $stack9 = $stack5 / $stack8;
+
+        l0.<avrora.sim.radio.Medium$TXRX: long cyclesPerBit> = $stack9;
+
+        $stack10 = l0.<avrora.sim.radio.Medium$TXRX: long cyclesPerBit>;
+
+        $stack11 = 8L * $stack10;
+
+        l0.<avrora.sim.radio.Medium$TXRX: long cyclesPerByte> = $stack11;
+
+        $stack12 = l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.radio.Medium medium>;
+
+        $stack13 = $stack12.<avrora.sim.radio.Medium: int leadBits>;
+
+        $stack14 = (long) $stack13;
+
+        $stack16 = $stack14 * $stack5;
+
+        $stack15 = (long) l1#2;
+
+        $stack17 = $stack16 / $stack15;
+
+        l0.<avrora.sim.radio.Medium$TXRX: long leadCycles> = $stack17;
+
+        return;
+    }
+
+    protected long getBitNum(long)
+    {
+        long l1, $stack3, $stack4;
+        avrora.sim.radio.Medium$TXRX l0;
+
+        l0 := @this: avrora.sim.radio.Medium$TXRX;
+
+        l1 := @parameter0: long;
+
+        $stack3 = l0.<avrora.sim.radio.Medium$TXRX: long cyclesPerBit>;
+
+        $stack4 = l1 / $stack3;
+
+        return $stack4;
+    }
+
+    protected long getCycleTime(long)
+    {
+        long l1, $stack3, $stack4;
+        avrora.sim.radio.Medium$TXRX l0;
+
+        l0 := @this: avrora.sim.radio.Medium$TXRX;
+
+        l1 := @parameter0: long;
+
+        $stack3 = l0.<avrora.sim.radio.Medium$TXRX: long cyclesPerBit>;
+
+        $stack4 = l1 * $stack3;
+
+        return $stack4;
+    }
+
+    public void insertProbe(avrora.sim.radio.Medium$Probe)
+    {
+        avrora.sim.radio.Medium$TXRX l0;
+        avrora.sim.radio.Medium$Probe$List $stack2, $stack3, $stack4;
+        avrora.sim.radio.Medium$Probe l1;
+
+        l0 := @this: avrora.sim.radio.Medium$TXRX;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Probe;
+
+        $stack2 = l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        if $stack2 != null goto label1;
+
+        $stack4 = new avrora.sim.radio.Medium$Probe$List;
+
+        specialinvoke $stack4.<avrora.sim.radio.Medium$Probe$List: void <init>()>();
+
+        l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.radio.Medium$Probe$List probeList> = $stack4;
+
+     label1:
+        $stack3 = l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        virtualinvoke $stack3.<avrora.sim.radio.Medium$Probe$List: void add(java.lang.Object)>(l1);
+
+        return;
+    }
+
+    public void removeProbe(avrora.sim.radio.Medium$Probe)
+    {
+        avrora.sim.radio.Medium$TXRX l0;
+        avrora.sim.radio.Medium$Probe$List $stack2, $stack3;
+        avrora.sim.radio.Medium$Probe l1;
+
+        l0 := @this: avrora.sim.radio.Medium$TXRX;
+
+        l1 := @parameter0: avrora.sim.radio.Medium$Probe;
+
+        $stack2 = l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        if $stack2 == null goto label1;
+
+        $stack3 = l0.<avrora.sim.radio.Medium$TXRX: avrora.sim.radio.Medium$Probe$List probeList>;
+
+        virtualinvoke $stack3.<avrora.sim.radio.Medium$Probe$List: void remove(java.lang.Object)>(l1);
+
+     label1:
+        return;
+    }
+}

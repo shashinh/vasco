@@ -1,0 +1,328 @@
+public class avrora.sim.mcu.EEPROM$EECRReg extends avrora.sim.RWRegister
+{
+    final avrora.sim.state.BooleanView _eerie;
+    final avrora.sim.state.BooleanView _eere;
+    final avrora.sim.state.BooleanView _eemwe;
+    final avrora.sim.state.BooleanView _eewe;
+    final avrora.sim.mcu.EEPROM this$0;
+
+    protected void <init>(avrora.sim.mcu.EEPROM)
+    {
+        avrora.sim.mcu.EEPROM$EECRReg l0;
+        avrora.sim.mcu.EEPROM l1;
+        avrora.sim.state.BooleanView $stack2, $stack3, $stack4, $stack5;
+
+        l0 := @this: avrora.sim.mcu.EEPROM$EECRReg;
+
+        l1 := @parameter0: avrora.sim.mcu.EEPROM;
+
+        l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0> = l1;
+
+        specialinvoke l0.<avrora.sim.RWRegister: void <init>()>();
+
+        $stack2 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>(l0, 3);
+
+        l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eerie> = $stack2;
+
+        $stack3 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>(l0, 0);
+
+        l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eere> = $stack3;
+
+        $stack4 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>(l0, 2);
+
+        l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eemwe> = $stack4;
+
+        $stack5 = staticinvoke <avrora.sim.state.RegisterUtil: avrora.sim.state.BooleanView booleanView(avrora.sim.state.RegisterView,int)>(l0, 1);
+
+        l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eewe> = $stack5;
+
+        return;
+    }
+
+    public void decode()
+    {
+        avrora.sim.mcu.EEPROM$EECRReg l0;
+        avrora.sim.mcu.EEPROM $stack3, $stack6, $stack29, $stack30, $stack39, $stack41, $stack47, $stack51, $stack53, $stack60, $stack64, $stack66, $stack73, $stack9#6, $stack12#12, $stack15#31, $stack18#37, $stack21#54, $stack26#68, $stack27#75;
+        avrora.sim.state.BooleanView $stack4, $stack10#16, $stack16#41, $stack22#62;
+        boolean $stack5, $stack7, $stack8, $stack11#8, $stack13#18, $stack14#25, $stack17#33, $stack19#43, $stack20#50, $stack25#64, $stack28#77, l2#79;
+        avrora.sim.mcu.EEPROM$EEPROMTicker $stack31;
+        avrora.sim.clock.Clock $stack32;
+        avrora.sim.output.SimPrinter $stack40, $stack48, $stack52, $stack61, $stack65, $stack74;
+        avrora.sim.AtmelInterpreter $stack23#56, $stack45#70;
+
+        l0 := @this: avrora.sim.mcu.EEPROM$EECRReg;
+
+        $stack3 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack5 = $stack3.<avrora.sim.mcu.EEPROM: boolean readEnable>;
+
+        $stack6 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack4 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eere>;
+
+        $stack7 = interfaceinvoke $stack4.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        $stack6.<avrora.sim.mcu.EEPROM: boolean readEnable> = $stack7;
+
+        $stack8 = specialinvoke l0.<avrora.sim.mcu.EEPROM$EECRReg: boolean newTrue(boolean,boolean)>($stack5, $stack7);
+
+        if $stack8 == 0 goto label2;
+
+        $stack64 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack65 = $stack64.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $stack65 == null goto label1;
+
+        $stack73 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack74 = $stack73.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        virtualinvoke $stack74.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("EEPROM: EERE flagged");
+
+     label1:
+        $stack66 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack66.<avrora.sim.mcu.EEPROM: boolean readEnableWritten> = 1;
+
+     label2:
+        $stack9#6 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack11#8 = $stack9#6.<avrora.sim.mcu.EEPROM: boolean writeEnable>;
+
+        $stack12#12 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack10#16 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eewe>;
+
+        $stack13#18 = interfaceinvoke $stack10#16.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        $stack12#12.<avrora.sim.mcu.EEPROM: boolean writeEnable> = $stack13#18;
+
+        $stack14#25 = specialinvoke l0.<avrora.sim.mcu.EEPROM$EECRReg: boolean newTrue(boolean,boolean)>($stack11#8, $stack13#18);
+
+        if $stack14#25 == 0 goto label4;
+
+        $stack51 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack52 = $stack51.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $stack52 == null goto label3;
+
+        $stack60 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack61 = $stack60.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        virtualinvoke $stack61.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("EEPROM: EEWE flagged");
+
+     label3:
+        $stack53 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack53.<avrora.sim.mcu.EEPROM: boolean writeEnableWritten> = 1;
+
+     label4:
+        $stack15#31 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack17#33 = $stack15#31.<avrora.sim.mcu.EEPROM: boolean masterWriteEnable>;
+
+        $stack18#37 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack16#41 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eemwe>;
+
+        $stack19#43 = interfaceinvoke $stack16#41.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        $stack18#37.<avrora.sim.mcu.EEPROM: boolean masterWriteEnable> = $stack19#43;
+
+        $stack20#50 = specialinvoke l0.<avrora.sim.mcu.EEPROM$EECRReg: boolean newTrue(boolean,boolean)>($stack17#33, $stack19#43);
+
+        if $stack20#50 == 0 goto label6;
+
+        $stack39 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack40 = $stack39.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $stack40 == null goto label5;
+
+        $stack47 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack48 = $stack47.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        virtualinvoke $stack48.<avrora.sim.output.SimPrinter: void println(java.lang.String)>("EEPROM: reset write count to 4");
+
+     label5:
+        $stack41 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack41.<avrora.sim.mcu.EEPROM: int writeCount> = 4;
+
+     label6:
+        $stack21#54 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack23#56 = $stack21#54.<avrora.sim.mcu.EEPROM: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack22#62 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eerie>;
+
+        $stack25#64 = interfaceinvoke $stack22#62.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        virtualinvoke $stack23#56.<avrora.sim.AtmelInterpreter: void setEnabled(int,boolean)>(23, $stack25#64);
+
+        $stack26#68 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack45#70 = $stack26#68.<avrora.sim.mcu.EEPROM: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack27#75 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack28#77 = $stack27#75.<avrora.sim.mcu.EEPROM: boolean writeEnable>;
+
+        if $stack28#77 != 0 goto label7;
+
+        l2#79 = 1;
+
+        goto label8;
+
+     label7:
+        l2#79 = 0;
+
+     label8:
+        virtualinvoke $stack45#70.<avrora.sim.AtmelInterpreter: void setPosted(int,boolean)>(23, l2#79);
+
+        $stack29 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack32 = $stack29.<avrora.sim.mcu.EEPROM: avrora.sim.clock.Clock mainClock>;
+
+        $stack30 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack31 = $stack30.<avrora.sim.mcu.EEPROM: avrora.sim.mcu.EEPROM$EEPROMTicker ticker>;
+
+        virtualinvoke $stack32.<avrora.sim.clock.Clock: void insertEvent(avrora.sim.Simulator$Event,long)>($stack31, 1L);
+
+        return;
+    }
+
+    private boolean newTrue(boolean, boolean)
+    {
+        boolean l1, l2, l0#2;
+        avrora.sim.mcu.EEPROM$EECRReg l0#1;
+
+        l0#1 := @this: avrora.sim.mcu.EEPROM$EECRReg;
+
+        l1 := @parameter0: boolean;
+
+        l2 := @parameter1: boolean;
+
+        if l1 != 0 goto label1;
+
+        if l2 == 0 goto label1;
+
+        l0#2 = 1;
+
+        goto label2;
+
+     label1:
+        l0#2 = 0;
+
+     label2:
+        return l0#2;
+    }
+
+    public void resetEEMWE()
+    {
+        avrora.sim.mcu.EEPROM$EECRReg l0;
+        avrora.sim.state.BooleanView $stack1;
+
+        l0 := @this: avrora.sim.mcu.EEPROM$EECRReg;
+
+        $stack1 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eemwe>;
+
+        interfaceinvoke $stack1.<avrora.sim.state.BooleanView: void setValue(boolean)>(0);
+
+        virtualinvoke l0.<avrora.sim.mcu.EEPROM$EECRReg: void decode()>();
+
+        return;
+    }
+
+    public void resetEERE()
+    {
+        avrora.sim.mcu.EEPROM$EECRReg l0;
+        avrora.sim.state.BooleanView $stack1;
+
+        l0 := @this: avrora.sim.mcu.EEPROM$EECRReg;
+
+        $stack1 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eere>;
+
+        interfaceinvoke $stack1.<avrora.sim.state.BooleanView: void setValue(boolean)>(0);
+
+        virtualinvoke l0.<avrora.sim.mcu.EEPROM$EECRReg: void decode()>();
+
+        return;
+    }
+
+    public void resetEEWE()
+    {
+        avrora.sim.mcu.EEPROM$EECRReg l0;
+        avrora.sim.state.BooleanView $stack1;
+
+        l0 := @this: avrora.sim.mcu.EEPROM$EECRReg;
+
+        $stack1 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.state.BooleanView _eewe>;
+
+        interfaceinvoke $stack1.<avrora.sim.state.BooleanView: void setValue(boolean)>(0);
+
+        virtualinvoke l0.<avrora.sim.mcu.EEPROM$EECRReg: void decode()>();
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.EEPROM$EECRReg l0;
+        byte l1, $stack3, $stack10;
+        int $stack2;
+        avrora.sim.mcu.EEPROM $stack4, $stack6;
+        avrora.sim.output.SimPrinter $stack5, $stack8;
+        java.lang.StringBuilder $stack7, $stack9, $stack13;
+        long $stack11;
+        java.lang.String $stack12, $stack14;
+
+        l0 := @this: avrora.sim.mcu.EEPROM$EECRReg;
+
+        l1 := @parameter0: byte;
+
+        $stack2 = 15 & l1;
+
+        $stack3 = (byte) $stack2;
+
+        l0.<avrora.sim.mcu.EEPROM$EECRReg: byte value> = $stack3;
+
+        $stack4 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack5 = $stack4.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        if $stack5 == null goto label1;
+
+        $stack6 = l0.<avrora.sim.mcu.EEPROM$EECRReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack8 = $stack6.<avrora.sim.mcu.EEPROM: avrora.sim.output.SimPrinter devicePrinter>;
+
+        $stack7 = new java.lang.StringBuilder;
+
+        specialinvoke $stack7.<java.lang.StringBuilder: void <init>()>();
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("EEPROM: EECR written to, val = ");
+
+        $stack10 = l0.<avrora.sim.mcu.EEPROM$EECRReg: byte value>;
+
+        $stack11 = (long) $stack10;
+
+        $stack12 = staticinvoke <cck.text.StringUtil: java.lang.String toBin(long,int)>($stack11, 4);
+
+        $stack13 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack8.<avrora.sim.output.SimPrinter: void println(java.lang.String)>($stack14);
+
+     label1:
+        virtualinvoke l0.<avrora.sim.mcu.EEPROM$EECRReg: void decode()>();
+
+        return;
+    }
+}

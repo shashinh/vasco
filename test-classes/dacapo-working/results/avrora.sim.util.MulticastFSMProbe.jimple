@@ -1,0 +1,80 @@
+public class avrora.sim.util.MulticastFSMProbe extends avrora.sim.util.TransactionalList implements avrora.sim.FiniteStateMachine$Probe
+{
+
+    public void <init>()
+    {
+        avrora.sim.util.MulticastFSMProbe l0;
+
+        l0 := @this: avrora.sim.util.MulticastFSMProbe;
+
+        specialinvoke l0.<avrora.sim.util.TransactionalList: void <init>()>();
+
+        return;
+    }
+
+    public void fireAfterTransition(int, int)
+    {
+        java.lang.Object $stack3;
+        int l1, l2;
+        avrora.sim.FiniteStateMachine$Probe $stack4;
+        avrora.sim.util.MulticastFSMProbe l0#1;
+        avrora.sim.util.TransactionalList$Link l0#2;
+
+        l0#1 := @this: avrora.sim.util.MulticastFSMProbe;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        l0#2 = l0#1.<avrora.sim.util.MulticastFSMProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l0#2 == null goto label2;
+
+        $stack3 = l0#2.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack4 = (avrora.sim.FiniteStateMachine$Probe) $stack3;
+
+        interfaceinvoke $stack4.<avrora.sim.FiniteStateMachine$Probe: void fireAfterTransition(int,int)>(l1, l2);
+
+        l0#2 = l0#2.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void fireBeforeTransition(int, int)
+    {
+        java.lang.Object $stack3;
+        int l1, l2;
+        avrora.sim.FiniteStateMachine$Probe $stack4;
+        avrora.sim.util.MulticastFSMProbe l0#1;
+        avrora.sim.util.TransactionalList$Link l0#2;
+
+        l0#1 := @this: avrora.sim.util.MulticastFSMProbe;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        l0#2 = l0#1.<avrora.sim.util.MulticastFSMProbe: avrora.sim.util.TransactionalList$Link head>;
+
+     label1:
+        if l0#2 == null goto label2;
+
+        $stack3 = l0#2.<avrora.sim.util.TransactionalList$Link: java.lang.Object object>;
+
+        $stack4 = (avrora.sim.FiniteStateMachine$Probe) $stack3;
+
+        interfaceinvoke $stack4.<avrora.sim.FiniteStateMachine$Probe: void fireBeforeTransition(int,int)>(l1, l2);
+
+        l0#2 = l0#2.<avrora.sim.util.TransactionalList$Link: avrora.sim.util.TransactionalList$Link next>;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+}
