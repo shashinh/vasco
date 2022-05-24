@@ -856,7 +856,10 @@ public class PointsToGraph {
 		// lets proceed to prettify it into a string
 
 		List<String> sList = new ArrayList<String>();
-		if (containsBot) {
+		if(pointees.isEmpty()) {
+			sList.add("G");
+		}
+		else if (containsBot) {
 			sList.add("G");
 		} else {
 			for (Integer callerIndex : ciToBciMap.keySet()) {
@@ -921,7 +924,7 @@ public class PointsToGraph {
 
 			// we only care about the local variables (in this version of soot, those are
 			// the ones that DO NOT begin with $
-			if (var.toString().charAt(0) != '$') {
+			if (var.toString().charAt(0) != '$' && var.toString().charAt(0) != '@') {
 				String varName = var.toString();
 				// a WRONG assumption that all variables with a # are uniquely identified by the
 				// LHS substring
@@ -934,6 +937,8 @@ public class PointsToGraph {
 				varName = varName.substring(1);
 
 				String str = flattenCiToBci(this.roots.get(var), pta);
+				//there are cases when str is empty, but above call should assign G to such instances
+				assert(!str.isEmpty());
 				varStringMap.put(varName, String.join(" ", str));
 			}
 

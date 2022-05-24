@@ -13,21 +13,33 @@ class B extends java.lang.Object
         return;
     }
 
-    B foo()
+    D foo()
     {
-        B $stack1, l0;
-        java.io.PrintStream $stack2;
+        B l1, l0#1, l0#2;
+        C $stack2;
+        java.io.PrintStream $stack3;
+        D $stack4;
 
-        l0 := @this: B;
+        l0#1 := @this: B;
 
-        $stack1 = new B;
+        l0#2 = new B;
 
-        specialinvoke $stack1.<B: void <init>()>();
+        specialinvoke l0#2.<B: void <init>()>();
 
-        $stack2 = <java.lang.System: java.io.PrintStream out>;
+        l1 = new B;
 
-        virtualinvoke $stack2.<java.io.PrintStream: void println(java.lang.String)>("hello from B");
+        specialinvoke l1.<B: void <init>()>();
 
-        return $stack1;
+        $stack2 = new C;
+
+        specialinvoke $stack2.<C: void <init>()>();
+
+        $stack3 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack3.<java.io.PrintStream: void println(java.lang.String)>("hello from B:foo");
+
+        $stack4 = virtualinvoke $stack2.<C: D bar(B,B)>(l0#2, l1);
+
+        return $stack4;
     }
 }
