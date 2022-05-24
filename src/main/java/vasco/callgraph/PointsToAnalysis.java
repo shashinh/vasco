@@ -780,7 +780,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							if(this.bciMap.get(t) != null)
 								thisBCSet.add(/*currentCalleeIndex + "-" + */this.bciMap.get(t).toString());
 							else 
-								thisBCSet.add("u-u");
+								//TODO: confirm that this is in fact the global scenario
+								thisBCSet.add("G");
 						
 						}
 					}
@@ -788,6 +789,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 						System.out.println(ex.toString());
 					}
 				} else {
+					//this is the static scenario, modeled as a null receiver
 					thisBCSet.add("N");
 				}
 				
