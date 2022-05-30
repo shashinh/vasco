@@ -923,7 +923,7 @@ public class PointsToGraph {
 		for (Local var : this.roots.keySet()) {
 
 			// we only care about the local variables (in this version of soot, those are
-			// the ones that DO NOT begin with $
+			// the ones that DO NOT begin with $. We also ignore param locals (that start with @)
 			if (var.toString().charAt(0) != '$' && var.toString().charAt(0) != '@') {
 				String varName = var.toString();
 				// a WRONG assumption that all variables with a # are uniquely identified by the
