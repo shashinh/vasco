@@ -1,5 +1,14 @@
 import java.lang.reflect.*;
 class Main {
+	static {
+		try {
+			Class clF = Class.forName("F");
+			Class clB = Class.forName("B");
+			Class clC = Class.forName("C");
+			Class clD = Class.forName("D");
+			Class clSoot = Class.forName("soot.rtlib.tamiflex.ReflectiveCallsWrapper");
+		} catch (Exception ex) { System.out.println(ex); }
+	}
 	public static void main (String [] args) {
 		try {
 			Constructor cons = B.class.getConstructor();
