@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ import java.util.Stack;
 
 import soot.Body;
 import soot.Local;
+import soot.RefLikeType;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
@@ -104,6 +106,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	    this.fieldGetReceivers = new LinkedHashMap<SootMethod, Set<String>>();
 	    
 	    this.methodIndices = new HashMap<String, Integer>();
+	    this.sootMethodIndices = new HashMap<SootMethod, Integer>();
+	    this.sootMethodArgs = new HashMap<SootMethod, List<Local>>();
 	    
 	    //this.loadReflectionTrace();
 	}
@@ -134,6 +138,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	protected final Map<SootMethod, Set<String>> fieldGetReceivers;
 	
 	public Map<String, Integer> methodIndices;
+	public Map<SootMethod, Integer> sootMethodIndices;
+	public Map<SootMethod, List<Local>> sootMethodArgs;
 
 	/**
 	 * {@inheritDoc}
@@ -476,6 +482,30 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		//maintain an index for each unique method signature
 		if(! this.methodIndices.containsKey(sig)) {
 			this.methodIndices.put(sig, ++index);
+		}
+
+		int index2 = this.sootMethodIndices.size();
+		//maintain an index for each unique method signature
+		if(! this.sootMethodIndices.containsKey(sMethod)) {
+			this.sootMethodIndices.put(sMethod, ++index2);
+		}
+		
+		if(! this.sootMethodArgs.containsKey(sMethod)) {
+			List<Local> refParamLocals = new ArrayList<Local>();
+			if(! sMethod.isStatic()) {
+				//method is non-static, valid this-param exists
+				Local thisLocal = sMethod.getActiveBody().getThisLocal();
+				refParamLocals.add(thisLocal);
+			}
+			
+			for(int i = 0; i < sMethod.getParameterCount(); i++) {
+				if(sMethod.getParameterType(i) instanceof RefLikeType) {
+					Local parameterLocal = sMethod.getActiveBody().getParameterLocal(i);
+					refParamLocals.add(parameterLocal);
+				}
+			}
+			
+			this.sootMethodArgs.put(sMethod, refParamLocals);
 		}
 		//System.out.println(methodName);
 

@@ -13,4 +13,22 @@ public class BciContainer {
 	public int getBci() {
 		return bci;
 	}
+	
+	public Type type;
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(callerIndex).append("-").append(bci);
+		
+		return sb.toString();
+	}
 }
+
+enum Type {
+	Reference,
+	Global,
+	String,
+	Constant,
+	Null
+};

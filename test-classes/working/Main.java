@@ -17,6 +17,10 @@ class Main {
 
 			D ret = obj.foo();
 
+			B b = new B();
+
+			D ret2 = b.foo();
+
 		} catch (Exception ex) { System.out.println(ex.toString()); }
 	}
 }

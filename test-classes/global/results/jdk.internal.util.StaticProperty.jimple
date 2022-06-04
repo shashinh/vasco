@@ -1,0 +1,35 @@
+public final class jdk.internal.util.StaticProperty extends java.lang.Object
+{
+    private static final java.lang.String JDK_SERIAL_FILTER;
+
+    private void <init>()
+    {
+        jdk.internal.util.StaticProperty l0;
+
+        l0 := @this: jdk.internal.util.StaticProperty;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static java.lang.String jdkSerialFilter()
+    {
+        java.lang.String $stack0;
+
+        $stack0 = <jdk.internal.util.StaticProperty: java.lang.String JDK_SERIAL_FILTER>;
+
+        return $stack0;
+    }
+
+    static void <clinit>()
+    {
+        java.lang.String $stack0;
+
+        $stack0 = staticinvoke <java.lang.System: java.lang.String getProperty(java.lang.String)>("jdk.serialFilter");
+
+        <jdk.internal.util.StaticProperty: java.lang.String JDK_SERIAL_FILTER> = $stack0;
+
+        return;
+    }
+}

@@ -769,6 +769,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					thisBCSet = new HashSet<String>();
 				}
 				
+				//Shashin - the sole purpose of this block is to map the this parameter, if it exists
 				if(receiver != null) {
 					try {
 					for(AnyNewExpr t : in.getTargets(receiver)) {
@@ -791,7 +792,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				} else {
 					//this is the static scenario, modeled as a null receiver
 					thisBCSet.add("N");
-				}
+				} //end mapping of this-param in the callsite arg:
 				
 				calledMethodArgsMap.put(0, thisBCSet);
 //				if(calledMethodArgsMap.containsKey(0)) {
@@ -801,6 +802,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				
 				// Assign parameters...
 				//if( !isReflected) if the invoke statement is reflected, do not bother about mapping parameters
+				// here, i = 0 ==> the first formal parameter, NOT the this-param
 				for (int i = 0; i < calledMethod.getParameterCount(); i++) {
 
 												//SHASHIN - TODO - assert that we cannot handle non-empty args list
