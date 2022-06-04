@@ -290,10 +290,10 @@ class Main extends java.lang.Object
         java.lang.Class $stack3;
         java.lang.reflect.Constructor $stack4;
         boolean $stack5;
-        java.lang.Object $stack6, $stack9, l0#4;
-        B $stack7;
-        java.lang.Exception $stack11;
-        java.lang.String $stack12;
+        java.lang.Object $stack6, $stack11, l0#4;
+        B $stack7, $stack9;
+        java.lang.Exception $stack13;
+        java.lang.String $stack14;
         java.lang.String[] l0#1;
         java.lang.Object[] l0#3;
         java.io.PrintStream l0#5;
@@ -315,9 +315,9 @@ class Main extends java.lang.Object
 
         if $stack5 == 0 goto label2;
 
-        $stack9 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall25(java.lang.Object[])>(l0#3);
+        $stack11 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall25(java.lang.Object[])>(l0#3);
 
-        l0#4 = $stack9;
+        l0#4 = $stack11;
 
         goto label3;
 
@@ -331,17 +331,23 @@ class Main extends java.lang.Object
 
         virtualinvoke $stack7.<B: D foo()>();
 
+        $stack9 = new B;
+
+        specialinvoke $stack9.<B: void <init>()>();
+
+        virtualinvoke $stack9.<B: D foo()>();
+
      label4:
         goto label6;
 
      label5:
-        $stack11 := @caughtexception;
+        $stack13 := @caughtexception;
 
         l0#5 = <java.lang.System: java.io.PrintStream out>;
 
-        $stack12 = virtualinvoke $stack11.<java.lang.Exception: java.lang.String toString()>();
+        $stack14 = virtualinvoke $stack13.<java.lang.Exception: java.lang.String toString()>();
 
-        virtualinvoke l0#5.<java.io.PrintStream: void println(java.lang.String)>($stack12);
+        virtualinvoke l0#5.<java.io.PrintStream: void println(java.lang.String)>($stack14);
 
      label6:
         return;

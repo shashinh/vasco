@@ -35,12 +35,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import org.junit.Test;
+
+import soot.Local;
 import soot.PackManager;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Transform;
 import soot.Unit;
+import soot.jimple.AnyNewExpr;
+import soot.jimple.NewArrayExpr;
 import soot.jimple.spark.solver.PropWorklist;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.jimple.toolkits.reflection.ReflInliner;
@@ -54,6 +58,7 @@ import soot.rtlib.tamiflex.UnexpectedReflectiveCall;
 import vasco.CallSite;
 import vasco.Context;
 import vasco.ContextTransitionTable;
+import vasco.soot.AbstractNullObj;
 
 /**
  * A main class for testing call graph construction using a Flow and Context
@@ -255,16 +260,18 @@ public class CallGraphTest {
 
 		
 		/* ------------------- LOGGING ---------------------- */
-		try {
-			//printCallSiteStats(pointsToAnalysis);
-			//printMethodStats(pointsToAnalysis);
-			//dumpCallChainStats(pointsToAnalysis, callChainDepth);
-			printLoopInvariantPTGS(pointsToAnalysis);
-			printCallsiteInvariants(pointsToAnalysis);
-		} catch (FileNotFoundException e1) {
-			System.err.println("Oops! Could not create log file: " + e1.getMessage());
-			System.exit(1);
-		}
+//		try {
+//			//printCallSiteStats(pointsToAnalysis);
+//			//printMethodStats(pointsToAnalysis);
+//			//dumpCallChainStats(pointsToAnalysis, callChainDepth);
+//			printLoopInvariantPTGS(pointsToAnalysis);
+//			printCallsiteInvariants(pointsToAnalysis);
+//		} catch (FileNotFoundException e1) {
+//			System.err.println("Oops! Could not create log file: " + e1.getMessage());
+//			System.exit(1);
+//		}
+		
+		testCallsiteInvaraints(pointsToAnalysis);
 		
 	}
 	
@@ -335,6 +342,55 @@ public class CallGraphTest {
 			
 			pw.print(String.join(";", sList));
 			pw.close();
+		}
+	}
+	
+	private static void testCallsiteInvaraints(PointsToAnalysis pta) {
+		Map<SootMethod, Integer> methodIndices = pta.sootMethodIndices;
+
+		for (SootMethod m : methodIndices.keySet()) {
+			
+			List<Context<SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(m);
+
+			PointsToGraph aggregate = pta.topValue();
+			for (Context<SootMethod, Unit, PointsToGraph> context : contextsForMethod) {
+				aggregate = pta.meet(aggregate, context.getEntryValue());
+			}
+
+			// at this point, we have a context-insensitive summary for this method
+
+			if (m.getBytecodeSignature().equals("<B: foo()LD;>")) {
+				System.out.println(aggregate);
+				
+					//instance method, valid this-param exists!
+					
+					//this line will not work, since Soot has terminated - ActiveBody is flushed!
+//					Local thisLocal = m.getActiveBody().getsThisLocal();
+					
+					List<Local> paramLocalsForMethod = pta.sootMethodArgs.get(m);
+					for(Local paramLocal : paramLocalsForMethod) {
+						
+						Set<AnyNewExpr> targets = aggregate.getTargets(paramLocal);
+						for(AnyNewExpr target : targets) {
+							if(target == PointsToGraph.STRING_SITE) {
+								
+							} else if (target instanceof NewArrayExpr) {
+								
+							} else if (target instanceof AbstractNullObj) {
+								
+							} else if (target == PointsToGraph.SUMMARY_NODE) {
+								
+							} else if (target == PointsToGraph.CLASS_SITE) {
+								
+							}
+							else {
+								assert(pta.bciMap2.containsKey(target));
+								System.out.println(pta.bciMap2.get(target));
+							}
+							
+						}
+					}
+			}
 		}
 	}
 	
