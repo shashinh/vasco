@@ -913,7 +913,7 @@ public class PointsToGraph {
 		return sbInvariant.toString();
 		
 	}
-	public String prettyPrintInvariant4(PointsToAnalysis pta) {
+	public String prettyPrintInvariant4(PointsToAnalysis pta, boolean mapArgsOnly, Map<Integer, Local> argsToLocals) {
 		StringBuilder sbInvariant = new StringBuilder();
 
 		// first handle the roots
@@ -921,28 +921,40 @@ public class PointsToGraph {
 		// a map to hold the prettified string for each variable
 		Map<String, String> varStringMap = new HashMap<String, String>();
 		// now go over each variable in the root set
-		for (Local var : this.roots.keySet()) {
-
-			// we only care about the local variables (in this version of soot, those are
-			// the ones that DO NOT begin with $. We also ignore param locals (that start with @)
-			if (var.toString().charAt(0) != '$' && var.toString().charAt(0) != '@') {
-				String varName = var.toString();
-				// a WRONG assumption that all variables with a # are uniquely identified by the
-				// LHS substring
-				if (var.toString().contains("#")) {
-					varName = varName.split("#")[0];
-				}
-
-				// this returns a numerical var name, a number that corresponds to its stack
-				// slot in bytecode (Don't ask me how!)
-				varName = varName.substring(1);
-
-				String str = flattenCiToBci(this.roots.get(var), pta);
-				//there are cases when str is empty, but above call should assign G to such instances
+		if(mapArgsOnly) {
+			for(Integer argIndex : argsToLocals.keySet()) {
+				Local argLocal = argsToLocals.get(argIndex);
+				String varName = argLocal.toString();
+				assert( varName.charAt(0) != '$') : "assumption that all arg locals are stack vars";
+				
+				String str = flattenCiToBci(this.roots.get(argLocal), pta);
 				assert(!str.isEmpty());
-				varStringMap.put(varName, String.join(" ", str));
+				varStringMap.put(argIndex.toString(), String.join(" ", str));
 			}
-
+		} else {
+			for (Local var : this.roots.keySet()) {
+	
+				// we only care about the local variables (in this version of soot, those are
+				// the ones that DO NOT begin with $. We also ignore param locals (that start with @)
+				if (var.toString().charAt(0) != '$' && var.toString().charAt(0) != '@') {
+					String varName = var.toString();
+					// a WRONG assumption that all variables with a # are uniquely identified by the
+					// LHS substring
+					if (var.toString().contains("#")) {
+						varName = varName.split("#")[0];
+					}
+	
+					// this returns a numerical var name, a number that corresponds to its stack
+					// slot in bytecode (Don't ask me how!)
+					varName = varName.substring(1);
+	
+					String str = flattenCiToBci(this.roots.get(var), pta);
+					//there are cases when str is empty, but above call should assign G to such instances
+					assert(!str.isEmpty());
+					varStringMap.put(varName, String.join(" ", str));
+				}
+	
+			}
 		}
 
 		// then the heap
@@ -956,7 +968,7 @@ public class PointsToGraph {
 			// once again, we only care for purely ref objects (i.e. no array fields,
 			// strings)
 			if (newExpr instanceof JNewExpr && newExpr != PointsToGraph.STRING_SITE
-					&& newExpr != PointsToGraph.SUMMARY_NODE) {
+					&& newExpr != PointsToGraph.SUMMARY_NODE && newExpr != PointsToGraph.CLASS_SITE) {
 //				Exception in thread "main" java.lang.AssertionError: new java.lang.Class not found in bciMap2
 //				assert (pta.bciMap2.containsKey(newExpr)) : newExpr + " not found in bciMap2";
 				BciContainer sourceContainer = pta.bciMap2.get(newExpr);
