@@ -1,0 +1,308 @@
+public class soot.rtlib.tamiflex.ReflectiveCalls extends java.lang.Object
+{
+    private static final java.util.Set classForName;
+    private static final java.util.Set classNewInstance;
+    private static final java.util.Set constructorNewInstance;
+    private static final java.util.Set methodInvoke;
+    private static final java.util.Set fieldSet;
+    private static final java.util.Set fieldGet;
+
+    static void <clinit>()
+    {
+        java.util.HashSet $stack1, $stack2, $stack3, $stack4, $stack5, $stack6;
+        java.util.Set l0, $stack12;
+
+        $stack1 = new java.util.HashSet;
+
+        specialinvoke $stack1.<java.util.HashSet: void <init>()>();
+
+        <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set classForName> = $stack1;
+
+        $stack2 = new java.util.HashSet;
+
+        specialinvoke $stack2.<java.util.HashSet: void <init>()>();
+
+        <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set classNewInstance> = $stack2;
+
+        $stack3 = new java.util.HashSet;
+
+        specialinvoke $stack3.<java.util.HashSet: void <init>()>();
+
+        <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set constructorNewInstance> = $stack3;
+
+        $stack4 = new java.util.HashSet;
+
+        specialinvoke $stack4.<java.util.HashSet: void <init>()>();
+
+        <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set methodInvoke> = $stack4;
+
+        $stack5 = new java.util.HashSet;
+
+        specialinvoke $stack5.<java.util.HashSet: void <init>()>();
+
+        <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set fieldSet> = $stack5;
+
+        $stack6 = new java.util.HashSet;
+
+        specialinvoke $stack6.<java.util.HashSet: void <init>()>();
+
+        <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set fieldGet> = $stack6;
+
+        l0 = <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set classForName>;
+
+        interfaceinvoke l0.<java.util.Set: boolean add(java.lang.Object)>("0byte");
+
+        interfaceinvoke l0.<java.util.Set: boolean add(java.lang.Object)>("0char");
+
+        interfaceinvoke l0.<java.util.Set: boolean add(java.lang.Object)>("0double");
+
+        interfaceinvoke l0.<java.util.Set: boolean add(java.lang.Object)>("0float");
+
+        interfaceinvoke l0.<java.util.Set: boolean add(java.lang.Object)>("0soot.rtlib.tamiflex.ReflectiveCallsWrapper");
+
+        $stack12 = <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set constructorNewInstance>;
+
+        interfaceinvoke $stack12.<java.util.Set: boolean add(java.lang.Object)>("1<B: void <init>()>");
+
+        return;
+    }
+
+    public void <init>()
+    {
+        soot.rtlib.tamiflex.ReflectiveCalls l0;
+
+        l0 := @this: soot.rtlib.tamiflex.ReflectiveCalls;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void knownClassForName(int, java.lang.String)
+    {
+        java.lang.StringBuilder $stack2, $stack4, $stack5;
+        java.util.Set $stack3;
+        int l0;
+        java.lang.String l1, $stack6;
+        boolean $stack7;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: java.lang.String;
+
+        $stack3 = <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set classForName>;
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l0);
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l1);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack7 = interfaceinvoke $stack3.<java.util.Set: boolean contains(java.lang.Object)>($stack6);
+
+        if $stack7 != 0 goto label1;
+
+        staticinvoke <soot.rtlib.tamiflex.UnexpectedReflectiveCall: void classForName(java.lang.String)>(l1);
+
+     label1:
+        return;
+    }
+
+    public static void knownClassNewInstance(int, java.lang.Class)
+    {
+        java.lang.StringBuilder $stack2, $stack4, $stack6;
+        java.util.Set $stack3;
+        int l0;
+        java.lang.Class l1;
+        java.lang.String $stack5, $stack7;
+        boolean $stack8;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: java.lang.Class;
+
+        $stack3 = <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set classNewInstance>;
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l0);
+
+        $stack5 = virtualinvoke l1.<java.lang.Class: java.lang.String getName()>();
+
+        $stack6 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack5);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack8 = interfaceinvoke $stack3.<java.util.Set: boolean contains(java.lang.Object)>($stack7);
+
+        if $stack8 != 0 goto label1;
+
+        staticinvoke <soot.rtlib.tamiflex.UnexpectedReflectiveCall: void classNewInstance(java.lang.Class)>(l1);
+
+     label1:
+        return;
+    }
+
+    public static void knownConstructorNewInstance(int, java.lang.reflect.Constructor)
+    {
+        java.lang.StringBuilder $stack2, $stack4, $stack6;
+        java.util.Set $stack3;
+        int l0;
+        java.lang.reflect.Constructor l1;
+        java.lang.String $stack5, $stack7;
+        boolean $stack8;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: java.lang.reflect.Constructor;
+
+        $stack3 = <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set constructorNewInstance>;
+
+        $stack2 = new java.lang.StringBuilder;
+
+        specialinvoke $stack2.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l0);
+
+        $stack5 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String sootSignature(java.lang.reflect.Constructor)>(l1);
+
+        $stack6 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack5);
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack8 = interfaceinvoke $stack3.<java.util.Set: boolean contains(java.lang.Object)>($stack7);
+
+        if $stack8 != 0 goto label1;
+
+        staticinvoke <soot.rtlib.tamiflex.UnexpectedReflectiveCall: void constructorNewInstance(java.lang.reflect.Constructor)>(l1);
+
+     label1:
+        return;
+    }
+
+    public static void knownFieldGet(int, java.lang.Object, java.lang.reflect.Field)
+    {
+        java.lang.StringBuilder $stack3, $stack5, $stack7;
+        java.util.Set $stack4;
+        int l0;
+        java.lang.reflect.Field l2;
+        java.lang.String $stack6, $stack8;
+        boolean $stack9;
+        java.lang.Object l1;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: java.lang.Object;
+
+        l2 := @parameter2: java.lang.reflect.Field;
+
+        $stack4 = <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set fieldGet>;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l0);
+
+        $stack6 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String sootSignature(java.lang.reflect.Field)>(l2);
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack9 = interfaceinvoke $stack4.<java.util.Set: boolean contains(java.lang.Object)>($stack8);
+
+        if $stack9 != 0 goto label1;
+
+        staticinvoke <soot.rtlib.tamiflex.UnexpectedReflectiveCall: void fieldGet(java.lang.Object,java.lang.reflect.Field)>(l1, l2);
+
+     label1:
+        return;
+    }
+
+    public static void knownFieldSet(int, java.lang.Object, java.lang.reflect.Field)
+    {
+        java.lang.StringBuilder $stack3, $stack5, $stack7;
+        java.util.Set $stack4;
+        int l0;
+        java.lang.reflect.Field l2;
+        java.lang.String $stack6, $stack8;
+        boolean $stack9;
+        java.lang.Object l1;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: java.lang.Object;
+
+        l2 := @parameter2: java.lang.reflect.Field;
+
+        $stack4 = <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set fieldSet>;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l0);
+
+        $stack6 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String sootSignature(java.lang.reflect.Field)>(l2);
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack9 = interfaceinvoke $stack4.<java.util.Set: boolean contains(java.lang.Object)>($stack8);
+
+        if $stack9 != 0 goto label1;
+
+        staticinvoke <soot.rtlib.tamiflex.UnexpectedReflectiveCall: void fieldSet(java.lang.Object,java.lang.reflect.Field)>(l1, l2);
+
+     label1:
+        return;
+    }
+
+    public static void knownMethodInvoke(int, java.lang.Object, java.lang.reflect.Method)
+    {
+        java.lang.StringBuilder $stack3, $stack5, $stack7;
+        java.util.Set $stack4;
+        int l0;
+        java.lang.Object l1;
+        java.lang.reflect.Method l2;
+        java.lang.String $stack6, $stack8;
+        boolean $stack9;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: java.lang.Object;
+
+        l2 := @parameter2: java.lang.reflect.Method;
+
+        $stack4 = <soot.rtlib.tamiflex.ReflectiveCalls: java.util.Set methodInvoke>;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l0);
+
+        $stack6 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String sootSignature(java.lang.Object,java.lang.reflect.Method)>(l1, l2);
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $stack9 = interfaceinvoke $stack4.<java.util.Set: boolean contains(java.lang.Object)>($stack8);
+
+        if $stack9 != 0 goto label1;
+
+        staticinvoke <soot.rtlib.tamiflex.UnexpectedReflectiveCall: void methodInvoke(java.lang.Object,java.lang.reflect.Method)>(l1, l2);
+
+     label1:
+        return;
+    }
+}

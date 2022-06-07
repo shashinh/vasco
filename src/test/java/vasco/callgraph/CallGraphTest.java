@@ -260,18 +260,20 @@ public class CallGraphTest {
 
 		
 		/* ------------------- LOGGING ---------------------- */
-//		try {
-//			//printCallSiteStats(pointsToAnalysis);
-//			//printMethodStats(pointsToAnalysis);
-//			//dumpCallChainStats(pointsToAnalysis, callChainDepth);
-//			printLoopInvariantPTGS(pointsToAnalysis);
+		try {
+			//printCallSiteStats(pointsToAnalysis);
+			//printMethodStats(pointsToAnalysis);
+			//dumpCallChainStats(pointsToAnalysis, callChainDepth);
+			printLoopInvariantPTGS(pointsToAnalysis);
 //			printCallsiteInvariants(pointsToAnalysis);
-//		} catch (FileNotFoundException e1) {
-//			System.err.println("Oops! Could not create log file: " + e1.getMessage());
-//			System.exit(1);
-//		}
+			dumpCallSiteInvariants(pointsToAnalysis);
+		} catch (FileNotFoundException e1) {
+			System.err.println("Oops! Could not create log file: " + e1.getMessage());
+			System.exit(1);
+		}
 		
-		testCallsiteInvaraints(pointsToAnalysis);
+//		testCallsiteInvaraints(pointsToAnalysis);
+//		dumpCallSiteInvariants(pointsToAnalysis);
 		
 	}
 	
@@ -330,12 +332,12 @@ public class CallGraphTest {
 				//the key 'i' is the bci of the loop header
 				StringBuilder sb = new StringBuilder();
 				sb.append(i + ":");
-				sb.append(map.get(i).prettyPrintInvariant4(pta));
+				sb.append(map.get(i).prettyPrintInvariant4(pta, false, null));
 				
 				
 				//get the PTG stored against BCI i (the loop header)
 				System.out.println("formatted: ");
-				System.out.println(map.get(i).prettyPrintInvariant4(pta));
+				System.out.println(map.get(i).prettyPrintInvariant4(pta, false, null));
 				
 				sList.add(sb.toString());
 			}
@@ -344,6 +346,37 @@ public class CallGraphTest {
 			pw.close();
 		}
 	}
+	private static void dumpCallSiteInvariants(PointsToAnalysis pta) throws FileNotFoundException {
+		PrintWriter pMethodIndices = new PrintWriter(outputDirectory + "/invariants/mi" + ".txt");
+		Map<String, Integer> methodIndices = pta.methodIndices;
+		Map<Integer, String> methodIndicesSorted = new HashMap<Integer, String>();
+		for(String key : methodIndices.keySet()) {
+			methodIndicesSorted.put(methodIndices.get(key), key);
+		}
+		for(Integer key : methodIndicesSorted.keySet()) {
+			pMethodIndices.println(methodIndicesSorted.get(key));
+		}
+
+		pMethodIndices.close();
+		Map<SootMethod, CallsiteInvariantContainer> callsiteInvariants = pta.callsiteInvariantsMap;
+		
+		for(SootMethod m : callsiteInvariants.keySet()) {
+			CallsiteInvariantContainer ciContainer = callsiteInvariants.get(m);
+			//first fetch the argument to locals map
+			Map<Integer, Local> paramLocals = ciContainer.paramLocals;
+			PointsToGraph summary = ciContainer.summary;
+			
+			String methodSig = pta.getTrimmedByteCodeSignature(m);
+			assert(pta.methodIndices.containsKey(methodSig));
+			Integer methodIndex = pta.methodIndices.get(methodSig);
+			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/ci" + methodIndex + ".txt");
+			String callsiteInvariantString = summary.prettyPrintInvariant4(pta, true, paramLocals);
+			pw.print("0:" + callsiteInvariantString);
+			pw.close();
+			System.out.println("callsite inv for :" + m.getBytecodeSignature() + " " + callsiteInvariantString);
+		}
+	}
+	
 	
 	private static void testCallsiteInvaraints(PointsToAnalysis pta) {
 		Map<SootMethod, Integer> methodIndices = pta.sootMethodIndices;

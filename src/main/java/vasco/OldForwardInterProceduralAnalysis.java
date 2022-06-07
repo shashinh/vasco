@@ -44,6 +44,7 @@ import soot.SootMethod;
 import soot.Unit;
 import soot.jimple.AnyNewExpr;
 import soot.jimple.InvokeStmt;
+import soot.jimple.NewArrayExpr;
 import soot.jimple.toolkits.annotation.logic.Loop;
 import soot.jimple.toolkits.annotation.logic.LoopFinder;
 import soot.options.Options;
@@ -52,7 +53,10 @@ import soot.tagkit.Host;
 import soot.tagkit.LineNumberTag;
 import soot.tagkit.SourceLnPosTag;
 import soot.util.Chain;
+import vasco.callgraph.CallsiteInvariantContainer;
+import vasco.callgraph.PointsToAnalysis;
 import vasco.callgraph.PointsToGraph;
+import vasco.soot.AbstractNullObj;
 
 /**
  * A generic forward-flow inter-procedural analysis which is fully
@@ -108,6 +112,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	    this.methodIndices = new HashMap<String, Integer>();
 	    this.sootMethodIndices = new HashMap<SootMethod, Integer>();
 	    this.sootMethodArgs = new HashMap<SootMethod, List<Local>>();
+	    this.callsiteInvariantsMap = new HashMap<SootMethod, CallsiteInvariantContainer>();
 	    
 	    //this.loadReflectionTrace();
 	}
@@ -140,6 +145,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	public Map<String, Integer> methodIndices;
 	public Map<SootMethod, Integer> sootMethodIndices;
 	public Map<SootMethod, List<Local>> sootMethodArgs;
+	public Map<SootMethod, CallsiteInvariantContainer> callsiteInvariantsMap;
 
 	/**
 	 * {@inheritDoc}
@@ -422,9 +428,70 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				}
 			}
 		}
+		
+		//TODO: Shashin - insert callsite invariant logic right here
+		processCallsiteInvariants();
+		
 	}
 
-	protected String getTrimmedByteCodeSignature(SootMethod m) {
+	private void processCallsiteInvariants() {
+		PointsToAnalysis pta = (PointsToAnalysis) this;
+		for(SootMethod m : this.sootMethodIndices.keySet()) {
+			List<Context <SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(m);
+			PointsToGraph aggregate = pta.topValue();
+			
+			for(Context <SootMethod, Unit, PointsToGraph> context : contextsForMethod) {
+				aggregate = pta.meet(aggregate, context.getEntryValue());
+			}
+			
+//			if (m.getBytecodeSignature().equals("<B: foo()LD;>")) {
+//				System.out.println(aggregate);
+				
+			Map<Integer, Local> paramLocalsForMethod = new HashMap<Integer, Local>();
+			if(! m.isStatic()) {
+				//method is non-static, valid this-param exists
+				Local thisLocal = m.getActiveBody().getThisLocal();
+				paramLocalsForMethod.put(0, thisLocal);
+			} /* else paramLocalsForMethod.put(0, null);*/
+			
+			for(int i = 0; i < m.getParameterCount(); i++) {
+				if(m.getParameterType(i) instanceof RefLikeType) {
+					Local parameterLocal = m.getActiveBody().getParameterLocal(i);
+					paramLocalsForMethod.put(i+1, parameterLocal);
+				}
+			}
+			
+			CallsiteInvariantContainer ciContainer = new CallsiteInvariantContainer(paramLocalsForMethod, aggregate);
+			
+			this.callsiteInvariantsMap.put(m, ciContainer);
+			
+//					for(Local paramLocal : paramLocalsForMethod) {
+//						
+//						Set<AnyNewExpr> targets = aggregate.getTargets(paramLocal);
+//						for(AnyNewExpr target : targets) {
+//							if(target == PointsToGraph.STRING_SITE) {
+//								
+//							} else if (target instanceof NewArrayExpr) {
+//								
+//							} else if (target instanceof AbstractNullObj) {
+//								
+//							} else if (target == PointsToGraph.SUMMARY_NODE) {
+//								
+//							} else if (target == PointsToGraph.CLASS_SITE) {
+//								
+//							}
+//							else {
+//								assert(pta.bciMap2.containsKey(target));
+//								System.out.println(pta.bciMap2.get(target));
+//							}
+//							
+//						}
+//					}
+//			}
+			
+		}
+	}
+	public String getTrimmedByteCodeSignature(SootMethod m) {
 		String methodSig = m.getBytecodeSignature();
 		String sig = methodSig.replace(": ", ".").substring(1, methodSig.length() - 2);
 		

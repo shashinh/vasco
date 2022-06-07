@@ -1,0 +1,229 @@
+public class jdk.internal.util.xml.impl.ReaderUTF16 extends java.io.Reader
+{
+    private java.io.InputStream is;
+    private char bo;
+
+    public void <init>(java.io.InputStream, char)
+    {
+        jdk.internal.util.xml.impl.ReaderUTF16 l0;
+        char l2;
+        java.io.InputStream l1;
+        java.lang.IllegalArgumentException $stack7;
+
+        l0 := @this: jdk.internal.util.xml.impl.ReaderUTF16;
+
+        l1 := @parameter0: java.io.InputStream;
+
+        l2 := @parameter1: char;
+
+        specialinvoke l0.<java.io.Reader: void <init>()>();
+
+        lookupswitch(l2)
+        {
+            case 98: goto label2;
+            case 108: goto label1;
+            default: goto label3;
+        };
+
+     label1:
+        goto label4;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack7 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $stack7.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("");
+
+        throw $stack7;
+
+     label4:
+        l0.<jdk.internal.util.xml.impl.ReaderUTF16: char bo> = l2;
+
+        l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is> = l1;
+
+        return;
+    }
+
+    public int read(char[], int, int) throws java.io.IOException
+    {
+        jdk.internal.util.xml.impl.ReaderUTF16 l0;
+        char $stack6, $stack15, $stack28;
+        int l3, $stack8, $stack9, $stack11, $stack12, $stack13, $stack14, $stack21, $stack22, $stack24, $stack25, $stack26, $stack27, l2#1, l4#2, $stack31#4, $stack18#6;
+        java.io.InputStream $stack7, $stack10, $stack20, $stack23;
+        char[] l1;
+
+        l0 := @this: jdk.internal.util.xml.impl.ReaderUTF16;
+
+        l1 := @parameter0: char[];
+
+        l2#1 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        l4#2 = 0;
+
+        $stack6 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: char bo>;
+
+        if $stack6 != 98 goto label5;
+
+     label1:
+        if l4#2 >= l3 goto label9;
+
+        $stack20 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is>;
+
+        $stack21 = virtualinvoke $stack20.<java.io.InputStream: int read()>();
+
+        if $stack21 >= 0 goto label4;
+
+        if l4#2 == 0 goto label2;
+
+        $stack31#4 = l4#2;
+
+        goto label3;
+
+     label2:
+        $stack31#4 = -1;
+
+     label3:
+        return $stack31#4;
+
+     label4:
+        $stack22 = l2#1;
+
+        l2#1 = l2#1 + 1;
+
+        $stack24 = $stack21 << 8;
+
+        $stack23 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is>;
+
+        $stack25 = virtualinvoke $stack23.<java.io.InputStream: int read()>();
+
+        $stack26 = $stack25 & 255;
+
+        $stack27 = $stack24 | $stack26;
+
+        $stack28 = (char) $stack27;
+
+        l1[$stack22] = $stack28;
+
+        l4#2 = l4#2 + 1;
+
+        goto label1;
+
+     label5:
+        if l4#2 >= l3 goto label9;
+
+        $stack7 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is>;
+
+        $stack8 = virtualinvoke $stack7.<java.io.InputStream: int read()>();
+
+        if $stack8 >= 0 goto label8;
+
+        if l4#2 == 0 goto label6;
+
+        $stack18#6 = l4#2;
+
+        goto label7;
+
+     label6:
+        $stack18#6 = -1;
+
+     label7:
+        return $stack18#6;
+
+     label8:
+        $stack9 = l2#1;
+
+        l2#1 = l2#1 + 1;
+
+        $stack10 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is>;
+
+        $stack11 = virtualinvoke $stack10.<java.io.InputStream: int read()>();
+
+        $stack13 = $stack11 << 8;
+
+        $stack12 = $stack8 & 255;
+
+        $stack14 = $stack13 | $stack12;
+
+        $stack15 = (char) $stack14;
+
+        l1[$stack9] = $stack15;
+
+        l4#2 = l4#2 + 1;
+
+        goto label5;
+
+     label9:
+        return l4#2;
+    }
+
+    public int read() throws java.io.IOException
+    {
+        jdk.internal.util.xml.impl.ReaderUTF16 l0;
+        java.io.InputStream $stack2, $stack5, $stack10;
+        int $stack3, $stack6, $stack7, $stack8, $stack9, $stack11, $stack12, $stack13, $stack14;
+        char $stack4, l1#2;
+
+        l0 := @this: jdk.internal.util.xml.impl.ReaderUTF16;
+
+        $stack2 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is>;
+
+        $stack3 = virtualinvoke $stack2.<java.io.InputStream: int read()>();
+
+        if $stack3 >= 0 goto label1;
+
+        return -1;
+
+     label1:
+        $stack4 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: char bo>;
+
+        if $stack4 != 98 goto label2;
+
+        $stack11 = $stack3 << 8;
+
+        $stack10 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is>;
+
+        $stack12 = virtualinvoke $stack10.<java.io.InputStream: int read()>();
+
+        $stack13 = $stack12 & 255;
+
+        $stack14 = $stack11 | $stack13;
+
+        l1#2 = (char) $stack14;
+
+        goto label3;
+
+     label2:
+        $stack5 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is>;
+
+        $stack6 = virtualinvoke $stack5.<java.io.InputStream: int read()>();
+
+        $stack8 = $stack6 << 8;
+
+        $stack7 = $stack3 & 255;
+
+        $stack9 = $stack8 | $stack7;
+
+        l1#2 = (char) $stack9;
+
+     label3:
+        return l1#2;
+    }
+
+    public void close() throws java.io.IOException
+    {
+        jdk.internal.util.xml.impl.ReaderUTF16 l0;
+        java.io.InputStream $stack1;
+
+        l0 := @this: jdk.internal.util.xml.impl.ReaderUTF16;
+
+        $stack1 = l0.<jdk.internal.util.xml.impl.ReaderUTF16: java.io.InputStream is>;
+
+        virtualinvoke $stack1.<java.io.InputStream: void close()>();
+
+        return;
+    }
+}
