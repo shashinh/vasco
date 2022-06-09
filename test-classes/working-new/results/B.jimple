@@ -1,0 +1,101 @@
+class B extends java.lang.Object implements I
+{
+
+    void <init>()
+    {
+        B l0;
+
+        l0 := @this: B;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    private void bar(A, A)
+    {
+        A l1, l2;
+        B l0#1;
+        F l0#2, l0#3;
+
+        l0#1 := @this: B;
+
+        l1 := @parameter0: A;
+
+        l2 := @parameter1: A;
+
+        l0#2 = l1.<A: F f>;
+
+        l0#3 = l2.<A: F f>;
+
+        return;
+    }
+
+    public void baz(A, A)
+    {
+        A l1, l2;
+        B l0#1;
+        F l0#2, l0#3;
+
+        l0#1 := @this: B;
+
+        l1 := @parameter0: A;
+
+        l2 := @parameter1: A;
+
+        l0#2 = l1.<A: F f>;
+
+        l0#3 = l2.<A: F f>;
+
+        return;
+    }
+
+    D foo(A, int, A)
+    {
+        A l1, l3;
+        B l0;
+        F $stack4, l2#2, l2#3;
+        D $stack5;
+        int l2#1;
+
+        l0 := @this: B;
+
+        l1 := @parameter0: A;
+
+        l2#1 := @parameter1: int;
+
+        l3 := @parameter2: A;
+
+        l2#2 = l1.<A: F f>;
+
+        l2#3 = l3.<A: F f>;
+
+        specialinvoke l0.<B: void bar(A,A)>(l3, l1);
+
+        $stack4 = l1.<A: F f>;
+
+        l3.<A: F f> = $stack4;
+
+        $stack5 = new D;
+
+        specialinvoke $stack5.<D: void <init>()>();
+
+        return $stack5;
+    }
+
+    static void fooBar(A, A)
+    {
+        A l1, l0#1;
+        F l0#2, l0#3;
+
+        l0#1 := @parameter0: A;
+
+        l1 := @parameter1: A;
+
+        l0#2 = l0#1.<A: F f>;
+
+        l0#3 = l1.<A: F f>;
+
+        return;
+    }
+}

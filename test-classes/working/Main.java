@@ -1,55 +1,38 @@
-import java.lang.reflect.*;
 class Main {
 	static {
 		try {
-			Class clF = Class.forName("F");
+			Class clA = Class.forName("A");
 			Class clB = Class.forName("B");
-			Class clC = Class.forName("C");
-			Class clD = Class.forName("D");
-			Class clSoot = Class.forName("soot.rtlib.tamiflex.ReflectiveCallsWrapper");
-		} catch (Exception ex) { System.out.println(ex); }
+			Class clF = Class.forName("F");
+		} catch (Exception ex) { }
 	}
+
 	public static void main (String [] args) {
-		try {
-			Constructor cons = B.class.getConstructor();
+		B b = new B();
+		F f1 = new F();
+		F f2 = new F();
 
-			B obj = (B) cons.newInstance();
+		A a1 = new A();
+		A a2 = new A();
+		a1.f = f1;
+		a2.f = f2;
 
-			D ret = obj.foo();
-
-			B b = new B();
-
-			D ret2 = b.foo();
-
-		} catch (Exception ex) { System.out.println(ex.toString()); }
+		b.foo(a1, a2);
+//
+//		B b = new B();
+//		b.foo(new A());
 	}
 }
 
-class F { }
+class A {
+	F f;
+}
 
 class B {
-	public B() { }
-	F f;
-	D foo () {
-		B b1 = new B();
-		B b2 = new B();
-
-		C c = new C();
-
-		System.out.println("hello from B:foo");
-
-		return c.bar(b1, b2);
+	void foo (A x, A y) {
 	}
-}
-
-class C {
-
-	D bar( B b1, B b2) {
-		b1.f = new F();
-		b2.f = new F();
-		System.out.println("hello from C:bar");
-		return new D();
+	void foo (A x) {
 	}
 } 
 
-class D { }
+class F { }
