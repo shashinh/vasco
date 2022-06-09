@@ -600,6 +600,17 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			}
 
 		}
+		
+		//debugging - print each unit and its bci
+		System.out.println("******method bci and units***********");
+		for(Unit u : b.getUnits()) {
+			BytecodeOffsetTag bt = (BytecodeOffsetTag) u.getTag("BytecodeOffsetTag");
+			if(bt != null) {
+				System.out.println(bt.getBytecodeOffset() + " : " + u.toString());
+			}
+			
+		}
+		System.out.println("******method bci and units***********");
 		// SHASHIN
 	}
 
