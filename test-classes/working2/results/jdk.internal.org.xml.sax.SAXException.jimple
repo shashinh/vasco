@@ -1,0 +1,165 @@
+public class jdk.internal.org.xml.sax.SAXException extends java.lang.Exception
+{
+    private java.lang.Exception exception;
+    static final long serialVersionUID;
+
+    public void <init>()
+    {
+        jdk.internal.org.xml.sax.SAXException l0;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXException;
+
+        specialinvoke l0.<java.lang.Exception: void <init>()>();
+
+        l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception> = null;
+
+        return;
+    }
+
+    public void <init>(java.lang.String)
+    {
+        jdk.internal.org.xml.sax.SAXException l0;
+        java.lang.String l1;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXException;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<java.lang.Exception: void <init>(java.lang.String)>(l1);
+
+        l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception> = null;
+
+        return;
+    }
+
+    public void <init>(java.lang.Exception)
+    {
+        jdk.internal.org.xml.sax.SAXException l0;
+        java.lang.Exception l1;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXException;
+
+        l1 := @parameter0: java.lang.Exception;
+
+        specialinvoke l0.<java.lang.Exception: void <init>()>();
+
+        l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception> = l1;
+
+        return;
+    }
+
+    public void <init>(java.lang.String, java.lang.Exception)
+    {
+        jdk.internal.org.xml.sax.SAXException l0;
+        java.lang.String l1;
+        java.lang.Exception l2;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXException;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.Exception;
+
+        specialinvoke l0.<java.lang.Exception: void <init>(java.lang.String)>(l1);
+
+        l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception> = l2;
+
+        return;
+    }
+
+    public java.lang.String getMessage()
+    {
+        jdk.internal.org.xml.sax.SAXException l0;
+        java.lang.String $stack2, $stack6;
+        java.lang.Exception $stack3, $stack5;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXException;
+
+        $stack2 = specialinvoke l0.<java.lang.Exception: java.lang.String getMessage()>();
+
+        if $stack2 != null goto label1;
+
+        $stack3 = l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception>;
+
+        if $stack3 == null goto label1;
+
+        $stack5 = l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception>;
+
+        $stack6 = virtualinvoke $stack5.<java.lang.Exception: java.lang.String getMessage()>();
+
+        return $stack6;
+
+     label1:
+        return $stack2;
+    }
+
+    public java.lang.Exception getException()
+    {
+        jdk.internal.org.xml.sax.SAXException l0;
+        java.lang.Exception $stack1;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXException;
+
+        $stack1 = l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception>;
+
+        return $stack1;
+    }
+
+    public java.lang.Throwable getCause()
+    {
+        jdk.internal.org.xml.sax.SAXException l0;
+        java.lang.Exception $stack1;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXException;
+
+        $stack1 = l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception>;
+
+        return $stack1;
+    }
+
+    public java.lang.String toString()
+    {
+        jdk.internal.org.xml.sax.SAXException l0;
+        java.lang.Exception $stack1, $stack7;
+        java.lang.String $stack2, $stack4, $stack8, $stack10;
+        java.lang.StringBuilder $stack3, $stack5, $stack6, $stack9;
+
+        l0 := @this: jdk.internal.org.xml.sax.SAXException;
+
+        $stack1 = l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception>;
+
+        if $stack1 == null goto label1;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = specialinvoke l0.<java.lang.Exception: java.lang.String toString()>();
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack4);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $stack7 = l0.<jdk.internal.org.xml.sax.SAXException: java.lang.Exception exception>;
+
+        $stack8 = virtualinvoke $stack7.<java.lang.Exception: java.lang.String toString()>();
+
+        $stack9 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack10;
+
+     label1:
+        $stack2 = specialinvoke l0.<java.lang.Exception: java.lang.String toString()>();
+
+        return $stack2;
+    }
+
+    public static void <clinit>()
+    {
+        <jdk.internal.org.xml.sax.SAXException: long serialVersionUID> = 583241635256073760L;
+
+        return;
+    }
+}
