@@ -98,8 +98,10 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		methodIndex = 1;
 		calleeIndexMap = new HashMap<String, Integer>();
 		previousInMap = new HashMap<Integer, A>();
-		loopFixPointIndicator = new HashMap<Integer, Integer>();
-		loopHeaders = new HashSet<Integer>();
+		//loopFixPointIndicator = new HashMap<Integer, Integer>();
+		loopFixPointIndicator = new HashMap<SootMethod, Map<Integer,Integer>>();
+		//loopHeaders = new HashSet<Integer>();
+		loopHeaders = new HashMap<SootMethod, Set<Integer>>();
 		
 		//initialize data structures for reflection
 	    this.classForNameReceivers = new LinkedHashMap<SootMethod, Set<String>>();
@@ -122,7 +124,9 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	public Map<String, Map<Integer, A>> loopInvariants;
 	public Map<String, Map<Integer, Set<String>>> callSiteInvariants;
 	public Map<Integer, A> previousInMap;
-	public Map<Integer, Integer> loopFixPointIndicator;
+	//TODO - also wrong, needs to be keyed by SootMethod
+	//public Map<Integer, Integer> loopFixPointIndicator;
+	public Map< SootMethod, Map<Integer, Integer>> loopFixPointIndicator;
 
 	// consider this a unique identifier for each callee method. needed when
 	// building the callsite invariants
@@ -130,8 +134,11 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	public Integer methodIndex;
 	// map of method name to its calleeIndex
 	public Map<String, Integer> calleeIndexMap;
-	public Set<Integer> loopHeaders;
+	//TODO - WRONG!! loop headers have to be keyed by a method!
+	//public Set<Integer> loopHeaders;
+	public Map <SootMethod, Set<Integer>> loopHeaders;
 	public boolean immediatePrevContextAnalysed;
+	public boolean isCurrentInvocationSummarized;
 	public boolean isInvoke = false;
 
 	// structures to handle reflection
@@ -193,6 +200,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				}*/
 				
 				if (unit != null) {
+					//System.out.println("processing method: " + ( (SootMethod) context.getMethod()).getBytecodeSignature() + ", unit: " + unit.toString());
 					// SHASHIN
 //					try {
 //						BytecodeOffsetTag bT = (BytecodeOffsetTag) ((Unit)unit).getTag("BytecodeOffsetTag");
@@ -241,6 +249,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 
 					// Now perform the flow function.
 					this.immediatePrevContextAnalysed = false;
+					this.isCurrentInvocationSummarized = false;
 					
 					A out = flowFunction(context, unit, in);
 
@@ -263,7 +272,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// If the flow function was applied successfully and the OUT changed...
 
 					// IF not a loop header, always add successor
-					boolean isLoopHeader = this.loopHeaders.contains(unitBCI);
+					Set<Integer> loopHeadersForMethod = this.loopHeaders.get(context.getMethod());
+					boolean isLoopHeader = loopHeadersForMethod.contains(unitBCI);
 
 					// shashin
 					/*
@@ -276,8 +286,10 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					if (isLoopHeader)
 						//System.out.println(
 								//unitBCI + " is a loop header, and out.equals(prevOut) = " + out.equals(prevOut));
-					if (isLoopHeader && out.equals(prevOut) == false)
-						this.loopFixPointIndicator.replace(unitBCI, 1);
+					if (isLoopHeader && out.equals(prevOut) == false) {
+						this.loopFixPointIndicator.get(context.getMethod()).replace(unitBCI, 1);
+						//this.loopFixPointIndicator.replace(unitBCI, 1);
+					}
 
 					// shashin
 
@@ -286,13 +298,25 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// immediatePrevContextAnalysed :
 					// 1. stmt was an invoke
 					// 2. the called context was analyzed
-					if ( (!isLoopHeader && immediatePrevContextAnalysed ) || out.equals(prevOut) == false) {
+					if ( /*(!isLoopHeader   && immediatePrevContextAnalysed  ) || */ out.equals(prevOut) == false) {
 						//System.out.println("OUT changed @" + unitBCI);
 
 						// Then add successors to the work-list.
 						for (N successor : context.getControlFlowGraph().getSuccsOf(unit)) {
 							//System.out.println("ADDING TO WORKLIST FROM doAnalysis, line 228");
 							context.getWorkList().add(successor);
+						}
+						for (N successor : context.getControlFlowGraph().getSuccsOf(unit)) {
+							BytecodeOffsetTag bT = (BytecodeOffsetTag) ((Unit) successor).getTag("BytecodeOffsetTag");
+							if(bT != null) {
+								int succBCI = bT.getBytecodeOffset();
+								boolean isSuccessorLoopHeader = this.loopHeaders.get(context.getMethod()).contains(succBCI);
+								if(isSuccessorLoopHeader) {
+									boolean isFixpointReached = this.loopFixPointIndicator.get(context.getMethod()).get(succBCI) == 2;
+									if(!isFixpointReached)
+										context.getWorkList().add(successor);
+								}
+							}
 						}
 						// If the unit is in TAILS, then we have at least one
 						// path to the end of the method, so add the NULL unit
@@ -316,7 +340,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 
 					if (isLoopHeader && out.equals(prevOut)) {
 
-						this.loopFixPointIndicator.replace(unitBCI, 2);
+						this.loopFixPointIndicator.get(context.getMethod()).replace(unitBCI, 2);
+						//this.loopFixPointIndicator.replace(unitBCI, 2);
 
 						SootMethod m = (SootMethod) context.getMethod();
 						//String mN = m.getDeclaringClass().getName() + "." + m.getName();
@@ -413,6 +438,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 						}
 					}
 				}
+				this.isCurrentInvocationSummarized = false;
 			} else {
 				// If work-list is empty, then remove it from the analysis.
 				analysisStack.remove(context);
@@ -583,6 +609,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		Chain<Local> locals = b.getLocals();
 		//System.out.println(b.toString());
 		lf.transform(b);
+		Set <Integer> loopHeaders = new HashSet<Integer>();
+		Map<Integer, Integer> loopFixPointIndicator = new HashMap<Integer, Integer> ();
 		Set<Loop> loops = lf.getLoops(b);
 		for (Loop l : loops) {
 			BytecodeOffsetTag bt = (BytecodeOffsetTag) l.getHead().getTag("BytecodeOffsetTag");
@@ -600,9 +628,14 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			}
 
 		}
+		this.loopFixPointIndicator.put(sMethod, loopFixPointIndicator);
+		this.loopHeaders.put(sMethod, loopHeaders);
+		
+		System.out.println("******method loop headeers -" + sMethod.getBytecodeSignature() + " ***********");
+		System.out.println(loopHeaders);
 		
 		//debugging - print each unit and its bci
-		System.out.println("******method bci and units***********");
+		System.out.println("******method bci and units -" + sMethod.getBytecodeSignature() + " ***********");
 		for(Unit u : b.getUnits()) {
 			BytecodeOffsetTag bt = (BytecodeOffsetTag) u.getTag("BytecodeOffsetTag");
 			if(bt != null) {
@@ -694,6 +727,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		} else {
 			// If not, then return 'null'.
 			this.immediatePrevContextAnalysed = false;
+			this.isCurrentInvocationSummarized = true;
 			//System.out.println("processCall returning null " + callerContext + " and " + method);
 			return null;
 		}

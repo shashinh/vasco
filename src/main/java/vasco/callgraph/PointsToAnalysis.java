@@ -700,7 +700,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		} 
 		
 		// Make calls for all target methods
-		/*if(targets.size() > 0)*/ this.immediatePrevContextAnalysed = true;
+		if(targets.size() > 0) this.immediatePrevContextAnalysed = true;
 		for (SootMethod calledMethod : targets) {
 
 			// The call-edge is obtained by assign para	meters and THIS, and killing caller's locals
