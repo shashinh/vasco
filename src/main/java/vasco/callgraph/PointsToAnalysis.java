@@ -197,6 +197,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		} else if (stmt.toString().contains("<org.dacapo.harness.Callback: void init(org.dacapo.parser.Config)>")
 				|| stmt.toString().contains("<org.dacapo.harness.Callback: void start(java.lang.String)>")
 				|| stmt.toString().contains("<org.dacapo.harness.Callback: void stop(long)>")
+				|| stmt.toString().contains("<org.dacapo.harness.Callback: boolean runAgain()>")
 				|| stmt.toString().contains("<org.dacapo.harness.Callback: void complete(java.lang.String,boolean)>")) { 
 			return out;
 		}
@@ -204,12 +205,13 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		
 		
 		int bci = -1;
-		try {
+//		try {
 				BytecodeOffsetTag bT = (BytecodeOffsetTag)unit.getTag("BytecodeOffsetTag");
-				bci = bT.getBytecodeOffset();
-		} catch (Exception ex) {
+				if(bT != null)
+					bci = bT.getBytecodeOffset();
+//		} catch (Exception ex) {
 			//System.out.println("bci for unit is missing!");
-		}
+//		}
 		
 //		int byteCodeOffset = -1;
 //		for(Tag tag : unit.getTags()) {
@@ -589,75 +591,6 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		// Get the caller method
 		SootMethod callerMethod = callerContext.getMethod();
 
-		//SHASHIN
-		/*
-		//check if this invoke expression is a reflected call
-		boolean isReflectInvokeExpr = false;
-		Set<SootMethod> reflectedTargets = new HashSet<SootMethod>();
-		
-		
-		final Scene sc = Scene.v();
-        SootMethodRef methodRef = ie.getMethodRef();
-        switch(methodRef.getDeclaringClass().getName()) {
-        	case "java.lang.reflect.Method":
-                if ("java.lang.Object invoke(java.lang.Object,java.lang.Object[])"
-                        .equals(methodRef.getSubSignature().getString())) {
-
-            		System.out.println("this looks like a methodinvoke!");
-            		isReflectInvokeExpr = true;
-            	    Set<String> ret = methodInvokeReceivers.get(callerMethod);
-            	    ret = (ret != null) ? ret : Collections.emptySet();
-            	    System.out.println("possible reflected targets are " + ret);
-            	    for(String sig : ret) {
-            	    	if(sc.containsMethod(sig)) {
-            	    		System.out.println("method.Invoke target " + sig + " is resolved");
-            	    		SootMethod reflectedTarget = sc.getMethod(sig);
-            	    		//System.out.println(reflectedTarget.getActiveBody());
-                	    	reflectedTargets.add(reflectedTarget);
-            	    	}
-            	    	
-            	    }
-                      //reflectionModel.methodInvoke(source, s);
-                    }
-        		break;
-            case "java.lang.reflect.Constructor":
-                if ("java.lang.Object newInstance(java.lang.Object[])".equals(methodRef.getSubSignature().getString())) {
-                	System.out.println("this looks like a constructor newinstance!");
-                	isReflectInvokeExpr = true;
-
-            	    Set<String> ret = constructorNewInstanceReceivers.get(callerMethod);
-            	    ret = (ret != null) ? ret : Collections.emptySet();
-            	    for(String sig : ret) {
-            	    	if(sc.containsMethod(sig)) {
-            	    		System.out.println("constructor.NewInstance target " + sig + " is resolved");
-            	    		SootMethod reflectedTarget = sc.getMethod(sig);
-            	    		//System.out.println(reflectedTarget.getActiveBody());
-                	    	reflectedTargets.add(reflectedTarget);
-            	    	}
-            	    	
-            	    }
-                  //reflectionModel.contructorNewInstance(source, s);
-                }
-                break;
-    		default:
-    			break;
-        			
-        		
-        }
-		*/
-		
-		//SHASHIN
-		//add each unique calling method to the calleeIndexMap calleeIndex
-		/*int currentCalleeIndex = this.calleeIndex;
-		String callerMethodSig = callerMethod.getDeclaringClass().getName() + "." + callerMethod.getName();
-		if(!this.calleeIndexMap.containsKey(callerMethodSig)) {
-			this.calleeIndexMap.put(callerMethodSig, calleeIndex);
-			calleeIndex++;
-		} else {
-			currentCalleeIndex = this.calleeIndexMap.get(callerMethodSig);
-		}*/
-		//SHASHIN
-		
 		// Initialise the final result as TOP first
 		PointsToGraph resultFlow = topValue();
 
@@ -672,23 +605,15 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			}
 		}
 		
-		Set<SootMethod> targets;
-		/*
-		//isReflectInvokeExpr = false;
-		if(isReflectInvokeExpr && !reflectedTargets.isEmpty()) {
-			targets = reflectedTargets;
-			//<org.dacapo.harness.TestHarness: void main(java.lang.String[])>
-		}
-		// Find target methods for this call site (invoke expression) using the points-to data
-		else 
-			*/
-			targets = getTargets(callerMethod, callStmt, ie, in);
+		Set<SootMethod> targets = getTargets(callerMethod, callStmt, ie, in);
 
 		//shashin
 		if(targets != null && targets.size() == 1 && 
 				(targets.iterator().next().toString().contains("<java.util.regex.Pattern") 
 				|| (targets.iterator().next().toString().contains("java.util.HashMap"))))
 			targets = null;
+		
+		
 		// If "targets" is null, that means the invoking instance was SUMMARY
 		// So we use the DUMMY METHOD (which is a method with no body)
 		if (targets == null) {
@@ -700,7 +625,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		} 
 		
 		// Make calls for all target methods
-		if(targets.size() > 0) this.immediatePrevContextAnalysed = true;
+		//if(targets.size() > 0) this.immediatePrevContextAnalysed = true;
 		for (SootMethod calledMethod : targets) {
 
 			// The call-edge is obtained by assign para	meters and THIS, and killing caller's locals
@@ -713,180 +638,30 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				callEdge.assign(PointsToGraph.STICKY_LOCAL, null);
 				doNotKill.add(PointsToGraph.STICKY_LOCAL);
 				
-				//System.out.println("dumping call parameters ");
 				// Assign this...
-				Local receiver = null;
 				if (ie instanceof InstanceInvokeExpr) {
-					receiver = (Local)((InstanceInvokeExpr) ie).getBase();
-					//System.out.println(receiver.toString());
-					//System.out.println(calledMethod.getSubSignature());
-					try {
+					Local receiver = (Local)((InstanceInvokeExpr) ie).getBase();
 					Local thisLocal = calledMethod.getActiveBody().getThisLocal();
-					
 					callEdge.assign(thisLocal, receiver);
 					doNotKill.add(thisLocal);
 					// Sticky it!
 					callEdge.assignSticky(PointsToGraph.STICKY_LOCAL, thisLocal);
-					} catch (Exception ex) { }
 				}
-				
-				//SHASHIN
-				SootMethod m = (SootMethod) callerContext.getMethod();
-				String mN = m.getDeclaringClass().getName() + "." + m.getName();
-				String calledMethodSig = getTrimmedByteCodeSignature(calledMethod);
-				//TODO: this assert does not make sense - how can a method YET to be called, already be inserted in the method indices?
-//				assert(this.methodIndices.containsKey(calledMethodSig)) : calledMethodSig + " signature not found in methodIndices" ;
-				//int methodIndex = this.methodIndices.get(calledMethodSig);
-				//System.out.println(mN);
-				//THIS MAP NOT NEEDED
-				Map<Integer,Set<String>> calledMethodArgsMap;
-//				if(this.callSiteInvariants.containsKey(mN)) {
-//					map = this.callSiteInvariants.get(mN);
-//				} else {
-//					map = new HashMap<String, Map<Integer,Set<String>>>();
-//				}
-				
-				if(this.callSiteInvariants.containsKey(calledMethodSig)) {
-					calledMethodArgsMap = this.callSiteInvariants.get(calledMethodSig);
-				} else {
-					calledMethodArgsMap = new HashMap<Integer, Set<String>>();
-				}
-				
-				//this map not needed anymore
-//				Map<Integer, Set<String>> calledMethodArgsMap;
-//				if(map.containsKey(calledMethodSig)) {
-//					calledMethodArgsMap = map.get(calledMethodSig);
-//				} else {
-//					calledMethodArgsMap = new HashMap<Integer, Set<String>>();
-//				}
-				//this map not needed anymore
-				
-				
-				Set<String> thisBCSet;
-				if(calledMethodArgsMap.containsKey(0)) {
-					thisBCSet = calledMethodArgsMap.get(0);
-				} else {
-					thisBCSet = new HashSet<String>();
-				}
-				
-				//Shashin - the sole purpose of this block is to map the this parameter, if it exists
-				if(receiver != null) {
-					try {
-					for(AnyNewExpr t : in.getTargets(receiver)) {
-						if(t instanceof AbstractNullObj) continue;
-						
-						if(t == PointsToGraph.STRING_SITE)
-							thisBCSet.add("S");
-						else {
-							if(this.bciMap.get(t) != null)
-								thisBCSet.add(/*currentCalleeIndex + "-" + */this.bciMap.get(t).toString());
-							else 
-								//TODO: confirm that this is in fact the global scenario
-								thisBCSet.add("G");
-						
-						}
-					}
-					} catch (Exception ex) {
-						System.out.println(ex.toString());
-					}
-				} else {
-					//this is the static scenario, modeled as a null receiver
-					thisBCSet.add("N");
-				} //end mapping of this-param in the callsite arg:
-				
-				calledMethodArgsMap.put(0, thisBCSet);
-//				if(calledMethodArgsMap.containsKey(0)) {
-//					calledMethodArgsMap.replace(0, thisBCSet);
-//				} else 
-//					calledMethodArgsMap.put(0, thisBCSet);
 				
 				// Assign parameters...
-				//if( !isReflected) if the invoke statement is reflected, do not bother about mapping parameters
-				// here, i = 0 ==> the first formal parameter, NOT the this-param
 				for (int i = 0; i < calledMethod.getParameterCount(); i++) {
-
-												//SHASHIN - TODO - assert that we cannot handle non-empty args list
-												Set<String> argBCSet;
-												if(calledMethodArgsMap.containsKey(i + 1)) {
-													argBCSet = calledMethodArgsMap.get(i + 1);
-												} else {
-													argBCSet = new HashSet<String>();
-												}
-					
-					
 					// Only for reference-like parameters
-					
-					//calledMethiod : public Avrora(Config config, File scratch)
 					if (calledMethod.getParameterType(i) instanceof RefLikeType) {
 						Local parameter = calledMethod.getActiveBody().getParameterLocal(i);
-						Value argValue = null;
-						try {
-							argValue = ie.getArg(i);
-						} catch (IndexOutOfBoundsException ex) {
-							argValue = ie.getArg(0);
-						}
+						Value argValue = ie.getArg(i);
 						// The argument can be a constant or local, so handle accordingly
 						if (argValue instanceof Local) {
 							Local argLocal = (Local) argValue;
-							//SHASHIN
-							//System.out.println(argLocal);
-							try {
-							for(AnyNewExpr tgt : in.getTargets(argLocal)) {
-								
-													String bci;
-													if(tgt == PointsToGraph.STRING_SITE) {
-														bci = "S";
-														argBCSet.add(bci);
-													} else if (tgt instanceof AbstractNullObj) {
-														argBCSet.add("N");
-													} else if (tgt == PointsToGraph.SUMMARY_NODE) {
-														argBCSet.add("G");
-													} //note that we are not handling constants here - TODO : TEST!
-													else {
-														bci = this.bciMap.get(tgt);
-														//TODO: revisit this assert, it doesn't seem to be trivial enough to ignore
-														//assert(this.bciMap2.containsKey(tgt)) : tgt + " not located in bciMap2, caller method is " + callerContext.getMethod().toString() + ", called method is " + calledMethod.toString();
-														BciContainer bciContainer = this.bciMap2.get(tgt);
-														
-														//String temp = this.exprToMethodMap.get(tgt);
-														//int ci;
-														argBCSet.add(bciContainer.getCallerIndex() + "-" + bciContainer.getBci());
-//														if(temp != null && bci != null) {
-//															try {
-//															ci = this.calleeIndexMap.get(temp);
-//															} catch (Exception ex) {
-//																System.out.println(ex.toString());
-//																//something wrong here, assume default value for the callee index
-//																ci = -1;
-//															}
-//															argBCSet.add(/*ci + "-" + */bci.toString());
-//														} else {
-//															argBCSet.add("u-u");
-//														}
-								}
-
-								//System.out.println(bci);
-
-//								int ci = this.calleeIndexMap.get(this.exprToMethodMap.get(tgt));
-//								argBCSet.add(ci + "-" + bci.toString());
-								
-							} } catch (Exception ex )
-							{ System.out.println(ex); }
-							//SHASHIN
-							
-							
-							
 							callEdge.assign(parameter, argLocal);
 							doNotKill.add(parameter);
 							// Sticky it!
 							callEdge.assignSticky(PointsToGraph.STICKY_LOCAL, argLocal);
 						} else if (argValue instanceof Constant) {
-							if(argValue instanceof NullConstant)
-								argBCSet.add("N");
-							else if(argValue instanceof StringConstant) 
-								argBCSet.add("S");
-							else
-								argBCSet.add("C");
 							Constant argConstant = (Constant) argValue;
 							callEdge.assignConstant(parameter, argConstant);
 							doNotKill.add(parameter);
@@ -895,28 +670,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							throw new RuntimeException(argValue.toString());
 						}
 					}
-					
-					calledMethodArgsMap.put(i + 1, argBCSet);
-//					if(calledMethodArgsMap.containsKey(i + 1)) {
-//						calledMethodArgsMap.replace(i + 1, argBCSet);
-//					} else 
-//						calledMethodArgsMap.put(i + 1, argBCSet);
 				}
-				
-//				if(map.containsKey(calledMethodSig)) {
-//					map.replace(calledMethodSig, calledMethodArgsMap);
-//				} else {
-//					map.put(calledMethodSig, calledMethodArgsMap);
-//
-//				}
-				
-				this.callSiteInvariants.put(calledMethodSig, calledMethodArgsMap);
-//				if(this.callSiteInvariants.containsKey(calledMethodSig)) {
-//					this.callSiteInvariants.replace(calledMethodSig, calledMethodArgsMap);
-//				} else {
-//					this.callSiteInvariants.put(calledMethodSig, calledMethodArgsMap);
-//
-//				}
+
 				// Kill caller data...
 				for (Local callerLocal : callerMethod.getActiveBody().getLocals()) {
 					if (doNotKill.contains(callerLocal) == false)

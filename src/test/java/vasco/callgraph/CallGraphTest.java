@@ -40,6 +40,7 @@ import soot.Local;
 import soot.PackManager;
 import soot.Scene;
 import soot.SootClass;
+import soot.SootField;
 import soot.SootMethod;
 import soot.Transform;
 import soot.Unit;
@@ -55,6 +56,7 @@ import soot.rtlib.tamiflex.OpaquePredicate;
 import soot.rtlib.tamiflex.ReflectiveCalls;
 import soot.rtlib.tamiflex.SootSig;
 import soot.rtlib.tamiflex.UnexpectedReflectiveCall;
+import soot.tagkit.BytecodeOffsetTag;
 import vasco.CallSite;
 import vasco.Context;
 import vasco.ContextTransitionTable;
@@ -95,6 +97,10 @@ public class CallGraphTest {
 					File invariantFile = new File(outputDirectory + "/invariants");
 					if (invariantFile.exists() == false && invariantFile.mkdirs() == false) {
 						throw new IOException("Could not make output directory for invariants");
+					}
+					File sootifiedFile = new File(outputDirectory + "/sootified");
+					if(sootifiedFile.exists() == false && sootifiedFile.mkdirs() == false) {
+						throw new IOException("Could not make output directory for sootified classes");
 					}
 					i += 2;
 				} else if (args[i].equals("-k")) { 
@@ -164,7 +170,7 @@ public class CallGraphTest {
 					
 				"-main-class", mainClass,
 				"-f", "c",
-				"-d", outputDirectory, 
+				"-d", outputDirectory + "/sootified", 
 				mainClass
 		};
 		
@@ -318,26 +324,53 @@ public class CallGraphTest {
 		}
 	}
 	
+//	public static void printLoopInvariantPTGS_OLD(PointsToAnalysis pta) throws FileNotFoundException {
+//		//TODO: assert that there are no empty/null bci's here
+//
+//		for(String methodSig : pta.loopInvariants.keySet()) {
+//			assert(pta.methodIndices.containsKey(methodSig));
+//			int methodIndex = pta.methodIndices.get(methodSig);
+//
+//			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/li" + methodIndex + ".txt");
+//			Map<Integer, PointsToGraph> map = pta.loopInvariants.get(methodSig);
+//			List<String> sList = new ArrayList<String>();
+//			for(Integer i : map.keySet()) {
+//				//the key 'i' is the bci of the loop header
+//				StringBuilder sb = new StringBuilder();
+//				sb.append(i + ":");
+//				sb.append(map.get(i).prettyPrintInvariant4(pta, false, null));
+//				
+//				
+//				//get the PTG stored against BCI i (the loop header)
+//				System.out.println("formatted: ");
+//				System.out.println(map.get(i).prettyPrintInvariant4(pta, false, null));
+//				
+//				sList.add(sb.toString());
+//			}
+//			
+//			pw.print(String.join(";", sList));
+//			pw.close();
+//		}
+//	}
 	public static void printLoopInvariantPTGS(PointsToAnalysis pta) throws FileNotFoundException {
-		//TODO: assert that there are no empty/null bci's here
-
-		for(String methodSig : pta.loopInvariants.keySet()) {
-			assert(pta.methodIndices.containsKey(methodSig));
-			int methodIndex = pta.methodIndices.get(methodSig);
-
+			
+		Map <SootMethod, Map <Unit, PointsToGraph>> loopInvariants = pta.loopInvariants;
+		
+		for(SootMethod m : loopInvariants.keySet()) {
+			String methodsig = pta.getTrimmedByteCodeSignature(m);
+			assert(pta.methodIndices.containsKey(methodsig));
+			int methodIndex = pta.methodIndices.get(methodsig);
 			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/li" + methodIndex + ".txt");
-			Map<Integer, PointsToGraph> map = pta.loopInvariants.get(methodSig);
 			List<String> sList = new ArrayList<String>();
-			for(Integer i : map.keySet()) {
-				//the key 'i' is the bci of the loop header
+			
+			Map <Unit, PointsToGraph> loopInvariantsForMethod = loopInvariants.get(m);
+			for (Unit loopHeader : loopInvariantsForMethod.keySet()) {
+				BytecodeOffsetTag bT = (BytecodeOffsetTag) loopHeader.getTag("BytecodeOffsetTag");
+				assert (bT != null);
+				int loopHeaderBCI = bT.getBytecodeOffset();
 				StringBuilder sb = new StringBuilder();
-				sb.append(i + ":");
-				sb.append(map.get(i).prettyPrintInvariant4(pta, false, null));
-				
-				
-				//get the PTG stored against BCI i (the loop header)
-				System.out.println("formatted: ");
-				System.out.println(map.get(i).prettyPrintInvariant4(pta, false, null));
+				sb.append(loopHeaderBCI + ":");
+				sb.append(loopInvariantsForMethod.get(loopHeader).prettyPrintInvariant4(pta, false, null));
 				
 				sList.add(sb.toString());
 			}
@@ -346,6 +379,8 @@ public class CallGraphTest {
 			pw.close();
 		}
 	}
+	
+	
 	private static void dumpCallSiteInvariants(PointsToAnalysis pta) throws FileNotFoundException {
 		PrintWriter pMethodIndices = new PrintWriter(outputDirectory + "/invariants/mi" + ".txt");
 		Map<String, Integer> methodIndices = pta.methodIndices;
