@@ -35,6 +35,7 @@ import soot.SootMethod;
 import soot.SootMethodRef;
 import soot.Unit;
 import soot.Value;
+import soot.JastAddJ.LShiftExpr;
 import soot.jimple.AnyNewExpr;
 import soot.jimple.ArrayRef;
 import soot.jimple.AssignStmt;
@@ -341,6 +342,11 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 						String currentMethodSignature = getTrimmedByteCodeSignature(context.getMethod());
 						assert(this.methodIndices.containsKey(currentMethodSignature));
 						int currentMethodIndex = this.methodIndices.get(currentMethodSignature);
+						
+						if(lhs.getName().charAt(0) != '$') {
+							//special case - if the lhs is an actual local, subtract 3 from the bci to obtain the bci for the new op
+							bci = bci - 3;
+						}
 						
 						this.bciMap2.put(anyNewExpr, new BciContainer(currentMethodIndex, bci));
 						this.bciMap.put(anyNewExpr, currentMethodIndex + "-" + bci);

@@ -571,8 +571,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	}
 	public String getTrimmedByteCodeSignature(SootMethod m) {
 		String methodSig = m.getBytecodeSignature();
-		String sig = methodSig.replace(": ", ".").substring(1, methodSig.length() - 2);
-		
+		String sig = methodSig.replace(".", "/").replace(": ", ".").substring(1, methodSig.length() - 2);
 		return sig;
 	}
 	/**
