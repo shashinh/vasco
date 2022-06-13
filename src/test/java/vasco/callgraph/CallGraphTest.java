@@ -226,7 +226,7 @@ public class CallGraphTest {
 //				"-f", "none", mainClass 
 //		};
 		
-		System.out.println("Soot args are: " + Arrays.toString(sootArgs));
+		System.out.println("Soot args are: " + String.join(" ", sootArgs));
 
 		/* ------------------- ANALYSIS ---------------------- */
 		CallGraphTransformer cgt = new CallGraphTransformer();
@@ -360,23 +360,26 @@ public class CallGraphTest {
 			String methodsig = pta.getTrimmedByteCodeSignature(m);
 			assert(pta.methodIndices.containsKey(methodsig));
 			int methodIndex = pta.methodIndices.get(methodsig);
-			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/li" + methodIndex + ".txt");
-			List<String> sList = new ArrayList<String>();
-			
 			Map <Unit, PointsToGraph> loopInvariantsForMethod = loopInvariants.get(m);
-			for (Unit loopHeader : loopInvariantsForMethod.keySet()) {
-				BytecodeOffsetTag bT = (BytecodeOffsetTag) loopHeader.getTag("BytecodeOffsetTag");
-				assert (bT != null);
-				int loopHeaderBCI = bT.getBytecodeOffset();
-				StringBuilder sb = new StringBuilder();
-				sb.append(loopHeaderBCI + ":");
-				sb.append(loopInvariantsForMethod.get(loopHeader).prettyPrintInvariant4(pta, false, null));
+			if(! loopInvariantsForMethod.isEmpty()) {
 				
-				sList.add(sb.toString());
+				PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/li" + methodIndex + ".txt");
+				List<String> sList = new ArrayList<String>();
+				
+				for (Unit loopHeader : loopInvariantsForMethod.keySet()) {
+					BytecodeOffsetTag bT = (BytecodeOffsetTag) loopHeader.getTag("BytecodeOffsetTag");
+					assert (bT != null);
+					int loopHeaderBCI = bT.getBytecodeOffset();
+					StringBuilder sb = new StringBuilder();
+					sb.append(loopHeaderBCI + ":");
+					sb.append(loopInvariantsForMethod.get(loopHeader).prettyPrintInvariant4(pta, false, null));
+					
+					sList.add(sb.toString());
+				}
+				
+				pw.print(String.join(";", sList));
+				pw.close();
 			}
-			
-			pw.print(String.join(";", sList));
-			pw.close();
 		}
 	}
 	
