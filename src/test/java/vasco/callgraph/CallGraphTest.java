@@ -155,6 +155,7 @@ public class CallGraphTest {
 				"-p", "jb.ne", "enabled:false",
 				"-p", "jb.uce", "enabled:false",
 				"-p", "jb.tt", "enabled:false",
+<<<<<<< HEAD
 //				"-write-local-annotations",
 //				"-p", "bb.lso", "enabled:false",
 //				"-p", "bb.sco", "enabled:false",
@@ -165,6 +166,13 @@ public class CallGraphTest {
 				"-p", "jop", "enabled:false",
 //				"-via-grimp",
 				"-java-version", "1.8",
+=======
+				
+				"-p", "bb.lp", "enabled:false",
+				"-p", "jop", "enabled:false",
+				"-java-version", "1.8",
+				
+>>>>>>> 7faa006eef4d81f88bd094fb6d473ceed48cabe6
 				
 				
 				//"-p", "cg", "safe-forname",
