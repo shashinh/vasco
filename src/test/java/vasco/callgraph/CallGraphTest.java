@@ -138,7 +138,7 @@ public class CallGraphTest {
 				//"-p", "cg.spark", "simulate-natives",
 				
 
-				 
+//				"-jasmin-backend", 
 				"-p", "jb", "preserve-source-annotations:true",
 //				"-p", "jb", "stabilize-local-names:true",
 				"-p", "jb.ulp", "enabled:false",
@@ -155,7 +155,16 @@ public class CallGraphTest {
 				"-p", "jb.ne", "enabled:false",
 				"-p", "jb.uce", "enabled:false",
 				"-p", "jb.tt", "enabled:false",
-				
+//				"-write-local-annotations",
+//				"-p", "bb.lso", "enabled:false",
+//				"-p", "bb.sco", "enabled:false",
+//				"-p", "bb.pho", "enabled:false",
+				"-p", "bb.lp", "enabled:false",
+//				"-p", "bb.ule", "enabled:false",
+//				"-p", "bop", "enabled:false",
+				"-p", "jop", "enabled:false",
+//				"-via-grimp",
+				"-java-version", "1.8",
 				
 				
 				//"-p", "cg", "safe-forname",
