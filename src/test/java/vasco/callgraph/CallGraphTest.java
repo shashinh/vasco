@@ -156,6 +156,10 @@ public class CallGraphTest {
 				"-p", "jb.uce", "enabled:false",
 				"-p", "jb.tt", "enabled:false",
 				
+				"-p", "bb.lp", "enabled:false",
+				"-p", "jop", "enabled:false",
+				"-java-version", "1.8",
+				
 				
 				
 				//"-p", "cg", "safe-forname",
