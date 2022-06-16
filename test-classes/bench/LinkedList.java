@@ -1,3 +1,6 @@
+//this file is annotated with bcis and method indices, when boosted with the following command line args
+//java -jar ../../../tamiflex-jars/booster.jar -cp out -pp -w -p cg reflection-log:out/refl.log -p jb preserve-source-annotations:true -p jb.ulp enabled:false -p jb.dae enabled:false -p jb.cp-ule enabled:false -p jb.cp enabled:false -p jb.lp enabled:false -p jb.dtr enabled:false -p jb.ese enabled:false -p jb.a enabled:false -p jb.ule enabled:false -p jb.ne enabled:false -p jb.ese enabled:false -p jb.tt enabled:false -p bb.lp enabled:false -p jop enabled:false -p bop enabled:false -java-version 1.8 -d boosted -keep-line-number -keep-bytecode-offset -main-class LinkedList LinkedList
+
 import java.lang.reflect.*;
 
 class LinkedList{
@@ -9,7 +12,7 @@ class LinkedList{
 		} catch (Exception ex) { }
 	}
 
-    public static void main(String[] a){
+    public static void main(String[] a){ //mi 1
 	//System.out.println(new LL().Start());
 	//insert constructor code here
 	try {
@@ -25,29 +28,31 @@ class Element {
     int Salary ;
     boolean Married ;
 
+    //Element.<init> mi 276
+    //
     // Initialize some class variables
-    public boolean Init(int v_Age, int v_Salary, boolean v_Married){
+    public boolean Init(int v_Age, int v_Salary, boolean v_Married){ //mi 277
 	Age = v_Age ;
 	Salary = v_Salary ;
 	Married = v_Married ;
 	return true ;
     }
 
-    public int GetAge(){
+    public int GetAge(){ //mi 280
 	return Age ;
     }
     
-    public int GetSalary(){
+    public int GetSalary(){ //mi 287
 	return Salary ;
     }
 
-    public boolean GetMarried(){
+    public boolean GetMarried(){ // mi 288
 	return Married ;
     }
 
     // This method returns true if the object "other"
     // has the same values for age, salary and 
-    public boolean Equal(Element other){
+    public boolean Equal(Element other){ //mi 285
 	boolean ret_val ;
 	int aux01 ;
 	int aux02 ;
@@ -74,7 +79,7 @@ class Element {
     // This method compares two integers and
     // returns true if they are equal and false
     // otherwise
-    public boolean Compare(int num1 , int num2){
+    public boolean Compare(int num1 , int num2){ //mi 286
 	boolean retval ;
 	int aux02 ;
 	retval = false ;
@@ -92,14 +97,16 @@ class List{
     List next ;
     boolean end ;
 
+    //List.<init> mi 273
+    //
     // Initialize the node list as the last node
-    public boolean Init(){
+    public boolean Init(){ //mi 274
 	end = true ;
 	return true ;
     }
 
     // Initialize the values of a new node
-    public boolean InitNew(Element v_elem, List v_next, boolean v_end){
+    public boolean InitNew(Element v_elem, List v_next, boolean v_end){ //mi 279
 	end = v_end ;
 	elem = v_elem ;
 	next = v_next ;
@@ -107,7 +114,7 @@ class List{
     }
     
     // Insert a new node at the beginning of the list
-    public List Insert(Element new_elem){
+    public List Insert(Element new_elem){ //mi 278
 	boolean ret_val ;
 	List aux03 ;
 	List aux02 ;
@@ -119,13 +126,13 @@ class List{
     
     
     // Update the the pointer to the next node
-    public boolean SetNext(List v_next){
+    public boolean SetNext(List v_next){ //mi 290
 	next = v_next ;
 	return true ;
     }
     
     // Delete an element e from the list
-    public List Delete(Element e){
+    public List Delete(Element e){ //mi 289
 	List my_head ;
 	boolean ret_val ;
 	boolean aux05;
@@ -171,7 +178,7 @@ class List{
     
     
     // Search for an element e on the list
-    public int Search(Element e){
+    public int Search(Element e){ //mi 284
 	int int_ret_val ;
 	List aux01 ;
 	Element var_elem ;
@@ -194,21 +201,21 @@ class List{
 	return int_ret_val ;
     }
     
-    public boolean GetEnd(){
+    public boolean GetEnd(){ //mi 282
 	return end ;
     }
     
-    public Element GetElem(){
+    public Element GetElem(){ //mi 283
 	return elem ;
     }
     
-    public List GetNext(){
+    public List GetNext(){ //mi 281
 	return next ;
     }
     
     
     // Print the linked list
-    public boolean Print(){
+    public boolean Print(){ //mi 275
 	List aux01 ;
 	boolean var_end ;
 	Element  var_elem ;
@@ -232,9 +239,9 @@ class List{
 // search and print the linked list
 class LL{
 
-	public LL () {} 
+	public LL () {} //mi 271
 
-    public int Start(){
+    public int Start(){ //mi 272 this-parm: 270-0
 
 	List head ;
 	List last_elem ;
@@ -243,14 +250,14 @@ class LL{
 	Element el02 ;
 	Element el03 ;
 
-	last_elem = new List();
+	last_elem = new List(); //1->272-0
 	aux01 = last_elem.Init();
-	head = last_elem ;
+	head = last_elem ; //head->272-0
 	aux01 = head.Init();
 	aux01 = head.Print();
 
 	// inserting first element
-	el01 = new Element();
+	el01 = new Element(); //2->272-23
 	aux01 = el01.Init(25,37000,false);
 	head = head.Insert(el01);
 	aux01 = head.Print();
