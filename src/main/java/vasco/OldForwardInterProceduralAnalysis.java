@@ -763,15 +763,22 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	 *         or <tt>null</tt> if unavailable.
 	 */
 	protected A processCall(Context<M, N, A> callerContext, N callNode, M method, A entryValue) {
+		/*
+		 * TODO: to keep things in sync with our JITC components, we want to analyze methods context insensitively.
+		 * 		
+		 * basically, check if the current entry value is subsumed by the entry value in the context already analyzed,
+		 * if so - then no change.
+		 * but if not -instead of creating a new context below, perform a meet of the entry value with the entry value in the (singleton) context of the method
+		 * 
+		 */
 
-		// this.isInvoke = true;
-		// this.immediatePrevContextAnalysed = true;
 		CallSite<M, N, A> callSite = new CallSite<M, N, A>(callerContext, callNode);
 
 		// Check if the called method has a context associated with this entry flow:
 		Context<M, N, A> calleeContext = getContext(method, entryValue);
 		// If not, then set 'calleeContext' to a new context with the given entry flow.
 		if (calleeContext == null) {
+			//previously - this context is not analyzed/first time analyzed
 			calleeContext = new Context<M, N, A>(method, programRepresentation().getControlFlowGraph(method), false);
 			initContext(calleeContext, entryValue);
 			if (verbose) {
@@ -792,9 +799,6 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			return calleeContext.getExitValue();
 		} else {
 			// If not, then return 'null'.
-			this.immediatePrevContextAnalysed = false;
-			this.isCurrentInvocationSummarized = true;
-			//System.out.println("processCall returning null " + callerContext + " and " + method);
 			return null;
 		}
 	}
