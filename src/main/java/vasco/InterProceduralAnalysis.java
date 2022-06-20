@@ -199,6 +199,7 @@ public abstract class InterProceduralAnalysis<M,N,A> {
 			}
 		} else {
 			// Forward flow, so check for ENTRY FLOWS
+			//assert (contexts.get(method).size <= 1
 			for (Context<M,N,A> context : contexts.get(method)) {
 				if (value.equals(context.getEntryValue())) {
 					return context;
