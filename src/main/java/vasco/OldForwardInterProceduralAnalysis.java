@@ -779,6 +779,9 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		// If not, then set 'calleeContext' to a new context with the given entry flow.
 		if (calleeContext == null) {
 			//previously - this context is not analyzed/first time analyzed
+			//calleeContext = mergeContexts(thisContext, getContexts(method))
+			//assert (calleeContext.isAnalysed || hasChanged == false);
+			
 			calleeContext = new Context<M, N, A>(method, programRepresentation().getControlFlowGraph(method), false);
 			initContext(calleeContext, entryValue);
 			if (verbose) {

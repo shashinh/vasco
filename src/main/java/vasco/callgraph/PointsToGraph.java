@@ -558,8 +558,11 @@ public class PointsToGraph {
 		Map<SootField, Set<AnyNewExpr>> edges = new HashMap<SootField, Set<AnyNewExpr>>();
 		for (SootField field : fields) {
 			HashSet<AnyNewExpr> targets = new HashSet<AnyNewExpr>();
+			//TODO add nul
 			if (summarizeFields) {
 				targets.add(SUMMARY_NODE);
+			} else {
+				//add null objs for each field
 			}
 			edges.put(field, Collections.unmodifiableSet(targets));
 		}
