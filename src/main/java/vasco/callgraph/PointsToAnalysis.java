@@ -262,7 +262,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							PointsToGraph clinitEntryValue =  topValue();
 							clinitEntryValue.assign(PointsToGraph.STICKY_LOCAL, null);
 							// Make the call!
-							this.processCall(context, stmt, clinit,clinitEntryValue);
+//							this.processCall(context, stmt, clinit,clinitEntryValue);
+							this.processCallContextInsensitive(context, stmt, clinit, clinitEntryValue);
 							// Do not process this statement now, wait for clinit to return
 							// and this statement as a "return site"
 							return null; 
@@ -712,7 +713,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 
 			// Make the call to this method!! (in case of body-less methods, no change)
 			PointsToGraph exitFlow = calledMethod.hasActiveBody() ? 
-					processCall(callerContext, callStmt, calledMethod, entryFlow) : entryFlow;
+//					processCall(callerContext, callStmt, calledMethod, entryFlow) : entryFlow;
+					processCallContextInsensitive(callerContext, callStmt, calledMethod, entryFlow) : entryFlow;
 
 			// If the called context was analysed, exitFlow will be set, else it
 			// will be null.
