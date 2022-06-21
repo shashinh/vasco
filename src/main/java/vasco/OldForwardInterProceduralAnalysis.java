@@ -806,6 +806,75 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		}
 	}
 
+	/*
+	 * Context-Insensitive variant of processCall() above
+	 * 
+	 */
+	protected A processCallContextInsensitive(Context<M, N, A> callerContext, N callNode, M method, A entryValue) {
+		
+		//fetch the context(s) associated with this method
+		List< Context<M, N, A> > calleeContexts = getContexts(method);
+		
+		CallSite <M, N, A> callSite = new CallSite<M, N, A>(callerContext, callNode);
+		
+		Context <M, N, A> calleeContext;
+		
+		if(calleeContexts.size() == 0) {
+			//this method has no contexts yet, i.e. it has never been analyzed
+			//create a new context and add a transition
+			
+			calleeContext = new Context <M, N, A> (method, programRepresentation().getControlFlowGraph(method), false);
+			initContext(calleeContext, entryValue);
+			if(verbose) {
+				System.out.println("[NEW] X" + callerContext + " -> X" + calleeContext + " " + method + " ");
+			}
+			
+		} else {
+			//a callee context for this method exists. Fetch its entry value, merge it with the incoming entryvalue, and add it back to the worklist
+
+			//if context-insensitive, there should be at most one context for this method
+			assert(calleeContexts.size() == 1);
+
+			//this is safe, because we have asserted that callContexts is not null and has a single entry
+			calleeContext = calleeContexts.get(0);
+			
+			entryValue = meet(entryValue, calleeContext.getEntryValue());
+			
+			//now see if a context with this entryValue already exists
+			Context <M, N, A> contextInsensitiveContext = getContext(method, entryValue);
+			if(contextInsensitiveContext == null) {
+				/*
+				 * the method hasn't been analyzed with this aggregated entry value
+				 * create a new context with this entry value, remove the old one, and add the new one
+				 */
+				
+				calleeContext = new Context <M, N, A> (method, programRepresentation().getControlFlowGraph(method), false);
+				//clears all contexts associated with this method
+				this.contexts.remove(method);
+				
+				//adds in the new context for analysis
+				initContext(calleeContext, entryValue);
+			}
+			
+		}
+		
+		contextTransitions.addTransition(callSite, calleeContext);
+		
+		// Check if 'caleeContext' has been analysed (surely not if it is just newly
+		// made):
+		if (calleeContext.isAnalysed()) {
+			if (verbose) {
+				System.out.println("[HIT] X" + callerContext + " -> X" + calleeContext + " " + method + " ");
+			}
+			// If yes, then return the 'exitFlow' of the 'calleeContext'.
+			return calleeContext.getExitValue();
+		} else {
+			// If not, then return 'null'.
+			return null;
+		}
+		
+	}
+
 	protected abstract A flowFunction(Context<M, N, A> context, N unit, A in);
 
 }
