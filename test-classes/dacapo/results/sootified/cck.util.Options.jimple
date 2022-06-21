@@ -1,0 +1,576 @@
+public class cck.util.Options extends java.lang.Object
+{
+    protected final java.util.HashMap knownValues;
+    protected java.lang.String[] arguments;
+
+    public void <init>()
+    {
+        cck.util.Options l0;
+        java.util.HashMap $stack1;
+
+        l0 := @this: cck.util.Options;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack1 = new java.util.HashMap;
+
+        specialinvoke $stack1.<java.util.HashMap: void <init>()>();
+
+        l0.<cck.util.Options: java.util.HashMap knownValues> = $stack1;
+
+        return;
+    }
+
+    public java.util.Collection getAllOptions()
+    {
+        cck.util.Options l0;
+        java.util.HashMap $stack1;
+        java.util.Collection $stack2;
+
+        l0 := @this: cck.util.Options;
+
+        $stack1 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Collection values()>();
+
+        return $stack2;
+    }
+
+    public java.lang.String[] getArguments()
+    {
+        cck.util.Options l0;
+        java.lang.String[] $stack1;
+
+        l0 := @this: cck.util.Options;
+
+        $stack1 = l0.<cck.util.Options: java.lang.String[] arguments>;
+
+        return $stack1;
+    }
+
+    public cck.util.Option getOption(java.lang.String)
+    {
+        cck.util.Options l0;
+        java.lang.String l1;
+        java.util.HashMap $stack2;
+        java.lang.Object $stack3;
+        cck.util.Option $stack4;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        $stack3 = virtualinvoke $stack2.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        $stack4 = (cck.util.Option) $stack3;
+
+        return $stack4;
+    }
+
+    public java.lang.String getOptionValue(java.lang.String)
+    {
+        cck.util.Options l0;
+        java.lang.String l1, $stack6, l3#1;
+        java.util.HashMap $stack4;
+        java.lang.Object $stack5;
+        cck.util.Option l2;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack4 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        $stack5 = virtualinvoke $stack4.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        l2 = (cck.util.Option) $stack5;
+
+        if l2 != null goto label1;
+
+        l3#1 = null;
+
+        goto label2;
+
+     label1:
+        $stack6 = virtualinvoke l2.<cck.util.Option: java.lang.String stringValue()>();
+
+        l3#1 = $stack6;
+
+     label2:
+        return l3#1;
+    }
+
+    public java.lang.String getOptionValue(java.lang.String, java.lang.String)
+    {
+        cck.util.Options l0;
+        java.lang.String l1, $stack7, l2, l4#1;
+        java.util.HashMap $stack5;
+        java.lang.Object $stack6;
+        cck.util.Option l3;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack5 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        $stack6 = virtualinvoke $stack5.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        l3 = (cck.util.Option) $stack6;
+
+        if l3 != null goto label1;
+
+        l4#1 = l2;
+
+        goto label2;
+
+     label1:
+        $stack7 = virtualinvoke l3.<cck.util.Option: java.lang.String stringValue()>();
+
+        l4#1 = $stack7;
+
+     label2:
+        return l4#1;
+    }
+
+    public boolean hasOption(java.lang.String)
+    {
+        cck.util.Options l0;
+        java.lang.String l1;
+        java.util.HashMap $stack3;
+        java.lang.Object $stack4;
+        boolean l2#1;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack3 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        if $stack4 == null goto label1;
+
+        l2#1 = 1;
+
+        goto label2;
+
+     label1:
+        l2#1 = 0;
+
+     label2:
+        return l2#1;
+    }
+
+    public void loadFile(java.lang.String) throws java.io.IOException
+    {
+        java.io.File l2;
+        java.lang.String l1;
+        java.util.Properties l3;
+        java.io.FileInputStream $stack4;
+        cck.util.Options l0;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 = new java.io.File;
+
+        specialinvoke l2.<java.io.File: void <init>(java.lang.String)>(l1);
+
+        l3 = new java.util.Properties;
+
+        specialinvoke l3.<java.util.Properties: void <init>()>();
+
+        $stack4 = new java.io.FileInputStream;
+
+        specialinvoke $stack4.<java.io.FileInputStream: void <init>(java.io.File)>(l2);
+
+        virtualinvoke l3.<java.util.Properties: void load(java.io.InputStream)>($stack4);
+
+        virtualinvoke l0.<cck.util.Options: void process(java.util.Properties)>(l3);
+
+        return;
+    }
+
+    public cck.util.Option$Bool newOption(java.lang.String, boolean, java.lang.String)
+    {
+        cck.util.Option$Bool l4;
+        java.lang.String l1, l3;
+        boolean l2;
+        cck.util.Options l0;
+        java.util.HashMap $stack5;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: boolean;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 = new cck.util.Option$Bool;
+
+        specialinvoke l4.<cck.util.Option$Bool: void <init>(java.lang.String,boolean,java.lang.String)>(l1, l2, l3);
+
+        $stack5 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        virtualinvoke $stack5.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l4);
+
+        return l4;
+    }
+
+    public cck.util.Option$Str newOption(java.lang.String, java.lang.String, java.lang.String)
+    {
+        cck.util.Option$Str l4;
+        java.lang.String l1, l2, l3;
+        cck.util.Options l0;
+        java.util.HashMap $stack5;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 = new cck.util.Option$Str;
+
+        specialinvoke l4.<cck.util.Option$Str: void <init>(java.lang.String,java.lang.String,java.lang.String)>(l1, l2, l3);
+
+        $stack5 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        virtualinvoke $stack5.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l4);
+
+        return l4;
+    }
+
+    public cck.util.Option$Long newOption(java.lang.String, long, java.lang.String)
+    {
+        cck.util.Option$Long l5;
+        java.lang.String l1, l4;
+        long l2;
+        cck.util.Options l0;
+        java.util.HashMap $stack6;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: long;
+
+        l4 := @parameter2: java.lang.String;
+
+        l5 = new cck.util.Option$Long;
+
+        specialinvoke l5.<cck.util.Option$Long: void <init>(java.lang.String,long,java.lang.String)>(l1, l2, l4);
+
+        $stack6 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        virtualinvoke $stack6.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l5);
+
+        return l5;
+    }
+
+    public cck.util.Option$Double newOption(java.lang.String, double, java.lang.String)
+    {
+        cck.util.Option$Double l5;
+        java.lang.String l1, l4;
+        double l2;
+        cck.util.Options l0;
+        java.util.HashMap $stack6;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: double;
+
+        l4 := @parameter2: java.lang.String;
+
+        l5 = new cck.util.Option$Double;
+
+        specialinvoke l5.<cck.util.Option$Double: void <init>(java.lang.String,double,java.lang.String)>(l1, l2, l4);
+
+        $stack6 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        virtualinvoke $stack6.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l5);
+
+        return l5;
+    }
+
+    public cck.util.Option$Interval newOption(java.lang.String, long, long, java.lang.String)
+    {
+        cck.util.Option$Interval l7;
+        java.lang.String l1, l6;
+        long l2, l4;
+        cck.util.Options l0;
+        java.util.HashMap $stack8;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: long;
+
+        l4 := @parameter2: long;
+
+        l6 := @parameter3: java.lang.String;
+
+        l7 = new cck.util.Option$Interval;
+
+        specialinvoke l7.<cck.util.Option$Interval: void <init>(java.lang.String,long,long,java.lang.String)>(l1, l2, l4, l6);
+
+        $stack8 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        virtualinvoke $stack8.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l7);
+
+        return l7;
+    }
+
+    public cck.util.Option$List newOptionList(java.lang.String, java.lang.String, java.lang.String)
+    {
+        cck.util.Option$List l4;
+        java.lang.String l1, l2, l3;
+        cck.util.Options l0;
+        java.util.HashMap $stack5;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        l4 = new cck.util.Option$List;
+
+        specialinvoke l4.<cck.util.Option$List: void <init>(java.lang.String,java.lang.String,java.lang.String)>(l1, l2, l3);
+
+        $stack5 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        virtualinvoke $stack5.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l4);
+
+        return l4;
+    }
+
+    public void parseCommandLine(java.lang.String[])
+    {
+        java.lang.String[] l1, $stack6, $stack7;
+        int $stack4, $stack5, $stack15, l3#1;
+        cck.util.Options l0;
+        java.lang.String $stack8, $stack10;
+        char $stack9;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String[];
+
+        l3#1 = 0;
+
+     label1:
+        $stack4 = lengthof l1;
+
+        if l3#1 >= $stack4 goto label3;
+
+        $stack8 = l1[l3#1];
+
+        $stack9 = virtualinvoke $stack8.<java.lang.String: char charAt(int)>(0);
+
+        if $stack9 == 45 goto label2;
+
+        goto label3;
+
+     label2:
+        $stack10 = l1[l3#1];
+
+        virtualinvoke l0.<cck.util.Options: void parseOption(java.lang.String)>($stack10);
+
+        l3#1 = l3#1 + 1;
+
+        goto label1;
+
+     label3:
+        $stack5 = lengthof l1;
+
+        $stack15 = $stack5 - l3#1;
+
+        $stack6 = newarray (java.lang.String)[$stack15];
+
+        l0.<cck.util.Options: java.lang.String[] arguments> = $stack6;
+
+        $stack7 = l0.<cck.util.Options: java.lang.String[] arguments>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>(l1, l3#1, $stack7, 0, $stack15);
+
+        return;
+    }
+
+    protected void parseOption(java.lang.String)
+    {
+        java.lang.String l1, $stack7, $stack8, $stack11, l3#1, l4#2;
+        int $stack5, $stack6, $stack10;
+        cck.util.Options l0;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack5 = virtualinvoke l1.<java.lang.String: int indexOf(int)>(61);
+
+        if $stack5 >= 0 goto label1;
+
+        $stack10 = virtualinvoke l1.<java.lang.String: int length()>();
+
+        $stack11 = virtualinvoke l1.<java.lang.String: java.lang.String substring(int,int)>(1, $stack10);
+
+        l3#1 = $stack11;
+
+        l4#2 = "";
+
+        goto label2;
+
+     label1:
+        $stack6 = $stack5 + 1;
+
+        $stack7 = virtualinvoke l1.<java.lang.String: java.lang.String substring(int)>($stack6);
+
+        l4#2 = $stack7;
+
+        $stack8 = virtualinvoke l1.<java.lang.String: java.lang.String substring(int,int)>(1, $stack5);
+
+        l3#1 = $stack8;
+
+     label2:
+        virtualinvoke l0.<cck.util.Options: void setOption(java.lang.String,java.lang.String)>(l3#1, l4#2);
+
+        return;
+    }
+
+    public void process(cck.util.Options)
+    {
+        cck.util.Options l1, l0;
+        java.util.HashMap $stack4, $stack9;
+        java.util.Set $stack5;
+        java.util.Iterator $stack6;
+        boolean $stack7;
+        java.lang.Object $stack8, $stack10;
+        java.lang.String l3, $stack12;
+        cck.util.Option $stack11;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: cck.util.Options;
+
+        $stack4 = l1.<cck.util.Options: java.util.HashMap knownValues>;
+
+        $stack5 = virtualinvoke $stack4.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack6 = interfaceinvoke $stack5.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $stack7 = interfaceinvoke $stack6.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack7 == 0 goto label2;
+
+        $stack8 = interfaceinvoke $stack6.<java.util.Iterator: java.lang.Object next()>();
+
+        l3 = (java.lang.String) $stack8;
+
+        $stack9 = l1.<cck.util.Options: java.util.HashMap knownValues>;
+
+        $stack10 = virtualinvoke $stack9.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l3);
+
+        $stack11 = (cck.util.Option) $stack10;
+
+        $stack12 = virtualinvoke $stack11.<cck.util.Option: java.lang.String stringValue()>();
+
+        virtualinvoke l0.<cck.util.Options: void setOption(java.lang.String,java.lang.String)>(l3, $stack12);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void process(java.util.Properties)
+    {
+        java.util.Properties l1;
+        java.util.Set $stack5;
+        java.util.Iterator $stack6;
+        boolean $stack7;
+        cck.util.Options l0;
+        java.lang.Object $stack8;
+        java.lang.String l3, $stack9;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.util.Properties;
+
+        $stack5 = virtualinvoke l1.<java.util.Properties: java.util.Set keySet()>();
+
+        $stack6 = interfaceinvoke $stack5.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $stack7 = interfaceinvoke $stack6.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack7 == 0 goto label2;
+
+        $stack8 = interfaceinvoke $stack6.<java.util.Iterator: java.lang.Object next()>();
+
+        l3 = (java.lang.String) $stack8;
+
+        $stack9 = virtualinvoke l1.<java.util.Properties: java.lang.String getProperty(java.lang.String)>(l3);
+
+        virtualinvoke l0.<cck.util.Options: void setOption(java.lang.String,java.lang.String)>(l3, $stack9);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void setOption(java.lang.String, java.lang.String)
+    {
+        cck.util.Options l0;
+        java.lang.String l1, l2;
+        java.util.HashMap $stack5, $stack7;
+        java.lang.Object $stack6;
+        cck.util.Option$Str l3;
+        cck.util.Option l4#1;
+
+        l0 := @this: cck.util.Options;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack5 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        $stack6 = virtualinvoke $stack5.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        l4#1 = (cck.util.Option) $stack6;
+
+        if l4#1 != null goto label1;
+
+        l3 = new cck.util.Option$Str;
+
+        specialinvoke l3.<cck.util.Option$Str: void <init>(java.lang.String,java.lang.String,java.lang.String)>(l1, l2, "");
+
+        l4#1 = l3;
+
+        $stack7 = l0.<cck.util.Options: java.util.HashMap knownValues>;
+
+        virtualinvoke $stack7.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l3);
+
+     label1:
+        virtualinvoke l4#1.<cck.util.Option: void set(java.lang.String)>(l2);
+
+        return;
+    }
+}

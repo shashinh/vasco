@@ -1,0 +1,84 @@
+public interface  avrora.arch.legacy.LegacyState extends java.lang.Object implements avrora.sim.State
+{
+    public static final int NUM_REGS;
+    public static final int IOREG_BASE;
+    public static final int SREG_I;
+    public static final int SREG_T;
+    public static final int SREG_H;
+    public static final int SREG_S;
+    public static final int SREG_V;
+    public static final int SREG_N;
+    public static final int SREG_Z;
+    public static final int SREG_C;
+    public static final int SREG_I_MASK;
+    public static final int SREG_T_MASK;
+    public static final int SREG_H_MASK;
+    public static final int SREG_S_MASK;
+    public static final int SREG_V_MASK;
+    public static final int SREG_N_MASK;
+    public static final int SREG_Z_MASK;
+    public static final int SREG_C_MASK;
+
+    public abstract byte getDataByte(int);
+
+    public abstract avrora.sim.ActiveRegister getIOReg(int);
+
+    public abstract byte getIORegisterByte(int);
+
+    public abstract avrora.sim.InterruptTable getInterruptTable();
+
+    public abstract byte getProgramByte(int);
+
+    public abstract byte getRegisterByte(avrora.arch.legacy.LegacyRegister);
+
+    public abstract int getRegisterUnsigned(avrora.arch.legacy.LegacyRegister);
+
+    public abstract int getRegisterWord(avrora.arch.legacy.LegacyRegister);
+
+    public abstract byte getSREG();
+
+    public abstract int getSleepMode();
+
+    public abstract byte getStackByte();
+
+    public static void <clinit>()
+    {
+        <avrora.arch.legacy.LegacyState: int SREG_C_MASK> = 1;
+
+        <avrora.arch.legacy.LegacyState: int SREG_Z_MASK> = 2;
+
+        <avrora.arch.legacy.LegacyState: int SREG_N_MASK> = 4;
+
+        <avrora.arch.legacy.LegacyState: int SREG_V_MASK> = 8;
+
+        <avrora.arch.legacy.LegacyState: int SREG_S_MASK> = 16;
+
+        <avrora.arch.legacy.LegacyState: int SREG_H_MASK> = 32;
+
+        <avrora.arch.legacy.LegacyState: int SREG_T_MASK> = 64;
+
+        <avrora.arch.legacy.LegacyState: int SREG_I_MASK> = 128;
+
+        <avrora.arch.legacy.LegacyState: int SREG_C> = 0;
+
+        <avrora.arch.legacy.LegacyState: int SREG_Z> = 1;
+
+        <avrora.arch.legacy.LegacyState: int SREG_N> = 2;
+
+        <avrora.arch.legacy.LegacyState: int SREG_V> = 3;
+
+        <avrora.arch.legacy.LegacyState: int SREG_S> = 4;
+
+        <avrora.arch.legacy.LegacyState: int SREG_H> = 5;
+
+        <avrora.arch.legacy.LegacyState: int SREG_T> = 6;
+
+        <avrora.arch.legacy.LegacyState: int SREG_I> = 7;
+
+        <avrora.arch.legacy.LegacyState: int IOREG_BASE> = 32;
+
+        <avrora.arch.legacy.LegacyState: int NUM_REGS> = 32;
+
+        return;
+    }
+}

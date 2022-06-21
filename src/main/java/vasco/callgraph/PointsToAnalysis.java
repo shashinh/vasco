@@ -503,7 +503,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 	        		break;
 	            case "java.lang.reflect.Constructor":
 	                if ("java.lang.Object newInstance(java.lang.Object[])".equals(methodRef.getSubSignature().getString())) {
-	                	System.out.println("this looks like a constructor newinstance!");
+//	                	System.out.println("this looks like a constructor newinstance!");
 	                	isReflected = true;
 	                }
 	                break;
@@ -527,6 +527,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 	 * <p>If the instance variable points to a summary node, then the returned
 	 * value is <tt>null</tt> signifying a <em>default</em> call-site.</p>
 	 */
+	static SootMethod thread_start = null;
 	private Set<SootMethod> getTargets(SootMethod callerMethod, Stmt callStmt, InvokeExpr ie, PointsToGraph ptg) {
 		Set<SootMethod> targets = new HashSet<SootMethod>();
 		SootMethod invokedMethod = ie.getMethod();
@@ -568,7 +569,10 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							//	targets.add(receiverClass.getMethod("void run()")
 							//this will basically inline the start-run sequence
 							String className = sootClass.getName();
-							if(className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
+							if(thread_start == null && className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
+								thread_start = invokedMethod;
+							}
+							if (thread_start == invokedMethod){
 								SootMethod threadRunMethod = receiverClass.getMethod("void run()");
 								//getMethod will throw a RuntimeException if method doesn't exist - but that is fine, the method is supposed to be defined
 								targets.add(threadRunMethod);

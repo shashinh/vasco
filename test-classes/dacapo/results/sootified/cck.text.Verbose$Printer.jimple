@@ -1,0 +1,185 @@
+public class cck.text.Verbose$Printer extends cck.text.Printer
+{
+    public boolean enabled;
+
+    void <init>()
+    {
+        cck.text.Verbose$Printer l0;
+        java.io.PrintStream $stack1;
+        boolean $stack2;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        $stack1 = <java.lang.System: java.io.PrintStream out>;
+
+        specialinvoke l0.<cck.text.Printer: void <init>(java.io.PrintStream)>($stack1);
+
+        $stack2 = <cck.text.Verbose: boolean ALL>;
+
+        l0.<cck.text.Verbose$Printer: boolean enabled> = $stack2;
+
+        return;
+    }
+
+    public void endblock()
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        $stack1 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void endblock()>();
+
+     label1:
+        return;
+    }
+
+    public void indent()
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        $stack1 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void indent()>();
+
+     label1:
+        return;
+    }
+
+    public void nextln()
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        $stack1 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void nextln()>();
+
+     label1:
+        return;
+    }
+
+    public void print(java.lang.String)
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack2;
+        java.lang.String l1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack2 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void print(java.lang.String)>(l1);
+
+     label1:
+        return;
+    }
+
+    public void println(java.lang.String)
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack2;
+        java.lang.String l1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack2 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void println(java.lang.String)>(l1);
+
+     label1:
+        return;
+    }
+
+    public void spaces()
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        $stack1 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void spaces()>();
+
+     label1:
+        return;
+    }
+
+    public void startblock()
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        $stack1 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void startblock()>();
+
+     label1:
+        return;
+    }
+
+    public void startblock(java.lang.String)
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack2;
+        java.lang.String l1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack2 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void startblock(java.lang.String)>(l1);
+
+     label1:
+        return;
+    }
+
+    public void unindent()
+    {
+        cck.text.Verbose$Printer l0;
+        boolean $stack1;
+
+        l0 := @this: cck.text.Verbose$Printer;
+
+        $stack1 = l0.<cck.text.Verbose$Printer: boolean enabled>;
+
+        if $stack1 == 0 goto label1;
+
+        specialinvoke l0.<cck.text.Printer: void unindent()>();
+
+     label1:
+        return;
+    }
+}

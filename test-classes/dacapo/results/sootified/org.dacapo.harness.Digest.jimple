@@ -1,0 +1,90 @@
+public class org.dacapo.harness.Digest extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        org.dacapo.harness.Digest l0;
+
+        l0 := @this: org.dacapo.harness.Digest;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static java.security.MessageDigest create()
+    {
+        java.security.MessageDigest $stack1;
+        java.lang.Throwable $stack2;
+        java.security.NoSuchAlgorithmException $r0;
+
+     label1:
+        $stack1 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>("SHA-1");
+
+     label2:
+        return $stack1;
+
+     label3:
+        $stack2 := @caughtexception;
+
+        $r0 = (java.security.NoSuchAlgorithmException) $stack2;
+
+        virtualinvoke $r0.<java.security.NoSuchAlgorithmException: void printStackTrace()>();
+
+        staticinvoke <java.lang.System: void exit(int)>(1);
+
+        return null;
+
+        catch java.security.NoSuchAlgorithmException from label1 to label2 with label3;
+    }
+
+    public static java.lang.String toString(byte[])
+    {
+        java.lang.StringBuffer l1;
+        byte[] l0;
+        int $stack4, $stack5, $stack6, $stack9, $stack11, l3#1;
+        java.lang.String $stack7, $stack10;
+        byte $stack8;
+
+        l0 := @parameter0: byte[];
+
+        l1 = new java.lang.StringBuffer;
+
+        $stack4 = lengthof l0;
+
+        $stack5 = $stack4 * 2;
+
+        specialinvoke l1.<java.lang.StringBuffer: void <init>(int)>($stack5);
+
+        l3#1 = 0;
+
+     label1:
+        $stack6 = lengthof l0;
+
+        if l3#1 >= $stack6 goto label3;
+
+        $stack8 = l0[l3#1];
+
+        $stack9 = $stack8 & 255;
+
+        $stack10 = staticinvoke <java.lang.Integer: java.lang.String toHexString(int)>($stack9);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.String: int length()>();
+
+        if $stack11 != 1 goto label2;
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("0");
+
+     label2:
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack10);
+
+        l3#1 = l3#1 + 1;
+
+        goto label1;
+
+     label3:
+        $stack7 = virtualinvoke l1.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $stack7;
+    }
+}

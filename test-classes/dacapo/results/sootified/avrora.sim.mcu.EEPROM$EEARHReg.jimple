@@ -1,0 +1,58 @@
+public class avrora.sim.mcu.EEPROM$EEARHReg extends avrora.sim.RWRegister
+{
+    final avrora.sim.mcu.EEPROM this$0;
+
+    protected void <init>(avrora.sim.mcu.EEPROM)
+    {
+        avrora.sim.mcu.EEPROM$EEARHReg l0;
+        avrora.sim.mcu.EEPROM l1;
+
+        l0 := @this: avrora.sim.mcu.EEPROM$EEARHReg;
+
+        l1 := @parameter0: avrora.sim.mcu.EEPROM;
+
+        l0.<avrora.sim.mcu.EEPROM$EEARHReg: avrora.sim.mcu.EEPROM this$0> = l1;
+
+        specialinvoke l0.<avrora.sim.RWRegister: void <init>()>();
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.EEPROM$EEARHReg l0;
+        avrora.sim.mcu.EEPROM $stack2, $stack4;
+        boolean $stack3;
+        byte l1, $stack9;
+        int $stack5, $stack6, $stack7, $stack8;
+
+        l0 := @this: avrora.sim.mcu.EEPROM$EEARHReg;
+
+        l1 := @parameter0: byte;
+
+        $stack2 = l0.<avrora.sim.mcu.EEPROM$EEARHReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack3 = $stack2.<avrora.sim.mcu.EEPROM: boolean writeEnable>;
+
+        if $stack3 == 0 goto label1;
+
+        return;
+
+     label1:
+        $stack4 = l0.<avrora.sim.mcu.EEPROM$EEARHReg: avrora.sim.mcu.EEPROM this$0>;
+
+        $stack5 = $stack4.<avrora.sim.mcu.EEPROM: int EEPROM_SIZE>;
+
+        $stack6 = $stack5 >> 8;
+
+        $stack7 = $stack6 - 1;
+
+        $stack8 = l1 & $stack7;
+
+        $stack9 = (byte) $stack8;
+
+        l0.<avrora.sim.mcu.EEPROM$EEARHReg: byte value> = $stack9;
+
+        return;
+    }
+}

@@ -1,0 +1,139 @@
+public class org.dacapo.harness.Avrora extends org.dacapo.harness.Benchmark
+{
+    java.lang.String[] args;
+
+    public void <init>(org.dacapo.parser.Config, java.io.File) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora l0;
+        org.dacapo.parser.Config l1;
+        java.io.File l2;
+        java.lang.ClassLoader l3;
+        boolean $stack5;
+        java.lang.Class $stack6, $stack9, l4#1;
+        java.lang.Class[] $stack7;
+        java.lang.reflect.Method $stack8;
+
+        l0 := @this: org.dacapo.harness.Avrora;
+
+        l1 := @parameter0: org.dacapo.parser.Config;
+
+        l2 := @parameter1: java.io.File;
+
+        specialinvoke l0.<org.dacapo.harness.Benchmark: void <init>(org.dacapo.parser.Config,java.io.File)>(l1, l2);
+
+        l3 = l0.<org.dacapo.harness.Avrora: java.lang.ClassLoader loader>;
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassForName(int,java.lang.String)>(0, "avrora.Main");
+
+        $stack5 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack5 == 0 goto label1;
+
+        $stack9 = staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall0()>();
+
+        l4#1 = $stack9;
+
+        goto label2;
+
+     label1:
+        $stack6 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String,boolean,java.lang.ClassLoader)>("avrora.Main", 1, l3);
+
+        l4#1 = $stack6;
+
+     label2:
+        $stack7 = newarray (java.lang.Class)[1];
+
+        $stack7[0] = class "[Ljava/lang/String;";
+
+        $stack8 = virtualinvoke l4#1.<java.lang.Class: java.lang.reflect.Method getMethod(java.lang.String,java.lang.Class[])>("main", $stack7);
+
+        l0.<org.dacapo.harness.Avrora: java.lang.reflect.Method method> = $stack8;
+
+        return;
+    }
+
+    public void augmentSystemProperties(java.util.Properties)
+    {
+        java.util.Properties l1;
+        org.dacapo.harness.Avrora l0;
+        org.dacapo.parser.Config $stack2;
+        java.lang.String $stack3, $stack5;
+
+        l0 := @this: org.dacapo.harness.Avrora;
+
+        l1 := @parameter0: java.util.Properties;
+
+        $stack2 = l0.<org.dacapo.harness.Avrora: org.dacapo.parser.Config config>;
+
+        $stack3 = $stack2.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack5 = virtualinvoke l0.<org.dacapo.harness.Avrora: java.lang.String fileInScratch(java.lang.String)>($stack3);
+
+        virtualinvoke l1.<java.util.Properties: java.lang.Object setProperty(java.lang.String,java.lang.String)>("user.home", $stack5);
+
+        return;
+    }
+
+    public void iterate(java.lang.String) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora l0;
+        java.lang.reflect.Method l3;
+        java.lang.Object[] l2;
+        java.lang.String[] $stack4;
+        boolean $stack5;
+        java.lang.String l1;
+
+        l0 := @this: org.dacapo.harness.Avrora;
+
+        l1 := @parameter0: java.lang.String;
+
+        l3 = l0.<org.dacapo.harness.Avrora: java.lang.reflect.Method method>;
+
+        l2 = newarray (java.lang.Object)[1];
+
+        $stack4 = l0.<org.dacapo.harness.Avrora: java.lang.String[] args>;
+
+        l2[0] = $stack4;
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownMethodInvoke(int,java.lang.Object,java.lang.reflect.Method)>(12, null, l3);
+
+        $stack5 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
+
+        if $stack5 == 0 goto label1;
+
+        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Object reflectiveCall1873(java.lang.Object,java.lang.Object[])>(null, l2);
+
+        goto label2;
+
+     label1:
+        virtualinvoke l3.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>(null, l2);
+
+     label2:
+        return;
+    }
+
+    protected void prepare(java.lang.String) throws java.lang.Exception
+    {
+        org.dacapo.harness.Avrora l0;
+        java.lang.String l1;
+        java.io.File $stack2;
+        org.dacapo.parser.Config $stack3;
+        java.lang.String[] $stack4;
+
+        l0 := @this: org.dacapo.harness.Avrora;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<org.dacapo.harness.Benchmark: void prepare(java.lang.String)>(l1);
+
+        $stack3 = l0.<org.dacapo.harness.Avrora: org.dacapo.parser.Config config>;
+
+        $stack2 = l0.<org.dacapo.harness.Avrora: java.io.File scratch>;
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config: java.lang.String[] preprocessArgs(java.lang.String,java.io.File)>(l1, $stack2);
+
+        l0.<org.dacapo.harness.Avrora: java.lang.String[] args> = $stack4;
+
+        return;
+    }
+}

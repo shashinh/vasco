@@ -1463,14 +1463,18 @@ public class PointsToGraph {
 			// Add field edges from first operand
 			if (nodes1.contains(node)) {
 				for (SootField field : fields) {
-					edges.get(field).addAll(p.heap.get(node).get(field));
+					Set temp = p.heap.get(node).get(field);
+					if (temp != null)
+						edges.get(field).addAll(temp);
 				}
 			}
 
 			// Add field edges from second operand
 			if (nodes2.contains(node)) {
 				for (SootField field : fields) {
-					edges.get(field).addAll(q.heap.get(node).get(field));
+					Set temp = q.heap.get(node).get(field);
+					if (temp != null)
+						edges.get(field).addAll(temp);
 				}
 			}
 

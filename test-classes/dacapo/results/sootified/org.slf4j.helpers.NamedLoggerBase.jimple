@@ -1,0 +1,50 @@
+abstract class org.slf4j.helpers.NamedLoggerBase extends java.lang.Object implements org.slf4j.Logger, java.io.Serializable
+{
+    private static final long serialVersionUID;
+    protected java.lang.String name;
+
+    void <init>()
+    {
+        org.slf4j.helpers.NamedLoggerBase l0;
+
+        l0 := @this: org.slf4j.helpers.NamedLoggerBase;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public java.lang.String getName()
+    {
+        org.slf4j.helpers.NamedLoggerBase l0;
+        java.lang.String $stack1;
+
+        l0 := @this: org.slf4j.helpers.NamedLoggerBase;
+
+        $stack1 = l0.<org.slf4j.helpers.NamedLoggerBase: java.lang.String name>;
+
+        return $stack1;
+    }
+
+    protected java.lang.Object readResolve() throws java.io.ObjectStreamException
+    {
+        org.slf4j.helpers.NamedLoggerBase l0;
+        java.lang.String $stack1;
+        org.slf4j.Logger $stack2;
+
+        l0 := @this: org.slf4j.helpers.NamedLoggerBase;
+
+        $stack1 = virtualinvoke l0.<org.slf4j.helpers.NamedLoggerBase: java.lang.String getName()>();
+
+        $stack2 = staticinvoke <org.slf4j.LoggerFactory: org.slf4j.Logger getLogger(java.lang.String)>($stack1);
+
+        return $stack2;
+    }
+
+    public static void <clinit>()
+    {
+        <org.slf4j.helpers.NamedLoggerBase: long serialVersionUID> = 7535258609338176893L;
+
+        return;
+    }
+}

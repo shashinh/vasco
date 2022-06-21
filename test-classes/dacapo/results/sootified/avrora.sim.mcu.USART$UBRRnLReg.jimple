@@ -1,0 +1,39 @@
+public class avrora.sim.mcu.USART$UBRRnLReg extends avrora.sim.RWRegister
+{
+    final avrora.sim.mcu.USART this$0;
+
+    protected void <init>(avrora.sim.mcu.USART)
+    {
+        avrora.sim.mcu.USART$UBRRnLReg l0;
+        avrora.sim.mcu.USART l1;
+
+        l0 := @this: avrora.sim.mcu.USART$UBRRnLReg;
+
+        l1 := @parameter0: avrora.sim.mcu.USART;
+
+        l0.<avrora.sim.mcu.USART$UBRRnLReg: avrora.sim.mcu.USART this$0> = l1;
+
+        specialinvoke l0.<avrora.sim.RWRegister: void <init>()>();
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.USART$UBRRnLReg l0;
+        byte l1;
+        avrora.sim.mcu.USART $stack2;
+
+        l0 := @this: avrora.sim.mcu.USART$UBRRnLReg;
+
+        l1 := @parameter0: byte;
+
+        specialinvoke l0.<avrora.sim.RWRegister: void write(byte)>(l1);
+
+        $stack2 = l0.<avrora.sim.mcu.USART$UBRRnLReg: avrora.sim.mcu.USART this$0>;
+
+        virtualinvoke $stack2.<avrora.sim.mcu.USART: void updatePeriod()>();
+
+        return;
+    }
+}

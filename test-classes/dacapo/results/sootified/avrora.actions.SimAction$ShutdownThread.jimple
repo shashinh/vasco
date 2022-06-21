@@ -1,0 +1,39 @@
+public class avrora.actions.SimAction$ShutdownThread extends java.lang.Thread
+{
+    final avrora.actions.SimAction this$0;
+
+    public void <init>(avrora.actions.SimAction)
+    {
+        avrora.actions.SimAction$ShutdownThread l0;
+        avrora.actions.SimAction l1;
+
+        l0 := @this: avrora.actions.SimAction$ShutdownThread;
+
+        l1 := @parameter0: avrora.actions.SimAction;
+
+        l0.<avrora.actions.SimAction$ShutdownThread: avrora.actions.SimAction this$0> = l1;
+
+        specialinvoke l0.<java.lang.Thread: void <init>()>();
+
+        return;
+    }
+
+    public void run()
+    {
+        avrora.actions.SimAction$ShutdownThread l0;
+        avrora.actions.SimAction$AsynchronousExit $stack1;
+        avrora.actions.SimAction $stack2;
+
+        l0 := @this: avrora.actions.SimAction$ShutdownThread;
+
+        $stack2 = l0.<avrora.actions.SimAction$ShutdownThread: avrora.actions.SimAction this$0>;
+
+        $stack1 = new avrora.actions.SimAction$AsynchronousExit;
+
+        specialinvoke $stack1.<avrora.actions.SimAction$AsynchronousExit: void <init>()>();
+
+        staticinvoke <avrora.actions.SimAction: void access$000(avrora.actions.SimAction,java.lang.Throwable)>($stack2, $stack1);
+
+        return;
+    }
+}

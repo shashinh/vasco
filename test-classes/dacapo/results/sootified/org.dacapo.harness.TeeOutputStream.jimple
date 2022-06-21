@@ -1,0 +1,297 @@
+public class org.dacapo.harness.TeeOutputStream extends java.io.FilterOutputStream
+{
+    private java.io.OutputStream log;
+    private int version;
+    private final java.io.File logFile;
+    private boolean toScreen;
+
+    public void <init>(java.io.OutputStream, java.io.File)
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        java.io.OutputStream l1;
+        java.io.File l2;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+        l1 := @parameter0: java.io.OutputStream;
+
+        l2 := @parameter1: java.io.File;
+
+        specialinvoke l0.<java.io.FilterOutputStream: void <init>(java.io.OutputStream)>(l1);
+
+        l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log> = null;
+
+        l0.<org.dacapo.harness.TeeOutputStream: int version> = 0;
+
+        l0.<org.dacapo.harness.TeeOutputStream: boolean toScreen> = 0;
+
+        l0.<org.dacapo.harness.TeeOutputStream: java.io.File logFile> = l2;
+
+        specialinvoke l0.<org.dacapo.harness.TeeOutputStream: void newLog()>();
+
+        return;
+    }
+
+    public void close() throws java.io.IOException
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        java.io.OutputStream $stack1, $stack2;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+        specialinvoke l0.<java.io.FilterOutputStream: void close()>();
+
+        $stack1 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        if $stack1 == null goto label1;
+
+        $stack2 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        virtualinvoke $stack2.<java.io.OutputStream: void close()>();
+
+     label1:
+        return;
+    }
+
+    public void closeLog()
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        java.io.OutputStream $stack1;
+        java.lang.Throwable $stack2;
+        java.io.IOException $r0;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+     label1:
+        virtualinvoke l0.<org.dacapo.harness.TeeOutputStream: void flush()>();
+
+        $stack1 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        virtualinvoke $stack1.<java.io.OutputStream: void close()>();
+
+        l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log> = null;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack2 := @caughtexception;
+
+        $r0 = (java.io.IOException) $stack2;
+
+        virtualinvoke $r0.<java.io.IOException: void printStackTrace()>();
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    public void enableOutput(boolean)
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        boolean l1;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+        l1 := @parameter0: boolean;
+
+        l0.<org.dacapo.harness.TeeOutputStream: boolean toScreen> = l1;
+
+        return;
+    }
+
+    protected void finalize() throws java.lang.Throwable
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        java.lang.Exception $stack2;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+     label1:
+        virtualinvoke l0.<org.dacapo.harness.TeeOutputStream: void flush()>();
+
+        virtualinvoke l0.<org.dacapo.harness.TeeOutputStream: void close()>();
+
+        specialinvoke l0.<java.lang.Object: void finalize()>();
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack2 := @caughtexception;
+
+     label4:
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }
+
+    public void flush() throws java.io.IOException
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        java.io.OutputStream $stack1, $stack2;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+        specialinvoke l0.<java.io.FilterOutputStream: void flush()>();
+
+        $stack1 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        if $stack1 == null goto label1;
+
+        $stack2 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        virtualinvoke $stack2.<java.io.OutputStream: void flush()>();
+
+     label1:
+        return;
+    }
+
+    private void newLog()
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        java.io.File $stack2;
+        java.lang.Throwable $stack3;
+        java.io.FileOutputStream $u0;
+        java.io.FileNotFoundException $r0;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+     label1:
+        $u0 = new java.io.FileOutputStream;
+
+        $stack2 = l0.<org.dacapo.harness.TeeOutputStream: java.io.File logFile>;
+
+        specialinvoke $u0.<java.io.FileOutputStream: void <init>(java.io.File)>($stack2);
+
+        l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log> = $u0;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack3 := @caughtexception;
+
+        $r0 = (java.io.FileNotFoundException) $stack3;
+
+        virtualinvoke $r0.<java.io.FileNotFoundException: void printStackTrace()>();
+
+     label4:
+        return;
+
+        catch java.io.FileNotFoundException from label1 to label2 with label3;
+    }
+
+    public void openLog()
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+        specialinvoke l0.<org.dacapo.harness.TeeOutputStream: void newLog()>();
+
+        return;
+    }
+
+    public void version()
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        int $stack3, $stack4, $stack10;
+        java.io.File l1, $stack6, $stack14#3;
+        java.lang.StringBuilder $stack5, $stack8, $stack9, $stack11;
+        java.lang.String $stack7, $stack12;
+        java.io.OutputStream $stack13, $stack16;
+        java.lang.Throwable $stack19;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+        $stack3 = l0.<org.dacapo.harness.TeeOutputStream: int version>;
+
+        $stack4 = $stack3 + 1;
+
+        l0.<org.dacapo.harness.TeeOutputStream: int version> = $stack4;
+
+        l1 = new java.io.File;
+
+        $stack5 = new java.lang.StringBuilder;
+
+        specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>();
+
+        $stack6 = l0.<org.dacapo.harness.TeeOutputStream: java.io.File logFile>;
+
+        $stack7 = virtualinvoke $stack6.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $stack8 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack7);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".");
+
+        $stack10 = l0.<org.dacapo.harness.TeeOutputStream: int version>;
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack10);
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l1.<java.io.File: void <init>(java.lang.String)>($stack12);
+
+        $stack13 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        if $stack13 == null goto label4;
+
+     label1:
+        $stack16 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        virtualinvoke $stack16.<java.io.OutputStream: void close()>();
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack19 := @caughtexception;
+
+     label4:
+        $stack14#3 = l0.<org.dacapo.harness.TeeOutputStream: java.io.File logFile>;
+
+        virtualinvoke $stack14#3.<java.io.File: boolean renameTo(java.io.File)>(l1);
+
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    public void write(int) throws java.io.IOException
+    {
+        org.dacapo.harness.TeeOutputStream l0;
+        boolean $stack2;
+        java.io.OutputStream $stack3, $stack4, $stack5;
+        int l1;
+
+        l0 := @this: org.dacapo.harness.TeeOutputStream;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<org.dacapo.harness.TeeOutputStream: boolean toScreen>;
+
+        if $stack2 == 0 goto label1;
+
+        specialinvoke l0.<java.io.FilterOutputStream: void write(int)>(l1);
+
+        specialinvoke l0.<java.io.FilterOutputStream: void flush()>();
+
+     label1:
+        $stack3 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        if $stack3 == null goto label2;
+
+        $stack4 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        virtualinvoke $stack4.<java.io.OutputStream: void write(int)>(l1);
+
+        $stack5 = l0.<org.dacapo.harness.TeeOutputStream: java.io.OutputStream log>;
+
+        virtualinvoke $stack5.<java.io.OutputStream: void flush()>();
+
+     label2:
+        return;
+    }
+}

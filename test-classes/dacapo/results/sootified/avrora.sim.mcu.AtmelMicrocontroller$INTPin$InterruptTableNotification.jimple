@@ -1,0 +1,147 @@
+class avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification extends java.lang.Object implements avrora.sim.InterruptTable$Notification
+{
+    private avrora.sim.InterruptTable$Notification underlyingNotification;
+    final avrora.sim.mcu.AtmelMicrocontroller$INTPin this$1;
+
+    public void <init>(avrora.sim.mcu.AtmelMicrocontroller$INTPin, avrora.sim.InterruptTable$Notification)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification l0;
+        avrora.sim.mcu.AtmelMicrocontroller$INTPin l1;
+        avrora.sim.InterruptTable$Notification l2;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification;
+
+        l1 := @parameter0: avrora.sim.mcu.AtmelMicrocontroller$INTPin;
+
+        l2 := @parameter1: avrora.sim.InterruptTable$Notification;
+
+        l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.mcu.AtmelMicrocontroller$INTPin this$1> = l1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.InterruptTable$Notification underlyingNotification> = l2;
+
+        return;
+    }
+
+    public void force(int)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification l0;
+        avrora.sim.InterruptTable$Notification $stack2, $stack3;
+        int l1;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.InterruptTable$Notification underlyingNotification>;
+
+        if $stack2 == null goto label1;
+
+        $stack3 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.InterruptTable$Notification underlyingNotification>;
+
+        interfaceinvoke $stack3.<avrora.sim.InterruptTable$Notification: void force(int)>(l1);
+
+     label1:
+        return;
+    }
+
+    public void invoke(int)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification l0;
+        avrora.sim.InterruptTable$Notification $stack2, $stack9, $stack15;
+        boolean $stack3;
+        avrora.sim.mcu.AtmelMicrocontroller$INTPin $stack4, $stack8, $stack11, $stack13;
+        avrora.sim.mcu.ATMegaFamily$FlagRegister $stack5, $stack12;
+        avrora.sim.AtmelInterpreter $stack6;
+        avrora.sim.InterruptTable $stack7;
+        int $stack10, $stack14, l1;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.InterruptTable$Notification underlyingNotification>;
+
+        if $stack2 == null goto label1;
+
+        $stack15 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.InterruptTable$Notification underlyingNotification>;
+
+        interfaceinvoke $stack15.<avrora.sim.InterruptTable$Notification: void invoke(int)>(l1);
+
+     label1:
+        $stack3 = virtualinvoke l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: boolean isStillValid()>();
+
+        if $stack3 == 0 goto label2;
+
+        $stack11 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.mcu.AtmelMicrocontroller$INTPin this$1>;
+
+        $stack12 = staticinvoke <avrora.sim.mcu.AtmelMicrocontroller$INTPin: avrora.sim.mcu.ATMegaFamily$FlagRegister access$200(avrora.sim.mcu.AtmelMicrocontroller$INTPin)>($stack11);
+
+        $stack13 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.mcu.AtmelMicrocontroller$INTPin this$1>;
+
+        $stack14 = staticinvoke <avrora.sim.mcu.AtmelMicrocontroller$INTPin: int access$100(avrora.sim.mcu.AtmelMicrocontroller$INTPin)>($stack13);
+
+        virtualinvoke $stack12.<avrora.sim.mcu.ATMegaFamily$FlagRegister: void flagBit(int)>($stack14);
+
+        goto label3;
+
+     label2:
+        $stack4 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.mcu.AtmelMicrocontroller$INTPin this$1>;
+
+        $stack5 = staticinvoke <avrora.sim.mcu.AtmelMicrocontroller$INTPin: avrora.sim.mcu.ATMegaFamily$FlagRegister access$200(avrora.sim.mcu.AtmelMicrocontroller$INTPin)>($stack4);
+
+        $stack6 = $stack5.<avrora.sim.mcu.ATMegaFamily$FlagRegister: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack7 = virtualinvoke $stack6.<avrora.sim.AtmelInterpreter: avrora.sim.InterruptTable getInterruptTable()>();
+
+        $stack9 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.InterruptTable$Notification underlyingNotification>;
+
+        $stack8 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.mcu.AtmelMicrocontroller$INTPin this$1>;
+
+        $stack10 = staticinvoke <avrora.sim.mcu.AtmelMicrocontroller$INTPin: int access$100(avrora.sim.mcu.AtmelMicrocontroller$INTPin)>($stack8);
+
+        virtualinvoke $stack7.<avrora.sim.InterruptTable: void registerInternalNotification(avrora.sim.InterruptTable$Notification,int)>($stack9, $stack10);
+
+     label3:
+        return;
+    }
+
+    public boolean isStillValid()
+    {
+        avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification l0;
+        avrora.sim.mcu.AtmelMicrocontroller$INTPin $stack1, $stack6;
+        avrora.sim.state.RegisterUtil$BitRangeView $stack2;
+        int $stack3, $stack5;
+        avrora.sim.mcu.AtmelMicrocontroller$InterruptType $stack4;
+        boolean $stack7;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification;
+
+        $stack1 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.mcu.AtmelMicrocontroller$INTPin this$1>;
+
+        $stack2 = staticinvoke <avrora.sim.mcu.AtmelMicrocontroller$INTPin: avrora.sim.state.RegisterUtil$BitRangeView access$000(avrora.sim.mcu.AtmelMicrocontroller$INTPin)>($stack1);
+
+        $stack3 = virtualinvoke $stack2.<avrora.sim.state.RegisterUtil$BitRangeView: int getValue()>();
+
+        $stack4 = <avrora.sim.mcu.AtmelMicrocontroller$InterruptType: avrora.sim.mcu.AtmelMicrocontroller$InterruptType LowLevel>;
+
+        $stack5 = virtualinvoke $stack4.<avrora.sim.mcu.AtmelMicrocontroller$InterruptType: int getBitValue()>();
+
+        if $stack3 == $stack5 goto label1;
+
+        return 0;
+
+     label1:
+        $stack6 = l0.<avrora.sim.mcu.AtmelMicrocontroller$INTPin$InterruptTableNotification: avrora.sim.mcu.AtmelMicrocontroller$INTPin this$1>;
+
+        $stack7 = virtualinvoke $stack6.<avrora.sim.mcu.AtmelMicrocontroller$INTPin: boolean read()>();
+
+        if $stack7 == 0 goto label2;
+
+        return 0;
+
+     label2:
+        return 1;
+    }
+}

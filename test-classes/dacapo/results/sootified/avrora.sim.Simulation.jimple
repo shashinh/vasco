@@ -1,0 +1,733 @@
+public abstract class avrora.sim.Simulation extends cck.help.HelpCategory
+{
+    public final cck.util.Option$Str PLATFORM;
+    public final cck.util.Option$Long CLOCKSPEED;
+    public final cck.util.Option$Long EXTCLOCKSPEED;
+    public final cck.util.Option$Str MCU;
+    public final cck.util.Option$Long RANDOMSEED;
+    public final cck.util.Option$Double SECONDS;
+    public final cck.util.Option$List MONITORS;
+    public final cck.util.Option$Str SCHEDULE;
+    public final cck.util.Option$Str EELOADIMAGE;
+    protected int num_nodes;
+    protected avrora.sim.Simulation$Node[] nodes;
+    protected boolean running;
+    protected boolean paused;
+    protected java.util.Random random;
+    protected java.util.LinkedList monitorFactoryList;
+    protected avrora.sim.clock.Synchronizer synchronizer;
+
+    protected void <init>(java.lang.String, java.lang.String, avrora.sim.clock.Synchronizer)
+    {
+        avrora.sim.Simulation l0;
+        java.lang.String l1, l2;
+        cck.util.Option$Str $stack4, $stack7, $stack11, $stack12;
+        cck.util.Option$Long $stack5, $stack6, $stack8;
+        cck.util.Option$Double $stack9;
+        cck.util.Option$List $stack10;
+        avrora.sim.Simulation$Node[] $stack13;
+        avrora.sim.clock.Synchronizer l3;
+        java.util.LinkedList $stack14;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: avrora.sim.clock.Synchronizer;
+
+        specialinvoke l0.<cck.help.HelpCategory: void <init>(java.lang.String,java.lang.String)>(l1, l2);
+
+        $stack4 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$Str newOption(java.lang.String,java.lang.String,java.lang.String)>("platform", "", "This option selects the platform on which the microcontroller is built, including the external devices such as LEDs and radio. If the platform option is not set, the default platform is the microcontroller specified in the \"mcu\" option, with no external devices.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$Str PLATFORM> = $stack4;
+
+        $stack5 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$Long newOption(java.lang.String,long,java.lang.String)>("clockspeed", 8000000L, "This option specifies the clockspeed of the microcontroller when the platform is not specified. The speed is given in cycles per second, i.e. hertz.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$Long CLOCKSPEED> = $stack5;
+
+        $stack6 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$Long newOption(java.lang.String,long,java.lang.String)>("external-clockspeed", 0L, "This option specifies the clockspeed of the external clock supplied to the microcontroller when the platform is not specified. The speed is given in cycles per second, i.e. hertz. When this option is set to zero, the external clock is the same speed as the main clock.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$Long EXTCLOCKSPEED> = $stack6;
+
+        $stack7 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$Str newOption(java.lang.String,java.lang.String,java.lang.String)>("mcu", "atmega128", "This option selects the microcontroller from a library of supported microcontroller models.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$Str MCU> = $stack7;
+
+        $stack8 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$Long newOption(java.lang.String,long,java.lang.String)>("random-seed", 0L, "This option is used to seed a pseudo-random number generator used in the simulation. If this option is set to non-zero, then its value is used as the seed for reproducible simulation results. If this option is not set, those parts of simulation that rely on random numbers will have seeds chosen based on system parameters that vary from run to run.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$Long RANDOMSEED> = $stack8;
+
+        $stack9 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$Double newOption(java.lang.String,double,java.lang.String)>("seconds", 0.0, "This option is used to terminate the simulation after the specified number of simulated seconds have passed.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$Double SECONDS> = $stack9;
+
+        $stack10 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$List newOptionList(java.lang.String,java.lang.String,java.lang.String)>("monitors", "", "This option specifies a list of monitors to be attached to the program. Monitors collect information about the execution of the program while it is running such as profiling data or timing information.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$List MONITORS> = $stack10;
+
+        $stack11 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$Str newOption(java.lang.String,java.lang.String,java.lang.String)>("interrupt-schedule", "", "This option, when specified, contains the name of a file that contains an interrupt schedule that describes when to post interrupts (especially external interrupts) to the program. This is useful for testing programs under different interrupt loads. For multi-node simulations, the interrupt schedule is only applied to node 0.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$Str SCHEDULE> = $stack11;
+
+        $stack12 = virtualinvoke l0.<avrora.sim.Simulation: cck.util.Option$Str newOption(java.lang.String,java.lang.String,java.lang.String)>("eeprom-load-image", "", "This option specifies a (binary) image file to load into EEPROM before starting the simulation.");
+
+        l0.<avrora.sim.Simulation: cck.util.Option$Str EELOADIMAGE> = $stack12;
+
+        $stack13 = newarray (avrora.sim.Simulation$Node)[16];
+
+        l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes> = $stack13;
+
+        l0.<avrora.sim.Simulation: avrora.sim.clock.Synchronizer synchronizer> = l3;
+
+        $stack14 = new java.util.LinkedList;
+
+        specialinvoke $stack14.<java.util.LinkedList: void <init>()>();
+
+        l0.<avrora.sim.Simulation: java.util.LinkedList monitorFactoryList> = $stack14;
+
+        return;
+    }
+
+    public synchronized avrora.sim.Simulation$Node createNode(avrora.sim.platform.PlatformFactory, avrora.core.LoadableProgram)
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack5;
+        int l3, $stack6, $stack9;
+        avrora.sim.platform.PlatformFactory l1;
+        avrora.core.LoadableProgram l2;
+        avrora.sim.Simulation$Node $stack7;
+        avrora.sim.Simulation$Node[] $stack8, $stack10;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: avrora.sim.platform.PlatformFactory;
+
+        l2 := @parameter1: avrora.core.LoadableProgram;
+
+        $stack5 = l0.<avrora.sim.Simulation: boolean running>;
+
+        if $stack5 == 0 goto label1;
+
+        return null;
+
+     label1:
+        l3 = l0.<avrora.sim.Simulation: int num_nodes>;
+
+        $stack6 = l3 + 1;
+
+        l0.<avrora.sim.Simulation: int num_nodes> = $stack6;
+
+        $stack7 = virtualinvoke l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node newNode(int,avrora.sim.platform.PlatformFactory,avrora.core.LoadableProgram)>(l3, l1, l2);
+
+        $stack8 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack9 = lengthof $stack8;
+
+        if l3 < $stack9 goto label2;
+
+        specialinvoke l0.<avrora.sim.Simulation: void grow()>();
+
+     label2:
+        $stack10 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack10[l3] = $stack7;
+
+        return $stack7;
+    }
+
+    public avrora.sim.Simulator createSimulator(int, avrora.sim.InterpreterFactory, avrora.sim.mcu.Microcontroller, avrora.core.Program)
+    {
+        avrora.sim.Simulator $stack5;
+        int l1;
+        avrora.sim.Simulation l0;
+        avrora.sim.InterpreterFactory l2;
+        avrora.sim.mcu.Microcontroller l3;
+        avrora.core.Program l4;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: avrora.sim.InterpreterFactory;
+
+        l3 := @parameter2: avrora.sim.mcu.Microcontroller;
+
+        l4 := @parameter3: avrora.core.Program;
+
+        $stack5 = new avrora.sim.Simulator;
+
+        specialinvoke $stack5.<avrora.sim.Simulator: void <init>(int,avrora.sim.Simulation,avrora.sim.InterpreterFactory,avrora.sim.mcu.Microcontroller,avrora.core.Program)>(l1, l0, l2, l3, l4);
+
+        return $stack5;
+    }
+
+    public synchronized avrora.sim.Simulation$Node getNode(int)
+    {
+        int l1, $stack3;
+        avrora.sim.Simulation l0;
+        avrora.sim.Simulation$Node[] $stack2, $stack4;
+        avrora.sim.Simulation$Node $stack5;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack3 = lengthof $stack2;
+
+        if l1 < $stack3 goto label1;
+
+        return null;
+
+     label1:
+        $stack4 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack5 = $stack4[l1];
+
+        return $stack5;
+    }
+
+    public java.util.Iterator getNodeIterator()
+    {
+        avrora.sim.Simulation$Iter $stack1;
+        avrora.sim.Simulation l0;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = new avrora.sim.Simulation$Iter;
+
+        specialinvoke $stack1.<avrora.sim.Simulation$Iter: void <init>(avrora.sim.Simulation)>(l0);
+
+        return $stack1;
+    }
+
+    public int getNumberOfNodes()
+    {
+        avrora.sim.Simulation l0;
+        int $stack1;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = l0.<avrora.sim.Simulation: int num_nodes>;
+
+        return $stack1;
+    }
+
+    protected avrora.sim.platform.PlatformFactory getPlatform()
+    {
+        avrora.sim.Simulation l0;
+        cck.util.Option$Str $stack5, $stack7, $stack17;
+        boolean $stack6;
+        java.lang.String $stack8, $stack18, $stack25;
+        avrora.sim.platform.PlatformFactory $stack9, $stack20;
+        cck.util.Option$Long $stack10, $stack12;
+        long $stack11, $stack13, l3#1;
+        byte $stack14, $stack15;
+        avrora.sim.platform.DefaultPlatform$Factory $stack16;
+        avrora.sim.mcu.MicrocontrollerFactory $stack19;
+        java.lang.StringBuilder $stack21, $stack23, $stack24;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack5 = l0.<avrora.sim.Simulation: cck.util.Option$Str PLATFORM>;
+
+        $stack6 = virtualinvoke $stack5.<cck.util.Option$Str: boolean isBlank()>();
+
+        if $stack6 == 0 goto label3;
+
+        $stack10 = l0.<avrora.sim.Simulation: cck.util.Option$Long CLOCKSPEED>;
+
+        $stack11 = virtualinvoke $stack10.<cck.util.Option$Long: long get()>();
+
+        $stack12 = l0.<avrora.sim.Simulation: cck.util.Option$Long EXTCLOCKSPEED>;
+
+        $stack13 = virtualinvoke $stack12.<cck.util.Option$Long: long get()>();
+
+        l3#1 = $stack13;
+
+        $stack14 = $stack13 cmp 0L;
+
+        if $stack14 != 0 goto label1;
+
+        l3#1 = $stack11;
+
+     label1:
+        $stack15 = l3#1 cmp $stack11;
+
+        if $stack15 <= 0 goto label2;
+
+        $stack21 = new java.lang.StringBuilder;
+
+        specialinvoke $stack21.<java.lang.StringBuilder: void <init>()>();
+
+        $stack23 = virtualinvoke $stack21.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(l3#1);
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("hz");
+
+        $stack25 = virtualinvoke $stack24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("External clock is greater than main clock speed", $stack25);
+
+     label2:
+        $stack16 = new avrora.sim.platform.DefaultPlatform$Factory;
+
+        $stack17 = l0.<avrora.sim.Simulation: cck.util.Option$Str MCU>;
+
+        $stack18 = virtualinvoke $stack17.<cck.util.Option$Str: java.lang.String get()>();
+
+        $stack19 = staticinvoke <avrora.Defaults: avrora.sim.mcu.MicrocontrollerFactory getMicrocontroller(java.lang.String)>($stack18);
+
+        specialinvoke $stack16.<avrora.sim.platform.DefaultPlatform$Factory: void <init>(long,long,avrora.sim.mcu.MicrocontrollerFactory)>($stack11, l3#1, $stack19);
+
+        $stack20 = (avrora.sim.platform.PlatformFactory) $stack16;
+
+        return $stack20;
+
+     label3:
+        $stack7 = l0.<avrora.sim.Simulation: cck.util.Option$Str PLATFORM>;
+
+        $stack8 = virtualinvoke $stack7.<cck.util.Option$Str: java.lang.String get()>();
+
+        $stack9 = staticinvoke <avrora.Defaults: avrora.sim.platform.PlatformFactory getPlatform(java.lang.String)>($stack8);
+
+        return $stack9;
+    }
+
+    public avrora.sim.output.SimPrinter getPrinter(avrora.sim.Simulator, java.lang.String)
+    {
+        java.lang.String l2;
+        boolean $stack3;
+        avrora.sim.output.SimPrinter $stack4;
+        avrora.sim.Simulator l1;
+        avrora.sim.Simulation l0;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: avrora.sim.Simulator;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = staticinvoke <cck.text.Verbose: boolean isVerbose(java.lang.String)>(l2);
+
+        if $stack3 == 0 goto label1;
+
+        $stack4 = new avrora.sim.output.SimPrinter;
+
+        specialinvoke $stack4.<avrora.sim.output.SimPrinter: void <init>(avrora.sim.Simulator,java.lang.String)>(l1, l2);
+
+        return $stack4;
+
+     label1:
+        return null;
+    }
+
+    public avrora.sim.output.SimPrinter getPrinter(avrora.sim.Simulator)
+    {
+        avrora.sim.output.SimPrinter $stack2;
+        avrora.sim.Simulator l1;
+        avrora.sim.Simulation l0;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: avrora.sim.Simulator;
+
+        $stack2 = new avrora.sim.output.SimPrinter;
+
+        specialinvoke $stack2.<avrora.sim.output.SimPrinter: void <init>(avrora.sim.Simulator,java.lang.String)>(l1, "");
+
+        return $stack2;
+    }
+
+    public java.util.Random getRandom()
+    {
+        avrora.sim.Simulation l0;
+        java.util.Random $stack3, $stack8, $stack10, $stack4#3;
+        cck.util.Option$Long $stack5;
+        long $stack6;
+        byte $stack7;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack3 = l0.<avrora.sim.Simulation: java.util.Random random>;
+
+        if $stack3 != null goto label2;
+
+        $stack5 = l0.<avrora.sim.Simulation: cck.util.Option$Long RANDOMSEED>;
+
+        $stack6 = virtualinvoke $stack5.<cck.util.Option$Long: long get()>();
+
+        $stack7 = $stack6 cmp 0L;
+
+        if $stack7 == 0 goto label1;
+
+        $stack10 = new java.util.Random;
+
+        specialinvoke $stack10.<java.util.Random: void <init>(long)>($stack6);
+
+        l0.<avrora.sim.Simulation: java.util.Random random> = $stack10;
+
+        goto label2;
+
+     label1:
+        $stack8 = new java.util.Random;
+
+        specialinvoke $stack8.<java.util.Random: void <init>()>();
+
+        l0.<avrora.sim.Simulation: java.util.Random random> = $stack8;
+
+     label2:
+        $stack4#3 = l0.<avrora.sim.Simulation: java.util.Random random>;
+
+        return $stack4#3;
+    }
+
+    private void grow()
+    {
+        avrora.sim.Simulation l0;
+        avrora.sim.Simulation$Node[] $stack2, l1, $stack5, $stack7;
+        int $stack3, $stack4, $stack6;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack7 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack2 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack3 = lengthof $stack2;
+
+        $stack4 = $stack3 * 2;
+
+        l1 = newarray (avrora.sim.Simulation$Node)[$stack4];
+
+        $stack5 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack6 = lengthof $stack5;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack7, 0, l1, 0, $stack6);
+
+        l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes> = l1;
+
+        return;
+    }
+
+    protected void instantiateNodes()
+    {
+        avrora.sim.Simulation l0;
+        avrora.sim.Simulation$Node[] $stack3, $stack5;
+        int $stack4, l2#1;
+        avrora.sim.Simulation$Node l1;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l2#1 = 0;
+
+     label1:
+        $stack3 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack4 = lengthof $stack3;
+
+        if l2#1 >= $stack4 goto label4;
+
+        $stack5 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        l1 = $stack5[l2#1];
+
+        if l1 != null goto label2;
+
+        goto label3;
+
+     label2:
+        virtualinvoke l1.<avrora.sim.Simulation$Node: void instantiate()>();
+
+        virtualinvoke l1.<avrora.sim.Simulation$Node: void addMonitors()>();
+
+     label3:
+        l2#1 = l2#1 + 1;
+
+        goto label1;
+
+     label4:
+        return;
+    }
+
+    public boolean isPaused()
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack1;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = l0.<avrora.sim.Simulation: boolean paused>;
+
+        return $stack1;
+    }
+
+    public boolean isRunning()
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack1;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = l0.<avrora.sim.Simulation: boolean running>;
+
+        return $stack1;
+    }
+
+    public synchronized void join() throws java.lang.InterruptedException
+    {
+        avrora.sim.Simulation l0;
+        avrora.sim.clock.Synchronizer $stack1;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = l0.<avrora.sim.Simulation: avrora.sim.clock.Synchronizer synchronizer>;
+
+        virtualinvoke $stack1.<avrora.sim.clock.Synchronizer: void join()>();
+
+        return;
+    }
+
+    protected avrora.sim.Simulation$Node newNode(int, avrora.sim.platform.PlatformFactory, avrora.core.LoadableProgram)
+    {
+        avrora.sim.Simulation$Node $stack4;
+        avrora.sim.Simulation l0;
+        int l1;
+        avrora.sim.platform.PlatformFactory l2;
+        avrora.core.LoadableProgram l3;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: avrora.sim.platform.PlatformFactory;
+
+        l3 := @parameter2: avrora.core.LoadableProgram;
+
+        $stack4 = new avrora.sim.Simulation$Node;
+
+        specialinvoke $stack4.<avrora.sim.Simulation$Node: void <init>(avrora.sim.Simulation,int,avrora.sim.platform.PlatformFactory,avrora.core.LoadableProgram)>(l0, l1, l2, l3);
+
+        return $stack4;
+    }
+
+    public synchronized void pause()
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack1;
+        avrora.sim.clock.Synchronizer $stack2;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = l0.<avrora.sim.Simulation: boolean running>;
+
+        if $stack1 != 0 goto label1;
+
+        return;
+
+     label1:
+        $stack2 = l0.<avrora.sim.Simulation: avrora.sim.clock.Synchronizer synchronizer>;
+
+        virtualinvoke $stack2.<avrora.sim.clock.Synchronizer: void pause()>();
+
+        l0.<avrora.sim.Simulation: boolean paused> = 1;
+
+        return;
+    }
+
+    public abstract void process(cck.util.Options, java.lang.String[]) throws java.lang.Exception;
+
+    protected void processMonitorList()
+    {
+        avrora.sim.Simulation l0;
+        cck.util.Option$List $stack3;
+        java.util.List $stack4;
+        java.util.Iterator $stack5;
+        boolean $stack6;
+        java.lang.Object $stack7;
+        java.lang.String $stack8;
+        avrora.monitors.MonitorFactory $stack9;
+        cck.util.Options $stack10;
+        java.util.LinkedList $stack11;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack3 = l0.<avrora.sim.Simulation: cck.util.Option$List MONITORS>;
+
+        $stack4 = virtualinvoke $stack3.<cck.util.Option$List: java.util.List get()>();
+
+        $stack5 = interfaceinvoke $stack4.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $stack6 = interfaceinvoke $stack5.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack6 == 0 goto label2;
+
+        $stack7 = interfaceinvoke $stack5.<java.util.Iterator: java.lang.Object next()>();
+
+        $stack8 = (java.lang.String) $stack7;
+
+        $stack9 = staticinvoke <avrora.Defaults: avrora.monitors.MonitorFactory getMonitor(java.lang.String)>($stack8);
+
+        $stack10 = l0.<avrora.sim.Simulation: cck.util.Options options>;
+
+        virtualinvoke $stack9.<avrora.monitors.MonitorFactory: void processOptions(cck.util.Options)>($stack10);
+
+        $stack11 = l0.<avrora.sim.Simulation: java.util.LinkedList monitorFactoryList>;
+
+        virtualinvoke $stack11.<java.util.LinkedList: void addLast(java.lang.Object)>($stack9);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public synchronized void removeNode(int)
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack3;
+        int l1, $stack8, $stack9;
+        avrora.sim.Simulation$Node[] $stack4, $stack6, $stack7;
+        avrora.sim.Simulation$Node $stack5, l2;
+        avrora.sim.clock.Synchronizer $stack10;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: int;
+
+        $stack3 = l0.<avrora.sim.Simulation: boolean running>;
+
+        if $stack3 == 0 goto label1;
+
+        return;
+
+     label1:
+        $stack4 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack5 = $stack4[l1];
+
+        if $stack5 == null goto label2;
+
+        $stack6 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        l2 = $stack6[l1];
+
+        $stack7 = l0.<avrora.sim.Simulation: avrora.sim.Simulation$Node[] nodes>;
+
+        $stack7[l1] = null;
+
+        $stack8 = l0.<avrora.sim.Simulation: int num_nodes>;
+
+        $stack9 = $stack8 - 1;
+
+        l0.<avrora.sim.Simulation: int num_nodes> = $stack9;
+
+        $stack10 = l0.<avrora.sim.Simulation: avrora.sim.clock.Synchronizer synchronizer>;
+
+        virtualinvoke $stack10.<avrora.sim.clock.Synchronizer: void removeNode(avrora.sim.Simulation$Node)>(l2);
+
+        virtualinvoke l2.<avrora.sim.Simulation$Node: void remove()>();
+
+     label2:
+        return;
+    }
+
+    public synchronized void resume()
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack1;
+        cck.util.Util$InternalError $stack2;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = l0.<avrora.sim.Simulation: boolean running>;
+
+        if $stack1 != 0 goto label1;
+
+        return;
+
+     label1:
+        $stack2 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack2;
+    }
+
+    public synchronized void start()
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack1;
+        avrora.sim.clock.Synchronizer $stack2;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = l0.<avrora.sim.Simulation: boolean running>;
+
+        if $stack1 == 0 goto label1;
+
+        return;
+
+     label1:
+        virtualinvoke l0.<avrora.sim.Simulation: void instantiateNodes()>();
+
+        $stack2 = l0.<avrora.sim.Simulation: avrora.sim.clock.Synchronizer synchronizer>;
+
+        virtualinvoke $stack2.<avrora.sim.clock.Synchronizer: void start()>();
+
+        l0.<avrora.sim.Simulation: boolean running> = 1;
+
+        return;
+    }
+
+    public synchronized void stop()
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack1;
+        avrora.sim.clock.Synchronizer $stack2;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        $stack1 = l0.<avrora.sim.Simulation: boolean running>;
+
+        if $stack1 != 0 goto label1;
+
+        return;
+
+     label1:
+        $stack2 = l0.<avrora.sim.Simulation: avrora.sim.clock.Synchronizer synchronizer>;
+
+        virtualinvoke $stack2.<avrora.sim.clock.Synchronizer: void stop()>();
+
+        l0.<avrora.sim.Simulation: boolean paused> = 0;
+
+        l0.<avrora.sim.Simulation: boolean running> = 0;
+
+        return;
+    }
+
+    public synchronized void stopNode(int)
+    {
+        avrora.sim.Simulation l0;
+        boolean $stack2;
+        cck.util.Util$InternalError $stack3;
+        int l1;
+
+        l0 := @this: avrora.sim.Simulation;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<avrora.sim.Simulation: boolean running>;
+
+        if $stack2 != 0 goto label1;
+
+        return;
+
+     label1:
+        $stack3 = staticinvoke <cck.util.Util: cck.util.Util$InternalError unimplemented()>();
+
+        throw $stack3;
+    }
+}

@@ -1,0 +1,161 @@
+public class avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput extends avrora.sim.mcu.Microcontroller$Pin$ListenableInput implements avrora.sim.state.BooleanView$ValueSetListener
+{
+    private avrora.sim.state.BooleanView level;
+
+    public void <init>()
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput l0;
+        avrora.sim.state.BooleanRegister $stack1;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput;
+
+        $stack1 = new avrora.sim.state.BooleanRegister;
+
+        specialinvoke $stack1.<avrora.sim.state.BooleanRegister: void <init>()>();
+
+        specialinvoke l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: void <init>(avrora.sim.state.BooleanView)>($stack1);
+
+        return;
+    }
+
+    public void <init>(avrora.sim.state.BooleanView)
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput l0;
+        avrora.sim.state.BooleanView l1;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput;
+
+        l1 := @parameter0: avrora.sim.state.BooleanView;
+
+        specialinvoke l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: void <init>()>();
+
+        virtualinvoke l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: void setLevelView(avrora.sim.state.BooleanView)>(l1);
+
+        return;
+    }
+
+    public boolean getLevel()
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput l0;
+        avrora.sim.state.BooleanView $stack1;
+        boolean $stack2;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput;
+
+        $stack1 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level>;
+
+        $stack2 = interfaceinvoke $stack1.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        return $stack2;
+    }
+
+    public avrora.sim.state.BooleanView getLevelView()
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput l0;
+        avrora.sim.state.BooleanView $stack1;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput;
+
+        $stack1 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level>;
+
+        return $stack1;
+    }
+
+    public void onValueSet(avrora.sim.state.BooleanView, boolean)
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput l0;
+        boolean l2;
+        avrora.sim.state.BooleanView l1;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput;
+
+        l1 := @parameter0: avrora.sim.state.BooleanView;
+
+        l2 := @parameter1: boolean;
+
+        virtualinvoke l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: void notifyListeners(boolean)>(l2);
+
+        return;
+    }
+
+    public boolean read()
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput l0;
+        avrora.sim.state.BooleanView $stack1;
+        boolean $stack2;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput;
+
+        $stack1 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level>;
+
+        $stack2 = interfaceinvoke $stack1.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        return $stack2;
+    }
+
+    public void setLevel(boolean)
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput l0;
+        boolean l1;
+        avrora.sim.state.BooleanView $stack2;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput;
+
+        l1 := @parameter0: boolean;
+
+        $stack2 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level>;
+
+        interfaceinvoke $stack2.<avrora.sim.state.BooleanView: void setValue(boolean)>(l1);
+
+        return;
+    }
+
+    public void setLevelView(avrora.sim.state.BooleanView)
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput l0;
+        avrora.sim.state.BooleanView $stack4, l1, $stack5, $stack6, $stack8;
+        boolean l2, $stack7, l3#1;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput;
+
+        l1 := @parameter0: avrora.sim.state.BooleanView;
+
+        $stack4 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level>;
+
+        if $stack4 == null goto label1;
+
+        l3#1 = 1;
+
+        goto label2;
+
+     label1:
+        l3#1 = 0;
+
+     label2:
+        l2 = l3#1;
+
+        if l3#1 == 0 goto label3;
+
+        $stack8 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level>;
+
+        interfaceinvoke $stack8.<avrora.sim.state.BooleanView: void setValueSetListener(avrora.sim.state.BooleanView$ValueSetListener)>(null);
+
+     label3:
+        l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level> = l1;
+
+        $stack5 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level>;
+
+        interfaceinvoke $stack5.<avrora.sim.state.BooleanView: void setValueSetListener(avrora.sim.state.BooleanView$ValueSetListener)>(l0);
+
+        if l2 == 0 goto label4;
+
+        $stack6 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: avrora.sim.state.BooleanView level>;
+
+        $stack7 = interfaceinvoke $stack6.<avrora.sim.state.BooleanView: boolean getValue()>();
+
+        virtualinvoke l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableBooleanViewInput: void notifyListeners(boolean)>($stack7);
+
+     label4:
+        return;
+    }
+}

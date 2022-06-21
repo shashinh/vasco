@@ -1,0 +1,30 @@
+public abstract class avrora.sim.clock.Synchronizer extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        avrora.sim.clock.Synchronizer l0;
+
+        l0 := @this: avrora.sim.clock.Synchronizer;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public abstract void addNode(avrora.sim.Simulation$Node);
+
+    public abstract void join() throws java.lang.InterruptedException;
+
+    public abstract void pause();
+
+    public abstract void removeNode(avrora.sim.Simulation$Node);
+
+    public abstract void start();
+
+    public abstract void stop();
+
+    public abstract void synch(long);
+
+    public abstract void waitForNeighbors(long);
+}

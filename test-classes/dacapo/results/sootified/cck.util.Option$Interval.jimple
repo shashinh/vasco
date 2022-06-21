@@ -1,0 +1,200 @@
+public class cck.util.Option$Interval extends cck.util.Option
+{
+    protected final long default_low;
+    protected final long default_high;
+    protected long low;
+    protected long high;
+
+    public void <init>(java.lang.String, long, long, java.lang.String)
+    {
+        cck.util.Option$Interval l0;
+        java.lang.String l1, l6;
+        long l2, l4;
+
+        l0 := @this: cck.util.Option$Interval;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: long;
+
+        l4 := @parameter2: long;
+
+        l6 := @parameter3: java.lang.String;
+
+        specialinvoke l0.<cck.util.Option: void <init>(java.lang.String,java.lang.String)>(l1, l6);
+
+        l0.<cck.util.Option$Interval: long low> = l2;
+
+        l0.<cck.util.Option$Interval: long default_low> = l2;
+
+        l0.<cck.util.Option$Interval: long high> = l4;
+
+        l0.<cck.util.Option$Interval: long default_high> = l4;
+
+        return;
+    }
+
+    public long getHigh()
+    {
+        cck.util.Option$Interval l0;
+        long $stack1;
+
+        l0 := @this: cck.util.Option$Interval;
+
+        $stack1 = l0.<cck.util.Option$Interval: long high>;
+
+        return $stack1;
+    }
+
+    public long getLow()
+    {
+        cck.util.Option$Interval l0;
+        long $stack1;
+
+        l0 := @this: cck.util.Option$Interval;
+
+        $stack1 = l0.<cck.util.Option$Interval: long low>;
+
+        return $stack1;
+    }
+
+    public void printHelp()
+    {
+        cck.util.Option$Interval l0;
+        java.lang.StringBuilder $stack1, $stack3, $stack5, $stack6, $stack8, $stack9;
+        long $stack4, $stack7;
+        java.lang.String $stack10;
+
+        l0 := @this: cck.util.Option$Interval;
+
+        $stack1 = new java.lang.StringBuilder;
+
+        specialinvoke $stack1.<java.lang.StringBuilder: void <init>()>();
+
+        $stack3 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $stack4 = l0.<cck.util.Option$Interval: long default_low>;
+
+        $stack5 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($stack4);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(44);
+
+        $stack7 = l0.<cck.util.Option$Interval: long default_high>;
+
+        $stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($stack7);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(93);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l0.<cck.util.Option$Interval: void printHeader(java.lang.String,java.lang.String)>("interval", $stack10);
+
+        virtualinvoke l0.<cck.util.Option$Interval: void printDescription()>();
+
+        return;
+    }
+
+    public void set(java.lang.String)
+    {
+        java.text.StringCharacterIterator l2;
+        java.lang.String l1, $stack5, $stack8, $stack11, $stack12, $stack18, $stack25;
+        boolean $stack4, $stack7, $stack10;
+        cck.util.Option$Interval l0;
+        long $stack6, $stack9;
+        java.lang.Throwable $stack24;
+
+        l0 := @this: cck.util.Option$Interval;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 = new java.text.StringCharacterIterator;
+
+        specialinvoke l2.<java.text.StringCharacterIterator: void <init>(java.lang.String)>(l1);
+
+     label1:
+        $stack4 = staticinvoke <cck.text.StringUtil: boolean peekAndEat(java.text.CharacterIterator,char)>(l2, 91);
+
+        if $stack4 != 0 goto label2;
+
+        $stack18 = l0.<cck.util.Option$Interval: java.lang.String name>;
+
+        virtualinvoke l0.<cck.util.Option$Interval: void parseError(java.lang.String,java.lang.String,java.lang.String)>($stack18, "interval", l1);
+
+     label2:
+        $stack5 = staticinvoke <cck.text.StringUtil: java.lang.String readDecimalString(java.text.CharacterIterator,int)>(l2, 12);
+
+        $stack6 = staticinvoke <java.lang.Long: long parseLong(java.lang.String)>($stack5);
+
+        l0.<cck.util.Option$Interval: long low> = $stack6;
+
+        $stack7 = staticinvoke <cck.text.StringUtil: boolean peekAndEat(java.text.CharacterIterator,char)>(l2, 44);
+
+        if $stack7 != 0 goto label3;
+
+        $stack12 = l0.<cck.util.Option$Interval: java.lang.String name>;
+
+        virtualinvoke l0.<cck.util.Option$Interval: void parseError(java.lang.String,java.lang.String,java.lang.String)>($stack12, "interval", l1);
+
+     label3:
+        $stack8 = staticinvoke <cck.text.StringUtil: java.lang.String readDecimalString(java.text.CharacterIterator,int)>(l2, 12);
+
+        $stack9 = staticinvoke <java.lang.Long: long parseLong(java.lang.String)>($stack8);
+
+        l0.<cck.util.Option$Interval: long high> = $stack9;
+
+        $stack10 = staticinvoke <cck.text.StringUtil: boolean peekAndEat(java.text.CharacterIterator,char)>(l2, 93);
+
+        if $stack10 != 0 goto label4;
+
+        $stack11 = l0.<cck.util.Option$Interval: java.lang.String name>;
+
+        virtualinvoke l0.<cck.util.Option$Interval: void parseError(java.lang.String,java.lang.String,java.lang.String)>($stack11, "interval", l1);
+
+     label4:
+        goto label6;
+
+     label5:
+        $stack24 := @caughtexception;
+
+        $stack25 = l0.<cck.util.Option$Interval: java.lang.String name>;
+
+        virtualinvoke l0.<cck.util.Option$Interval: void parseError(java.lang.String,java.lang.String,java.lang.String)>($stack25, "interval", l1);
+
+     label6:
+        return;
+
+        catch java.lang.NumberFormatException from label1 to label4 with label5;
+    }
+
+    public java.lang.String stringValue()
+    {
+        java.lang.StringBuilder $stack1, $stack2, $stack4, $stack5, $stack7, $stack8;
+        cck.util.Option$Interval l0;
+        long $stack3, $stack6;
+        java.lang.String $stack9;
+
+        l0 := @this: cck.util.Option$Interval;
+
+        $stack1 = new java.lang.StringBuilder;
+
+        specialinvoke $stack1.<java.lang.StringBuilder: void <init>()>();
+
+        $stack2 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $stack3 = l0.<cck.util.Option$Interval: long low>;
+
+        $stack4 = virtualinvoke $stack2.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($stack3);
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        $stack6 = l0.<cck.util.Option$Interval: long high>;
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($stack6);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(93);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack9;
+    }
+}

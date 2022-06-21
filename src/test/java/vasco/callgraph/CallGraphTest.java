@@ -167,7 +167,9 @@ public class CallGraphTest {
 				"-include", "org.w3c.",
 				 "-allow-phantom-refs",
 				 
-					
+				 "-x", "java",
+				 "-x", "sun",
+				 "-no-bodies-for-excluded",
 					
 					
 				"-main-class", mainClass,
@@ -258,6 +260,11 @@ public class CallGraphTest {
 //		Scene.v().addBasicClass("sun.net.www.protocol.jar.Handler", SootClass.SIGNATURES);
 //		Scene.v().addBasicClass("sun.security.provider.Sun", SootClass.SIGNATURES);
 //		Scene.v().addBasicClass("org.apache.commons.cli.HelpFormatter", SootClass.SIGNATURES);
+		Scene.v().addBasicClass("sun.security.util.SecurityConstants",SootClass.BODIES);
+
+		Scene.v().addBasicClass("java.lang.System",SootClass.BODIES);
+		Scene.v().addBasicClass("java.lang.Thread$Caches",SootClass.BODIES);
+		
 		
 		//ReflInliner.main(sootArgs);
 		

@@ -1,0 +1,1874 @@
+public class org.dacapo.parser.Config extends java.lang.Object
+{
+    private static int threadCountOverride;
+    public final java.lang.String name;
+    public java.lang.String className;
+    private org.dacapo.parser.Config$ThreadModel threadModel;
+    java.util.HashMap sizes;
+    java.util.HashMap desc;
+    public java.lang.String[] jars;
+
+    static void <clinit>()
+    {
+        <org.dacapo.parser.Config: int threadCountOverride> = 0;
+
+        return;
+    }
+
+    void <init>(java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.util.HashMap $stack2, $stack3;
+        java.lang.String l1;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<org.dacapo.parser.Config: java.lang.String className> = null;
+
+        l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel> = null;
+
+        $stack2 = new java.util.HashMap;
+
+        specialinvoke $stack2.<java.util.HashMap: void <init>(int)>(3);
+
+        l0.<org.dacapo.parser.Config: java.util.HashMap sizes> = $stack2;
+
+        $stack3 = new java.util.HashMap;
+
+        specialinvoke $stack3.<java.util.HashMap: void <init>(int)>(6);
+
+        l0.<org.dacapo.parser.Config: java.util.HashMap desc> = $stack3;
+
+        l0.<org.dacapo.parser.Config: java.lang.String name> = l1;
+
+        return;
+    }
+
+    void addDesc(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        java.util.HashMap $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = l0.<org.dacapo.parser.Config: java.util.HashMap desc>;
+
+        virtualinvoke $stack3.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l2);
+
+        return;
+    }
+
+    void addOutputFile(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        boolean $stack4, $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        virtualinvoke $stack3.<org.dacapo.parser.Config$Size: void addOutputFile(java.lang.String)>(l2);
+
+        $stack4 = virtualinvoke l2.<java.lang.String: boolean equals(java.lang.Object)>("stdout.log");
+
+        if $stack4 != 0 goto label1;
+
+        $stack5 = virtualinvoke l2.<java.lang.String: boolean equals(java.lang.Object)>("stderr.log");
+
+        if $stack5 == 0 goto label2;
+
+     label1:
+        virtualinvoke l0.<org.dacapo.parser.Config: void setTextFile(java.lang.String,java.lang.String,boolean)>(l1, l2, 1);
+
+        virtualinvoke l0.<org.dacapo.parser.Config: void setFilterScratch(java.lang.String,java.lang.String,boolean)>(l1, l2, 1);
+
+     label2:
+        return;
+    }
+
+    void addSize(java.lang.String, java.util.Vector)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1;
+        org.dacapo.parser.Config$Size $stack3;
+        java.util.Vector l2;
+        java.util.HashMap $stack4;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.util.Vector;
+
+        $stack4 = l0.<org.dacapo.parser.Config: java.util.HashMap sizes>;
+
+        $stack3 = new org.dacapo.parser.Config$Size;
+
+        specialinvoke $stack3.<org.dacapo.parser.Config$Size: void <init>(org.dacapo.parser.Config,java.lang.String,java.util.Vector)>(l0, l1, l2);
+
+        virtualinvoke $stack4.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, $stack3);
+
+        return;
+    }
+
+    public boolean checkExists(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        boolean $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = $stack4.<org.dacapo.parser.Config$OutputFile: boolean existence>;
+
+        return $stack5;
+    }
+
+    public void describe(java.io.PrintStream, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.io.PrintStream l1;
+        java.lang.String l2;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.io.PrintStream;
+
+        l2 := @parameter1: java.lang.String;
+
+        virtualinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean)>(l1, l2, 0);
+
+        return;
+    }
+
+    private void describe(java.io.PrintStream, java.lang.String, boolean, java.lang.String, java.lang.String)
+    {
+        boolean l3, $stack8;
+        java.lang.String l4, $stack10, $stack14, $stack17, l5, l2, l7#1;
+        java.lang.StringBuilder $stack9, $stack11, $stack15, $stack16;
+        org.dacapo.parser.Config l0;
+        java.util.HashMap $stack12;
+        java.lang.Object $stack13;
+        java.io.PrintStream l1;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.io.PrintStream;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: boolean;
+
+        l4 := @parameter3: java.lang.String;
+
+        l5 := @parameter4: java.lang.String;
+
+        if l3 == 0 goto label1;
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>("  ");
+
+     label1:
+        $stack8 = virtualinvoke l4.<java.lang.String: boolean equals(java.lang.Object)>("sizes");
+
+        if $stack8 == 0 goto label2;
+
+        virtualinvoke l0.<org.dacapo.parser.Config: void describeSizes(java.io.PrintStream,boolean,java.lang.String)>(l1, l3, l5);
+
+        goto label5;
+
+     label2:
+        $stack9 = new java.lang.StringBuilder;
+
+        specialinvoke $stack9.<java.lang.StringBuilder: void <init>()>();
+
+        $stack10 = specialinvoke l0.<org.dacapo.parser.Config: java.lang.String pad(java.lang.String,int)>(l4, 10);
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack10);
+
+        $stack12 = l0.<org.dacapo.parser.Config: java.util.HashMap desc>;
+
+        $stack13 = virtualinvoke $stack12.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l4);
+
+        $stack14 = (java.lang.String) $stack13;
+
+        $stack15 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack14);
+
+        if l3 == 0 goto label3;
+
+        l7#1 = l5;
+
+        goto label4;
+
+     label3:
+        l7#1 = "";
+
+     label4:
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l7#1);
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>($stack17);
+
+     label5:
+        return;
+    }
+
+    public void describe(java.io.PrintStream, java.lang.String, boolean)
+    {
+        boolean l3;
+        org.dacapo.parser.Config l0;
+        java.io.PrintStream l1;
+        java.lang.String l2, $stack8, $stack12, $stack26, l5#1, l6#4;
+        java.lang.StringBuilder $stack7, $stack9, $stack10, $stack11;
+        org.dacapo.parser.Config$Size $stack22, $stack25;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.io.PrintStream;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: boolean;
+
+        if l3 == 0 goto label1;
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>("description");
+
+     label1:
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "short", ",");
+
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "long", ",");
+
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "author", ",");
+
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "license", ",");
+
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "copyright", ",");
+
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "url", ",");
+
+        if l2 == null goto label2;
+
+        $stack22 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l2);
+
+        if $stack22 == null goto label2;
+
+        $stack25 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l2);
+
+        $stack26 = virtualinvoke $stack25.<org.dacapo.parser.Config$Size: java.lang.String getDesc()>();
+
+        l5#1 = $stack26;
+
+        goto label3;
+
+     label2:
+        l5#1 = null;
+
+     label3:
+        if l5#1 != null goto label4;
+
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "version", ";");
+
+        goto label7;
+
+     label4:
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "version", ",");
+
+        $stack7 = new java.lang.StringBuilder;
+
+        specialinvoke $stack7.<java.lang.StringBuilder: void <init>()>();
+
+        $stack8 = specialinvoke l0.<org.dacapo.parser.Config: java.lang.String pad(java.lang.String,int)>("size", 10);
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l5#1);
+
+        if l3 == 0 goto label5;
+
+        l6#4 = ";";
+
+        goto label6;
+
+     label5:
+        l6#4 = "";
+
+     label6:
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l6#4);
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>($stack12);
+
+     label7:
+        specialinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean,java.lang.String,java.lang.String)>(l1, l2, l3, "sizes", ",");
+
+        return;
+    }
+
+    public void describeSizes(java.io.PrintStream, boolean, java.lang.String)
+    {
+        java.util.TreeSet $stack9;
+        org.dacapo.parser.Config l0;
+        java.util.HashMap $stack10;
+        java.util.Set $stack11;
+        java.util.Iterator $stack12;
+        boolean $stack13, l2;
+        java.lang.StringBuilder $stack14, $stack16, $stack17, $stack18, $stack24, $stack25, $stack26, $stack27;
+        java.lang.String $stack15, $stack19, l3, l6, $stack28, l7#1, l8#2;
+        java.io.PrintStream l1;
+        java.lang.Object $stack23;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.io.PrintStream;
+
+        l2 := @parameter1: boolean;
+
+        l3 := @parameter2: java.lang.String;
+
+        $stack9 = new java.util.TreeSet;
+
+        $stack10 = l0.<org.dacapo.parser.Config: java.util.HashMap sizes>;
+
+        $stack11 = virtualinvoke $stack10.<java.util.HashMap: java.util.Set keySet()>();
+
+        specialinvoke $stack9.<java.util.TreeSet: void <init>(java.util.Collection)>($stack11);
+
+        l7#1 = null;
+
+        $stack12 = virtualinvoke $stack9.<java.util.TreeSet: java.util.Iterator iterator()>();
+
+     label1:
+        $stack13 = interfaceinvoke $stack12.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack13 == 0 goto label4;
+
+        $stack23 = interfaceinvoke $stack12.<java.util.Iterator: java.lang.Object next()>();
+
+        l6 = (java.lang.String) $stack23;
+
+        if l7#1 != null goto label2;
+
+        l7#1 = l6;
+
+        goto label3;
+
+     label2:
+        $stack24 = new java.lang.StringBuilder;
+
+        specialinvoke $stack24.<java.lang.StringBuilder: void <init>()>();
+
+        $stack25 = virtualinvoke $stack24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l7#1);
+
+        $stack26 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack27 = virtualinvoke $stack26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l6);
+
+        $stack28 = virtualinvoke $stack27.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        l7#1 = $stack28;
+
+     label3:
+        goto label1;
+
+     label4:
+        $stack14 = new java.lang.StringBuilder;
+
+        specialinvoke $stack14.<java.lang.StringBuilder: void <init>()>();
+
+        $stack15 = specialinvoke l0.<org.dacapo.parser.Config: java.lang.String pad(java.lang.String,int)>("sizes", 10);
+
+        $stack16 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack15);
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l7#1);
+
+        if l2 == 0 goto label5;
+
+        l8#2 = l3;
+
+        goto label6;
+
+     label5:
+        l8#2 = "";
+
+     label6:
+        $stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l8#2);
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>($stack19);
+
+        return;
+    }
+
+    public void describeSizes(java.io.PrintStream)
+    {
+        org.dacapo.parser.Config l0;
+        java.io.PrintStream l1;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.io.PrintStream;
+
+        virtualinvoke l0.<org.dacapo.parser.Config: void describeSizes(java.io.PrintStream,boolean,java.lang.String)>(l1, 0, ",");
+
+        return;
+    }
+
+    public boolean filterScratch(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        boolean $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = $stack4.<org.dacapo.parser.Config$OutputFile: boolean filter>;
+
+        return $stack5;
+    }
+
+    public java.lang.String[] getArgs(java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1;
+        org.dacapo.parser.Config$Size $stack2;
+        java.lang.String[] $stack3, $stack5, $stack6;
+        java.lang.Object $stack4;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack3 = $stack2.<org.dacapo.parser.Config$Size: java.lang.String[] args>;
+
+        $stack4 = virtualinvoke $stack3.<java.lang.Object: java.lang.Object clone()>();
+
+        $stack5 = (java.lang.String[]) $stack4;
+
+        $stack6 = (java.lang.String[]) $stack5;
+
+        return $stack6;
+    }
+
+    public long getBytes(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        long $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = $stack4.<org.dacapo.parser.Config$OutputFile: long bytes>;
+
+        return $stack5;
+    }
+
+    public java.lang.String getDesc(java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, $stack4;
+        java.util.HashMap $stack2;
+        java.lang.Object $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<org.dacapo.parser.Config: java.util.HashMap desc>;
+
+        $stack3 = virtualinvoke $stack2.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        $stack4 = (java.lang.String) $stack3;
+
+        return $stack4;
+    }
+
+    public java.lang.String getDigest(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2, $stack5;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = $stack4.<org.dacapo.parser.Config$OutputFile: java.lang.String digest>;
+
+        return $stack5;
+    }
+
+    public int getLines(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        int $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = $stack4.<org.dacapo.parser.Config$OutputFile: int lines>;
+
+        return $stack5;
+    }
+
+    public java.util.Set getOutputs(java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1;
+        org.dacapo.parser.Config$Size $stack2;
+        java.util.HashMap $stack3;
+        java.util.Set $stack4, $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack3 = $stack2.<org.dacapo.parser.Config$Size: java.util.HashMap outputFiles>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack5 = staticinvoke <java.util.Collections: java.util.Set unmodifiableSet(java.util.Set)>($stack4);
+
+        return $stack5;
+    }
+
+    private org.dacapo.parser.Config$Size getSize(java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, $stack10, $stack12;
+        java.util.HashMap $stack3;
+        java.lang.Object $stack4;
+        org.dacapo.parser.Config$Size l2;
+        java.lang.StringBuilder $stack5, $stack7, $stack8, $stack9, $stack11;
+        java.io.PrintStream $stack6;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack3 = l0.<org.dacapo.parser.Config: java.util.HashMap sizes>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        l2 = (org.dacapo.parser.Config$Size) $stack4;
+
+        if l2 != null goto label1;
+
+        $stack6 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack5 = new java.lang.StringBuilder;
+
+        specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("No such size: \"");
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l1);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\" for benchmark ");
+
+        $stack10 = l0.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack10);
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack6.<java.io.PrintStream: void println(java.lang.String)>($stack12);
+
+        staticinvoke <java.lang.System: void exit(int)>(-1);
+
+     label1:
+        return l2;
+    }
+
+    public java.util.Collection getSizes()
+    {
+        org.dacapo.parser.Config l0;
+        java.util.HashMap $stack1;
+        java.util.Set $stack2, $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        $stack1 = l0.<org.dacapo.parser.Config: java.util.HashMap sizes>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.util.Set keySet()>();
+
+        $stack3 = staticinvoke <java.util.Collections: java.util.Set unmodifiableSet(java.util.Set)>($stack2);
+
+        return $stack3;
+    }
+
+    public int getThreadCount(java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        int[] $stack3;
+        org.dacapo.parser.Config$ThreadModel $stack4;
+        int $stack5, $stack6, $stack7, $stack8, $stack10, $stack12, l2#1;
+        java.lang.String l1;
+        java.lang.Runtime $stack9;
+        java.lang.RuntimeException $stack13;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack3 = <org.dacapo.parser.Config$1: int[] $SwitchMap$org$dacapo$parser$Config$ThreadModel>;
+
+        $stack4 = virtualinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel getThreadModel()>();
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config$ThreadModel: int ordinal()>();
+
+        $stack6 = $stack3[$stack5];
+
+        tableswitch($stack6)
+        {
+            case 1: goto label1;
+            case 2: goto label2;
+            case 3: goto label3;
+            default: goto label6;
+        };
+
+     label1:
+        return 1;
+
+     label2:
+        $stack12 = virtualinvoke l0.<org.dacapo.parser.Config: int getThreadFactor(java.lang.String)>(l1);
+
+        return $stack12;
+
+     label3:
+        $stack7 = <org.dacapo.parser.Config: int threadCountOverride>;
+
+        if $stack7 == 0 goto label4;
+
+        l2#1 = <org.dacapo.parser.Config: int threadCountOverride>;
+
+        goto label5;
+
+     label4:
+        $stack8 = virtualinvoke l0.<org.dacapo.parser.Config: int getThreadFactor(java.lang.String)>(l1);
+
+        $stack9 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        $stack10 = virtualinvoke $stack9.<java.lang.Runtime: int availableProcessors()>();
+
+        l2#1 = $stack8 * $stack10;
+
+     label5:
+        return l2#1;
+
+     label6:
+        $stack13 = new java.lang.RuntimeException;
+
+        specialinvoke $stack13.<java.lang.RuntimeException: void <init>(java.lang.String)>("Unknown thread model");
+
+        throw $stack13;
+    }
+
+    public static int getThreadCountOverride()
+    {
+        int $stack0;
+
+        $stack0 = <org.dacapo.parser.Config: int threadCountOverride>;
+
+        return $stack0;
+    }
+
+    public int getThreadFactor(java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1;
+        org.dacapo.parser.Config$Size $stack2;
+        int $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack3 = virtualinvoke $stack2.<org.dacapo.parser.Config$Size: int getThreadCount()>();
+
+        return $stack3;
+    }
+
+    public int getThreadLimit(java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1;
+        org.dacapo.parser.Config$Size $stack2;
+        int $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack3 = virtualinvoke $stack2.<org.dacapo.parser.Config$Size: int getThreadLimit()>();
+
+        return $stack3;
+    }
+
+    public org.dacapo.parser.Config$ThreadModel getThreadModel()
+    {
+        org.dacapo.parser.Config l0;
+        org.dacapo.parser.Config$ThreadModel $stack1, $stack2, $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        $stack1 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        if $stack1 != null goto label1;
+
+        $stack3 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED>;
+
+        return $stack3;
+
+     label1:
+        $stack2 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        return $stack2;
+    }
+
+    public boolean hasBytes(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        boolean $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config$OutputFile: boolean hasBytes()>();
+
+        return $stack5;
+    }
+
+    public boolean hasDigest(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        boolean $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config$OutputFile: boolean hasDigest()>();
+
+        return $stack5;
+    }
+
+    public boolean hasLines(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        boolean $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config$OutputFile: boolean hasLines()>();
+
+        return $stack5;
+    }
+
+    public boolean isKept(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        boolean $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = $stack4.<org.dacapo.parser.Config$OutputFile: boolean keep>;
+
+        return $stack5;
+    }
+
+    public boolean isTextFile(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+        boolean $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5 = $stack4.<org.dacapo.parser.Config$OutputFile: boolean text>;
+
+        return $stack5;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] l0;
+        int $stack2, l1#1;
+        java.lang.String $stack3;
+        org.dacapo.parser.Config $stack4;
+        java.io.PrintStream $stack5;
+
+        l0 := @parameter0: java.lang.String[];
+
+        l1#1 = 0;
+
+     label1:
+        $stack2 = lengthof l0;
+
+        if l1#1 >= $stack2 goto label2;
+
+        $stack3 = l0[l1#1];
+
+        $stack4 = staticinvoke <org.dacapo.parser.Config: org.dacapo.parser.Config parse(java.lang.String)>($stack3);
+
+        $stack5 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack4.<org.dacapo.parser.Config: void print(java.io.PrintStream)>($stack5);
+
+        l1#1 = l1#1 + 1;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    private java.lang.String pad(java.lang.String, int)
+    {
+        int $stack3, l2;
+        java.lang.StringBuilder $stack4, $stack5, $stack6;
+        java.lang.String $stack7, l1#1;
+        org.dacapo.parser.Config l0;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1#1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+     label1:
+        $stack3 = virtualinvoke l1#1.<java.lang.String: int length()>();
+
+        if $stack3 >= l2 goto label2;
+
+        $stack4 = new java.lang.StringBuilder;
+
+        specialinvoke $stack4.<java.lang.StringBuilder: void <init>()>();
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l1#1);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        l1#1 = $stack7;
+
+        goto label1;
+
+     label2:
+        return l1#1;
+    }
+
+    public static org.dacapo.parser.Config parse(java.lang.String)
+    {
+        java.io.File $stack1;
+        java.lang.String l0;
+        org.dacapo.parser.Config $stack2;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack1 = new java.io.File;
+
+        specialinvoke $stack1.<java.io.File: void <init>(java.lang.String)>(l0);
+
+        $stack2 = staticinvoke <org.dacapo.parser.Config: org.dacapo.parser.Config parse(java.io.File)>($stack1);
+
+        return $stack2;
+    }
+
+    public static org.dacapo.parser.Config parse(java.io.File)
+    {
+        java.io.File l0;
+        org.dacapo.parser.Config $stack3;
+        java.lang.Throwable $stack4;
+        java.io.FileInputStream $u0;
+        java.io.FileNotFoundException $r0;
+
+        l0 := @parameter0: java.io.File;
+
+     label1:
+        $u0 = new java.io.FileInputStream;
+
+        specialinvoke $u0.<java.io.FileInputStream: void <init>(java.io.File)>(l0);
+
+        $stack3 = staticinvoke <org.dacapo.parser.Config: org.dacapo.parser.Config parse(java.io.InputStream)>($u0);
+
+     label2:
+        return $stack3;
+
+     label3:
+        $stack4 := @caughtexception;
+
+        $r0 = (java.io.FileNotFoundException) $stack4;
+
+        virtualinvoke $r0.<java.io.FileNotFoundException: void printStackTrace()>();
+
+        return null;
+
+        catch java.io.FileNotFoundException from label1 to label2 with label3;
+    }
+
+    public static org.dacapo.parser.Config parse(java.net.URL)
+    {
+        java.net.URL l0;
+        java.io.InputStream $stack2;
+        org.dacapo.parser.Config $stack3;
+        java.lang.Throwable $stack4;
+        java.io.IOException $r0;
+
+        l0 := @parameter0: java.net.URL;
+
+     label1:
+        $stack2 = virtualinvoke l0.<java.net.URL: java.io.InputStream openStream()>();
+
+        $stack3 = staticinvoke <org.dacapo.parser.Config: org.dacapo.parser.Config parse(java.io.InputStream)>($stack2);
+
+     label2:
+        return $stack3;
+
+     label3:
+        $stack4 := @caughtexception;
+
+        $r0 = (java.io.IOException) $stack4;
+
+        virtualinvoke $r0.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    public static org.dacapo.parser.Config parse(java.io.InputStream)
+    {
+        org.dacapo.parser.ConfigFile $stack2;
+        java.io.InputStream l0;
+        org.dacapo.parser.Config $stack3;
+        org.dacapo.parser.ParseException $stack4;
+
+        l0 := @parameter0: java.io.InputStream;
+
+     label1:
+        $stack2 = new org.dacapo.parser.ConfigFile;
+
+        specialinvoke $stack2.<org.dacapo.parser.ConfigFile: void <init>(java.io.InputStream,java.lang.String)>(l0, "UTF-8");
+
+        $stack3 = virtualinvoke $stack2.<org.dacapo.parser.ConfigFile: org.dacapo.parser.Config configFile()>();
+
+     label2:
+        return $stack3;
+
+     label3:
+        $stack4 := @caughtexception;
+
+        virtualinvoke $stack4.<org.dacapo.parser.ParseException: void printStackTrace()>();
+
+        return null;
+
+        catch org.dacapo.parser.ParseException from label1 to label2 with label3;
+    }
+
+    public java.lang.String[] preprocessArgs(java.lang.String, java.io.File)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, $stack9, $stack11, $stack12, $stack15, $stack16;
+        java.lang.String[] $stack6, l4;
+        int $stack7, $stack8, $stack14, l5#1;
+        java.io.File l2;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.io.File;
+
+        $stack6 = virtualinvoke l0.<org.dacapo.parser.Config: java.lang.String[] getArgs(java.lang.String)>(l1);
+
+        $stack7 = lengthof $stack6;
+
+        l4 = newarray (java.lang.String)[$stack7];
+
+        l5#1 = 0;
+
+     label1:
+        $stack8 = lengthof $stack6;
+
+        if l5#1 >= $stack8 goto label2;
+
+        $stack9 = $stack6[l5#1];
+
+        $stack11 = virtualinvoke l2.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $stack12 = virtualinvoke $stack9.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("${SCRATCH}", $stack11);
+
+        $stack14 = virtualinvoke l0.<org.dacapo.parser.Config: int getThreadCount(java.lang.String)>(l1);
+
+        $stack15 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($stack14);
+
+        $stack16 = virtualinvoke $stack12.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("${THREADS}", $stack15);
+
+        l4[l5#1] = $stack16;
+
+        l5#1 = l5#1 + 1;
+
+        goto label1;
+
+     label2:
+        return l4;
+    }
+
+    public void print(java.io.PrintStream)
+    {
+        java.io.PrintStream l1;
+        java.lang.StringBuilder $stack9, $stack10, $stack12, $stack23, $stack24, $stack25, $stack26, $stack38, $stack39, $stack40, $stack41, $stack48, $stack49, $stack51, $stack65, $stack66, $stack68;
+        org.dacapo.parser.Config l0;
+        java.lang.String $stack11, $stack13, $stack14, $stack17, l3, $stack27, l6, $stack42, $stack50, $stack52, $stack58, $stack67, $stack69;
+        org.dacapo.parser.Config$ThreadModel $stack15, $stack16, $stack29;
+        java.util.Collection $stack18;
+        java.util.Iterator $stack19, $stack32;
+        java.lang.Object $stack21, $stack35;
+        java.lang.String[] $stack22;
+        int $stack28, $stack30, l8#5;
+        java.util.Set $stack31;
+        org.dacapo.parser.Config$Size $stack36;
+        org.dacapo.parser.Config$OutputFile $stack37;
+        boolean $stack43, $stack44, $stack45, $stack20#3, $stack33#8;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.io.PrintStream;
+
+        $stack9 = new java.lang.StringBuilder;
+
+        specialinvoke $stack9.<java.lang.StringBuilder: void <init>()>();
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("benchmark ");
+
+        $stack11 = l0.<org.dacapo.parser.Config: java.lang.String name>;
+
+        $stack12 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack11);
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>($stack13);
+
+        $stack14 = l0.<org.dacapo.parser.Config: java.lang.String className>;
+
+        if $stack14 == null goto label01;
+
+        $stack65 = new java.lang.StringBuilder;
+
+        specialinvoke $stack65.<java.lang.StringBuilder: void <init>()>();
+
+        $stack66 = virtualinvoke $stack65.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" class ");
+
+        $stack67 = l0.<org.dacapo.parser.Config: java.lang.String className>;
+
+        $stack68 = virtualinvoke $stack66.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack67);
+
+        $stack69 = virtualinvoke $stack68.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>($stack69);
+
+     label01:
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>(";");
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>("  Threading model: ");
+
+        $stack15 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        if $stack15 != null goto label02;
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>("unspecified");
+
+        goto label03;
+
+     label02:
+        $stack16 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        $stack17 = virtualinvoke $stack16.<org.dacapo.parser.Config$ThreadModel: java.lang.String describe()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>($stack17);
+
+     label03:
+        $stack18 = virtualinvoke l0.<org.dacapo.parser.Config: java.util.Collection getSizes()>();
+
+        $stack19 = interfaceinvoke $stack18.<java.util.Collection: java.util.Iterator iterator()>();
+
+     label04:
+        $stack20#3 = interfaceinvoke $stack19.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack20#3 == 0 goto label15;
+
+        $stack21 = interfaceinvoke $stack19.<java.util.Iterator: java.lang.Object next()>();
+
+        l3 = (java.lang.String) $stack21;
+
+        $stack22 = virtualinvoke l0.<org.dacapo.parser.Config: java.lang.String[] getArgs(java.lang.String)>(l3);
+
+        $stack23 = new java.lang.StringBuilder;
+
+        specialinvoke $stack23.<java.lang.StringBuilder: void <init>()>();
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("size ");
+
+        $stack25 = virtualinvoke $stack24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l3);
+
+        $stack26 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" args \"");
+
+        $stack27 = virtualinvoke $stack26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>($stack27);
+
+        l8#5 = 0;
+
+     label05:
+        $stack28 = lengthof $stack22;
+
+        if l8#5 >= $stack28 goto label07;
+
+        if l8#5 == 0 goto label06;
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>(" ");
+
+     label06:
+        $stack58 = $stack22[l8#5];
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>($stack58);
+
+        l8#5 = l8#5 + 1;
+
+        goto label05;
+
+     label07:
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>("\"");
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>("  threads ");
+
+        $stack29 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        if $stack29 != null goto label08;
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>("<specified in benchmark arguments>");
+
+        goto label09;
+
+     label08:
+        $stack30 = virtualinvoke l0.<org.dacapo.parser.Config: int getThreadFactor(java.lang.String)>(l3);
+
+        virtualinvoke l1.<java.io.PrintStream: void println(int)>($stack30);
+
+     label09:
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>("  outputs");
+
+        $stack31 = virtualinvoke l0.<org.dacapo.parser.Config: java.util.Set getOutputs(java.lang.String)>(l3);
+
+        $stack32 = interfaceinvoke $stack31.<java.util.Set: java.util.Iterator iterator()>();
+
+     label10:
+        $stack33#8 = interfaceinvoke $stack32.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack33#8 == 0 goto label14;
+
+        virtualinvoke l1.<java.io.PrintStream: void println()>();
+
+        $stack35 = interfaceinvoke $stack32.<java.util.Iterator: java.lang.Object next()>();
+
+        l6 = (java.lang.String) $stack35;
+
+        $stack36 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l3);
+
+        $stack37 = virtualinvoke $stack36.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l6);
+
+        $stack38 = new java.lang.StringBuilder;
+
+        specialinvoke $stack38.<java.lang.StringBuilder: void <init>()>();
+
+        $stack39 = virtualinvoke $stack38.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("    \"");
+
+        $stack40 = virtualinvoke $stack39.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l6);
+
+        $stack41 = virtualinvoke $stack40.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $stack42 = virtualinvoke $stack41.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>($stack42);
+
+        $stack43 = virtualinvoke $stack37.<org.dacapo.parser.Config$OutputFile: boolean hasDigest()>();
+
+        if $stack43 == 0 goto label11;
+
+        $stack48 = new java.lang.StringBuilder;
+
+        specialinvoke $stack48.<java.lang.StringBuilder: void <init>()>();
+
+        $stack49 = virtualinvoke $stack48.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" digest 0x");
+
+        $stack50 = $stack37.<org.dacapo.parser.Config$OutputFile: java.lang.String digest>;
+
+        $stack51 = virtualinvoke $stack49.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack50);
+
+        $stack52 = virtualinvoke $stack51.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>($stack52);
+
+     label11:
+        $stack44 = $stack37.<org.dacapo.parser.Config$OutputFile: boolean keep>;
+
+        if $stack44 == 0 goto label12;
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>(" keep");
+
+     label12:
+        $stack45 = interfaceinvoke $stack32.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack45 == 0 goto label13;
+
+        virtualinvoke l1.<java.io.PrintStream: void print(java.lang.String)>(",");
+
+     label13:
+        goto label10;
+
+     label14:
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>(";");
+
+        goto label04;
+
+     label15:
+        virtualinvoke l0.<org.dacapo.parser.Config: void describe(java.io.PrintStream,java.lang.String,boolean)>(l1, null, 1);
+
+        return;
+    }
+
+    public void printThreadModel(java.io.PrintStream, java.lang.String, boolean)
+    {
+        org.dacapo.parser.Config l0;
+        org.dacapo.parser.Config$ThreadModel $stack6, $stack7, $stack8, $stack9, $stack10, $stack11;
+        boolean l3;
+        java.io.PrintStream l1;
+        java.lang.StringBuilder $stack12, $stack13, $stack15, $stack16, $stack18, $stack19, $stack22, $stack23, $stack25, $stack26, $stack28, $stack29, $stack31, $stack33, $stack34;
+        java.lang.String l2, $stack17, $stack32, $stack35, l5#1;
+        int $stack14, $stack21, $stack24, $stack27, $stack30;
+        java.lang.Runtime $stack20;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.io.PrintStream;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: boolean;
+
+        $stack6 = virtualinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel getThreadModel()>();
+
+        $stack7 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel PER_CPU>;
+
+        if $stack6 != $stack7 goto label3;
+
+        $stack18 = new java.lang.StringBuilder;
+
+        specialinvoke $stack18.<java.lang.StringBuilder: void <init>()>();
+
+        $stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Using scaled threading model. ");
+
+        $stack20 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        $stack21 = virtualinvoke $stack20.<java.lang.Runtime: int availableProcessors()>();
+
+        $stack22 = virtualinvoke $stack19.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack21);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" processors detected, ");
+
+        $stack24 = virtualinvoke l0.<org.dacapo.parser.Config: int getThreadCount(java.lang.String)>(l2);
+
+        $stack25 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack24);
+
+        $stack26 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" threads used to drive the workload, in a possible range of [1,");
+
+        $stack27 = virtualinvoke l0.<org.dacapo.parser.Config: int getThreadLimit(java.lang.String)>(l2);
+
+        if $stack27 != 0 goto label1;
+
+        l5#1 = "unlimited";
+
+        goto label2;
+
+     label1:
+        $stack28 = new java.lang.StringBuilder;
+
+        specialinvoke $stack28.<java.lang.StringBuilder: void <init>()>();
+
+        $stack29 = virtualinvoke $stack28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        $stack30 = virtualinvoke l0.<org.dacapo.parser.Config: int getThreadLimit(java.lang.String)>(l2);
+
+        $stack31 = virtualinvoke $stack29.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack30);
+
+        $stack32 = virtualinvoke $stack31.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        l5#1 = $stack32;
+
+     label2:
+        $stack33 = virtualinvoke $stack26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l5#1);
+
+        $stack34 = virtualinvoke $stack33.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("]");
+
+        $stack35 = virtualinvoke $stack34.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>($stack35);
+
+        goto label5;
+
+     label3:
+        if l3 == 0 goto label5;
+
+        $stack8 = virtualinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel getThreadModel()>();
+
+        $stack9 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED>;
+
+        if $stack8 != $stack9 goto label4;
+
+        $stack12 = new java.lang.StringBuilder;
+
+        specialinvoke $stack12.<java.lang.StringBuilder: void <init>()>();
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Using a fixed threading model. ");
+
+        $stack14 = virtualinvoke l0.<org.dacapo.parser.Config: int getThreadCount(java.lang.String)>(l2);
+
+        $stack15 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack14);
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" threads used to drive the workload.");
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>($stack17);
+
+        goto label5;
+
+     label4:
+        $stack10 = virtualinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel getThreadModel()>();
+
+        $stack11 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE>;
+
+        if $stack10 != $stack11 goto label5;
+
+        virtualinvoke l1.<java.io.PrintStream: void println(java.lang.String)>("Using a single thread to drive the workload.");
+
+     label5:
+        return;
+    }
+
+    void setBytes(java.lang.String, java.lang.String, long)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack5;
+        org.dacapo.parser.Config$OutputFile $stack6;
+        long l3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: long;
+
+        $stack5 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack6 = virtualinvoke $stack5.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack6.<org.dacapo.parser.Config$OutputFile: long bytes> = l3;
+
+        return;
+    }
+
+    void setClass(java.lang.String) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String $stack2, l1;
+        org.dacapo.parser.ParseException $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<org.dacapo.parser.Config: java.lang.String className>;
+
+        if $stack2 == null goto label1;
+
+        $stack3 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack3.<org.dacapo.parser.ParseException: void <init>(java.lang.String)>("Configuration file error - cannot set class name twice");
+
+        throw $stack3;
+
+     label1:
+        l0.<org.dacapo.parser.Config: java.lang.String className> = l1;
+
+        return;
+    }
+
+    void setDigest(java.lang.String, java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2, l3;
+        org.dacapo.parser.Config$Size $stack4;
+        org.dacapo.parser.Config$OutputFile $stack5;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        $stack4 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5.<org.dacapo.parser.Config$OutputFile: java.lang.String digest> = l3;
+
+        return;
+    }
+
+    void setExists(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack4.<org.dacapo.parser.Config$OutputFile: boolean existence> = 1;
+
+        return;
+    }
+
+    public void setFilterScratch(java.lang.String, java.lang.String, boolean)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack4;
+        org.dacapo.parser.Config$OutputFile $stack5;
+        boolean l3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: boolean;
+
+        $stack4 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5.<org.dacapo.parser.Config$OutputFile: boolean filter> = l3;
+
+        return;
+    }
+
+    void setJars(java.lang.String[]) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String[] $stack2, l1;
+        org.dacapo.parser.ParseException $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String[];
+
+        $stack2 = l0.<org.dacapo.parser.Config: java.lang.String[] jars>;
+
+        if $stack2 == null goto label1;
+
+        $stack3 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack3.<org.dacapo.parser.ParseException: void <init>(java.lang.String)>("Configuration file error - cannot set libs twice");
+
+        throw $stack3;
+
+     label1:
+        l0.<org.dacapo.parser.Config: java.lang.String[] jars> = l1;
+
+        return;
+    }
+
+    void setKeep(java.lang.String, java.lang.String)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack4 = virtualinvoke $stack3.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack4.<org.dacapo.parser.Config$OutputFile: boolean keep> = 1;
+
+        return;
+    }
+
+    void setLines(java.lang.String, java.lang.String, int)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack4;
+        org.dacapo.parser.Config$OutputFile $stack5;
+        int l3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: int;
+
+        $stack4 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5.<org.dacapo.parser.Config$OutputFile: int lines> = l3;
+
+        return;
+    }
+
+    void setSizeDescription(java.lang.String, java.lang.String) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        $stack3 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        virtualinvoke $stack3.<org.dacapo.parser.Config$Size: void setDesc(java.lang.String)>(l2);
+
+        return;
+    }
+
+    public void setTextFile(java.lang.String, java.lang.String, boolean)
+    {
+        org.dacapo.parser.Config l0;
+        java.lang.String l1, l2;
+        org.dacapo.parser.Config$Size $stack4;
+        org.dacapo.parser.Config$OutputFile $stack5;
+        boolean l3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: boolean;
+
+        $stack4 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)>(l2);
+
+        $stack5.<org.dacapo.parser.Config$OutputFile: boolean text> = l3;
+
+        return;
+    }
+
+    public static void setThreadCountOverride(int)
+    {
+        int l0;
+
+        l0 := @parameter0: int;
+
+        <org.dacapo.parser.Config: int threadCountOverride> = l0;
+
+        return;
+    }
+
+    public void setThreadFactor(java.lang.String, int) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.Config l0;
+        org.dacapo.parser.Config$ThreadModel $stack3, $stack4, $stack6, $stack7, $stack9, $stack10;
+        int l2;
+        java.lang.String l1;
+        org.dacapo.parser.Config$Size $stack5, $stack8;
+        org.dacapo.parser.ParseException $stack14, $stack17;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+        $stack4 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        $stack3 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE>;
+
+        if $stack4 != $stack3 goto label1;
+
+        if l2 == 1 goto label1;
+
+        $stack17 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack17.<org.dacapo.parser.ParseException: void <init>(java.lang.String)>("Single threaded benchmarks must have exactly 1 thread");
+
+        throw $stack17;
+
+     label1:
+        if l2 >= 1 goto label2;
+
+        $stack14 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack14.<org.dacapo.parser.ParseException: void <init>(java.lang.String)>("Thread factor or number must be 1 or more");
+
+        throw $stack14;
+
+     label2:
+        $stack5 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        virtualinvoke $stack5.<org.dacapo.parser.Config$Size: void setThreadCount(int)>(l2);
+
+        $stack7 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        $stack6 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE>;
+
+        if $stack7 == $stack6 goto label3;
+
+        $stack10 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        $stack9 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED>;
+
+        if $stack10 != $stack9 goto label4;
+
+     label3:
+        $stack8 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        virtualinvoke $stack8.<org.dacapo.parser.Config$Size: void setThreadLimit(int)>(l2);
+
+     label4:
+        return;
+    }
+
+    void setThreadLimit(java.lang.String, int) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.Config l0;
+        org.dacapo.parser.Config$ThreadModel $stack3, $stack4, $stack6, $stack7;
+        org.dacapo.parser.ParseException $stack5, $stack9;
+        int l2;
+        java.lang.String l1;
+        org.dacapo.parser.Config$Size $stack8;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+        $stack4 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        $stack3 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE>;
+
+        if $stack4 == $stack3 goto label1;
+
+        $stack7 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        $stack6 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED>;
+
+        if $stack7 != $stack6 goto label2;
+
+     label1:
+        $stack5 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack5.<org.dacapo.parser.ParseException: void <init>(java.lang.String)>("Thread limit is not valid for Single and Fixed threading models");
+
+        throw $stack5;
+
+     label2:
+        if l2 >= 0 goto label3;
+
+        $stack9 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack9.<org.dacapo.parser.ParseException: void <init>(java.lang.String)>("Thread limit cannot be less than 0");
+
+        throw $stack9;
+
+     label3:
+        $stack8 = specialinvoke l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$Size getSize(java.lang.String)>(l1);
+
+        virtualinvoke $stack8.<org.dacapo.parser.Config$Size: void setThreadLimit(int)>(l2);
+
+        return;
+    }
+
+    void setThreadModel(org.dacapo.parser.Config$ThreadModel) throws org.dacapo.parser.ParseException
+    {
+        org.dacapo.parser.Config l0;
+        org.dacapo.parser.Config$ThreadModel $stack2, l1;
+        org.dacapo.parser.ParseException $stack3;
+
+        l0 := @this: org.dacapo.parser.Config;
+
+        l1 := @parameter0: org.dacapo.parser.Config$ThreadModel;
+
+        $stack2 = l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel>;
+
+        if $stack2 == null goto label1;
+
+        $stack3 = new org.dacapo.parser.ParseException;
+
+        specialinvoke $stack3.<org.dacapo.parser.ParseException: void <init>(java.lang.String)>("Configuration file error - cannot set thread model twice");
+
+        throw $stack3;
+
+     label1:
+        l0.<org.dacapo.parser.Config: org.dacapo.parser.Config$ThreadModel threadModel> = l1;
+
+        return;
+    }
+}

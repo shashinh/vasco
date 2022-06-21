@@ -1,0 +1,181 @@
+class org.dacapo.parser.Config$Size extends java.lang.Object
+{
+    final java.lang.String name;
+    final java.lang.String[] args;
+    private int threadLimit;
+    private int nThreads;
+    private java.lang.String description;
+    java.util.HashMap outputFiles;
+    final org.dacapo.parser.Config this$0;
+
+    void <init>(org.dacapo.parser.Config, java.lang.String, java.util.Vector)
+    {
+        org.dacapo.parser.Config$Size l0;
+        org.dacapo.parser.Config l1;
+        java.util.LinkedHashMap $stack4;
+        java.util.Vector l3;
+        java.lang.String[] $stack5, $stack7, $stack8;
+        java.lang.Object[] $stack6;
+        java.lang.String l2;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        l1 := @parameter0: org.dacapo.parser.Config;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.util.Vector;
+
+        l0.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config this$0> = l1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<org.dacapo.parser.Config$Size: int threadLimit> = 0;
+
+        l0.<org.dacapo.parser.Config$Size: int nThreads> = 1;
+
+        $stack4 = new java.util.LinkedHashMap;
+
+        specialinvoke $stack4.<java.util.LinkedHashMap: void <init>(int)>(20);
+
+        l0.<org.dacapo.parser.Config$Size: java.util.HashMap outputFiles> = $stack4;
+
+        $stack5 = newarray (java.lang.String)[0];
+
+        $stack6 = virtualinvoke l3.<java.util.Vector: java.lang.Object[] toArray(java.lang.Object[])>($stack5);
+
+        $stack7 = (java.lang.String[]) $stack6;
+
+        $stack8 = (java.lang.String[]) $stack7;
+
+        l0.<org.dacapo.parser.Config$Size: java.lang.String[] args> = $stack8;
+
+        l0.<org.dacapo.parser.Config$Size: java.lang.String name> = l2;
+
+        return;
+    }
+
+    void addOutputFile(java.lang.String)
+    {
+        org.dacapo.parser.Config$Size l0;
+        java.lang.String l1;
+        org.dacapo.parser.Config$OutputFile $stack2;
+        org.dacapo.parser.Config $stack3;
+        java.util.HashMap $stack4;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack4 = l0.<org.dacapo.parser.Config$Size: java.util.HashMap outputFiles>;
+
+        $stack2 = new org.dacapo.parser.Config$OutputFile;
+
+        $stack3 = l0.<org.dacapo.parser.Config$Size: org.dacapo.parser.Config this$0>;
+
+        specialinvoke $stack2.<org.dacapo.parser.Config$OutputFile: void <init>(org.dacapo.parser.Config,java.lang.String)>($stack3, l1);
+
+        virtualinvoke $stack4.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, $stack2);
+
+        return;
+    }
+
+    java.lang.String getDesc()
+    {
+        org.dacapo.parser.Config$Size l0;
+        java.lang.String $stack1;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        $stack1 = l0.<org.dacapo.parser.Config$Size: java.lang.String description>;
+
+        return $stack1;
+    }
+
+    org.dacapo.parser.Config$OutputFile getOutputFile(java.lang.String)
+    {
+        org.dacapo.parser.Config$Size l0;
+        java.lang.String l1;
+        java.util.HashMap $stack2;
+        java.lang.Object $stack3;
+        org.dacapo.parser.Config$OutputFile $stack4;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<org.dacapo.parser.Config$Size: java.util.HashMap outputFiles>;
+
+        $stack3 = virtualinvoke $stack2.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        $stack4 = (org.dacapo.parser.Config$OutputFile) $stack3;
+
+        return $stack4;
+    }
+
+    int getThreadCount()
+    {
+        org.dacapo.parser.Config$Size l0;
+        int $stack1;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        $stack1 = l0.<org.dacapo.parser.Config$Size: int nThreads>;
+
+        return $stack1;
+    }
+
+    int getThreadLimit()
+    {
+        org.dacapo.parser.Config$Size l0;
+        int $stack1;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        $stack1 = l0.<org.dacapo.parser.Config$Size: int threadLimit>;
+
+        return $stack1;
+    }
+
+    void setDesc(java.lang.String)
+    {
+        org.dacapo.parser.Config$Size l0;
+        java.lang.String l1;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        l1 := @parameter0: java.lang.String;
+
+        l0.<org.dacapo.parser.Config$Size: java.lang.String description> = l1;
+
+        return;
+    }
+
+    void setThreadCount(int)
+    {
+        org.dacapo.parser.Config$Size l0;
+        int l1;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        l1 := @parameter0: int;
+
+        l0.<org.dacapo.parser.Config$Size: int nThreads> = l1;
+
+        return;
+    }
+
+    void setThreadLimit(int)
+    {
+        org.dacapo.parser.Config$Size l0;
+        int l1;
+
+        l0 := @this: org.dacapo.parser.Config$Size;
+
+        l1 := @parameter0: int;
+
+        l0.<org.dacapo.parser.Config$Size: int threadLimit> = l1;
+
+        return;
+    }
+}

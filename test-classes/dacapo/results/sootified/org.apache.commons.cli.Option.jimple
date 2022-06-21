@@ -1,0 +1,1065 @@
+public class org.apache.commons.cli.Option extends java.lang.Object implements java.lang.Cloneable, java.io.Serializable
+{
+    private static final long serialVersionUID;
+    public static final int UNINITIALIZED;
+    public static final int UNLIMITED_VALUES;
+    private java.lang.String opt;
+    private java.lang.String longOpt;
+    private java.lang.String argName;
+    private java.lang.String description;
+    private boolean required;
+    private boolean optionalArg;
+    private int numberOfArgs;
+    private java.lang.Object type;
+    private java.util.List values;
+    private char valuesep;
+
+    public void <init>(java.lang.String, java.lang.String) throws java.lang.IllegalArgumentException
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String l1, l2;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        specialinvoke l0.<org.apache.commons.cli.Option: void <init>(java.lang.String,java.lang.String,boolean,java.lang.String)>(l1, null, 0, l2);
+
+        return;
+    }
+
+    public void <init>(java.lang.String, boolean, java.lang.String) throws java.lang.IllegalArgumentException
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String l1, l3;
+        boolean l2;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: boolean;
+
+        l3 := @parameter2: java.lang.String;
+
+        specialinvoke l0.<org.apache.commons.cli.Option: void <init>(java.lang.String,java.lang.String,boolean,java.lang.String)>(l1, null, l2, l3);
+
+        return;
+    }
+
+    public void <init>(java.lang.String, java.lang.String, boolean, java.lang.String) throws java.lang.IllegalArgumentException
+    {
+        org.apache.commons.cli.Option l0;
+        java.util.ArrayList $stack5;
+        java.lang.String l1, l2, l4;
+        boolean l3;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: boolean;
+
+        l4 := @parameter3: java.lang.String;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<org.apache.commons.cli.Option: java.lang.String argName> = "arg";
+
+        l0.<org.apache.commons.cli.Option: int numberOfArgs> = -1;
+
+        $stack5 = new java.util.ArrayList;
+
+        specialinvoke $stack5.<java.util.ArrayList: void <init>()>();
+
+        l0.<org.apache.commons.cli.Option: java.util.List values> = $stack5;
+
+        staticinvoke <org.apache.commons.cli.OptionValidator: void validateOption(java.lang.String)>(l1);
+
+        l0.<org.apache.commons.cli.Option: java.lang.String opt> = l1;
+
+        l0.<org.apache.commons.cli.Option: java.lang.String longOpt> = l2;
+
+        if l3 == 0 goto label1;
+
+        l0.<org.apache.commons.cli.Option: int numberOfArgs> = 1;
+
+     label1:
+        l0.<org.apache.commons.cli.Option: java.lang.String description> = l4;
+
+        return;
+    }
+
+    private void add(java.lang.String)
+    {
+        org.apache.commons.cli.Option l0;
+        int $stack2, $stack6, $stack7, $stack8;
+        java.lang.String l1;
+        java.util.List $stack3, $stack5;
+        java.lang.RuntimeException $stack11;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        if $stack2 <= 0 goto label1;
+
+        $stack5 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        $stack6 = interfaceinvoke $stack5.<java.util.List: int size()>();
+
+        $stack7 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        $stack8 = $stack7 - 1;
+
+        if $stack6 <= $stack8 goto label1;
+
+        $stack11 = new java.lang.RuntimeException;
+
+        specialinvoke $stack11.<java.lang.RuntimeException: void <init>(java.lang.String)>("Cannot add value, list full.");
+
+        throw $stack11;
+
+     label1:
+        $stack3 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        interfaceinvoke $stack3.<java.util.List: boolean add(java.lang.Object)>(l1);
+
+        return;
+    }
+
+    public boolean addValue(java.lang.String)
+    {
+        java.lang.UnsupportedOperationException $stack2;
+        org.apache.commons.cli.Option l0;
+        java.lang.String l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = new java.lang.UnsupportedOperationException;
+
+        specialinvoke $stack2.<java.lang.UnsupportedOperationException: void <init>(java.lang.String)>("The addValue method is not intended for client use. Subclasses should use the addValueForProcessing method instead. ");
+
+        throw $stack2;
+    }
+
+    void addValueForProcessing(java.lang.String)
+    {
+        org.apache.commons.cli.Option l0;
+        int $stack2;
+        java.lang.RuntimeException $stack3;
+        java.lang.String l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        lookupswitch($stack2)
+        {
+            case -1: goto label1;
+            default: goto label2;
+        };
+
+     label1:
+        $stack3 = new java.lang.RuntimeException;
+
+        specialinvoke $stack3.<java.lang.RuntimeException: void <init>(java.lang.String)>("NO_ARGS_ALLOWED");
+
+        throw $stack3;
+
+     label2:
+        specialinvoke l0.<org.apache.commons.cli.Option: void processValue(java.lang.String)>(l1);
+
+        return;
+    }
+
+    void clearValues()
+    {
+        org.apache.commons.cli.Option l0;
+        java.util.List $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        interfaceinvoke $stack1.<java.util.List: void clear()>();
+
+        return;
+    }
+
+    public java.lang.Object clone()
+    {
+        org.apache.commons.cli.Option l0, l3;
+        java.lang.Object $stack4;
+        java.util.List $stack6;
+        java.lang.Throwable $stack7;
+        java.lang.StringBuffer $stack9, $stack12, $u1;
+        java.lang.String $stack10, $stack13;
+        java.util.ArrayList $u0;
+        java.lang.RuntimeException $u2;
+        java.lang.CloneNotSupportedException $r0;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+     label1:
+        $stack4 = specialinvoke l0.<java.lang.Object: java.lang.Object clone()>();
+
+        l3 = (org.apache.commons.cli.Option) $stack4;
+
+        $u0 = new java.util.ArrayList;
+
+        $stack6 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        specialinvoke $u0.<java.util.ArrayList: void <init>(java.util.Collection)>($stack6);
+
+        l3.<org.apache.commons.cli.Option: java.util.List values> = $u0;
+
+     label2:
+        return l3;
+
+     label3:
+        $stack7 := @caughtexception;
+
+        $u1 = new java.lang.StringBuffer;
+
+        specialinvoke $u1.<java.lang.StringBuffer: void <init>()>();
+
+        $stack9 = virtualinvoke $u1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("A CloneNotSupportedException was thrown: ");
+
+        $r0 = (java.lang.CloneNotSupportedException) $stack7;
+
+        $stack10 = virtualinvoke $r0.<java.lang.CloneNotSupportedException: java.lang.String getMessage()>();
+
+        $u2 = new java.lang.RuntimeException;
+
+        $stack12 = virtualinvoke $stack9.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack10);
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke $u2.<java.lang.RuntimeException: void <init>(java.lang.String)>($stack13);
+
+        throw $u2;
+
+        catch java.lang.CloneNotSupportedException from label1 to label2 with label3;
+    }
+
+    public boolean equals(java.lang.Object)
+    {
+        org.apache.commons.cli.Option l0, l2;
+        java.lang.Object l1;
+        java.lang.Class $stack3, $stack4;
+        java.lang.String $stack5, $stack6, $stack7, $stack8, $stack9, $stack10, $stack14, $stack15;
+        boolean $stack11, $stack16;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.Object;
+
+        if l0 != l1 goto label1;
+
+        return 1;
+
+     label1:
+        if l1 == null goto label2;
+
+        $stack3 = virtualinvoke l0.<java.lang.Object: java.lang.Class getClass()>();
+
+        $stack4 = virtualinvoke l1.<java.lang.Object: java.lang.Class getClass()>();
+
+        if $stack3 == $stack4 goto label3;
+
+     label2:
+        return 0;
+
+     label3:
+        l2 = (org.apache.commons.cli.Option) l1;
+
+        $stack5 = l0.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        if $stack5 == null goto label4;
+
+        $stack15 = l0.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        $stack14 = l2.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        $stack16 = virtualinvoke $stack15.<java.lang.String: boolean equals(java.lang.Object)>($stack14);
+
+        if $stack16 != 0 goto label6;
+
+        goto label5;
+
+     label4:
+        $stack6 = l2.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        if $stack6 == null goto label6;
+
+     label5:
+        return 0;
+
+     label6:
+        $stack7 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        if $stack7 == null goto label7;
+
+        $stack10 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        $stack9 = l2.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        $stack11 = virtualinvoke $stack10.<java.lang.String: boolean equals(java.lang.Object)>($stack9);
+
+        if $stack11 != 0 goto label9;
+
+        goto label8;
+
+     label7:
+        $stack8 = l2.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        if $stack8 == null goto label9;
+
+     label8:
+        return 0;
+
+     label9:
+        return 1;
+    }
+
+    public java.lang.String getArgName()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.lang.String argName>;
+
+        return $stack1;
+    }
+
+    public int getArgs()
+    {
+        org.apache.commons.cli.Option l0;
+        int $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getDescription()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.lang.String description>;
+
+        return $stack1;
+    }
+
+    public int getId()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack1;
+        char $stack2;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = virtualinvoke l0.<org.apache.commons.cli.Option: java.lang.String getKey()>();
+
+        $stack2 = virtualinvoke $stack1.<java.lang.String: char charAt(int)>(0);
+
+        return $stack2;
+    }
+
+    java.lang.String getKey()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack1, $stack2, $stack3;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        if $stack1 != null goto label1;
+
+        $stack3 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        return $stack3;
+
+     label1:
+        $stack2 = l0.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        return $stack2;
+    }
+
+    public java.lang.String getLongOpt()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getOpt()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        return $stack1;
+    }
+
+    public java.lang.Object getType()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.Object $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.lang.Object type>;
+
+        return $stack1;
+    }
+
+    public java.lang.String getValue()
+    {
+        org.apache.commons.cli.Option l0;
+        boolean $stack2;
+        java.util.List $stack3;
+        java.lang.Object $stack4;
+        java.lang.String l1#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack2 = specialinvoke l0.<org.apache.commons.cli.Option: boolean hasNoValues()>();
+
+        if $stack2 == 0 goto label1;
+
+        l1#1 = null;
+
+        goto label2;
+
+     label1:
+        $stack3 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        $stack4 = interfaceinvoke $stack3.<java.util.List: java.lang.Object get(int)>(0);
+
+        l1#1 = (java.lang.String) $stack4;
+
+     label2:
+        return l1#1;
+    }
+
+    public java.lang.String getValue(int) throws java.lang.IndexOutOfBoundsException
+    {
+        org.apache.commons.cli.Option l0;
+        boolean $stack3;
+        int l1;
+        java.util.List $stack4;
+        java.lang.Object $stack5;
+        java.lang.String l2#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: int;
+
+        $stack3 = specialinvoke l0.<org.apache.commons.cli.Option: boolean hasNoValues()>();
+
+        if $stack3 == 0 goto label1;
+
+        l2#1 = null;
+
+        goto label2;
+
+     label1:
+        $stack4 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        $stack5 = interfaceinvoke $stack4.<java.util.List: java.lang.Object get(int)>(l1);
+
+        l2#1 = (java.lang.String) $stack5;
+
+     label2:
+        return l2#1;
+    }
+
+    public java.lang.String getValue(java.lang.String)
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack4, l1, l3#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack4 = virtualinvoke l0.<org.apache.commons.cli.Option: java.lang.String getValue()>();
+
+        if $stack4 == null goto label1;
+
+        l3#1 = $stack4;
+
+        goto label2;
+
+     label1:
+        l3#1 = l1;
+
+     label2:
+        return l3#1;
+    }
+
+    public char getValueSeparator()
+    {
+        org.apache.commons.cli.Option l0;
+        char $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: char valuesep>;
+
+        return $stack1;
+    }
+
+    public java.lang.String[] getValues()
+    {
+        org.apache.commons.cli.Option l0;
+        boolean $stack2;
+        java.util.List $stack3, $stack4;
+        int $stack5;
+        java.lang.String[] $stack6, $stack8, l1#1;
+        java.lang.Object[] $stack7;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack2 = specialinvoke l0.<org.apache.commons.cli.Option: boolean hasNoValues()>();
+
+        if $stack2 == 0 goto label1;
+
+        l1#1 = null;
+
+        goto label2;
+
+     label1:
+        $stack4 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        $stack3 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        $stack5 = interfaceinvoke $stack3.<java.util.List: int size()>();
+
+        $stack6 = newarray (java.lang.String)[$stack5];
+
+        $stack7 = interfaceinvoke $stack4.<java.util.List: java.lang.Object[] toArray(java.lang.Object[])>($stack6);
+
+        $stack8 = (java.lang.String[]) $stack7;
+
+        l1#1 = (java.lang.String[]) $stack8;
+
+     label2:
+        return l1#1;
+    }
+
+    public java.util.List getValuesList()
+    {
+        org.apache.commons.cli.Option l0;
+        java.util.List $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        return $stack1;
+    }
+
+    public boolean hasArg()
+    {
+        org.apache.commons.cli.Option l0;
+        int $stack2, $stack3;
+        boolean l1#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack2 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        if $stack2 > 0 goto label1;
+
+        $stack3 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        if $stack3 != -2 goto label2;
+
+     label1:
+        l1#1 = 1;
+
+        goto label3;
+
+     label2:
+        l1#1 = 0;
+
+     label3:
+        return l1#1;
+    }
+
+    public boolean hasArgName()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack2, $stack3;
+        int $stack4;
+        boolean l1#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack2 = l0.<org.apache.commons.cli.Option: java.lang.String argName>;
+
+        if $stack2 == null goto label1;
+
+        $stack3 = l0.<org.apache.commons.cli.Option: java.lang.String argName>;
+
+        $stack4 = virtualinvoke $stack3.<java.lang.String: int length()>();
+
+        if $stack4 <= 0 goto label1;
+
+        l1#1 = 1;
+
+        goto label2;
+
+     label1:
+        l1#1 = 0;
+
+     label2:
+        return l1#1;
+    }
+
+    public boolean hasArgs()
+    {
+        org.apache.commons.cli.Option l0;
+        int $stack2, $stack3;
+        boolean l1#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack2 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        if $stack2 > 1 goto label1;
+
+        $stack3 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        if $stack3 != -2 goto label2;
+
+     label1:
+        l1#1 = 1;
+
+        goto label3;
+
+     label2:
+        l1#1 = 0;
+
+     label3:
+        return l1#1;
+    }
+
+    public boolean hasLongOpt()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack2;
+        boolean l1#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack2 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        if $stack2 == null goto label1;
+
+        l1#1 = 1;
+
+        goto label2;
+
+     label1:
+        l1#1 = 0;
+
+     label2:
+        return l1#1;
+    }
+
+    private boolean hasNoValues()
+    {
+        org.apache.commons.cli.Option l0;
+        java.util.List $stack1;
+        boolean $stack2;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        $stack2 = interfaceinvoke $stack1.<java.util.List: boolean isEmpty()>();
+
+        return $stack2;
+    }
+
+    public boolean hasOptionalArg()
+    {
+        org.apache.commons.cli.Option l0;
+        boolean $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: boolean optionalArg>;
+
+        return $stack1;
+    }
+
+    public boolean hasValueSeparator()
+    {
+        org.apache.commons.cli.Option l0;
+        char $stack2;
+        boolean l1#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack2 = l0.<org.apache.commons.cli.Option: char valuesep>;
+
+        if $stack2 <= 0 goto label1;
+
+        l1#1 = 1;
+
+        goto label2;
+
+     label1:
+        l1#1 = 0;
+
+     label2:
+        return l1#1;
+    }
+
+    public int hashCode()
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack4, $stack5, $stack7, $stack11;
+        int $stack6, $stack8, $stack12, $stack15, l2#1, l3#2;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack4 = l0.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        if $stack4 == null goto label1;
+
+        $stack11 = l0.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        $stack12 = virtualinvoke $stack11.<java.lang.String: int hashCode()>();
+
+        l2#1 = $stack12;
+
+        goto label2;
+
+     label1:
+        l2#1 = 0;
+
+     label2:
+        $stack15 = 31 * l2#1;
+
+        $stack5 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        if $stack5 == null goto label3;
+
+        $stack7 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        $stack8 = virtualinvoke $stack7.<java.lang.String: int hashCode()>();
+
+        l3#2 = $stack8;
+
+        goto label4;
+
+     label3:
+        l3#2 = 0;
+
+     label4:
+        $stack6 = $stack15 + l3#2;
+
+        return $stack6;
+    }
+
+    public boolean isRequired()
+    {
+        org.apache.commons.cli.Option l0;
+        boolean $stack1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack1 = l0.<org.apache.commons.cli.Option: boolean required>;
+
+        return $stack1;
+    }
+
+    private void processValue(java.lang.String)
+    {
+        org.apache.commons.cli.Option l0;
+        boolean $stack4;
+        char $stack5;
+        int $stack6, $stack10, $stack11, $stack12, $stack14, $stack16, l3#2;
+        java.util.List $stack9;
+        java.lang.String $stack13, $stack15, l1#1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1#1 := @parameter0: java.lang.String;
+
+        $stack4 = virtualinvoke l0.<org.apache.commons.cli.Option: boolean hasValueSeparator()>();
+
+        if $stack4 == 0 goto label3;
+
+        $stack5 = virtualinvoke l0.<org.apache.commons.cli.Option: char getValueSeparator()>();
+
+        $stack6 = virtualinvoke l1#1.<java.lang.String: int indexOf(int)>($stack5);
+
+        l3#2 = $stack6;
+
+     label1:
+        if l3#2 == -1 goto label3;
+
+        $stack9 = l0.<org.apache.commons.cli.Option: java.util.List values>;
+
+        $stack10 = interfaceinvoke $stack9.<java.util.List: int size()>();
+
+        $stack11 = l0.<org.apache.commons.cli.Option: int numberOfArgs>;
+
+        $stack12 = $stack11 - 1;
+
+        if $stack10 != $stack12 goto label2;
+
+        goto label3;
+
+     label2:
+        $stack13 = virtualinvoke l1#1.<java.lang.String: java.lang.String substring(int,int)>(0, l3#2);
+
+        specialinvoke l0.<org.apache.commons.cli.Option: void add(java.lang.String)>($stack13);
+
+        $stack14 = l3#2 + 1;
+
+        $stack15 = virtualinvoke l1#1.<java.lang.String: java.lang.String substring(int)>($stack14);
+
+        l1#1 = $stack15;
+
+        $stack16 = virtualinvoke $stack15.<java.lang.String: int indexOf(int)>($stack5);
+
+        l3#2 = $stack16;
+
+        goto label1;
+
+     label3:
+        specialinvoke l0.<org.apache.commons.cli.Option: void add(java.lang.String)>(l1#1);
+
+        return;
+    }
+
+    public void setArgName(java.lang.String)
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        l0.<org.apache.commons.cli.Option: java.lang.String argName> = l1;
+
+        return;
+    }
+
+    public void setArgs(int)
+    {
+        org.apache.commons.cli.Option l0;
+        int l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: int;
+
+        l0.<org.apache.commons.cli.Option: int numberOfArgs> = l1;
+
+        return;
+    }
+
+    public void setDescription(java.lang.String)
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        l0.<org.apache.commons.cli.Option: java.lang.String description> = l1;
+
+        return;
+    }
+
+    public void setLongOpt(java.lang.String)
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.String l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.String;
+
+        l0.<org.apache.commons.cli.Option: java.lang.String longOpt> = l1;
+
+        return;
+    }
+
+    public void setOptionalArg(boolean)
+    {
+        org.apache.commons.cli.Option l0;
+        boolean l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: boolean;
+
+        l0.<org.apache.commons.cli.Option: boolean optionalArg> = l1;
+
+        return;
+    }
+
+    public void setRequired(boolean)
+    {
+        org.apache.commons.cli.Option l0;
+        boolean l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: boolean;
+
+        l0.<org.apache.commons.cli.Option: boolean required> = l1;
+
+        return;
+    }
+
+    public void setType(java.lang.Object)
+    {
+        org.apache.commons.cli.Option l0;
+        java.lang.Object l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: java.lang.Object;
+
+        l0.<org.apache.commons.cli.Option: java.lang.Object type> = l1;
+
+        return;
+    }
+
+    public void setValueSeparator(char)
+    {
+        org.apache.commons.cli.Option l0;
+        char l1;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        l1 := @parameter0: char;
+
+        l0.<org.apache.commons.cli.Option: char valuesep> = l1;
+
+        return;
+    }
+
+    public java.lang.String toString()
+    {
+        java.lang.StringBuffer $stack2, $stack3, $stack16, $stack28, $stack10#5;
+        org.apache.commons.cli.Option l0;
+        java.lang.String $stack4, $stack6, $stack15, $stack29, $stack11#9;
+        boolean $stack8, $stack9;
+        java.lang.Object $stack17, $stack13#13;
+
+        l0 := @this: org.apache.commons.cli.Option;
+
+        $stack2 = new java.lang.StringBuffer;
+
+        specialinvoke $stack2.<java.lang.StringBuffer: void <init>()>();
+
+        $stack3 = virtualinvoke $stack2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("[ option: ");
+
+        $stack4 = l0.<org.apache.commons.cli.Option: java.lang.String opt>;
+
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack4);
+
+        $stack6 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        if $stack6 == null goto label1;
+
+        $stack28 = virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" ");
+
+        $stack29 = l0.<org.apache.commons.cli.Option: java.lang.String longOpt>;
+
+        virtualinvoke $stack28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack29);
+
+     label1:
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" ");
+
+        $stack8 = virtualinvoke l0.<org.apache.commons.cli.Option: boolean hasArgs()>();
+
+        if $stack8 == 0 goto label2;
+
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("[ARG...]");
+
+        goto label3;
+
+     label2:
+        $stack9 = virtualinvoke l0.<org.apache.commons.cli.Option: boolean hasArg()>();
+
+        if $stack9 == 0 goto label3;
+
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" [ARG]");
+
+     label3:
+        $stack10#5 = virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" :: ");
+
+        $stack11#9 = l0.<org.apache.commons.cli.Option: java.lang.String description>;
+
+        virtualinvoke $stack10#5.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack11#9);
+
+        $stack13#13 = l0.<org.apache.commons.cli.Option: java.lang.Object type>;
+
+        if $stack13#13 == null goto label4;
+
+        $stack16 = virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" :: ");
+
+        $stack17 = l0.<org.apache.commons.cli.Option: java.lang.Object type>;
+
+        virtualinvoke $stack16.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.Object)>($stack17);
+
+     label4:
+        virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(" ]");
+
+        $stack15 = virtualinvoke $stack3.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $stack15;
+    }
+
+    public static void <clinit>()
+    {
+        <org.apache.commons.cli.Option: int UNLIMITED_VALUES> = -2;
+
+        <org.apache.commons.cli.Option: int UNINITIALIZED> = -1;
+
+        <org.apache.commons.cli.Option: long serialVersionUID> = 1L;
+
+        return;
+    }
+}

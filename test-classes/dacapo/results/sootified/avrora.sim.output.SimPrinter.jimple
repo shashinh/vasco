@@ -1,0 +1,158 @@
+public class avrora.sim.output.SimPrinter extends java.lang.Object
+{
+    private avrora.sim.Simulator simulator;
+
+    public void <init>(avrora.sim.Simulator, java.lang.String)
+    {
+        avrora.sim.output.SimPrinter l0;
+        avrora.sim.Simulator l1;
+        java.lang.String l2;
+
+        l0 := @this: avrora.sim.output.SimPrinter;
+
+        l1 := @parameter0: avrora.sim.Simulator;
+
+        l2 := @parameter1: java.lang.String;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<avrora.sim.output.SimPrinter: avrora.sim.Simulator simulator> = l1;
+
+        return;
+    }
+
+    public java.lang.StringBuffer getBuffer()
+    {
+        java.lang.StringBuffer l1;
+        avrora.sim.output.SimPrinter l0;
+        avrora.sim.Simulator $stack2;
+
+        l0 := @this: avrora.sim.output.SimPrinter;
+
+        l1 = new java.lang.StringBuffer;
+
+        specialinvoke l1.<java.lang.StringBuffer: void <init>(int)>(70);
+
+        $stack2 = l0.<avrora.sim.output.SimPrinter: avrora.sim.Simulator simulator>;
+
+        staticinvoke <avrora.sim.util.SimUtil: void getIDTimeString(java.lang.StringBuffer,avrora.sim.Simulator)>(l1, $stack2);
+
+        return l1;
+    }
+
+    public java.lang.StringBuffer getBuffer(int)
+    {
+        java.lang.StringBuffer l2;
+        int l1, $stack3;
+        avrora.sim.output.SimPrinter l0;
+        avrora.sim.Simulator $stack4;
+
+        l0 := @this: avrora.sim.output.SimPrinter;
+
+        l1 := @parameter0: int;
+
+        l2 = new java.lang.StringBuffer;
+
+        $stack3 = 30 + l1;
+
+        specialinvoke l2.<java.lang.StringBuffer: void <init>(int)>($stack3);
+
+        $stack4 = l0.<avrora.sim.output.SimPrinter: avrora.sim.Simulator simulator>;
+
+        staticinvoke <avrora.sim.util.SimUtil: void getIDTimeString(java.lang.StringBuffer,avrora.sim.Simulator)>(l2, $stack4);
+
+        return l2;
+    }
+
+    public void printBuffer(java.lang.StringBuffer)
+    {
+        java.lang.StringBuffer l1;
+        java.lang.String $stack3;
+        java.lang.Throwable $stack4;
+        avrora.sim.output.SimPrinter l0;
+
+        l0 := @this: avrora.sim.output.SimPrinter;
+
+        l1 := @parameter0: java.lang.StringBuffer;
+
+        entermonitor class "Lcck/text/Terminal;";
+
+     label1:
+        $stack3 = virtualinvoke l1.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack3);
+
+        exitmonitor class "Lcck/text/Terminal;";
+
+     label2:
+        goto label5;
+
+     label3:
+        $stack4 := @caughtexception;
+
+        exitmonitor class "Lcck/text/Terminal;";
+
+     label4:
+        throw $stack4;
+
+     label5:
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+        catch java.lang.Throwable from label3 to label4 with label3;
+    }
+
+    public void println(java.lang.String)
+    {
+        java.lang.StringBuffer l2;
+        java.lang.String l1, $stack8;
+        int $stack4, $stack5;
+        avrora.sim.output.SimPrinter l0;
+        avrora.sim.Simulator $stack6;
+        java.lang.Throwable $stack9;
+
+        l0 := @this: avrora.sim.output.SimPrinter;
+
+        l1 := @parameter0: java.lang.String;
+
+        entermonitor class "Lcck/text/Terminal;";
+
+     label1:
+        l2 = new java.lang.StringBuffer;
+
+        $stack4 = virtualinvoke l1.<java.lang.String: int length()>();
+
+        $stack5 = $stack4 + 30;
+
+        specialinvoke l2.<java.lang.StringBuffer: void <init>(int)>($stack5);
+
+        $stack6 = l0.<avrora.sim.output.SimPrinter: avrora.sim.Simulator simulator>;
+
+        staticinvoke <avrora.sim.util.SimUtil: void getIDTimeString(java.lang.StringBuffer,avrora.sim.Simulator)>(l2, $stack6);
+
+        virtualinvoke l2.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>(l1);
+
+        $stack8 = virtualinvoke l2.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        staticinvoke <cck.text.Terminal: void println(java.lang.String)>($stack8);
+
+        exitmonitor class "Lcck/text/Terminal;";
+
+     label2:
+        goto label5;
+
+     label3:
+        $stack9 := @caughtexception;
+
+        exitmonitor class "Lcck/text/Terminal;";
+
+     label4:
+        throw $stack9;
+
+     label5:
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+        catch java.lang.Throwable from label3 to label4 with label3;
+    }
+}

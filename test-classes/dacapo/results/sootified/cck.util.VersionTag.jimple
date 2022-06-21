@@ -1,0 +1,279 @@
+public class cck.util.VersionTag extends java.lang.Object
+{
+    private static final java.util.HashMap tags;
+    public final java.lang.String module;
+    public final java.lang.String prefix;
+    public final int major;
+    public final int minor;
+    public final int commit;
+    public final java.lang.String string;
+    public final java.lang.String suffix;
+
+    static void <clinit>()
+    {
+        java.util.HashMap $stack0;
+
+        $stack0 = new java.util.HashMap;
+
+        specialinvoke $stack0.<java.util.HashMap: void <init>()>();
+
+        <cck.util.VersionTag: java.util.HashMap tags> = $stack0;
+
+        return;
+    }
+
+    public void <init>(java.lang.String, java.lang.String, int, int, int)
+    {
+        cck.util.VersionTag l0;
+        java.lang.String l1, l2, $stack7, $stack15, $stack17, $stack19, $stack27, $stack29;
+        int l3, l4, l5, $stack9, $stack12, $stack21, $stack24;
+        java.lang.StringBuilder $stack6, $stack8, $stack10, $stack11, $stack13, $stack14, $stack16, $stack18, $stack20, $stack22, $stack23, $stack25, $stack26, $stack28;
+        java.util.HashMap $stack30;
+
+        l0 := @this: cck.util.VersionTag;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: int;
+
+        l4 := @parameter3: int;
+
+        l5 := @parameter4: int;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<cck.util.VersionTag: java.lang.String module> = l1;
+
+        l0.<cck.util.VersionTag: java.lang.String prefix> = l2;
+
+        l0.<cck.util.VersionTag: int major> = l3;
+
+        l0.<cck.util.VersionTag: int minor> = l4;
+
+        l0.<cck.util.VersionTag: int commit> = l5;
+
+        $stack6 = new java.lang.StringBuilder;
+
+        specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = specialinvoke l0.<cck.util.VersionTag: java.lang.String prefixString(boolean,char)>(0, 32);
+
+        $stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack7);
+
+        $stack9 = l0.<cck.util.VersionTag: int major>;
+
+        $stack10 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack9);
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(46);
+
+        $stack12 = l0.<cck.util.VersionTag: int minor>;
+
+        $stack13 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(46);
+
+        $stack15 = specialinvoke l0.<cck.util.VersionTag: java.lang.String commitNumber()>();
+
+        $stack16 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack15);
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        l0.<cck.util.VersionTag: java.lang.String string> = $stack17;
+
+        $stack18 = new java.lang.StringBuilder;
+
+        specialinvoke $stack18.<java.lang.StringBuilder: void <init>()>();
+
+        $stack19 = specialinvoke l0.<cck.util.VersionTag: java.lang.String prefixString(boolean,char)>(1, 45);
+
+        $stack20 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack19);
+
+        $stack21 = l0.<cck.util.VersionTag: int major>;
+
+        $stack22 = virtualinvoke $stack20.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack21);
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(46);
+
+        $stack24 = l0.<cck.util.VersionTag: int minor>;
+
+        $stack25 = virtualinvoke $stack23.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack24);
+
+        $stack26 = virtualinvoke $stack25.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(46);
+
+        $stack27 = specialinvoke l0.<cck.util.VersionTag: java.lang.String commitNumber()>();
+
+        $stack28 = virtualinvoke $stack26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack27);
+
+        $stack29 = virtualinvoke $stack28.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        l0.<cck.util.VersionTag: java.lang.String suffix> = $stack29;
+
+        $stack30 = <cck.util.VersionTag: java.util.HashMap tags>;
+
+        virtualinvoke $stack30.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l0);
+
+        return;
+    }
+
+    private java.lang.String commitNumber()
+    {
+        cck.util.VersionTag l0;
+        int $stack1, $stack2, $stack3, $stack7, $stack12;
+        java.lang.String $stack4, $stack9, $stack14;
+        java.lang.StringBuilder $stack5, $stack6, $stack8, $stack10, $stack11, $stack13;
+
+        l0 := @this: cck.util.VersionTag;
+
+        $stack1 = l0.<cck.util.VersionTag: int commit>;
+
+        if $stack1 >= 10 goto label1;
+
+        $stack10 = new java.lang.StringBuilder;
+
+        specialinvoke $stack10.<java.lang.StringBuilder: void <init>()>();
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("00");
+
+        $stack12 = l0.<cck.util.VersionTag: int commit>;
+
+        $stack13 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack12);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack14;
+
+     label1:
+        $stack2 = l0.<cck.util.VersionTag: int commit>;
+
+        if $stack2 >= 100 goto label2;
+
+        $stack5 = new java.lang.StringBuilder;
+
+        specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>();
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("0");
+
+        $stack7 = l0.<cck.util.VersionTag: int commit>;
+
+        $stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack7);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack9;
+
+     label2:
+        $stack3 = l0.<cck.util.VersionTag: int commit>;
+
+        $stack4 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($stack3);
+
+        return $stack4;
+    }
+
+    public static cck.util.VersionTag getVersionTag(java.lang.String)
+    {
+        java.lang.String l0;
+        java.util.HashMap $stack1;
+        java.lang.Object $stack2;
+        cck.util.VersionTag $stack3;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack1 = <cck.util.VersionTag: java.util.HashMap tags>;
+
+        $stack2 = virtualinvoke $stack1.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l0);
+
+        $stack3 = (cck.util.VersionTag) $stack2;
+
+        return $stack3;
+    }
+
+    public boolean isStable()
+    {
+        cck.util.VersionTag l0;
+        int $stack2, $stack3;
+        boolean l1#1;
+
+        l0 := @this: cck.util.VersionTag;
+
+        $stack2 = l0.<cck.util.VersionTag: int minor>;
+
+        $stack3 = $stack2 % 2;
+
+        if $stack3 != 0 goto label1;
+
+        l1#1 = 1;
+
+        goto label2;
+
+     label1:
+        l1#1 = 0;
+
+     label2:
+        return l1#1;
+    }
+
+    private java.lang.String prefixString(boolean, char)
+    {
+        cck.util.VersionTag l0;
+        java.lang.String $stack5, $stack9, $stack10, $stack11, l4#1;
+        int $stack6;
+        java.lang.StringBuilder l3, $stack7, $stack8;
+        boolean l1;
+        char l2;
+
+        l0 := @this: cck.util.VersionTag;
+
+        l1 := @parameter0: boolean;
+
+        l2 := @parameter1: char;
+
+        $stack5 = l0.<cck.util.VersionTag: java.lang.String prefix>;
+
+        $stack6 = virtualinvoke $stack5.<java.lang.String: int length()>();
+
+        if $stack6 != 0 goto label1;
+
+        return "";
+
+     label1:
+        l3 = new java.lang.StringBuilder;
+
+        specialinvoke l3.<java.lang.StringBuilder: void <init>()>();
+
+        if l1 == 0 goto label2;
+
+        $stack10 = l0.<cck.util.VersionTag: java.lang.String prefix>;
+
+        $stack11 = virtualinvoke $stack10.<java.lang.String: java.lang.String toLowerCase()>();
+
+        l4#1 = $stack11;
+
+        goto label3;
+
+     label2:
+        l4#1 = l0.<cck.util.VersionTag: java.lang.String prefix>;
+
+     label3:
+        $stack7 = virtualinvoke l3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l4#1);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(l2);
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack9;
+    }
+
+    public java.lang.String toString()
+    {
+        cck.util.VersionTag l0;
+        java.lang.String $stack1;
+
+        l0 := @this: cck.util.VersionTag;
+
+        $stack1 = l0.<cck.util.VersionTag: java.lang.String string>;
+
+        return $stack1;
+    }
+}

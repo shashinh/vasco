@@ -1,0 +1,98 @@
+public class avrora.sim.types.SingleSimulation extends avrora.sim.Simulation
+{
+    protected static final java.lang.String HELP;
+
+    public void <init>()
+    {
+        avrora.sim.types.SingleSimulation l0;
+        avrora.sim.clock.Synchronizer$Single $stack1;
+        avrora.sim.clock.Synchronizer $stack4;
+        java.lang.String $stack5;
+        cck.util.Options $stack6;
+        cck.util.Option$List $stack7;
+
+        l0 := @this: avrora.sim.types.SingleSimulation;
+
+        $stack1 = new avrora.sim.clock.Synchronizer$Single;
+
+        specialinvoke $stack1.<avrora.sim.clock.Synchronizer$Single: void <init>()>();
+
+        $stack4 = (avrora.sim.clock.Synchronizer) $stack1;
+
+        specialinvoke l0.<avrora.sim.Simulation: void <init>(java.lang.String,java.lang.String,avrora.sim.clock.Synchronizer)>("single", "The \"single\" simulation type corresponds to a standard simulation of a single microcontroller with a single program.", $stack4);
+
+        $stack5 = l0.<avrora.sim.types.SingleSimulation: java.lang.String help>;
+
+        virtualinvoke l0.<avrora.sim.types.SingleSimulation: void addSection(java.lang.String,java.lang.String)>("SINGLE NODE SIMULATION OVERVIEW", $stack5);
+
+        $stack6 = l0.<avrora.sim.types.SingleSimulation: cck.util.Options options>;
+
+        virtualinvoke l0.<avrora.sim.types.SingleSimulation: void addOptionSection(java.lang.String,cck.util.Options)>("The most basic type of simulation, the single node simulation, is designed to simulate a single microcontroller running a single program. Help for specific options relating to simulating a single node is below.", $stack6);
+
+        $stack7 = l0.<avrora.sim.types.SingleSimulation: cck.util.Option$List MONITORS>;
+
+        virtualinvoke $stack7.<cck.util.Option$List: void setNewDefault(java.lang.String)>("leds");
+
+        return;
+    }
+
+    public void process(cck.util.Options, java.lang.String[]) throws java.lang.Exception
+    {
+        avrora.sim.types.SingleSimulation l0;
+        cck.util.Options l1, $stack4;
+        java.lang.String[] l2;
+        int $stack5, $stack6;
+        java.lang.String $stack7;
+        avrora.sim.platform.PlatformFactory $stack8;
+        avrora.core.LoadableProgram $stack11;
+
+        l0 := @this: avrora.sim.types.SingleSimulation;
+
+        l1 := @parameter0: cck.util.Options;
+
+        l2 := @parameter1: java.lang.String[];
+
+        $stack4 = l0.<avrora.sim.types.SingleSimulation: cck.util.Options options>;
+
+        virtualinvoke $stack4.<cck.util.Options: void process(cck.util.Options)>(l1);
+
+        virtualinvoke l0.<avrora.sim.types.SingleSimulation: void processMonitorList()>();
+
+        $stack5 = lengthof l2;
+
+        if $stack5 != 0 goto label1;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("Simulation error", "No program specified");
+
+     label1:
+        $stack6 = lengthof l2;
+
+        if $stack6 <= 1 goto label2;
+
+        staticinvoke <cck.util.Util: void userError(java.lang.String,java.lang.String)>("Simulation error", "Single node simulation accepts only one program");
+
+     label2:
+        staticinvoke <avrora.Main: void checkFilesExist(java.lang.String[])>(l2);
+
+        $stack11 = new avrora.core.LoadableProgram;
+
+        $stack7 = l2[0];
+
+        specialinvoke $stack11.<avrora.core.LoadableProgram: void <init>(java.lang.String)>($stack7);
+
+        virtualinvoke $stack11.<avrora.core.LoadableProgram: void load()>();
+
+        $stack8 = virtualinvoke l0.<avrora.sim.types.SingleSimulation: avrora.sim.platform.PlatformFactory getPlatform()>();
+
+        virtualinvoke l0.<avrora.sim.types.SingleSimulation: avrora.sim.Simulation$Node createNode(avrora.sim.platform.PlatformFactory,avrora.core.LoadableProgram)>($stack8, $stack11);
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.types.SingleSimulation: java.lang.String HELP> = "The \"single\" simulation type corresponds to a standard simulation of a single microcontroller with a single program.";
+
+        return;
+    }
+}

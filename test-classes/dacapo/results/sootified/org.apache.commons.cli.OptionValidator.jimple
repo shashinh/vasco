@@ -1,0 +1,148 @@
+class org.apache.commons.cli.OptionValidator extends java.lang.Object
+{
+
+    void <init>()
+    {
+        org.apache.commons.cli.OptionValidator l0;
+
+        l0 := @this: org.apache.commons.cli.OptionValidator;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    private static boolean isValidChar(char)
+    {
+        char l0;
+        boolean $stack1;
+
+        l0 := @parameter0: char;
+
+        $stack1 = staticinvoke <java.lang.Character: boolean isJavaIdentifierPart(char)>(l0);
+
+        return $stack1;
+    }
+
+    private static boolean isValidOpt(char)
+    {
+        char l0;
+        boolean $stack2, l1#4;
+
+        l0 := @parameter0: char;
+
+        $stack2 = staticinvoke <org.apache.commons.cli.OptionValidator: boolean isValidChar(char)>(l0);
+
+        if $stack2 != 0 goto label1;
+
+        if l0 == 32 goto label1;
+
+        if l0 == 63 goto label1;
+
+        if l0 != 64 goto label2;
+
+     label1:
+        l1#4 = 1;
+
+        goto label3;
+
+     label2:
+        l1#4 = 0;
+
+     label3:
+        return l1#4;
+    }
+
+    static void validateOption(java.lang.String) throws java.lang.IllegalArgumentException
+    {
+        java.lang.String l0, $stack17, $stack25;
+        int $stack4, $stack6, l3#1;
+        char[] $stack5;
+        char $stack7, $stack14, $stack18;
+        boolean $stack8, $stack19;
+        java.lang.IllegalArgumentException $stack11, $stack20;
+        java.lang.StringBuffer $stack12, $stack13, $stack15, $stack16, $stack21, $stack22, $stack23, $stack24;
+
+        l0 := @parameter0: java.lang.String;
+
+        if l0 != null goto label1;
+
+        return;
+
+     label1:
+        $stack4 = virtualinvoke l0.<java.lang.String: int length()>();
+
+        if $stack4 != 1 goto label3;
+
+        $stack18 = virtualinvoke l0.<java.lang.String: char charAt(int)>(0);
+
+        $stack19 = staticinvoke <org.apache.commons.cli.OptionValidator: boolean isValidOpt(char)>($stack18);
+
+        if $stack19 != 0 goto label2;
+
+        $stack20 = new java.lang.IllegalArgumentException;
+
+        $stack21 = new java.lang.StringBuffer;
+
+        specialinvoke $stack21.<java.lang.StringBuffer: void <init>()>();
+
+        $stack22 = virtualinvoke $stack21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("illegal option value \'");
+
+        $stack23 = virtualinvoke $stack22.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack18);
+
+        $stack24 = virtualinvoke $stack23.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\'");
+
+        $stack25 = virtualinvoke $stack24.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke $stack20.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($stack25);
+
+        throw $stack20;
+
+     label2:
+        goto label6;
+
+     label3:
+        $stack5 = virtualinvoke l0.<java.lang.String: char[] toCharArray()>();
+
+        l3#1 = 0;
+
+     label4:
+        $stack6 = lengthof $stack5;
+
+        if l3#1 >= $stack6 goto label6;
+
+        $stack7 = $stack5[l3#1];
+
+        $stack8 = staticinvoke <org.apache.commons.cli.OptionValidator: boolean isValidChar(char)>($stack7);
+
+        if $stack8 != 0 goto label5;
+
+        $stack11 = new java.lang.IllegalArgumentException;
+
+        $stack12 = new java.lang.StringBuffer;
+
+        specialinvoke $stack12.<java.lang.StringBuffer: void <init>()>();
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("opt contains illegal character value \'");
+
+        $stack14 = $stack5[l3#1];
+
+        $stack15 = virtualinvoke $stack13.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($stack14);
+
+        $stack16 = virtualinvoke $stack15.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\'");
+
+        $stack17 = virtualinvoke $stack16.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke $stack11.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($stack17);
+
+        throw $stack11;
+
+     label5:
+        l3#1 = l3#1 + 1;
+
+        goto label4;
+
+     label6:
+        return;
+    }
+}

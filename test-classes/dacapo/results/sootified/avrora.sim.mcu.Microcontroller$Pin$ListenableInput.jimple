@@ -1,0 +1,136 @@
+public abstract class avrora.sim.mcu.Microcontroller$Pin$ListenableInput extends java.lang.Object implements avrora.sim.mcu.Microcontroller$Pin$Input
+{
+    private java.util.LinkedList listeners;
+    private boolean oldValue;
+
+    public void <init>()
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableInput l0;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableInput;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    protected void notifyListeners(boolean)
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableInput l0;
+        java.util.LinkedList $stack3, $stack4;
+        java.util.Iterator $stack5;
+        boolean $stack6, l1;
+        java.lang.Object $stack7;
+        avrora.sim.mcu.Microcontroller$Pin$InputListener $stack8;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableInput;
+
+        l1 := @parameter0: boolean;
+
+        $stack3 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners>;
+
+        if $stack3 == null goto label2;
+
+        $stack4 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners>;
+
+        $stack5 = virtualinvoke $stack4.<java.util.LinkedList: java.util.Iterator iterator()>();
+
+     label1:
+        $stack6 = interfaceinvoke $stack5.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack6 == 0 goto label2;
+
+        $stack7 = interfaceinvoke $stack5.<java.util.Iterator: java.lang.Object next()>();
+
+        $stack8 = (avrora.sim.mcu.Microcontroller$Pin$InputListener) $stack7;
+
+        interfaceinvoke $stack8.<avrora.sim.mcu.Microcontroller$Pin$InputListener: void onInputChanged(avrora.sim.mcu.Microcontroller$Pin$Input,boolean)>(l0, l1);
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    public void registerListener(avrora.sim.mcu.Microcontroller$Pin$InputListener)
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableInput l0;
+        java.util.LinkedList $stack2, $stack3, $stack5;
+        avrora.sim.mcu.Microcontroller$Pin$InputListener l1;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableInput;
+
+        l1 := @parameter0: avrora.sim.mcu.Microcontroller$Pin$InputListener;
+
+        $stack2 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners>;
+
+        if $stack2 != null goto label1;
+
+        $stack5 = new java.util.LinkedList;
+
+        specialinvoke $stack5.<java.util.LinkedList: void <init>()>();
+
+        l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners> = $stack5;
+
+     label1:
+        $stack3 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners>;
+
+        virtualinvoke $stack3.<java.util.LinkedList: boolean add(java.lang.Object)>(l1);
+
+        return;
+    }
+
+    public void unregisterListener(avrora.sim.mcu.Microcontroller$Pin$InputListener)
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableInput l0;
+        java.util.LinkedList $stack2, $stack3, $stack5;
+        avrora.sim.mcu.Microcontroller$Pin$InputListener l1;
+        boolean $stack4, $stack6;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableInput;
+
+        l1 := @parameter0: avrora.sim.mcu.Microcontroller$Pin$InputListener;
+
+        $stack2 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners>;
+
+        if $stack2 == null goto label1;
+
+        $stack3 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners>;
+
+        $stack4 = virtualinvoke $stack3.<java.util.LinkedList: boolean remove(java.lang.Object)>(l1);
+
+        if $stack4 == 0 goto label1;
+
+        $stack5 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners>;
+
+        $stack6 = virtualinvoke $stack5.<java.util.LinkedList: boolean isEmpty()>();
+
+        if $stack6 == 0 goto label1;
+
+        l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: java.util.LinkedList listeners> = null;
+
+     label1:
+        return;
+    }
+
+    protected void update()
+    {
+        avrora.sim.mcu.Microcontroller$Pin$ListenableInput l0;
+        boolean $stack2, $stack3;
+
+        l0 := @this: avrora.sim.mcu.Microcontroller$Pin$ListenableInput;
+
+        $stack2 = virtualinvoke l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: boolean read()>();
+
+        $stack3 = l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: boolean oldValue>;
+
+        if $stack3 == $stack2 goto label1;
+
+        virtualinvoke l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: void notifyListeners(boolean)>($stack2);
+
+        l0.<avrora.sim.mcu.Microcontroller$Pin$ListenableInput: boolean oldValue> = $stack2;
+
+     label1:
+        return;
+    }
+}

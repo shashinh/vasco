@@ -1,0 +1,107 @@
+public class avrora.sim.RWRegister extends avrora.sim.state.AbstractRegisterView implements avrora.sim.ActiveRegister, avrora.sim.state.RegisterView
+{
+    public byte value;
+
+    public void <init>()
+    {
+        avrora.sim.RWRegister l0;
+
+        l0 := @this: avrora.sim.RWRegister;
+
+        specialinvoke l0.<avrora.sim.state.AbstractRegisterView: void <init>()>();
+
+        return;
+    }
+
+    public int getValue()
+    {
+        avrora.sim.RWRegister l0;
+        byte $stack1;
+
+        l0 := @this: avrora.sim.RWRegister;
+
+        $stack1 = l0.<avrora.sim.RWRegister: byte value>;
+
+        return $stack1;
+    }
+
+    public int getWidth()
+    {
+        avrora.sim.RWRegister l0;
+
+        l0 := @this: avrora.sim.RWRegister;
+
+        return 8;
+    }
+
+    public byte read()
+    {
+        avrora.sim.RWRegister l0;
+        byte $stack1;
+
+        l0 := @this: avrora.sim.RWRegister;
+
+        $stack1 = l0.<avrora.sim.RWRegister: byte value>;
+
+        return $stack1;
+    }
+
+    public boolean readBit(int)
+    {
+        avrora.sim.RWRegister l0;
+        byte $stack2;
+        int l1;
+        boolean $stack3;
+
+        l0 := @this: avrora.sim.RWRegister;
+
+        l1 := @parameter0: int;
+
+        $stack2 = virtualinvoke l0.<avrora.sim.RWRegister: byte read()>();
+
+        $stack3 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>($stack2, l1);
+
+        return $stack3;
+    }
+
+    public void setValue(int)
+    {
+        avrora.sim.RWRegister l0;
+        int l1;
+        byte $stack2, $stack3;
+
+        l0 := @this: avrora.sim.RWRegister;
+
+        l1 := @parameter0: int;
+
+        $stack3 = l0.<avrora.sim.RWRegister: byte value>;
+
+        $stack2 = (byte) l1;
+
+        l0.<avrora.sim.RWRegister: byte value> = $stack2;
+
+        virtualinvoke l0.<avrora.sim.RWRegister: void notify(int,int)>($stack3, l1);
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.RWRegister l0;
+        byte l1, $stack2, $stack3;
+
+        l0 := @this: avrora.sim.RWRegister;
+
+        l1 := @parameter0: byte;
+
+        $stack2 = l0.<avrora.sim.RWRegister: byte value>;
+
+        l0.<avrora.sim.RWRegister: byte value> = l1;
+
+        $stack3 = l0.<avrora.sim.RWRegister: byte value>;
+
+        virtualinvoke l0.<avrora.sim.RWRegister: void notify(int,int)>($stack2, $stack3);
+
+        return;
+    }
+}

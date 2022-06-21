@@ -1,0 +1,450 @@
+public class soot.rtlib.tamiflex.SootSig extends java.lang.Object
+{
+    private static final org.slf4j.Logger logger;
+    private static java.util.Map constrCache;
+    private static java.util.Map methodCache;
+
+    static void <clinit>()
+    {
+        org.slf4j.Logger $stack0;
+        java.util.concurrent.ConcurrentHashMap $stack1, $stack2;
+
+        $stack0 = staticinvoke <org.slf4j.LoggerFactory: org.slf4j.Logger getLogger(java.lang.String)>("Lsoot.rtlib.tamiflex.SootSig;");
+
+        <soot.rtlib.tamiflex.SootSig: org.slf4j.Logger logger> = $stack0;
+
+        $stack1 = new java.util.concurrent.ConcurrentHashMap;
+
+        specialinvoke $stack1.<java.util.concurrent.ConcurrentHashMap: void <init>()>();
+
+        <soot.rtlib.tamiflex.SootSig: java.util.Map constrCache> = $stack1;
+
+        $stack2 = new java.util.concurrent.ConcurrentHashMap;
+
+        specialinvoke $stack2.<java.util.concurrent.ConcurrentHashMap: void <init>()>();
+
+        <soot.rtlib.tamiflex.SootSig: java.util.Map methodCache> = $stack2;
+
+        return;
+    }
+
+    public void <init>()
+    {
+        soot.rtlib.tamiflex.SootSig l0;
+
+        l0 := @this: soot.rtlib.tamiflex.SootSig;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    private static java.lang.String[] classesToTypeNames(java.lang.Class[])
+    {
+        java.lang.Class[] l0;
+        int $stack5, l2, l3#1, l4#2;
+        java.lang.String[] l1;
+        java.lang.Class $stack6;
+        java.lang.String $stack7;
+
+        l0 := @parameter0: java.lang.Class[];
+
+        $stack5 = lengthof l0;
+
+        l1 = newarray (java.lang.String)[$stack5];
+
+        l3#1 = 0;
+
+        l2 = lengthof l0;
+
+        l4#2 = 0;
+
+     label1:
+        if l4#2 >= l2 goto label2;
+
+        $stack6 = l0[l4#2];
+
+        $stack7 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String getTypeName(java.lang.Class)>($stack6);
+
+        l1[l3#1] = $stack7;
+
+        l3#1 = l3#1 + 1;
+
+        l4#2 = l4#2 + 1;
+
+        goto label1;
+
+     label2:
+        return l1;
+    }
+
+    private static java.lang.String getTypeName(java.lang.Class)
+    {
+        java.lang.Class l0, $stack16, l4#1;
+        boolean $stack7, $stack9;
+        java.lang.String $stack8, $stack10, $stack12;
+        java.lang.StringBuffer l1;
+        java.lang.Throwable $stack18;
+        int l5#2, l6#3;
+
+        l0 := @parameter0: java.lang.Class;
+
+        $stack7 = virtualinvoke l0.<java.lang.Class: boolean isArray()>();
+
+        if $stack7 == 0 goto label8;
+
+     label1:
+        l4#1 = l0;
+
+        l5#2 = 0;
+
+     label2:
+        $stack9 = virtualinvoke l4#1.<java.lang.Class: boolean isArray()>();
+
+        if $stack9 == 0 goto label3;
+
+        l5#2 = l5#2 + 1;
+
+        $stack16 = virtualinvoke l4#1.<java.lang.Class: java.lang.Class getComponentType()>();
+
+        l4#1 = $stack16;
+
+        goto label2;
+
+     label3:
+        l1 = new java.lang.StringBuffer;
+
+        specialinvoke l1.<java.lang.StringBuffer: void <init>()>();
+
+        $stack10 = virtualinvoke l4#1.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($stack10);
+
+        l6#3 = 0;
+
+     label4:
+        if l6#3 >= l5#2 goto label5;
+
+        virtualinvoke l1.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("[]");
+
+        l6#3 = l6#3 + 1;
+
+        goto label4;
+
+     label5:
+        $stack12 = virtualinvoke l1.<java.lang.StringBuffer: java.lang.String toString()>();
+
+     label6:
+        return $stack12;
+
+     label7:
+        $stack18 := @caughtexception;
+
+     label8:
+        $stack8 = virtualinvoke l0.<java.lang.Class: java.lang.String getName()>();
+
+        return $stack8;
+
+        catch java.lang.Throwable from label1 to label6 with label7;
+    }
+
+    public static java.lang.String sootSignature(java.lang.reflect.Constructor)
+    {
+        java.lang.reflect.Constructor l0;
+        java.util.Map $stack4, $stack12;
+        java.lang.Object $stack5;
+        java.lang.String $stack6, $stack10, $stack11, l3#1;
+        java.lang.Class[] $stack7;
+        java.lang.String[] $stack8;
+        java.lang.Class $stack9;
+
+        l0 := @parameter0: java.lang.reflect.Constructor;
+
+        $stack4 = <soot.rtlib.tamiflex.SootSig: java.util.Map constrCache>;
+
+        $stack5 = interfaceinvoke $stack4.<java.util.Map: java.lang.Object get(java.lang.Object)>(l0);
+
+        $stack6 = (java.lang.String) $stack5;
+
+        l3#1 = $stack6;
+
+        if $stack6 != null goto label1;
+
+        $stack7 = virtualinvoke l0.<java.lang.reflect.Constructor: java.lang.Class[] getParameterTypes()>();
+
+        $stack8 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String[] classesToTypeNames(java.lang.Class[])>($stack7);
+
+        $stack9 = virtualinvoke l0.<java.lang.reflect.Constructor: java.lang.Class getDeclaringClass()>();
+
+        $stack10 = virtualinvoke $stack9.<java.lang.Class: java.lang.String getName()>();
+
+        $stack11 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String sootSignature(java.lang.String,java.lang.String,java.lang.String,java.lang.String[])>($stack10, "void", "<init>", $stack8);
+
+        l3#1 = $stack11;
+
+        $stack12 = <soot.rtlib.tamiflex.SootSig: java.util.Map constrCache>;
+
+        interfaceinvoke $stack12.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>(l0, $stack11);
+
+     label1:
+        return l3#1;
+    }
+
+    public static java.lang.String sootSignature(java.lang.Object, java.lang.reflect.Method)
+    {
+        java.lang.reflect.Method l1, l9#2, $stack17#14;
+        int $stack12;
+        boolean $stack13;
+        java.lang.Object l0, $stack19;
+        java.lang.Class $stack14, l2, $stack23, $stack25, $stack46, $stack53, l8#1, l10#3;
+        java.util.Map $stack18, $stack29;
+        java.lang.String $stack20, $stack24, $stack26, $stack27, $stack28, $stack38, $stack40, $stack15#8, l11#16;
+        java.lang.Class[] $stack21, $stack16#12;
+        java.lang.String[] $stack22;
+        java.lang.Error l5;
+        java.lang.StringBuilder $stack32, $stack33, $stack34, $stack35, $stack36, $stack37;
+        org.slf4j.Logger $stack39;
+        java.lang.Exception $stack50;
+        java.lang.RuntimeException $stack51;
+        java.lang.Throwable $stack52;
+
+        l0 := @parameter0: java.lang.Object;
+
+        l1 := @parameter1: java.lang.reflect.Method;
+
+        $stack12 = virtualinvoke l1.<java.lang.reflect.Method: int getModifiers()>();
+
+        $stack13 = staticinvoke <java.lang.reflect.Modifier: boolean isStatic(int)>($stack12);
+
+        if $stack13 == 0 goto label01;
+
+        $stack46 = virtualinvoke l1.<java.lang.reflect.Method: java.lang.Class getDeclaringClass()>();
+
+        l8#1 = $stack46;
+
+        goto label02;
+
+     label01:
+        $stack14 = virtualinvoke l0.<java.lang.Object: java.lang.Class getClass()>();
+
+        l8#1 = $stack14;
+
+     label02:
+        l2 = l8#1;
+
+     label03:
+        l9#2 = null;
+
+        l10#3 = l8#1;
+
+     label04:
+        $stack15#8 = virtualinvoke l1.<java.lang.reflect.Method: java.lang.String getName()>();
+
+        $stack16#12 = virtualinvoke l1.<java.lang.reflect.Method: java.lang.Class[] getParameterTypes()>();
+
+        $stack17#14 = virtualinvoke l10#3.<java.lang.Class: java.lang.reflect.Method getDeclaredMethod(java.lang.String,java.lang.Class[])>($stack15#8, $stack16#12);
+
+        l9#2 = $stack17#14;
+
+     label05:
+        goto label07;
+
+     label06:
+        $stack52 := @caughtexception;
+
+        $stack53 = virtualinvoke l10#3.<java.lang.Class: java.lang.Class getSuperclass()>();
+
+        l10#3 = $stack53;
+
+     label07:
+        if l9#2 != null goto label08;
+
+        if l10#3 != null goto label04;
+
+     label08:
+        if l9#2 != null goto label09;
+
+        l5 = new java.lang.Error;
+
+        $stack32 = new java.lang.StringBuilder;
+
+        specialinvoke $stack32.<java.lang.StringBuilder: void <init>()>();
+
+        $stack33 = virtualinvoke $stack32.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Method not found : ");
+
+        $stack34 = virtualinvoke $stack33.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(l1);
+
+        $stack35 = virtualinvoke $stack34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" in class ");
+
+        $stack36 = virtualinvoke $stack35.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(l2);
+
+        $stack37 = virtualinvoke $stack36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" and super classes.");
+
+        $stack38 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l5.<java.lang.Error: void <init>(java.lang.String)>($stack38);
+
+        $stack39 = <soot.rtlib.tamiflex.SootSig: org.slf4j.Logger logger>;
+
+        $stack40 = virtualinvoke l5.<java.lang.Error: java.lang.String getMessage()>();
+
+        interfaceinvoke $stack39.<org.slf4j.Logger: void error(java.lang.String,java.lang.Throwable)>($stack40, l5);
+
+     label09:
+        $stack18 = <soot.rtlib.tamiflex.SootSig: java.util.Map methodCache>;
+
+        $stack19 = interfaceinvoke $stack18.<java.util.Map: java.lang.Object get(java.lang.Object)>(l9#2);
+
+        $stack20 = (java.lang.String) $stack19;
+
+        l11#16 = $stack20;
+
+        if $stack20 != null goto label10;
+
+        $stack21 = virtualinvoke l9#2.<java.lang.reflect.Method: java.lang.Class[] getParameterTypes()>();
+
+        $stack22 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String[] classesToTypeNames(java.lang.Class[])>($stack21);
+
+        $stack23 = virtualinvoke l9#2.<java.lang.reflect.Method: java.lang.Class getDeclaringClass()>();
+
+        $stack24 = virtualinvoke $stack23.<java.lang.Class: java.lang.String getName()>();
+
+        $stack25 = virtualinvoke l9#2.<java.lang.reflect.Method: java.lang.Class getReturnType()>();
+
+        $stack26 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String getTypeName(java.lang.Class)>($stack25);
+
+        $stack27 = virtualinvoke l9#2.<java.lang.reflect.Method: java.lang.String getName()>();
+
+        $stack28 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String sootSignature(java.lang.String,java.lang.String,java.lang.String,java.lang.String[])>($stack24, $stack26, $stack27, $stack22);
+
+        l11#16 = $stack28;
+
+        $stack29 = <soot.rtlib.tamiflex.SootSig: java.util.Map methodCache>;
+
+        interfaceinvoke $stack29.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>(l9#2, $stack28);
+
+     label10:
+        return l11#16;
+
+     label11:
+        $stack50 := @caughtexception;
+
+        $stack51 = new java.lang.RuntimeException;
+
+        specialinvoke $stack51.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($stack50);
+
+        throw $stack51;
+
+        catch java.lang.NoSuchMethodException from label04 to label05 with label06;
+        catch java.lang.Exception from label03 to label10 with label11;
+    }
+
+    private static transient java.lang.String sootSignature(java.lang.String, java.lang.String, java.lang.String, java.lang.String[])
+    {
+        java.lang.StringBuilder l4;
+        java.lang.String l0, l1, l2, $stack16, $stack17;
+        java.lang.String[] l3;
+        int l5, $stack19, l6#1, l7#2;
+
+        l0 := @parameter0: java.lang.String;
+
+        l1 := @parameter1: java.lang.String;
+
+        l2 := @parameter2: java.lang.String;
+
+        l3 := @parameter3: java.lang.String[];
+
+        l4 = new java.lang.StringBuilder;
+
+        specialinvoke l4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<");
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l0);
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l1);
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l2);
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("(");
+
+        l6#1 = 0;
+
+        l5 = lengthof l3;
+
+        l7#2 = 0;
+
+     label1:
+        if l7#2 >= l5 goto label3;
+
+        $stack17 = l3[l7#2];
+
+        l6#1 = l6#1 + 1;
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack17);
+
+        $stack19 = lengthof l3;
+
+        if l6#1 >= $stack19 goto label2;
+
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",");
+
+     label2:
+        l7#2 = l7#2 + 1;
+
+        goto label1;
+
+     label3:
+        virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(")>");
+
+        $stack16 = virtualinvoke l4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack16;
+    }
+
+    public static java.lang.String sootSignature(java.lang.reflect.Field)
+    {
+        java.lang.StringBuilder l1;
+        java.lang.reflect.Field l0;
+        java.lang.Class $stack3, $stack7;
+        java.lang.String $stack4, $stack8, $stack11, $stack14;
+
+        l0 := @parameter0: java.lang.reflect.Field;
+
+        l1 = new java.lang.StringBuilder;
+
+        specialinvoke l1.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke l1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<");
+
+        $stack3 = virtualinvoke l0.<java.lang.reflect.Field: java.lang.Class getDeclaringClass()>();
+
+        $stack4 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String getTypeName(java.lang.Class)>($stack3);
+
+        virtualinvoke l1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack4);
+
+        virtualinvoke l1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $stack7 = virtualinvoke l0.<java.lang.reflect.Field: java.lang.Class getType()>();
+
+        $stack8 = staticinvoke <soot.rtlib.tamiflex.SootSig: java.lang.String getTypeName(java.lang.Class)>($stack7);
+
+        virtualinvoke l1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        virtualinvoke l1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $stack11 = virtualinvoke l0.<java.lang.reflect.Field: java.lang.String getName()>();
+
+        virtualinvoke l1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack11);
+
+        virtualinvoke l1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(">");
+
+        $stack14 = virtualinvoke l1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $stack14;
+    }
+}
