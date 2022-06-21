@@ -55,12 +55,18 @@ public class ContextTransitionTable<M,N,A> {
 	/** A set of call-sites from which transitions are unknown. */
 	protected Set<CallSite<M,N,A>> defaultCallSites;
 	
+	protected Map <CallSite<M, N, A >, M > contextInsensitiveTargets;
+	protected Map <M, Set <CallSite <M, N, A>>> contextInsensitiveCallers;
+	
 	/** Constructs a new context transition table with no initial entries. */
 	public ContextTransitionTable() {
 		transitions = new HashMap<CallSite<M,N,A>,Map<M,Context<M,N,A>>>();
 		callers = new HashMap<Context<M,N,A>,Set<CallSite<M,N,A>>>();
 		callSitesOfContexts = new HashMap<Context<M,N,A>,Set<CallSite<M,N,A>>>();
 		defaultCallSites = new HashSet<CallSite<M,N,A>>();
+		
+		contextInsensitiveCallers = new HashMap<M, Set<CallSite<M,N,A>>> ();
+		contextInsensitiveTargets = new HashMap<CallSite<M,N,A>, M>();
 	}
 
 	/**
@@ -230,6 +236,18 @@ public class ContextTransitionTable<M,N,A> {
 			
 		}		
 		return reachableContexts;
+	}
+	
+	public void addContextInsensitiveCaller(CallSite<M, N, A> callSite, M targetMethod) {
+		this.contextInsensitiveTargets.put(callSite, targetMethod);
+		
+		Set<CallSite<M, N, A>> callers = this.contextInsensitiveCallers.getOrDefault(targetMethod, new HashSet<CallSite<M, N, A>>());
+		callers.add(callSite);
+		this.contextInsensitiveCallers.put(targetMethod, callers);
+	}
+	
+	public Set<CallSite<M, N, A>> getContextInsensitiveCallersForMethod(M targetMethod) {
+		return this.contextInsensitiveCallers.get(targetMethod);
 	}
 	
 	

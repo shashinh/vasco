@@ -1,0 +1,28 @@
+class F extends java.lang.Object
+{
+
+    void <init>()
+    {
+        F l0;
+
+        l0 := @this: F;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    void fooBar()
+    {
+        java.io.PrintStream $stack1;
+        F l0;
+
+        l0 := @this: F;
+
+        $stack1 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack1.<java.io.PrintStream: void println(java.lang.String)>("visited F");
+
+        return;
+    }
+}
