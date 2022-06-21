@@ -1,0 +1,63 @@
+class avrora.sim.mcu.Timer8Bit$Mode_Normal extends java.lang.Object implements avrora.sim.Simulator$Event
+{
+    final avrora.sim.mcu.Timer8Bit this$0;
+
+    void <init>(avrora.sim.mcu.Timer8Bit)
+    {
+        avrora.sim.mcu.Timer8Bit$Mode_Normal l0;
+        avrora.sim.mcu.Timer8Bit l1;
+
+        l0 := @this: avrora.sim.mcu.Timer8Bit$Mode_Normal;
+
+        l1 := @parameter0: avrora.sim.mcu.Timer8Bit;
+
+        l0.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0> = l1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public void fire()
+    {
+        avrora.sim.mcu.Timer8Bit$Mode_Normal l0;
+        avrora.sim.mcu.Timer8Bit $stack3, $stack6, $stack7, $stack8;
+        avrora.sim.mcu.Timer8Bit$TCNTnRegister $stack4;
+        byte $stack5;
+        int l1, l2#1;
+
+        l0 := @this: avrora.sim.mcu.Timer8Bit$Mode_Normal;
+
+        $stack3 = l0.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0>;
+
+        $stack4 = $stack3.<avrora.sim.mcu.Timer8Bit: avrora.sim.mcu.Timer8Bit$TCNTnRegister TCNTn_reg>;
+
+        $stack5 = virtualinvoke $stack4.<avrora.sim.mcu.Timer8Bit$TCNTnRegister: byte read()>();
+
+        l1 = $stack5 & 255;
+
+        $stack6 = l0.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer8Bit: void access$000(avrora.sim.mcu.Timer8Bit,int)>($stack6, l1);
+
+        if l1 < 255 goto label1;
+
+        $stack8 = l0.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0>;
+
+        virtualinvoke $stack8.<avrora.sim.mcu.Timer8Bit: void overflow()>();
+
+        l2#1 = 0;
+
+        goto label2;
+
+     label1:
+        l2#1 = l1 + 1;
+
+     label2:
+        $stack7 = l0.<avrora.sim.mcu.Timer8Bit$Mode_Normal: avrora.sim.mcu.Timer8Bit this$0>;
+
+        staticinvoke <avrora.sim.mcu.Timer8Bit: void access$100(avrora.sim.mcu.Timer8Bit,avrora.sim.Simulator$Event,int)>($stack7, l0, l2#1);
+
+        return;
+    }
+}

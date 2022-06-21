@@ -1,0 +1,11 @@
+public interface  avrora.sim.radio.Medium$Arbitrator extends java.lang.Object
+{
+
+    public abstract double computeReceivedPower(avrora.sim.radio.Medium$Transmission, avrora.sim.radio.Medium$Receiver, int);
+
+    public abstract int getNoise(int);
+
+    public abstract boolean lockTransmission(avrora.sim.radio.Medium$Receiver, avrora.sim.radio.Medium$Transmission, int);
+
+    public abstract char mergeTransmissions(avrora.sim.radio.Medium$Receiver, java.util.List, long, int);
+}

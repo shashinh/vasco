@@ -397,6 +397,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 						exitFlow = meet(exitFlow, tailOut);
 					}
 					// Set the exit flow of the context.
+					//boolean shouldAnalyzeCallers = !exitFlow.equals(context.getExitValue);
 					context.setExitValue(exitFlow);
 
 					// Mark this context as analysed at least once.
@@ -409,29 +410,31 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 //					Set<CallSite<M, N, A>> callersSet = contextTransitions.getCallers(context);
 					
 					//Add ALL callers of this method, irrespective of context
-					Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
-					if (callersSet != null) {
-						List<CallSite<M, N, A>> callers = new LinkedList<CallSite<M, N, A>>(callersSet);
-						// Sort the callers in ascending order of their ID so that
-						// the largest ID is on top of the stack
-						Collections.sort(callers);
-						for (CallSite<M, N, A> callSite : callers) {
-							// Extract the calling context and unit from the caller site.
-							Context<M, N, A> callingContext = callSite.getCallingContext();
-							N callingNode = callSite.getCallNode();
-							// Add the calling unit to the calling context's work-list.
-							//System.out.println("ADDING TO WORKLIST FROM doAnalysis, line 314");
-							callingContext.getWorkList().add(callingNode);
-							// Ensure that the calling context is on the analysis stack,
-							// and if not, push it on to the stack.
-							if (!analysisStack.contains(callingContext)) {
-								analysisStack.push(callingContext);
+					// if shouldAnalyzeCallers {
+						Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
+						if (callersSet != null) {
+							List<CallSite<M, N, A>> callers = new LinkedList<CallSite<M, N, A>>(callersSet);
+							// Sort the callers in ascending order of their ID so that
+							// the largest ID is on top of the stack
+							Collections.sort(callers);
+							for (CallSite<M, N, A> callSite : callers) {
+								// Extract the calling context and unit from the caller site.
+								Context<M, N, A> callingContext = callSite.getCallingContext();
+								N callingNode = callSite.getCallNode();
+								// Add the calling unit to the calling context's work-list.
+								//System.out.println("ADDING TO WORKLIST FROM doAnalysis, line 314");
+								callingContext.getWorkList().add(callingNode);
+								// Ensure that the calling context is on the analysis stack,
+								// and if not, push it on to the stack.
+								if (!analysisStack.contains(callingContext)) {
+									analysisStack.push(callingContext);
+								}
+								
+	//							analysisStack.remove(callingContext);
+	//							analysisStack.push(callingContext);
 							}
-							
-//							analysisStack.remove(callingContext);
-//							analysisStack.push(callingContext);
 						}
-					}
+					// } end if shouldAnalyzeCallers
 
 					// Free memory on-the-fly if not needed
 					if (freeResultsOnTheFly) {
@@ -818,6 +821,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	 */
 	protected A processCallContextInsensitive(Context<M, N, A> callerContext, N callNode, M method, A entryValue) {
 		
+		System.out.println("processCallContextInsensitive : " + method.toString());
+		
 		//fetch the context(s) associated with this method
 		List< Context<M, N, A> > calleeContexts = getContexts(method);
 		
@@ -854,11 +859,13 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				 * create a new context with this entry value, remove the old one, and add the new one
 				 */
 				
+				// oldExitFlow = calleeContext.getExitValue();
 				calleeContext = new Context <M, N, A> (method, programRepresentation().getControlFlowGraph(method), false);
+				// calleeContext.setExitValue(oldExitFlow);
 				//clears all contexts associated with this method
 				this.contexts.remove(method);
-				//also remove it from the worklist, if present
-				this.worklist.remove(calleeContext);
+				//also remove it from the worklist, if present; should not be. Commenting out.
+				//this.worklist.remove(calleeContext);
 				
 				//adds in the new context for analysis
 				initContext(calleeContext, entryValue);

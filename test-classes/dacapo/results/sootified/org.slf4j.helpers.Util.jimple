@@ -1,0 +1,250 @@
+public final class org.slf4j.helpers.Util extends java.lang.Object
+{
+    private static org.slf4j.helpers.Util$ClassContextSecurityManager SECURITY_MANAGER;
+    private static boolean SECURITY_MANAGER_CREATION_ALREADY_ATTEMPTED;
+
+    static void <clinit>()
+    {
+        <org.slf4j.helpers.Util: boolean SECURITY_MANAGER_CREATION_ALREADY_ATTEMPTED> = 0;
+
+        return;
+    }
+
+    private void <init>()
+    {
+        org.slf4j.helpers.Util l0;
+
+        l0 := @this: org.slf4j.helpers.Util;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static java.lang.Class getCallingClass()
+    {
+        org.slf4j.helpers.Util$ClassContextSecurityManager $stack4;
+        java.lang.Class[] $stack5;
+        java.lang.Class $stack6, $stack14, $stack16;
+        java.lang.String $stack7, $stack17;
+        int $stack8, $stack9, $stack11, $stack12, $stack13, l3#1;
+        java.lang.IllegalStateException $stack10;
+        boolean $stack18;
+
+        $stack4 = staticinvoke <org.slf4j.helpers.Util: org.slf4j.helpers.Util$ClassContextSecurityManager getSecurityManager()>();
+
+        if $stack4 != null goto label1;
+
+        return null;
+
+     label1:
+        $stack5 = virtualinvoke $stack4.<org.slf4j.helpers.Util$ClassContextSecurityManager: java.lang.Class[] getClassContext()>();
+
+        $stack6 = class "Lorg/slf4j/helpers/Util;";
+
+        $stack7 = virtualinvoke $stack6.<java.lang.Class: java.lang.String getName()>();
+
+        l3#1 = 0;
+
+     label2:
+        $stack8 = lengthof $stack5;
+
+        if l3#1 >= $stack8 goto label4;
+
+        $stack16 = $stack5[l3#1];
+
+        $stack17 = virtualinvoke $stack16.<java.lang.Class: java.lang.String getName()>();
+
+        $stack18 = virtualinvoke $stack7.<java.lang.String: boolean equals(java.lang.Object)>($stack17);
+
+        if $stack18 == 0 goto label3;
+
+        goto label4;
+
+     label3:
+        l3#1 = l3#1 + 1;
+
+        goto label2;
+
+     label4:
+        $stack9 = lengthof $stack5;
+
+        if l3#1 >= $stack9 goto label5;
+
+        $stack12 = l3#1 + 2;
+
+        $stack11 = lengthof $stack5;
+
+        if $stack12 < $stack11 goto label6;
+
+     label5:
+        $stack10 = new java.lang.IllegalStateException;
+
+        specialinvoke $stack10.<java.lang.IllegalStateException: void <init>(java.lang.String)>("Failed to find org.slf4j.helpers.Util or its caller in the stack; this should not happen");
+
+        throw $stack10;
+
+     label6:
+        $stack13 = l3#1 + 2;
+
+        $stack14 = $stack5[$stack13];
+
+        return $stack14;
+    }
+
+    private static org.slf4j.helpers.Util$ClassContextSecurityManager getSecurityManager()
+    {
+        org.slf4j.helpers.Util$ClassContextSecurityManager $stack0, $stack2, $stack3, $stack4;
+        boolean $stack1;
+
+        $stack0 = <org.slf4j.helpers.Util: org.slf4j.helpers.Util$ClassContextSecurityManager SECURITY_MANAGER>;
+
+        if $stack0 == null goto label1;
+
+        $stack4 = <org.slf4j.helpers.Util: org.slf4j.helpers.Util$ClassContextSecurityManager SECURITY_MANAGER>;
+
+        return $stack4;
+
+     label1:
+        $stack1 = <org.slf4j.helpers.Util: boolean SECURITY_MANAGER_CREATION_ALREADY_ATTEMPTED>;
+
+        if $stack1 == 0 goto label2;
+
+        return null;
+
+     label2:
+        $stack2 = staticinvoke <org.slf4j.helpers.Util: org.slf4j.helpers.Util$ClassContextSecurityManager safeCreateSecurityManager()>();
+
+        <org.slf4j.helpers.Util: org.slf4j.helpers.Util$ClassContextSecurityManager SECURITY_MANAGER> = $stack2;
+
+        <org.slf4j.helpers.Util: boolean SECURITY_MANAGER_CREATION_ALREADY_ATTEMPTED> = 1;
+
+        $stack3 = <org.slf4j.helpers.Util: org.slf4j.helpers.Util$ClassContextSecurityManager SECURITY_MANAGER>;
+
+        return $stack3;
+    }
+
+    public static final void report(java.lang.String, java.lang.Throwable)
+    {
+        java.lang.String l0;
+        java.io.PrintStream $stack2, $stack3;
+        java.lang.Throwable l1;
+
+        l0 := @parameter0: java.lang.String;
+
+        l1 := @parameter1: java.lang.Throwable;
+
+        $stack2 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack2.<java.io.PrintStream: void println(java.lang.String)>(l0);
+
+        $stack3 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $stack3.<java.io.PrintStream: void println(java.lang.String)>("Reported exception:");
+
+        virtualinvoke l1.<java.lang.Throwable: void printStackTrace()>();
+
+        return;
+    }
+
+    public static final void report(java.lang.String)
+    {
+        java.lang.StringBuilder $stack1, $stack3, $stack4;
+        java.io.PrintStream $stack2;
+        java.lang.String l0, $stack5;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack2 = <java.lang.System: java.io.PrintStream err>;
+
+        $stack1 = new java.lang.StringBuilder;
+
+        specialinvoke $stack1.<java.lang.StringBuilder: void <init>()>();
+
+        $stack3 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SLF4J: ");
+
+        $stack4 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l0);
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $stack2.<java.io.PrintStream: void println(java.lang.String)>($stack5);
+
+        return;
+    }
+
+    private static org.slf4j.helpers.Util$ClassContextSecurityManager safeCreateSecurityManager()
+    {
+        org.slf4j.helpers.Util$ClassContextSecurityManager l0;
+        java.lang.Throwable $stack2;
+
+     label1:
+        l0 = new org.slf4j.helpers.Util$ClassContextSecurityManager;
+
+        specialinvoke l0.<org.slf4j.helpers.Util$ClassContextSecurityManager: void <init>(org.slf4j.helpers.Util$1)>(null);
+
+     label2:
+        return l0;
+
+     label3:
+        $stack2 := @caughtexception;
+
+        return null;
+
+        catch java.lang.SecurityException from label1 to label2 with label3;
+    }
+
+    public static boolean safeGetBooleanSystemProperty(java.lang.String)
+    {
+        java.lang.String l0, $stack2;
+        boolean $stack3;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack2 = staticinvoke <org.slf4j.helpers.Util: java.lang.String safeGetSystemProperty(java.lang.String)>(l0);
+
+        if $stack2 != null goto label1;
+
+        return 0;
+
+     label1:
+        $stack3 = virtualinvoke $stack2.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("true");
+
+        return $stack3;
+    }
+
+    public static java.lang.String safeGetSystemProperty(java.lang.String)
+    {
+        java.lang.String l0, $stack3, l2#1;
+        java.lang.IllegalArgumentException $stack4;
+        java.lang.Throwable $stack5;
+
+        l0 := @parameter0: java.lang.String;
+
+        if l0 != null goto label1;
+
+        $stack4 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $stack4.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("null input");
+
+        throw $stack4;
+
+     label1:
+        l2#1 = null;
+
+     label2:
+        $stack3 = staticinvoke <java.lang.System: java.lang.String getProperty(java.lang.String)>(l0);
+
+        l2#1 = $stack3;
+
+     label3:
+        goto label5;
+
+     label4:
+        $stack5 := @caughtexception;
+
+     label5:
+        return l2#1;
+
+        catch java.lang.SecurityException from label2 to label3 with label4;
+    }
+}

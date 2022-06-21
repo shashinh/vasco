@@ -1,0 +1,64 @@
+public class avrora.actions.SimAction$TimeoutException extends java.lang.RuntimeException
+{
+    private static final long serialVersionUID;
+    public final int address;
+    public final avrora.sim.State state;
+    public final long timeout;
+
+    public void <init>(int, avrora.sim.State, long, java.lang.String)
+    {
+        avrora.actions.SimAction$TimeoutException l0;
+        java.lang.StringBuilder $stack6, $stack7, $stack9, $stack10, $stack11, $stack12, $stack13;
+        int l1;
+        java.lang.String $stack8, l5, $stack14;
+        long l3;
+        avrora.sim.State l2;
+
+        l0 := @this: avrora.actions.SimAction$TimeoutException;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: avrora.sim.State;
+
+        l3 := @parameter2: long;
+
+        l5 := @parameter3: java.lang.String;
+
+        $stack6 = new java.lang.StringBuilder;
+
+        specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>();
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("timeout @ ");
+
+        $stack8 = staticinvoke <cck.text.StringUtil: java.lang.String addrToString(int)>(l1);
+
+        $stack9 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8);
+
+        $stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" reached after ");
+
+        $stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(l3);
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        $stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l5);
+
+        $stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l0.<java.lang.RuntimeException: void <init>(java.lang.String)>($stack14);
+
+        l0.<avrora.actions.SimAction$TimeoutException: int address> = l1;
+
+        l0.<avrora.actions.SimAction$TimeoutException: avrora.sim.State state> = l2;
+
+        l0.<avrora.actions.SimAction$TimeoutException: long timeout> = l3;
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.actions.SimAction$TimeoutException: long serialVersionUID> = 1L;
+
+        return;
+    }
+}

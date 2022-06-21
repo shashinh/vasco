@@ -1,0 +1,56 @@
+public class avrora.sim.mcu.ATMegaFamily$DirectionRegister extends avrora.sim.RWRegister
+{
+    protected avrora.sim.mcu.DefaultMCU$Pin[] pins;
+
+    protected void <init>(avrora.sim.mcu.DefaultMCU$Pin[])
+    {
+        avrora.sim.mcu.ATMegaFamily$DirectionRegister l0;
+        avrora.sim.mcu.DefaultMCU$Pin[] l1;
+
+        l0 := @this: avrora.sim.mcu.ATMegaFamily$DirectionRegister;
+
+        l1 := @parameter0: avrora.sim.mcu.DefaultMCU$Pin[];
+
+        specialinvoke l0.<avrora.sim.RWRegister: void <init>()>();
+
+        l0.<avrora.sim.mcu.ATMegaFamily$DirectionRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins> = l1;
+
+        return;
+    }
+
+    public void write(byte)
+    {
+        avrora.sim.mcu.ATMegaFamily$DirectionRegister l0;
+        byte l1;
+        avrora.sim.mcu.DefaultMCU$Pin[] $stack3;
+        avrora.sim.mcu.DefaultMCU$Pin $stack4;
+        boolean $stack5;
+        int l2#1;
+
+        l0 := @this: avrora.sim.mcu.ATMegaFamily$DirectionRegister;
+
+        l1 := @parameter0: byte;
+
+        l2#1 = 0;
+
+     label1:
+        if l2#1 >= 8 goto label2;
+
+        $stack3 = l0.<avrora.sim.mcu.ATMegaFamily$DirectionRegister: avrora.sim.mcu.DefaultMCU$Pin[] pins>;
+
+        $stack4 = $stack3[l2#1];
+
+        $stack5 = staticinvoke <cck.util.Arithmetic: boolean getBit(byte,int)>(l1, l2#1);
+
+        virtualinvoke $stack4.<avrora.sim.mcu.DefaultMCU$Pin: void setOutputDir(boolean)>($stack5);
+
+        l2#1 = l2#1 + 1;
+
+        goto label1;
+
+     label2:
+        l0.<avrora.sim.mcu.ATMegaFamily$DirectionRegister: byte value> = l1;
+
+        return;
+    }
+}

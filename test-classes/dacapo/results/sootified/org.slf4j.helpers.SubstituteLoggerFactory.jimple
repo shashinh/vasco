@@ -1,0 +1,158 @@
+public class org.slf4j.helpers.SubstituteLoggerFactory extends java.lang.Object implements org.slf4j.ILoggerFactory
+{
+    boolean postInitialization;
+    final java.util.Map loggers;
+    final java.util.concurrent.LinkedBlockingQueue eventQueue;
+
+    public void <init>()
+    {
+        org.slf4j.helpers.SubstituteLoggerFactory l0;
+        java.util.HashMap $stack1;
+        java.util.concurrent.LinkedBlockingQueue $stack2;
+
+        l0 := @this: org.slf4j.helpers.SubstituteLoggerFactory;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<org.slf4j.helpers.SubstituteLoggerFactory: boolean postInitialization> = 0;
+
+        $stack1 = new java.util.HashMap;
+
+        specialinvoke $stack1.<java.util.HashMap: void <init>()>();
+
+        l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.Map loggers> = $stack1;
+
+        $stack2 = new java.util.concurrent.LinkedBlockingQueue;
+
+        specialinvoke $stack2.<java.util.concurrent.LinkedBlockingQueue: void <init>()>();
+
+        l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.concurrent.LinkedBlockingQueue eventQueue> = $stack2;
+
+        return;
+    }
+
+    public void clear()
+    {
+        org.slf4j.helpers.SubstituteLoggerFactory l0;
+        java.util.Map $stack1;
+        java.util.concurrent.LinkedBlockingQueue $stack2;
+
+        l0 := @this: org.slf4j.helpers.SubstituteLoggerFactory;
+
+        $stack1 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.Map loggers>;
+
+        interfaceinvoke $stack1.<java.util.Map: void clear()>();
+
+        $stack2 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.concurrent.LinkedBlockingQueue eventQueue>;
+
+        virtualinvoke $stack2.<java.util.concurrent.LinkedBlockingQueue: void clear()>();
+
+        return;
+    }
+
+    public java.util.concurrent.LinkedBlockingQueue getEventQueue()
+    {
+        org.slf4j.helpers.SubstituteLoggerFactory l0;
+        java.util.concurrent.LinkedBlockingQueue $stack1;
+
+        l0 := @this: org.slf4j.helpers.SubstituteLoggerFactory;
+
+        $stack1 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.concurrent.LinkedBlockingQueue eventQueue>;
+
+        return $stack1;
+    }
+
+    public synchronized org.slf4j.Logger getLogger(java.lang.String)
+    {
+        org.slf4j.helpers.SubstituteLoggerFactory l0;
+        java.lang.String l1;
+        java.util.Map $stack4, $stack9;
+        java.lang.Object $stack5;
+        org.slf4j.Logger $stack6;
+        org.slf4j.helpers.SubstituteLogger l3, l2#1;
+        boolean $stack7;
+        java.util.concurrent.LinkedBlockingQueue $stack8;
+
+        l0 := @this: org.slf4j.helpers.SubstituteLoggerFactory;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack4 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.Map loggers>;
+
+        $stack5 = interfaceinvoke $stack4.<java.util.Map: java.lang.Object get(java.lang.Object)>(l1);
+
+        l2#1 = (org.slf4j.helpers.SubstituteLogger) $stack5;
+
+        if l2#1 != null goto label1;
+
+        l3 = new org.slf4j.helpers.SubstituteLogger;
+
+        $stack8 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.concurrent.LinkedBlockingQueue eventQueue>;
+
+        $stack7 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: boolean postInitialization>;
+
+        specialinvoke l3.<org.slf4j.helpers.SubstituteLogger: void <init>(java.lang.String,java.util.Queue,boolean)>(l1, $stack8, $stack7);
+
+        l2#1 = l3;
+
+        $stack9 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.Map loggers>;
+
+        interfaceinvoke $stack9.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, l3);
+
+     label1:
+        $stack6 = (org.slf4j.Logger) l2#1;
+
+        return $stack6;
+    }
+
+    public java.util.List getLoggerNames()
+    {
+        java.util.ArrayList $stack1;
+        org.slf4j.helpers.SubstituteLoggerFactory l0;
+        java.util.Map $stack2;
+        java.util.Set $stack3;
+
+        l0 := @this: org.slf4j.helpers.SubstituteLoggerFactory;
+
+        $stack1 = new java.util.ArrayList;
+
+        $stack2 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.Map loggers>;
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Map: java.util.Set keySet()>();
+
+        specialinvoke $stack1.<java.util.ArrayList: void <init>(java.util.Collection)>($stack3);
+
+        return $stack1;
+    }
+
+    public java.util.List getLoggers()
+    {
+        java.util.ArrayList $stack1;
+        org.slf4j.helpers.SubstituteLoggerFactory l0;
+        java.util.Map $stack2;
+        java.util.Collection $stack3;
+
+        l0 := @this: org.slf4j.helpers.SubstituteLoggerFactory;
+
+        $stack1 = new java.util.ArrayList;
+
+        $stack2 = l0.<org.slf4j.helpers.SubstituteLoggerFactory: java.util.Map loggers>;
+
+        $stack3 = interfaceinvoke $stack2.<java.util.Map: java.util.Collection values()>();
+
+        specialinvoke $stack1.<java.util.ArrayList: void <init>(java.util.Collection)>($stack3);
+
+        return $stack1;
+    }
+
+    public void postInitialization()
+    {
+        org.slf4j.helpers.SubstituteLoggerFactory l0;
+
+        l0 := @this: org.slf4j.helpers.SubstituteLoggerFactory;
+
+        l0.<org.slf4j.helpers.SubstituteLoggerFactory: boolean postInitialization> = 1;
+
+        return;
+    }
+}

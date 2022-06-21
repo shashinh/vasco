@@ -1,0 +1,61 @@
+final class cck.help.HelpCategory$1 extends java.lang.Object implements java.util.Comparator
+{
+
+    void <init>()
+    {
+        cck.help.HelpCategory$1 l0;
+
+        l0 := @this: cck.help.HelpCategory$1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public int compare(cck.help.HelpCategory, cck.help.HelpCategory)
+    {
+        cck.help.HelpCategory l1, l2;
+        java.lang.String $stack3, $stack4;
+        java.util.Comparator $stack5;
+        int $stack6;
+        cck.help.HelpCategory$1 l0;
+
+        l0 := @this: cck.help.HelpCategory$1;
+
+        l1 := @parameter0: cck.help.HelpCategory;
+
+        l2 := @parameter1: cck.help.HelpCategory;
+
+        $stack5 = <java.lang.String: java.util.Comparator CASE_INSENSITIVE_ORDER>;
+
+        $stack4 = l1.<cck.help.HelpCategory: java.lang.String name>;
+
+        $stack3 = l2.<cck.help.HelpCategory: java.lang.String name>;
+
+        $stack6 = interfaceinvoke $stack5.<java.util.Comparator: int compare(java.lang.Object,java.lang.Object)>($stack4, $stack3);
+
+        return $stack6;
+    }
+
+    public volatile int compare(java.lang.Object, java.lang.Object)
+    {
+        cck.help.HelpCategory$1 l0;
+        java.lang.Object l1, l2;
+        cck.help.HelpCategory $stack3, $stack4;
+        int $stack5;
+
+        l0 := @this: cck.help.HelpCategory$1;
+
+        l1 := @parameter0: java.lang.Object;
+
+        l2 := @parameter1: java.lang.Object;
+
+        $stack4 = (cck.help.HelpCategory) l1;
+
+        $stack3 = (cck.help.HelpCategory) l2;
+
+        $stack5 = virtualinvoke l0.<cck.help.HelpCategory$1: int compare(cck.help.HelpCategory,cck.help.HelpCategory)>($stack4, $stack3);
+
+        return $stack5;
+    }
+}

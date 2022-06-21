@@ -1,0 +1,173 @@
+public class cck.util.Option$List extends cck.util.Option
+{
+    protected java.util.List value;
+    protected java.lang.String orig;
+
+    public void <init>(java.lang.String, java.lang.String, java.lang.String)
+    {
+        cck.util.Option$List l0;
+        java.lang.String l1, l3, l2;
+
+        l0 := @this: cck.util.Option$List;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.lang.String;
+
+        specialinvoke l0.<cck.util.Option: void <init>(java.lang.String,java.lang.String)>(l1, l3);
+
+        specialinvoke l0.<cck.util.Option$List: void parseString(java.lang.String)>(l2);
+
+        return;
+    }
+
+    public java.util.List get()
+    {
+        cck.util.Option$List l0;
+        java.util.List $stack1;
+
+        l0 := @this: cck.util.Option$List;
+
+        $stack1 = l0.<cck.util.Option$List: java.util.List value>;
+
+        return $stack1;
+    }
+
+    private void parseString(java.lang.String)
+    {
+        cck.util.Option$List l0;
+        java.lang.String l1;
+        java.util.List $stack2;
+
+        l0 := @this: cck.util.Option$List;
+
+        l1 := @parameter0: java.lang.String;
+
+        l0.<cck.util.Option$List: java.lang.String orig> = l1;
+
+        $stack2 = staticinvoke <cck.text.StringUtil: java.util.List toList(java.lang.String)>(l1);
+
+        l0.<cck.util.Option$List: java.util.List value> = $stack2;
+
+        return;
+    }
+
+    public void printHelp()
+    {
+        cck.util.Option$List l0;
+        java.lang.String $stack2, $stack3, l1#1;
+        boolean $stack4;
+
+        l0 := @this: cck.util.Option$List;
+
+        $stack3 = "";
+
+        $stack2 = l0.<cck.util.Option$List: java.lang.String orig>;
+
+        $stack4 = virtualinvoke $stack3.<java.lang.String: boolean equals(java.lang.Object)>($stack2);
+
+        if $stack4 == 0 goto label1;
+
+        l1#1 = "(null)";
+
+        goto label2;
+
+     label1:
+        l1#1 = l0.<cck.util.Option$List: java.lang.String orig>;
+
+     label2:
+        virtualinvoke l0.<cck.util.Option$List: void printHeader(java.lang.String,java.lang.String)>("list", l1#1);
+
+        virtualinvoke l0.<cck.util.Option$List: void printDescription()>();
+
+        return;
+    }
+
+    public void set(java.lang.String)
+    {
+        cck.util.Option$List l0;
+        java.lang.String l1;
+
+        l0 := @this: cck.util.Option$List;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<cck.util.Option$List: void parseString(java.lang.String)>(l1);
+
+        return;
+    }
+
+    public void setNewDefault(java.lang.String)
+    {
+        cck.util.Option$List l0;
+        java.lang.String l1;
+
+        l0 := @this: cck.util.Option$List;
+
+        l1 := @parameter0: java.lang.String;
+
+        specialinvoke l0.<cck.util.Option$List: void parseString(java.lang.String)>(l1);
+
+        return;
+    }
+
+    public java.lang.String stringValue()
+    {
+        cck.util.Option$List l0;
+        java.lang.String $stack1;
+
+        l0 := @this: cck.util.Option$List;
+
+        $stack1 = l0.<cck.util.Option$List: java.lang.String orig>;
+
+        return $stack1;
+    }
+
+    public java.lang.String[] toArray()
+    {
+        cck.util.Option$List l0;
+        java.util.List $stack4, $stack6;
+        int $stack5, $stack9, l3#1;
+        java.lang.String[] l1;
+        java.util.Iterator $stack7;
+        boolean $stack8;
+        java.lang.Object $stack10;
+        java.lang.String $stack11;
+
+        l0 := @this: cck.util.Option$List;
+
+        $stack4 = l0.<cck.util.Option$List: java.util.List value>;
+
+        $stack5 = interfaceinvoke $stack4.<java.util.List: int size()>();
+
+        l1 = newarray (java.lang.String)[$stack5];
+
+        l3#1 = 0;
+
+        $stack6 = l0.<cck.util.Option$List: java.util.List value>;
+
+        $stack7 = interfaceinvoke $stack6.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $stack8 = interfaceinvoke $stack7.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack8 == 0 goto label2;
+
+        $stack9 = l3#1;
+
+        l3#1 = l3#1 + 1;
+
+        $stack10 = interfaceinvoke $stack7.<java.util.Iterator: java.lang.Object next()>();
+
+        $stack11 = (java.lang.String) $stack10;
+
+        l1[$stack9] = $stack11;
+
+        goto label1;
+
+     label2:
+        return l1;
+    }
+}

@@ -1,0 +1,265 @@
+public class cck.elf.ELFProgramHeaderTable extends java.lang.Object
+{
+    public static final int PT_NULL;
+    public static final int PT_LOAD;
+    public static final int PT_DYNAMIC;
+    public static final int PT_INTERP;
+    public static final int PT_NOTE;
+    public static final int PT_SHLIB;
+    public static final int PT_PHDR;
+    public static final int PT_LOPROC;
+    public static final int PT_HIPROC;
+    public static final int PF_EXEC;
+    public static final int PF_WRITE;
+    public static final int PF_READ;
+    public final cck.elf.ELFHeader header;
+    public final cck.elf.ELFProgramHeaderTable$Entry32[] entries;
+
+    public void <init>(cck.elf.ELFHeader)
+    {
+        cck.elf.ELFProgramHeaderTable l0;
+        cck.elf.ELFHeader l1;
+        boolean $stack2;
+        short $stack3;
+        cck.elf.ELFProgramHeaderTable$Entry32[] $stack4;
+        cck.util.Util$InternalError $stack5;
+
+        l0 := @this: cck.elf.ELFProgramHeaderTable;
+
+        l1 := @parameter0: cck.elf.ELFHeader;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack2 = virtualinvoke l1.<cck.elf.ELFHeader: boolean is32Bit()>();
+
+        if $stack2 != 0 goto label1;
+
+        $stack5 = staticinvoke <cck.util.Util: cck.util.Util$InternalError failure(java.lang.String)>("Only 32 bit ELF files are supported.");
+
+        throw $stack5;
+
+     label1:
+        l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFHeader header> = l1;
+
+        $stack3 = l1.<cck.elf.ELFHeader: short e_phnum>;
+
+        $stack4 = newarray (cck.elf.ELFProgramHeaderTable$Entry32)[$stack3];
+
+        l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries> = $stack4;
+
+        return;
+    }
+
+    public cck.elf.ELFProgramHeaderTable$Entry32 getEntry(int)
+    {
+        cck.elf.ELFProgramHeaderTable l0;
+        int l1;
+        cck.elf.ELFProgramHeaderTable$Entry32[] $stack2;
+        cck.elf.ELFProgramHeaderTable$Entry32 $stack3;
+
+        l0 := @this: cck.elf.ELFProgramHeaderTable;
+
+        l1 := @parameter0: int;
+
+        $stack2 = l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $stack3 = $stack2[l1];
+
+        return $stack3;
+    }
+
+    public static java.lang.String getType(cck.elf.ELFProgramHeaderTable$Entry32)
+    {
+        cck.elf.ELFProgramHeaderTable$Entry32 l0;
+        int $stack1, $stack2;
+        long $stack3;
+        java.lang.String $stack4;
+
+        l0 := @parameter0: cck.elf.ELFProgramHeaderTable$Entry32;
+
+        $stack1 = l0.<cck.elf.ELFProgramHeaderTable$Entry32: int p_type>;
+
+        tableswitch($stack1)
+        {
+            case 0: goto label1;
+            case 1: goto label2;
+            case 2: goto label3;
+            case 3: goto label4;
+            case 4: goto label5;
+            case 5: goto label6;
+            case 6: goto label7;
+            default: goto label8;
+        };
+
+     label1:
+        return "null";
+
+     label2:
+        return "load";
+
+     label3:
+        return "dynamic";
+
+     label4:
+        return "interp";
+
+     label5:
+        return "note";
+
+     label6:
+        return "shlib";
+
+     label7:
+        return "phdr";
+
+     label8:
+        $stack2 = l0.<cck.elf.ELFProgramHeaderTable$Entry32: int p_type>;
+
+        $stack3 = (long) $stack2;
+
+        $stack4 = staticinvoke <cck.text.StringUtil: java.lang.String toHex(long,int)>($stack3, 8);
+
+        return $stack4;
+    }
+
+    public void read(java.io.RandomAccessFile) throws java.io.IOException
+    {
+        cck.elf.ELFProgramHeaderTable l0;
+        cck.elf.ELFProgramHeaderTable$Entry32[] $stack6, $stack12, $stack22;
+        int $stack7, $stack9, $stack13, $stack14, $stack15, $stack16, $stack17, $stack18, $stack19, $stack20, $stack21, l4#1, l5#2;
+        java.io.RandomAccessFile l1;
+        cck.elf.ELFHeader $stack8, $stack11, $stack23;
+        long $stack10;
+        cck.elf.ELFDataInputStream l2;
+        cck.elf.ELFProgramHeaderTable$Entry32 l3;
+        short $stack24;
+
+        l0 := @this: cck.elf.ELFProgramHeaderTable;
+
+        l1 := @parameter0: java.io.RandomAccessFile;
+
+        $stack6 = l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $stack7 = lengthof $stack6;
+
+        if $stack7 != 0 goto label1;
+
+        return;
+
+     label1:
+        $stack8 = l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFHeader header>;
+
+        $stack9 = $stack8.<cck.elf.ELFHeader: int e_phoff>;
+
+        $stack10 = (long) $stack9;
+
+        virtualinvoke l1.<java.io.RandomAccessFile: void seek(long)>($stack10);
+
+        l2 = new cck.elf.ELFDataInputStream;
+
+        $stack11 = l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFHeader header>;
+
+        specialinvoke l2.<cck.elf.ELFDataInputStream: void <init>(cck.elf.ELFHeader,java.io.RandomAccessFile)>($stack11, l1);
+
+        l4#1 = 0;
+
+     label2:
+        $stack12 = l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $stack13 = lengthof $stack12;
+
+        if l4#1 >= $stack13 goto label5;
+
+        l3 = new cck.elf.ELFProgramHeaderTable$Entry32;
+
+        specialinvoke l3.<cck.elf.ELFProgramHeaderTable$Entry32: void <init>(cck.elf.ELFProgramHeaderTable)>(l0);
+
+        $stack14 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        l3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_type> = $stack14;
+
+        $stack15 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Off()>();
+
+        l3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_offset> = $stack15;
+
+        $stack16 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Addr()>();
+
+        l3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_vaddr> = $stack16;
+
+        $stack17 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Addr()>();
+
+        l3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_paddr> = $stack17;
+
+        $stack18 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        l3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_filesz> = $stack18;
+
+        $stack19 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        l3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_memsz> = $stack19;
+
+        $stack20 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        l3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_flags> = $stack20;
+
+        $stack21 = virtualinvoke l2.<cck.elf.ELFDataInputStream: int read_Elf32_Word()>();
+
+        l3.<cck.elf.ELFProgramHeaderTable$Entry32: int p_align> = $stack21;
+
+        $stack22 = l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFProgramHeaderTable$Entry32[] entries>;
+
+        $stack22[l4#1] = l3;
+
+        l5#2 = 32;
+
+     label3:
+        $stack23 = l0.<cck.elf.ELFProgramHeaderTable: cck.elf.ELFHeader header>;
+
+        $stack24 = $stack23.<cck.elf.ELFHeader: short e_phentsize>;
+
+        if l5#2 >= $stack24 goto label4;
+
+        virtualinvoke l1.<java.io.RandomAccessFile: int read()>();
+
+        l5#2 = l5#2 + 1;
+
+        goto label3;
+
+     label4:
+        l4#1 = l4#1 + 1;
+
+        goto label2;
+
+     label5:
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <cck.elf.ELFProgramHeaderTable: int PF_READ> = 4;
+
+        <cck.elf.ELFProgramHeaderTable: int PF_WRITE> = 2;
+
+        <cck.elf.ELFProgramHeaderTable: int PF_EXEC> = 1;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_HIPROC> = 2147483647;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_LOPROC> = 1879048192;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_PHDR> = 6;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_SHLIB> = 5;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_NOTE> = 4;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_INTERP> = 3;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_DYNAMIC> = 2;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_LOAD> = 1;
+
+        <cck.elf.ELFProgramHeaderTable: int PT_NULL> = 0;
+
+        return;
+    }
+}

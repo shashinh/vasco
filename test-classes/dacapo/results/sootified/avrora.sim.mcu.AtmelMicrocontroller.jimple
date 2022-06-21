@@ -1,0 +1,361 @@
+public abstract class avrora.sim.mcu.AtmelMicrocontroller extends avrora.sim.mcu.DefaultMCU
+{
+    protected final avrora.sim.clock.MainClock mainClock;
+    protected avrora.sim.AtmelInterpreter interpreter;
+    public final avrora.arch.avr.AVRProperties properties;
+    protected final java.util.HashMap devices;
+    public static final int MODE_ACTIVE;
+
+    protected void <init>(avrora.sim.clock.ClockDomain, avrora.arch.avr.AVRProperties, avrora.sim.FiniteStateMachine)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        avrora.sim.clock.ClockDomain l1;
+        avrora.arch.avr.AVRProperties l2;
+        int $stack4;
+        avrora.sim.mcu.RegisterLayout $stack5;
+        avrora.sim.mcu.RegisterSet $stack6;
+        avrora.sim.FiniteStateMachine l3;
+        avrora.sim.clock.MainClock $stack7;
+        java.util.HashMap $stack8;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        l1 := @parameter0: avrora.sim.clock.ClockDomain;
+
+        l2 := @parameter1: avrora.arch.avr.AVRProperties;
+
+        l3 := @parameter2: avrora.sim.FiniteStateMachine;
+
+        $stack4 = l2.<avrora.arch.avr.AVRProperties: int num_pins>;
+
+        $stack5 = virtualinvoke l2.<avrora.arch.avr.AVRProperties: avrora.sim.mcu.RegisterLayout getRegisterLayout()>();
+
+        $stack6 = virtualinvoke $stack5.<avrora.sim.mcu.RegisterLayout: avrora.sim.mcu.RegisterSet instantiate()>();
+
+        specialinvoke l0.<avrora.sim.mcu.DefaultMCU: void <init>(avrora.sim.clock.ClockDomain,int,avrora.sim.mcu.RegisterSet,avrora.sim.FiniteStateMachine)>(l1, $stack4, $stack6, l3);
+
+        $stack7 = virtualinvoke l1.<avrora.sim.clock.ClockDomain: avrora.sim.clock.MainClock getMainClock()>();
+
+        l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.clock.MainClock mainClock> = $stack7;
+
+        l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.arch.avr.AVRProperties properties> = l2;
+
+        $stack8 = new java.util.HashMap;
+
+        specialinvoke $stack8.<java.util.HashMap: void <init>()>();
+
+        l0.<avrora.sim.mcu.AtmelMicrocontroller: java.util.HashMap devices> = $stack8;
+
+        return;
+    }
+
+    protected void addDevice(avrora.sim.mcu.AtmelInternalDevice)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        avrora.sim.mcu.AtmelInternalDevice l1;
+        java.lang.String $stack2;
+        java.util.HashMap $stack3;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        l1 := @parameter0: avrora.sim.mcu.AtmelInternalDevice;
+
+        $stack3 = l0.<avrora.sim.mcu.AtmelMicrocontroller: java.util.HashMap devices>;
+
+        $stack2 = l1.<avrora.sim.mcu.AtmelInternalDevice: java.lang.String name>;
+
+        virtualinvoke $stack3.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack2, l1);
+
+        return;
+    }
+
+    public static void addInterrupt(java.util.HashMap, java.lang.String, int)
+    {
+        java.util.HashMap l0;
+        java.lang.String l1;
+        java.lang.Integer $stack3;
+        int l2;
+
+        l0 := @parameter0: java.util.HashMap;
+
+        l1 := @parameter1: java.lang.String;
+
+        l2 := @parameter2: int;
+
+        $stack3 = new java.lang.Integer;
+
+        specialinvoke $stack3.<java.lang.Integer: void <init>(int)>(l2);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l1, $stack3);
+
+        return;
+    }
+
+    public static void addPin(java.util.HashMap, int, java.lang.String)
+    {
+        java.util.HashMap l0;
+        java.lang.String l2;
+        java.lang.Integer $stack3;
+        int l1;
+
+        l0 := @parameter0: java.util.HashMap;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: java.lang.String;
+
+        $stack3 = new java.lang.Integer;
+
+        specialinvoke $stack3.<java.lang.Integer: void <init>(int)>(l1);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l2, $stack3);
+
+        return;
+    }
+
+    public static void addPin(java.util.HashMap, int, java.lang.String, java.lang.String)
+    {
+        java.lang.Integer l4;
+        int l1;
+        java.util.HashMap l0;
+        java.lang.String l2, l3;
+
+        l0 := @parameter0: java.util.HashMap;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: java.lang.String;
+
+        l3 := @parameter3: java.lang.String;
+
+        l4 = new java.lang.Integer;
+
+        specialinvoke l4.<java.lang.Integer: void <init>(int)>(l1);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l2, l4);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l3, l4);
+
+        return;
+    }
+
+    public static void addPin(java.util.HashMap, int, java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.lang.Integer l5;
+        int l1;
+        java.util.HashMap l0;
+        java.lang.String l2, l3, l4;
+
+        l0 := @parameter0: java.util.HashMap;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: java.lang.String;
+
+        l3 := @parameter3: java.lang.String;
+
+        l4 := @parameter4: java.lang.String;
+
+        l5 = new java.lang.Integer;
+
+        specialinvoke l5.<java.lang.Integer: void <init>(int)>(l1);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l2, l5);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l3, l5);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l4, l5);
+
+        return;
+    }
+
+    public static void addPin(java.util.HashMap, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.lang.Integer l6;
+        int l1;
+        java.util.HashMap l0;
+        java.lang.String l2, l3, l4, l5;
+
+        l0 := @parameter0: java.util.HashMap;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: java.lang.String;
+
+        l3 := @parameter3: java.lang.String;
+
+        l4 := @parameter4: java.lang.String;
+
+        l5 := @parameter5: java.lang.String;
+
+        l6 = new java.lang.Integer;
+
+        specialinvoke l6.<java.lang.Integer: void <init>(int)>(l1);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l2, l6);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l3, l6);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l4, l6);
+
+        virtualinvoke l0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>(l5, l6);
+
+        return;
+    }
+
+    public avrora.sim.mcu.AtmelInternalDevice getDevice(java.lang.String)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        java.lang.String l1;
+        java.util.HashMap $stack2;
+        java.lang.Object $stack3;
+        avrora.sim.mcu.AtmelInternalDevice $stack4;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack2 = l0.<avrora.sim.mcu.AtmelMicrocontroller: java.util.HashMap devices>;
+
+        $stack3 = virtualinvoke $stack2.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(l1);
+
+        $stack4 = (avrora.sim.mcu.AtmelInternalDevice) $stack3;
+
+        return $stack4;
+    }
+
+    protected avrora.sim.ActiveRegister getIOReg(java.lang.String)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        java.lang.String l1;
+        avrora.arch.avr.AVRProperties $stack2;
+        avrora.sim.AtmelInterpreter $stack3;
+        int $stack4;
+        avrora.sim.ActiveRegister $stack5;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack3 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack2 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.arch.avr.AVRProperties properties>;
+
+        $stack4 = virtualinvoke $stack2.<avrora.arch.avr.AVRProperties: int getIOReg(java.lang.String)>(l1);
+
+        $stack5 = virtualinvoke $stack3.<avrora.sim.AtmelInterpreter: avrora.sim.ActiveRegister getIOReg(int)>($stack4);
+
+        return $stack5;
+    }
+
+    public avrora.sim.mcu.Microcontroller$Pin getPin(java.lang.String)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        java.lang.String l1;
+        avrora.arch.avr.AVRProperties $stack2;
+        avrora.sim.mcu.Microcontroller$Pin[] $stack3;
+        int $stack4;
+        avrora.sim.mcu.Microcontroller$Pin $stack5;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack3 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.mcu.Microcontroller$Pin[] pins>;
+
+        $stack2 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.arch.avr.AVRProperties properties>;
+
+        $stack4 = virtualinvoke $stack2.<avrora.arch.avr.AVRProperties: int getPin(java.lang.String)>(l1);
+
+        $stack5 = $stack3[$stack4];
+
+        return $stack5;
+    }
+
+    public avrora.sim.mcu.MCUProperties getProperties()
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        avrora.arch.avr.AVRProperties $stack1;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        $stack1 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.arch.avr.AVRProperties properties>;
+
+        return $stack1;
+    }
+
+    protected abstract int getSleepMode();
+
+    protected avrora.sim.ActiveRegister installIOReg(java.lang.String, avrora.sim.ActiveRegister)
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        java.lang.String l1;
+        avrora.arch.avr.AVRProperties $stack3;
+        avrora.sim.AtmelInterpreter $stack4;
+        int $stack5;
+        avrora.sim.ActiveRegister l2;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: avrora.sim.ActiveRegister;
+
+        $stack4 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.AtmelInterpreter interpreter>;
+
+        $stack3 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.arch.avr.AVRProperties properties>;
+
+        $stack5 = virtualinvoke $stack3.<avrora.arch.avr.AVRProperties: int getIOReg(java.lang.String)>(l1);
+
+        virtualinvoke $stack4.<avrora.sim.AtmelInterpreter: void installIOReg(int,avrora.sim.ActiveRegister)>($stack5, l2);
+
+        return l2;
+    }
+
+    public void sleep()
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        avrora.sim.FiniteStateMachine $stack1;
+        int $stack2;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        $stack1 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.FiniteStateMachine sleepState>;
+
+        $stack2 = virtualinvoke l0.<avrora.sim.mcu.AtmelMicrocontroller: int getSleepMode()>();
+
+        virtualinvoke $stack1.<avrora.sim.FiniteStateMachine: void transition(int)>($stack2);
+
+        return;
+    }
+
+    public int wakeup()
+    {
+        avrora.sim.mcu.AtmelMicrocontroller l0;
+        avrora.sim.FiniteStateMachine $stack1, $stack2, $stack3;
+        int $stack4, $stack5;
+
+        l0 := @this: avrora.sim.mcu.AtmelMicrocontroller;
+
+        $stack1 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.FiniteStateMachine sleepState>;
+
+        virtualinvoke $stack1.<avrora.sim.FiniteStateMachine: void transition(int)>(0);
+
+        $stack3 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.FiniteStateMachine sleepState>;
+
+        $stack2 = l0.<avrora.sim.mcu.AtmelMicrocontroller: avrora.sim.FiniteStateMachine sleepState>;
+
+        $stack4 = virtualinvoke $stack2.<avrora.sim.FiniteStateMachine: int getCurrentState()>();
+
+        $stack5 = virtualinvoke $stack3.<avrora.sim.FiniteStateMachine: int getTransitionTime(int,int)>($stack4, 0);
+
+        return $stack5;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.sim.mcu.AtmelMicrocontroller: int MODE_ACTIVE> = 0;
+
+        return;
+    }
+}

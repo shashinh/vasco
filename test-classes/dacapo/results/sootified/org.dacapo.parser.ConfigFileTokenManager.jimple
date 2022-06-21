@@ -1,0 +1,4460 @@
+public class org.dacapo.parser.ConfigFileTokenManager extends java.lang.Object implements org.dacapo.parser.ConfigFileConstants
+{
+    public java.io.PrintStream debugStream;
+    static final long[] jjbitVec0;
+    static final long[] jjbitVec2;
+    static final int[] jjnextStates;
+    public static final java.lang.String[] jjstrLiteralImages;
+    public static final java.lang.String[] lexStateNames;
+    public static final int[] jjnewLexState;
+    static final long[] jjtoToken;
+    static final long[] jjtoSkip;
+    static final long[] jjtoSpecial;
+    static final long[] jjtoMore;
+    protected org.dacapo.parser.SimpleCharStream input_stream;
+    private final int[] jjrounds;
+    private final int[] jjstateSet;
+    private final java.lang.StringBuffer jjimage;
+    private java.lang.StringBuffer image;
+    private int jjimageLen;
+    private int lengthOfMatch;
+    protected char curChar;
+    int curLexState;
+    int defaultLexState;
+    int jjnewStateCnt;
+    int jjround;
+    int jjmatchedPos;
+    int jjmatchedKind;
+
+    static void <clinit>()
+    {
+        long[] l0, l1, $stack6, $stack7, $stack8, $stack9;
+        int[] l2, l5;
+        java.lang.String[] l3, l4;
+
+        l0 = newarray (long)[4];
+
+        l0[0] = -2L;
+
+        l0[1] = -1L;
+
+        l0[2] = -1L;
+
+        l0[3] = -1L;
+
+        <org.dacapo.parser.ConfigFileTokenManager: long[] jjbitVec0> = l0;
+
+        l1 = newarray (long)[4];
+
+        l1[0] = 0L;
+
+        l1[1] = 0L;
+
+        l1[2] = -1L;
+
+        l1[3] = -1L;
+
+        <org.dacapo.parser.ConfigFileTokenManager: long[] jjbitVec2> = l1;
+
+        l2 = newarray (int)[10];
+
+        l2[0] = 10;
+
+        l2[1] = 11;
+
+        l2[2] = 13;
+
+        l2[3] = 10;
+
+        l2[4] = 11;
+
+        l2[5] = 15;
+
+        l2[6] = 13;
+
+        l2[7] = 12;
+
+        l2[8] = 14;
+
+        l2[9] = 16;
+
+        <org.dacapo.parser.ConfigFileTokenManager: int[] jjnextStates> = l2;
+
+        l3 = newarray (java.lang.String)[54];
+
+        l3[0] = "";
+
+        l3[1] = null;
+
+        l3[2] = null;
+
+        l3[3] = null;
+
+        l3[4] = null;
+
+        l3[5] = null;
+
+        l3[6] = null;
+
+        l3[7] = null;
+
+        l3[8] = null;
+
+        l3[9] = null;
+
+        l3[10] = null;
+
+        l3[11] = null;
+
+        l3[12] = null;
+
+        l3[13] = "args";
+
+        l3[14] = "author";
+
+        l3[15] = "benchmark";
+
+        l3[16] = "binary";
+
+        l3[17] = "bytes";
+
+        l3[18] = "class";
+
+        l3[19] = "copyright";
+
+        l3[20] = "description";
+
+        l3[21] = "digest";
+
+        l3[22] = "exists";
+
+        l3[23] = "filter";
+
+        l3[24] = "fixed";
+
+        l3[25] = "keep";
+
+        l3[26] = "jars";
+
+        l3[27] = "license";
+
+        l3[28] = "lines";
+
+        l3[29] = "long";
+
+        l3[30] = "method";
+
+        l3[31] = "output";
+
+        l3[32] = "per_cpu";
+
+        l3[33] = "raw";
+
+        l3[34] = "short";
+
+        l3[35] = "single";
+
+        l3[36] = "size";
+
+        l3[37] = "stdout";
+
+        l3[38] = "stderr";
+
+        l3[39] = "text";
+
+        l3[40] = "url";
+
+        l3[41] = "version";
+
+        l3[42] = "threads";
+
+        l3[43] = "thread-limit";
+
+        l3[44] = "thread-model";
+
+        l3[45] = "repeats";
+
+        l3[46] = null;
+
+        l3[47] = null;
+
+        l3[48] = null;
+
+        l3[49] = null;
+
+        l3[50] = ",";
+
+        l3[51] = "(";
+
+        l3[52] = ")";
+
+        l3[53] = ";";
+
+        <org.dacapo.parser.ConfigFileTokenManager: java.lang.String[] jjstrLiteralImages> = l3;
+
+        l4 = newarray (java.lang.String)[4];
+
+        l4[0] = "DEFAULT";
+
+        l4[1] = "IN_SINGLE_LINE_COMMENT";
+
+        l4[2] = "IN_FORMAL_COMMENT";
+
+        l4[3] = "IN_MULTI_LINE_COMMENT";
+
+        <org.dacapo.parser.ConfigFileTokenManager: java.lang.String[] lexStateNames> = l4;
+
+        l5 = newarray (int)[54];
+
+        l5[0] = -1;
+
+        l5[1] = -1;
+
+        l5[2] = -1;
+
+        l5[3] = -1;
+
+        l5[4] = -1;
+
+        l5[5] = -1;
+
+        l5[6] = 1;
+
+        l5[7] = 2;
+
+        l5[8] = 3;
+
+        l5[9] = 0;
+
+        l5[10] = 0;
+
+        l5[11] = 0;
+
+        l5[12] = -1;
+
+        l5[13] = -1;
+
+        l5[14] = -1;
+
+        l5[15] = -1;
+
+        l5[16] = -1;
+
+        l5[17] = -1;
+
+        l5[18] = -1;
+
+        l5[19] = -1;
+
+        l5[20] = -1;
+
+        l5[21] = -1;
+
+        l5[22] = -1;
+
+        l5[23] = -1;
+
+        l5[24] = -1;
+
+        l5[25] = -1;
+
+        l5[26] = -1;
+
+        l5[27] = -1;
+
+        l5[28] = -1;
+
+        l5[29] = -1;
+
+        l5[30] = -1;
+
+        l5[31] = -1;
+
+        l5[32] = -1;
+
+        l5[33] = -1;
+
+        l5[34] = -1;
+
+        l5[35] = -1;
+
+        l5[36] = -1;
+
+        l5[37] = -1;
+
+        l5[38] = -1;
+
+        l5[39] = -1;
+
+        l5[40] = -1;
+
+        l5[41] = -1;
+
+        l5[42] = -1;
+
+        l5[43] = -1;
+
+        l5[44] = -1;
+
+        l5[45] = -1;
+
+        l5[46] = -1;
+
+        l5[47] = -1;
+
+        l5[48] = -1;
+
+        l5[49] = -1;
+
+        l5[50] = -1;
+
+        l5[51] = -1;
+
+        l5[52] = -1;
+
+        l5[53] = -1;
+
+        <org.dacapo.parser.ConfigFileTokenManager: int[] jjnewLexState> = l5;
+
+        $stack6 = newarray (long)[1];
+
+        $stack6[0] = 18014398509473793L;
+
+        <org.dacapo.parser.ConfigFileTokenManager: long[] jjtoToken> = $stack6;
+
+        $stack7 = newarray (long)[1];
+
+        $stack7[0] = 3646L;
+
+        <org.dacapo.parser.ConfigFileTokenManager: long[] jjtoSkip> = $stack7;
+
+        $stack8 = newarray (long)[1];
+
+        $stack8[0] = 3584L;
+
+        <org.dacapo.parser.ConfigFileTokenManager: long[] jjtoSpecial> = $stack8;
+
+        $stack9 = newarray (long)[1];
+
+        $stack9[0] = 4544L;
+
+        <org.dacapo.parser.ConfigFileTokenManager: long[] jjtoMore> = $stack9;
+
+        return;
+    }
+
+    public void <init>(org.dacapo.parser.SimpleCharStream)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        java.io.PrintStream $stack2;
+        int[] $stack3, $stack4;
+        java.lang.StringBuffer $stack5, $stack6;
+        org.dacapo.parser.SimpleCharStream l1;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: org.dacapo.parser.SimpleCharStream;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack2 = <java.lang.System: java.io.PrintStream out>;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: java.io.PrintStream debugStream> = $stack2;
+
+        $stack3 = newarray (int)[19];
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjrounds> = $stack3;
+
+        $stack4 = newarray (int)[38];
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet> = $stack4;
+
+        $stack5 = new java.lang.StringBuffer;
+
+        specialinvoke $stack5.<java.lang.StringBuffer: void <init>()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: java.lang.StringBuffer jjimage> = $stack5;
+
+        $stack6 = l0.<org.dacapo.parser.ConfigFileTokenManager: java.lang.StringBuffer jjimage>;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: java.lang.StringBuffer image> = $stack6;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int curLexState> = 0;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int defaultLexState> = 0;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream> = l1;
+
+        return;
+    }
+
+    public void <init>(org.dacapo.parser.SimpleCharStream, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream l1;
+        int l2;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: org.dacapo.parser.SimpleCharStream;
+
+        l2 := @parameter1: int;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void <init>(org.dacapo.parser.SimpleCharStream)>(l1);
+
+        virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void SwitchTo(int)>(l2);
+
+        return;
+    }
+
+    void MoreLexicalActions()
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int $stack2, l1, $stack3, $stack4, $stack5, $stack6;
+        org.dacapo.parser.SimpleCharStream $stack7, $stack11;
+        java.lang.StringBuffer $stack8;
+        char[] $stack9;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        $stack3 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjimageLen>;
+
+        $stack2 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos>;
+
+        l1 = $stack2 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int lengthOfMatch> = l1;
+
+        $stack4 = $stack3 + l1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjimageLen> = $stack4;
+
+        $stack5 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        lookupswitch($stack5)
+        {
+            case 7: goto label1;
+            default: goto label2;
+        };
+
+     label1:
+        $stack8 = l0.<org.dacapo.parser.ConfigFileTokenManager: java.lang.StringBuffer image>;
+
+        $stack7 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack6 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjimageLen>;
+
+        $stack9 = virtualinvoke $stack7.<org.dacapo.parser.SimpleCharStream: char[] GetSuffix(int)>($stack6);
+
+        virtualinvoke $stack8.<java.lang.StringBuffer: java.lang.StringBuffer append(char[])>($stack9);
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjimageLen> = 0;
+
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        virtualinvoke $stack11.<org.dacapo.parser.SimpleCharStream: void backup(int)>(1);
+
+        goto label2;
+
+     label2:
+        return;
+    }
+
+    public void ReInit(org.dacapo.parser.SimpleCharStream)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int $stack2;
+        org.dacapo.parser.SimpleCharStream l1;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: org.dacapo.parser.SimpleCharStream;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = 0;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 0;
+
+        $stack2 = l0.<org.dacapo.parser.ConfigFileTokenManager: int defaultLexState>;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int curLexState> = $stack2;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream> = l1;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void ReInitRounds()>();
+
+        return;
+    }
+
+    public void ReInit(org.dacapo.parser.SimpleCharStream, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream l1;
+        int l2;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: org.dacapo.parser.SimpleCharStream;
+
+        l2 := @parameter1: int;
+
+        virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void ReInit(org.dacapo.parser.SimpleCharStream)>(l1);
+
+        virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void SwitchTo(int)>(l2);
+
+        return;
+    }
+
+    private void ReInitRounds()
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int $stack2, l1#1;
+        int[] $stack3;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjround> = -2147483647;
+
+        l1#1 = 19;
+
+     label1:
+        $stack2 = l1#1;
+
+        l1#1 = l1#1 + -1;
+
+        if $stack2 <= 0 goto label2;
+
+        $stack3 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjrounds>;
+
+        $stack3[l1#1] = -2147483648;
+
+        goto label1;
+
+     label2:
+        return;
+    }
+
+    void SkipLexicalActions(org.dacapo.parser.Token)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int $stack2;
+        org.dacapo.parser.Token l1;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: org.dacapo.parser.Token;
+
+        $stack2 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        lookupswitch($stack2)
+        {
+            default: goto label1;
+        };
+
+     label1:
+        return;
+    }
+
+    public void SwitchTo(int)
+    {
+        int l1;
+        org.dacapo.parser.TokenMgrError $stack2;
+        java.lang.StringBuilder $stack3, $stack4, $stack5, $stack6;
+        java.lang.String $stack7;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        if l1 >= 4 goto label1;
+
+        if l1 >= 0 goto label2;
+
+     label1:
+        $stack2 = new org.dacapo.parser.TokenMgrError;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error: Ignoring invalid lexical state : ");
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l1);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(". State unchanged.");
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack2.<org.dacapo.parser.TokenMgrError: void <init>(java.lang.String,int)>($stack7, 2);
+
+        throw $stack2;
+
+     label2:
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int curLexState> = l1;
+
+        return;
+    }
+
+    public org.dacapo.parser.Token getNextToken()
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        java.lang.StringBuffer $stack19, $stack20;
+        int $stack21, $stack22, $stack23, $stack26, $stack28, $stack46, $stack47, $stack48, $stack49, $stack51, $stack52, $stack57, $stack58, $stack60, $stack61, $stack66, $stack68, $stack72, $stack74, $stack80, $stack81, $stack83, $stack84, $stack89, $stack91, $stack94, $stack96, $stack103, $stack105, $stack106, $stack108, $stack110, $stack111, $stack112, $stack120, $stack123, $stack124, $stack125, $stack126, $stack127, $stack128, $stack131, $stack148, l10#2, $stack24#25, l11#45, l12#46, $stack34#60;
+        org.dacapo.parser.SimpleCharStream $stack25, $stack27, $stack29, $stack31, $stack35, $stack36, $stack69, $stack113, $stack129, $stack136, $stack141, $stack17#9;
+        java.lang.String $stack37, $stack142, l13#47, l15#49, l16#52;
+        long[] $stack50, $stack59, $stack82;
+        long $stack53, $stack54, $stack55, $stack62, $stack63, $stack64, $stack85, $stack86, $stack87, $stack133, $stack134;
+        byte $stack56, $stack65, $stack88, $stack135;
+        int[] $stack67, $stack73, $stack90, $stack95, $stack104, $stack107;
+        char $stack70, $stack130, $stack132, $stack137, $stack143, $stack145, $stack18#12, $stack33#70;
+        org.dacapo.parser.Token $stack97, $stack102, $stack165, l9#1;
+        java.lang.Throwable $stack140, $stack153, $stack163, $stack164;
+        boolean l14#48;
+        org.dacapo.parser.TokenMgrError $stack32#53;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l9#1 = null;
+
+        l10#2 = 0;
+
+     label01:
+        $stack17#9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack18#12 = virtualinvoke $stack17#9.<org.dacapo.parser.SimpleCharStream: char BeginToken()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack18#12;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack164 := @caughtexception;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 0;
+
+        $stack165 = virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.Token jjFillToken()>();
+
+        $stack165.<org.dacapo.parser.Token: org.dacapo.parser.Token specialToken> = l9#1;
+
+        return $stack165;
+
+     label04:
+        $stack19 = l0.<org.dacapo.parser.ConfigFileTokenManager: java.lang.StringBuffer jjimage>;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: java.lang.StringBuffer image> = $stack19;
+
+        $stack20 = l0.<org.dacapo.parser.ConfigFileTokenManager: java.lang.StringBuffer image>;
+
+        virtualinvoke $stack20.<java.lang.StringBuffer: void setLength(int)>(0);
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjimageLen> = 0;
+
+     label05:
+        $stack21 = l0.<org.dacapo.parser.ConfigFileTokenManager: int curLexState>;
+
+        tableswitch($stack21)
+        {
+            case 0: goto label06;
+            case 1: goto label11;
+            case 2: goto label12;
+            case 3: goto label13;
+            default: goto label14;
+        };
+
+     label06:
+        $stack129 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        virtualinvoke $stack129.<org.dacapo.parser.SimpleCharStream: void backup(int)>(0);
+
+     label07:
+        $stack130 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack130 > 32 goto label08;
+
+        $stack132 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        $stack133 = 1L << $stack132;
+
+        $stack134 = 4294981120L & $stack133;
+
+        $stack135 = $stack134 cmp 0L;
+
+        if $stack135 == 0 goto label08;
+
+        $stack136 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack137 = virtualinvoke $stack136.<org.dacapo.parser.SimpleCharStream: char BeginToken()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack137;
+
+        goto label07;
+
+     label08:
+        goto label10;
+
+     label09:
+        $stack163 := @caughtexception;
+
+        goto label01;
+
+     label10:
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 2147483647;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 0;
+
+        $stack131 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa0_0()>();
+
+        l10#2 = $stack131;
+
+        goto label14;
+
+     label11:
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 2147483647;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 0;
+
+        $stack126 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa0_1()>();
+
+        l10#2 = $stack126;
+
+        $stack127 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos>;
+
+        if $stack127 != 0 goto label14;
+
+        $stack128 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        if $stack128 <= 12 goto label14;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 12;
+
+        goto label14;
+
+     label12:
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 2147483647;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 0;
+
+        $stack123 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa0_2()>();
+
+        l10#2 = $stack123;
+
+        $stack124 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos>;
+
+        if $stack124 != 0 goto label14;
+
+        $stack125 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        if $stack125 <= 12 goto label14;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 12;
+
+        goto label14;
+
+     label13:
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 2147483647;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 0;
+
+        $stack22 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa0_3()>();
+
+        l10#2 = $stack22;
+
+        $stack23 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos>;
+
+        if $stack23 != 0 goto label14;
+
+        $stack120 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        if $stack120 <= 12 goto label14;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 12;
+
+     label14:
+        $stack24#25 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        if $stack24#25 == 2147483647 goto label27;
+
+        $stack46 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos>;
+
+        $stack47 = $stack46 + 1;
+
+        if $stack47 >= l10#2 goto label15;
+
+        $stack113 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack110 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos>;
+
+        $stack111 = l10#2 - $stack110;
+
+        $stack112 = $stack111 - 1;
+
+        virtualinvoke $stack113.<org.dacapo.parser.SimpleCharStream: void backup(int)>($stack112);
+
+     label15:
+        $stack50 = <org.dacapo.parser.ConfigFileTokenManager: long[] jjtoToken>;
+
+        $stack48 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack49 = $stack48 >> 6;
+
+        $stack54 = $stack50[$stack49];
+
+        $stack51 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack52 = $stack51 & 63;
+
+        $stack53 = 1L << $stack52;
+
+        $stack55 = $stack54 & $stack53;
+
+        $stack56 = $stack55 cmp 0L;
+
+        if $stack56 == 0 goto label17;
+
+        $stack102 = virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.Token jjFillToken()>();
+
+        $stack102.<org.dacapo.parser.Token: org.dacapo.parser.Token specialToken> = l9#1;
+
+        $stack104 = <org.dacapo.parser.ConfigFileTokenManager: int[] jjnewLexState>;
+
+        $stack103 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack105 = $stack104[$stack103];
+
+        if $stack105 == -1 goto label16;
+
+        $stack107 = <org.dacapo.parser.ConfigFileTokenManager: int[] jjnewLexState>;
+
+        $stack106 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack108 = $stack107[$stack106];
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int curLexState> = $stack108;
+
+     label16:
+        return $stack102;
+
+     label17:
+        $stack59 = <org.dacapo.parser.ConfigFileTokenManager: long[] jjtoSkip>;
+
+        $stack57 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack58 = $stack57 >> 6;
+
+        $stack63 = $stack59[$stack58];
+
+        $stack60 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack61 = $stack60 & 63;
+
+        $stack62 = 1L << $stack61;
+
+        $stack64 = $stack63 & $stack62;
+
+        $stack65 = $stack64 cmp 0L;
+
+        if $stack65 == 0 goto label22;
+
+        $stack82 = <org.dacapo.parser.ConfigFileTokenManager: long[] jjtoSpecial>;
+
+        $stack80 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack81 = $stack80 >> 6;
+
+        $stack86 = $stack82[$stack81];
+
+        $stack83 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack84 = $stack83 & 63;
+
+        $stack85 = 1L << $stack84;
+
+        $stack87 = $stack86 & $stack85;
+
+        $stack88 = $stack87 cmp 0L;
+
+        if $stack88 == 0 goto label20;
+
+        $stack97 = virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.Token jjFillToken()>();
+
+        if l9#1 != null goto label18;
+
+        l9#1 = $stack97;
+
+        goto label19;
+
+     label18:
+        $stack97.<org.dacapo.parser.Token: org.dacapo.parser.Token specialToken> = l9#1;
+
+        l9#1.<org.dacapo.parser.Token: org.dacapo.parser.Token next> = $stack97;
+
+        l9#1 = $stack97;
+
+     label19:
+        virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void SkipLexicalActions(org.dacapo.parser.Token)>($stack97);
+
+        goto label21;
+
+     label20:
+        virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void SkipLexicalActions(org.dacapo.parser.Token)>(null);
+
+     label21:
+        $stack90 = <org.dacapo.parser.ConfigFileTokenManager: int[] jjnewLexState>;
+
+        $stack89 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack91 = $stack90[$stack89];
+
+        if $stack91 == -1 goto label01;
+
+        $stack95 = <org.dacapo.parser.ConfigFileTokenManager: int[] jjnewLexState>;
+
+        $stack94 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack96 = $stack95[$stack94];
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int curLexState> = $stack96;
+
+        goto label01;
+
+     label22:
+        virtualinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void MoreLexicalActions()>();
+
+        $stack67 = <org.dacapo.parser.ConfigFileTokenManager: int[] jjnewLexState>;
+
+        $stack66 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack68 = $stack67[$stack66];
+
+        if $stack68 == -1 goto label23;
+
+        $stack73 = <org.dacapo.parser.ConfigFileTokenManager: int[] jjnewLexState>;
+
+        $stack72 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack74 = $stack73[$stack72];
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int curLexState> = $stack74;
+
+     label23:
+        l10#2 = 0;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 2147483647;
+
+     label24:
+        $stack69 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack70 = virtualinvoke $stack69.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack70;
+
+     label25:
+        goto label05;
+
+     label26:
+        $stack153 := @caughtexception;
+
+     label27:
+        $stack25 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack26 = virtualinvoke $stack25.<org.dacapo.parser.SimpleCharStream: int getEndLine()>();
+
+        l11#45 = $stack26;
+
+        $stack27 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack28 = virtualinvoke $stack27.<org.dacapo.parser.SimpleCharStream: int getEndColumn()>();
+
+        l12#46 = $stack28;
+
+        l13#47 = null;
+
+        l14#48 = 0;
+
+     label28:
+        $stack29 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        virtualinvoke $stack29.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        $stack31 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        virtualinvoke $stack31.<org.dacapo.parser.SimpleCharStream: void backup(int)>(1);
+
+     label29:
+        goto label35;
+
+     label30:
+        $stack140 := @caughtexception;
+
+        l14#48 = 1;
+
+        if l10#2 > 1 goto label31;
+
+        l15#49 = "";
+
+        goto label32;
+
+     label31:
+        $stack141 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack142 = virtualinvoke $stack141.<org.dacapo.parser.SimpleCharStream: java.lang.String GetImage()>();
+
+        l15#49 = $stack142;
+
+     label32:
+        l13#47 = l15#49;
+
+        $stack143 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack143 == 10 goto label33;
+
+        $stack145 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack145 != 13 goto label34;
+
+     label33:
+        $stack148 = $stack26 + 1;
+
+        l11#45 = $stack148;
+
+        l12#46 = 0;
+
+        goto label35;
+
+     label34:
+        l12#46 = $stack28 + 1;
+
+     label35:
+        if l14#48 != 0 goto label38;
+
+        $stack35 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        virtualinvoke $stack35.<org.dacapo.parser.SimpleCharStream: void backup(int)>(1);
+
+        if l10#2 > 1 goto label36;
+
+        l16#52 = "";
+
+        goto label37;
+
+     label36:
+        $stack36 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack37 = virtualinvoke $stack36.<org.dacapo.parser.SimpleCharStream: java.lang.String GetImage()>();
+
+        l16#52 = $stack37;
+
+     label37:
+        l13#47 = l16#52;
+
+     label38:
+        $stack32#53 = new org.dacapo.parser.TokenMgrError;
+
+        $stack34#60 = l0.<org.dacapo.parser.ConfigFileTokenManager: int curLexState>;
+
+        $stack33#70 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        specialinvoke $stack32#53.<org.dacapo.parser.TokenMgrError: void <init>(boolean,int,int,int,java.lang.String,char,int)>(l14#48, $stack34#60, l11#45, l12#46, l13#47, $stack33#70, 0);
+
+        throw $stack32#53;
+
+        catch java.io.IOException from label01 to label02 with label03;
+        catch java.io.IOException from label06 to label08 with label09;
+        catch java.io.IOException from label24 to label25 with label26;
+        catch java.io.IOException from label28 to label29 with label30;
+    }
+
+    private void jjAddStates(int, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int $stack4, $stack7, $stack8, l2, $stack12, l1#1;
+        int[] $stack5, $stack6;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1#1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+     label1:
+        $stack5 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack4 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        $stack12 = $stack4 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = $stack12;
+
+        $stack6 = <org.dacapo.parser.ConfigFileTokenManager: int[] jjnextStates>;
+
+        $stack7 = $stack6[l1#1];
+
+        $stack5[$stack4] = $stack7;
+
+        $stack8 = l1#1;
+
+        l1#1 = l1#1 + 1;
+
+        if $stack8 != l2 goto label1;
+
+        return;
+    }
+
+    private static final boolean jjCanMove_0(int, int, int, long, long)
+    {
+        int l0, l2, l1;
+        long[] $stack8, $stack13;
+        long l5, $stack9, $stack10, l3, $stack14, $stack15;
+        byte $stack11, $stack16;
+        boolean l7#1;
+
+        l0 := @parameter0: int;
+
+        l1 := @parameter1: int;
+
+        l2 := @parameter2: int;
+
+        l3 := @parameter3: long;
+
+        l5 := @parameter4: long;
+
+        lookupswitch(l0)
+        {
+            case 0: goto label1;
+            default: goto label4;
+        };
+
+     label1:
+        $stack8 = <org.dacapo.parser.ConfigFileTokenManager: long[] jjbitVec2>;
+
+        $stack9 = $stack8[l2];
+
+        $stack10 = $stack9 & l5;
+
+        $stack11 = $stack10 cmp 0L;
+
+        if $stack11 == 0 goto label2;
+
+        l7#1 = 1;
+
+        goto label3;
+
+     label2:
+        l7#1 = 0;
+
+     label3:
+        return l7#1;
+
+     label4:
+        $stack13 = <org.dacapo.parser.ConfigFileTokenManager: long[] jjbitVec0>;
+
+        $stack14 = $stack13[l1];
+
+        $stack15 = $stack14 & l3;
+
+        $stack16 = $stack15 cmp 0L;
+
+        if $stack16 == 0 goto label5;
+
+        return 1;
+
+     label5:
+        return 0;
+    }
+
+    private void jjCheckNAdd(int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int l1, $stack4, $stack5, $stack6, l2, $stack8;
+        int[] $stack3, $stack7, $stack9;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        $stack3 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjrounds>;
+
+        $stack5 = $stack3[l1];
+
+        $stack4 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjround>;
+
+        if $stack5 == $stack4 goto label1;
+
+        $stack7 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack6 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l2 = $stack6 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l2;
+
+        $stack7[$stack6] = l1;
+
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjrounds>;
+
+        $stack8 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjround>;
+
+        $stack9[l1] = $stack8;
+
+     label1:
+        return;
+    }
+
+    private void jjCheckNAddStates(int, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int[] $stack3;
+        int $stack4, $stack5, l2, l1#1;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1#1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+     label1:
+        $stack3 = <org.dacapo.parser.ConfigFileTokenManager: int[] jjnextStates>;
+
+        $stack4 = $stack3[l1#1];
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>($stack4);
+
+        $stack5 = l1#1;
+
+        l1#1 = l1#1 + 1;
+
+        if $stack5 != l2 goto label1;
+
+        return;
+    }
+
+    private void jjCheckNAddTwoStates(int, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int l1, l2;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(l1);
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(l2);
+
+        return;
+    }
+
+    protected org.dacapo.parser.Token jjFillToken()
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int $stack8, $stack11, $stack13, $stack15, $stack17, $stack18;
+        java.lang.String[] $stack9;
+        java.lang.String l1, $stack21, l7#1;
+        org.dacapo.parser.SimpleCharStream $stack10, $stack12, $stack14, $stack16, $stack20;
+        org.dacapo.parser.Token $stack19;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        $stack9 = <org.dacapo.parser.ConfigFileTokenManager: java.lang.String[] jjstrLiteralImages>;
+
+        $stack8 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        l1 = $stack9[$stack8];
+
+        if l1 != null goto label1;
+
+        $stack20 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack21 = virtualinvoke $stack20.<org.dacapo.parser.SimpleCharStream: java.lang.String GetImage()>();
+
+        l7#1 = $stack21;
+
+        goto label2;
+
+     label1:
+        l7#1 = l1;
+
+     label2:
+        $stack10 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack11 = virtualinvoke $stack10.<org.dacapo.parser.SimpleCharStream: int getBeginLine()>();
+
+        $stack12 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack13 = virtualinvoke $stack12.<org.dacapo.parser.SimpleCharStream: int getBeginColumn()>();
+
+        $stack14 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack15 = virtualinvoke $stack14.<org.dacapo.parser.SimpleCharStream: int getEndLine()>();
+
+        $stack16 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack17 = virtualinvoke $stack16.<org.dacapo.parser.SimpleCharStream: int getEndColumn()>();
+
+        $stack18 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind>;
+
+        $stack19 = staticinvoke <org.dacapo.parser.Token: org.dacapo.parser.Token newToken(int,java.lang.String)>($stack18, l7#1);
+
+        $stack19.<org.dacapo.parser.Token: int beginLine> = $stack11;
+
+        $stack19.<org.dacapo.parser.Token: int endLine> = $stack15;
+
+        $stack19.<org.dacapo.parser.Token: int beginColumn> = $stack13;
+
+        $stack19.<org.dacapo.parser.Token: int endColumn> = $stack17;
+
+        return $stack19;
+    }
+
+    private int jjMoveNfa_0(int, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int l1, $stack27, l25, l4, $stack31, $stack33, l7, $stack35, $stack37, $stack41, $stack42, $stack47, $stack61, $stack63, $stack89, $stack102, l10, $stack116, $stack121, $stack126, l12, $stack141, l13, $stack143, l14, $stack152, l15, $stack157, l16, l2#1, l18#2, l19#3, l20#4;
+        int[] $stack26, $stack36, $stack62, $stack88, $stack103, $stack117, $stack127, $stack142, $stack144, $stack153, $stack158;
+        char $stack28, $stack29, $stack30, $stack32, $stack34, $stack44, $stack60, $stack72, $stack87, $stack108, $stack113, $stack125, $stack132, $stack137, $stack138, $stack139, $stack151, $stack156, $stack140#9;
+        long l5, l8, l23, $stack64, $stack73, $stack75, $stack79, $stack83, l21, $stack90, $stack98, $stack100, $stack104, $stack106, $stack109, $stack111, $stack114, $stack128, $stack135, $stack154;
+        boolean $stack38, $stack59;
+        org.dacapo.parser.SimpleCharStream $stack43;
+        byte $stack65, $stack74, $stack76, $stack80, $stack84, $stack91, $stack99, $stack101, $stack105, $stack107, $stack110, $stack112, $stack115, $stack129, $stack136, $stack155;
+        java.lang.Throwable $stack161;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        l2#1 := @parameter1: int;
+
+        l18#2 = 0;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = 19;
+
+        l19#3 = 1;
+
+        $stack26 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack26[0] = l1;
+
+        l20#4 = 2147483647;
+
+     label01:
+        $stack27 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjround>;
+
+        $stack47 = $stack27 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjround> = $stack47;
+
+        if $stack47 != 2147483647 goto label02;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void ReInitRounds()>();
+
+     label02:
+        $stack28 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack28 >= 64 goto label36;
+
+        $stack87 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        l21 = 1L << $stack87;
+
+     label03:
+        $stack88 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        l19#3 = l19#3 + -1;
+
+        $stack89 = $stack88[l19#3];
+
+        tableswitch($stack89)
+        {
+            case 0: goto label11;
+            case 1: goto label12;
+            case 2: goto label13;
+            case 3: goto label04;
+            case 4: goto label14;
+            case 5: goto label17;
+            case 6: goto label20;
+            case 7: goto label35;
+            case 8: goto label21;
+            case 9: goto label24;
+            case 10: goto label25;
+            case 11: goto label35;
+            case 12: goto label26;
+            case 13: goto label27;
+            case 14: goto label28;
+            case 15: goto label29;
+            case 16: goto label30;
+            case 17: goto label31;
+            case 18: goto label32;
+            default: goto label35;
+        };
+
+     label04:
+        $stack135 = 287948901175001088L & l21;
+
+        $stack136 = $stack135 cmp 0L;
+
+        if $stack136 == 0 goto label06;
+
+        if l20#4 <= 49 goto label05;
+
+        l20#4 = 49;
+
+     label05:
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(18);
+
+        goto label10;
+
+     label06:
+        $stack137 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack137 != 34 goto label07;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAddStates(int,int)>(0, 2);
+
+        goto label10;
+
+     label07:
+        $stack138 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack138 != 36 goto label09;
+
+        if l20#4 <= 46 goto label08;
+
+        l20#4 = 46;
+
+     label08:
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(5);
+
+        goto label10;
+
+     label09:
+        $stack139 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack139 != 47 goto label10;
+
+        $stack144 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack143 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l14 = $stack143 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l14;
+
+        $stack144[$stack143] = 2;
+
+     label10:
+        $stack140#9 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack140#9 != 48 goto label35;
+
+        $stack142 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack141 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l13 = $stack141 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l13;
+
+        $stack142[$stack141] = 7;
+
+        goto label35;
+
+     label11:
+        $stack156 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack156 != 42 goto label35;
+
+        $stack158 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack157 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l16 = $stack157 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l16;
+
+        $stack158[$stack157] = 1;
+
+        goto label35;
+
+     label12:
+        $stack154 = -140737488355329L & l21;
+
+        $stack155 = $stack154 cmp 0L;
+
+        if $stack155 == 0 goto label35;
+
+        if l20#4 <= 7 goto label35;
+
+        l20#4 = 7;
+
+        goto label35;
+
+     label13:
+        $stack151 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack151 != 42 goto label35;
+
+        $stack153 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack152 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l15 = $stack152 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l15;
+
+        $stack153[$stack152] = 0;
+
+        goto label35;
+
+     label14:
+        $stack132 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack132 == 36 goto label15;
+
+        goto label35;
+
+     label15:
+        if l20#4 <= 46 goto label16;
+
+        l20#4 = 46;
+
+     label16:
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(5);
+
+        goto label35;
+
+     label17:
+        $stack128 = 288054523010744320L & l21;
+
+        $stack129 = $stack128 cmp 0L;
+
+        if $stack129 != 0 goto label18;
+
+        goto label35;
+
+     label18:
+        if l20#4 <= 46 goto label19;
+
+        l20#4 = 46;
+
+     label19:
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(5);
+
+        goto label35;
+
+     label20:
+        $stack125 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack125 != 48 goto label35;
+
+        $stack127 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack126 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l12 = $stack126 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l12;
+
+        $stack127[$stack126] = 7;
+
+        goto label35;
+
+     label21:
+        $stack114 = 287948901175001088L & l21;
+
+        $stack115 = $stack114 cmp 0L;
+
+        if $stack115 != 0 goto label22;
+
+        goto label35;
+
+     label22:
+        if l20#4 <= 47 goto label23;
+
+        l20#4 = 47;
+
+     label23:
+        $stack117 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack116 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        $stack121 = $stack116 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = $stack121;
+
+        $stack117[$stack116] = 8;
+
+        goto label35;
+
+     label24:
+        $stack113 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack113 != 34 goto label35;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAddStates(int,int)>(0, 2);
+
+        goto label35;
+
+     label25:
+        $stack111 = -17179878401L & l21;
+
+        $stack112 = $stack111 cmp 0L;
+
+        if $stack112 == 0 goto label35;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAddStates(int,int)>(0, 2);
+
+        goto label35;
+
+     label26:
+        $stack109 = 566935683072L & l21;
+
+        $stack110 = $stack109 cmp 0L;
+
+        if $stack110 == 0 goto label35;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAddStates(int,int)>(0, 2);
+
+        goto label35;
+
+     label27:
+        $stack108 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack108 != 34 goto label35;
+
+        if l20#4 <= 48 goto label35;
+
+        l20#4 = 48;
+
+        goto label35;
+
+     label28:
+        $stack106 = 71776119061217280L & l21;
+
+        $stack107 = $stack106 cmp 0L;
+
+        if $stack107 == 0 goto label35;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAddStates(int,int)>(3, 6);
+
+        goto label35;
+
+     label29:
+        $stack104 = 71776119061217280L & l21;
+
+        $stack105 = $stack104 cmp 0L;
+
+        if $stack105 == 0 goto label35;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAddStates(int,int)>(0, 2);
+
+        goto label35;
+
+     label30:
+        $stack100 = 4222124650659840L & l21;
+
+        $stack101 = $stack100 cmp 0L;
+
+        if $stack101 == 0 goto label35;
+
+        $stack103 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack102 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l10 = $stack102 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l10;
+
+        $stack103[$stack102] = 17;
+
+        goto label35;
+
+     label31:
+        $stack98 = 71776119061217280L & l21;
+
+        $stack99 = $stack98 cmp 0L;
+
+        if $stack99 == 0 goto label35;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(15);
+
+        goto label35;
+
+     label32:
+        $stack90 = 287948901175001088L & l21;
+
+        $stack91 = $stack90 cmp 0L;
+
+        if $stack91 != 0 goto label33;
+
+        goto label35;
+
+     label33:
+        if l20#4 <= 49 goto label34;
+
+        l20#4 = 49;
+
+     label34:
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(18);
+
+        goto label35;
+
+     label35:
+        if l19#3 != l18#2 goto label03;
+
+        goto label57;
+
+     label36:
+        $stack29 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack29 >= 128 goto label52;
+
+        $stack60 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        $stack61 = $stack60 & 63;
+
+        l23 = 1L << $stack61;
+
+     label37:
+        $stack62 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        l19#3 = l19#3 + -1;
+
+        $stack63 = $stack62[l19#3];
+
+        tableswitch($stack63)
+        {
+            case 1: goto label41;
+            case 2: goto label51;
+            case 3: goto label38;
+            case 4: goto label51;
+            case 5: goto label38;
+            case 6: goto label51;
+            case 7: goto label42;
+            case 8: goto label45;
+            case 9: goto label51;
+            case 10: goto label48;
+            case 11: goto label49;
+            case 12: goto label50;
+            default: goto label51;
+        };
+
+     label38:
+        $stack83 = 576460745995190270L & l23;
+
+        $stack84 = $stack83 cmp 0L;
+
+        if $stack84 != 0 goto label39;
+
+        goto label51;
+
+     label39:
+        if l20#4 <= 46 goto label40;
+
+        l20#4 = 46;
+
+     label40:
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(5);
+
+        goto label51;
+
+     label41:
+        if l20#4 <= 7 goto label51;
+
+        l20#4 = 7;
+
+        goto label51;
+
+     label42:
+        $stack79 = 72057594054705152L & l23;
+
+        $stack80 = $stack79 cmp 0L;
+
+        if $stack80 != 0 goto label43;
+
+        goto label51;
+
+     label43:
+        if l20#4 <= 47 goto label44;
+
+        l20#4 = 47;
+
+     label44:
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(8);
+
+        goto label51;
+
+     label45:
+        $stack75 = 541165879422L & l23;
+
+        $stack76 = $stack75 cmp 0L;
+
+        if $stack76 != 0 goto label46;
+
+        goto label51;
+
+     label46:
+        if l20#4 <= 47 goto label47;
+
+        l20#4 = 47;
+
+     label47:
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAdd(int)>(8);
+
+        goto label51;
+
+     label48:
+        $stack73 = -268435457L & l23;
+
+        $stack74 = $stack73 cmp 0L;
+
+        if $stack74 == 0 goto label51;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAddStates(int,int)>(0, 2);
+
+        goto label51;
+
+     label49:
+        $stack72 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack72 != 92 goto label51;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjAddStates(int,int)>(7, 9);
+
+        goto label51;
+
+     label50:
+        $stack64 = 5700160604602368L & l23;
+
+        $stack65 = $stack64 cmp 0L;
+
+        if $stack65 == 0 goto label51;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjCheckNAddStates(int,int)>(0, 2);
+
+        goto label51;
+
+     label51:
+        if l19#3 != l18#2 goto label37;
+
+        goto label57;
+
+     label52:
+        $stack30 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        l25 = $stack30 >> 8;
+
+        l4 = l25 >> 6;
+
+        $stack31 = l25 & 63;
+
+        l5 = 1L << $stack31;
+
+        $stack32 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        $stack33 = $stack32 & 255;
+
+        l7 = $stack33 >> 6;
+
+        $stack34 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        $stack35 = $stack34 & 63;
+
+        l8 = 1L << $stack35;
+
+     label53:
+        $stack36 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        l19#3 = l19#3 + -1;
+
+        $stack37 = $stack36[l19#3];
+
+        lookupswitch($stack37)
+        {
+            case 1: goto label54;
+            case 10: goto label55;
+            default: goto label56;
+        };
+
+     label54:
+        $stack59 = staticinvoke <org.dacapo.parser.ConfigFileTokenManager: boolean jjCanMove_0(int,int,int,long,long)>(l25, l4, l7, l5, l8);
+
+        if $stack59 == 0 goto label56;
+
+        if l20#4 <= 7 goto label56;
+
+        l20#4 = 7;
+
+        goto label56;
+
+     label55:
+        $stack38 = staticinvoke <org.dacapo.parser.ConfigFileTokenManager: boolean jjCanMove_0(int,int,int,long,long)>(l25, l4, l7, l5, l8);
+
+        if $stack38 == 0 goto label56;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void jjAddStates(int,int)>(0, 2);
+
+        goto label56;
+
+     label56:
+        if l19#3 != l18#2 goto label53;
+
+     label57:
+        if l20#4 == 2147483647 goto label58;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = l20#4;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = l2#1;
+
+        l20#4 = 2147483647;
+
+     label58:
+        l2#1 = l2#1 + 1;
+
+        $stack41 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l19#3 = $stack41;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l18#2;
+
+        $stack42 = 19 - l18#2;
+
+        l18#2 = $stack42;
+
+        if $stack41 != $stack42 goto label59;
+
+        return l2#1;
+
+     label59:
+        $stack43 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack44 = virtualinvoke $stack43.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack44;
+
+     label60:
+        goto label01;
+
+     label61:
+        $stack161 := @caughtexception;
+
+        return l2#1;
+
+        catch java.io.IOException from label59 to label60 with label61;
+    }
+
+    private int jjMoveNfa_1(int, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int l1, $stack13, $stack17, $stack20, $stack21, $stack26, $stack37, $stack44, $stack48, l4, $stack56, l5, l2#1, l7#2, l8#3, l9#4;
+        int[] $stack12, $stack16, $stack36, $stack43, $stack49, $stack57;
+        char $stack14, $stack15, $stack23, $stack42, $stack45, $stack52, $stack55#7;
+        org.dacapo.parser.SimpleCharStream $stack22;
+        long l10, $stack53;
+        byte $stack54;
+        java.lang.Throwable $stack62;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        l2#1 := @parameter1: int;
+
+        l7#2 = 0;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = 3;
+
+        l8#3 = 1;
+
+        $stack12 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack12[0] = l1;
+
+        l9#4 = 2147483647;
+
+     label01:
+        $stack13 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjround>;
+
+        $stack26 = $stack13 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjround> = $stack26;
+
+        if $stack26 != 2147483647 goto label02;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: void ReInitRounds()>();
+
+     label02:
+        $stack14 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack14 >= 64 goto label09;
+
+        $stack42 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        l10 = 1L << $stack42;
+
+     label03:
+        $stack43 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        l8#3 = l8#3 + -1;
+
+        $stack44 = $stack43[l8#3];
+
+        tableswitch($stack44)
+        {
+            case 0: goto label04;
+            case 1: goto label06;
+            case 2: goto label07;
+            default: goto label08;
+        };
+
+     label04:
+        $stack53 = 9216L & l10;
+
+        $stack54 = $stack53 cmp 0L;
+
+        if $stack54 == 0 goto label05;
+
+        if l9#4 <= 9 goto label05;
+
+        l9#4 = 9;
+
+     label05:
+        $stack55#7 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack55#7 != 13 goto label08;
+
+        $stack57 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack56 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l5 = $stack56 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l5;
+
+        $stack57[$stack56] = 1;
+
+        goto label08;
+
+     label06:
+        $stack52 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack52 != 10 goto label08;
+
+        if l9#4 <= 9 goto label08;
+
+        l9#4 = 9;
+
+        goto label08;
+
+     label07:
+        $stack45 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack45 != 13 goto label08;
+
+        $stack49 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        $stack48 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l4 = $stack48 + 1;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l4;
+
+        $stack49[$stack48] = 1;
+
+        goto label08;
+
+     label08:
+        if l8#3 != l7#2 goto label03;
+
+        goto label14;
+
+     label09:
+        $stack15 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        if $stack15 >= 128 goto label12;
+
+     label10:
+        $stack36 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        l8#3 = l8#3 + -1;
+
+        $stack37 = $stack36[l8#3];
+
+        lookupswitch($stack37)
+        {
+            default: goto label11;
+        };
+
+     label11:
+        if l8#3 != l7#2 goto label10;
+
+        goto label14;
+
+     label12:
+        $stack16 = l0.<org.dacapo.parser.ConfigFileTokenManager: int[] jjstateSet>;
+
+        l8#3 = l8#3 + -1;
+
+        $stack17 = $stack16[l8#3];
+
+        lookupswitch($stack17)
+        {
+            default: goto label13;
+        };
+
+     label13:
+        if l8#3 != l7#2 goto label12;
+
+     label14:
+        if l9#4 == 2147483647 goto label15;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = l9#4;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = l2#1;
+
+        l9#4 = 2147483647;
+
+     label15:
+        l2#1 = l2#1 + 1;
+
+        $stack20 = l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt>;
+
+        l8#3 = $stack20;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjnewStateCnt> = l7#2;
+
+        $stack21 = 3 - l7#2;
+
+        l7#2 = $stack21;
+
+        if $stack20 != $stack21 goto label16;
+
+        return l2#1;
+
+     label16:
+        $stack22 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack23 = virtualinvoke $stack22.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack23;
+
+     label17:
+        goto label01;
+
+     label18:
+        $stack62 := @caughtexception;
+
+        return l2#1;
+
+        catch java.io.IOException from label16 to label17 with label18;
+    }
+
+    private int jjMoveStringLiteralDfa0_0()
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        char $stack1;
+        int $stack2, $stack3, $stack4, $stack5, $stack6, $stack7, $stack8, $stack9, $stack10, $stack11, $stack12, $stack13, $stack14, $stack15, $stack16, $stack17, $stack18, $stack19, $stack20, $stack21, $stack22, $stack23, $stack24;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        $stack1 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        tableswitch($stack1)
+        {
+            case 40: goto label01;
+            case 41: goto label02;
+            case 42: goto label23;
+            case 43: goto label23;
+            case 44: goto label03;
+            case 45: goto label23;
+            case 46: goto label23;
+            case 47: goto label04;
+            case 48: goto label23;
+            case 49: goto label23;
+            case 50: goto label23;
+            case 51: goto label23;
+            case 52: goto label23;
+            case 53: goto label23;
+            case 54: goto label23;
+            case 55: goto label23;
+            case 56: goto label23;
+            case 57: goto label23;
+            case 58: goto label23;
+            case 59: goto label05;
+            case 60: goto label23;
+            case 61: goto label23;
+            case 62: goto label23;
+            case 63: goto label23;
+            case 64: goto label23;
+            case 65: goto label23;
+            case 66: goto label23;
+            case 67: goto label23;
+            case 68: goto label23;
+            case 69: goto label23;
+            case 70: goto label23;
+            case 71: goto label23;
+            case 72: goto label23;
+            case 73: goto label23;
+            case 74: goto label23;
+            case 75: goto label23;
+            case 76: goto label23;
+            case 77: goto label23;
+            case 78: goto label23;
+            case 79: goto label23;
+            case 80: goto label23;
+            case 81: goto label23;
+            case 82: goto label23;
+            case 83: goto label23;
+            case 84: goto label23;
+            case 85: goto label23;
+            case 86: goto label23;
+            case 87: goto label23;
+            case 88: goto label23;
+            case 89: goto label23;
+            case 90: goto label23;
+            case 91: goto label23;
+            case 92: goto label23;
+            case 93: goto label23;
+            case 94: goto label23;
+            case 95: goto label23;
+            case 96: goto label23;
+            case 97: goto label06;
+            case 98: goto label07;
+            case 99: goto label08;
+            case 100: goto label09;
+            case 101: goto label10;
+            case 102: goto label11;
+            case 103: goto label23;
+            case 104: goto label23;
+            case 105: goto label23;
+            case 106: goto label12;
+            case 107: goto label13;
+            case 108: goto label14;
+            case 109: goto label15;
+            case 110: goto label23;
+            case 111: goto label16;
+            case 112: goto label17;
+            case 113: goto label23;
+            case 114: goto label18;
+            case 115: goto label19;
+            case 116: goto label20;
+            case 117: goto label21;
+            case 118: goto label22;
+            default: goto label23;
+        };
+
+     label01:
+        $stack23 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopAtPos(int,int)>(0, 51);
+
+        return $stack23;
+
+     label02:
+        $stack22 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopAtPos(int,int)>(0, 52);
+
+        return $stack22;
+
+     label03:
+        $stack21 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopAtPos(int,int)>(0, 50);
+
+        return $stack21;
+
+     label04:
+        $stack20 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(320L);
+
+        return $stack20;
+
+     label05:
+        $stack19 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopAtPos(int,int)>(0, 53);
+
+        return $stack19;
+
+     label06:
+        $stack18 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(24576L);
+
+        return $stack18;
+
+     label07:
+        $stack17 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(229376L);
+
+        return $stack17;
+
+     label08:
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(786432L);
+
+        return $stack16;
+
+     label09:
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(3145728L);
+
+        return $stack15;
+
+     label10:
+        $stack14 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(4194304L);
+
+        return $stack14;
+
+     label11:
+        $stack13 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(25165824L);
+
+        return $stack13;
+
+     label12:
+        $stack12 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(67108864L);
+
+        return $stack12;
+
+     label13:
+        $stack11 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(33554432L);
+
+        return $stack11;
+
+     label14:
+        $stack10 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(939524096L);
+
+        return $stack10;
+
+     label15:
+        $stack9 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(1073741824L);
+
+        return $stack9;
+
+     label16:
+        $stack8 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(2147483648L);
+
+        return $stack8;
+
+     label17:
+        $stack7 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(4294967296L);
+
+        return $stack7;
+
+     label18:
+        $stack6 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(35192962023424L);
+
+        return $stack6;
+
+     label19:
+        $stack5 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(532575944704L);
+
+        return $stack5;
+
+     label20:
+        $stack4 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(31336081391616L);
+
+        return $stack4;
+
+     label21:
+        $stack3 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(1099511627776L);
+
+        return $stack3;
+
+     label22:
+        $stack2 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_0(long)>(2199023255552L);
+
+        return $stack2;
+
+     label23:
+        $stack24 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveNfa_0(int,int)>(3, 0);
+
+        return $stack24;
+    }
+
+    private int jjMoveStringLiteralDfa0_1()
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int $stack1;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        $stack1 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveNfa_1(int,int)>(0, 0);
+
+        return $stack1;
+    }
+
+    private int jjMoveStringLiteralDfa0_2()
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        char $stack1;
+        int $stack2;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        $stack1 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack1)
+        {
+            case 42: goto label1;
+            default: goto label2;
+        };
+
+     label1:
+        $stack2 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_2(long)>(1024L);
+
+        return $stack2;
+
+     label2:
+        return 1;
+    }
+
+    private int jjMoveStringLiteralDfa0_3()
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        char $stack1;
+        int $stack2;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        $stack1 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack1)
+        {
+            case 42: goto label1;
+            default: goto label2;
+        };
+
+     label1:
+        $stack2 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa1_3(long)>(2048L);
+
+        return $stack2;
+
+     label2:
+        return 1;
+    }
+
+    private int jjMoveStringLiteralDfa10_0(long, long)
+    {
+        long l3, l1, l5, $stack12;
+        byte $stack8, $stack13;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack14, $stack15, $stack16, $stack17, $stack21;
+        java.lang.Throwable $stack22;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label1;
+
+        $stack21 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(8, l1);
+
+        return $stack21;
+
+     label1:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack22 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(9, l5);
+
+        return 10;
+
+     label4:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack11)
+        {
+            case 101: goto label5;
+            case 105: goto label6;
+            case 110: goto label7;
+            default: goto label8;
+        };
+
+     label5:
+        $stack17 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa11_0(long,long)>(l5, 17592186044416L);
+
+        return $stack17;
+
+     label6:
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa11_0(long,long)>(l5, 8796093022208L);
+
+        return $stack16;
+
+     label7:
+        $stack12 = l5 & 1048576L;
+
+        $stack13 = $stack12 cmp 0L;
+
+        if $stack13 == 0 goto label8;
+
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(10, 20, 5);
+
+        return $stack15;
+
+     label8:
+        $stack14 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(9, l5);
+
+        return $stack14;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private int jjMoveStringLiteralDfa11_0(long, long)
+    {
+        long l3, l1, l5, $stack12, $stack16;
+        byte $stack8, $stack13, $stack17;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack15, $stack21, $stack22, $stack14#7;
+        java.lang.Throwable $stack23;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label1;
+
+        $stack22 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(9, l1);
+
+        return $stack22;
+
+     label1:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack23 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(10, l5);
+
+        return 11;
+
+     label4:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack11)
+        {
+            case 108: goto label5;
+            case 116: goto label6;
+            default: goto label7;
+        };
+
+     label5:
+        $stack16 = l5 & 17592186044416L;
+
+        $stack17 = $stack16 cmp 0L;
+
+        if $stack17 == 0 goto label7;
+
+        $stack21 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(11, 44, 5);
+
+        return $stack21;
+
+     label6:
+        $stack12 = l5 & 8796093022208L;
+
+        $stack13 = $stack12 cmp 0L;
+
+        if $stack13 == 0 goto label7;
+
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(11, 43, 5);
+
+        return $stack15;
+
+     label7:
+        $stack14#7 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(10, l5);
+
+        return $stack14#7;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private int jjMoveStringLiteralDfa1_0(long)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack4;
+        char $stack5, $stack6;
+        long l1, $stack18, $stack22;
+        int $stack7, $stack8, $stack9, $stack10, $stack11, $stack12, $stack13, $stack14, $stack15, $stack16, $stack17, $stack21, $stack27, $stack20#7;
+        byte $stack19, $stack23;
+        java.lang.Throwable $stack28;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+     label01:
+        $stack4 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack5;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack28 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(0, l1);
+
+        return 1;
+
+     label04:
+        $stack6 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack6)
+        {
+            case 42: goto label05;
+            case 47: goto label06;
+            case 97: goto label07;
+            case 101: goto label08;
+            case 104: goto label09;
+            case 105: goto label10;
+            case 108: goto label11;
+            case 111: goto label12;
+            case 114: goto label13;
+            case 116: goto label14;
+            case 117: goto label15;
+            case 120: goto label16;
+            case 121: goto label17;
+            default: goto label18;
+        };
+
+     label05:
+        $stack22 = l1 & 256L;
+
+        $stack23 = $stack22 cmp 0L;
+
+        if $stack23 == 0 goto label18;
+
+        $stack27 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(1, 8, 0);
+
+        return $stack27;
+
+     label06:
+        $stack18 = l1 & 64L;
+
+        $stack19 = $stack18 cmp 0L;
+
+        if $stack19 == 0 goto label18;
+
+        $stack21 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopAtPos(int,int)>(1, 6);
+
+        return $stack21;
+
+     label07:
+        $stack17 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 8657043456L);
+
+        return $stack17;
+
+     label08:
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 37938554503168L);
+
+        return $stack16;
+
+     label09:
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 30803505446912L);
+
+        return $stack15;
+
+     label10:
+        $stack14 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 103509196800L);
+
+        return $stack14;
+
+     label11:
+        $stack13 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 262144L);
+
+        return $stack13;
+
+     label12:
+        $stack12 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 537395200L);
+
+        return $stack12;
+
+     label13:
+        $stack11 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 1099511635968L);
+
+        return $stack11;
+
+     label14:
+        $stack10 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 412316860416L);
+
+        return $stack10;
+
+     label15:
+        $stack9 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 2147500032L);
+
+        return $stack9;
+
+     label16:
+        $stack8 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 4194304L);
+
+        return $stack8;
+
+     label17:
+        $stack7 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa2_0(long,long)>(l1, 131072L);
+
+        return $stack7;
+
+     label18:
+        $stack20#7 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(0, l1);
+
+        return $stack20#7;
+
+        catch java.io.IOException from label01 to label02 with label03;
+    }
+
+    private int jjMoveStringLiteralDfa1_2(long)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack4;
+        char $stack5, $stack6;
+        long l1, $stack7;
+        byte $stack8;
+        int $stack9;
+        java.lang.Throwable $stack10;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+     label1:
+        $stack4 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack5;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack10 := @caughtexception;
+
+        return 1;
+
+     label4:
+        $stack6 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack6)
+        {
+            case 47: goto label5;
+            default: goto label6;
+        };
+
+     label5:
+        $stack7 = l1 & 1024L;
+
+        $stack8 = $stack7 cmp 0L;
+
+        if $stack8 == 0 goto label7;
+
+        $stack9 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopAtPos(int,int)>(1, 10);
+
+        return $stack9;
+
+     label6:
+        return 2;
+
+     label7:
+        return 2;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private int jjMoveStringLiteralDfa1_3(long)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack4;
+        char $stack5, $stack6;
+        long l1, $stack7;
+        byte $stack8;
+        int $stack9;
+        java.lang.Throwable $stack10;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+     label1:
+        $stack4 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack5 = virtualinvoke $stack4.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack5;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack10 := @caughtexception;
+
+        return 1;
+
+     label4:
+        $stack6 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack6)
+        {
+            case 47: goto label5;
+            default: goto label6;
+        };
+
+     label5:
+        $stack7 = l1 & 2048L;
+
+        $stack8 = $stack7 cmp 0L;
+
+        if $stack8 == 0 goto label7;
+
+        $stack9 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopAtPos(int,int)>(1, 11);
+
+        return $stack9;
+
+     label6:
+        return 2;
+
+     label7:
+        return 2;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private int jjMoveStringLiteralDfa2_0(long, long)
+    {
+        long l3, l1, l5, $stack14, $stack24;
+        byte $stack8, $stack15, $stack25;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack12, $stack13, $stack16, $stack17, $stack18, $stack19, $stack20, $stack21, $stack22, $stack23, $stack26, $stack27, $stack28, $stack29, $stack30, $stack31, $stack32, $stack33, $stack37;
+        java.lang.Throwable $stack38;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label01;
+
+        $stack37 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(0, l1);
+
+        return $stack37;
+
+     label01:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack38 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(1, l5);
+
+        return 2;
+
+     label04:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        tableswitch($stack11)
+        {
+            case 97: goto label05;
+            case 98: goto label22;
+            case 99: goto label06;
+            case 100: goto label07;
+            case 101: goto label08;
+            case 102: goto label22;
+            case 103: goto label09;
+            case 104: goto label22;
+            case 105: goto label10;
+            case 106: goto label22;
+            case 107: goto label22;
+            case 108: goto label11;
+            case 109: goto label22;
+            case 110: goto label13;
+            case 111: goto label14;
+            case 112: goto label15;
+            case 113: goto label22;
+            case 114: goto label16;
+            case 115: goto label17;
+            case 116: goto label18;
+            case 117: goto label22;
+            case 118: goto label22;
+            case 119: goto label19;
+            case 120: goto label20;
+            case 121: goto label22;
+            case 122: goto label21;
+            default: goto label22;
+        };
+
+     label05:
+        $stack33 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 262144L);
+
+        return $stack33;
+
+     label06:
+        $stack32 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 134217728L);
+
+        return $stack32;
+
+     label07:
+        $stack31 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 412316860416L);
+
+        return $stack31;
+
+     label08:
+        $stack30 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 33554432L);
+
+        return $stack30;
+
+     label09:
+        $stack29 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 2105344L);
+
+        return $stack29;
+
+     label10:
+        $stack28 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 4194304L);
+
+        return $stack28;
+
+     label11:
+        $stack24 = l5 & 1099511627776L;
+
+        $stack25 = $stack24 cmp 0L;
+
+        if $stack25 == 0 goto label12;
+
+        $stack27 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(2, 40, 5);
+
+        return $stack27;
+
+     label12:
+        $stack26 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 8388608L);
+
+        return $stack26;
+
+     label13:
+        $stack23 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 35165143040L);
+
+        return $stack23;
+
+     label14:
+        $stack22 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 17179869184L);
+
+        return $stack22;
+
+     label15:
+        $stack21 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 35184372613120L);
+
+        return $stack21;
+
+     label16:
+        $stack20 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 32989710909440L);
+
+        return $stack20;
+
+     label17:
+        $stack19 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 1048576L);
+
+        return $stack19;
+
+     label18:
+        $stack18 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 3221372928L);
+
+        return $stack18;
+
+     label19:
+        $stack14 = l5 & 8589934592L;
+
+        $stack15 = $stack14 cmp 0L;
+
+        if $stack15 == 0 goto label22;
+
+        $stack17 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(2, 33, 5);
+
+        return $stack17;
+
+     label20:
+        $stack13 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 549772591104L);
+
+        return $stack13;
+
+     label21:
+        $stack12 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa3_0(long,long)>(l5, 68719476736L);
+
+        return $stack12;
+
+     label22:
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(1, l5);
+
+        return $stack16;
+
+        catch java.io.IOException from label01 to label02 with label03;
+    }
+
+    private int jjMoveStringLiteralDfa3_0(long, long)
+    {
+        long l3, l1, l5, $stack13, $stack17, $stack19, $stack25, $stack31, $stack35;
+        byte $stack8, $stack14, $stack18, $stack20, $stack26, $stack32, $stack36;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack12, $stack15, $stack16, $stack21, $stack22, $stack23, $stack24, $stack27, $stack28, $stack29, $stack30, $stack33, $stack34, $stack37, $stack38, $stack39, $stack40, $stack41, $stack42, $stack43;
+        java.lang.Throwable $stack44;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label01;
+
+        $stack43 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(1, l1);
+
+        return $stack43;
+
+     label01:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack44 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(2, l5);
+
+        return 3;
+
+     label04:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        tableswitch($stack11)
+        {
+            case 95: goto label05;
+            case 96: goto label23;
+            case 97: goto label06;
+            case 98: goto label23;
+            case 99: goto label07;
+            case 100: goto label23;
+            case 101: goto label08;
+            case 102: goto label23;
+            case 103: goto label10;
+            case 104: goto label12;
+            case 105: goto label23;
+            case 106: goto label23;
+            case 107: goto label23;
+            case 108: goto label23;
+            case 109: goto label23;
+            case 110: goto label23;
+            case 111: goto label13;
+            case 112: goto label14;
+            case 113: goto label23;
+            case 114: goto label16;
+            case 115: goto label17;
+            case 116: goto label20;
+            case 117: goto label23;
+            case 118: goto label23;
+            case 119: goto label23;
+            case 120: goto label23;
+            case 121: goto label22;
+            default: goto label23;
+        };
+
+     label05:
+        $stack41 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 4294967296L);
+
+        return $stack41;
+
+     label06:
+        $stack40 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 65536L);
+
+        return $stack40;
+
+     label07:
+        $stack39 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 1081344L);
+
+        return $stack39;
+
+     label08:
+        $stack35 = l5 & 68719476736L;
+
+        $stack36 = $stack35 cmp 0L;
+
+        if $stack36 == 0 goto label09;
+
+        $stack38 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(3, 36, 5);
+
+        return $stack38;
+
+     label09:
+        $stack37 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 66245997232128L);
+
+        return $stack37;
+
+     label10:
+        $stack31 = l5 & 536870912L;
+
+        $stack32 = $stack31 cmp 0L;
+
+        if $stack32 == 0 goto label11;
+
+        $stack34 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(3, 29, 5);
+
+        return $stack34;
+
+     label11:
+        $stack33 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 34359738368L);
+
+        return $stack33;
+
+     label12:
+        $stack30 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 1073758208L);
+
+        return $stack30;
+
+     label13:
+        $stack29 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 137438953472L);
+
+        return $stack29;
+
+     label14:
+        $stack25 = l5 & 33554432L;
+
+        $stack26 = $stack25 cmp 0L;
+
+        if $stack26 == 0 goto label15;
+
+        $stack28 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(3, 25, 5);
+
+        return $stack28;
+
+     label15:
+        $stack27 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 2147483648L);
+
+        return $stack27;
+
+     label16:
+        $stack24 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 17179869184L);
+
+        return $stack24;
+
+     label17:
+        $stack17 = l5 & 8192L;
+
+        $stack18 = $stack17 cmp 0L;
+
+        if $stack18 == 0 goto label18;
+
+        $stack23 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(3, 13, 5);
+
+        return $stack23;
+
+     label18:
+        $stack19 = l5 & 67108864L;
+
+        $stack20 = $stack19 cmp 0L;
+
+        if $stack20 == 0 goto label19;
+
+        $stack22 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(3, 26, 5);
+
+        return $stack22;
+
+     label19:
+        $stack21 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 2199027712000L);
+
+        return $stack21;
+
+     label20:
+        $stack13 = l5 & 549755813888L;
+
+        $stack14 = $stack13 cmp 0L;
+
+        if $stack14 == 0 goto label21;
+
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(3, 39, 5);
+
+        return $stack16;
+
+     label21:
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 8388608L);
+
+        return $stack15;
+
+     label22:
+        $stack12 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa4_0(long,long)>(l5, 524288L);
+
+        return $stack12;
+
+     label23:
+        $stack42 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(2, l5);
+
+        return $stack42;
+
+        catch java.io.IOException from label01 to label02 with label03;
+    }
+
+    private int jjMoveStringLiteralDfa4_0(long, long)
+    {
+        long l3, l1, l5, $stack13, $stack17, $stack19, $stack21, $stack34;
+        byte $stack8, $stack14, $stack18, $stack20, $stack22, $stack35;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack12, $stack15, $stack16, $stack23, $stack24, $stack25, $stack26, $stack27, $stack28, $stack29, $stack30, $stack31, $stack32, $stack33, $stack36, $stack37, $stack38, $stack39, $stack43;
+        java.lang.Throwable $stack44;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label01;
+
+        $stack43 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(2, l1);
+
+        return $stack43;
+
+     label01:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack44 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(3, l5);
+
+        return 4;
+
+     label04:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        tableswitch($stack11)
+        {
+            case 97: goto label05;
+            case 98: goto label22;
+            case 99: goto label06;
+            case 100: goto label07;
+            case 101: goto label08;
+            case 102: goto label22;
+            case 103: goto label22;
+            case 104: goto label09;
+            case 105: goto label10;
+            case 106: goto label22;
+            case 107: goto label22;
+            case 108: goto label11;
+            case 109: goto label22;
+            case 110: goto label12;
+            case 111: goto label13;
+            case 112: goto label22;
+            case 113: goto label22;
+            case 114: goto label14;
+            case 115: goto label15;
+            case 116: goto label19;
+            case 117: goto label21;
+            default: goto label22;
+        };
+
+     label05:
+        $stack39 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 65970697666560L);
+
+        return $stack39;
+
+     label06:
+        $stack38 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 4294967296L);
+
+        return $stack38;
+
+     label07:
+        $stack34 = l5 & 16777216L;
+
+        $stack35 = $stack34 cmp 0L;
+
+        if $stack35 == 0 goto label22;
+
+        $stack37 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(4, 24, 5);
+
+        return $stack37;
+
+     label08:
+        $stack33 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 8388608L);
+
+        return $stack33;
+
+     label09:
+        $stack32 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 32768L);
+
+        return $stack32;
+
+     label10:
+        $stack31 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 2199023255552L);
+
+        return $stack31;
+
+     label11:
+        $stack30 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 34359738368L);
+
+        return $stack30;
+
+     label12:
+        $stack29 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 134217728L);
+
+        return $stack29;
+
+     label13:
+        $stack28 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 1073758208L);
+
+        return $stack28;
+
+     label14:
+        $stack27 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 274879545344L);
+
+        return $stack27;
+
+     label15:
+        $stack17 = l5 & 131072L;
+
+        $stack18 = $stack17 cmp 0L;
+
+        if $stack18 == 0 goto label16;
+
+        $stack26 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(4, 17, 5);
+
+        return $stack26;
+
+     label16:
+        $stack19 = l5 & 262144L;
+
+        $stack20 = $stack19 cmp 0L;
+
+        if $stack20 == 0 goto label17;
+
+        $stack25 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(4, 18, 5);
+
+        return $stack25;
+
+     label17:
+        $stack21 = l5 & 268435456L;
+
+        $stack22 = $stack21 cmp 0L;
+
+        if $stack22 == 0 goto label18;
+
+        $stack24 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(4, 28, 5);
+
+        return $stack24;
+
+     label18:
+        $stack23 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 2097152L);
+
+        return $stack23;
+
+     label19:
+        $stack13 = l5 & 17179869184L;
+
+        $stack14 = $stack13 cmp 0L;
+
+        if $stack14 == 0 goto label20;
+
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(4, 34, 5);
+
+        return $stack16;
+
+     label20:
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 4194304L);
+
+        return $stack15;
+
+     label21:
+        $stack12 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa5_0(long,long)>(l5, 139586437120L);
+
+        return $stack12;
+
+     label22:
+        $stack36 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(3, l5);
+
+        return $stack36;
+
+        catch java.io.IOException from label01 to label02 with label03;
+    }
+
+    private int jjMoveStringLiteralDfa5_0(long, long)
+    {
+        long l3, l1, l5, $stack12, $stack16, $stack18, $stack20, $stack26, $stack30, $stack32, $stack34, $stack46, $stack49;
+        byte $stack8, $stack13, $stack17, $stack19, $stack21, $stack27, $stack31, $stack33, $stack35, $stack47, $stack50;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack15, $stack22, $stack23, $stack24, $stack25, $stack28, $stack29, $stack39, $stack40, $stack41, $stack42, $stack43, $stack44, $stack45, $stack48, $stack51, $stack52, $stack53, $stack14#10;
+        java.lang.Throwable $stack54;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label01;
+
+        $stack53 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(3, l1);
+
+        return $stack53;
+
+     label01:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack54 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(4, l5);
+
+        return 5;
+
+     label04:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        tableswitch($stack11)
+        {
+            case 100: goto label05;
+            case 101: goto label07;
+            case 102: goto label22;
+            case 103: goto label22;
+            case 104: goto label22;
+            case 105: goto label08;
+            case 106: goto label22;
+            case 107: goto label22;
+            case 108: goto label22;
+            case 109: goto label09;
+            case 110: goto label22;
+            case 111: goto label10;
+            case 112: goto label11;
+            case 113: goto label22;
+            case 114: goto label12;
+            case 115: goto label15;
+            case 116: goto label17;
+            case 117: goto label22;
+            case 118: goto label22;
+            case 119: goto label22;
+            case 120: goto label22;
+            case 121: goto label21;
+            default: goto label22;
+        };
+
+     label05:
+        $stack49 = l5 & 1073741824L;
+
+        $stack50 = $stack49 cmp 0L;
+
+        if $stack50 == 0 goto label06;
+
+        $stack52 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 30, 5);
+
+        return $stack52;
+
+     label06:
+        $stack51 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa6_0(long,long)>(l5, 30786325577728L);
+
+        return $stack51;
+
+     label07:
+        $stack46 = l5 & 34359738368L;
+
+        $stack47 = $stack46 cmp 0L;
+
+        if $stack47 == 0 goto label22;
+
+        $stack48 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 35, 5);
+
+        return $stack48;
+
+     label08:
+        $stack45 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa6_0(long,long)>(l5, 1572864L);
+
+        return $stack45;
+
+     label09:
+        $stack44 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa6_0(long,long)>(l5, 32768L);
+
+        return $stack44;
+
+     label10:
+        $stack43 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa6_0(long,long)>(l5, 2199023255552L);
+
+        return $stack43;
+
+     label11:
+        $stack42 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa6_0(long,long)>(l5, 4294967296L);
+
+        return $stack42;
+
+     label12:
+        $stack30 = l5 & 16384L;
+
+        $stack31 = $stack30 cmp 0L;
+
+        if $stack31 == 0 goto label13;
+
+        $stack41 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 14, 5);
+
+        return $stack41;
+
+     label13:
+        $stack32 = l5 & 8388608L;
+
+        $stack33 = $stack32 cmp 0L;
+
+        if $stack33 == 0 goto label14;
+
+        $stack40 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 23, 5);
+
+        return $stack40;
+
+     label14:
+        $stack34 = l5 & 274877906944L;
+
+        $stack35 = $stack34 cmp 0L;
+
+        if $stack35 == 0 goto label22;
+
+        $stack39 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 38, 5);
+
+        return $stack39;
+
+     label15:
+        $stack26 = l5 & 4194304L;
+
+        $stack27 = $stack26 cmp 0L;
+
+        if $stack27 == 0 goto label16;
+
+        $stack29 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 22, 5);
+
+        return $stack29;
+
+     label16:
+        $stack28 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa6_0(long,long)>(l5, 134217728L);
+
+        return $stack28;
+
+     label17:
+        $stack16 = l5 & 2097152L;
+
+        $stack17 = $stack16 cmp 0L;
+
+        if $stack17 == 0 goto label18;
+
+        $stack25 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 21, 5);
+
+        return $stack25;
+
+     label18:
+        $stack18 = l5 & 2147483648L;
+
+        $stack19 = $stack18 cmp 0L;
+
+        if $stack19 == 0 goto label19;
+
+        $stack24 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 31, 5);
+
+        return $stack24;
+
+     label19:
+        $stack20 = l5 & 137438953472L;
+
+        $stack21 = $stack20 cmp 0L;
+
+        if $stack21 == 0 goto label20;
+
+        $stack23 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 37, 5);
+
+        return $stack23;
+
+     label20:
+        $stack22 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa6_0(long,long)>(l5, 35184372088832L);
+
+        return $stack22;
+
+     label21:
+        $stack12 = l5 & 65536L;
+
+        $stack13 = $stack12 cmp 0L;
+
+        if $stack13 == 0 goto label22;
+
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(5, 16, 5);
+
+        return $stack15;
+
+     label22:
+        $stack14#10 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(4, l5);
+
+        return $stack14#10;
+
+        catch java.io.IOException from label01 to label02 with label03;
+    }
+
+    private int jjMoveStringLiteralDfa6_0(long, long)
+    {
+        long l3, l1, l5, $stack12, $stack16, $stack18, $stack26, $stack30;
+        byte $stack8, $stack13, $stack17, $stack19, $stack27, $stack31;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack15, $stack23, $stack24, $stack25, $stack28, $stack29, $stack32, $stack33, $stack34, $stack35, $stack14#13;
+        java.lang.Throwable $stack36;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label01;
+
+        $stack35 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(4, l1);
+
+        return $stack35;
+
+     label01:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack36 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(5, l5);
+
+        return 6;
+
+     label04:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack11)
+        {
+            case 45: goto label05;
+            case 97: goto label06;
+            case 101: goto label07;
+            case 103: goto label08;
+            case 110: goto label09;
+            case 112: goto label10;
+            case 115: goto label11;
+            case 117: goto label13;
+            default: goto label14;
+        };
+
+     label05:
+        $stack34 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa7_0(long,long)>(l5, 26388279066624L);
+
+        return $stack34;
+
+     label06:
+        $stack33 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa7_0(long,long)>(l5, 32768L);
+
+        return $stack33;
+
+     label07:
+        $stack30 = l5 & 134217728L;
+
+        $stack31 = $stack30 cmp 0L;
+
+        if $stack31 == 0 goto label14;
+
+        $stack32 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(6, 27, 5);
+
+        return $stack32;
+
+     label08:
+        $stack29 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa7_0(long,long)>(l5, 524288L);
+
+        return $stack29;
+
+     label09:
+        $stack26 = l5 & 2199023255552L;
+
+        $stack27 = $stack26 cmp 0L;
+
+        if $stack27 == 0 goto label14;
+
+        $stack28 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(6, 41, 5);
+
+        return $stack28;
+
+     label10:
+        $stack25 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa7_0(long,long)>(l5, 1048576L);
+
+        return $stack25;
+
+     label11:
+        $stack16 = l5 & 4398046511104L;
+
+        $stack17 = $stack16 cmp 0L;
+
+        if $stack17 == 0 goto label12;
+
+        $stack24 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(6, 42, 5);
+
+        return $stack24;
+
+     label12:
+        $stack18 = l5 & 35184372088832L;
+
+        $stack19 = $stack18 cmp 0L;
+
+        if $stack19 == 0 goto label14;
+
+        $stack23 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(6, 45, 5);
+
+        return $stack23;
+
+     label13:
+        $stack12 = l5 & 4294967296L;
+
+        $stack13 = $stack12 cmp 0L;
+
+        if $stack13 == 0 goto label14;
+
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(6, 32, 5);
+
+        return $stack15;
+
+     label14:
+        $stack14#13 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(5, l5);
+
+        return $stack14#13;
+
+        catch java.io.IOException from label01 to label02 with label03;
+    }
+
+    private int jjMoveStringLiteralDfa7_0(long, long)
+    {
+        long l3, l1, l5;
+        byte $stack8;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack12, $stack13, $stack14, $stack15, $stack16, $stack17, $stack18;
+        java.lang.Throwable $stack19;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label01;
+
+        $stack18 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(5, l1);
+
+        return $stack18;
+
+     label01:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label02:
+        goto label04;
+
+     label03:
+        $stack19 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(6, l5);
+
+        return 7;
+
+     label04:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        tableswitch($stack11)
+        {
+            case 104: goto label05;
+            case 105: goto label10;
+            case 106: goto label10;
+            case 107: goto label10;
+            case 108: goto label06;
+            case 109: goto label07;
+            case 110: goto label10;
+            case 111: goto label10;
+            case 112: goto label10;
+            case 113: goto label10;
+            case 114: goto label08;
+            case 115: goto label10;
+            case 116: goto label09;
+            default: goto label10;
+        };
+
+     label05:
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa8_0(long,long)>(l5, 524288L);
+
+        return $stack16;
+
+     label06:
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa8_0(long,long)>(l5, 8796093022208L);
+
+        return $stack15;
+
+     label07:
+        $stack14 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa8_0(long,long)>(l5, 17592186044416L);
+
+        return $stack14;
+
+     label08:
+        $stack13 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa8_0(long,long)>(l5, 32768L);
+
+        return $stack13;
+
+     label09:
+        $stack12 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa8_0(long,long)>(l5, 1048576L);
+
+        return $stack12;
+
+     label10:
+        $stack17 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(6, l5);
+
+        return $stack17;
+
+        catch java.io.IOException from label01 to label02 with label03;
+    }
+
+    private int jjMoveStringLiteralDfa8_0(long, long)
+    {
+        long l3, l1, l5, $stack12, $stack17;
+        byte $stack8, $stack13, $stack18;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack15, $stack16, $stack22, $stack23, $stack24, $stack14#7;
+        java.lang.Throwable $stack25;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label1;
+
+        $stack24 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(6, l1);
+
+        return $stack24;
+
+     label1:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack25 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(7, l5);
+
+        return 8;
+
+     label4:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack11)
+        {
+            case 105: goto label5;
+            case 107: goto label6;
+            case 111: goto label7;
+            case 116: goto label8;
+            default: goto label9;
+        };
+
+     label5:
+        $stack23 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa9_0(long,long)>(l5, 8796094070784L);
+
+        return $stack23;
+
+     label6:
+        $stack17 = l5 & 32768L;
+
+        $stack18 = $stack17 cmp 0L;
+
+        if $stack18 == 0 goto label9;
+
+        $stack22 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(8, 15, 5);
+
+        return $stack22;
+
+     label7:
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa9_0(long,long)>(l5, 17592186044416L);
+
+        return $stack16;
+
+     label8:
+        $stack12 = l5 & 524288L;
+
+        $stack13 = $stack12 cmp 0L;
+
+        if $stack13 == 0 goto label9;
+
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfaWithStates_0(int,int,int)>(8, 19, 5);
+
+        return $stack15;
+
+     label9:
+        $stack14#7 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(7, l5);
+
+        return $stack14#7;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private int jjMoveStringLiteralDfa9_0(long, long)
+    {
+        long l3, l1, l5;
+        byte $stack8;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        org.dacapo.parser.SimpleCharStream $stack9;
+        char $stack10, $stack11;
+        int $stack12, $stack13, $stack14, $stack15, $stack16;
+        java.lang.Throwable $stack17;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: long;
+
+        l3 := @parameter1: long;
+
+        l5 = l3 & l1;
+
+        $stack8 = l5 cmp 0L;
+
+        if $stack8 != 0 goto label1;
+
+        $stack16 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(7, l1);
+
+        return $stack16;
+
+     label1:
+        $stack9 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack10 = virtualinvoke $stack9.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack10;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack17 := @caughtexception;
+
+        specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(8, l5);
+
+        return 9;
+
+     label4:
+        $stack11 = l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar>;
+
+        lookupswitch($stack11)
+        {
+            case 100: goto label5;
+            case 109: goto label6;
+            case 111: goto label7;
+            default: goto label8;
+        };
+
+     label5:
+        $stack14 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa10_0(long,long)>(l5, 17592186044416L);
+
+        return $stack14;
+
+     label6:
+        $stack13 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa10_0(long,long)>(l5, 8796093022208L);
+
+        return $stack13;
+
+     label7:
+        $stack12 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveStringLiteralDfa10_0(long,long)>(l5, 1048576L);
+
+        return $stack12;
+
+     label8:
+        $stack15 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStartNfa_0(int,long)>(8, l5);
+
+        return $stack15;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private int jjStartNfaWithStates_0(int, int, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int l2, l1, l3, $stack7, $stack8, $stack10;
+        org.dacapo.parser.SimpleCharStream $stack5;
+        char $stack6;
+        java.lang.Throwable $stack9;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = l2;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = l1;
+
+     label1:
+        $stack5 = l0.<org.dacapo.parser.ConfigFileTokenManager: org.dacapo.parser.SimpleCharStream input_stream>;
+
+        $stack6 = virtualinvoke $stack5.<org.dacapo.parser.SimpleCharStream: char readChar()>();
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: char curChar> = $stack6;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack9 := @caughtexception;
+
+        $stack10 = l1 + 1;
+
+        return $stack10;
+
+     label4:
+        $stack7 = l1 + 1;
+
+        $stack8 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveNfa_0(int,int)>(l3, $stack7);
+
+        return $stack8;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private final int jjStartNfa_0(int, long)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int l1, $stack4, $stack5, $stack6;
+        long l2;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: long;
+
+        $stack4 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjStopStringLiteralDfa_0(int,long)>(l1, l2);
+
+        $stack5 = l1 + 1;
+
+        $stack6 = specialinvoke l0.<org.dacapo.parser.ConfigFileTokenManager: int jjMoveNfa_0(int,int)>($stack4, $stack5);
+
+        return $stack6;
+    }
+
+    private int jjStopAtPos(int, int)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        int l2, l1, $stack3;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = l2;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = l1;
+
+        $stack3 = l1 + 1;
+
+        return $stack3;
+    }
+
+    private final int jjStopStringLiteralDfa_0(int, long)
+    {
+        int l1;
+        long l2, $stack4, $stack6, $stack8, $stack10, $stack12, $stack14, $stack16, $stack18, $stack20, $stack22, $stack24, $stack26, $stack28, $stack30, $stack32, $stack34, $stack36, $stack38, $stack40, $stack42;
+        byte $stack5, $stack7, $stack9, $stack11, $stack13, $stack15, $stack17, $stack19, $stack21, $stack23, $stack25, $stack27, $stack29, $stack31, $stack33, $stack35, $stack37, $stack39, $stack41, $stack43;
+        org.dacapo.parser.ConfigFileTokenManager l0;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: long;
+
+        tableswitch(l1)
+        {
+            case 0: goto label01;
+            case 1: goto label04;
+            case 2: goto label07;
+            case 3: goto label10;
+            case 4: goto label13;
+            case 5: goto label16;
+            case 6: goto label19;
+            case 7: goto label22;
+            case 8: goto label24;
+            case 9: goto label27;
+            case 10: goto label29;
+            default: goto label32;
+        };
+
+     label01:
+        $stack40 = l2 & 70368744169472L;
+
+        $stack41 = $stack40 cmp 0L;
+
+        if $stack41 == 0 goto label02;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        return 5;
+
+     label02:
+        $stack42 = l2 & 320L;
+
+        $stack43 = $stack42 cmp 0L;
+
+        if $stack43 == 0 goto label03;
+
+        return 2;
+
+     label03:
+        return -1;
+
+     label04:
+        $stack36 = l2 & 256L;
+
+        $stack37 = $stack36 cmp 0L;
+
+        if $stack37 == 0 goto label05;
+
+        return 0;
+
+     label05:
+        $stack38 = l2 & 70368744169472L;
+
+        $stack39 = $stack38 cmp 0L;
+
+        if $stack39 == 0 goto label06;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 1;
+
+        return 5;
+
+     label06:
+        return -1;
+
+     label07:
+        $stack32 = l2 & 69260642607104L;
+
+        $stack33 = $stack32 cmp 0L;
+
+        if $stack33 == 0 goto label08;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 2;
+
+        return 5;
+
+     label08:
+        $stack34 = l2 & 1108101562368L;
+
+        $stack35 = $stack34 cmp 0L;
+
+        if $stack35 == 0 goto label09;
+
+        return 5;
+
+     label09:
+        return -1;
+
+     label10:
+        $stack28 = l2 & 68641529774080L;
+
+        $stack29 = $stack28 cmp 0L;
+
+        if $stack29 == 0 goto label11;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 3;
+
+        return 5;
+
+     label11:
+        $stack30 = l2 & 619112833024L;
+
+        $stack31 = $stack30 cmp 0L;
+
+        if $stack31 == 0 goto label12;
+
+        return 5;
+
+     label12:
+        return -1;
+
+     label13:
+        $stack24 = l2 & 68624064299008L;
+
+        $stack25 = $stack24 cmp 0L;
+
+        if $stack25 == 0 goto label14;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 4;
+
+        return 5;
+
+     label14:
+        $stack26 = l2 & 17465475072L;
+
+        $stack27 = $stack26 cmp 0L;
+
+        if $stack27 == 0 goto label15;
+
+        return 5;
+
+     label15:
+        return -1;
+
+     label16:
+        $stack20 = l2 & 68174151712768L;
+
+        $stack21 = $stack20 cmp 0L;
+
+        if $stack21 == 0 goto label17;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 5;
+
+        return 5;
+
+     label17:
+        $stack22 = l2 & 449912586240L;
+
+        $stack23 = $stack22 cmp 0L;
+
+        if $stack23 == 0 goto label18;
+
+        return 5;
+
+     label18:
+        return -1;
+
+     label19:
+        $stack16 = l2 & 26388280672256L;
+
+        $stack17 = $stack16 cmp 0L;
+
+        if $stack17 == 0 goto label20;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 6;
+
+        return 5;
+
+     label20:
+        $stack18 = l2 & 41785871040512L;
+
+        $stack19 = $stack18 cmp 0L;
+
+        if $stack19 == 0 goto label21;
+
+        return 5;
+
+     label21:
+        return -1;
+
+     label22:
+        $stack14 = l2 & 26388280672256L;
+
+        $stack15 = $stack14 cmp 0L;
+
+        if $stack15 == 0 goto label23;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 7;
+
+        return 5;
+
+     label23:
+        return -1;
+
+     label24:
+        $stack10 = l2 & 26388280115200L;
+
+        $stack11 = $stack10 cmp 0L;
+
+        if $stack11 == 0 goto label25;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 8;
+
+        return 5;
+
+     label25:
+        $stack12 = l2 & 557056L;
+
+        $stack13 = $stack12 cmp 0L;
+
+        if $stack13 == 0 goto label26;
+
+        return 5;
+
+     label26:
+        return -1;
+
+     label27:
+        $stack8 = l2 & 26388280115200L;
+
+        $stack9 = $stack8 cmp 0L;
+
+        if $stack9 == 0 goto label28;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 9;
+
+        return 5;
+
+     label28:
+        return -1;
+
+     label29:
+        $stack4 = l2 & 26388279066624L;
+
+        $stack5 = $stack4 cmp 0L;
+
+        if $stack5 == 0 goto label30;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedKind> = 46;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: int jjmatchedPos> = 10;
+
+        return 5;
+
+     label30:
+        $stack6 = l2 & 1048576L;
+
+        $stack7 = $stack6 cmp 0L;
+
+        if $stack7 == 0 goto label31;
+
+        return 5;
+
+     label31:
+        return -1;
+
+     label32:
+        return -1;
+    }
+
+    public void setDebugStream(java.io.PrintStream)
+    {
+        org.dacapo.parser.ConfigFileTokenManager l0;
+        java.io.PrintStream l1;
+
+        l0 := @this: org.dacapo.parser.ConfigFileTokenManager;
+
+        l1 := @parameter0: java.io.PrintStream;
+
+        l0.<org.dacapo.parser.ConfigFileTokenManager: java.io.PrintStream debugStream> = l1;
+
+        return;
+    }
+}

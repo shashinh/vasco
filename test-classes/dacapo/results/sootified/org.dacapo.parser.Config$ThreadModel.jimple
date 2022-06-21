@@ -1,0 +1,112 @@
+public final enum class org.dacapo.parser.Config$ThreadModel extends java.lang.Enum
+{
+    public static final enum org.dacapo.parser.Config$ThreadModel SINGLE;
+    public static final enum org.dacapo.parser.Config$ThreadModel FIXED;
+    public static final enum org.dacapo.parser.Config$ThreadModel PER_CPU;
+    private java.lang.String description;
+    private static final org.dacapo.parser.Config$ThreadModel[] $VALUES;
+
+    static void <clinit>()
+    {
+        org.dacapo.parser.Config$ThreadModel $stack1, $stack2, $stack3, $stack4, $stack5, $stack6;
+        org.dacapo.parser.Config$ThreadModel[] l0;
+
+        $stack1 = new org.dacapo.parser.Config$ThreadModel;
+
+        specialinvoke $stack1.<org.dacapo.parser.Config$ThreadModel: void <init>(java.lang.String,int,java.lang.String)>("SINGLE", 0, "single threaded");
+
+        <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE> = $stack1;
+
+        $stack2 = new org.dacapo.parser.Config$ThreadModel;
+
+        specialinvoke $stack2.<org.dacapo.parser.Config$ThreadModel: void <init>(java.lang.String,int,java.lang.String)>("FIXED", 1, "fixed #threads");
+
+        <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED> = $stack2;
+
+        $stack3 = new org.dacapo.parser.Config$ThreadModel;
+
+        specialinvoke $stack3.<org.dacapo.parser.Config$ThreadModel: void <init>(java.lang.String,int,java.lang.String)>("PER_CPU", 2, "scaled to available CPUs");
+
+        <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel PER_CPU> = $stack3;
+
+        l0 = newarray (org.dacapo.parser.Config$ThreadModel)[3];
+
+        $stack4 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel SINGLE>;
+
+        l0[0] = $stack4;
+
+        $stack5 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel FIXED>;
+
+        l0[1] = $stack5;
+
+        $stack6 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel PER_CPU>;
+
+        l0[2] = $stack6;
+
+        <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel[] $VALUES> = l0;
+
+        return;
+    }
+
+    private void <init>(java.lang.String, int, java.lang.String)
+    {
+        org.dacapo.parser.Config$ThreadModel l0;
+        java.lang.String l1, l3;
+        int l2;
+
+        l0 := @this: org.dacapo.parser.Config$ThreadModel;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: java.lang.String;
+
+        specialinvoke l0.<java.lang.Enum: void <init>(java.lang.String,int)>(l1, l2);
+
+        l0.<org.dacapo.parser.Config$ThreadModel: java.lang.String description> = l3;
+
+        return;
+    }
+
+    public java.lang.String describe()
+    {
+        org.dacapo.parser.Config$ThreadModel l0;
+        java.lang.String $stack1;
+
+        l0 := @this: org.dacapo.parser.Config$ThreadModel;
+
+        $stack1 = l0.<org.dacapo.parser.Config$ThreadModel: java.lang.String description>;
+
+        return $stack1;
+    }
+
+    public static org.dacapo.parser.Config$ThreadModel valueOf(java.lang.String)
+    {
+        java.lang.String l0;
+        java.lang.Enum $stack1;
+        org.dacapo.parser.Config$ThreadModel $stack2;
+
+        l0 := @parameter0: java.lang.String;
+
+        $stack1 = staticinvoke <java.lang.Enum: java.lang.Enum valueOf(java.lang.Class,java.lang.String)>(class "Lorg/dacapo/parser/Config$ThreadModel;", l0);
+
+        $stack2 = (org.dacapo.parser.Config$ThreadModel) $stack1;
+
+        return $stack2;
+    }
+
+    public static org.dacapo.parser.Config$ThreadModel[] values()
+    {
+        org.dacapo.parser.Config$ThreadModel[] $stack0, $stack2;
+        java.lang.Object $stack1;
+
+        $stack0 = <org.dacapo.parser.Config$ThreadModel: org.dacapo.parser.Config$ThreadModel[] $VALUES>;
+
+        $stack1 = virtualinvoke $stack0.<java.lang.Object: java.lang.Object clone()>();
+
+        $stack2 = (org.dacapo.parser.Config$ThreadModel[]) $stack1;
+
+        return $stack2;
+    }
+}

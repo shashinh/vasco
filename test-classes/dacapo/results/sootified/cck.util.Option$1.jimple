@@ -1,0 +1,61 @@
+final class cck.util.Option$1 extends java.lang.Object implements java.util.Comparator
+{
+
+    void <init>()
+    {
+        cck.util.Option$1 l0;
+
+        l0 := @this: cck.util.Option$1;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public int compare(cck.util.Option, cck.util.Option)
+    {
+        cck.util.Option l1, l2;
+        java.util.Comparator $stack3;
+        java.lang.String $stack4, $stack5;
+        int $stack6;
+        cck.util.Option$1 l0;
+
+        l0 := @this: cck.util.Option$1;
+
+        l1 := @parameter0: cck.util.Option;
+
+        l2 := @parameter1: cck.util.Option;
+
+        $stack3 = <java.lang.String: java.util.Comparator CASE_INSENSITIVE_ORDER>;
+
+        $stack4 = virtualinvoke l1.<cck.util.Option: java.lang.String getName()>();
+
+        $stack5 = virtualinvoke l2.<cck.util.Option: java.lang.String getName()>();
+
+        $stack6 = interfaceinvoke $stack3.<java.util.Comparator: int compare(java.lang.Object,java.lang.Object)>($stack4, $stack5);
+
+        return $stack6;
+    }
+
+    public volatile int compare(java.lang.Object, java.lang.Object)
+    {
+        cck.util.Option$1 l0;
+        java.lang.Object l1, l2;
+        cck.util.Option $stack3, $stack4;
+        int $stack5;
+
+        l0 := @this: cck.util.Option$1;
+
+        l1 := @parameter0: java.lang.Object;
+
+        l2 := @parameter1: java.lang.Object;
+
+        $stack4 = (cck.util.Option) l1;
+
+        $stack3 = (cck.util.Option) l2;
+
+        $stack5 = virtualinvoke l0.<cck.util.Option$1: int compare(cck.util.Option,cck.util.Option)>($stack4, $stack3);
+
+        return $stack5;
+    }
+}

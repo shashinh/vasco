@@ -1,0 +1,49 @@
+public class avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands extends java.lang.RuntimeException
+{
+    private static final long serialVersionUID;
+    public final int expected;
+    public final int found;
+
+    void <init>(int, int)
+    {
+        avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands l0;
+        java.lang.StringBuilder $stack3, $stack4, $stack5, $stack6, $stack7;
+        int l2, l1;
+        java.lang.String $stack8;
+
+        l0 := @this: avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        $stack3 = new java.lang.StringBuilder;
+
+        specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>();
+
+        $stack4 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wrong number of operands, expected ");
+
+        $stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l2);
+
+        $stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" and found ");
+
+        $stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l1);
+
+        $stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l0.<java.lang.RuntimeException: void <init>(java.lang.String)>($stack8);
+
+        l0.<avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands: int expected> = l2;
+
+        l0.<avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands: int found> = l1;
+
+        return;
+    }
+
+    public static void <clinit>()
+    {
+        <avrora.arch.legacy.LegacyInstr$WrongNumberOfOperands: long serialVersionUID> = 1L;
+
+        return;
+    }
+}
