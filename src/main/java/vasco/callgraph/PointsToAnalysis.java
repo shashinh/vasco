@@ -572,6 +572,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 								SootMethod threadRunMethod = receiverClass.getMethod("void run()");
 								targets.add(threadRunMethod);
 							} else {
+								//leave the original code alone
 								targets.add(sootClass.getMethod(subsignature));
 							}
 							break;
