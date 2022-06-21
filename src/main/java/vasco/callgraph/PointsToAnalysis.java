@@ -570,6 +570,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							String className = sootClass.getName();
 							if(className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
 								SootMethod threadRunMethod = receiverClass.getMethod("void run()");
+								//getMethod will throw a RuntimeException if method doesn't exist - but that is fine, the method is supposed to be defined
 								targets.add(threadRunMethod);
 							} else {
 								//leave the original code alone
