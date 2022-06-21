@@ -1,0 +1,778 @@
+public class jdk.internal.org.objectweb.asm.ByteVector extends java.lang.Object
+{
+    byte[] data;
+    int length;
+
+    public void <init>()
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack1;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack1 = newarray (byte)[64];
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data> = $stack1;
+
+        return;
+    }
+
+    public void <init>(int)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        int l1;
+        byte[] $stack2;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: int;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack2 = newarray (byte)[l1];
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data> = $stack2;
+
+        return;
+    }
+
+    public jdk.internal.org.objectweb.asm.ByteVector putByte(int)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack3, $stack8;
+        int $stack4, $stack5, l1, l2#1, l2#2;
+        byte $stack7;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: int;
+
+        l2#1 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack5 = l2#1 + 1;
+
+        $stack3 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack4 = lengthof $stack3;
+
+        if $stack5 <= $stack4 goto label1;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>(1);
+
+     label1:
+        $stack8 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l2#2 = l2#1 + 1;
+
+        $stack7 = (byte) l1;
+
+        $stack8[l2#1] = $stack7;
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l2#2;
+
+        return l0;
+    }
+
+    jdk.internal.org.objectweb.asm.ByteVector put11(int, int)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack5, $stack13;
+        int $stack6, $stack7, l1, l2, l3#1, l3#2, l3#3;
+        byte $stack9, $stack11;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        l3#1 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack7 = l3#1 + 2;
+
+        $stack5 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack6 = lengthof $stack5;
+
+        if $stack7 <= $stack6 goto label1;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>(2);
+
+     label1:
+        $stack13 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l3#2 = l3#1 + 1;
+
+        $stack9 = (byte) l1;
+
+        $stack13[l3#1] = $stack9;
+
+        l3#3 = l3#2 + 1;
+
+        $stack11 = (byte) l2;
+
+        $stack13[l3#2] = $stack11;
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l3#3;
+
+        return l0;
+    }
+
+    public jdk.internal.org.objectweb.asm.ByteVector putShort(int)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack4, $stack13;
+        int $stack5, $stack6, l1, $stack8, l2#1, l2#2, l2#3;
+        byte $stack9, $stack11;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: int;
+
+        l2#1 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack6 = l2#1 + 2;
+
+        $stack4 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack5 = lengthof $stack4;
+
+        if $stack6 <= $stack5 goto label1;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>(2);
+
+     label1:
+        $stack13 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l2#2 = l2#1 + 1;
+
+        $stack8 = l1 >>> 8;
+
+        $stack9 = (byte) $stack8;
+
+        $stack13[l2#1] = $stack9;
+
+        l2#3 = l2#2 + 1;
+
+        $stack11 = (byte) l1;
+
+        $stack13[l2#2] = $stack11;
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l2#3;
+
+        return l0;
+    }
+
+    jdk.internal.org.objectweb.asm.ByteVector put12(int, int)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack5, $stack16;
+        int $stack6, $stack7, l1, l2, $stack11, l3#1, l3#2, l3#3, l3#4;
+        byte $stack9, $stack12, $stack14;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: int;
+
+        l2 := @parameter1: int;
+
+        l3#1 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack7 = l3#1 + 3;
+
+        $stack5 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack6 = lengthof $stack5;
+
+        if $stack7 <= $stack6 goto label1;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>(3);
+
+     label1:
+        $stack16 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l3#2 = l3#1 + 1;
+
+        $stack9 = (byte) l1;
+
+        $stack16[l3#1] = $stack9;
+
+        l3#3 = l3#2 + 1;
+
+        $stack11 = l2 >>> 8;
+
+        $stack12 = (byte) $stack11;
+
+        $stack16[l3#2] = $stack12;
+
+        l3#4 = l3#3 + 1;
+
+        $stack14 = (byte) l2;
+
+        $stack16[l3#3] = $stack14;
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l3#4;
+
+        return l0;
+    }
+
+    public jdk.internal.org.objectweb.asm.ByteVector putInt(int)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack4, $stack19;
+        int $stack5, $stack6, l1, $stack8, $stack11, $stack14, l2#1, l2#2, l2#3, l2#4, l2#5;
+        byte $stack9, $stack12, $stack15, $stack17;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: int;
+
+        l2#1 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack6 = l2#1 + 4;
+
+        $stack4 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack5 = lengthof $stack4;
+
+        if $stack6 <= $stack5 goto label1;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>(4);
+
+     label1:
+        $stack19 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l2#2 = l2#1 + 1;
+
+        $stack8 = l1 >>> 24;
+
+        $stack9 = (byte) $stack8;
+
+        $stack19[l2#1] = $stack9;
+
+        l2#3 = l2#2 + 1;
+
+        $stack11 = l1 >>> 16;
+
+        $stack12 = (byte) $stack11;
+
+        $stack19[l2#2] = $stack12;
+
+        l2#4 = l2#3 + 1;
+
+        $stack14 = l1 >>> 8;
+
+        $stack15 = (byte) $stack14;
+
+        $stack19[l2#3] = $stack15;
+
+        l2#5 = l2#4 + 1;
+
+        $stack17 = (byte) l1;
+
+        $stack19[l2#4] = $stack17;
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l2#5;
+
+        return l0;
+    }
+
+    public jdk.internal.org.objectweb.asm.ByteVector putLong(long)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack6, $stack33;
+        int $stack7, $stack8, $stack11, $stack14, $stack17, $stack22, $stack25, $stack28, $stack36, $stack49, l3#1, l3#3, l3#4, l3#5, l3#6, l3#8, l3#9, l3#10, l3#11;
+        long l1, $stack9;
+        byte $stack12, $stack15, $stack18, $stack20, $stack23, $stack26, $stack29, $stack31;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: long;
+
+        l3#1 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack8 = l3#1 + 8;
+
+        $stack6 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack7 = lengthof $stack6;
+
+        if $stack8 <= $stack7 goto label1;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>(8);
+
+     label1:
+        $stack33 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack9 = l1 >>> 32;
+
+        $stack36 = (int) $stack9;
+
+        l3#3 = l3#1 + 1;
+
+        $stack11 = $stack36 >>> 24;
+
+        $stack12 = (byte) $stack11;
+
+        $stack33[l3#1] = $stack12;
+
+        l3#4 = l3#3 + 1;
+
+        $stack14 = $stack36 >>> 16;
+
+        $stack15 = (byte) $stack14;
+
+        $stack33[l3#3] = $stack15;
+
+        l3#5 = l3#4 + 1;
+
+        $stack17 = $stack36 >>> 8;
+
+        $stack18 = (byte) $stack17;
+
+        $stack33[l3#4] = $stack18;
+
+        l3#6 = l3#5 + 1;
+
+        $stack20 = (byte) $stack36;
+
+        $stack33[l3#5] = $stack20;
+
+        $stack49 = (int) l1;
+
+        l3#8 = l3#6 + 1;
+
+        $stack22 = $stack49 >>> 24;
+
+        $stack23 = (byte) $stack22;
+
+        $stack33[l3#6] = $stack23;
+
+        l3#9 = l3#8 + 1;
+
+        $stack25 = $stack49 >>> 16;
+
+        $stack26 = (byte) $stack25;
+
+        $stack33[l3#8] = $stack26;
+
+        l3#10 = l3#9 + 1;
+
+        $stack28 = $stack49 >>> 8;
+
+        $stack29 = (byte) $stack28;
+
+        $stack33[l3#9] = $stack29;
+
+        l3#11 = l3#10 + 1;
+
+        $stack31 = (byte) $stack49;
+
+        $stack33[l3#10] = $stack31;
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l3#11;
+
+        return l0;
+    }
+
+    public jdk.internal.org.objectweb.asm.ByteVector putUTF8(java.lang.String)
+    {
+        java.lang.String l1;
+        int $stack7, $stack8, $stack10, $stack11, $stack13, $stack25, $stack29, l3#1, l3#2, l3#3, l5#4;
+        jdk.internal.org.objectweb.asm.ByteVector l0, $stack18;
+        byte[] $stack9, $stack31;
+        byte $stack14, $stack16, $stack26;
+        char $stack17;
+        java.lang.IllegalArgumentException $stack38;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: java.lang.String;
+
+        $stack7 = virtualinvoke l1.<java.lang.String: int length()>();
+
+        if $stack7 <= 65535 goto label1;
+
+        $stack38 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $stack38.<java.lang.IllegalArgumentException: void <init>()>();
+
+        throw $stack38;
+
+     label1:
+        l3#1 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack8 = l3#1 + 2;
+
+        $stack11 = $stack8 + $stack7;
+
+        $stack9 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack10 = lengthof $stack9;
+
+        if $stack11 <= $stack10 goto label2;
+
+        $stack29 = 2 + $stack7;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>($stack29);
+
+     label2:
+        $stack31 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l3#2 = l3#1 + 1;
+
+        $stack13 = $stack7 >>> 8;
+
+        $stack14 = (byte) $stack13;
+
+        $stack31[l3#1] = $stack14;
+
+        l3#3 = l3#2 + 1;
+
+        $stack16 = (byte) $stack7;
+
+        $stack31[l3#2] = $stack16;
+
+        l5#4 = 0;
+
+     label3:
+        if l5#4 >= $stack7 goto label6;
+
+        $stack17 = virtualinvoke l1.<java.lang.String: char charAt(int)>(l5#4);
+
+        if $stack17 < 1 goto label4;
+
+        if $stack17 > 127 goto label4;
+
+        $stack25 = l3#3;
+
+        l3#3 = l3#3 + 1;
+
+        $stack26 = (byte) $stack17;
+
+        $stack31[$stack25] = $stack26;
+
+        goto label5;
+
+     label4:
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l3#3;
+
+        $stack18 = virtualinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: jdk.internal.org.objectweb.asm.ByteVector encodeUTF8(java.lang.String,int,int)>(l1, l5#4, 65535);
+
+        return $stack18;
+
+     label5:
+        l5#4 = l5#4 + 1;
+
+        goto label3;
+
+     label6:
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l3#3;
+
+        return l0;
+    }
+
+    jdk.internal.org.objectweb.asm.ByteVector encodeUTF8(java.lang.String, int, int)
+    {
+        java.lang.String l1;
+        int $stack10, l2, l3, $stack11, $stack12, $stack13, $stack14, $stack16, $stack17, $stack20, $stack21, $stack22, $stack26, $stack27, $stack33, $stack34, $stack35, $stack39, $stack40, $stack41, $stack45, $stack46, $stack51, $stack54, $stack56, $stack58, $stack62, l5#1, l7#2, l7#4, l8#5, l9#6, l8#12, l8#13, l8#14;
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack15, $stack24, $stack29, $stack37, $stack43, $stack48, $stack53, $stack60, $stack63;
+        char $stack18, $stack69;
+        byte $stack23, $stack28, $stack36, $stack42, $stack47, $stack52, $stack59, $stack61;
+        java.lang.IllegalArgumentException $stack68;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        $stack10 = virtualinvoke l1.<java.lang.String: int length()>();
+
+        l5#1 = l2;
+
+        l7#2 = l2;
+
+     label01:
+        if l7#2 >= $stack10 goto label05;
+
+        $stack69 = virtualinvoke l1.<java.lang.String: char charAt(int)>(l7#2);
+
+        if $stack69 < 1 goto label02;
+
+        if $stack69 > 127 goto label02;
+
+        l5#1 = l5#1 + 1;
+
+        goto label04;
+
+     label02:
+        if $stack69 <= 2047 goto label03;
+
+        l5#1 = l5#1 + 3;
+
+        goto label04;
+
+     label03:
+        l5#1 = l5#1 + 2;
+
+     label04:
+        l7#2 = l7#2 + 1;
+
+        goto label01;
+
+     label05:
+        if l5#1 <= l3 goto label06;
+
+        $stack68 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $stack68.<java.lang.IllegalArgumentException: void <init>()>();
+
+        throw $stack68;
+
+     label06:
+        $stack11 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack12 = $stack11 - l2;
+
+        l7#4 = $stack12 - 2;
+
+        if l7#4 < 0 goto label07;
+
+        $stack60 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack58 = l5#1 >>> 8;
+
+        $stack59 = (byte) $stack58;
+
+        $stack60[l7#4] = $stack59;
+
+        $stack63 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack62 = l7#4 + 1;
+
+        $stack61 = (byte) l5#1;
+
+        $stack63[$stack62] = $stack61;
+
+     label07:
+        $stack13 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack14 = $stack13 + l5#1;
+
+        $stack17 = $stack14 - l2;
+
+        $stack15 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack16 = lengthof $stack15;
+
+        if $stack17 <= $stack16 goto label08;
+
+        $stack54 = l5#1 - l2;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>($stack54);
+
+     label08:
+        $stack56 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        l8#5 = $stack56;
+
+        l9#6 = l2;
+
+     label09:
+        if l9#6 >= $stack10 goto label13;
+
+        $stack18 = virtualinvoke l1.<java.lang.String: char charAt(int)>(l9#6);
+
+        if $stack18 < 1 goto label10;
+
+        if $stack18 > 127 goto label10;
+
+        $stack53 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack51 = l8#5;
+
+        l8#5 = l8#5 + 1;
+
+        $stack52 = (byte) $stack18;
+
+        $stack53[$stack51] = $stack52;
+
+        goto label12;
+
+     label10:
+        if $stack18 <= 2047 goto label11;
+
+        $stack37 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l8#12 = l8#5 + 1;
+
+        $stack33 = $stack18 >> 12;
+
+        $stack34 = $stack33 & 15;
+
+        $stack35 = 224 | $stack34;
+
+        $stack36 = (byte) $stack35;
+
+        $stack37[l8#5] = $stack36;
+
+        $stack43 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l8#13 = l8#12 + 1;
+
+        $stack39 = $stack18 >> 6;
+
+        $stack40 = $stack39 & 63;
+
+        $stack41 = 128 | $stack40;
+
+        $stack42 = (byte) $stack41;
+
+        $stack43[l8#12] = $stack42;
+
+        $stack48 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l8#5 = l8#13 + 1;
+
+        $stack45 = $stack18 & 63;
+
+        $stack46 = 128 | $stack45;
+
+        $stack47 = (byte) $stack46;
+
+        $stack48[l8#13] = $stack47;
+
+        goto label12;
+
+     label11:
+        $stack24 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l8#14 = l8#5 + 1;
+
+        $stack20 = $stack18 >> 6;
+
+        $stack21 = $stack20 & 31;
+
+        $stack22 = 192 | $stack21;
+
+        $stack23 = (byte) $stack22;
+
+        $stack24[l8#5] = $stack23;
+
+        $stack29 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        l8#5 = l8#14 + 1;
+
+        $stack26 = $stack18 & 63;
+
+        $stack27 = 128 | $stack26;
+
+        $stack28 = (byte) $stack27;
+
+        $stack29[l8#14] = $stack28;
+
+     label12:
+        l9#6 = l9#6 + 1;
+
+        goto label09;
+
+     label13:
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = l8#5;
+
+        return l0;
+    }
+
+    public jdk.internal.org.objectweb.asm.ByteVector putByteArray(byte[], int, int)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        int l3, $stack4, $stack6, $stack7, $stack8, $stack9, l2, $stack10;
+        byte[] $stack5, l1, $stack11;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: byte[];
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+        $stack4 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack7 = $stack4 + l3;
+
+        $stack5 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack6 = lengthof $stack5;
+
+        if $stack7 <= $stack6 goto label1;
+
+        specialinvoke l0.<jdk.internal.org.objectweb.asm.ByteVector: void enlarge(int)>(l3);
+
+     label1:
+        if l1 == null goto label2;
+
+        $stack11 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack10 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>(l1, l2, $stack11, $stack10, l3);
+
+     label2:
+        $stack8 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        $stack9 = $stack8 + l3;
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: int length> = $stack9;
+
+        return l0;
+    }
+
+    private void enlarge(int)
+    {
+        jdk.internal.org.objectweb.asm.ByteVector l0;
+        byte[] $stack5, $stack9, $stack11;
+        int $stack6, l2, l1, $stack7, l3, $stack8, $stack10#1;
+
+        l0 := @this: jdk.internal.org.objectweb.asm.ByteVector;
+
+        l1 := @parameter0: int;
+
+        $stack5 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack6 = lengthof $stack5;
+
+        l2 = 2 * $stack6;
+
+        $stack7 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        l3 = $stack7 + l1;
+
+        if l2 <= l3 goto label1;
+
+        $stack10#1 = l2;
+
+        goto label2;
+
+     label1:
+        $stack10#1 = l3;
+
+     label2:
+        $stack11 = newarray (byte)[$stack10#1];
+
+        $stack9 = l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data>;
+
+        $stack8 = l0.<jdk.internal.org.objectweb.asm.ByteVector: int length>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($stack9, 0, $stack11, 0, $stack8);
+
+        l0.<jdk.internal.org.objectweb.asm.ByteVector: byte[] data> = $stack11;
+
+        return;
+    }
+}

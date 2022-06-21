@@ -559,9 +559,21 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					// Find the top-most class that declares a method with the given
 					// signature and add it to the resulting targets
 					SootClass sootClass = ((RefType) heapNode.getType()).getSootClass();
+					
+					//make a copy of the original receiver's sootClass
+					SootClass receiverClass = sootClass;
 					do {
 						if (sootClass.declaresMethod(subsignature)) {
-							targets.add(sootClass.getMethod(subsignature));
+							//if sootClass == Thread && subsignature == "void start()", then
+							//	targets.add(receiverClass.getMethod("void run()")
+							//this will basically inline the start-run sequence
+							String className = sootClass.getName();
+							if(className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
+								SootMethod threadRunMethod = receiverClass.getMethod("void run()");
+								targets.add(threadRunMethod);
+							} else {
+								targets.add(sootClass.getMethod(subsignature));
+							}
 							break;
 						} else if (sootClass.hasSuperclass()) {
 							sootClass = sootClass.getSuperclass();
