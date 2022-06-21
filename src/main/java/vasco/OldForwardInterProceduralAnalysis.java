@@ -406,7 +406,10 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					processLoopInvariants(context);
 
 					// Add return nodes to stack (only if there were callers).
-					Set<CallSite<M, N, A>> callersSet = contextTransitions.getCallers(context);
+//					Set<CallSite<M, N, A>> callersSet = contextTransitions.getCallers(context);
+					
+					//Add ALL callers of this method, irrespective of context
+					Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
 					if (callersSet != null) {
 						List<CallSite<M, N, A>> callers = new LinkedList<CallSite<M, N, A>>(callersSet);
 						// Sort the callers in ascending order of their ID so that
@@ -424,6 +427,9 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 							if (!analysisStack.contains(callingContext)) {
 								analysisStack.push(callingContext);
 							}
+							
+//							analysisStack.remove(callingContext);
+//							analysisStack.push(callingContext);
 						}
 					}
 
@@ -851,6 +857,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				calleeContext = new Context <M, N, A> (method, programRepresentation().getControlFlowGraph(method), false);
 				//clears all contexts associated with this method
 				this.contexts.remove(method);
+				//also remove it from the worklist, if present
+				this.worklist.remove(calleeContext);
 				
 				//adds in the new context for analysis
 				initContext(calleeContext, entryValue);
@@ -858,7 +866,12 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			
 		}
 		
-		contextTransitions.addTransition(callSite, calleeContext);
+		//TODO: make this context insensitive. instead of calleecontext, make the map the method name
+		// essentially, when we do get callers, we want ALL callsites later - not just the callsites that called with this specific context
+		//contextTransitions.addTransition(callSite, calleeContext);
+		contextTransitions.addContextInsensitiveCaller(callSite, method);
+		//simpler way - maintain a map of callsites, to the called methods
+		//then later, when a method is marked analyzed - simply fetch all its callers irrespective of context and add them to the worklist (BOOM !)
 		
 		// Check if 'caleeContext' has been analysed (surely not if it is just newly
 		// made):

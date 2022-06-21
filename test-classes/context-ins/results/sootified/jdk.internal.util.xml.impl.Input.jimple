@@ -1,0 +1,71 @@
+public class jdk.internal.util.xml.impl.Input extends java.lang.Object
+{
+    public java.lang.String pubid;
+    public java.lang.String sysid;
+    public java.lang.String xmlenc;
+    public char xmlver;
+    public java.io.Reader src;
+    public char[] chars;
+    public int chLen;
+    public int chIdx;
+    public jdk.internal.util.xml.impl.Input next;
+
+    public void <init>(int)
+    {
+        jdk.internal.util.xml.impl.Input l0;
+        int l1, $stack4;
+        char[] $stack2, $stack3;
+
+        l0 := @this: jdk.internal.util.xml.impl.Input;
+
+        l1 := @parameter0: int;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        $stack2 = newarray (char)[l1];
+
+        l0.<jdk.internal.util.xml.impl.Input: char[] chars> = $stack2;
+
+        $stack3 = l0.<jdk.internal.util.xml.impl.Input: char[] chars>;
+
+        $stack4 = lengthof $stack3;
+
+        l0.<jdk.internal.util.xml.impl.Input: int chLen> = $stack4;
+
+        return;
+    }
+
+    public void <init>(char[])
+    {
+        jdk.internal.util.xml.impl.Input l0;
+        char[] l1, $stack2;
+        int $stack3;
+
+        l0 := @this: jdk.internal.util.xml.impl.Input;
+
+        l1 := @parameter0: char[];
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<jdk.internal.util.xml.impl.Input: char[] chars> = l1;
+
+        $stack2 = l0.<jdk.internal.util.xml.impl.Input: char[] chars>;
+
+        $stack3 = lengthof $stack2;
+
+        l0.<jdk.internal.util.xml.impl.Input: int chLen> = $stack3;
+
+        return;
+    }
+
+    public void <init>()
+    {
+        jdk.internal.util.xml.impl.Input l0;
+
+        l0 := @this: jdk.internal.util.xml.impl.Input;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+}

@@ -1,0 +1,98 @@
+public class jdk.internal.util.xml.impl.SAXParserImpl extends jdk.internal.util.xml.SAXParser
+{
+    private jdk.internal.util.xml.impl.ParserSAX parser;
+
+    public void <init>()
+    {
+        jdk.internal.util.xml.impl.SAXParserImpl l0;
+        jdk.internal.util.xml.impl.ParserSAX $stack1;
+
+        l0 := @this: jdk.internal.util.xml.impl.SAXParserImpl;
+
+        specialinvoke l0.<jdk.internal.util.xml.SAXParser: void <init>()>();
+
+        $stack1 = new jdk.internal.util.xml.impl.ParserSAX;
+
+        specialinvoke $stack1.<jdk.internal.util.xml.impl.ParserSAX: void <init>()>();
+
+        l0.<jdk.internal.util.xml.impl.SAXParserImpl: jdk.internal.util.xml.impl.ParserSAX parser> = $stack1;
+
+        return;
+    }
+
+    public jdk.internal.org.xml.sax.XMLReader getXMLReader() throws jdk.internal.org.xml.sax.SAXException
+    {
+        jdk.internal.util.xml.impl.SAXParserImpl l0;
+        jdk.internal.util.xml.impl.ParserSAX $stack1;
+
+        l0 := @this: jdk.internal.util.xml.impl.SAXParserImpl;
+
+        $stack1 = l0.<jdk.internal.util.xml.impl.SAXParserImpl: jdk.internal.util.xml.impl.ParserSAX parser>;
+
+        return $stack1;
+    }
+
+    public boolean isNamespaceAware()
+    {
+        jdk.internal.util.xml.impl.SAXParserImpl l0;
+        jdk.internal.util.xml.impl.ParserSAX $stack1;
+        boolean $stack2;
+
+        l0 := @this: jdk.internal.util.xml.impl.SAXParserImpl;
+
+        $stack1 = l0.<jdk.internal.util.xml.impl.SAXParserImpl: jdk.internal.util.xml.impl.ParserSAX parser>;
+
+        $stack2 = $stack1.<jdk.internal.util.xml.impl.ParserSAX: boolean mIsNSAware>;
+
+        return $stack2;
+    }
+
+    public boolean isValidating()
+    {
+        jdk.internal.util.xml.impl.SAXParserImpl l0;
+
+        l0 := @this: jdk.internal.util.xml.impl.SAXParserImpl;
+
+        return 0;
+    }
+
+    public void parse(java.io.InputStream, jdk.internal.org.xml.sax.helpers.DefaultHandler) throws jdk.internal.org.xml.sax.SAXException, java.io.IOException
+    {
+        jdk.internal.util.xml.impl.SAXParserImpl l0;
+        java.io.InputStream l1;
+        jdk.internal.org.xml.sax.helpers.DefaultHandler l2;
+        jdk.internal.util.xml.impl.ParserSAX $stack3;
+
+        l0 := @this: jdk.internal.util.xml.impl.SAXParserImpl;
+
+        l1 := @parameter0: java.io.InputStream;
+
+        l2 := @parameter1: jdk.internal.org.xml.sax.helpers.DefaultHandler;
+
+        $stack3 = l0.<jdk.internal.util.xml.impl.SAXParserImpl: jdk.internal.util.xml.impl.ParserSAX parser>;
+
+        virtualinvoke $stack3.<jdk.internal.util.xml.impl.ParserSAX: void parse(java.io.InputStream,jdk.internal.org.xml.sax.helpers.DefaultHandler)>(l1, l2);
+
+        return;
+    }
+
+    public void parse(jdk.internal.org.xml.sax.InputSource, jdk.internal.org.xml.sax.helpers.DefaultHandler) throws jdk.internal.org.xml.sax.SAXException, java.io.IOException
+    {
+        jdk.internal.util.xml.impl.SAXParserImpl l0;
+        jdk.internal.org.xml.sax.InputSource l1;
+        jdk.internal.org.xml.sax.helpers.DefaultHandler l2;
+        jdk.internal.util.xml.impl.ParserSAX $stack3;
+
+        l0 := @this: jdk.internal.util.xml.impl.SAXParserImpl;
+
+        l1 := @parameter0: jdk.internal.org.xml.sax.InputSource;
+
+        l2 := @parameter1: jdk.internal.org.xml.sax.helpers.DefaultHandler;
+
+        $stack3 = l0.<jdk.internal.util.xml.impl.SAXParserImpl: jdk.internal.util.xml.impl.ParserSAX parser>;
+
+        virtualinvoke $stack3.<jdk.internal.util.xml.impl.ParserSAX: void parse(jdk.internal.org.xml.sax.InputSource,jdk.internal.org.xml.sax.helpers.DefaultHandler)>(l1, l2);
+
+        return;
+    }
+}

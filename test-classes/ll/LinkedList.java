@@ -22,11 +22,6 @@ class LinkedList{
 	} catch (Exception ex) { System.out.println(ex); }
     }
 }
-class A {
-	LinkedList abc;
-	LinkedList abc4;
-	LinkedList abc5;
-}
 
 class Element {
     int Age ;          
@@ -97,7 +92,7 @@ class Element {
 
 }
 
-class List extends A{
+class List {
     Element elem ;
     List next ;
     boolean end ;
