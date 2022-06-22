@@ -167,9 +167,9 @@ public class CallGraphTest {
 				"-include", "org.w3c.",
 				 "-allow-phantom-refs",
 				 
-				 "-x", "java",
-				 "-x", "sun",
-				 "-no-bodies-for-excluded",
+//				 "-x", "java",
+//				 "-x", "sun",
+//				 "-no-bodies-for-excluded",
 					
 					
 				"-main-class", mainClass,
