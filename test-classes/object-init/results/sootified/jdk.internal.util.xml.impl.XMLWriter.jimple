@@ -1,0 +1,373 @@
+public class jdk.internal.util.xml.impl.XMLWriter extends java.lang.Object
+{
+    private java.io.Writer _writer;
+    private java.nio.charset.CharsetEncoder _encoder;
+
+    public void <init>(java.io.OutputStream, java.lang.String, java.nio.charset.Charset) throws jdk.internal.util.xml.XMLStreamException
+    {
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        java.nio.charset.Charset l3;
+        java.nio.charset.CharsetEncoder $stack5;
+        java.io.OutputStream l1;
+        java.lang.String l2;
+        java.io.Writer $stack6;
+        java.io.UnsupportedEncodingException $stack7;
+        jdk.internal.util.xml.XMLStreamException $stack8;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+        l1 := @parameter0: java.io.OutputStream;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.nio.charset.Charset;
+
+        specialinvoke l0.<java.lang.Object: void <init>()>();
+
+        l0.<jdk.internal.util.xml.impl.XMLWriter: java.nio.charset.CharsetEncoder _encoder> = null;
+
+        $stack5 = virtualinvoke l3.<java.nio.charset.Charset: java.nio.charset.CharsetEncoder newEncoder()>();
+
+        l0.<jdk.internal.util.xml.impl.XMLWriter: java.nio.charset.CharsetEncoder _encoder> = $stack5;
+
+     label1:
+        $stack6 = specialinvoke l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer getWriter(java.io.OutputStream,java.lang.String,java.nio.charset.Charset)>(l1, l2, l3);
+
+        l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer _writer> = $stack6;
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack7 := @caughtexception;
+
+        $stack8 = new jdk.internal.util.xml.XMLStreamException;
+
+        specialinvoke $stack8.<jdk.internal.util.xml.XMLStreamException: void <init>(java.lang.Throwable)>($stack7);
+
+        throw $stack8;
+
+     label4:
+        return;
+
+        catch java.io.UnsupportedEncodingException from label1 to label2 with label3;
+    }
+
+    public boolean canEncode(char)
+    {
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        java.nio.charset.CharsetEncoder $stack2, $stack3;
+        char l1;
+        boolean $stack4;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+        l1 := @parameter0: char;
+
+        $stack2 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.nio.charset.CharsetEncoder _encoder>;
+
+        if $stack2 != null goto label1;
+
+        return 0;
+
+     label1:
+        $stack3 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.nio.charset.CharsetEncoder _encoder>;
+
+        $stack4 = virtualinvoke $stack3.<java.nio.charset.CharsetEncoder: boolean canEncode(char)>(l1);
+
+        return $stack4;
+    }
+
+    public void write(java.lang.String) throws jdk.internal.util.xml.XMLStreamException
+    {
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        java.lang.String l1;
+        java.io.Writer $stack3;
+        char[] $stack4;
+        java.io.IOException $stack5;
+        jdk.internal.util.xml.XMLStreamException $stack6;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+        l1 := @parameter0: java.lang.String;
+
+     label1:
+        $stack3 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer _writer>;
+
+        $stack4 = virtualinvoke l1.<java.lang.String: char[] toCharArray()>();
+
+        virtualinvoke $stack3.<java.io.Writer: void write(char[])>($stack4);
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack5 := @caughtexception;
+
+        $stack6 = new jdk.internal.util.xml.XMLStreamException;
+
+        specialinvoke $stack6.<jdk.internal.util.xml.XMLStreamException: void <init>(java.lang.String,java.lang.Throwable)>("I/O error", $stack5);
+
+        throw $stack6;
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    public void write(java.lang.String, int, int) throws jdk.internal.util.xml.XMLStreamException
+    {
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        java.lang.String l1;
+        int l2, l3;
+        java.io.Writer $stack5;
+        java.io.IOException $stack6;
+        jdk.internal.util.xml.XMLStreamException $stack7;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+        l1 := @parameter0: java.lang.String;
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+     label1:
+        $stack5 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer _writer>;
+
+        virtualinvoke $stack5.<java.io.Writer: void write(java.lang.String,int,int)>(l1, l2, l3);
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack6 := @caughtexception;
+
+        $stack7 = new jdk.internal.util.xml.XMLStreamException;
+
+        specialinvoke $stack7.<jdk.internal.util.xml.XMLStreamException: void <init>(java.lang.String,java.lang.Throwable)>("I/O error", $stack6);
+
+        throw $stack7;
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    public void write(char[], int, int) throws jdk.internal.util.xml.XMLStreamException
+    {
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        char[] l1;
+        int l2, l3;
+        java.io.Writer $stack5;
+        java.io.IOException $stack6;
+        jdk.internal.util.xml.XMLStreamException $stack7;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+        l1 := @parameter0: char[];
+
+        l2 := @parameter1: int;
+
+        l3 := @parameter2: int;
+
+     label1:
+        $stack5 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer _writer>;
+
+        virtualinvoke $stack5.<java.io.Writer: void write(char[],int,int)>(l1, l2, l3);
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack6 := @caughtexception;
+
+        $stack7 = new jdk.internal.util.xml.XMLStreamException;
+
+        specialinvoke $stack7.<jdk.internal.util.xml.XMLStreamException: void <init>(java.lang.String,java.lang.Throwable)>("I/O error", $stack6);
+
+        throw $stack7;
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    void write(int) throws jdk.internal.util.xml.XMLStreamException
+    {
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        int l1;
+        java.io.Writer $stack3;
+        java.io.IOException $stack4;
+        jdk.internal.util.xml.XMLStreamException $stack5;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+        l1 := @parameter0: int;
+
+     label1:
+        $stack3 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer _writer>;
+
+        virtualinvoke $stack3.<java.io.Writer: void write(int)>(l1);
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack4 := @caughtexception;
+
+        $stack5 = new jdk.internal.util.xml.XMLStreamException;
+
+        specialinvoke $stack5.<jdk.internal.util.xml.XMLStreamException: void <init>(java.lang.String,java.lang.Throwable)>("I/O error", $stack4);
+
+        throw $stack5;
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    void flush() throws jdk.internal.util.xml.XMLStreamException
+    {
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        java.io.Writer $stack2;
+        java.io.IOException $stack3;
+        jdk.internal.util.xml.XMLStreamException $stack4;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+     label1:
+        $stack2 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer _writer>;
+
+        virtualinvoke $stack2.<java.io.Writer: void flush()>();
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack3 := @caughtexception;
+
+        $stack4 = new jdk.internal.util.xml.XMLStreamException;
+
+        specialinvoke $stack4.<jdk.internal.util.xml.XMLStreamException: void <init>(java.lang.Throwable)>($stack3);
+
+        throw $stack4;
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    void close() throws jdk.internal.util.xml.XMLStreamException
+    {
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        java.io.Writer $stack2;
+        java.io.IOException $stack3;
+        jdk.internal.util.xml.XMLStreamException $stack4;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+     label1:
+        $stack2 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer _writer>;
+
+        virtualinvoke $stack2.<java.io.Writer: void close()>();
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack3 := @caughtexception;
+
+        $stack4 = new jdk.internal.util.xml.XMLStreamException;
+
+        specialinvoke $stack4.<jdk.internal.util.xml.XMLStreamException: void <init>(java.lang.Throwable)>($stack3);
+
+        throw $stack4;
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private void nl() throws jdk.internal.util.xml.XMLStreamException
+    {
+        java.lang.String $stack3;
+        jdk.internal.util.xml.impl.XMLWriter l0;
+        java.io.Writer $stack4;
+        java.io.IOException $stack5;
+        jdk.internal.util.xml.XMLStreamException $stack6;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+        $stack3 = staticinvoke <java.lang.System: java.lang.String getProperty(java.lang.String)>("line.separator");
+
+     label1:
+        $stack4 = l0.<jdk.internal.util.xml.impl.XMLWriter: java.io.Writer _writer>;
+
+        virtualinvoke $stack4.<java.io.Writer: void write(java.lang.String)>($stack3);
+
+     label2:
+        goto label4;
+
+     label3:
+        $stack5 := @caughtexception;
+
+        $stack6 = new jdk.internal.util.xml.XMLStreamException;
+
+        specialinvoke $stack6.<jdk.internal.util.xml.XMLStreamException: void <init>(java.lang.String,java.lang.Throwable)>("I/O error", $stack5);
+
+        throw $stack6;
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }
+
+    private java.io.Writer getWriter(java.io.OutputStream, java.lang.String, java.nio.charset.Charset) throws jdk.internal.util.xml.XMLStreamException, java.io.UnsupportedEncodingException
+    {
+        java.nio.charset.Charset l3;
+        java.io.OutputStreamWriter $stack4, $stack6;
+        java.io.BufferedOutputStream $stack5, $stack7;
+        java.io.OutputStream l1;
+        java.lang.String l2;
+        jdk.internal.util.xml.impl.XMLWriter l0;
+
+        l0 := @this: jdk.internal.util.xml.impl.XMLWriter;
+
+        l1 := @parameter0: java.io.OutputStream;
+
+        l2 := @parameter1: java.lang.String;
+
+        l3 := @parameter2: java.nio.charset.Charset;
+
+        if l3 == null goto label1;
+
+        $stack6 = new java.io.OutputStreamWriter;
+
+        $stack7 = new java.io.BufferedOutputStream;
+
+        specialinvoke $stack7.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>(l1);
+
+        specialinvoke $stack6.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.nio.charset.Charset)>($stack7, l3);
+
+        return $stack6;
+
+     label1:
+        $stack4 = new java.io.OutputStreamWriter;
+
+        $stack5 = new java.io.BufferedOutputStream;
+
+        specialinvoke $stack5.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>(l1);
+
+        specialinvoke $stack4.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($stack5, l2);
+
+        return $stack4;
+    }
+}

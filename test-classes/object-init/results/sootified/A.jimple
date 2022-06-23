@@ -1,6 +1,6 @@
-class A extends java.lang.Object
+class A extends java.lang.Object implements java.lang.Cloneable
 {
-    F f;
+    A f;
 
     void <init>()
     {
@@ -11,5 +11,17 @@ class A extends java.lang.Object
         specialinvoke l0.<java.lang.Object: void <init>()>();
 
         return;
+    }
+
+    public java.lang.Object clone() throws java.lang.CloneNotSupportedException
+    {
+        A l0;
+        java.lang.Object $stack1;
+
+        l0 := @this: A;
+
+        $stack1 = specialinvoke l0.<java.lang.Object: java.lang.Object clone()>();
+
+        return $stack1;
     }
 }

@@ -126,6 +126,7 @@ public class CallGraphTest {
 		String[] sootArgs = {
 				"-cp", classPath, "-pp", 
 				//"-src-prec", "J",
+				//disable -app here, this will cause all referred classes to be analyzed as library classes - i.e. they won't be transformed
 				"-w", "-app", 
 //				"-x", "soot.*",
 //				"-x", "java.*",

@@ -1,124 +1,6 @@
 class Main extends java.lang.Object
 {
 
-    static void <clinit>()
-    {
-        boolean $stack1, $stack2, $stack3, $stack6, $stack7, $stack10, $stack11, $stack5#7, $stack9#16;
-        java.lang.Exception $stack26;
-        java.io.PrintStream $stack27;
-
-     label01:
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassForName(int,java.lang.String)>(0, "A");
-
-        $stack1 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack1 == 0 goto label02;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall0()>();
-
-        goto label05;
-
-     label02:
-        $stack2 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack2 == 0 goto label03;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall1()>();
-
-        goto label05;
-
-     label03:
-        $stack3 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack3 == 0 goto label04;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall2()>();
-
-        goto label05;
-
-     label04:
-        staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>("A");
-
-     label05:
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassForName(int,java.lang.String)>(0, "B");
-
-        $stack5#7 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack5#7 == 0 goto label06;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall3()>();
-
-        goto label09;
-
-     label06:
-        $stack6 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack6 == 0 goto label07;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall4()>();
-
-        goto label09;
-
-     label07:
-        $stack7 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack7 == 0 goto label08;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall5()>();
-
-        goto label09;
-
-     label08:
-        staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>("B");
-
-     label09:
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCalls: void knownClassForName(int,java.lang.String)>(0, "F");
-
-        $stack9#16 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack9#16 == 0 goto label10;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall6()>();
-
-        goto label13;
-
-     label10:
-        $stack10 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack10 == 0 goto label11;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall7()>();
-
-        goto label13;
-
-     label11:
-        $stack11 = staticinvoke <soot.rtlib.tamiflex.OpaquePredicate: boolean getFalse()>();
-
-        if $stack11 == 0 goto label12;
-
-        staticinvoke <soot.rtlib.tamiflex.ReflectiveCallsWrapper: java.lang.Class reflectiveCall8()>();
-
-        goto label13;
-
-     label12:
-        staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>("F");
-
-     label13:
-        goto label15;
-
-     label14:
-        $stack26 := @caughtexception;
-
-        $stack27 = <java.lang.System: java.io.PrintStream out>;
-
-        virtualinvoke $stack27.<java.io.PrintStream: void println(java.lang.Object)>($stack26);
-
-     label15:
-        return;
-
-        catch java.lang.Exception from label01 to label13 with label14;
-    }
-
     void <init>()
     {
         Main l0;
@@ -130,50 +12,68 @@ class Main extends java.lang.Object
         return;
     }
 
-    public static void main(java.lang.String[]) throws java.lang.CloneNotSupportedException
+    public static void bar(A, A, A, A, A, A)
     {
-        A $stack2, $stack3, $stack4, $stack5, $stack6, $stack7;
-        B l1, $stack9;
-        java.lang.Object $stack8;
+        A l0, l1, l2, l3, l4, l5;
+
+        l0 := @parameter0: A;
+
+        l1 := @parameter1: A;
+
+        l2 := @parameter2: A;
+
+        l3 := @parameter3: A;
+
+        l4 := @parameter4: A;
+
+        l5 := @parameter5: A;
+
+        return;
+    }
+
+    public static void main(java.lang.String[]) throws java.lang.Exception
+    {
+        A l1, $stack3, $stack4, $stack5, l2, $stack7, $stack8, $stack9, $stack10, $stack11, $stack12;
+        java.lang.Object $stack6;
         java.lang.String[] l0;
 
         l0 := @parameter0: java.lang.String[];
 
-        $stack2 = new A;
+        l1 = new A;
 
-        specialinvoke $stack2.<A: void <init>()>();
+        specialinvoke l1.<A: void <init>()>();
 
         $stack3 = new A;
 
         specialinvoke $stack3.<A: void <init>()>();
 
+        l1.<A: A f> = $stack3;
+
+        $stack5 = l1.<A: A f>;
+
         $stack4 = new A;
 
         specialinvoke $stack4.<A: void <init>()>();
 
-        $stack5 = new A;
+        $stack5.<A: A f> = $stack4;
 
-        specialinvoke $stack5.<A: void <init>()>();
+        $stack6 = virtualinvoke l1.<A: java.lang.Object clone()>();
 
-        $stack6 = new A;
+        l2 = (A) $stack6;
 
-        specialinvoke $stack6.<A: void <init>()>();
+        $stack12 = l1.<A: A f>;
 
-        $stack7 = new A;
+        $stack7 = l1.<A: A f>;
 
-        specialinvoke $stack7.<A: void <init>()>();
+        $stack11 = $stack7.<A: A f>;
 
-        l1 = new B;
+        $stack10 = l2.<A: A f>;
 
-        specialinvoke l1.<B: void <init>()>();
+        $stack8 = l2.<A: A f>;
 
-        virtualinvoke l1.<B: void foo()>();
+        $stack9 = $stack8.<A: A f>;
 
-        $stack8 = virtualinvoke l1.<B: java.lang.Object clone()>();
-
-        $stack9 = (B) $stack8;
-
-        virtualinvoke $stack9.<B: void foo()>();
+        staticinvoke <Main: void bar(A,A,A,A,A,A)>(l1, $stack12, $stack11, l2, $stack10, $stack9);
 
         return;
     }
