@@ -564,6 +564,12 @@ public class PointsToGraph {
 			} else {
 				//add null objs for each field
 			}
+			// Recursively summarize reachable heap.
+			if (summarizeFields) {
+				for (AnyNewExpr oldtarget: this.heap.get(allocSite).get(field)) {
+					newNode(oldtarget, true);
+				}
+			}
 			edges.put(field, Collections.unmodifiableSet(targets));
 		}
 		heap.put(allocSite, Collections.unmodifiableMap(edges));

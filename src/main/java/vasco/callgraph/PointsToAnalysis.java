@@ -533,6 +533,22 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		SootMethod invokedMethod = ie.getMethod();
 		String subsignature = invokedMethod.getSubSignature();
 		
+		//perform the special casing right here - library methods have to be special-cased.
+		
+		//think about performing the special casing in terms of package name directly!
+		//1. lazy load the SootClass for java.lang.Object and reuse that for case 1 - pointer checks are faster than string checks
+//		boolean isLibrary;
+//		boolean notSpecialCase;
+//		
+//		isLibrary = invokedMethod.isJavaLibraryMethod() || invokedMethod.getDeclaringClass().getPackageName().startsWith("soot.") || invokedMethod.getName().contains("toughnut");
+//		notSpecialCase = invokedMethod.getDeclaringClass().equals(Scene.v().getSootClass("soot.rtlib.tamiflex.ReflectiveCallsWrapper"));
+//		
+//		if(isLibrary && !notSpecialCase) {
+//			//if not a java.lang.Object.* or soot.rtlib.tamiflex.ReflectiveCallsWrapper.* - we want to summarize. Returning NO targets accomplishes that.
+//			return null;
+//		}
+		
+		
 		// Static and special invocations refer to the target method directly
 		if (ie instanceof StaticInvokeExpr || ie instanceof SpecialInvokeExpr) {
 			targets.add(invokedMethod);
@@ -630,13 +646,15 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			}
 		}
 		
+		//getTargets will return null if library method and not special case
 		Set<SootMethod> targets = getTargets(callerMethod, callStmt, ie, in);
 
 		//shashin
-		if(targets != null && targets.size() == 1 && 
-				(targets.iterator().next().toString().contains("<java.util.regex.Pattern") 
-				|| (targets.iterator().next().toString().contains("java.util.HashMap"))))
-			targets = null;
+		//this should not be needed anymore, since we are special-casing all library methods
+//			if(targets != null && targets.size() == 1 && 
+//					(targets.iterator().next().toString().contains("<java.util.regex.Pattern") 
+//					|| (targets.iterator().next().toString().contains("java.util.HashMap"))))
+//				targets = null;
 		
 		
 		// If "targets" is null, that means the invoking instance was SUMMARY
@@ -652,10 +670,18 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		// Make calls for all target methods
 		//if(targets.size() > 0) this.immediatePrevContextAnalysed = true;
 		for (SootMethod calledMethod : targets) {
-
+			
+			boolean treatAsOpaque = false;
+			if(!calledMethod.equals(DUMMY_METHOD)) {
+				//treat as opaque all library methods, and methods in the soot.* package
+				treatAsOpaque = calledMethod.isJavaLibraryMethod() || calledMethod.getDeclaringClass().getPackageName().startsWith("soot.");
+				//EXCEPT ReflectiveCallsWrapper
+				treatAsOpaque = treatAsOpaque && !calledMethod.getDeclaringClass().equals(Scene.v().getSootClass("soot.rtlib.tamiflex.ReflectiveCallsWrapper"));
+			}
+			
 			// The call-edge is obtained by assign para	meters and THIS, and killing caller's locals
 			PointsToGraph callEdge = copy(in);
-			if (calledMethod.hasActiveBody()) {
+			if (!treatAsOpaque && calledMethod.hasActiveBody()) {
 				// We need to maintain a set of locals not to kill (in case the call is recursive)
 				Set<Local> doNotKill = new HashSet<Local>();
 				
@@ -730,7 +756,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			
 
 			// Make the call to this method!! (in case of body-less methods, no change)
-			PointsToGraph exitFlow = calledMethod.hasActiveBody() ? 
+			PointsToGraph exitFlow = (!treatAsOpaque && calledMethod.hasActiveBody()) ? 
 //					processCall(callerContext, callStmt, calledMethod, entryFlow) : entryFlow;
 					processCallContextInsensitive(callerContext, callStmt, calledMethod, entryFlow) : entryFlow;
 
@@ -742,7 +768,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				PointsToGraph returnEdge = copy(exitFlow);
 				
 				// Two ways to handle this:
-				if (calledMethod.hasActiveBody()) {
+				if (!treatAsOpaque && calledMethod.hasActiveBody()) {
 					// Kill all the called method's locals. That's right.
 					for (Local calleeLocal : calledMethod.getActiveBody().getLocals()) {
 						returnEdge.kill(calleeLocal);
@@ -750,7 +776,6 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					// Remove the stickies (so not to interfere with stickies in the intra-edge)
 					// but do not collect unreachable nodes
 					returnEdge.killWithoutGC(PointsToGraph.STICKY_LOCAL);					
-
 				} 
 				
 				// Let's unite the intra-edge with the return edge
@@ -759,7 +784,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				
 				
 				// Now we are only left with the return value, if any
-				if (calledMethod.hasActiveBody()) {
+				if (!treatAsOpaque && calledMethod.hasActiveBody()) {
 					if (lhs != null) {
 						callOut.assign(lhs, PointsToGraph.RETURN_LOCAL);
 					}
@@ -780,18 +805,25 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							callOut.assignSummary(lhs);
 						}
 					}
-					// Also assume that all parameters are modified
-					for (int i = 0; i < calledMethod.getParameterCount(); i++) {
-						// Only for reference-like parameters
-						if (calledMethod.getParameterType(i) instanceof RefLikeType) {
-							Value argValue = ie.getArg(i);
-							// Summarize if the argument is local (i.e. not a constant)
-							if (argValue instanceof Local) {
-								Local argLocal = (Local) argValue;
-								callOut.summarizeTargetFields(argLocal);
+				
+					//we want to treat certain library methods as 'transparent' - meaning, they have no effect on the heap.
+					//for now, all methods of java.lang.Object are in this category
+					boolean isTransparent = ie.getMethod().getDeclaringClass().equals(Scene.v().getSootClass("java.lang.Object"));
+					if(!isTransparent) {
+						//TOOD: guard this with isTransparent flag
+						// Also assume that all parameters are modified
+						for (int i = 0; i < calledMethod.getParameterCount(); i++) {
+							// Only for reference-like parameters
+							if (calledMethod.getParameterType(i) instanceof RefLikeType) {
+								Value argValue = ie.getArg(i);
+								// Summarize if the argument is local (i.e. not a constant)
+								if (argValue instanceof Local) {
+									Local argLocal = (Local) argValue;
+									callOut.summarizeTargetFields(argLocal);
+								}
 							}
 						}
-					}
+					} //end isTransparent
 				}
 				
 				// As we may have multiple virtual calls, merge the value at OUT
