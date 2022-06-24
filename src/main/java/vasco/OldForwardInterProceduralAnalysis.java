@@ -178,52 +178,20 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 
 		// Stack-of-work-lists data flow analysis.
 		while (!analysisStack.isEmpty()) {
-			// SHASHIN
-			// print the analysis stack here
-			//System.out.println("ANALYSIS STACK : " + analysisStack);
-			// SHASHIN
-
 			// Get the context at the top of the stack.
 			Context<M, N, A> context = analysisStack.peek();
 
-			//System.out.println("Context :" + context.getMethod());
 			// Either analyse the next pending unit or pop out of the method
 			if (!context.getWorkList().isEmpty()) {
 
-				// SHASHIN
-				// print this context's worklist here
-				//System.out.println("CONTEXT WORKLIST FOR CONTEXT NO. " + context + ":" + context.getWorkList());
-				// SHASHIN
-
 				// work-list contains items; So the next unit to analyse.
 				N unit = context.getWorkList().pollFirst();
-				//if(unit != null && unit.toString().equals("virtualinvoke callback.<org.dacapo.harness.Callback: void start(java.lang.String)>($stack15)")) 
-				//	context.getWorkList().add(unit.s);
-				/*if(context.getMethod().toString().equals("<org.dacapo.harness.TestHarness: void runBenchmark(java.io.File,java.lang.String,org.dacapo.harness.TestHarness)>")) {
-					
-					System.out.println("TestHarness unit: " + unit + ", line number " + ((Unit) unit).getJavaSourceStartLineNumber());
-				}*/
 				
 				if (unit != null) {
-					//System.out.println("processing method: " + ( (SootMethod) context.getMethod()).getBytecodeSignature() + ", unit: " + unit.toString());
-					// SHASHIN
-//					try {
-//						BytecodeOffsetTag bT = (BytecodeOffsetTag) ((Unit)unit).getTag("BytecodeOffsetTag");
-//						int bci = bT.getBytecodeOffset();
-//						System.out.println("Handling byte code offset  " + bci);
-//					} catch (Exception ex) {
-//						System.out.println("bci for unit is missing!");
-//					}
 					int unitBCI = -1;
-					//System.out.println("Now processing unit: " + unit.toString());
-//					try {
 						BytecodeOffsetTag bT = (BytecodeOffsetTag) ((Unit) unit).getTag("BytecodeOffsetTag");
 						if(bT != null)
 							unitBCI = bT.getBytecodeOffset();
-						//System.out.println("testing bci:  " + unitBCI);
-//					} catch (Exception ex) {
-//						//System.out.println("bci for unit is missing!");
-//					}
 
 					// Compute the IN data flow value (only for non-entry units).
 					List<N> predecessors = context.getControlFlowGraph().getPredsOf(unit);

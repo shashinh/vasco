@@ -127,7 +127,7 @@ public class CallGraphTest {
 				"-cp", classPath, "-pp", 
 				//"-src-prec", "J",
 				//disable -app here, this will cause all referred classes to be analyzed as library classes - i.e. they won't be transformed
-				"-w", "-app", 
+				"-w", "-app",
 //				"-x", "soot.*",
 //				"-x", "java.*",
 //				"-x", "jdk.*",
@@ -174,7 +174,7 @@ public class CallGraphTest {
 					
 					
 				"-main-class", mainClass,
-				"-f", "J",
+				"-f", "c",
 				"-d", outputDirectory + "/sootified", 
 				mainClass
 		};
@@ -208,7 +208,7 @@ public class CallGraphTest {
 //				"-whole-program",
 //				"-keep-line-number", "-keep-offset",
 //				"-p", "cg", "implicit-entry:false",
-//				"-p", "cg.spark", "enabled",
+//				"-p", "cg.spark", "enabled"
 //				"-p", "cg.spark", "simulate-natives",
 //				"-p", "cg", "safe-forname",
 //				"-p", "cg", "safe-newinstance",
