@@ -6,7 +6,8 @@ class Main {
 
 		A x = (A) a.clone();
 
-		bar(a, a.f, a.f.f, x, x.f, x.f.f);
+		bar(a, a.f, a.f.f, 
+				x, x.f, x.f.f);
 
 	}
 

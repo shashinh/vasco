@@ -9,6 +9,7 @@ class LinkedList{
 			Class clLL = Class.forName("LL");
 			Class clEl = Class.forName("Element");
 			Class clList = Class.forName("List");
+			Class clSoot = Class.forName("soot.rtlib.tamiflex.ReflectiveCallsWrapper");
 		} catch (Exception ex) { }
 	}
 
