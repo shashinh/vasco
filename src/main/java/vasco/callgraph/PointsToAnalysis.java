@@ -18,6 +18,7 @@
 package vasco.callgraph;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -607,6 +608,33 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			}
 			if (targets.isEmpty()) {
 				// System.err.println("Warning! Null call at: " + callStmt+ " in " + callerMethod);
+			}
+			
+			if(!invokedMethod.isJavaLibraryMethod()) {
+				BytecodeOffsetTag bT = (BytecodeOffsetTag) ((Unit) callStmt).getTag("BytecodeOffsetTag");
+				assert(bT != null && bT.getBytecodeOffset() >= 0);
+				//1. check if the caller method already has an index
+				String sig = getTrimmedByteCodeSignature(callerMethod);
+				//the caller method HAS to have a method index already
+				assert(this.methodIndices.containsKey(sig));
+				Set<SootClass> receiversForCall = new HashSet<SootClass>();
+				Map <Integer, Set <SootClass>> receiverInfo = this.callsiteReceiverReference.getOrDefault(callerMethod, new HashMap<Integer, Set<SootClass>>());
+				for(SootMethod target : targets) {
+					SootClass receiverClass = target.getDeclaringClass();
+					int classIndex;
+					if(!this.sootClassIndices.containsKey(receiverClass)) {
+						classIndex = this.sootClassIndices.size() + 1;
+						this.sootClassIndices.put(receiverClass, classIndex);
+					} else {
+						//we don't really need the classIndex right now
+						classIndex = this.sootClassIndices.get(receiverClass);
+					}
+					
+					receiversForCall.add(receiverClass);
+				}
+				
+				receiverInfo.put(bT.getBytecodeOffset(), receiversForCall);
+				this.callsiteReceiverReference.put(callerMethod, receiverInfo);
 			}
 			return targets;
 		}

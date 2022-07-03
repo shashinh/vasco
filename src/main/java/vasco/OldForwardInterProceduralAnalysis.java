@@ -96,7 +96,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		//loopInvariants = new HashMap<String, Map<Integer, A>>();
 		loopInvariants = new HashMap<SootMethod, Map<Unit,PointsToGraph>>();
 		callSiteInvariants = new HashMap<String, Map<Integer, Set<String>>>();
-		calleeIndex = 1;
+//		calleeIndex = 1;
 		methodIndex = 1;
 		calleeIndexMap = new HashMap<String, Integer>();
 		previousInMap = new HashMap<Integer, A>();
@@ -118,6 +118,10 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	    this.sootMethodIndices = new HashMap<SootMethod, Integer>();
 	    this.sootMethodArgs = new HashMap<SootMethod, List<Local>>();
 	    this.callsiteInvariantsMap = new HashMap<SootMethod, CallsiteInvariantContainer>();
+	    this.callsiteOuts = new HashMap<SootMethod, PointsToGraph>();
+	    
+	    this.callsiteReceiverReference = new HashMap<SootMethod, Map<Integer,Set<SootClass>>>();
+	    this.sootClassIndices = new HashMap<SootClass, Integer>();
 	    
 	    //this.loadReflectionTrace();
 	}
@@ -134,7 +138,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 
 	// consider this a unique identifier for each callee method. needed when
 	// building the callsite invariants
-	public Integer calleeIndex;
+//	public Integer calleeIndex;
 	public Integer methodIndex;
 	// map of method name to its calleeIndex
 	public Map<String, Integer> calleeIndexMap;
@@ -155,9 +159,13 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	protected final Map<SootMethod, Set<String>> fieldGetReceivers;
 	
 	public Map<String, Integer> methodIndices;
+	
 	public Map<SootMethod, Integer> sootMethodIndices;
 	public Map<SootMethod, List<Local>> sootMethodArgs;
 	public Map<SootMethod, CallsiteInvariantContainer> callsiteInvariantsMap;
+	public Map<SootMethod, PointsToGraph> callsiteOuts;
+	public Map<SootMethod, Map <Integer, Set<SootClass>>> callsiteReceiverReference;
+	public Map<SootClass, Integer> sootClassIndices;
 
 	/**
 	 * {@inheritDoc}
@@ -442,7 +450,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		}
 		
 		//TODO: Shashin - insert callsite invariant logic right here
-		processCallsiteInvariants();
+		processCallsiteIns();
+		processCallsiteOuts();
 		
 	}
 	private void processLoopInvariants(Context <M, N, A> context) {
@@ -489,7 +498,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	}
 	
 	
-	private void processCallsiteInvariants() {
+	private void processCallsiteIns() {
 		PointsToAnalysis pta = (PointsToAnalysis) this;
 		for(SootMethod m : this.sootMethodIndices.keySet()) {
 			List<Context <SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(m);
@@ -519,33 +528,33 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			CallsiteInvariantContainer ciContainer = new CallsiteInvariantContainer(paramLocalsForMethod, aggregate);
 			
 			this.callsiteInvariantsMap.put(m, ciContainer);
-			
-//					for(Local paramLocal : paramLocalsForMethod) {
-//						
-//						Set<AnyNewExpr> targets = aggregate.getTargets(paramLocal);
-//						for(AnyNewExpr target : targets) {
-//							if(target == PointsToGraph.STRING_SITE) {
-//								
-//							} else if (target instanceof NewArrayExpr) {
-//								
-//							} else if (target instanceof AbstractNullObj) {
-//								
-//							} else if (target == PointsToGraph.SUMMARY_NODE) {
-//								
-//							} else if (target == PointsToGraph.CLASS_SITE) {
-//								
-//							}
-//							else {
-//								assert(pta.bciMap2.containsKey(target));
-//								System.out.println(pta.bciMap2.get(target));
-//							}
-//							
-//						}
-//					}
-//			}
-			
 		}
 	}
+	
+	private void processCallsiteOuts() {
+		PointsToAnalysis pta = (PointsToAnalysis) this;
+		for(SootMethod m : this.sootMethodIndices.keySet()) {
+			List<Context <SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(m);
+			PointsToGraph aggregate = pta.topValue();
+			
+			for(Context <SootMethod, Unit, PointsToGraph> context : contextsForMethod) {
+				//obviously, exit values are set only for analysed contexts
+				//TODO: if a given context is not analyzed at static compile time, but is analyzed at runtime - our out-summary's subsumes will not work.
+				if(context.isAnalysed()) {
+					aggregate = pta.meet(aggregate, context.getExitValue());
+				}
+			}
+			//kill off all the returns except the return local
+			for(Local l : m.getActiveBody().getLocals()) {
+				if(l != PointsToGraph.RETURN_LOCAL) {
+					aggregate.killWithoutGC(l);
+				}
+			}
+			
+			this.callsiteOuts.put(m, aggregate);
+		}
+	}
+
 	public String getTrimmedByteCodeSignature(SootMethod m) {
 		String methodSig = m.getBytecodeSignature();
 		String sig = methodSig.replace(".", "/").replace(": ", ".").substring(1, methodSig.length() - 2);
