@@ -159,6 +159,7 @@ public class CallGraphTest {
 				
 				"-p", "bb.lp", "enabled:false",
 				"-p", "jop", "enabled:false",
+				"-p", "bop", "enabled:false",
 				"-java-version", "1.8",
 				
 				//"-p", "cg", "safe-forname",
@@ -283,6 +284,7 @@ public class CallGraphTest {
 			printLoopInvariantPTGS(pointsToAnalysis);
 //			printCallsiteInvariants(pointsToAnalysis);
 			dumpCallSiteInvariants(pointsToAnalysis);
+			dumpCallSiteReceiverInfo(pointsToAnalysis);
 		} catch (FileNotFoundException e1) {
 			System.err.println("Oops! Could not create log file: " + e1.getMessage());
 			System.exit(1);
@@ -382,7 +384,7 @@ public class CallGraphTest {
 					int loopHeaderBCI = bT.getBytecodeOffset();
 					StringBuilder sb = new StringBuilder();
 					sb.append(loopHeaderBCI + ":");
-					sb.append(loopInvariantsForMethod.get(loopHeader).prettyPrintInvariant4(pta, false, null));
+					sb.append(loopInvariantsForMethod.get(loopHeader).prettyPrintInvariant4(pta, false, null, false));
 					
 					sList.add(sb.toString());
 				}
@@ -418,10 +420,60 @@ public class CallGraphTest {
 			assert(pta.methodIndices.containsKey(methodSig));
 			Integer methodIndex = pta.methodIndices.get(methodSig);
 			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/ci" + methodIndex + ".txt");
-			String callsiteInvariantString = summary.prettyPrintInvariant4(pta, true, paramLocals);
+			String callsiteInvariantString = summary.prettyPrintInvariant4(pta, true, paramLocals, false);
 			pw.print("0:" + callsiteInvariantString);
 			pw.close();
 			System.out.println("callsite inv for :" + m.getBytecodeSignature() + " " + callsiteInvariantString);
+			
+			PrintWriter pwO = new PrintWriter(outputDirectory + "/invariants/co" + methodIndex + ".txt");
+			assert(pta.callsiteOuts.containsKey(m));
+			PointsToGraph exit = pta.callsiteOuts.get(m);
+			String callsiteOutString = exit.prettyPrintInvariant4(pta, false, null, true);
+			pwO.print("0:" + callsiteOutString);
+			pwO.close();
+			System.out.println("callsite out for :" + m.getBytecodeSignature() + " " + callsiteOutString);
+		}
+		
+	}
+	
+	private static void dumpCallSiteReceiverInfo(PointsToAnalysis pta) throws FileNotFoundException {
+//		Integer methodIndex = 
+//		PrintWriter pRecInfo = new PrintWriter(outputDirectory + "/invariants/cr" + methodIndex" + ".txt");
+
+		PrintWriter pClassIndices = new PrintWriter(outputDirectory + "/invariants/ci" + ".txt");
+		Map<SootClass, Integer> classIndices = pta.sootClassIndices;
+		Map<Integer, SootClass> classIndicesSorted = new HashMap<Integer, SootClass>();
+		for(SootClass key : classIndices.keySet()) {
+			classIndicesSorted.put(classIndices.get(key), key);
+		}
+		for(Integer key : classIndicesSorted.keySet()) {
+			pClassIndices.println(classIndicesSorted.get(key));
+		}
+
+		pClassIndices.close();
+
+		for(SootMethod m : pta.callsiteReceiverReference.keySet()) {
+			StringBuilder res = new StringBuilder();
+			String methodSig = pta.getTrimmedByteCodeSignature(m);
+			Integer methodIndex = pta.methodIndices.get(methodSig);
+			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/cr" + methodIndex + ".txt");
+			Map <Integer, Set <SootClass>> receiverInfo = pta.callsiteReceiverReference.get(m);
+			List <String> s = new ArrayList<String>();
+			for(Integer bci : receiverInfo.keySet()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append(bci + " ");
+				Set <SootClass> receivers = receiverInfo.get(bci);
+				for(SootClass receiver : receivers) {
+					int classIndex = pta.sootClassIndices.get(receiver);
+					sb.append(classIndex);
+					sb.append(" ");
+				}
+				s.add(sb.toString().trim());
+			}
+			
+			res.append(String.join("\n", s));
+			pw.print(res.toString());
+			pw.close();
 		}
 	}
 	

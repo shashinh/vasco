@@ -922,7 +922,7 @@ public class PointsToGraph {
 		return sbInvariant.toString();
 		
 	}
-	public String prettyPrintInvariant4(PointsToAnalysis pta, boolean mapArgsOnly, Map<Integer, Local> argsToLocals) {
+	public String prettyPrintInvariant4(PointsToAnalysis pta, boolean mapArgsOnly, Map<Integer, Local> argsToLocals, boolean mapReturnOnly) {
 		StringBuilder sbInvariant = new StringBuilder();
 
 		// first handle the roots
@@ -940,7 +940,15 @@ public class PointsToGraph {
 				assert(!str.isEmpty());
 				varStringMap.put(argIndex.toString(), String.join(" ", str));
 			}
-		} else {
+		} else if (mapReturnOnly) {
+			if(this.roots.containsKey(PointsToGraph.RETURN_LOCAL)) {
+				String varName = "99";
+				String str = flattenCiToBci(this.roots.get(PointsToGraph.RETURN_LOCAL), pta);
+				assert(!str.isEmpty());
+				varStringMap.put(varName, String.join(" ", str));
+			}
+		}
+			else {
 			for (Local var : this.roots.keySet()) {
 	
 				// we only care about the local variables (in this version of soot, those are
