@@ -6,7 +6,7 @@ class Main {
 }
 
 class A extends Thread {
-	public void start2() {
+	public void xstart() {
 		System.out.println("haha this is broken");
 	}
 	public void run() {
