@@ -17,12 +17,13 @@ class Main {
 			a = new C();
 		}
 
-//		a = new B();
+		//runtime analyser should peek into B.foo only
+		//a = new B();
 
 		a.foo();
 
-		A x = new C ();
-		x.foo();
+//		A x = new C ();
+//		x.foo();
 	}
 
 	static boolean getBool() { return false; }

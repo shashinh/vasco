@@ -447,7 +447,7 @@ public class CallGraphTest {
 			classIndicesSorted.put(classIndices.get(key), key);
 		}
 		for(Integer key : classIndicesSorted.keySet()) {
-			pClassIndices.println(classIndicesSorted.get(key));
+			pClassIndices.println(classIndicesSorted.get(key).getName().replace('.', '/'));
 		}
 
 		pClassIndices.close();
@@ -468,10 +468,10 @@ public class CallGraphTest {
 					sb.append(classIndex);
 					sb.append(" ");
 				}
-				s.add(sb.toString().trim());
+				s.add(sb.toString().trim() + ";");
 			}
 			
-			res.append(String.join("\n", s));
+			res.append(String.join("", s));
 			pw.print(res.toString());
 			pw.close();
 		}
