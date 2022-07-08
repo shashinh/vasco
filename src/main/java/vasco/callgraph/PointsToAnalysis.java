@@ -367,6 +367,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					// Handle method invocation!
 					out = handleInvoke(context, stmt, expr, in);
 				} else if (lhsOp instanceof StaticFieldRef) { 
+					//TODO: Static store
+					
 					// Get parameters
 					SootField staticField = ((StaticFieldRef) lhsOp).getField();
 					// Temporarily union locals and globals
@@ -375,7 +377,13 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					// Store RHS into static field
 					if (rhsOp instanceof Local) {
 						Local rhsLocal = (Local) rhsOp;
-						tmp.setField(PointsToGraph.GLOBAL_LOCAL, staticField, rhsLocal);
+						
+						//TODO: 1. summarise the heap reachable from rhsOp
+						//tmp.summarizeTargetFields(rhsLocal);
+						//TODO: 2. confirm that this summarising persists in the "out" as well. if not, uncomment below line
+						out.summarizeTargetFields(rhsLocal);
+					
+//						tmp.setField(PointsToGraph.GLOBAL_LOCAL, staticField, rhsLocal);
 					} else if (rhsOp instanceof Constant) {
 						Constant rhsConstant = (Constant) rhsOp;
 						tmp.setFieldConstant(PointsToGraph.GLOBAL_LOCAL, staticField, rhsConstant);
@@ -394,6 +402,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					staticHeap = tmp;
 					
 				} else if (rhsOp instanceof StaticFieldRef) {
+					//TODO: Static load
+					
 					// Get parameters
 					Local lhsLocal = (Local) lhsOp;
 					SootField staticField = ((StaticFieldRef) rhsOp).getField();
@@ -401,7 +411,9 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					PointsToGraph tmp = topValue();
 					tmp.union(out, staticHeap);
 					// Load static field into LHS local
-					tmp.getField(lhsLocal, PointsToGraph.GLOBAL_LOCAL, staticField);
+					//TODO: 1. assign summary to lhsLocal - static reads are all modeled as BOT
+					tmp.assignSummary(lhsLocal);
+//					tmp.getField(lhsLocal, PointsToGraph.GLOBAL_LOCAL, staticField);
 					// Now get rid of globals that we do not care about
 					tmp.kill(PointsToGraph.GLOBAL_LOCAL);
 					// Local information is updated!

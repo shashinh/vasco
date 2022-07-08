@@ -461,14 +461,16 @@ public class CallGraphTest {
 			List <String> s = new ArrayList<String>();
 			for(Integer bci : receiverInfo.keySet()) {
 				StringBuilder sb = new StringBuilder();
-				sb.append(bci + " ");
 				Set <SootClass> receivers = receiverInfo.get(bci);
-				for(SootClass receiver : receivers) {
-					int classIndex = pta.sootClassIndices.get(receiver);
-					sb.append(classIndex);
-					sb.append(" ");
+				if(!receivers.isEmpty()) {
+					sb.append(bci + " ");
+					for(SootClass receiver : receivers) {
+						int classIndex = pta.sootClassIndices.get(receiver);
+						sb.append(classIndex);
+						sb.append(" ");
+					}
+					s.add(sb.toString().trim() + ";");
 				}
-				s.add(sb.toString().trim() + ";");
 			}
 			
 			res.append(String.join("", s));
