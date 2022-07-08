@@ -558,16 +558,21 @@ public class PointsToGraph {
 		Map<SootField, Set<AnyNewExpr>> edges = new HashMap<SootField, Set<AnyNewExpr>>();
 		for (SootField field : fields) {
 			HashSet<AnyNewExpr> targets = new HashSet<AnyNewExpr>();
-			//TODO add nul
 			if (summarizeFields) {
 				targets.add(SUMMARY_NODE);
-			} else {
-				//add null objs for each field
 			}
+		
 			// Recursively summarize reachable heap.
 			if (summarizeFields) {
-				for (AnyNewExpr oldtarget: this.heap.get(allocSite).get(field)) {
-					newNode(oldtarget, true);
+				//begin hack to prevent getting into an infinite loop in case the field refs form a cycle
+				Set <AnyNewExpr> oldPointees = this.heap.get(allocSite).get(field);
+				Map <SootField, Set <AnyNewExpr> > m = new HashMap<SootField, Set <AnyNewExpr> >(this.heap.get(allocSite));
+				m.put(field, Collections.unmodifiableSet(targets));
+				this.heap.put(allocSite, Collections.unmodifiableMap(m));
+				//end hack to prevent getting into an infinite loop in case the field refs form a cycle
+				for (AnyNewExpr oldtarget: oldPointees) {
+					if(oldtarget != SUMMARY_NODE)
+						newNode(oldtarget, true);
 				}
 			}
 			edges.put(field, Collections.unmodifiableSet(targets));
