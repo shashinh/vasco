@@ -644,6 +644,7 @@ public class PointsToGraph {
 					// Otherwise not acceptable as we are doing type-checking
 					System.err.println(this);
 					throw new RuntimeException("Field not found: " + field + " in " + node);
+//					oldTargets = new HashSet<AnyNewExpr>();
 				}
 			}
 			Set<AnyNewExpr> newTargets = new HashSet<AnyNewExpr>(oldTargets);

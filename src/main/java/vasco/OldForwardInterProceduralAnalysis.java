@@ -166,6 +166,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	public Map<SootMethod, PointsToGraph> callsiteOuts;
 	public Map<SootMethod, Map <Integer, Set<SootClass>>> callsiteReceiverReference;
 	public Map<SootClass, Integer> sootClassIndices;
+	
+	protected static Stack <SootMethod> methStack = new Stack<SootMethod>();
 
 	/**
 	 * {@inheritDoc}
@@ -216,6 +218,12 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 						}
 						// Set the IN value at the context
 						context.setValueBefore(unit, in);
+					} else {
+						//now processing an entry unit
+						if (!context.getMethod().toString().contains("clinit")) {
+							methStack.push((SootMethod) context.getMethod());
+//							System.out.println("pushing " + ((SootMethod) context.getMethod()));
+						}
 					}
 
 					// Store the value of OUT before the flow function is processed.
@@ -233,16 +241,16 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					this.immediatePrevContextAnalysed = false;
 					this.isCurrentInvocationSummarized = false;
 					
+					System.out.println("context: " + context.toString() + " -- method: "  + ((SootMethod) context.getMethod()) + " -- unit: " + unit.toString());
 					A out = flowFunction(context, unit, in);
 
 					//System.out.println("\tout for unit <" + unit + "> is ");
 					//System.out.println(out);
 
-					// If the result is null, then no change
-					boolean isOutNull = out == null;
 
-					if (out == null)
+					if (out == null) {
 						out = prevOut;
+					}
 
 					// Set the OUT value
 					context.setValueAfter(unit, out);
@@ -365,6 +373,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				} else {
 					// NULL unit, which means the end of the method.
 					assert (context.getWorkList().isEmpty());
+					
+//					System.out.println("completed: " + getTrimmedByteCodeSignature((SootMethod) context.getMethod()));
 
 					// Exit flow value is the merge of the OUTs of the tail nodes.
 					A exitFlow = topValue();
@@ -373,11 +383,25 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 						exitFlow = meet(exitFlow, tailOut);
 					}
 					// Set the exit flow of the context.
-					//boolean shouldAnalyzeCallers = !exitFlow.equals(context.getExitValue);
+					boolean shouldAnalyzeCallers = !exitFlow.equals(context.getExitValue());
+					shouldAnalyzeCallers = true;
 					context.setExitValue(exitFlow);
 
 					// Mark this context as analysed at least once.
 					context.markAnalysed();
+					
+//					if (methStack.peek().equals((SootMethod)context.getMethod())) {
+//					//if (methStack.contains((SootMethod)context.getMethod()))
+////						System.out.println("popping " + ((SootMethod) context.getMethod()));
+//						methStack.pop();
+//					} else {
+//						if (!((SootMethod)context.getMethod()).toString().contains("clinit")) {
+//						System.out.println("stack top " + methStack.peek());
+//						System.out.println("current method " + (SootMethod) context.getMethod());
+//						System.out.println(methStack);
+//						System.exit(1);
+//						}
+//					}
 					
 					//before we cleanup the the context, lets save away the loop invariants
 					processLoopInvariants(context);
@@ -386,31 +410,77 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 //					Set<CallSite<M, N, A>> callersSet = contextTransitions.getCallers(context);
 					
 					//Add ALL callers of this method, irrespective of context
-					// if shouldAnalyzeCallers {
+//					 if (shouldAnalyzeCallers) {
+//						Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
+//						if (callersSet != null) {
+//							List<CallSite<M, N, A>> callers = new LinkedList<CallSite<M, N, A>>(callersSet);
+//							// Sort the callers in ascending order of their ID so that
+//							// the largest ID is on top of the stack
+//							Collections.sort(callers);
+//							for (CallSite<M, N, A> callSite : callers) {
+//								// Extract the calling context and unit from the caller site.
+//								Context<M, N, A> callingContext = callSite.getCallingContext();
+//								N callingNode = callSite.getCallNode();
+//								// Add the calling unit to the calling context's work-list.
+//								//System.out.println("ADDING TO WORKLIST FROM doAnalysis, line 314");
+//								callingContext.getWorkList().add(callingNode);
+//								// Ensure that the calling context is on the analysis stack,
+//								// and if not, push it on to the stack.
+//								if (!analysisStack.contains(callingContext)) {
+//									analysisStack.push(callingContext);
+//								}
+//								
+//	//							analysisStack.remove(callingContext);
+//	//							analysisStack.push(callingContext);
+//							}
+//						}
+//					 } //end if shouldAnalyzeCallers
+					 
+					 /**************************************************************************************/
+					 //add callers context-insensitive
+					 if(shouldAnalyzeCallers) {
+						//1. obtain the callers of this context
 						Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
-						if (callersSet != null) {
-							List<CallSite<M, N, A>> callers = new LinkedList<CallSite<M, N, A>>(callersSet);
-							// Sort the callers in ascending order of their ID so that
-							// the largest ID is on top of the stack
-							Collections.sort(callers);
-							for (CallSite<M, N, A> callSite : callers) {
-								// Extract the calling context and unit from the caller site.
-								Context<M, N, A> callingContext = callSite.getCallingContext();
-								N callingNode = callSite.getCallNode();
-								// Add the calling unit to the calling context's work-list.
-								//System.out.println("ADDING TO WORKLIST FROM doAnalysis, line 314");
-								callingContext.getWorkList().add(callingNode);
-								// Ensure that the calling context is on the analysis stack,
-								// and if not, push it on to the stack.
-								if (!analysisStack.contains(callingContext)) {
-									analysisStack.push(callingContext);
-								}
-								
-	//							analysisStack.remove(callingContext);
-	//							analysisStack.push(callingContext);
-							}
+						//2. obtain the unique set of caller methods from these contexts;
+						Set <SootMethod> callerMethods = new HashSet <SootMethod>();
+						for(CallSite <M, N, A> cs : callersSet) {
+							callerMethods.add((SootMethod) cs.getCallingContext().getMethod());
 						}
-					// } end if shouldAnalyzeCallers
+						
+						//3. now we have a list of unique caller methods for this callee context
+						//3a		fetch each of their contexts
+						for(SootMethod callerMethod : callerMethods) {
+							List<Context<M,N,A>> x = contexts.get(callerMethod);
+							assert(x.size() == 1) : "fond multiple contexts!";
+							Context<M, N, A> callingContext = x.get(0);
+							//3b. reset the worklist to the entry of the CFG (to ensure reanalysis of the method
+							callingContext.getWorkList().clear();
+							// First initialise all points to default flow value.
+							for (N n : callingContext.getControlFlowGraph()) {
+								callingContext.setValueBefore(n, topValue());
+								callingContext.setValueAfter(n, topValue());
+							}
+							for (N head : callingContext.getControlFlowGraph().getHeads()) {
+								callingContext.setValueBefore(head, copy(callingContext.getEntryValue()));
+								// Add entry points to work-list
+								//System.out.println("ADDING TO WORKLIST FROM initContext, line 392");
+								callingContext.getWorkList().add(head);
+							}
+							
+							//3c. clear the out values
+//							callingContext.clearOutValues();
+							//3d. leave the exit value alone!
+							
+							//3e. remove this context from the analysis stack, if it exists, and reinsert this new context
+							analysisStack.remove(callingContext);
+							analysisStack.add(callingContext);
+							
+							
+						}
+						
+					 } //end if shouldAnalyzeCallers
+					 /**************************************************************************************/
+					 
 
 					// Free memory on-the-fly if not needed
 					if (freeResultsOnTheFly) {
@@ -445,6 +515,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				if (context.isAnalysed() == false) {
 					System.err.println(
 							"*** ATTENTION ***: Only partial analysis of X" + context + " " + context.getMethod());
+					//TODO: save a list of these partially analysed classes to translate and dump later
 				}
 			}
 		}
@@ -612,6 +683,11 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		//maintain an index for each unique method signature
 		if(! this.methodIndices.containsKey(sig)) {
 			this.methodIndices.put(sig, ++index);
+			
+//			System.out.println("start: " + sig + " method indices count " + methodIndices.size()); 
+		} else {
+//			System.out.println(sig + " already exists in indices map"); 
+			
 		}
 
 		int index2 = this.sootMethodIndices.size();
@@ -796,6 +872,14 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	 * Context-Insensitive variant of processCall() above
 	 * 
 	 */
+	protected A processCallContextInsensitive2(Context<M, N, A> callerContext, N callNode, M method, A entryValue) {
+		
+		return null;
+	}
+	/*
+	 * Context-Insensitive variant of processCall() above
+	 * 
+	 */
 	protected A processCallContextInsensitive(Context<M, N, A> callerContext, N callNode, M method, A entryValue) {
 		
 //		System.out.println("processCallContextInsensitive : " + method.toString());
@@ -813,6 +897,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			
 			calleeContext = new Context <M, N, A> (method, programRepresentation().getControlFlowGraph(method), false);
 			initContext(calleeContext, entryValue);
+			System.out.println("new context : " + calleeContext + " " + method);
 			if(verbose) {
 				System.out.println("[NEW] X" + callerContext + " -> X" + calleeContext + " " + method + " ");
 			}
@@ -825,6 +910,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 
 			//this is safe, because we have asserted that callContexts is not null and has a single entry
 			calleeContext = calleeContexts.get(0);
+			System.out.println("existing context : " + calleeContext + " " + method);
 			
 			entryValue = meet(entryValue, calleeContext.getEntryValue());
 			
@@ -837,22 +923,42 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				 */
 				
 				// oldExitFlow = calleeContext.getExitValue();
-				calleeContext = new Context <M, N, A> (method, programRepresentation().getControlFlowGraph(method), false);
+				
+				
+				//don't create a new one, replace in-place
+//				calleeContext = new Context <M, N, A> (method, programRepresentation().getControlFlowGraph(method), false);
+				calleeContext.setEntryValue(entryValue);
+			//blach	
+				calleeContext.getWorkList().clear();
+				// First initialise all points to default flow value.
+				for (N n : calleeContext.getControlFlowGraph()) {
+					calleeContext.setValueBefore(n, topValue());
+					calleeContext.setValueAfter(n, topValue());
+				}
+				for (N head : calleeContext.getControlFlowGraph().getHeads()) {
+					calleeContext.setValueBefore(head, copy(calleeContext.getEntryValue()));
+					// Add entry points to work-list
+					//System.out.println("ADDING TO WORKLIST FROM initContext, line 392");
+					calleeContext.getWorkList().add(head);
+				}
+				
 				// calleeContext.setExitValue(oldExitFlow);
 				//clears all contexts associated with this method
-				this.contexts.remove(method);
+//				this.contexts.remove(method);
 				//also remove it from the worklist, if present; should not be. Commenting out.
 				//this.worklist.remove(calleeContext);
 				
 				//adds in the new context for analysis
-				initContext(calleeContext, entryValue);
+//				initContext(calleeContext, entryValue);
+//				System.out.println("replaced context with : " + calleeContext + " " + method);
+				
 			}
 			
 		}
 		
 		//TODO: make this context insensitive. instead of calleecontext, make the map the method name
 		// essentially, when we do get callers, we want ALL callsites later - not just the callsites that called with this specific context
-		//contextTransitions.addTransition(callSite, calleeContext);
+//		contextTransitions.addTransition(callSite, calleeContext);
 		contextTransitions.addContextInsensitiveCaller(callSite, method);
 		//simpler way - maintain a map of callsites, to the called methods
 		//then later, when a method is marked analyzed - simply fetch all its callers irrespective of context and add them to the worklist (BOOM !)
@@ -867,6 +973,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			return calleeContext.getExitValue();
 		} else {
 			// If not, then return 'null'.
+			System.out.println("context " + calleeContext + " not analysed, null out");
 			return null;
 		}
 		

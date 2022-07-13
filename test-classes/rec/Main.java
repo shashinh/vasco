@@ -11,31 +11,49 @@ class Main {
 	public static void main (String [] args) {
 
 		A a = new A();
-		A x = a.foo(5);
+		a.foo(5);
 	}
 
 }
 
+//class A {
+//	F f;
+//	A foo (int x) {
+//		while(x > 0) {
+//			System.out.println(x);
+//			x--;
+//			this.bar(x);
+//		}
+//		return new A();
+//	}
+//
+//	A bar (int x) {
+//		while(x > 0) {
+//			System.out.println(x);
+//			x--;
+//			this.foo(x);
+//		}
+//
+//		return new A();
+//	}
+//}
+//
 class A {
-	F f;
-	A foo (int x) {
+	void foo(int x) {
+		F f = new F();
 		while(x > 0) {
-			System.out.println(x);
 			x--;
-			this.bar(x);
+			f.bar();
+			A a = new A();
+			a.foo(x);
+//			this.foo(x);
+			f.fooBar();
 		}
-		return new A();
-	}
-
-	A bar (int x) {
-		while(x > 0) {
-			System.out.println(x);
-			x--;
-			this.foo(x);
-		}
-
-		return new A();
 	}
 }
 
-class F { }
+
+class F { 
+	void bar() { }
+	void fooBar() { }
+}

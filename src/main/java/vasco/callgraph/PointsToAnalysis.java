@@ -22,10 +22,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import soot.Hierarchy;
 import soot.Local;
 import soot.RefLikeType;
 import soot.RefType;
@@ -61,6 +63,9 @@ import soot.jimple.Stmt;
 import soot.jimple.StringConstant;
 import soot.jimple.VirtualInvokeExpr;
 import soot.jimple.internal.JNewArrayExpr;
+import soot.jimple.toolkits.callgraph.CallGraph;
+import soot.jimple.toolkits.callgraph.Edge;
+import soot.jimple.toolkits.typing.ClassHierarchy;
 import soot.tagkit.BytecodeOffsetTag;
 import soot.tagkit.Tag;
 import vasco.CallSite;
@@ -546,22 +551,6 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		SootMethod invokedMethod = ie.getMethod();
 		String subsignature = invokedMethod.getSubSignature();
 		
-		//perform the special casing right here - library methods have to be special-cased.
-		
-		//think about performing the special casing in terms of package name directly!
-		//1. lazy load the SootClass for java.lang.Object and reuse that for case 1 - pointer checks are faster than string checks
-//		boolean isLibrary;
-//		boolean notSpecialCase;
-//		
-//		isLibrary = invokedMethod.isJavaLibraryMethod() || invokedMethod.getDeclaringClass().getPackageName().startsWith("soot.") || invokedMethod.getName().contains("toughnut");
-//		notSpecialCase = invokedMethod.getDeclaringClass().equals(Scene.v().getSootClass("soot.rtlib.tamiflex.ReflectiveCallsWrapper"));
-//		
-//		if(isLibrary && !notSpecialCase) {
-//			//if not a java.lang.Object.* or soot.rtlib.tamiflex.ReflectiveCallsWrapper.* - we want to summarize. Returning NO targets accomplishes that.
-//			return null;
-//		}
-		
-		
 		// Static and special invocations refer to the target method directly
 		if (ie instanceof StaticInvokeExpr || ie instanceof SpecialInvokeExpr) {
 			targets.add(invokedMethod);
@@ -572,6 +561,58 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			Local receiver = (Local) ((InstanceInvokeExpr) ie).getBase();
 			// Get what objects the receiver points-to
 			Set<AnyNewExpr> heapNodes = ptg.getTargets(receiver);
+			
+			/*
+			 * TODO: if heapNodes contains a SUMMARY_NODE, then the callsite is summarised
+			 * 			this is unsound, since it leads to NO methods being analysed at the callsite
+			 * 			proposal : when a callsite is going to be summarised, fall back to CHA to resolve the targets
+			 */
+			
+			boolean containsSummary = heapNodes != null && heapNodes.contains(PointsToGraph.SUMMARY_NODE);
+			if(containsSummary && !invokedMethod.isJavaLibraryMethod()) {
+				if (receiver.getType() instanceof RefType) {
+					
+					
+//					Hierarchy cha = Scene.v().getActiveHierarchy();
+//					SootClass receiverStaticType = ((RefType) receiver.getType()).getSootClass();
+//					List<SootClass> subClasses;
+//					
+//					if(receiverStaticType.isInterface()) {
+//						subClasses = cha.getImplementersOf(receiverStaticType);
+//					} else {
+//						subClasses = cha.getSubclassesOfIncluding(receiverStaticType);
+//					}
+//
+//					for (SootClass sub : subClasses) {
+//						if (sub.declaresMethod(subsignature)) {
+//							SootMethod target = sub.getMethod(subsignature);
+//							targets.add(target);
+//						}
+//					}
+//					
+//					return targets;
+					
+					CallGraph cg = Scene.v().getCallGraph();
+					Iterator<Edge> targetEdges = cg.edgesOutOf((Unit) callStmt);
+					while(targetEdges.hasNext()) {
+						SootMethod t = targetEdges.next().tgt();
+//						if(methStack.contains(t)) { 
+//							System.out.println("Skipping method " + t);
+//						}
+//						else 
+							targets.add(t);
+					}
+//					System.out.println("cha targets count: " + targets.size() +  " callstmt: " + callStmt.toString());
+//					if(targets.size() == 0) {
+//						System.out.println("*******************************************************************");
+//						System.out.println(targets.toString());
+//						System.out.println("*******************************************************************");
+//					}
+			//		if(targets.size() <= 1)
+						return targets;
+				}
+			}
+			
 			if (heapNodes != null) {
 				// For each object, find the invoked method for the declared type
 				for (AnyNewExpr heapNode : heapNodes) {
@@ -640,6 +681,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 	 * callees. If the method returns a reference-like value, this is also taken
 	 * into account.
 	 */
+//	static HashSet<SootMethod> methStack = new HashSet();
 	protected PointsToGraph handleInvoke(Context<SootMethod,Unit,PointsToGraph> callerContext, Stmt callStmt,
 			InvokeExpr ie, PointsToGraph in) {
 		
@@ -659,9 +701,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				lhs = (Local) lhsOp;
 			}
 		}
-		
-		//getTargets will return null if library method and not special case
 		Set<SootMethod> targets = getTargets(callerMethod, callStmt, ie, in);
+
 			if(targets != null && !ie.getMethod().isJavaLibraryMethod()) {
 				BytecodeOffsetTag bT = (BytecodeOffsetTag) ((Unit) callStmt).getTag("BytecodeOffsetTag");
 				assert(bT != null && bT.getBytecodeOffset() >= 0);
@@ -714,7 +755,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			boolean treatAsOpaque = false;
 			if(!calledMethod.equals(DUMMY_METHOD)) {
 				//treat as opaque all library methods, and methods in the soot.* package
-				treatAsOpaque = calledMethod.isJavaLibraryMethod() || calledMethod.getDeclaringClass().getPackageName().startsWith("soot.");
+				treatAsOpaque = calledMethod.isJavaLibraryMethod() || calledMethod.getDeclaringClass().getPackageName().startsWith("soot.") || calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.");
+
 				//EXCEPT ReflectiveCallsWrapper
 				treatAsOpaque = treatAsOpaque && !calledMethod.getDeclaringClass().equals(Scene.v().getSootClass("soot.rtlib.tamiflex.ReflectiveCallsWrapper"));
 			}
