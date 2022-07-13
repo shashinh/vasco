@@ -73,6 +73,7 @@ import vasco.soot.AbstractNullObj;
 public class CallGraphTest {
 	
 	private static String outputDirectory;
+	private static String inDirectory;
 
 	public static void main(String args[]) {
 		outputDirectory = ".";
@@ -103,6 +104,9 @@ public class CallGraphTest {
 						throw new IOException("Could not make output directory for sootified classes");
 					}
 					i += 2;
+				} else if(args[i].equals("-in")) {
+					inDirectory = args[i+1];
+					i += 2;
 				} else if (args[i].equals("-k")) { 
 					callChainDepth = Integer.parseInt(args[i+1]);
 					i += 2;
@@ -124,10 +128,11 @@ public class CallGraphTest {
 
 		/* ------------------- SOOT OPTIONS ---------------------- */
 		String[] sootArgs = {
-				"-cp", classPath, "-pp", 
+				"-cp", classPath + ":" + inDirectory, "-pp", 
 				//"-src-prec", "J",
 				//disable -app here, this will cause all referred classes to be analyzed as library classes - i.e. they won't be transformed
 				"-w", "-app",
+//				"-process-dir", inDirectory,
 //				"-x", "soot.*",
 //				"-x", "java.*",
 //				"-x", "jdk.*",
@@ -137,6 +142,8 @@ public class CallGraphTest {
 				//"-p", "cg", "implicit-entry:false",
 				//"-p", "cg.spark", "enabled",
 				//"-p", "cg.spark", "simulate-natives",
+//				"-p", "cg.cha", "enabled",
+//				"-p", "cg.spark", "enabled",
 				
 
 //				"-jasmin-backend", 
