@@ -52,7 +52,8 @@ public abstract class InterProceduralAnalysis<M,N,A> {
 	protected final NavigableSet<Context<M,N,A>> worklist;
 
 	/** A mapping from methods to a list of contexts for quick lookups. */
-	protected final Map<M,List<Context<M,N,A>>> contexts;
+//	protected final Map<M,List<Context<M,N,A>>> contexts;
+	protected final Map<M,Context<M,N,A>> contexts;
 
 	/**
 	 * A record of transitions from calling context and call-site to 
@@ -109,7 +110,8 @@ public abstract class InterProceduralAnalysis<M,N,A> {
 		this.reverse = reverse;
 
 		// Initialise map of methods to contexts.
-		contexts = new HashMap<M,List<Context<M,N,A>>>();
+//		contexts = new HashMap<M,List<Context<M,N,A>>>();
+		contexts = new HashMap<M, Context<M,N,A>>();
 
 		// Initialise context transition table
 		contextTransitions = new ContextTransitionTable<M,N,A>();
@@ -190,24 +192,26 @@ public abstract class InterProceduralAnalysis<M,N,A> {
 			return null;
 		}
 		// Otherwise, look for a context in this method's list with the given value.
-		if (reverse) {
-			// Backward flow, so check for EXIT FLOWS
-			for (Context<M,N,A> context : contexts.get(method)) {
-				if (value.equals(context.getExitValue())) {
-					return context;
-				}
-			}
-		} else {
-			// Forward flow, so check for ENTRY FLOWS
-			//assert (contexts.get(method).size <= 1
-			for (Context<M,N,A> context : contexts.get(method)) {
-				if (value.equals(context.getEntryValue())) {
-					return context;
-				}
-			}
-		}
-		// If nothing found return null.
-		return null;
+//		if (reverse) {
+//			// Backward flow, so check for EXIT FLOWS
+//			for (Context<M,N,A> context : contexts.get(method)) {
+//				if (value.equals(context.getExitValue())) {
+//					return context;
+//				}
+//			}
+//		} else {
+//			// Forward flow, so check for ENTRY FLOWS
+//			//assert (contexts.get(method).size <= 1
+//			for (Context<M,N,A> context : contexts.get(method)) {
+//				if (value.equals(context.getEntryValue())) {
+//					return context;
+//				}
+//			}
+//		}
+//		// If nothing found return null.
+//		return null;
+		
+		return contexts.get(method);
 	}
 
 	/**
@@ -216,13 +220,13 @@ public abstract class InterProceduralAnalysis<M,N,A> {
 	 * @param method the method whose contexts to retrieve
 	 * @return an unmodifiable list of value contexts of the given method
 	 */
-	public List<Context<M,N,A>> getContexts(M method) {
-		if (contexts.containsKey(method)) {
-			return Collections.unmodifiableList(contexts.get(method));
-		} else {
-			return Collections.unmodifiableList(new LinkedList<Context<M,N,A>>());
-		}
-	}
+//	public List<Context<M,N,A>> getContexts(M method) {
+//		if (contexts.containsKey(method)) {
+//			return Collections.unmodifiableList(contexts.get(method));
+//		} else {
+//			return Collections.unmodifiableList(new LinkedList<Context<M,N,A>>());
+//		}
+//	}
 	
 	/**
 	 * Returns a reference to the context transition table used by this analysis.
@@ -242,25 +246,25 @@ public abstract class InterProceduralAnalysis<M,N,A> {
 	 * 
 	 * @return a meet-over-valid-paths data flow solution
 	 */
-	public DataFlowSolution<N,A> getMeetOverValidPathsSolution() {
-		Map<N,A> inValues = new HashMap<N,A>();
-		Map<N,A> outValues = new HashMap<N,A>();
-		// Merge over all contexts
-		for (M method : contexts.keySet()) {
-			for (N node : programRepresentation().getControlFlowGraph(method)) {
-				A in = topValue();
-				A out = topValue();
-				for (Context<M,N,A> context : contexts.get(method)) {
-					in = meet(in, context.getValueBefore(node));
-					out = meet(out, context.getValueAfter(node));
-				}
-				inValues.put(node, in);
-				outValues.put(node, out);
-			}
-		}
-		// Return data flow solution
-		return new DataFlowSolution<N,A>(inValues, outValues);
-	}
+//	public DataFlowSolution<N,A> getMeetOverValidPathsSolution() {
+//		Map<N,A> inValues = new HashMap<N,A>();
+//		Map<N,A> outValues = new HashMap<N,A>();
+//		// Merge over all contexts
+//		for (M method : contexts.keySet()) {
+//			for (N node : programRepresentation().getControlFlowGraph(method)) {
+//				A in = topValue();
+//				A out = topValue();
+//				for (Context<M,N,A> context : contexts.get(method)) {
+//					in = meet(in, context.getValueBefore(node));
+//					out = meet(out, context.getValueAfter(node));
+//				}
+//				inValues.put(node, in);
+//				outValues.put(node, out);
+//			}
+//		}
+//		// Return data flow solution
+//		return new DataFlowSolution<N,A>(inValues, outValues);
+//	}
 	
 	/**
 	 * Returns all methods for which at least one context was created.

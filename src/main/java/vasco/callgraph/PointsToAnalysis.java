@@ -849,6 +849,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				// Propagate stuff from called procedure's exit to the caller's return-site
 				PointsToGraph returnEdge = copy(exitFlow);
 				
+				if(!calledMethod.hasActiveBody() && calledMethod != DUMMY_METHOD)
+					System.err.println(calledMethod.getBytecodeSignature() + " has no active body");
 				// Two ways to handle this:
 				if (!treatAsOpaque && calledMethod.hasActiveBody()) {
 					// Kill all the called method's locals. That's right.

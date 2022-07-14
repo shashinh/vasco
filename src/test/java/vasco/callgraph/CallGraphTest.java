@@ -432,13 +432,15 @@ public class CallGraphTest {
 			pw.close();
 			System.out.println("callsite inv for :" + m.getBytecodeSignature() + " " + callsiteInvariantString);
 			
-			PrintWriter pwO = new PrintWriter(outputDirectory + "/invariants/co" + methodIndex + ".txt");
-			assert(pta.callsiteOuts.containsKey(m));
-			PointsToGraph exit = pta.callsiteOuts.get(m);
-			String callsiteOutString = exit.prettyPrintInvariant4(pta, false, null, true);
-			pwO.print("0:" + callsiteOutString);
-			pwO.close();
-			System.out.println("callsite out for :" + m.getBytecodeSignature() + " " + callsiteOutString);
+			if(pta.getContext(m, null).isAnalysed()) {
+				PrintWriter pwO = new PrintWriter(outputDirectory + "/invariants/co" + methodIndex + ".txt");
+				assert(pta.callsiteOuts.containsKey(m));
+				PointsToGraph exit = pta.callsiteOuts.get(m);
+				String callsiteOutString = exit.prettyPrintInvariant4(pta, false, null, true);
+				pwO.print("0:" + callsiteOutString);
+				pwO.close();
+				System.out.println("callsite out for :" + m.getBytecodeSignature() + " " + callsiteOutString);
+			}
 		}
 		
 	}
@@ -487,54 +489,6 @@ public class CallGraphTest {
 	}
 	
 	
-	private static void testCallsiteInvaraints(PointsToAnalysis pta) {
-		Map<SootMethod, Integer> methodIndices = pta.sootMethodIndices;
-
-		for (SootMethod m : methodIndices.keySet()) {
-			
-			List<Context<SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(m);
-
-			PointsToGraph aggregate = pta.topValue();
-			for (Context<SootMethod, Unit, PointsToGraph> context : contextsForMethod) {
-				aggregate = pta.meet(aggregate, context.getEntryValue());
-			}
-
-			// at this point, we have a context-insensitive summary for this method
-
-			if (m.getBytecodeSignature().equals("<B: foo()LD;>")) {
-				System.out.println(aggregate);
-				
-					//instance method, valid this-param exists!
-					
-					//this line will not work, since Soot has terminated - ActiveBody is flushed!
-//					Local thisLocal = m.getActiveBody().getsThisLocal();
-					
-					List<Local> paramLocalsForMethod = pta.sootMethodArgs.get(m);
-					for(Local paramLocal : paramLocalsForMethod) {
-						
-						Set<AnyNewExpr> targets = aggregate.getTargets(paramLocal);
-						for(AnyNewExpr target : targets) {
-							if(target == PointsToGraph.STRING_SITE) {
-								
-							} else if (target instanceof NewArrayExpr) {
-								
-							} else if (target instanceof AbstractNullObj) {
-								
-							} else if (target == PointsToGraph.SUMMARY_NODE) {
-								
-							} else if (target == PointsToGraph.CLASS_SITE) {
-								
-							}
-							else {
-								assert(pta.bciMap2.containsKey(target));
-								System.out.println(pta.bciMap2.get(target));
-							}
-							
-						}
-					}
-			}
-		}
-	}
 	
 	public static void printCallsiteInvariants(PointsToAnalysis pta) throws FileNotFoundException {
 		//TODO: assert that there are no empty/null bci's here
@@ -654,152 +608,5 @@ public class CallGraphTest {
 	}
 	
 	
-	public static void printCallSiteStats(PointsToAnalysis pta) throws FileNotFoundException {
-		// Get context-transition table
-		ContextTransitionTable<SootMethod,Unit,PointsToGraph> ctt = pta.getContextTransitionTable();
-		Map<Context<SootMethod,Unit,PointsToGraph>,Set<CallSite<SootMethod,Unit,PointsToGraph>>> callSitesWithinContexts = ctt.getCallSitesOfContexts();
-		Map<CallSite<SootMethod,Unit,PointsToGraph>,Map<SootMethod,Context<SootMethod,Unit,PointsToGraph>>> transitions = ctt.getTransitions();
-		Set<CallSite<SootMethod,Unit,PointsToGraph>> defaultCallSites = ctt.getDefaultCallSites();
-		
-		// Initialise output stream
-		PrintWriter csv = new PrintWriter(outputDirectory + "/sites.csv");
-		csv.println("FcpaEdges, SparkEdges, Context, CallSite");
-		
-		// The visited set
-		Set<Context<SootMethod,Unit,PointsToGraph>> visited = new HashSet<Context<SootMethod,Unit,PointsToGraph>>();
-		
-		// Maintain a stack of contexts to process
-		Stack<Context<SootMethod,Unit,PointsToGraph>> stack = new Stack<Context<SootMethod,Unit,PointsToGraph>>();
-		
-		// Initialise it with the main context
-		Context<SootMethod,Unit,PointsToGraph> source = pta.getContexts(Scene.v().getMainMethod()).get(0);
-		stack.push(source);
-
-		// Now recursively (using stacks) mark reachable contexts
-		while (stack.isEmpty() == false) {
-			// Get the next item to process
-			source = stack.pop();
-			// Add successors
-			if (callSitesWithinContexts.containsKey(source)) {
-				// The above check is there because methods with no calls have no entry
-				for (CallSite<SootMethod,Unit,PointsToGraph> callSite : callSitesWithinContexts.get(source)) {
-					// My edges are -1 for "default" sites, and whatever the CTT has otherwise
-					int myEdges = defaultCallSites.contains(callSite) ? -1 : transitions.get(callSite).size();
-					// Get SPARK's edges from the Soot call graph
-					int sparkEdges = getSparkExplicitEdges(callSite.getCallNode()).size();
-					
-					// Log this
-					csv.println(myEdges + ", " + sparkEdges + ", " + source + ", " +
-							"\"" + callSite.getCallNode() + "\"");
-
-					if (myEdges > 0) {
-						for (SootMethod method : transitions.get(callSite).keySet()) {
-							Context<SootMethod,Unit,PointsToGraph> target = transitions.get(callSite).get(method);
-							// Don't process the same element twice
-							if (visited.contains(target) == false) {
-								// Mark reachable
-								visited.add(target);
-								// Add it's successors also later
-								stack.push(target);
-							}
-						}
-					} else if (myEdges == -1) {
-						// Default call-site, so mark reachable closure as "dirty"
-						markDirty(callSite.getCallNode());
-					}
-				}
-			}
-			
-		}
-		// Close the CSV file
-		csv.close();		
-	}
-	
-	public static void printMethodStats(PointsToAnalysis pta) throws FileNotFoundException {
-		// Initialise output stream
-		PrintWriter csv = new PrintWriter(outputDirectory + "/methods.csv");
-		csv.println("Method, Contexts, Application?, Dirty?");
-		for (SootMethod method : pta.getMethods()) {
-			csv.println("\"" + method + "\"" + ", " + pta.getContexts(method).size() +
-					", " + (method.getDeclaringClass().isApplicationClass() ? 1 : 0) +
-					", " + (dirtyMethods.contains(method) ? 1 : 0));
-		}
-		
-		// Close the CSV file
-		csv.close();
-	}
-	
-	public static void dumpCallChainStats(PointsToAnalysis pta, int maxDepth) throws FileNotFoundException {		
-		// Initialise output stream
-		PrintWriter txt = new PrintWriter(new FileOutputStream(outputDirectory + "/chains.txt"), true);
-		Context<SootMethod,Unit,?> mainContext = pta.getContexts(Scene.v().getMainMethod()).get(0);
-		SootMethod mainMethod = Scene.v().getMainMethod();
-		
-		txt.println("FCPA Chains");
-		txt.println("------------");
-		for(int k=1; k<=maxDepth; k++) {
-			txt.println("k=" + k + ": " + countCallChains(pta, mainContext, k));
-		}
-		txt.println("Spark Chains");
-		txt.println("------------");
-		for(int k=1; k<=maxDepth; k++) {
-			txt.println("k=" + k + ": " + countCallChains(mainMethod, k));
-		}
-		
-		txt.close();	
-		
-	}
-	
-	private static long countCallChains(SootMethod method, int k) {
-		if (k == 0)
-			return 1;
-		
-		long count = 1;
-		Iterator<Edge> edges = Scene.v().getCallGraph().edgesOutOf(method);
-		while(edges.hasNext()) {
-			Edge edge = edges.next();
-			if (edge.isExplicit()) {
-				SootMethod target = edge.tgt();
-				count = count + countCallChains(target, k-1);
-			}
-		}
-		return count;
-	}
-	
-	private static long countCallChains(PointsToAnalysis pta, Context<SootMethod,Unit,?> context, int k) {		
-		if (k == 0)
-			return 1;
-		
-		long count = 1;
-		ContextTransitionTable<SootMethod,Unit,?> ctt = pta.getContextTransitionTable();
-		if (ctt.getCallSitesOfContexts().containsKey(context)) {
-			for (CallSite<SootMethod,Unit,?> callSite : ctt.getCallSitesOfContexts().get(context)) {
-				if (ctt.getDefaultCallSites().contains(callSite)) {
-					Iterator<Edge> edges = Scene.v().getCallGraph().edgesOutOf(callSite.getCallNode());
-					while(edges.hasNext()) {
-						SootMethod target = edges.next().tgt();
-						count = count + countCallChains(target, k-1);
-					}
-				} else if (ctt.getTransitions().containsKey(callSite) && ctt.getTransitions().get(callSite) instanceof Map) {
-					for (Context<SootMethod,Unit,?> target : ctt.getTransitions().get(callSite).values()) {
-						if (target.getMethod().getName().equals("<clinit>")) {
-							continue;
-						} else {
-							count = count + countCallChains(pta, target, k-1);
-						}
-					}
-				}
-			}
-		}
-		
-		return count;
-		
-	}
-
-	@Test
-	public void testCallGraphAnalaysis() {
-		// TODO: Compare output with an ideal (expected) output
-		CallGraphTest.main(new String[]{"-k", "-3", "-out", "target/test-results/CallGraphTestResults", "vasco.tests.CallGraphTestCase"});
-	}
 	
 }

@@ -210,7 +210,7 @@ public class PointsToGraph {
 		roots.put(lhs, Collections.unmodifiableSet(lhsTargets));
 
 		// Ensure reachability
-		gc();
+//		gc();
 	}
 
 	/**
