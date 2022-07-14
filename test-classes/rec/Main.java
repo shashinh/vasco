@@ -40,14 +40,12 @@ class Main {
 //
 class A {
 	void foo(int x) {
-		F f = new F();
 		while(x > 0) {
 			x--;
-			f.bar();
-			A a = new A();
-			a.foo(x);
-//			this.foo(x);
-			f.fooBar();
+//			A a = new A();
+//			a.foo(x);
+			this.foo(x);
+			//f.fooBar();
 		}
 	}
 }
