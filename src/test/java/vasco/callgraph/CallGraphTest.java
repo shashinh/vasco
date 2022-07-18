@@ -128,7 +128,7 @@ public class CallGraphTest {
 
 		/* ------------------- SOOT OPTIONS ---------------------- */
 		String[] sootArgs = {
-				"-cp", classPath + ":" + inDirectory, "-pp", 
+				"-cp", classPath, "-pp", 
 				//"-src-prec", "J",
 				//disable -app here, this will cause all referred classes to be analyzed as library classes - i.e. they won't be transformed
 				"-w", "-app",
@@ -186,58 +186,6 @@ public class CallGraphTest {
 				"-d", outputDirectory + "/sootified", 
 				mainClass
 		};
-		
-//		String[] sootArgs = {
-//				"-cp", classPath, "-pp",
-//				"-w", "-app", 
-//				"-src-prec", "J",
-//				"-keep-line-number",
-//				"-keep-bytecode-offset",
-//				"-p", "cg", "implicit-entry:false",
-//				"-p", "cg.spark", "enabled",
-//				"-p", "cg.spark", "simulate-natives",
-//				"-p", "cg", "safe-forname",
-//				"-p", "cg", "safe-newinstance",
-//				"-p", "cg", "reflection-log:" + reflectionLog,
-//				"-include", "org.apache.",
-//				"-include", "org.w3c.",
-//				"-main-class", mainClass,
-//				"-f", "c", 
-//				"-d", "sootOutput", mainClass
-//		};
-		
-//		-cp test-classes/test44/jimple -out test-classes/test44/results -reflog test-classes/test44/out/refl.log Main
-		//-cp .:test-classes/test44 -out test-classes/test44/results -reflog test-classes/test44/out/refl.log Main
-		//-cp test-classes/test45/slf4j.jar:test-classes/test45/logback.jar:test-classes/test45 -out test-classes/test45/results -reflog test-classes/test45/refl.log Main
-		
-//		String[] sootArgs = {
-//				"-cp", classPath+":/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar:out", "-pp", 
-//				"-w", "-app",
-//				"-whole-program",
-//				"-keep-line-number", "-keep-offset",
-//				"-p", "cg", "implicit-entry:false",
-//				"-p", "cg.spark", "enabled"
-//				"-p", "cg.spark", "simulate-natives",
-//				"-p", "cg", "safe-forname",
-//				"-p", "cg", "safe-newinstance",
-//				"-p", "cg", "reflection-log:out/refl.log",
-//				"-d" , "sootified/all",
-//				"-main-class", mainClass,
-//				"-f", "none", mainClass 
-//		};
-		
-//		String[] sootArgs = {
-//				"-cp", classPath+":/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar:out", "-pp", 
-//				"-w", "-app",
-//				"-keep-line-number", "-keep-offset",
-//				"-p", "cg", "implicit-entry:false",
-//				"-p", "cg", "reflection-log:out/refl.log",
-//				"-p", "cg.spark", "enabled",
-//				"-include", "org.apache.",
-//				"-include", "org.w3c.",
-//				"-main-class", mainClass,
-//				"-f", "none", mainClass 
-//		};
 		
 		System.out.println("Soot args are: " + String.join(" ", sootArgs));
 
