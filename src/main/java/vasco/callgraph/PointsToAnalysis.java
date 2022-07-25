@@ -759,6 +759,11 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 
 				//EXCEPT ReflectiveCallsWrapper
 				treatAsOpaque = treatAsOpaque && !calledMethod.getDeclaringClass().equals(Scene.v().getSootClass("soot.rtlib.tamiflex.ReflectiveCallsWrapper"));
+				
+				//include all methods that will be partially analysed
+				treatAsOpaque = treatAsOpaque || this.partiallyAnalysedMethods.contains(calledMethod);
+				if(this.partiallyAnalysedMethods.contains(calledMethod))
+					System.err.println("summarising potential partially analysed method " + calledMethod);
 			}
 			
 			// The call-edge is obtained by assign para	meters and THIS, and killing caller's locals
