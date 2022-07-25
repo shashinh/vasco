@@ -112,149 +112,149 @@ public class CallGraphTransformer extends SceneTransformer {
 //		}
 		
 		
-		
-		
-		
-		final Map<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesIntoContext = new HashMap<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
-		final Map<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesOutOfContext = new HashMap<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
-		final Map<CallSite<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesOutOfCallSite = new HashMap<CallSite<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
-		final Collection<ContextSensitiveEdge> csEdges = new ArrayList<ContextSensitiveEdge>();
-		
-		// Initialize the context-insensitive call graph
-		CallGraph callGraph = new CallGraph();
-		
-		// Create soot-style edges for every context transition
-		for (Map.Entry<CallSite<SootMethod, Unit, PointsToGraph>, Map<SootMethod, Context<SootMethod, Unit, PointsToGraph>>> e : ctt.getTransitions().entrySet()) {
-			CallSite<SootMethod, Unit, PointsToGraph> cs = e.getKey();
-			final Context<SootMethod, Unit, PointsToGraph> sourceContext = cs.getCallingContext();
-			final SootMethod sourceMethod = sourceContext.getMethod();
-			final Stmt stmt = (Stmt) cs.getCallNode();
-			final Map<SootMethod, Context<SootMethod, Unit, PointsToGraph>> targets = e.getValue();
-			for (final SootMethod targetMethod : targets.keySet()) {
-				final Context<SootMethod, Unit, PointsToGraph> targetContext = targets.get(targetMethod);
-
-				Kind k;
-				if ("<clinit>".equals(targetMethod.getName())) {
-					k = Kind.CLINIT;
-				} else if (stmt.containsInvokeExpr()) {
-					k = Edge.ieToKind(stmt.getInvokeExpr());
-				} else {
-					k = Kind.INVALID;
-				}
-
-				// The context-insenst`itive edge
-				Edge cgEdge = new Edge(sourceMethod, stmt, targetMethod, k);
-				
-				// Add it to the context-insensitive call-graph
-				callGraph.addEdge(cgEdge);
-				
-				// The context-sensitive edge
-				ContextSensitiveEdge csEdge = new ContextSensitiveEdge() {
-
-					@Override
-					public Kind kind() {
-						if ("<clinit>".equals(targetMethod.getName())) {
-							return Kind.CLINIT;
-						} else if (stmt.containsInvokeExpr()) {
-							return Edge.ieToKind(stmt.getInvokeExpr());
-						} else {
-							return Kind.INVALID;
-						}
-					}
-
-					@Override
-					public SootMethod src() {
-						return sourceMethod;
-					}
- 
-					@Override
-					public soot.Context srcCtxt() {
-						return sourceContext;
-					}
-
-					@Override
-					public Stmt srcStmt() {
-						return (Stmt) stmt;
-					}
-
-					@Override
-					public Unit srcUnit() {
-						return stmt;
-					}
-
-					@Override
-					public SootMethod tgt() {
-						return targetMethod;
-					}
-
-					@Override
-					public soot.Context tgtCtxt() {
-						return targetContext;
-					}
-					
-				};
-				
-				// Add this in all the collections
-				csEdges.add(csEdge);
-				
-				if (!csEdgesOutOfContext.containsKey(sourceContext)) 
-					csEdgesOutOfContext.put(sourceContext, new ArrayList<ContextSensitiveEdge>());
-				csEdgesOutOfContext.get(sourceContext).add(csEdge);
-				
-				if (!csEdgesOutOfCallSite.containsKey(cs)) 
-					csEdgesOutOfCallSite.put(cs, new ArrayList<ContextSensitiveEdge>());
-				csEdgesOutOfCallSite.get(cs).add(csEdge);
-				
-				if (!csEdgesIntoContext.containsKey(targetContext)) 
-					csEdgesIntoContext.put(targetContext, new ArrayList<ContextSensitiveEdge>());
-				csEdgesIntoContext.get(targetContext).add(csEdge);
-				
-				
-				
-			}
-					
-		}
-		
-		// Set the scene's context-insensitive call-graph to what we just created
-		Scene.v().setCallGraph(callGraph);
-		
-		// Set the scene's context-sensitive call graph to one that we construct on-the-fly using the above collections
-		Scene.v().setContextSensitiveCallGraph(new ContextSensitiveCallGraph() {
-			
-			@SuppressWarnings("unchecked")
-			private Context<SootMethod, Unit, PointsToGraph> vContext(soot.Context sContext) {
-				return (Context<SootMethod, Unit, PointsToGraph>) sContext;
-			}
-			
-			private CallSite<SootMethod, Unit, PointsToGraph> vCallSite(soot.Context sContext, Unit unit) {
-				return new CallSite<SootMethod, Unit, PointsToGraph>(vContext(sContext), unit);
-			}
-			
-			@Override
-			public Iterator<ContextSensitiveEdge> edgesOutOf(soot.Context sContext, SootMethod m, Unit stmt) {
-				return csEdgesOutOfCallSite.get((vCallSite(sContext, stmt))).iterator();
-			}
-			
-			@Override
-			public Iterator<ContextSensitiveEdge> edgesOutOf(soot.Context sContext, SootMethod m) {
-				return csEdgesOutOfContext.get(vContext(sContext)).iterator();
-			}
-			
-			@Override
-			public Iterator<ContextSensitiveEdge> edgesInto(soot.Context sContext, SootMethod m) {
-				return csEdgesIntoContext.get(vContext(sContext)).iterator();
-			}
-			
-			@Override
-			public Iterator<SootMethod> edgeSources() {
-				return allMethods.iterator();
-			}
-			
-			@Override
-			public Iterator<ContextSensitiveEdge> allEdges() {
-				return csEdges.iterator();
-			}
-		});
+//		
+//		
+//		
+//		final Map<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesIntoContext = new HashMap<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
+//		final Map<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesOutOfContext = new HashMap<Context<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
+//		final Map<CallSite<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>> csEdgesOutOfCallSite = new HashMap<CallSite<SootMethod, Unit, PointsToGraph>, Collection<ContextSensitiveEdge>>();
+//		final Collection<ContextSensitiveEdge> csEdges = new ArrayList<ContextSensitiveEdge>();
+//		
+//		// Initialize the context-insensitive call graph
+//		CallGraph callGraph = new CallGraph();
+//		
+//		// Create soot-style edges for every context transition
+//		for (Map.Entry<CallSite<SootMethod, Unit, PointsToGraph>, Map<SootMethod, Context<SootMethod, Unit, PointsToGraph>>> e : ctt.getTransitions().entrySet()) {
+//			CallSite<SootMethod, Unit, PointsToGraph> cs = e.getKey();
+//			final Context<SootMethod, Unit, PointsToGraph> sourceContext = cs.getCallingContext();
+//			final SootMethod sourceMethod = sourceContext.getMethod();
+//			final Stmt stmt = (Stmt) cs.getCallNode();
+//			final Map<SootMethod, Context<SootMethod, Unit, PointsToGraph>> targets = e.getValue();
+//			for (final SootMethod targetMethod : targets.keySet()) {
+//				final Context<SootMethod, Unit, PointsToGraph> targetContext = targets.get(targetMethod);
+//
+//				Kind k;
+//				if ("<clinit>".equals(targetMethod.getName())) {
+//					k = Kind.CLINIT;
+//				} else if (stmt.containsInvokeExpr()) {
+//					k = Edge.ieToKind(stmt.getInvokeExpr());
+//				} else {
+//					k = Kind.INVALID;
+//				}
+//
+//				// The context-insenst`itive edge
+//				Edge cgEdge = new Edge(sourceMethod, stmt, targetMethod, k);
+//				
+//				// Add it to the context-insensitive call-graph
+//				callGraph.addEdge(cgEdge);
+//				
+//				// The context-sensitive edge
+//				ContextSensitiveEdge csEdge = new ContextSensitiveEdge() {
+//
+//					@Override
+//					public Kind kind() {
+//						if ("<clinit>".equals(targetMethod.getName())) {
+//							return Kind.CLINIT;
+//						} else if (stmt.containsInvokeExpr()) {
+//							return Edge.ieToKind(stmt.getInvokeExpr());
+//						} else {
+//							return Kind.INVALID;
+//						}
+//					}
+//
+//					@Override
+//					public SootMethod src() {
+//						return sourceMethod;
+//					}
+// 
+//					@Override
+//					public soot.Context srcCtxt() {
+//						return sourceContext;
+//					}
+//
+//					@Override
+//					public Stmt srcStmt() {
+//						return (Stmt) stmt;
+//					}
+//
+//					@Override
+//					public Unit srcUnit() {
+//						return stmt;
+//					}
+//
+//					@Override
+//					public SootMethod tgt() {
+//						return targetMethod;
+//					}
+//
+//					@Override
+//					public soot.Context tgtCtxt() {
+//						return targetContext;
+//					}
+//					
+//				};
+//				
+//				// Add this in all the collections
+//				csEdges.add(csEdge);
+//				
+//				if (!csEdgesOutOfContext.containsKey(sourceContext)) 
+//					csEdgesOutOfContext.put(sourceContext, new ArrayList<ContextSensitiveEdge>());
+//				csEdgesOutOfContext.get(sourceContext).add(csEdge);
+//				
+//				if (!csEdgesOutOfCallSite.containsKey(cs)) 
+//					csEdgesOutOfCallSite.put(cs, new ArrayList<ContextSensitiveEdge>());
+//				csEdgesOutOfCallSite.get(cs).add(csEdge);
+//				
+//				if (!csEdgesIntoContext.containsKey(targetContext)) 
+//					csEdgesIntoContext.put(targetContext, new ArrayList<ContextSensitiveEdge>());
+//				csEdgesIntoContext.get(targetContext).add(csEdge);
+//				
+//				
+//				
+//			}
+//					
+//		}
+//		
+//		// Set the scene's context-insensitive call-graph to what we just created
+//		Scene.v().setCallGraph(callGraph);
+//		
+//		// Set the scene's context-sensitive call graph to one that we construct on-the-fly using the above collections
+//		Scene.v().setContextSensitiveCallGraph(new ContextSensitiveCallGraph() {
+//			
+//			@SuppressWarnings("unchecked")
+//			private Context<SootMethod, Unit, PointsToGraph> vContext(soot.Context sContext) {
+//				return (Context<SootMethod, Unit, PointsToGraph>) sContext;
+//			}
+//			
+//			private CallSite<SootMethod, Unit, PointsToGraph> vCallSite(soot.Context sContext, Unit unit) {
+//				return new CallSite<SootMethod, Unit, PointsToGraph>(vContext(sContext), unit);
+//			}
+//			
+//			@Override
+//			public Iterator<ContextSensitiveEdge> edgesOutOf(soot.Context sContext, SootMethod m, Unit stmt) {
+//				return csEdgesOutOfCallSite.get((vCallSite(sContext, stmt))).iterator();
+//			}
+//			
+//			@Override
+//			public Iterator<ContextSensitiveEdge> edgesOutOf(soot.Context sContext, SootMethod m) {
+//				return csEdgesOutOfContext.get(vContext(sContext)).iterator();
+//			}
+//			
+//			@Override
+//			public Iterator<ContextSensitiveEdge> edgesInto(soot.Context sContext, SootMethod m) {
+//				return csEdgesIntoContext.get(vContext(sContext)).iterator();
+//			}
+//			
+//			@Override
+////			public Iterator<SootMethod> edgeSources() {
+////				return allMethods.iterator();
+////			}
+//			
+//			@Override
+//			public Iterator<ContextSensitiveEdge> allEdges() {
+//				return csEdges.iterator();
+//			}
+//		});
 		
 	}
 	

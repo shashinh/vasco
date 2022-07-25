@@ -124,6 +124,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	    this.sootClassIndices = new HashMap<SootClass, Integer>();
 	    
 	    //this.loadReflectionTrace();
+	    this.partiallyAnalysedMethods = new HashSet<SootMethod>();
 	}
 
 	protected Stack<Context<M, N, A>> analysisStack;
@@ -167,6 +168,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	public Map<SootMethod, Map <Integer, Set<SootClass>>> callsiteReceiverReference;
 	public Map<SootClass, Integer> sootClassIndices;
 	
+	public Set<SootMethod> partiallyAnalysedMethods;
+	
 	protected static Stack <SootMethod> methStack = new Stack<SootMethod>();
 
 	/**
@@ -176,6 +179,54 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	public void doAnalysis() {
 
 		// System.out.println(Scene.v().getCallGraph());
+		
+		
+		//TODO: shashin - here, fetch the list of partially analysed methods and mark them for summarising
+		//	this is obviously more efficient than string comparisons later on
+		try {
+			
+			/******* list of partially analysed methods after second pass (avrora) *************/
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPDReg$TransmitRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: byte read()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$PairedRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.types.SensorSimulation$SensorNode: void setNodePosition()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$BufferedRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void stopConversion()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPCRReg: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: byte read()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$UBRRnHReg: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.clock.DerivedClock: void removeEvent(avrora.sim.Simulator$Event)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void unpostADCInterrupt()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer8Bit$BufferedRegister: void write(byte)>"));
+			/******* list of partially analysed methods after second pass (avrora) *************/
+
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod(""));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: byte read()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer8Bit$BufferedRegister: void write(byte)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$UBRRnHReg: void write(byte)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: void clearSPIF()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI: void access$000(avrora.sim.mcu.SPI)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: void setSPIF()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.types.SensorSimulation$SensorNode: void setNodePosition()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.clock.DerivedClock: long getCount()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.state.RegisterUtil$PermutedView: void setValue(int)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.state.RegisterUtil$BitRangeView: int getValue()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.state.RegisterUtil$BitRangeView: void setValue(int)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.state.RegisterUtil$PermutedView: int getValue()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void stopConversion()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: byte read()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: void write(byte)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void unpostADCInterrupt()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: byte read()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI: void postSPIInterrupt()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$BufferedRegister: void write(byte)>"));
+			
+		} catch (RuntimeException rex) {
+			assert(false) : rex.toString();
+		}
 
 		// Initialise the MAIN context
 		for (M entryPoint : programRepresentation().getEntryPoints()) {
@@ -374,8 +425,16 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			if (context.isAnalysed() == false) {
 				System.err.println(
 						"*** ATTENTION ***: Only partial analysis of X" + context + " " + context.getMethod());
-//				this.partiallyAnalysedMethods.add(context.getMethod());
-				//TODO: save a list of these partially analysed classes to translate and dump later
+				
+				//save away a list of partially analysed methods to dump later
+//				this.partiallyAnalysedMethods.add((SootMethod) context.getMethod());
+				
+				//TODO: on subsequent pass of VASCO, read this dumped list and treat all the concerned methods as opaque.
+				//this way the behavior of these "partially analysed" methods is predictable and consistent - and can be replicated accurately in the JITC components
+				
+				//but, what if the summarization of these methods causes lesser number of methods to be analysed overall?
+				
+				//in order to confirm this, bring in the summarisation logic and check the number of methods being "discovered" overall.
 			}
 		}
 		
@@ -464,16 +523,21 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	
 	private void processCallsiteOuts() {
 		PointsToAnalysis pta = (PointsToAnalysis) this;
-		for(SootMethod m : this.sootMethodIndices.keySet()) {
-//			List<Context <SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(m);
-			Context <SootMethod, Unit, PointsToGraph> contextForMethod = pta.getContext(m, null);
-//			PointsToGraph aggregate = pta.topValue();
-			
-			if(contextForMethod.isAnalysed()) {
-				this.callsiteOuts.put(m, contextForMethod.getExitValue());
-			}
-			
+		for(Context <M, N, A> ctx : this.contexts.values()) {
+			if(ctx.isAnalysed())
+				this.callsiteOuts.put((SootMethod) ctx.getMethod(), (PointsToGraph) ctx.getExitValue());
+				
 		}
+//		for(SootMethod m : this.sootMethodIndices.keySet()) {
+////			List<Context <SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(m);
+//			Context <SootMethod, Unit, PointsToGraph> contextForMethod = pta.getContext(m, null);
+////			PointsToGraph aggregate = pta.topValue();
+//			
+//			if(contextForMethod.isAnalysed()) {
+//				this.callsiteOuts.put(m, contextForMethod.getExitValue());
+//			}
+//			
+//		}
 	}
 
 	public String getTrimmedByteCodeSignature(SootMethod m) {
