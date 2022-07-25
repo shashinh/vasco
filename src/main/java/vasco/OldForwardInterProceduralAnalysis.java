@@ -186,21 +186,20 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		try {
 			
 			/******* list of partially analysed methods after second pass (avrora) *************/
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPDReg$TransmitRegister: void write(byte)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ATMegaFamily$Timer0$ASSRRegister: void write(byte)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: byte read()>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$PairedRegister: void write(byte)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: void write(byte)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: void write(byte)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.types.SensorSimulation$SensorNode: void setNodePosition()>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$BufferedRegister: void write(byte)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void stopConversion()>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPCRReg: void write(byte)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: byte read()>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$UBRRnHReg: void write(byte)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.clock.DerivedClock: void removeEvent(avrora.sim.Simulator$Event)>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void unpostADCInterrupt()>"));
-			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer8Bit$BufferedRegister: void write(byte)>"));
+
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: void setSPIF()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI: void postSPIInterrupt()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: byte read()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.types.SensorSimulation$SensorNode: void createNode()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI: void access$000(avrora.sim.mcu.SPI)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: byte read()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void stopConversion()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: void write(byte)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.state.RegisterUtil$BitRangeView: void setValue(int)>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void unpostADCInterrupt()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: void clearSPIF()>"));
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.types.SensorSimulation$SensorNode: void instantiate()>"));
+
 			/******* list of partially analysed methods after second pass (avrora) *************/
 
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod(""));
