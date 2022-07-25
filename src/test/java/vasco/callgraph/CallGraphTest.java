@@ -128,7 +128,7 @@ public class CallGraphTest {
 
 		/* ------------------- SOOT OPTIONS ---------------------- */
 		String[] sootArgs = {
-				"-cp", classPath, "-pp", 
+				"-cp", classPath + ":" + inDirectory, "-pp", 
 				//"-src-prec", "J",
 				//disable -app here, this will cause all referred classes to be analyzed as library classes - i.e. they won't be transformed
 				"-w", "-app",
@@ -233,20 +233,14 @@ public class CallGraphTest {
 		
 		/* ------------------- LOGGING ---------------------- */
 		try {
-			//printCallSiteStats(pointsToAnalysis);
-			//printMethodStats(pointsToAnalysis);
-			//dumpCallChainStats(pointsToAnalysis, callChainDepth);
-			printLoopInvariantPTGS(pointsToAnalysis);
-//			printCallsiteInvariants(pointsToAnalysis);
+			dumpPartiallyAnalysedMethods(pointsToAnalysis);
+			dumpLoopInvariants(pointsToAnalysis);
 			dumpCallSiteInvariants(pointsToAnalysis);
 			dumpCallSiteReceiverInfo(pointsToAnalysis);
 		} catch (FileNotFoundException e1) {
 			System.err.println("Oops! Could not create log file: " + e1.getMessage());
 			System.exit(1);
 		}
-		
-//		testCallsiteInvaraints(pointsToAnalysis);
-//		dumpCallSiteInvariants(pointsToAnalysis);
 		
 	}
 	
@@ -319,7 +313,23 @@ public class CallGraphTest {
 //			pw.close();
 //		}
 //	}
-	public static void printLoopInvariantPTGS(PointsToAnalysis pta) throws FileNotFoundException {
+	public static void dumpPartiallyAnalysedMethods(PointsToAnalysis pta) throws FileNotFoundException {
+		Set<SootMethod> partiallyAnalysedMethods = pta.partiallyAnalysedMethods;
+		
+		PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/pa.txt");
+		for(SootMethod m : partiallyAnalysedMethods) {
+			//if these partially analysed methods were indeed summarised, they should not have a method index
+			assert(!pta.methodIndices.containsKey(m));
+			//insert this method in the map and get the index
+			int methodIndex = pta.methodIndices.size() + 1;
+			pta.methodIndices.put(pta.getTrimmedByteCodeSignature(m), methodIndex);
+			pw.println(methodIndex);
+		}
+		
+		pw.close();
+	}
+
+	public static void dumpLoopInvariants(PointsToAnalysis pta) throws FileNotFoundException {
 			
 		Map <SootMethod, Map <Unit, PointsToGraph>> loopInvariants = pta.loopInvariants;
 		
