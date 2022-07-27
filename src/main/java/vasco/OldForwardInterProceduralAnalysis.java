@@ -186,6 +186,27 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		try {
 			
 			/******* list of partially analysed methods after second pass (avrora) *************/
+			
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$OCRnxPairedRegister: byte read()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPCRReg: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: byte read()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer8Bit$BufferedRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.clock.DerivedClock: void removeEvent(avrora.sim.Simulator$Event)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.types.SensorSimulation$SensorNode: void setNodePosition()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPDReg$TransmitRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer8Bit$BufferedRegister: byte read()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$BufferedRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$PairedRegister: byte read()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer8Bit$ControlRegister: void forcedOutputCompare()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.state.RegisterUtil$BitRangeView: void setValue(int)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$DataRegister$TwoLevelFIFO: byte read()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void unpostADCInterrupt()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.state.RegisterUtil$PermutedView: int getValue()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.USART$UBRRnLReg: void write(byte)>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: byte read()>"));
+			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.ADC$ControlRegister: void stopConversion()>"));
 
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPSReg: void setSPIF()>"));
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI: void postSPIInterrupt()>"));
@@ -293,6 +314,15 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					
 //					System.out.println("context: " + context.toString() + " -- method: "  + ((SootMethod) context.getMethod()) + " -- unit: " + unit.toString());
 					A out = flowFunction(context, unit, in);
+					
+//					if(context.getMethod().toString().equals("<org.dacapo.harness.Benchmark: void initialize()>")) {
+//						System.out.println("DBG*********************************");
+//						System.out.println("DBG	UNIT: " + unit.toString());
+//						System.out.println("DBG		IN: " + in.toString());
+//						String outStr = out == null ? "NULL" : out.toString();
+//						System.out.println("DBG		OUT: " + outStr);
+//						System.out.println("DBG*********************************");
+//					}
 
 					//System.out.println("\tout for unit <" + unit + "> is ");
 					//System.out.println(out);
@@ -348,7 +378,9 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					 
 					 /**************************************************************************************/
 					 //add callers context-insensitive
+					boolean print = context.getMethod().toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>");
 					 if(shouldAnalyzeCallers) {
+						 if(print) System.out.println("shouldAnalyzeCallers = true");
 						//1. obtain the callers of this context
 						Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
 						//only proceed if we have callers!
@@ -362,6 +394,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 							//3. now we have a list of unique caller methods for this callee context
 							//3a		fetch each of their contexts
 							for(SootMethod callerMethod : callerMethods) {
+								if(print) 
+									System.out.println("added caller: " + callerMethod.toString());
 								Context<M,N,A> callingContext = contexts.get(callerMethod);
 								//3b. reset the worklist to the entry of the CFG (to ensure reanalysis of the method
 								callingContext.getWorkList().clear();
@@ -382,13 +416,16 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 								//3d. leave the exit value alone!
 								
 								//3e. remove this context from the analysis stack, if it exists, and reinsert this new context
-	//							analysisStack.remove(callingContext);
-	//							analysisStack.add(callingContext);
+//								analysisStack.remove(callingContext);
+								if(!analysisStack.contains(callingContext))
+									analysisStack.add(callingContext);
 								
 								
 							}
 						}	
 					 } //end if shouldAnalyzeCallers
+					 else
+						 if(print) System.out.println("shouldAnalyzeCallers = false");
 					 /**************************************************************************************/
 					 
 
@@ -795,8 +832,15 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	protected A processCallContextInsensitive(Context<M, N, A> callerContext, N callNode, M method, A entryValue) {
 		
 //		System.out.println("processCallContextInsensitive : " + method.toString());
+//		if(method.toString().equals("<org.dacapo.harness.Benchmark: void prepareJars()>")) {
+////					if(method.toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>")) {
+//						System.out.println("process call entry");
+//						System.out.println("caller: " + callerContext.getMethod());
+//						System.out.println(entryValue);
+//					}
 		
 		Context <M, N, A> calleeContext;
+		
 		
 		if(contexts.containsKey(method)) {
 			//a context exists for this method
@@ -856,10 +900,20 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				System.out.println("[HIT] X" + callerContext + " -> X" + calleeContext + " " + method + " ");
 			}
 			// If yes, then return the 'exitFlow' of the 'calleeContext'.
+//		if(method.toString().equals("<org.dacapo.harness.Benchmark: void prepareJars()>")) {
+////					if(method.toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>")) {
+//						System.out.println("process call exit");
+//						System.out.println(calleeContext.getExitValue());
+//					}
 			return calleeContext.getExitValue();
 		} else {
 			// If not, then return 'null'.
 //			System.out.println("context " + calleeContext + " not analysed, null out");
+//		if(method.toString().equals("<org.dacapo.harness.Benchmark: void prepareJars()>")) {
+////					if(method.toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>")) {
+//						System.out.println("process call exit");
+//						System.out.println("null");
+//					}
 			return null;
 		}
 		

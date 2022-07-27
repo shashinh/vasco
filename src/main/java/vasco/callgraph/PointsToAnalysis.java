@@ -846,6 +846,16 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			PointsToGraph exitFlow = (!treatAsOpaque && calledMethod.hasActiveBody()) ? 
 //					processCall(callerContext, callStmt, calledMethod, entryFlow) : entryFlow;
 					processCallContextInsensitive(callerContext, callStmt, calledMethod, entryFlow) : entryFlow;
+			
+			
+			
+					if(calledMethod != DUMMY_METHOD && calledMethod.toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>")) {
+						System.out.println("return from fileInScratch");
+						if(exitFlow != null) {
+							System.out.println(exitFlow);
+							} else 
+								System.out.println("exit flow null");
+						}
 
 			// If the called context was analysed, exitFlow will be set, else it
 			// will be null.
