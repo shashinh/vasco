@@ -1019,7 +1019,15 @@ public class PointsToGraph {
 						} else {
 							str = flattenCiToBci(pointees, pta);
 						}
-						fieldStringMap.put(fieldName, str);
+						//TODO: SootField's corresponding to this$0 are sometimes duplicated. Instead of a "put", perform "extend" on the existing element
+						if(fieldStringMap.containsKey(fieldName)) {
+							String temp;
+							temp = fieldStringMap.get(fieldName);
+							temp = temp + " " + str;
+							fieldStringMap.put(fieldName, temp);
+						} else {
+							fieldStringMap.put(fieldName, str);
+						}
 					}
 	
 					// now we have a map of each field's prettified string
