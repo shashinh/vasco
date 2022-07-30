@@ -190,6 +190,7 @@ public class PointsToGraph {
 						// If the type (or base type) is reftype, then type-check
 						if (rhsTargetType instanceof RefType) {
 							SootClass fromClass = ((RefType) rhsTargetType).getSootClass();
+							//shashin: removing this check for now, it causes issues when classes are missing on the classpath
 							if (PointsToGraph.canCast(fromClass, toClass)) {
 								// Yes, add this target
 								lhsTargets.add(rhsTarget);
