@@ -379,6 +379,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					 /**************************************************************************************/
 					 //add callers context-insensitive
 					boolean print = context.getMethod().toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>");
+					print = false;
 					 if(shouldAnalyzeCallers) {
 						 if(print) System.out.println("shouldAnalyzeCallers = true");
 						//1. obtain the callers of this context

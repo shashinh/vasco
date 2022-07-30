@@ -569,47 +569,18 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			 */
 			
 			boolean containsSummary = heapNodes != null && heapNodes.contains(PointsToGraph.SUMMARY_NODE);
+			//TODO: if a thread.start() invocation has a BOT receiver, then it will never get resolved thanks to this guard
 			if(containsSummary && !invokedMethod.isJavaLibraryMethod()) {
 				if (receiver.getType() instanceof RefType) {
-					
-					
-//					Hierarchy cha = Scene.v().getActiveHierarchy();
-//					SootClass receiverStaticType = ((RefType) receiver.getType()).getSootClass();
-//					List<SootClass> subClasses;
-//					
-//					if(receiverStaticType.isInterface()) {
-//						subClasses = cha.getImplementersOf(receiverStaticType);
-//					} else {
-//						subClasses = cha.getSubclassesOfIncluding(receiverStaticType);
-//					}
-//
-//					for (SootClass sub : subClasses) {
-//						if (sub.declaresMethod(subsignature)) {
-//							SootMethod target = sub.getMethod(subsignature);
-//							targets.add(target);
-//						}
-//					}
-//					
-//					return targets;
 					
 					CallGraph cg = Scene.v().getCallGraph();
 					Iterator<Edge> targetEdges = cg.edgesOutOf((Unit) callStmt);
 					while(targetEdges.hasNext()) {
 						SootMethod t = targetEdges.next().tgt();
-//						if(methStack.contains(t)) { 
-//							System.out.println("Skipping method " + t);
-//						}
-//						else 
 							targets.add(t);
 					}
-//					System.out.println("cha targets count: " + targets.size() +  " callstmt: " + callStmt.toString());
-//					if(targets.size() == 0) {
-//						System.out.println("*******************************************************************");
-//						System.out.println(targets.toString());
-//						System.out.println("*******************************************************************");
-//					}
-			//		if(targets.size() <= 1)
-						return targets;
+					
+					return targets;
 				}
 			}
 			
