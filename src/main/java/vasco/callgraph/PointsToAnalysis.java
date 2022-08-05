@@ -246,38 +246,40 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			} else if (rhsOp instanceof StaticFieldRef) {
 				staticReference = ((StaticFieldRef) rhsOp);
 			}
-			if (staticReference != null) {
-				SootClass declaringClass = staticReference.getField().getDeclaringClass();
-				if (clinitCalled.contains(declaringClass) == false) {
-					clinitCalled.add(declaringClass);
-					// Don't initialise library classes
-					if (declaringClass.isLibraryClass()) {
-						// Set all static fields to null
-						for (SootField field : declaringClass.getFields()) {
-							// Only for static reference fields
-							if (field.isStatic() && field.getType() instanceof RefLikeType) {
-								staticHeap.setFieldSummary(PointsToGraph.GLOBAL_LOCAL, field);
-							}
-						}
-					} else {
-						// We have to initialise this class...
-						if (declaringClass.declaresMethodByName("<clinit>")) {
-							// Get the static initialisation method
-							SootMethod clinit = declaringClass.getMethodByName("<clinit>");
-							// At its entry use a blank value (with STICKY to avoid TOP termination)
-							PointsToGraph clinitEntryValue =  topValue();
-							clinitEntryValue.assign(PointsToGraph.STICKY_LOCAL, null);
-							// Make the call!
-//							this.processCall(context, stmt, clinit,clinitEntryValue);
-							this.processCallContextInsensitive(context, stmt, clinit, clinitEntryValue);
-							// Do not process this statement now, wait for clinit to return
-							// and this statement as a "return site"
-							return null; 
-						}
-						// If no <clinit> defined for this class, then continue as normal :-)
-					}
-				}
-			}
+			
+			//TODO : test to observe the effects of not analyzing clinit's
+//			if (staticReference != null) {
+//				SootClass declaringClass = staticReference.getField().getDeclaringClass();
+//				if (clinitCalled.contains(declaringClass) == false) {
+//					clinitCalled.add(declaringClass);
+//					// Don't initialise library classes
+//					if (declaringClass.isLibraryClass()) {
+//						// Set all static fields to null
+//						for (SootField field : declaringClass.getFields()) {
+//							// Only for static reference fields
+//							if (field.isStatic() && field.getType() instanceof RefLikeType) {
+//								staticHeap.setFieldSummary(PointsToGraph.GLOBAL_LOCAL, field);
+//							}
+//						}
+//					} else {
+//						// We have to initialise this class...
+//						if (declaringClass.declaresMethodByName("<clinit>")) {
+//							// Get the static initialisation method
+//							SootMethod clinit = declaringClass.getMethodByName("<clinit>");
+//							// At its entry use a blank value (with STICKY to avoid TOP termination)
+//							PointsToGraph clinitEntryValue =  topValue();
+//							clinitEntryValue.assign(PointsToGraph.STICKY_LOCAL, null);
+//							// Make the call!
+////							this.processCall(context, stmt, clinit,clinitEntryValue);
+//							this.processCallContextInsensitive(context, stmt, clinit, clinitEntryValue);
+//							// Do not process this statement now, wait for clinit to return
+//							// and this statement as a "return site"
+//							return null; 
+//						}
+//						// If no <clinit> defined for this class, then continue as normal :-)
+//					}
+//				}
+//			}
 			
 
 			// Handle statement depending on type
@@ -579,8 +581,10 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 						SootMethod t = targetEdges.next().tgt();
 							targets.add(t);
 					}
-					
-					return targets;
+				
+					if(!targets.isEmpty())
+						return targets;
+					else return null;
 				}
 			}
 			

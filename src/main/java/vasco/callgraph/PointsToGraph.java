@@ -644,8 +644,11 @@ public class PointsToGraph {
 				} else {
 					// Otherwise not acceptable as we are doing type-checking
 					System.err.println(this);
-					throw new RuntimeException("Field not found: " + field + " in " + node);
+					//SHASHIN: simply report the error and ignore the RTE?
+					System.err.println("Field not found: " + field + " in " + node);
+//					throw new RuntimeException("Field not found: " + field + " in " + node);
 //					oldTargets = new HashSet<AnyNewExpr>();
+					return;
 				}
 			}
 			Set<AnyNewExpr> newTargets = new HashSet<AnyNewExpr>(oldTargets);
@@ -716,7 +719,10 @@ public class PointsToGraph {
 					oldTargets = new HashSet<AnyNewExpr>();
 				} else {
 					// Otherwise not acceptable as we are doing type-checking
-					throw new RuntimeException("Field not found: " + field + " in " + node);
+					//SHASHIN: simply report the error and ignore the RTE?
+					System.err.println("Field not found: " + field + " in " + node);
+//					throw new RuntimeException("Field not found: " + field + " in " + node);
+					return;
 				}
 			}
 			Set<AnyNewExpr> newTargets = new HashSet<AnyNewExpr>(oldTargets);

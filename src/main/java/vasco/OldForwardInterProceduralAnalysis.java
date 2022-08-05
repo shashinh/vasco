@@ -185,7 +185,14 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		//	this is obviously more efficient than string comparisons later on
 		try {
 			
+			/******* list of partially analysed methods after second pass (eclipse) *************/
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<org.eclipse.jdt.core.JavaCore: org.eclipse.jdt.core.IClasspathEntry newContainerEntry(org.eclipse.core.runtime.IPath,org.eclipse.jdt.core.IAccessRule[],org.eclipse.jdt.core.IClasspathAttribute[],boolean)>"));
+			/******* list of partially analysed methods after second pass (eclipse) *************/
+
 			/******* list of partially analysed methods after second pass (avrora) *************/
+//			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.types.SensorSimulation$SensorNode: void setNodePosition()>"));
+			/******* list of partially analysed methods after second pass (avrora) *************/
+			
 			
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$OCRnxPairedRegister: byte read()>"));
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI$SPCRReg: void write(byte)>"));
@@ -634,7 +641,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		if(! this.methodIndices.containsKey(sig)) {
 			this.methodIndices.put(sig, ++index);
 			
-			System.out.println("start: " + sig + " method indices count " + methodIndices.size()); 
+			System.out.println("start: " + sMethod.toString() + " method indices count " + methodIndices.size()); 
 		} else {
 //			System.out.println(sig + " already exists in indices map"); 
 			
