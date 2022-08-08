@@ -251,6 +251,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI: void postSPIInterrupt()>"));
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$BufferedRegister: void write(byte)>"));
 			
+			System.out.println(Scene.v().getSootClass("org.sunflow.core.Scene").getMethodByNameUnsafe("render").getActiveBody().toString());
+			
 		} catch (RuntimeException rex) {
 			assert(false) : rex.toString();
 		}
@@ -333,7 +335,15 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 
 					//System.out.println("\tout for unit <" + unit + "> is ");
 					//System.out.println(out);
-
+					
+//					if(context.getMethod().toString().equals("<org.sunflow.core.Scene: void render(org.sunflow.core.Options,org.sunflow.core.ImageSampler,org.sunflow.core.Display)>")) {
+//						System.out.println("out for unit " + unit.toString());
+//						if(out == null) {
+//							System.out.println("out is null");
+//						} else {
+//							System.out.println(out);
+//						}
+//					}
 
 					if (out == null) {
 //						out = topValue();
@@ -357,6 +367,10 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 							//System.out.println("ADDING null TO WORKLIST FROM doAnalysis, line 234");
 							context.getWorkList().add(null);
 						}
+					} else {
+//						if(context.getMethod().toString().equals("<org.sunflow.core.Scene: void render(org.sunflow.core.Options,org.sunflow.core.ImageSampler,org.sunflow.core.Display)>")) {
+//							System.out.println("******** out = prevout ***********");
+//						}
 					}
 
 				} else {
@@ -379,8 +393,6 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// Mark this context as analysed at least once.
 					context.markAnalysed();
 					
-					//before we cleanup the the context, lets save away the loop invariants
-					processLoopInvariants(context);
 
 					 
 					 /**************************************************************************************/
@@ -483,31 +495,58 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		}
 		
 		//TODO: Shashin - insert callsite invariant logic right here
+		processLoopInvariants();
 		processCallsiteIns();
 		processCallsiteOuts();
 		
 	}
-	private void processLoopInvariants(Context <M, N, A> context) {
+	private void processLoopInvariants() {
 		
 		PointsToAnalysis pta = (PointsToAnalysis) this;
-		SootMethod method = (SootMethod) context.getMethod();
-		Set<Unit> loopHeaders = this.loopHeaders.get(method);
-		Map<Unit, PointsToGraph> invariantsForMethod = this.loopInvariants.getOrDefault(method, new HashMap<Unit, PointsToGraph>());
-		for(Unit loopHeader : loopHeaders) {
-			
-			BytecodeOffsetTag bT = (BytecodeOffsetTag) loopHeader.getTag("BytecodeOffsetTag");
-			if(bT != null) {
-				PointsToGraph loopInvariantForHeader = invariantsForMethod.getOrDefault(loopHeader, pta.topValue());
-				if(context.isAnalysed()) {
-					PointsToGraph outForHeader = (PointsToGraph) context.getValueAfter((N) loopHeader);
-					loopInvariantForHeader = pta.meet(loopInvariantForHeader, outForHeader);
+//		SootMethod method = (SootMethod) context.getMethod();
+//		Set<Unit> loopHeaders = this.loopHeaders.get(method);
+//		Map<Unit, PointsToGraph> invariantsForMethod = this.loopInvariants.getOrDefault(method, new HashMap<Unit, PointsToGraph>());
+//		for(Unit loopHeader : loopHeaders) {
+//			
+//			BytecodeOffsetTag bT = (BytecodeOffsetTag) loopHeader.getTag("BytecodeOffsetTag");
+//			if(bT != null) {
+//				PointsToGraph loopInvariantForHeader = invariantsForMethod.getOrDefault(loopHeader, pta.topValue());
+//				if(context.isAnalysed()) {
+//					PointsToGraph outForHeader = (PointsToGraph) context.getValueAfter((N) loopHeader);
+//					loopInvariantForHeader = pta.meet(loopInvariantForHeader, outForHeader);
+//				}
+//				invariantsForMethod.put(loopHeader, loopInvariantForHeader);
+//			}
+//		}
+//		
+//		this.loopInvariants.put(method, invariantsForMethod);
+		
+		
+
+		for(Context <SootMethod, Unit, PointsToGraph> context : pta.contexts.values()) {
+			SootMethod method = (SootMethod) context.getMethod();
+			Set<Unit> loopHeaders = this.loopHeaders.get(method);
+			Map<Unit, PointsToGraph> invariantsForMethod = this.loopInvariants.getOrDefault(method, new HashMap<Unit, PointsToGraph>());
+			for(Unit loopHeader : loopHeaders) {
+				
+				BytecodeOffsetTag bT = (BytecodeOffsetTag) loopHeader.getTag("BytecodeOffsetTag");
+				if(bT != null) {
+					
+	//					if(context.getMethod().toString().equals("<org.sunflow.core.Scene: void render(org.sunflow.core.Options,org.sunflow.core.ImageSampler,org.sunflow.core.Display)>")) {
+					if(context.isAnalysed()) {
+						PointsToGraph loopInvariantForHeader = (PointsToGraph) context.getValueAfter(loopHeader);
+						invariantsForMethod.put(loopHeader, loopInvariantForHeader);
+						if(context.getMethod().toString().equals("<org.sunflow.core.Scene: void render(org.sunflow.core.Options,org.sunflow.core.ImageSampler,org.sunflow.core.Display)>")) {
+							System.out.println("loop invariant for " + bT.getBytecodeOffset() + ":");
+							System.out.println(loopInvariantForHeader);
+						}
+					}
 				}
-				invariantsForMethod.put(loopHeader, loopInvariantForHeader);
 			}
-		}
+			
+			this.loopInvariants.put(method, invariantsForMethod);
 		
-		this.loopInvariants.put(method, invariantsForMethod);
-		
+	}
 		
 //		for(SootMethod method : pta.contexts.keySet()) {
 //			List<Context<SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(method);

@@ -571,8 +571,9 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			 */
 			
 			boolean containsSummary = heapNodes != null && heapNodes.contains(PointsToGraph.SUMMARY_NODE);
+			boolean containsSingletonNull = heapNodes != null && heapNodes.size() == 1 && heapNodes.contains(PointsToGraph.nullObj);
 			//TODO: if a thread.start() invocation has a BOT receiver, then it will never get resolved thanks to this guard
-			if(containsSummary && !invokedMethod.isJavaLibraryMethod()) {
+			if((containsSingletonNull || containsSummary) && !invokedMethod.isJavaLibraryMethod()) {
 				if (receiver.getType() instanceof RefType) {
 					
 					CallGraph cg = Scene.v().getCallGraph();
@@ -614,17 +615,18 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							//	targets.add(receiverClass.getMethod("void run()")
 							//this will basically inline the start-run sequence
 							String className = sootClass.getName();
-							if(thread_start == null && className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
-								thread_start = invokedMethod;
-							}
-							if (thread_start == invokedMethod){
-								SootMethod threadRunMethod = receiverClass.getMethod("void run()");
-								//getMethod will throw a RuntimeException if method doesn't exist - but that is fine, the method is supposed to be defined
-								targets.add(threadRunMethod);
-							} else {
+//							if(thread_start == null && className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
+//								thread_start = invokedMethod;
+//							}
+//							if (thread_start == invokedMethod){
+//								SootMethod threadRunMethod = receiverClass.getMethod("void run()");
+//								//getMethod will throw a RuntimeException if method doesn't exist - but that is fine, the method is supposed to be defined
+//								System.out.println("short-circuited thread start with run for " + ie.toString() + " caller method " + callerMethod.toString());
+//								targets.add(threadRunMethod);
+//							} else {
 								//leave the original code alone
 								targets.add(sootClass.getMethod(subsignature));
-							}
+//							}
 							break;
 						} else if (sootClass.hasSuperclass()) {
 							sootClass = sootClass.getSuperclass();

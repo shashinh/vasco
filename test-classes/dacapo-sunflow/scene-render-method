@@ -1,0 +1,622 @@
+    public void render(org.sunflow.core.Options, org.sunflow.core.ImageSampler, org.sunflow.core.Display)
+    {
+        bottom_type l3, $stack18, l9, l11, $stack27, $stack28, $stack51, $stack52, $stack53, $stack54, l13, $stack87, $stack88, $stack89, $stack90, $stack91, $stack92, $stack93, l12, $stack111, $stack112, $stack113, $stack114, $stack115, $stack126, $stack127, $stack158;
+        org.sunflow.core.Scene l0, $stack101, $stack103, $stack105, $stack109, $stack119, $stack121, $stack132, $stack136, $stack140, $stack144, $stack145, $stack148, $stack149, $stack152, $stack175, $stack178, $stack179, $stack183, $stack158#2, $stack158#3, $stack126#10, $stack126#11, $stack112#28, $stack112#29, $stack115#32, $stack115#33;
+        org.sunflow.core.Instance $stack14, $stack17, $stack74, $stack164, $stack18#4, $stack18#5;
+        org.sunflow.core.Options l1, $stack131, $stack135, $stack139, $stack143, $stack177;
+        boolean $stack15, $stack16, $stack20, $stack76, $stack81, $stack86, $stack110, $stack117, $stack118, $stack122, $stack134, $stack157, l12#16, $stack54#34, $stack54#35;
+        int $stack19, $stack21, $stack22, $stack23, $stack24, $stack25, $stack26, $stack36, $stack43, $stack79, $stack80, $stack96, $stack124, $stack169, l11#7, $stack127#8, $stack127#9, $stack28#14, $stack28#15;
+        java.lang.Object[] $stack29, $stack31, $stack38, $stack45, $stack55, $stack60, $stack66, l6, $stack77, $stack84, $stack108, $stack155, $stack162, $stack171, $stack180, $stack51#23, $stack51#24, $stack51#25, $stack89#37, $stack89#38, $stack92#47, $stack92#48;
+        org.sunflow.system.UI$Module $stack30, $stack33, $stack40, $stack46, $stack56, $stack61, $stack67, l5, $stack78, $stack85, $stack106, $stack156, $stack163, l7, $stack181, $stack53#17, $stack53#18, $stack90#43, $stack90#44;
+        org.sunflow.core.InstanceList $stack32, $stack39, $stack94, $stack98, $stack123, $stack27#12, $stack27#13;
+        java.lang.String $stack34, $stack41, $stack47, $stack50, l4, $stack57, $stack62, $stack68, $stack95, $stack116, $stack120, $stack129, $stack133, $stack137, $stack141, $stack161, $stack168, $stack176, $stack114#19, $stack114#20, $stack52#30, $stack52#31, l13#36, $stack87#41, $stack87#42, $stack91#45, $stack91#46;
+        byte $stack35, $stack42, $stack48, $stack58, $stack63, $stack69, $stack100, $stack102, $stack104, $stack107, $stack130, $stack146, $stack150, $stack154, $stack160, $stack111#21, $stack111#22, $stack113#26, $stack113#27, $stack88#39, $stack88#40;
+        java.lang.Integer $stack37, $stack44, $stack170, l8;
+        java.lang.Long $stack49;
+        org.sunflow.math.BoundingBox $stack59, $stack64, $stack70;
+        org.sunflow.math.Point3 $stack65;
+        org.sunflow.math.Vector3 $stack71;
+        float $stack72;
+        java.lang.Float $stack73;
+        org.sunflow.core.ImageSampler l2, $stack93#49, $stack93#50;
+        org.sunflow.core.LightServer $stack75, $stack83;
+        org.sunflow.core.Display $stack82;
+        org.sunflow.core.AccelerationStructure $stack97, $stack99, $stack172, $stack174;
+        long $stack125, $stack153, l9#6;
+        org.sunflow.core.Camera $stack128, $stack159;
+        short $stack138, $stack142, $stack147, $stack151;
+        org.sunflow.core.PrimitiveList $stack165, $stack166, $stack167, $stack173;
+        org.sunflow.core.display.FrameDisplay $stack182;
+        java.lang.Object l3#1;
+
+        l0 := @this: org.sunflow.core.Scene;
+
+        l1 := @parameter0: org.sunflow.core.Options;
+
+        l2 := @parameter1: org.sunflow.core.ImageSampler;
+
+        l3#1 := @parameter2: org.sunflow.core.Display;
+
+        if l3#1 != null goto label01;
+
+        $stack182 = new org.sunflow.core.display.FrameDisplay;
+
+        specialinvoke $stack182.<org.sunflow.core.display.FrameDisplay: void <init>()>();
+
+        l3#1 = $stack182;
+
+     label01:
+        $stack183 = l0;
+
+        $stack14 = $stack183.<org.sunflow.core.Scene: org.sunflow.core.Instance bakingInstance>;
+
+        if $stack14 == null goto label03;
+
+        $stack163 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+       $stack162 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack163, "Creating primitives for lightmapping ...", $stack162);
+
+        $stack164 = l0.<org.sunflow.core.Scene: org.sunflow.core.Instance bakingInstance>;
+
+        $stack165 = virtualinvoke $stack164.<org.sunflow.core.Instance: org.sunflow.core.PrimitiveList getBakingPrimitives()>();
+
+        l0.<org.sunflow.core.Scene: org.sunflow.core.PrimitiveList bakingPrimitives> = $stack165;
+
+        $stack166 = l0.<org.sunflow.core.Scene: org.sunflow.core.PrimitiveList bakingPrimitives>;
+
+        if $stack166 != null goto label02;
+
+        $stack181 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack180 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.sunflow.system.UI: void printError(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack181, "Lightmap baking is not supported for the given instance.", $stack180);
+
+        return;
+
+     label02:
+        $stack168 = "auto";
+
+        $stack167 = l0.<org.sunflow.core.Scene: org.sunflow.core.PrimitiveList bakingPrimitives>;
+
+        $stack169 = interfaceinvoke $stack167.<org.sunflow.core.PrimitiveList: int getNumPrimitives()>();
+
+        l7 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack170 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($stack169);
+
+        l8 = $stack170;
+
+        $stack171 = newarray (java.lang.Object)[1];
+
+        $stack171[0] = l8;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>(l7, "Building acceleration structure for lightmapping (%d num primitives) ...", $stack171);
+
+        $stack172 = staticinvoke <org.sunflow.core.AccelerationStructureFactory: org.sunflow.core.AccelerationStructure create(java.lang.String,int,boolean)>($stack168, $stack169, 1);
+
+        l0.<org.sunflow.core.Scene: org.sunflow.core.AccelerationStructure bakingAccel> = $stack172;
+
+        $stack174 = l0.<org.sunflow.core.Scene: org.sunflow.core.AccelerationStructure bakingAccel>;
+
+        $stack173 = l0.<org.sunflow.core.Scene: org.sunflow.core.PrimitiveList bakingPrimitives>;
+
+        interfaceinvoke $stack174.<org.sunflow.core.AccelerationStructure: void build(org.sunflow.core.PrimitiveList)>($stack173);
+
+        goto label04;
+
+     label03:
+        l0.<org.sunflow.core.Scene: org.sunflow.core.PrimitiveList bakingPrimitives> = null;
+
+        l0.<org.sunflow.core.Scene: org.sunflow.core.AccelerationStructure bakingAccel> = null;
+
+     label04:
+        $stack178 = l0;
+
+        $stack177 = l1;
+
+        $stack176 = "baking.viewdep";
+
+        $stack175 = l0;
+
+        $stack15 = $stack175.<org.sunflow.core.Scene: boolean bakingViewDependent>;
+
+        $stack16 = virtualinvoke $stack177.<org.sunflow.core.Options: boolean getBoolean(java.lang.String,boolean)>($stack176, $stack15);
+
+        $stack178.<org.sunflow.core.Scene: boolean bakingViewDependent> = $stack16;
+
+        $stack179 = l0;
+
+        $stack17 = $stack179.<org.sunflow.core.Scene: org.sunflow.core.Instance bakingInstance>;
+
+        if $stack17 == null goto label05;
+
+        $stack157 = l0.<org.sunflow.core.Scene: boolean bakingViewDependent>;
+
+        if $stack157 == 0 goto label05;
+
+        $stack159 = l0.<org.sunflow.core.Scene: org.sunflow.core.Camera camera>;
+
+        if $stack159 == null goto label06;
+
+     label05:
+        $stack158#2 = l0;
+
+        $stack158#3 = $stack158#2;
+
+        $stack18#4 = $stack158#3.<org.sunflow.core.Scene: org.sunflow.core.Instance bakingInstance>;
+
+        $stack18#5 = $stack18#4;
+
+        if $stack18#5 != null goto label07;
+
+        $stack128 = l0.<org.sunflow.core.Scene: org.sunflow.core.Camera camera>;
+
+        if $stack128 != null goto label07;
+
+     label06:
+        $stack156 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack161 = "No camera found";
+
+        $stack160 = 0;
+
+        $stack155 = newarray (java.lang.Object)[$stack160];
+
+        staticinvoke <org.sunflow.system.UI: void printError(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack156, $stack161, $stack155);
+
+        return;
+
+     label07:
+        $stack132 = l0;
+
+        $stack131 = l1;
+
+        $stack129 = "threads";
+
+        $stack130 = 0;
+
+        $stack19 = virtualinvoke $stack131.<org.sunflow.core.Options: int getInt(java.lang.String,int)>($stack129, $stack130);
+
+        $stack132.<org.sunflow.core.Scene: int threads> = $stack19;
+
+        $stack136 = l0;
+
+        $stack135 = l1;
+
+        $stack133 = "threads.lowPriority";
+
+        $stack134 = 1;
+
+        $stack20 = virtualinvoke $stack135.<org.sunflow.core.Options: boolean getBoolean(java.lang.String,boolean)>($stack133, $stack134);
+
+        $stack136.<org.sunflow.core.Scene: boolean lowPriority> = $stack20;
+
+        $stack140 = l0;
+
+        $stack139 = l1;
+
+        $stack137 = "resolutionX";
+
+        $stack138 = 640;
+
+        $stack21 = virtualinvoke $stack139.<org.sunflow.core.Options: int getInt(java.lang.String,int)>($stack137, $stack138);
+
+        $stack140.<org.sunflow.core.Scene: int imageWidth> = $stack21;
+
+        $stack144 = l0;
+
+        $stack143 = l1;
+
+        $stack141 = "resolutionY";
+
+        $stack142 = 480;
+
+        $stack22 = virtualinvoke $stack143.<org.sunflow.core.Options: int getInt(java.lang.String,int)>($stack141, $stack142);
+
+        $stack144.<org.sunflow.core.Scene: int imageHeight> = $stack22;
+
+        $stack148 = l0;
+
+        $stack145 = l0;
+
+        $stack23 = $stack145.<org.sunflow.core.Scene: int imageWidth>;
+
+        $stack146 = 1;
+
+        $stack147 = 16384;
+
+        $stack24 = staticinvoke <org.sunflow.math.MathUtils: int clamp(int,int,int)>($stack23, $stack146, $stack147);
+
+        $stack148.<org.sunflow.core.Scene: int imageWidth> = $stack24;
+
+        $stack152 = l0;
+
+        $stack149 = l0;
+
+        $stack25 = $stack149.<org.sunflow.core.Scene: int imageHeight>;
+
+        $stack150 = 1;
+
+        $stack151 = 16384;
+
+        $stack26 = staticinvoke <org.sunflow.math.MathUtils: int clamp(int,int,int)>($stack25, $stack150, $stack151);
+
+        $stack152.<org.sunflow.core.Scene: int imageHeight> = $stack26;
+
+        $stack153 = 0L;
+
+        l9#6 = $stack153;
+
+        $stack154 = 0;
+
+        l11#7 = $stack154;
+
+     label08:
+        $stack127#8 = l11#7;
+
+        $stack127#9 = $stack127#8;
+
+        $stack126#10 = l0;
+
+        $stack126#11 = $stack126#10;
+
+        $stack27#12 = $stack126#11.<org.sunflow.core.Scene: org.sunflow.core.InstanceList instanceList>;
+
+        $stack27#13 = $stack27#12;
+
+        $stack28#14 = virtualinvoke $stack27#13.<org.sunflow.core.InstanceList: int getNumPrimitives()>();
+
+        $stack28#15 = $stack28#14;
+
+        if $stack127#9 >= $stack28#15 goto label09;
+
+        $stack123 = l0.<org.sunflow.core.Scene: org.sunflow.core.InstanceList instanceList>;
+
+        $stack124 = virtualinvoke $stack123.<org.sunflow.core.InstanceList: int getNumPrimitives(int)>(l11#7);
+
+        $stack125 = (long) $stack124;
+
+        l9#6 = l9#6 + $stack125;
+
+        l11#7 = l11#7 + 1;
+
+        goto label08;
+
+     label09:
+        $stack30 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack29 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack30, "Scene stats:", $stack29);
+
+        $stack33 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack34 = "  * Infinite instances:  %d";
+
+        $stack31 = newarray (java.lang.Object)[1];
+
+        $stack35 = 0;
+
+        $stack32 = l0.<org.sunflow.core.Scene: org.sunflow.core.InstanceList infiniteInstanceList>;
+
+        $stack36 = virtualinvoke $stack32.<org.sunflow.core.InstanceList: int getNumPrimitives()>();
+
+        $stack37 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($stack36);
+
+        $stack31[$stack35] = $stack37;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack33, $stack34, $stack31);
+
+        $stack40 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack41 = "  * Instances:           %d";
+
+        $stack38 = newarray (java.lang.Object)[1];
+
+        $stack42 = 0;
+
+        $stack39 = l0.<org.sunflow.core.Scene: org.sunflow.core.InstanceList instanceList>;
+
+        $stack43 = virtualinvoke $stack39.<org.sunflow.core.InstanceList: int getNumPrimitives()>();
+
+        $stack44 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($stack43);
+
+        $stack38[$stack42] = $stack44;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack40, $stack41, $stack38);
+
+        $stack46 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack47 = "  * Primitives:          %d";
+
+        $stack45 = newarray (java.lang.Object)[1];
+
+        $stack48 = 0;
+
+        $stack49 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>(l9#6);
+
+        $stack45[$stack48] = $stack49;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack46, $stack47, $stack45);
+
+        $stack50 = virtualinvoke l1.<org.sunflow.core.Options: java.lang.String getString(java.lang.String,java.lang.String)>("accel", null);
+
+        l4 = $stack50;
+
+        if l4 == null goto label13;
+
+        $stack110 = l0.<org.sunflow.core.Scene: boolean rebuildAccel>;
+
+        if $stack110 != 0 goto label10;
+
+        $stack116 = l0.<org.sunflow.core.Scene: java.lang.String acceltype>;
+
+        $stack117 = virtualinvoke $stack116.<java.lang.String: boolean equals(java.lang.Object)>(l4);
+
+        if $stack117 != 0 goto label11;
+
+     label10:
+        $stack122 = 1;
+
+        l12#16 = $stack122;
+
+        goto label12;
+
+     label11:
+        l12#16 = 0;
+
+     label12:
+        $stack119 = l0;
+
+        $stack118 = l12#16;
+
+        $stack119.<org.sunflow.core.Scene: boolean rebuildAccel> = $stack118;
+
+        $stack121 = l0;
+
+        $stack120 = l4;
+
+        $stack121.<org.sunflow.core.Scene: java.lang.String acceltype> = $stack120;
+
+     label13:
+        $stack53#17 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack53#18 = $stack53#17;
+
+        $stack114#19 = "  * Instance accel:      %s";
+
+        $stack114#20 = $stack114#19;
+
+        $stack111#21 = 1;
+
+        $stack111#22 = $stack111#21;
+
+        $stack51#23 = newarray (java.lang.Object)[$stack111#22];
+
+        $stack51#24 = $stack51#23;
+
+        $stack51#25 = $stack51#24;
+
+        $stack113#26 = 0;
+
+        $stack113#27 = $stack113#26;
+
+        $stack112#28 = l0;
+
+        $stack112#29 = $stack112#28;
+
+        $stack52#30 = $stack112#29.<org.sunflow.core.Scene: java.lang.String acceltype>;
+
+        $stack52#31 = $stack52#30;
+
+        $stack51#25[$stack113#27] = $stack52#31;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack53#18, $stack114#20, $stack51#25);
+
+        $stack115#32 = l0;
+
+        $stack115#33 = $stack115#32;
+
+        $stack54#34 = $stack115#33.<org.sunflow.core.Scene: boolean rebuildAccel>;
+
+        $stack54#35 = $stack54#34;
+
+        if $stack54#35 == 0 goto label14;
+
+        $stack95 = l0.<org.sunflow.core.Scene: java.lang.String acceltype>;
+
+        $stack94 = l0.<org.sunflow.core.Scene: org.sunflow.core.InstanceList instanceList>;
+
+        $stack96 = virtualinvoke $stack94.<org.sunflow.core.InstanceList: int getNumPrimitives()>();
+
+        $stack97 = staticinvoke <org.sunflow.core.AccelerationStructureFactory: org.sunflow.core.AccelerationStructure create(java.lang.String,int,boolean)>($stack95, $stack96, 0);
+
+        l0.<org.sunflow.core.Scene: org.sunflow.core.AccelerationStructure intAccel> = $stack97;
+
+        $stack99 = l0.<org.sunflow.core.Scene: org.sunflow.core.AccelerationStructure intAccel>;
+
+        $stack98 = l0.<org.sunflow.core.Scene: org.sunflow.core.InstanceList instanceList>;
+
+        interfaceinvoke $stack99.<org.sunflow.core.AccelerationStructure: void build(org.sunflow.core.PrimitiveList)>($stack98);
+
+        l0.<org.sunflow.core.Scene: boolean rebuildAccel> = 0;
+
+     label14:
+        $stack56 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack57 = "  * Scene bounds:        %s";
+
+        $stack100 = 1;
+
+        $stack55 = newarray (java.lang.Object)[$stack100];
+
+        $stack58 = 0;
+
+        $stack101 = l0;
+
+        $stack59 = virtualinvoke $stack101.<org.sunflow.core.Scene: org.sunflow.math.BoundingBox getBounds()>();
+
+        $stack55[$stack58] = $stack59;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack56, $stack57, $stack55);
+
+        $stack61 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack62 = "  * Scene center:        %s";
+
+        $stack102 = 1;
+
+        $stack60 = newarray (java.lang.Object)[$stack102];
+
+        $stack63 = 0;
+
+        $stack103 = l0;
+
+        $stack64 = virtualinvoke $stack103.<org.sunflow.core.Scene: org.sunflow.math.BoundingBox getBounds()>();
+
+        $stack65 = virtualinvoke $stack64.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getCenter()>();
+
+        $stack60[$stack63] = $stack65;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack61, $stack62, $stack60);
+
+        $stack67 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack68 = "  * Scene diameter:      %.2f";
+
+        $stack104 = 1;
+
+        $stack66 = newarray (java.lang.Object)[$stack104];
+
+        $stack69 = 0;
+
+        $stack105 = l0;
+
+        $stack70 = virtualinvoke $stack105.<org.sunflow.core.Scene: org.sunflow.math.BoundingBox getBounds()>();
+
+        $stack71 = virtualinvoke $stack70.<org.sunflow.math.BoundingBox: org.sunflow.math.Vector3 getExtents()>();
+
+        $stack72 = virtualinvoke $stack71.<org.sunflow.math.Vector3: float length()>();
+
+        $stack73 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($stack72);
+
+        $stack66[$stack69] = $stack73;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack67, $stack68, $stack66);
+
+        $stack106 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        l5 = $stack106;
+
+        $stack107 = 1;
+
+        $stack108 = newarray (java.lang.Object)[$stack107];
+
+        l6 = $stack108;
+
+        $stack109 = l0;
+
+        $stack74 = $stack109.<org.sunflow.core.Scene: org.sunflow.core.Instance bakingInstance>;
+
+        if $stack74 == null goto label16;
+
+        $stack86 = l0.<org.sunflow.core.Scene: boolean bakingViewDependent>;
+
+        if $stack86 == 0 goto label15;
+
+        l13#36 = "view";
+
+        goto label17;
+
+     label15:
+        l13#36 = "ortho";
+
+        goto label17;
+
+     label16:
+        l13#36 = "off";
+
+     label17:
+        $stack89#37 = l6;
+
+        $stack89#38 = $stack89#37;
+
+        $stack88#39 = 0;
+
+        $stack88#40 = $stack88#39;
+
+        $stack87#41 = l13#36;
+
+        $stack87#42 = $stack87#41;
+
+        $stack89#38[$stack88#40] = $stack87#42;
+
+        $stack90#43 = l5;
+
+        $stack90#44 = $stack90#43;
+
+        $stack91#45 = "  * Lightmap bake:       %s";
+
+        $stack91#46 = $stack91#45;
+
+        $stack92#47 = l6;
+
+        $stack92#48 = $stack92#47;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack90#44, $stack91#46, $stack92#48);
+
+        $stack93#49 = l2;
+
+        $stack93#50 = $stack93#49;
+
+        if $stack93#50 != null goto label18;
+
+        return;
+
+     label18:
+        $stack75 = l0.<org.sunflow.core.Scene: org.sunflow.core.LightServer lightServer>;
+
+        $stack76 = virtualinvoke $stack75.<org.sunflow.core.LightServer: boolean build(org.sunflow.core.Options)>(l1);
+
+        if $stack76 != 0 goto label19;
+
+        return;
+
+     label19:
+        $stack78 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack77 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack78, "Rendering ...", $stack77);
+
+        $stack80 = l0.<org.sunflow.core.Scene: int imageWidth>;
+
+        $stack79 = l0.<org.sunflow.core.Scene: int imageHeight>;
+
+        $stack81 = interfaceinvoke l2.<org.sunflow.core.ImageSampler: boolean prepare(org.sunflow.core.Options,org.sunflow.core.Scene,int,int)>(l1, l0, $stack80, $stack79);
+
+        $stack82 = (org.sunflow.core.Display) l3#1;
+
+        interfaceinvoke l2.<org.sunflow.core.ImageSampler: void render(org.sunflow.core.Display)>($stack82);
+
+        $stack83 = l0.<org.sunflow.core.Scene: org.sunflow.core.LightServer lightServer>;
+
+        virtualinvoke $stack83.<org.sunflow.core.LightServer: void showStats()>();
+
+        l0.<org.sunflow.core.Scene: org.sunflow.core.PrimitiveList bakingPrimitives> = null;
+
+        l0.<org.sunflow.core.Scene: org.sunflow.core.AccelerationStructure bakingAccel> = null;
+
+        $stack85 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module SCENE>;
+
+        $stack84 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack85, "Done.", $stack84);
+
+        return;
+    }
+
+ 
