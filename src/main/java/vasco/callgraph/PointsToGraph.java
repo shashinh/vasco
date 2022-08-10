@@ -204,6 +204,10 @@ public class PointsToGraph {
 			} else if (lhsType instanceof ArrayType) {
 				// We are not so fickle about arrays
 				lhsTargets.addAll(rhsTargets);
+			} else {
+				//shashin
+				//we will end up here if we have an int[] or (other primitive array) - assign to keep ptgs sanitized
+				lhsTargets.addAll(rhsTargets);
 			}
 		}
 
@@ -571,9 +575,11 @@ public class PointsToGraph {
 				m.put(field, Collections.unmodifiableSet(targets));
 				this.heap.put(allocSite, Collections.unmodifiableMap(m));
 				//end hack to prevent getting into an infinite loop in case the field refs form a cycle
-				for (AnyNewExpr oldtarget: oldPointees) {
-					if(oldtarget != SUMMARY_NODE)
-						newNode(oldtarget, true);
+				if(oldPointees != null) {
+					for (AnyNewExpr oldtarget: oldPointees) {
+						if(oldtarget != SUMMARY_NODE)
+							newNode(oldtarget, true);
+					}
 				}
 			}
 			edges.put(field, Collections.unmodifiableSet(targets));
@@ -588,8 +594,6 @@ public class PointsToGraph {
 	 */
 	public void setField(Local lhs, SootField field, Local rhs) {
 		// You can't set field of a non-existent variable.
-		// System.out.println("asserting roots.containsKey(lhs) where LHS is " + lhs);
-		// System.out.println("roots collection is " + roots);
 		assert_tmp(roots.containsKey(lhs));
 
 		// Since we are doing weak updates, nothing to do if setting field to null
@@ -613,9 +617,9 @@ public class PointsToGraph {
 		// If the RHS variable exists, but points to nothing, then bye-bye
 		if (rhsPointees.size() == 0) {
 			// nullStoreMap.insert(lhs, "n");
-			rhsPointees = new HashSet<AnyNewExpr>();
-			rhsPointees.add(nullObj);
-			// return;
+//			rhsPointees = new HashSet<AnyNewExpr>();
+//			rhsPointees.add(nullObj);
+			 return;
 		}
 
 		boolean summarizeRhsTargets = false;

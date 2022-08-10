@@ -1,0 +1,13 @@
+tamiflex poa does not play well with jython
+
+===== DaCapo 9.12-MR1 jython PASSED in 30615 msec =====
+Exception in thread "Thread-0" java.lang.IllegalStateException: ClassReader.accept() should be called with EXPAND_FRAMES flag
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitFrame(Unknown Source)
+	at org.objectweb.asm.commons.RemappingMethodAdapter.visitFrame(Unknown Source)
+	at org.objectweb.asm.MethodAdapter.visitFrame(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at de.bodden.tamiflex.normalizer.Hasher.generateHashNumber(Hasher.java:99)
+	at de.bodden.tamiflex.playout.ClassDumper.writeClassesToDisk(ClassDumper.java:84)
+	at de.bodden.tamiflex.playout.Agent$1.run(Agent.java:123)
+

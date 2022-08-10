@@ -251,8 +251,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.SPI: void postSPIInterrupt()>"));
 //			this.partiallyAnalysedMethods.add(Scene.v().getMethod("<avrora.sim.mcu.Timer16Bit$BufferedRegister: void write(byte)>"));
 			
-			System.out.println(Scene.v().getSootClass("org.sunflow.core.Scene").getMethodByNameUnsafe("render").getActiveBody().toString());
-			
+//			System.out.println(Scene.v().getSootClass("org.sunflow.core.accel.KDTree").getMethodByNameUnsafe("build").getActiveBody());
 		} catch (RuntimeException rex) {
 			assert(false) : rex.toString();
 		}
@@ -336,14 +335,15 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					//System.out.println("\tout for unit <" + unit + "> is ");
 					//System.out.println(out);
 					
-//					if(context.getMethod().toString().equals("<org.sunflow.core.Scene: void render(org.sunflow.core.Options,org.sunflow.core.ImageSampler,org.sunflow.core.Display)>")) {
-//						System.out.println("out for unit " + unit.toString());
-//						if(out == null) {
-//							System.out.println("out is null");
-//						} else {
-//							System.out.println(out);
-//						}
-//					}
+					SootMethod m = Scene.v().getSootClass("org.sunflow.core.Scene").getMethodByNameUnsafe("render");
+					if(context.getMethod().equals(m)) {
+						System.out.println("out for unit " + unit.toString());
+						if(out == null) {
+							System.out.println("out is null");
+						} else {
+							System.out.println(out);
+						}
+					}
 
 					if (out == null) {
 //						out = topValue();

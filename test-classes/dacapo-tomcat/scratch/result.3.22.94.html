@@ -1,0 +1,24 @@
+<html><head><title>Apache Tomcat/6.0-snapshot - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: org.apache.jasper.JasperException: Unable to load class for JSP
+	org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:156)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:329)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:342)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:267)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+</pre></p><p><b>root cause</b> <pre>org.apache.jasper.JasperException: Unable to load class for JSP
+	org.apache.jasper.JspCompilationContext.load(JspCompilationContext.java:620)
+	org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:144)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:329)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:342)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:267)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+</pre></p><p><b>root cause</b> <pre>java.lang.ClassNotFoundException: org.apache.jsp.jsp.error.err_jsp
+	java.net.URLClassLoader.findClass(URLClassLoader.java:387)
+	org.apache.jasper.servlet.JasperLoader.loadClass(JasperLoader.java:134)
+	org.apache.jasper.servlet.JasperLoader.loadClass(JasperLoader.java:66)
+	org.apache.jasper.JspCompilationContext.load(JspCompilationContext.java:618)
+	org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:144)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:329)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:342)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:267)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0-snapshot logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0-snapshot</h3></body></html>

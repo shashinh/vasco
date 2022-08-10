@@ -1,0 +1,1507 @@
+    public void build(org.sunflow.core.PrimitiveList)
+    {
+        java.lang.Object[] $stack27, $stack29, $stack35, $stack40, $stack45, $stack50, l3, $stack81, $stack87, $stack93, $stack95, $stack97, $stack99, $stack102, $stack116, l26, $stack209, $stack212, $stack132#20, $stack132#21, $stack132#22, $stack132#23, $stack132#24, $stack162#52, $stack162#53, $stack162#54, $stack165#55, $stack165#56, $stack165#57, $stack168#73, $stack168#74, $stack168#75, $stack171#91, $stack171#92, $stack171#93, $stack173#115, $stack173#116, $stack173#117;
+        org.sunflow.system.UI$Module $stack28, $stack31, $stack36, $stack41, $stack46, $stack51, l2, $stack83, $stack89, $stack94, $stack96, $stack98, $stack100, $stack104, $stack118, $stack210;
+        org.sunflow.core.accel.KDTree l0, $stack217, $stack220, $stack221;
+        int $stack30, $stack58, l4, $stack59, $stack110, l11, $stack148, $stack149, $stack188, $stack189, $stack192, $stack193, $stack198, $stack201, $stack204, $stack224, l20#2, l21#3, $stack187#4, $stack187#5, $stack186#6, $stack186#7, l22#8, l23#9, $stack156#28, $stack156#29, $stack156#30;
+        java.lang.Integer $stack34, $stack39, $stack135#31, $stack135#32, $stack135#33;
+        java.lang.Float $stack44, $stack49, $stack54, $stack140#70, $stack140#71, $stack140#72, $stack143#88, $stack143#89, $stack143#90, $stack146#106, $stack146#107, $stack146#108;
+        boolean $stack55, $stack101;
+        org.sunflow.system.Timer l16, l18, l5, l8, $stack213, $stack214, $stack215, $stack226, $stack227, $stack228;
+        org.sunflow.core.PrimitiveList l1, $stack57, $stack190, $stack194, $stack216, $stack219;
+        org.sunflow.math.BoundingBox $stack56, $stack61, $stack63, $stack66, $stack69, $stack72, $stack75, $stack119, $stack120;
+        org.sunflow.core.accel.KDTree$BuildTask l17, $stack223, $stack225;
+        org.sunflow.util.IntArray l6, l7;
+        long[] $stack60, $stack197, $stack200, $stack205;
+        org.sunflow.core.accel.KDTree$BuildStats l9;
+        org.sunflow.math.Point3 $stack62, $stack65, $stack68, $stack71, $stack74, $stack77;
+        float $stack64, $stack67, $stack70, $stack73, $stack76, $stack78, $stack124, $stack125, l13, $stack150, $stack151, $stack177, $stack178, $stack182, $stack191, l14, $stack195, l15, $stack138#67, $stack138#68, $stack138#69, $stack141#85, $stack141#86, $stack141#87, $stack144#103, $stack144#104, $stack144#105;
+        int[] $stack79, $stack80, $stack82, $stack88;
+        java.lang.String $stack86, $stack92, $stack103, $stack106, $stack109, $stack112, $stack115, $stack117, $stack207, l19#1, $stack136#34, $stack136#35, $stack136#36, $stack147#118, $stack147#119, $stack147#120;
+        java.io.FileWriter l10, l12, $stack157#11, $stack157#12, $stack157#13, $stack160#43, $stack160#44, $stack160#45, $stack174#109, $stack174#110, $stack174#111, $stack176#121, $stack176#122, $stack176#123;
+        java.lang.StringBuilder $stack105, $stack107, $stack108, $stack111, $stack113, $stack114;
+        double $stack126, $stack128, $stack130;
+        byte $stack127, $stack129, $stack131, $stack196;
+        float[] l25, $stack137#40, $stack137#41, $stack137#42, $stack164#61, $stack164#62, $stack164#63, $stack167#79, $stack167#80, $stack167#81, $stack170#97, $stack170#98, $stack170#99;
+        org.sunflow.image.Color $stack152, $stack153, $stack154, $stack179, $stack180, $stack181, $stack183, $stack184, $stack185, l24#10, $stack158#37, $stack158#38, $stack158#39;
+        long $stack199, $stack202, $stack206;
+        java.io.IOException $stack230;
+
+        l0 := @this: org.sunflow.core.accel.KDTree;
+
+        l1 := @parameter0: org.sunflow.core.PrimitiveList;
+
+        $stack28 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack27 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack28, "KDTree settings", $stack27);
+
+        $stack31 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack29 = newarray (java.lang.Oject)[1];
+
+        $stack30 = l0.<org.sunflow.core.accel.KDTree: int maxPrims>;
+
+        $stack34 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($stack30);
+
+        $stack29[0] = $stack34;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack31, "  * Max Leaf Size:  %d", $stack29);
+
+        $stack36 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack35 = newarray (java.lang.Object)[1];
+
+        $stack39 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(64);
+
+        $stack35[0] = $stack39;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack36, "  * Max Depth:      %d", $stack35);
+
+        $stack41 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack40 = newarray (java.lang.Object)[1];
+
+        $stack44 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>(1.0F);
+
+        $stack40[0] = $stack44;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack41, "  * Traversal cost: %.2f", $stack40);
+
+        $stack46 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack45 = newarray (java.lang.Object)[1];
+
+        $stack49 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>(0.5F);
+
+        $stack45[0] = $stack49;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack46, "  * Intersect cost: %.2f", $stack45);
+
+        $stack51 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack50 = newarray (java.lang.Object)[1];
+
+        $stack54 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>(0.2F);
+
+        $stack50[0] = $stack54;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack51, "  * Empty bonus:    %.2f", $stack50);
+
+        l2 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        l3 = newarray (java.lang.Object)[1];
+
+        $stack55 = <org.sunflow.core.accel.KDTree: boolean dump>;
+
+        if $stack55 == 0 goto label01;
+
+        l19#1 = "enabled";
+
+        goto label02;
+
+     label01:
+        l19#1 = "disabled";
+
+     label02:
+        $stack209 = l3;
+
+        $stack207 = l19#1;
+
+        $stack209[0] = $stack207;
+
+        $stack210 = l2;
+
+        $stack212 = l3;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack210, "  * Dump leaves:    %s", $stack212);
+
+        $stack213 = new org.sunflow.system.Timer;
+
+        l16 = $stack213;
+
+        $stack214 = l16;
+
+        specialinvoke $stack214.<org.sunflow.system.Timer: void <init>()>();
+
+        $stack215 = l16;
+
+        virtualinvoke $stack215.<org.sunflow.system.Timer: void start()>();
+
+        $stack217 = l0;
+
+        $stack216 = l1;
+
+        $stack217.<org.sunflow.core.accel.KDTree: org.sunflow.core.PrimitiveList primitiveList> = $stack216;
+
+        $stack220 = l0;
+
+        $stack219 = l1;
+
+        $stack56 = interfaceinvoke $stack219.<org.sunflow.core.PrimitiveList: org.sunflow.math.BoundingBox getWorldBounds(org.sunflow.math.Matrix4)>(null);
+
+        $stack220.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds> = $stack56;
+
+        $stack221 = l0;
+
+        $stack57 = $stack221.<org.sunflow.core.accel.KDTree: org.sunflow.core.PrimitiveList primitiveList>;
+
+        $stack58 = interfaceinvoke $stack57.<org.sunflow.core.PrimitiveList: int getNumPrimitives()>();
+
+        l4 = $stack58;
+
+        l20#2 = 0;
+
+        $stack223 = new org.sunflow.core.accel.KDTree$BuildTask;
+
+        l17 = $stack223;
+
+        $stack225 = l17;
+
+        $stack224 = l4;
+
+        specialinvoke $stack225.<org.sunflow.core.accel.KDTree$BuildTask: void <init>(int)>($stack224);
+
+        $stack226 = new org.sunflow.system.Timer;
+
+        l18 = $stack226;
+
+        $stack227 = l18;
+
+        specialinvoke $stack227.<org.sunflow.system.Timer: void <init>()>();
+
+        $stack228 = l18;
+
+        virtualinvoke $stack228.<org.sunflow.system.Timer: void start()>();
+
+        l21#3 = 0;
+
+     label03:
+        $stack187#4 = l21#3;
+
+        $stack187#5 = $stack187#4;
+
+        $stack186#6 = l4;
+
+        $stack186#7 = $stack186#6;
+
+        if $stack187#5 >= $stack186#7 goto label08;
+
+        l22#8 = 0;
+
+     label04:
+        $stack204 = l22#8;
+
+        if $stack204 >= 3 goto label07;
+
+        $stack190 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.core.PrimitiveList primitiveList>;
+
+        $stack188 = 2 * l22#8;
+
+        $stack189 = $stack188 + 0;
+
+        $stack191 = interfaceinvoke $stack190.<org.sunflow.core.PrimitiveList: float getPrimitiveBound(int,int)>(l21#3, $stack189);
+
+        l14 = $stack191;
+
+        $stack194 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.core.PrimitiveList primitiveList>;
+
+        $stack192 = 2 * l22#8;
+
+        $stack193 = $stack192 + 1;
+
+        $stack195 = interfaceinvoke $stack194.<org.sunflow.core.PrimitiveList: float getPrimitiveBound(int,int)>(l21#3, $stack193);
+
+        l15 = $stack195;
+
+        $stack196 = l14 cmpl l15;
+
+        if $stack196 != 0 goto label05;
+
+        $stack205 = l17.<org.sunflow.core.accel.KDTree$BuildTask: long[] splits>;
+
+        $stack206 = staticinvoke <org.sunflow.core.accel.KDTree: long pack(float,long,int,int)>(l14, 1073741824L, l22#8, l21#3);
+
+        $stack205[l20#2] = $stack206;
+
+        l20#2 = l20#2 + 1;
+
+        goto label06;
+
+     label05:
+        $stack197 = l17.<org.sunflow.core.accel.KDTree$BuildTask: long[] splits>;
+
+        $stack198 = l20#2 + 0;
+
+        $stack199 = staticinvoke <org.sunflow.core.accel.KDTree: long pack(float,long,int,int)>(l14, 2147483648L, l22#8, l21#3);
+
+        $stack197[$stack198] = $stack199;
+
+        $stack200 = l17.<org.sunflow.core.accel.KDTree$BuildTask: long[] splits>;
+
+        $stack201 = l20#2 + 1;
+
+        $stack202 = staticinvoke <org.sunflow.core.accel.KDTree: long pack(float,long,int,int)>(l15, 0L, l22#8, l21#3);
+
+        $stack200[$stack201] = $stack202;
+
+        l20#2 = l20#2 + 2;
+
+     label06:
+        l22#8 = l22#8 + 1;
+
+        goto label04;
+
+     label07:
+        l21#3 = l21#3 + 1;
+
+        goto label03;
+
+     label08:
+        l17.<org.sunflow.core.accel.KDTree$BuildTask: int n> = l20#2;
+
+        virtualinvoke l18.<org.sunflow.system.Timer: void end()>();
+
+        l5 = new org.sunflow.system.Timer;
+
+        specialinvoke l5.<org.sunflow.system.Timer: void <init>()>();
+
+        l6 = new org.sunflow.util.IntArray;
+
+        specialinvoke l6.<org.sunflow.util.IntArray: void <init>()>();
+
+        l7 = new org.sunflow.util.IntArray;
+
+        specialinvoke l7.<org.sunflow.util.IntArray: void <init>()>();
+
+        virtualinvoke l6.<org.sunflow.util.IntArray: void add(int)>(0);
+
+        virtualinvoke l6.<org.sunflow.util.IntArray: void add(int)>(1);
+
+        virtualinvoke l5.<org.sunflow.system.Timer: void start()>();
+
+        l8 = new org.sunflow.system.Timer;
+
+        specialinvoke l8.<org.sunflow.system.Timer: void <init>()>();
+
+        virtualinvoke l8.<org.sunflow.system.Timer: void start()>();
+
+        $stack60 = l17.<org.sunflow.core.accel.KDTree$BuildTask: long[] splits>;
+
+        $stack59 = l17.<org.sunflow.core.accel.KDTree$BuildTask: int n>;
+
+        staticinvoke <org.sunflow.core.accel.KDTree: void radix12(long[],int)>($stack60, $stack59);
+
+        virtualinvoke l8.<org.sunflow.system.Timer: void end()>();
+
+        l9 = new org.sunflow.core.accel.KDTree$BuildStats;
+
+        specialinvoke l9.<org.sunflow.core.accel.KDTree$BuildStats: void <init>()>();
+
+        $stack61 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack62 = virtualinvoke $stack61.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMinimum()>();
+
+        $stack64 = $stack62.<org.sunflow.math.Point3: float x>;
+
+        $stack63 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack65 = virtualinvoke $stack63.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMaximum()>();
+
+        $stack67 = $stack65.<org.sunflow.math.Point3: float x>;
+
+        $stack66 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack68 = virtualinvoke $stack66.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMinimum()>();
+
+        $stack70 = $stack68.<org.sunflow.math.Point3: float y>;
+
+        $stack69 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack71 = virtualinvoke $stack69.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMaximum()>();
+
+        $stack73 = $stack71.<org.sunflow.math.Point3: float y>;
+
+        $stack72 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack74 = virtualinvoke $stack72.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMinimum()>();
+
+        $stack76 = $stack74.<org.sunflow.math.Point3: float z>;
+
+        $stack75 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack77 = virtualinvoke $stack75.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMaximum()>();
+
+        $stack78 = $stack77.<org.sunflow.math.Point3: float z>;
+
+        specialinvoke l0.<org.sunflow.core.accel.KDTree: void buildTree(float,float,float,float,float,float,org.sunflow.core.accel.KDTree$BuildTask,int,org.sunflow.util.IntArray,int,org.sunflow.util.IntArray,org.sunflow.core.accel.KDTree$BuildStats)>($stack64, $stack67, $stack70, $stack73, $stack76, $stack78, l17, 1, l6, 0, l7, l9);
+
+        virtualinvoke l5.<org.sunflow.system.Timer: void end()>();
+
+        $stack79 = virtualinvoke l6.<org.sunflow.util.IntArray: int[] trim()>();
+
+        l0.<org.sunflow.core.accel.KDTree: int[] tree> = $stack79;
+
+        $stack80 = virtualinvoke l7.<org.sunflow.util.IntArray: int[] trim()>();
+
+        l0.<org.sunflow.core.accel.KDTree: int[] primitives> = $stack80;
+
+        virtualinvoke l16.<org.sunflow.system.Timer: void end()>();
+
+        virtualinvoke l9.<org.sunflow.core.accel.KDTree$BuildStats: void printStats()>();
+
+        $stack83 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack81 = newarray (java.lang.Object)[1];
+
+        $stack82 = l0.<org.sunflow.core.accel.KDTree: int[] tree>;
+
+        $stack86 = staticinvoke <org.sunflow.system.Memory: java.lang.String sizeof(int[])>($stack82);
+
+        $stack81[0] = $stack86;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack83, "  * Node memory:    %s", $stack81);
+
+        $stack89 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack87 = newarray (java.lang.Object)[1];
+
+        $stack88 = l0.<org.sunflow.core.accel.KDTree: int[] primitives>;
+
+        $stack92 = staticinvoke <org.sunflow.system.Memory: java.lang.String sizeof(int[])>($stack88);
+
+        $stack87[0] = $stack92;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack89, "  * Object memory:  %s", $stack87);
+
+        $stack94 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack93 = newarray (java.lang.Object)[1];
+
+        $stack93[0] = l18;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack94, "  * Prepare time:   %s", $stack93);
+
+        $stack96 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack95 = newarray (java.lang.Object)[1];
+
+        $stack95[0] = l8;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack96, "  * Sorting time:   %s", $stack95);
+
+        $stack98 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack97 = newarray (java.lang.Object)[1];
+
+        $stack97[0] = l5;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack98, "  * Tree creation:  %s", $stack97);
+
+        $stack100 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack99 = newarray (java.lang.Object)[1];
+
+        $stack99[0] = l16;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack100, "  * Build time:     %s", $stack99);
+
+        $stack101 = <org.sunflow.core.accel.KDTree: boolean dump>;
+
+        if $stack101 == 0 goto label18;
+
+     label09:
+        $stack104 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack102 = newarray (java.lang.Object)[1];
+
+        $stack103 = <org.sunflow.core.accel.KDTree: java.lang.String dumpPrefix>;
+
+        $stack102[0] = $stack103;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack104, "Dumping mtls to %s.mtl ...", $stack102);
+
+        l10 = new java.io.FileWriter;
+
+        $stack105 = new java.lang.StringBuilder;
+
+        specialinvoke $stack105.<java.lang.StringBuilder: void <init>()>();
+
+        $stack106 = <org.sunflow.core.accel.KDTree: java.lang.String dumpPrefix>;
+
+        $stack107 = virtualinvoke $stack105.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack106);
+
+        $stack108 = virtualinvoke $stack107.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".mtl");
+
+        $stack109 = virtualinvoke $stack108.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l10.<java.io.FileWriter: void <init>(java.lang.String)>($stack109);
+
+        $stack110 = staticinvoke <org.sunflow.core.accel.KDTree$BuildStats: int access$000(org.sunflow.core.accel.KDTree$BuildStats)>(l9);
+
+        l11 = $stack110;
+
+        l23#9 = 0;
+
+     label10:
+        $stack149 = l23#9;
+
+        $stack148 = l11;
+
+        if $stack149 > $stack148 goto label15;
+
+        $stack125 = (float) l23#9;
+
+        $stack124 = (float) l11;
+
+        l13 = $stack125 / $stack124;
+
+        $stack126 = (double) l13;
+
+        $stack127 = $stack126 cmpg 0.25;
+
+        if $stack127 >= 0 goto label11;
+
+        $stack184 = <org.sunflow.image.Color: org.sunflow.image.Color BLUE>;
+
+        $stack183 = <org.sunflow.image.Color: org.sunflow.image.Color GREEN>;
+
+        $stack182 = l13 / 0.25F;
+
+        $stack185 = staticinvoke <org.sunflow.image.Color: org.sunflow.image.Color blend(org.sunflow.image.Color,org.sunflow.image.Color,float)>($stack184, $stack183, $stack182);
+
+        l24#10 = $stack185;
+
+        goto label14;
+
+     label11:
+        $stack128 = (double) l13;
+
+        $stack129 = $stack128 cmpg 0.5;
+
+        if $stack129 >= 0 goto label12;
+
+        $stack180 = <org.sunflow.image.Color: org.sunflow.image.Color GREEN>;
+
+        $stack179 = <org.sunflow.image.Color: org.sunflow.image.Color YELLOW>;
+
+        $stack177 = l13 - 0.25F;
+
+        $stack178 = $stack177 / 0.25F;
+
+        $stack181 = staticinvoke <org.sunflow.image.Color: org.sunflow.image.Color blend(org.sunflow.image.Color,org.sunflow.image.Color,float)>($stack180, $stack179, $stack178);
+
+        l24#10 = $stack181;
+
+        goto label14;
+
+     label12:
+        $stack130 = (double) l13;
+
+        $stack131 = $stack130 cmpg 0.75;
+
+        if $stack131 >= 0 goto label13;
+
+        $stack153 = <org.sunflow.image.Color: org.sunflow.image.Color YELLOW>;
+
+        $stack152 = <org.sunflow.image.Color: org.sunflow.image.Color RED>;
+
+        $stack150 = l13 - 0.5F;
+
+        $stack151 = $stack150 / 0.25F;
+
+        $stack154 = staticinvoke <org.sunflow.image.Color: org.sunflow.image.Color blend(org.sunflow.image.Color,org.sunflow.image.Color,float)>($stack153, $stack152, $stack151);
+
+        l24#10 = $stack154;
+
+        goto label14;
+
+     label13:
+        l24#10 = <org.sunflow.image.Color: org.sunflow.image.Color MAGENTA>;
+
+     label14:
+        $stack157#11 = l10;
+
+        $stack157#12 = $stack157#11;
+
+        $stack157#13 = $stack157#12;
+
+        $stack132#20 = newarray (java.lang.Object)[1];
+
+        $stack132#21 = $stack132#20;
+
+        $stack132#22 = $stack132#21;
+
+        $stack132#23 = $stack132#22;
+
+        $stack132#24 = $stack132#23;
+
+        $stack156#28 = l23#9;
+
+        $stack156#29 = $stack156#28;
+
+        $stack156#30 = $stack156#29;
+
+        $stack135#31 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($stack156#30);
+
+        $stack135#32 = $stack135#31;
+
+        $stack135#33 = $stack135#32;
+
+        $stack132#24[0] = $stack135#33;
+
+        $stack136#34 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("newmtl mtl%d\n", $stack132#24);
+
+        $stack136#35 = $stack136#34;
+
+        $stack136#36 = $stack136#35;
+
+        virtualinvoke $stack157#13.<java.io.FileWriter: void write(java.lang.String)>($stack136#36);
+
+        $stack158#37 = l24#10;
+
+        $stack158#38 = $stack158#37;
+
+        $stack158#39 = $stack158#38;
+
+        $stack137#40 = virtualinvoke $stack158#39.<org.sunflow.image.Color: float[] getRGB()>();
+
+        $stack137#41 = $stack137#40;
+
+        $stack137#42 = $stack137#41;
+
+        l25 = $stack137#42;
+
+        $stack160#43 = l10;
+
+        $stack160#44 = $stack160#43;
+
+        $stack160#45 = $stack160#44;
+
+        virtualinvoke $stack160#45.<java.io.FileWriter: void write(java.lang.String)>("Ka 0.1 0.1 0.1\n");
+
+        $stack162#52 = newarray (java.lang.Object)[3];
+
+        $stack162#53 = $stack162#52;
+
+        $stack162#54 = $stack162#53;
+
+        l26 = $stack162#54;
+
+        $stack165#55 = l26;
+
+        $stack165#56 = $stack165#55;
+
+        $stack165#57 = $stack165#56;
+
+        $stack164#61 = l25;
+
+        $stack164#62 = $stack164#61;
+
+        $stack164#63 = $stack164#62;
+
+        $stack138#67 = $stack164#63[0];
+
+        $stack138#68 = $stack138#67;
+
+        $stack138#69 = $stack138#68;
+
+        $stack140#70 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($stack138#69);
+
+        $stack140#71 = $stack140#70;
+
+        $stack140#72 = $stack140#71;
+
+        $stack165#57[0] = $stack140#72;
+
+        $stack168#73 = l26;
+
+        $stack168#74 = $stack168#73;
+
+        $stack168#75 = $stack168#74;
+
+        $stack167#79 = l25;
+
+        $stack167#80 = $stack167#79;
+
+        $stack167#81 = $stack167#80;
+
+        $stack141#85 = $stack167#81[1];
+
+        $stack141#86 = $stack141#85;
+
+        $stack141#87 = $stack141#86;
+
+        $stack143#88 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($stack141#87);
+
+        $stack143#89 = $stack143#88;
+
+        $stack143#90 = $stack143#89;
+
+        $stack168#75[1] = $stack143#90;
+
+        $stack171#91 = l26;
+
+        $stack171#92 = $stack171#91;
+
+        $stack171#93 = $stack171#92;
+
+        $stack170#97 = l25;
+
+        $stack170#98 = $stack170#97;
+
+        $stack170#99 = $stack170#98;
+
+        $stack144#103 = $stack170#99[2];
+
+        $stack144#104 = $stack144#103;
+
+        $stack144#105 = $stack144#104;
+
+        $stack146#106 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($stack144#105);
+
+        $stack146#107 = $stack146#106;
+
+        $stack146#108 = $stack146#107;
+
+        $stack171#93[2] = $stack146#108;
+
+        $stack174#109 = l10;
+
+        $stack174#110 = $stack174#109;
+
+        $stack174#111 = $stack174#110;
+
+        $stack173#115 = l26;
+
+        $stack173#116 = $stack173#115;
+
+        $stack173#117 = $stack173#116;
+
+        $stack147#118 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Kd %.12g %.12g %.12g\n", $stack173#117);
+
+        $stack147#119 = $stack147#118;
+
+        $stack147#120 = $stack147#119;
+
+        virtualinvoke $stack174#111.<java.io.FileWriter: void write(java.lang.String)>($stack147#120);
+
+        $stack176#121 = l10;
+
+        $stack176#122 = $stack176#121;
+
+        $stack176#123 = $stack176#122;
+
+        virtualinvoke $stack176#123.<java.io.FileWriter: void write(java.lang.String)>("illum 1\n\n");
+
+        l23#9 = l23#9 + 1;
+
+        goto label10;
+
+     label15:
+        l12 = new java.io.FileWriter;
+
+        $stack111 = new java.lang.StringBuilder;
+
+        specialinvoke $stack111.<java.lang.StringBuilder: void <init>()>();
+
+        $stack112 = <org.sunflow.core.accel.KDTree: java.lang.String dumpPrefix>;
+
+        $stack113 = virtualinvoke $stack111.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack112);
+
+        $stack114 = virtualinvoke $stack113.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".obj");
+
+        $stack115 = virtualinvoke $stack114.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l12.<java.io.FileWriter: void <init>(java.lang.String)>($stack115);
+
+        $stack118 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack116 = newarray (java.lang.Object)[1];
+
+        $stack117 = <org.sunflow.core.accel.KDTree: java.lang.String dumpPrefix>;
+
+        $stack116[0] = $stack117;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack118, "Dumping tree to %s.obj ...", $stack116);
+
+        $stack119 = new org.sunflow.math.BoundingBox;
+
+        $stack120 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        specialinvoke $stack119.<org.sunflow.math.BoundingBox: void <init>(org.sunflow.math.BoundingBox)>($stack120);
+
+        specialinvoke l0.<org.sunflow.core.accel.KDTree: int dumpObj(int,int,int,org.sunflow.math.BoundingBox,java.io.FileWriter,java.io.FileWriter)>(0, 0, l11, $stack119, l12, l10);
+
+        virtualinvoke l12.<java.io.FileWriter: void close()>();
+
+        virtualinvoke l10.<java.io.FileWriter: void close()>();
+
+     label16:
+        goto label18;
+
+     label17:
+        $stack230 := @caughtexception;
+
+        virtualinvoke $stack230.<java.io.IOException: void printStackTrace()>();
+
+     label18:
+        return;
+
+        catch java.io.IOException from label09 to label16 with label17;
+    }
+
+    public void build(org.sunflow.core.PrimitiveList)
+    {
+        java.lang.Object[] $stack27, $stack29, $stack35, $stack40, $stack45, $stack50, l3, $stack81, $stack87, $stack93, $stack95, $stack97, $stack99, $stack102, $stack116, l26, $stack209, $stack212, $stack132#20, $stack132#21, $stack132#22, $stack132#23, $stack132#24, $stack162#52, $stack162#53, $stack162#54, $stack165#55, $stack165#56, $stack165#57, $stack168#73, $stack168#74, $stack168#75, $stack171#91, $stack171#92, $stack171#93, $stack173#115, $stack173#116, $stack173#117;
+        org.sunflow.system.UI$Module $stack28, $stack31, $stack36, $stack41, $stack46, $stack51, l2, $stack83, $stack89, $stack94, $stack96, $stack98, $stack100, $stack104, $stack118, $stack210;
+        org.sunflow.core.accel.KDTree l0, $stack217, $stack220, $stack221;
+        int $stack30, $stack58, l4, $stack59, $stack110, l11, $stack148, $stack149, $stack188, $stack189, $stack192, $stack193, $stack198, $stack201, $stack204, $stack224, l20#2, l21#3, $stack187#4, $stack187#5, $stack186#6, $stack186#7, l22#8, l23#9, $stack156#28, $stack156#29, $stack156#30;
+        java.lang.Integer $stack34, $stack39, $stack135#31, $stack135#32, $stack135#33;
+        java.lang.Float $stack44, $stack49, $stack54, $stack140#70, $stack140#71, $stack140#72, $stack143#88, $stack143#89, $stack143#90, $stack146#106, $stack146#107, $stack146#108;
+        boolean $stack55, $stack101;
+        org.sunflow.system.Timer l16, l18, l5, l8, $stack213, $stack214, $stack215, $stack226, $stack227, $stack228;
+        org.sunflow.core.PrimitiveList l1, $stack57, $stack190, $stack194, $stack216, $stack219;
+        org.sunflow.math.BoundingBox $stack56, $stack61, $stack63, $stack66, $stack69, $stack72, $stack75, $stack119, $stack120;
+        org.sunflow.core.accel.KDTree$BuildTask l17, $stack223, $stack225;
+        org.sunflow.util.IntArray l6, l7;
+        long[] $stack60, $stack197, $stack200, $stack205;
+        org.sunflow.core.accel.KDTree$BuildStats l9;
+        org.sunflow.math.Point3 $stack62, $stack65, $stack68, $stack71, $stack74, $stack77;
+        float $stack64, $stack67, $stack70, $stack73, $stack76, $stack78, $stack124, $stack125, l13, $stack150, $stack151, $stack177, $stack178, $stack182, $stack191, l14, $stack195, l15, $stack138#67, $stack138#68, $stack138#69, $stack141#85, $stack141#86, $stack141#87, $stack144#103, $stack144#104, $stack144#105;
+        int[] $stack79, $stack80, $stack82, $stack88;
+        java.lang.String $stack86, $stack92, $stack103, $stack106, $stack109, $stack112, $stack115, $stack117, $stack207, l19#1, $stack136#34, $stack136#35, $stack136#36, $stack147#118, $stack147#119, $stack147#120;
+        java.io.FileWriter l10, l12, $stack157#11, $stack157#12, $stack157#13, $stack160#43, $stack160#44, $stack160#45, $stack174#109, $stack174#110, $stack174#111, $stack176#121, $stack176#122, $stack176#123;
+        java.lang.StringBuilder $stack105, $stack107, $stack108, $stack111, $stack113, $stack114;
+        double $stack126, $stack128, $stack130;
+        byte $stack127, $stack129, $stack131, $stack196;
+        float[] l25, $stack137#40, $stack137#41, $stack137#42, $stack164#61, $stack164#62, $stack164#63, $stack167#79, $stack167#80, $stack167#81, $stack170#97, $stack170#98, $stack170#99;
+        org.sunflow.image.Color $stack152, $stack153, $stack154, $stack179, $stack180, $stack181, $stack183, $stack184, $stack185, l24#10, $stack158#37, $stack158#38, $stack158#39;
+        long $stack199, $stack202, $stack206;
+        java.io.IOException $stack230;
+
+        l0 := @this: org.sunflow.core.accel.KDTree;
+
+        l1 := @parameter0: org.sunflow.core.PrimitiveList;
+
+        $stack28 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack27 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack28, "KDTree settings", $stack27);
+
+        $stack31 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack29 = newarray (java.lang.Object)[1];
+
+        $stack30 = l0.<org.sunflow.core.accel.KDTree: int maxPrims>;
+
+        $stack34 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($stack30);
+
+        $stack29[0] = $stack34;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack31, "  * Max Leaf Size:  %d", $stack29);
+
+        $stack36 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack35 = newarray (java.lang.Object)[1];
+
+        $stack39 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(64);
+
+        $stack35[0] = $stack39;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack36, "  * Max Depth:      %d", $stack35);
+
+        $stack41 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack40 = newarray (java.lang.Object)[1];
+
+        $stack44 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>(1.0F);
+
+        $stack40[0] = $stack44;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack41, "  * Traversal cost: %.2f", $stack40);
+
+        $stack46 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack45 = newarray (java.lang.Object)[1];
+
+        $stack49 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>(0.5F);
+
+        $stack45[0] = $stack49;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack46, "  * Intersect cost: %.2f", $stack45);
+
+        $stack51 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack50 = newarray (java.lang.Object)[1];
+
+        $stack54 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>(0.2F);
+
+        $stack50[0] = $stack54;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack51, "  * Empty bonus:    %.2f", $stack50);
+
+        l2 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        l3 = newarray (java.lang.Object)[1];
+
+        $stack55 = <org.sunflow.core.accel.KDTree: boolean dump>;
+
+        if $stack55 == 0 goto label01;
+
+        l19#1 = "enabled";
+
+        goto label02;
+
+     label01:
+        l19#1 = "disabled";
+
+     label02:
+        $stack209 = l3;
+
+        $stack207 = l19#1;
+
+        $stack209[0] = $stack207;
+
+        $stack210 = l2;
+
+        $stack212 = l3;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack210, "  * Dump leaves:    %s", $stack212);
+
+        $stack213 = new org.sunflow.system.Timer;
+
+        l16 = $stack213;
+
+        $stack214 = l16;
+
+        specialinvoke $stack214.<org.sunflow.system.Timer: void <init>()>();
+
+        $stack215 = l16;
+
+        virtualinvoke $stack215.<org.sunflow.system.Timer: void start()>();
+
+        $stack217 = l0;
+
+        $stack216 = l1;
+
+        $stack217.<org.sunflow.core.accel.KDTree: org.sunflow.core.PrimitiveList primitiveList> = $stack216;
+
+        $stack220 = l0;
+
+        $stack219 = l1;
+
+        $stack56 = interfaceinvoke $stack219.<org.sunflow.core.PrimitiveList: org.sunflow.math.BoundingBox getWorldBounds(org.sunflow.math.Matrix4)>(null);
+
+        $stack220.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds> = $stack56;
+
+        $stack221 = l0;
+
+        $stack57 = $stack221.<org.sunflow.core.accel.KDTree: org.sunflow.core.PrimitiveList primitiveList>;
+
+        $stack58 = interfaceinvoke $stack57.<org.sunflow.core.PrimitiveList: int getNumPrimitives()>();
+
+        l4 = $stack58;
+
+        l20#2 = 0;
+
+        $stack223 = new org.sunflow.core.accel.KDTree$BuildTask;
+
+        l17 = $stack223;
+
+        $stack225 = l17;
+
+        $stack224 = l4;
+
+        specialinvoke $stack225.<org.sunflow.core.accel.KDTree$BuildTask: void <init>(int)>($stack224);
+
+        $stack226 = new org.sunflow.system.Timer;
+
+        l18 = $stack226;
+
+        $stack227 = l18;
+
+        specialinvoke $stack227.<org.sunflow.system.Timer: void <init>()>();
+
+        $stack228 = l18;
+
+        virtualinvoke $stack228.<org.sunflow.system.Timer: void start()>();
+
+        l21#3 = 0;
+
+     label03:
+        $stack187#4 = l21#3;
+
+        $stack187#5 = $stack187#4;
+
+        $stack186#6 = l4;
+
+        $stack186#7 = $stack186#6;
+
+        if $stack187#5 >= $stack186#7 goto label08;
+
+        l22#8 = 0;
+
+     label04:
+        $stack204 = l22#8;
+
+        if $stack204 >= 3 goto label07;
+
+        $stack190 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.core.PrimitiveList primitiveList>;
+
+        $stack188 = 2 * l22#8;
+
+        $stack189 = $stack188 + 0;
+
+        $stack191 = interfaceinvoke $stack190.<org.sunflow.core.PrimitiveList: float getPrimitiveBound(int,int)>(l21#3, $stack189);
+
+        l14 = $stack191;
+
+        $stack194 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.core.PrimitiveList primitiveList>;
+
+        $stack192 = 2 * l22#8;
+
+        $stack193 = $stack192 + 1;
+
+        $stack195 = interfaceinvoke $stack194.<org.sunflow.core.PrimitiveList: float getPrimitiveBound(int,int)>(l21#3, $stack193);
+
+        l15 = $stack195;
+
+        $stack196 = l14 cmpl l15;
+
+        if $stack196 != 0 goto label05;
+
+        $stack205 = l17.<org.sunflow.core.accel.KDTree$BuildTask: long[] splits>;
+
+        $stack206 = staticinvoke <org.sunflow.core.accel.KDTree: long pack(float,long,int,int)>(l14, 1073741824L, l22#8, l21#3);
+
+        $stack205[l20#2] = $stack206;
+
+        l20#2 = l20#2 + 1;
+
+        goto label06;
+
+     label05:
+        $stack197 = l17.<org.sunflow.core.accel.KDTree$BuildTask: long[] splits>;
+
+        $stack198 = l20#2 + 0;
+
+        $stack199 = staticinvoke <org.sunflow.core.accel.KDTree: long pack(float,long,int,int)>(l14, 2147483648L, l22#8, l21#3);
+
+        $stack197[$stack198] = $stack199;
+
+        $stack200 = l17.<org.sunflow.core.accel.KDTree$BuildTask: long[] splits>;
+
+        $stack201 = l20#2 + 1;
+
+        $stack202 = staticinvoke <org.sunflow.core.accel.KDTree: long pack(float,long,int,int)>(l15, 0L, l22#8, l21#3);
+
+        $stack200[$stack201] = $stack202;
+
+        l20#2 = l20#2 + 2;
+
+     label06:
+        l22#8 = l22#8 + 1;
+
+        goto label04;
+
+     label07:
+        l21#3 = l21#3 + 1;
+
+        goto label03;
+
+     label08:
+        l17.<org.sunflow.core.accel.KDTree$BuildTask: int n> = l20#2;
+
+        virtualinvoke l18.<org.sunflow.system.Timer: void end()>();
+
+        l5 = new org.sunflow.system.Timer;
+
+        specialinvoke l5.<org.sunflow.system.Timer: void <init>()>();
+
+        l6 = new org.sunflow.util.IntArray;
+
+        specialinvoke l6.<org.sunflow.util.IntArray: void <init>()>();
+
+        l7 = new org.sunflow.util.IntArray;
+
+        specialinvoke l7.<org.sunflow.util.IntArray: void <init>()>();
+
+        virtualinvoke l6.<org.sunflow.util.IntArray: void add(int)>(0);
+
+        virtualinvoke l6.<org.sunflow.util.IntArray: void add(int)>(1);
+
+        virtualinvoke l5.<org.sunflow.system.Timer: void start()>();
+
+        l8 = new org.sunflow.system.Timer;
+
+        specialinvoke l8.<org.sunflow.system.Timer: void <init>()>();
+
+        virtualinvoke l8.<org.sunflow.system.Timer: void start()>();
+
+        $stack60 = l17.<org.sunflow.core.accel.KDTree$BuildTask: long[] splits>;
+
+        $stack59 = l17.<org.sunflow.core.accel.KDTree$BuildTask: int n>;
+
+        staticinvoke <org.sunflow.core.accel.KDTree: void radix12(long[],int)>($stack60, $stack59);
+
+        virtualinvoke l8.<org.sunflow.system.Timer: void end()>();
+
+        l9 = new org.sunflow.core.accel.KDTree$BuildStats;
+
+        specialinvoke l9.<org.sunflow.core.accel.KDTree$BuildStats: void <init>()>();
+
+        $stack61 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack62 = virtualinvoke $stack61.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMinimum()>();
+
+        $stack64 = $stack62.<org.sunflow.math.Point3: float x>;
+
+        $stack63 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack65 = virtualinvoke $stack63.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMaximum()>();
+
+        $stack67 = $stack65.<org.sunflow.math.Point3: float x>;
+
+        $stack66 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack68 = virtualinvoke $stack66.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMinimum()>();
+
+        $stack70 = $stack68.<org.sunflow.math.Point3: float y>;
+
+        $stack69 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack71 = virtualinvoke $stack69.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMaximum()>();
+
+        $stack73 = $stack71.<org.sunflow.math.Point3: float y>;
+
+        $stack72 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack74 = virtualinvoke $stack72.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMinimum()>();
+
+        $stack76 = $stack74.<org.sunflow.math.Point3: float z>;
+
+        $stack75 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        $stack77 = virtualinvoke $stack75.<org.sunflow.math.BoundingBox: org.sunflow.math.Point3 getMaximum()>();
+
+        $stack78 = $stack77.<org.sunflow.math.Point3: float z>;
+
+        specialinvoke l0.<org.sunflow.core.accel.KDTree: void buildTree(float,float,float,float,float,float,org.sunflow.core.accel.KDTree$BuildTask,int,org.sunflow.util.IntArray,int,org.sunflow.util.IntArray,org.sunflow.core.accel.KDTree$BuildStats)>($stack64, $stack67, $stack70, $stack73, $stack76, $stack78, l17, 1, l6, 0, l7, l9);
+
+        virtualinvoke l5.<org.sunflow.system.Timer: void end()>();
+
+        $stack79 = virtualinvoke l6.<org.sunflow.util.IntArray: int[] trim()>();
+
+        l0.<org.sunflow.core.accel.KDTree: int[] tree> = $stack79;
+
+        $stack80 = virtualinvoke l7.<org.sunflow.util.IntArray: int[] trim()>();
+
+        l0.<org.sunflow.core.accel.KDTree: int[] primitives> = $stack80;
+
+        virtualinvoke l16.<org.sunflow.system.Timer: void end()>();
+
+        virtualinvoke l9.<org.sunflow.core.accel.KDTree$BuildStats: void printStats()>();
+
+        $stack83 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack81 = newarray (java.lang.Object)[1];
+
+        $stack82 = l0.<org.sunflow.core.accel.KDTree: int[] tree>;
+
+        $stack86 = staticinvoke <org.sunflow.system.Memory: java.lang.String sizeof(int[])>($stack82);
+
+        $stack81[0] = $stack86;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack83, "  * Node memory:    %s", $stack81);
+
+        $stack89 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack87 = newarray (java.lang.Object)[1];
+
+        $stack88 = l0.<org.sunflow.core.accel.KDTree: int[] primitives>;
+
+        $stack92 = staticinvoke <org.sunflow.system.Memory: java.lang.String sizeof(int[])>($stack88);
+
+        $stack87[0] = $stack92;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack89, "  * Object memory:  %s", $stack87);
+
+        $stack94 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack93 = newarray (java.lang.Object)[1];
+
+        $stack93[0] = l18;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack94, "  * Prepare time:   %s", $stack93);
+
+        $stack96 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack95 = newarray (java.lang.Object)[1];
+
+        $stack95[0] = l8;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack96, "  * Sorting time:   %s", $stack95);
+
+        $stack98 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack97 = newarray (java.lang.Object)[1];
+
+        $stack97[0] = l5;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack98, "  * Tree creation:  %s", $stack97);
+
+        $stack100 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack99 = newarray (java.lang.Object)[1];
+
+        $stack99[0] = l16;
+
+        staticinvoke <org.sunflow.system.UI: void printDetailed(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack100, "  * Build time:     %s", $stack99);
+
+        $stack101 = <org.sunflow.core.accel.KDTree: boolean dump>;
+
+        if $stack101 == 0 goto label18;
+
+     label09:
+        $stack104 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack102 = newarray (java.lang.Object)[1];
+
+        $stack103 = <org.sunflow.core.accel.KDTree: java.lang.String dumpPrefix>;
+
+        $stack102[0] = $stack103;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack104, "Dumping mtls to %s.mtl ...", $stack102);
+
+        l10 = new java.io.FileWriter;
+
+        $stack105 = new java.lang.StringBuilder;
+
+        specialinvoke $stack105.<java.lang.StringBuilder: void <init>()>();
+
+        $stack106 = <org.sunflow.core.accel.KDTree: java.lang.String dumpPrefix>;
+
+        $stack107 = virtualinvoke $stack105.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack106);
+
+        $stack108 = virtualinvoke $stack107.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".mtl");
+
+        $stack109 = virtualinvoke $stack108.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l10.<java.io.FileWriter: void <init>(java.lang.String)>($stack109);
+
+        $stack110 = staticinvoke <org.sunflow.core.accel.KDTree$BuildStats: int access$000(org.sunflow.core.accel.KDTree$BuildStats)>(l9);
+
+        l11 = $stack110;
+
+        l23#9 = 0;
+
+     label10:
+        $stack149 = l23#9;
+
+        $stack148 = l11;
+
+        if $stack149 > $stack148 goto label15;
+
+        $stack125 = (float) l23#9;
+
+        $stack124 = (float) l11;
+
+        l13 = $stack125 / $stack124;
+
+        $stack126 = (double) l13;
+
+        $stack127 = $stack126 cmpg 0.25;
+
+        if $stack127 >= 0 goto label11;
+
+        $stack184 = <org.sunflow.image.Color: org.sunflow.image.Color BLUE>;
+
+        $stack183 = <org.sunflow.image.Color: org.sunflow.image.Color GREEN>;
+
+        $stack182 = l13 / 0.25F;
+
+        $stack185 = staticinvoke <org.sunflow.image.Color: org.sunflow.image.Color blend(org.sunflow.image.Color,org.sunflow.image.Color,float)>($stack184, $stack183, $stack182);
+
+        l24#10 = $stack185;
+
+        goto label14;
+
+     label11:
+        $stack128 = (double) l13;
+
+        $stack129 = $stack128 cmpg 0.5;
+
+        if $stack129 >= 0 goto label12;
+
+        $stack180 = <org.sunflow.image.Color: org.sunflow.image.Color GREEN>;
+
+        $stack179 = <org.sunflow.image.Color: org.sunflow.image.Color YELLOW>;
+
+        $stack177 = l13 - 0.25F;
+
+        $stack178 = $stack177 / 0.25F;
+
+        $stack181 = staticinvoke <org.sunflow.image.Color: org.sunflow.image.Color blend(org.sunflow.image.Color,org.sunflow.image.Color,float)>($stack180, $stack179, $stack178);
+
+        l24#10 = $stack181;
+
+        goto label14;
+
+     label12:
+        $stack130 = (double) l13;
+
+        $stack131 = $stack130 cmpg 0.75;
+
+        if $stack131 >= 0 goto label13;
+
+        $stack153 = <org.sunflow.image.Color: org.sunflow.image.Color YELLOW>;
+
+        $stack152 = <org.sunflow.image.Color: org.sunflow.image.Color RED>;
+
+        $stack150 = l13 - 0.5F;
+
+        $stack151 = $stack150 / 0.25F;
+
+        $stack154 = staticinvoke <org.sunflow.image.Color: org.sunflow.image.Color blend(org.sunflow.image.Color,org.sunflow.image.Color,float)>($stack153, $stack152, $stack151);
+
+        l24#10 = $stack154;
+
+        goto label14;
+
+     label13:
+        l24#10 = <org.sunflow.image.Color: org.sunflow.image.Color MAGENTA>;
+
+     label14:
+        $stack157#11 = l10;
+
+        $stack157#12 = $stack157#11;
+
+        $stack157#13 = $stack157#12;
+
+        $stack132#20 = newarray (java.lang.Object)[1];
+
+        $stack132#21 = $stack132#20;
+
+        $stack132#22 = $stack132#21;
+
+        $stack132#23 = $stack132#22;
+
+        $stack132#24 = $stack132#23;
+
+        $stack156#28 = l23#9;
+
+        $stack156#29 = $stack156#28;
+
+        $stack156#30 = $stack156#29;
+
+        $stack135#31 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($stack156#30);
+
+        $stack135#32 = $stack135#31;
+
+        $stack135#33 = $stack135#32;
+
+        $stack132#24[0] = $stack135#33;
+
+        $stack136#34 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("newmtl mtl%d\n", $stack132#24);
+
+        $stack136#35 = $stack136#34;
+
+        $stack136#36 = $stack136#35;
+
+        virtualinvoke $stack157#13.<java.io.FileWriter: void write(java.lang.String)>($stack136#36);
+
+        $stack158#37 = l24#10;
+
+        $stack158#38 = $stack158#37;
+
+        $stack158#39 = $stack158#38;
+
+        $stack137#40 = virtualinvoke $stack158#39.<org.sunflow.image.Color: float[] getRGB()>();
+
+        $stack137#41 = $stack137#40;
+
+        $stack137#42 = $stack137#41;
+
+        l25 = $stack137#42;
+
+        $stack160#43 = l10;
+
+        $stack160#44 = $stack160#43;
+
+        $stack160#45 = $stack160#44;
+
+        virtualinvoke $stack160#45.<java.io.FileWriter: void write(java.lang.String)>("Ka 0.1 0.1 0.1\n");
+
+        $stack162#52 = newarray (java.lang.Object)[3];
+
+        $stack162#53 = $stack162#52;
+
+        $stack162#54 = $stack162#53;
+
+        l26 = $stack162#54;
+
+        $stack165#55 = l26;
+
+        $stack165#56 = $stack165#55;
+
+        $stack165#57 = $stack165#56;
+
+        $stack164#61 = l25;
+
+        $stack164#62 = $stack164#61;
+
+        $stack164#63 = $stack164#62;
+
+        $stack138#67 = $stack164#63[0];
+
+        $stack138#68 = $stack138#67;
+
+        $stack138#69 = $stack138#68;
+
+        $stack140#70 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($stack138#69);
+
+        $stack140#71 = $stack140#70;
+
+        $stack140#72 = $stack140#71;
+
+        $stack165#57[0] = $stack140#72;
+
+        $stack168#73 = l26;
+
+        $stack168#74 = $stack168#73;
+
+        $stack168#75 = $stack168#74;
+
+        $stack167#79 = l25;
+
+        $stack167#80 = $stack167#79;
+
+        $stack167#81 = $stack167#80;
+
+        $stack141#85 = $stack167#81[1];
+
+        $stack141#86 = $stack141#85;
+
+        $stack141#87 = $stack141#86;
+
+        $stack143#88 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($stack141#87);
+
+        $stack143#89 = $stack143#88;
+
+        $stack143#90 = $stack143#89;
+
+        $stack168#75[1] = $stack143#90;
+
+        $stack171#91 = l26;
+
+        $stack171#92 = $stack171#91;
+
+        $stack171#93 = $stack171#92;
+
+        $stack170#97 = l25;
+
+        $stack170#98 = $stack170#97;
+
+        $stack170#99 = $stack170#98;
+
+        $stack144#103 = $stack170#99[2];
+
+        $stack144#104 = $stack144#103;
+
+        $stack144#105 = $stack144#104;
+
+        $stack146#106 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($stack144#105);
+
+        $stack146#107 = $stack146#106;
+
+        $stack146#108 = $stack146#107;
+
+        $stack171#93[2] = $stack146#108;
+
+        $stack174#109 = l10;
+
+        $stack174#110 = $stack174#109;
+
+        $stack174#111 = $stack174#110;
+
+        $stack173#115 = l26;
+
+        $stack173#116 = $stack173#115;
+
+        $stack173#117 = $stack173#116;
+
+        $stack147#118 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Kd %.12g %.12g %.12g\n", $stack173#117);
+
+        $stack147#119 = $stack147#118;
+
+        $stack147#120 = $stack147#119;
+
+        virtualinvoke $stack174#111.<java.io.FileWriter: void write(java.lang.String)>($stack147#120);
+
+        $stack176#121 = l10;
+
+        $stack176#122 = $stack176#121;
+
+        $stack176#123 = $stack176#122;
+
+        virtualinvoke $stack176#123.<java.io.FileWriter: void write(java.lang.String)>("illum 1\n\n");
+
+        l23#9 = l23#9 + 1;
+
+        goto label10;
+
+     label15:
+        l12 = new java.io.FileWriter;
+
+        $stack111 = new java.lang.StringBuilder;
+
+        specialinvoke $stack111.<java.lang.StringBuilder: void <init>()>();
+
+        $stack112 = <org.sunflow.core.accel.KDTree: java.lang.String dumpPrefix>;
+
+        $stack113 = virtualinvoke $stack111.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack112);
+
+        $stack114 = virtualinvoke $stack113.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".obj");
+
+        $stack115 = virtualinvoke $stack114.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke l12.<java.io.FileWriter: void <init>(java.lang.String)>($stack115);
+
+        $stack118 = <org.sunflow.system.UI$Module: org.sunflow.system.UI$Module ACCEL>;
+
+        $stack116 = newarray (java.lang.Object)[1];
+
+        $stack117 = <org.sunflow.core.accel.KDTree: java.lang.String dumpPrefix>;
+
+        $stack116[0] = $stack117;
+
+        staticinvoke <org.sunflow.system.UI: void printInfo(org.sunflow.system.UI$Module,java.lang.String,java.lang.Object[])>($stack118, "Dumping tree to %s.obj ...", $stack116);
+
+        $stack119 = new org.sunflow.math.BoundingBox;
+
+        $stack120 = l0.<org.sunflow.core.accel.KDTree: org.sunflow.math.BoundingBox bounds>;
+
+        specialinvoke $stack119.<org.sunflow.math.BoundingBox: void <init>(org.sunflow.math.BoundingBox)>($stack120);
+
+        specialinvoke l0.<org.sunflow.core.accel.KDTree: int dumpObj(int,int,int,org.sunflow.math.BoundingBox,java.io.FileWriter,java.io.FileWriter)>(0, 0, l11, $stack119, l12, l10);
+
+        virtualinvoke l12.<java.io.FileWriter: void close()>();
+
+        virtualinvoke l10.<java.io.FileWriter: void close()>();
+
+     label16:
+        goto label18;
+
+     label17:
+        $stack230 := @caughtexception;
+
+        virtualinvoke $stack230.<java.io.IOException: void printStackTrace()>();
+
+     label18:
+        return;
+
+        catch java.io.IOException from label09 to label16 with label17;
+    }b

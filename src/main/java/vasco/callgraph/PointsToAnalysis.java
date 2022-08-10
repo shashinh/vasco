@@ -614,7 +614,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							//if sootClass == Thread && subsignature == "void start()", then
 							//	targets.add(receiverClass.getMethod("void run()")
 							//this will basically inline the start-run sequence
-							String className = sootClass.getName();
+//							String className = sootClass.getName();
 //							if(thread_start == null && className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
 //								thread_start = invokedMethod;
 //							}
@@ -638,6 +638,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			}
 			if (targets.isEmpty()) {
 				// System.err.println("Warning! Null call at: " + callStmt+ " in " + callerMethod);
+				//Shashin
+				return null;
 			}
 			
 			return targets;
