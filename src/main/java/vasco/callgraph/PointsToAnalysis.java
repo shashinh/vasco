@@ -143,6 +143,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 		this.threadStartMethod = Scene.v().getSootClass("java.lang.Thread").getMethodByNameUnsafe("start");
 		
 		assert(threadStartMethod != null);
+		//this.exprToMethodMap = new HashMap<AnyNewExpr, String>();
 	}
 
 	/**
@@ -607,6 +608,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			boolean containsSingletonNull = heapNodes != null && heapNodes.size() == 1 && heapNodes.contains(PointsToGraph.nullObj);
 
 			if(containsSingletonNull || containsSummary) {
+			//TODO: if a thread.start() invocation has a BOT receiver, then it will never get resolved thanks to this guard
 				if (receiver.getType() instanceof RefType) {
 					
 					CallGraph cg = Scene.v().getCallGraph();

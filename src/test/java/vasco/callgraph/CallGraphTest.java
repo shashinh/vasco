@@ -351,12 +351,6 @@ public class CallGraphTest {
 					sb.append(loopHeaderBCI + ":");
 					sb.append(loopInvariantsForMethod.get(loopHeader).prettyPrintInvariant4(pta, false, null, false));
 					
-					if(m.toString().equals("<org.sunflow.core.Scene: void render(org.sunflow.core.Options,org.sunflow.core.ImageSampler,org.sunflow.core.Display)>")) {
-						System.out.println("dumping loop invariant at bci: " + loopHeaderBCI);
-						System.out.println(loopInvariantsForMethod.get(loopHeader));
-					}
-					
-					
 					sList.add(sb.toString());
 				}
 				

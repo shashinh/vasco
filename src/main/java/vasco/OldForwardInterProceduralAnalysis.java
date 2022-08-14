@@ -335,15 +335,19 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					//System.out.println("\tout for unit <" + unit + "> is ");
 					//System.out.println(out);
 					
-					SootMethod m = Scene.v().getSootClass("org.sunflow.core.Scene").getMethodByNameUnsafe("render");
-					if(context.getMethod().equals(m)) {
-						System.out.println("out for unit " + unit.toString());
-						if(out == null) {
-							System.out.println("out is null");
-						} else {
-							System.out.println(out);
-						}
-					}
+//					SootMethod m = Scene.v().getSootClass("org.sunflow.core.Scene").getMethodByNameUnsafe("render");
+//					if(context.getMethod().equals(m)) {
+//						System.out.println("out for unit " + unit.toString());
+//						if(out == null) {
+//							System.out.println("out is null");
+//						} else {
+//							System.out.println(out);
+//						}
+//					}
+
+					//System.out.println("\tout for unit <" + unit + "> is ");
+					//System.out.println(out);
+
 
 					if (out == null) {
 //						out = topValue();
@@ -393,8 +397,6 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					// Mark this context as analysed at least once.
 					context.markAnalysed();
 					
-
-					 
 					 /**************************************************************************************/
 					 //add callers context-insensitive
 					boolean print = context.getMethod().toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>");
@@ -500,29 +502,10 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		processCallsiteOuts();
 		
 	}
+
 	private void processLoopInvariants() {
 		
 		PointsToAnalysis pta = (PointsToAnalysis) this;
-//		SootMethod method = (SootMethod) context.getMethod();
-//		Set<Unit> loopHeaders = this.loopHeaders.get(method);
-//		Map<Unit, PointsToGraph> invariantsForMethod = this.loopInvariants.getOrDefault(method, new HashMap<Unit, PointsToGraph>());
-//		for(Unit loopHeader : loopHeaders) {
-//			
-//			BytecodeOffsetTag bT = (BytecodeOffsetTag) loopHeader.getTag("BytecodeOffsetTag");
-//			if(bT != null) {
-//				PointsToGraph loopInvariantForHeader = invariantsForMethod.getOrDefault(loopHeader, pta.topValue());
-//				if(context.isAnalysed()) {
-//					PointsToGraph outForHeader = (PointsToGraph) context.getValueAfter((N) loopHeader);
-//					loopInvariantForHeader = pta.meet(loopInvariantForHeader, outForHeader);
-//				}
-//				invariantsForMethod.put(loopHeader, loopInvariantForHeader);
-//			}
-//		}
-//		
-//		this.loopInvariants.put(method, invariantsForMethod);
-		
-		
-
 		for(Context <SootMethod, Unit, PointsToGraph> context : pta.contexts.values()) {
 			SootMethod method = (SootMethod) context.getMethod();
 			Set<Unit> loopHeaders = this.loopHeaders.get(method);
@@ -546,27 +529,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			
 			this.loopInvariants.put(method, invariantsForMethod);
 		
-	}
-		
-//		for(SootMethod method : pta.contexts.keySet()) {
-//			List<Context<SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(method);
-//			Set<Unit> loopHeaders = this.loopHeaders.get(method);
-//			
-//			Map<Unit, PointsToGraph> invariantsForMethod = new HashMap<Unit, PointsToGraph>();
-//			
-//			for(Unit loopHeader : loopHeaders) {
-//				PointsToGraph loopInvariantForHeader = pta.topValue();
-//				for (Context <SootMethod, Unit, PointsToGraph> context : contextsForMethod) {
-//					if(context.isAnalysed()) {
-//						PointsToGraph outForHeader = context.getValueAfter(loopHeader);
-//						loopInvariantForHeader = pta.meet(loopInvariantForHeader, outForHeader);
-//					}
-//				}
-//				invariantsForMethod.put(loopHeader, loopInvariantForHeader);
-//			}
-//			
-//			this.loopInvariants.put(method, invariantsForMethod);
-//		}
+		}
 	}
 	
 	
@@ -611,18 +574,51 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 				this.callsiteOuts.put((SootMethod) ctx.getMethod(), (PointsToGraph) ctx.getExitValue());
 				
 		}
-//		for(SootMethod m : this.sootMethodIndices.keySet()) {
-////			List<Context <SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(m);
-//			Context <SootMethod, Unit, PointsToGraph> contextForMethod = pta.getContext(m, null);
-////			PointsToGraph aggregate = pta.topValue();
+	}
+	private void processLoopInvariants(Context <M, N, A> context) {
+		
+		PointsToAnalysis pta = (PointsToAnalysis) this;
+		SootMethod method = (SootMethod) context.getMethod();
+		Set<Unit> loopHeaders = this.loopHeaders.get(method);
+		Map<Unit, PointsToGraph> invariantsForMethod = this.loopInvariants.getOrDefault(method, new HashMap<Unit, PointsToGraph>());
+		for(Unit loopHeader : loopHeaders) {
+			
+			BytecodeOffsetTag bT = (BytecodeOffsetTag) loopHeader.getTag("BytecodeOffsetTag");
+			if(bT != null) {
+				PointsToGraph loopInvariantForHeader = invariantsForMethod.getOrDefault(loopHeader, pta.topValue());
+				if(context.isAnalysed()) {
+					PointsToGraph outForHeader = (PointsToGraph) context.getValueAfter((N) loopHeader);
+					loopInvariantForHeader = pta.meet(loopInvariantForHeader, outForHeader);
+				}
+				invariantsForMethod.put(loopHeader, loopInvariantForHeader);
+			}
+		}
+		
+		this.loopInvariants.put(method, invariantsForMethod);
+		
+		
+//		for(SootMethod method : pta.contexts.keySet()) {
+//			List<Context<SootMethod, Unit, PointsToGraph>> contextsForMethod = pta.getContexts(method);
+//			Set<Unit> loopHeaders = this.loopHeaders.get(method);
 //			
-//			if(contextForMethod.isAnalysed()) {
-//				this.callsiteOuts.put(m, contextForMethod.getExitValue());
+//			Map<Unit, PointsToGraph> invariantsForMethod = new HashMap<Unit, PointsToGraph>();
+//			
+//			for(Unit loopHeader : loopHeaders) {
+//				PointsToGraph loopInvariantForHeader = pta.topValue();
+//				for (Context <SootMethod, Unit, PointsToGraph> context : contextsForMethod) {
+//					if(context.isAnalysed()) {
+//						PointsToGraph outForHeader = context.getValueAfter(loopHeader);
+//						loopInvariantForHeader = pta.meet(loopInvariantForHeader, outForHeader);
+//					}
+//				}
+//				invariantsForMethod.put(loopHeader, loopInvariantForHeader);
 //			}
 //			
+//			this.loopInvariants.put(method, invariantsForMethod);
 //		}
 	}
-
+	
+	
 	public String getTrimmedByteCodeSignature(SootMethod m) {
 		String methodSig = m.getBytecodeSignature();
 		String sig = methodSig.replace(".", "/").replace(": ", ".").substring(1, methodSig.length() - 2);

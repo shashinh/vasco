@@ -616,10 +616,8 @@ public class PointsToGraph {
 
 		// If the RHS variable exists, but points to nothing, then bye-bye
 		if (rhsPointees.size() == 0) {
-			// nullStoreMap.insert(lhs, "n");
-//			rhsPointees = new HashSet<AnyNewExpr>();
-//			rhsPointees.add(nullObj);
 			 return;
+			// return;
 		}
 
 		boolean summarizeRhsTargets = false;
@@ -987,7 +985,6 @@ public class PointsToGraph {
 					assert(!str.isEmpty());
 					varStringMap.put(varName, String.join(" ", str));
 				}
-	
 			}
 		}
 

@@ -30,11 +30,19 @@ avrora/Main
 cck/util/Options
 cck/util/Option$Str
 cck/util/Option
+<<<<<<< HEAD
 cck/util/Option$List
 cck/util/Option$Bool
 cck/util/Option$Long
 cck/util/Option$Double
 cck/util/Option$Interval
+=======
+cck/util/Option$Long
+cck/util/Option$Interval
+cck/util/Option$List
+cck/util/Option$Bool
+cck/util/Option$Double
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/text/StringUtil
 cck/util/Util
 cck/text/Verbose
@@ -75,6 +83,7 @@ cck/text/CharUtil
 avrora/core/LoadableProgram
 cck/text/Status
 cck/text/Status$Item
+<<<<<<< HEAD
 avrora/syntax/atmel/AtmelProgramReader
 avrora/syntax/elf/ELFParser
 avrora/syntax/objdump/ObjDump2ProgramReader
@@ -88,6 +97,18 @@ avrora/core/SourceMapping
 avrora/core/SourceMapping$Location
 avrora/syntax/Module
 avrora/syntax/atmel/AtmelParser
+=======
+avrora/syntax/objdump/ObjDumpProgramReader
+avrora/syntax/objdump/ObjDump2ProgramReader
+avrora/syntax/elf/ELFParser
+avrora/syntax/atmel/AtmelProgramReader
+avrora/arch/ArchitectureRegistry
+avrora/syntax/Module
+avrora/syntax/atmel/AtmelParser
+avrora/core/Program
+avrora/core/SourceMapping
+avrora/core/SourceMapping$Location
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/elf/ELFLoader
 cck/elf/ELFHeader
 cck/elf/ELFHeader$FormatError
@@ -98,12 +119,21 @@ cck/elf/ELFProgramHeaderTable$Entry32
 cck/elf/ELFSectionHeaderTable
 cck/elf/ELFSectionHeaderTable$Entry32
 cck/elf/ELFStringTable
+<<<<<<< HEAD
 avrora/arch/msp430/MSP430Architecture
 avrora/arch/legacy/LegacyArchitecture
 avrora/arch/avr/AVRArchitecture
 avrora/arch/legacy/LegacyDisassembler
 avrora/arch/avr/AVRDisassembler
 avrora/arch/msp430/MSP430Disassembler
+=======
+avrora/arch/avr/AVRArchitecture
+avrora/arch/msp430/MSP430Architecture
+avrora/arch/legacy/LegacyArchitecture
+avrora/arch/msp430/MSP430Disassembler
+avrora/arch/avr/AVRDisassembler
+avrora/arch/legacy/LegacyDisassembler
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/util/Arithmetic
 avrora/arch/legacy/LegacyDisassembler$InvalidInstruction
 avrora/arch/legacy/LegacyInstr$BST
@@ -231,6 +261,12 @@ avrora/arch/legacy/LegacyInstr$LDD
 avrora/arch/legacy/LegacyInstr$REGREGIMM_class
 cck/elf/ELFSymbolTable
 cck/elf/ELFSymbolTable$Entry
+<<<<<<< HEAD
+=======
+avrora/syntax/RawModule
+avrora/syntax/objdump/ObjDumpParser
+avrora/syntax/objdump/ObjDumpReformatter
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/util/TimeUtil
 avrora/sim/Simulation$Node
 avrora/sim/types/SensorSimulation$SensorNode
@@ -238,11 +274,18 @@ avrora/sim/types/SensorSimulation$SensorDataInput
 avrora/sim/radio/noise
 avrora/actions/SimAction$ShutdownThread
 cck/text/TermUtil
+<<<<<<< HEAD
 avrora/sim/SimulatorThread
 avrora/sim/platform/MicaZ$Factory
 avrora/sim/platform/Seres$Factory
 avrora/sim/platform/Telos$Factory
 avrora/sim/platform/Superbot$Factory
+=======
+avrora/sim/platform/Telos$Factory
+avrora/sim/platform/Seres$Factory
+avrora/sim/platform/Superbot$Factory
+avrora/sim/platform/MicaZ$Factory
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/clock/ClockDomain
 avrora/sim/clock/MainClock
 avrora/sim/clock/Clock
@@ -344,6 +387,7 @@ avrora/sim/mcu/USART$DataRegister$TwoLevelFIFO
 avrora/sim/mcu/USART$DataRegister$TwoLevelFIFO$USARTFrameWrapper
 avrora/sim/mcu/USART$ControlRegisterA
 avrora/sim/mcu/ATMegaFamily$InterruptFlag
+<<<<<<< HEAD
 avrora/sim/mcu/USART$UBRRnLReg
 avrora/sim/mcu/SPI$SPDReg$TransmitRegister
 avrora/sim/mcu/SPI$SPCRReg
@@ -368,10 +412,38 @@ avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PALEOutput
 avrora/sim/platform/sensors/AccelSensor$OnPin
 avrora/sim/platform/sensors/LightSensor$OnPin
 avrora/sim/platform/ExternalFlash$PA3Output
+=======
+avrora/sim/mcu/ADC$ControlRegister
+avrora/sim/mcu/USART$UBRRnLReg
+avrora/sim/mcu/USART$UBRRnHReg
+avrora/sim/mcu/SPI$SPDReg$TransmitRegister
+avrora/sim/mcu/SPI$SPSReg
+avrora/sim/mcu/SPI$SPCRReg
+avrora/sim/util/SimUtil
+avrora/sim/util/MulticastInterruptProbe
+avrora/sim/util/TransactionalList$Link
+avrora/sim/clock/DeltaQueue$Link
+avrora/sim/clock/DeltaQueue$EventList
+avrora/sim/platform/ExternalFlash$PD5Output
+avrora/sim/platform/LED
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PDATAOutput
+avrora/sim/platform/ExternalFlash$PD3Output
+avrora/sim/platform/sensors/AccelSensor$OnPin
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PALEOutput
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PCLKOutput
+avrora/sim/platform/ExternalFlash$PA3Output
+avrora/sim/platform/sensors/LightSensor$PowerPin
+avrora/sim/platform/sensors/LightSensor$OnPin
+avrora/sim/platform/sensors/LightSensor
+avrora/monitors/LEDMonitor$Mon
+avrora/sim/platform/LED$LEDProbe
+avrora/sim/energy/Energy
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/platform/ExternalFlash
 avrora/sim/platform/ExternalFlash$Memory
 avrora/sim/platform/ExternalFlash$Page
 avrora/sim/platform/ExternalFlash$Delay
+<<<<<<< HEAD
 avrora/sim/platform/sensors/LightSensor
 avrora/sim/platform/LED$LEDProbe
 avrora/sim/energy/Energy
@@ -395,6 +467,28 @@ avrora/sim/radio/CC1000Radio$MainRegister
 avrora/sim/radio/CC1000Radio$CALRegister
 avrora/sim/radio/CC1000Radio$PrescalerRegister
 avrora/sim/radio/CC1000Radio$FrontEndRegister
+=======
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface
+avrora/sim/radio/CC1000Radio$RadioRegister
+avrora/sim/radio/CC1000Radio$MainRegister
+avrora/sim/radio/CC1000Radio$Modem0Register
+avrora/sim/radio/CC1000Radio$PrescalerRegister
+avrora/sim/radio/CC1000Radio$CALRegister
+avrora/sim/radio/CC1000Radio$FrequencyRegister$FrequencySubRegister
+avrora/sim/radio/CC1000Radio$FrontEndRegister
+avrora/sim/radio/CC1000Radio$FrequencySeparationRegister$SubRegister
+avrora/sim/radio/CC1000Radio$Modem1Register
+avrora/sim/radio/CC1000Radio$LockRegister
+avrora/sim/radio/CC1000Radio$FSCTRLRegister
+avrora/sim/radio/CC1000Radio$PA_POWRegister
+avrora/sim/radio/CC1000Radio$PLLRegister
+avrora/sim/radio/CC1000Radio$DummyRegister
+avrora/sim/radio/CC1000Radio$MatchRegister
+avrora/sim/radio/CC1000Radio$Modem2Register
+avrora/sim/radio/CC1000Radio$CurrentRegister
+avrora/sim/radio/CC1000Radio$FrequencySeparationRegister
+avrora/sim/radio/CC1000Radio$FrequencyRegister
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/radio/Medium$Receiver
 avrora/sim/radio/CC1000Radio$Receiver
 avrora/sim/radio/Medium$Probe$List
@@ -405,10 +499,19 @@ avrora/sim/radio/Medium$Transmission
 avrora/sim/radio/CC1000Radio
 avrora/sim/radio/Medium$TXRX
 avrora/sim/radio/CC1000Radio$SPITicker
+<<<<<<< HEAD
 avrora/sim/radio/CC1000Radio$FrequencyRegister
 avrora/sim/radio/CC1000Radio$FrequencySeparationRegister
 avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PDATAInput
 avrora/sim/platform/ExternalFlash$PD2Input
+=======
+avrora/sim/platform/sensors/AccelSensor
+avrora/sim/platform/ExternalFlash$PD2Input
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PDATAInput
+avrora/sim/mcu/SPI$TransferEvent
+avrora/sim/mcu/SPI
+avrora/sim/mcu/ADC$MUXRegister
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/mcu/USART$Transmitter
 avrora/sim/mcu/USART$ControlRegisterC
 avrora/sim/mcu/USART$Frame
@@ -421,6 +524,14 @@ avrora/sim/mcu/SPI$SPDReg
 avrora/sim/mcu/ADC
 avrora/sim/mcu/ADC$1
 avrora/sim/mcu/ADC$ControlRegister$ConversionEvent
+<<<<<<< HEAD
+=======
+avrora/sim/platform/MicaZ
+avrora/sim/platform/Superbot
+avrora/sim/platform/Seres
+avrora/arch/msp430/mcu/F1611
+avrora/sim/platform/Telos
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/platform/Mica2
 avrora/sim/platform/Platform
 avrora/sim/platform/LED$LEDGroup
@@ -434,6 +545,7 @@ avrora/sim/platform/sensors/SensorBoard
 avrora/sim/platform/sensors/Sensor
 avrora/sim/platform/sensors/AccelSensor$ADCInput
 avrora/sim/platform/sensors/LightSensor$ADCInput
+<<<<<<< HEAD
 avrora/sim/platform/Superbot
 avrora/arch/msp430/mcu/F1611
 avrora/sim/platform/Telos
@@ -441,6 +553,11 @@ avrora/sim/platform/Seres
 avrora/sim/platform/MicaZ
 avrora/sim/util/ClockCycleTimeout
 avrora/sim/util/InterruptScheduler
+=======
+avrora/sim/util/ClockCycleTimeout
+avrora/sim/util/InterruptScheduler
+avrora/sim/SimulatorThread
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/clock/RippleSynchronizer$NotifyEvent
 avrora/sim/radio/Topology
 avrora/sim/radio/LossyModel
@@ -453,8 +570,13 @@ cck/util/Util$Error
 avrora/sim/platform/sensors/RandomSensorData
 avrora/sim/platform/sensors/ReplaySensorData
 avrora/sim/Simulation$Iter
+<<<<<<< HEAD
 cck/util/Util$InternalError
 cck/util/Util$Unexpected
+=======
+cck/util/Util$Unexpected
+cck/util/Util$InternalError
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/help/SubcategoryItem
 org/dacapo/harness/FileDigest
 org/dacapo/harness/Digest

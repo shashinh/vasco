@@ -224,6 +224,7 @@ cck/util/Options.process(Ljava/util/Properties;)V
 cck/util/Options.setOption(Ljava/lang/String;Ljava/lang/String;)V
 cck/util/Option$Str.<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 cck/util/Option.<init>(Ljava/lang/String;Ljava/lang/String;)V
+<<<<<<< HEAD
 cck/util/Option$List.set(Ljava/lang/String;)V
 cck/util/Option$Str.set(Ljava/lang/String;)V
 cck/util/Option$Bool.set(Ljava/lang/String;)V
@@ -236,6 +237,20 @@ cck/text/StringUtil.quote(Ljava/lang/Object;)Ljava/lang/String;
 cck/text/StringUtil.readDecimalString(Ljava/text/CharacterIterator;I)Ljava/lang/String;
 cck/util/Option$List.parseString(Ljava/lang/String;)V
 cck/text/StringUtil.toList(Ljava/lang/String;)Ljava/util/List;
+=======
+cck/util/Option$Long.set(Ljava/lang/String;)V
+cck/util/Option$Interval.set(Ljava/lang/String;)V
+cck/util/Option$List.set(Ljava/lang/String;)V
+cck/util/Option$Bool.set(Ljava/lang/String;)V
+cck/util/Option$Double.set(Ljava/lang/String;)V
+cck/util/Option$Str.set(Ljava/lang/String;)V
+cck/util/Option.parseError(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+cck/text/StringUtil.quote(Ljava/lang/Object;)Ljava/lang/String;
+cck/util/Option$List.parseString(Ljava/lang/String;)V
+cck/text/StringUtil.toList(Ljava/lang/String;)Ljava/util/List;
+cck/text/StringUtil.peekAndEat(Ljava/text/CharacterIterator;C)Z
+cck/text/StringUtil.readDecimalString(Ljava/text/CharacterIterator;I)Ljava/lang/String;
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/Main.parseOptions([Ljava/lang/String;)V
 cck/util/Options.parseCommandLine([Ljava/lang/String;)V
 cck/util/Options.parseOption(Ljava/lang/String;)V
@@ -325,12 +340,21 @@ cck/util/Option$Interval.<init>(Ljava/lang/String;JJLjava/lang/String;)V
 cck/util/Option$Str.setNewDefault(Ljava/lang/String;)V
 cck/util/Option$List.setNewDefault(Ljava/lang/String;)V
 cck/util/Options.process(Lcck/util/Options;)V
+<<<<<<< HEAD
 cck/util/Option$Long.stringValue()Ljava/lang/String;
 cck/util/Option$Str.stringValue()Ljava/lang/String;
 cck/util/Option$List.stringValue()Ljava/lang/String;
 cck/util/Option$Interval.stringValue()Ljava/lang/String;
 cck/util/Option$Double.stringValue()Ljava/lang/String;
 cck/util/Option$Bool.stringValue()Ljava/lang/String;
+=======
+cck/util/Option$Bool.stringValue()Ljava/lang/String;
+cck/util/Option$Long.stringValue()Ljava/lang/String;
+cck/util/Option$Str.stringValue()Ljava/lang/String;
+cck/util/Option$Interval.stringValue()Ljava/lang/String;
+cck/util/Option$List.stringValue()Ljava/lang/String;
+cck/util/Option$Double.stringValue()Ljava/lang/String;
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/util/Options.getArguments()[Ljava/lang/String;
 avrora/actions/ELFDumpAction.run([Ljava/lang/String;)V
 avrora/actions/SimAction.run([Ljava/lang/String;)V
@@ -377,11 +401,19 @@ cck/text/Terminal.flush()V
 cck/text/Status$Item.<init>(Ljava/lang/String;)V
 avrora/Defaults.getProgramReader(Ljava/lang/String;)Lavrora/core/ProgramReader;
 avrora/Defaults.addInputFormats()V
+<<<<<<< HEAD
 avrora/syntax/atmel/AtmelProgramReader.read([Ljava/lang/String;)Lavrora/core/Program;
 avrora/syntax/elf/ELFParser.read([Ljava/lang/String;)Lavrora/core/Program;
 avrora/syntax/objdump/ObjDump2ProgramReader.read([Ljava/lang/String;)Lavrora/core/Program;
 avrora/Defaults$AutoProgramReader.read([Ljava/lang/String;)Lavrora/core/Program;
 avrora/syntax/objdump/ObjDumpProgramReader.read([Ljava/lang/String;)Lavrora/core/Program;
+=======
+avrora/syntax/objdump/ObjDumpProgramReader.read([Ljava/lang/String;)Lavrora/core/Program;
+avrora/Defaults$AutoProgramReader.read([Ljava/lang/String;)Lavrora/core/Program;
+avrora/syntax/objdump/ObjDump2ProgramReader.read([Ljava/lang/String;)Lavrora/core/Program;
+avrora/syntax/elf/ELFParser.read([Ljava/lang/String;)Lavrora/core/Program;
+avrora/syntax/atmel/AtmelProgramReader.read([Ljava/lang/String;)Lavrora/core/Program;
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/core/ProgramReader.getArchitecture()Lavrora/arch/AbstractArchitecture;
 avrora/arch/ArchitectureRegistry.getArchitecture(Ljava/lang/String;)Lavrora/arch/AbstractArchitecture;
 avrora/arch/ArchitectureRegistry.addArchitectures()V
@@ -394,10 +426,13 @@ cck/text/StringUtil.addrToString(I)Ljava/lang/String;
 cck/text/StringUtil.to0xHex(JI)Ljava/lang/String;
 cck/text/StringUtil.convertToHex(JII[C[C)Ljava/lang/String;
 avrora/core/Program.addIndirectEdge(II)V
+<<<<<<< HEAD
 avrora/syntax/atmel/AtmelProgramReader.<init>()V
 avrora/syntax/objdump/ObjDumpProgramReader.<init>()V
 avrora/syntax/objdump/ObjDump2ProgramReader.<init>()V
 avrora/syntax/elf/ELFParser.<init>()V
+=======
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/elf/ELFLoader.readELFHeader(Ljava/io/RandomAccessFile;)Lcck/elf/ELFHeader;
 cck/elf/ELFHeader.<init>()V
 cck/elf/ELFHeader.read(Ljava/io/RandomAccessFile;)V
@@ -435,18 +470,30 @@ avrora/syntax/elf/ELFParser.loadSections(Ljava/io/RandomAccessFile;)Lavrora/core
 avrora/syntax/elf/ELFParser.createProgram()Lavrora/core/Program;
 cck/elf/ELFProgramHeaderTable$Entry32.isLoadable()Z
 avrora/core/Program.<init>(Lavrora/arch/AbstractArchitecture;II)V
+<<<<<<< HEAD
 avrora/arch/msp430/MSP430Architecture.newInstrArray(I)[Lavrora/arch/AbstractInstr;
 avrora/arch/legacy/LegacyArchitecture.newInstrArray(I)[Lavrora/arch/AbstractInstr;
 avrora/arch/avr/AVRArchitecture.newInstrArray(I)[Lavrora/arch/AbstractInstr;
+=======
+avrora/arch/avr/AVRArchitecture.newInstrArray(I)[Lavrora/arch/AbstractInstr;
+avrora/arch/msp430/MSP430Architecture.newInstrArray(I)[Lavrora/arch/AbstractInstr;
+avrora/arch/legacy/LegacyArchitecture.newInstrArray(I)[Lavrora/arch/AbstractInstr;
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/elf/ELFDataInputStream.read_section(II)[B
 avrora/core/Program.writeProgramBytes([BI)V
 avrora/core/Program.checkAddress(I)V
 avrora/core/Program.writeByteInto(BI)V
 cck/elf/ELFProgramHeaderTable$Entry32.isExecutable()Z
 avrora/syntax/elf/ELFParser.disassembleSection([BLcck/elf/ELFProgramHeaderTable$Entry32;Lavrora/core/Program;)V
+<<<<<<< HEAD
 avrora/arch/msp430/MSP430Architecture.getDisassembler()Lavrora/arch/AbstractDisassembler;
 avrora/arch/avr/AVRArchitecture.getDisassembler()Lavrora/arch/AbstractDisassembler;
 avrora/arch/legacy/LegacyArchitecture.getDisassembler()Lavrora/arch/AbstractDisassembler;
+=======
+avrora/arch/legacy/LegacyArchitecture.getDisassembler()Lavrora/arch/AbstractDisassembler;
+avrora/arch/avr/AVRArchitecture.getDisassembler()Lavrora/arch/AbstractDisassembler;
+avrora/arch/msp430/MSP430Architecture.getDisassembler()Lavrora/arch/AbstractDisassembler;
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/arch/legacy/LegacyDisassembler.<init>()V
 avrora/arch/legacy/LegacyDisassembler.disassemble(II[B)Lavrora/arch/AbstractInstr;
 avrora/arch/legacy/LegacyDisassembler.disassembleLegacy([BII)Lavrora/arch/legacy/LegacyInstr;
@@ -796,6 +843,13 @@ cck/elf/ELFStringTable.getString(I)Ljava/lang/String;
 avrora/actions/ELFDumpAction.getName(Lcck/elf/ELFStringTable;I)Ljava/lang/String;
 avrora/syntax/elf/ELFParser.findLMA(Lcck/elf/ELFSymbolTable$Entry;)I
 avrora/core/SourceMapping.newLocation(Ljava/lang/String;Ljava/lang/String;II)V
+<<<<<<< HEAD
+=======
+avrora/syntax/atmel/AtmelProgramReader.<init>()V
+avrora/syntax/objdump/ObjDumpProgramReader.<init>()V
+avrora/syntax/objdump/ObjDump2ProgramReader.<init>()V
+avrora/syntax/elf/ELFParser.<init>()V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/text/Status.success()V
 cck/text/Status.print(ILjava/lang/String;)V
 avrora/sim/Simulation.createNode(Lavrora/sim/platform/PlatformFactory;Lavrora/core/LoadableProgram;)Lavrora/sim/Simulation$Node;
@@ -826,6 +880,7 @@ cck/text/TermUtil.printThinSeparator(I)V
 cck/text/Terminal.println(Ljava/lang/String;)V
 avrora/sim/Simulation.start()V
 avrora/sim/Simulation.instantiateNodes()V
+<<<<<<< HEAD
 avrora/sim/Simulation$Node.instantiate()V
 avrora/sim/types/SensorSimulation$SensorNode.instantiate()V
 avrora/sim/types/SensorSimulation$SensorNode.createNode()V
@@ -836,6 +891,16 @@ avrora/sim/platform/Seres$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/co
 avrora/sim/platform/Telos$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/core/Program;)Lavrora/sim/platform/Platform;
 avrora/sim/platform/Superbot$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/core/Program;)Lavrora/sim/platform/Platform;
 avrora/sim/platform/Mica2$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/core/Program;)Lavrora/sim/platform/Platform;
+=======
+avrora/sim/types/SensorSimulation$SensorNode.instantiate()V
+avrora/sim/Simulation$Node.instantiate()V
+avrora/core/LoadableProgram.getProgram()Lavrora/core/Program;
+avrora/sim/platform/Mica2$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/core/Program;)Lavrora/sim/platform/Platform;
+avrora/sim/platform/Telos$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/core/Program;)Lavrora/sim/platform/Platform;
+avrora/sim/platform/Seres$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/core/Program;)Lavrora/sim/platform/Platform;
+avrora/sim/platform/Superbot$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/core/Program;)Lavrora/sim/platform/Platform;
+avrora/sim/platform/MicaZ$Factory.newPlatform(ILavrora/sim/Simulation;Lavrora/core/Program;)Lavrora/sim/platform/Platform;
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/clock/ClockDomain.<init>(J)V
 avrora/sim/clock/MainClock.<init>(Ljava/lang/String;J)V
 avrora/sim/clock/Clock.<init>(Ljava/lang/String;J)V
@@ -1008,6 +1073,7 @@ avrora/sim/mcu/ATMegaFamily$InterruptFlag.flag(Z)V
 avrora/sim/state/RegisterUtil$BoolView.setValue(Z)V
 avrora/sim/mcu/Timer16Bit$InputCapturePin.setValue(Z)V
 avrora/sim/mcu/Timer16Bit.captureInput()V
+<<<<<<< HEAD
 avrora/sim/mcu/ReprogrammableCodeSegment$SPMCSR_reg.write(B)V
 avrora/sim/mcu/ATMegaFamily$DirectionRegister.write(B)V
 avrora/sim/mcu/EEPROM$EEARLReg.write(B)V
@@ -1056,6 +1122,48 @@ avrora/sim/clock/DeltaQueue$Link.add(Lavrora/sim/Simulator$Event;)V
 avrora/sim/clock/DeltaQueue.insertAfter(Lavrora/sim/clock/DeltaQueue$Link;Lavrora/sim/Simulator$Event;JLavrora/sim/clock/DeltaQueue$Link;)V
 avrora/sim/mcu/ADC$MUXRegister.isSingleEnded()Z
 avrora/sim/mcu/ADC$MUXRegister.getSingleIndex()I
+=======
+avrora/sim/mcu/ADC$ControlRegister.write(B)V
+avrora/sim/mcu/ATMegaFamily$PortRegister.write(B)V
+avrora/sim/mcu/USART$UBRRnLReg.write(B)V
+avrora/sim/mcu/ReprogrammableCodeSegment$SPMCSR_reg.write(B)V
+avrora/sim/RWRegister.write(B)V
+avrora/sim/mcu/Timer16Bit$BufferedRegister.write(B)V
+avrora/sim/mcu/USART$DataRegister.write(B)V
+avrora/sim/mcu/USART$ControlRegisterA.write(B)V
+avrora/sim/mcu/USART$UBRRnHReg.write(B)V
+avrora/sim/mcu/Timer8Bit$TCNTnRegister.write(B)V
+avrora/sim/mcu/Timer8Bit$ControlRegister.write(B)V
+avrora/sim/mcu/SPI$SPDReg$TransmitRegister.write(B)V
+avrora/sim/mcu/ATMegaFamily$MaskRegister.write(B)V
+avrora/sim/mcu/ATMegaFamily$Timer0$ASSRRegister.write(B)V
+avrora/sim/mcu/Timer16Bit$TCNTnRegister.write(B)V
+avrora/sim/mcu/SPI$SPSReg.write(B)V
+avrora/sim/mcu/ATMegaFamily$DirectionRegister.write(B)V
+avrora/sim/mcu/ATMegaFamily$FlagRegister.write(B)V
+avrora/sim/mcu/SPI$SPCRReg.write(B)V
+avrora/sim/mcu/EEPROM$EECRReg.write(B)V
+avrora/sim/mcu/Timer16Bit$OCRnxTempHighRegister.write(B)V
+avrora/sim/mcu/EEPROM$EEARLReg.write(B)V
+avrora/sim/mcu/EEPROM$EEARHReg.write(B)V
+avrora/sim/mcu/Timer16Bit$PairedRegister.write(B)V
+avrora/sim/mcu/Timer8Bit$BufferedRegister.write(B)V
+avrora/sim/mcu/USART$DataRegister$TwoLevelFIFO.read()B
+avrora/sim/mcu/Timer16Bit$OCRnxPairedRegister.read()B
+avrora/sim/mcu/Timer16Bit$OCRnxTempHighRegister.read()B
+avrora/sim/mcu/SPI$SPSReg.read()B
+avrora/sim/mcu/Timer16Bit$BufferedRegister.read()B
+avrora/sim/RWRegister.read()B
+avrora/sim/mcu/Timer16Bit$PairedRegister.read()B
+avrora/sim/mcu/USART$DataRegister.read()B
+avrora/sim/mcu/Timer8Bit$BufferedRegister.read()B
+avrora/sim/state/RegisterUtil$BoolView.getValue()Z
+avrora/sim/mcu/Timer16Bit$InputCapturePin.getValue()Z
+avrora/sim/state/RegisterUtil$PermutedView.getValue()I
+avrora/sim/state/RegisterUtil$BitRangeView.getValue()I
+avrora/sim/RWRegister.getValue()I
+cck/text/StringUtil.toBin(JI)Ljava/lang/String;
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/output/SimPrinter.println(Ljava/lang/String;)V
 avrora/sim/util/SimUtil.getIDTimeString(Ljava/lang/StringBuffer;Lavrora/sim/Simulator;)V
 avrora/sim/Simulator.getID()I
@@ -1063,11 +1171,20 @@ avrora/sim/util/SimUtil.toIDTimeString(Ljava/lang/StringBuffer;ILavrora/sim/cloc
 cck/text/StringUtil.justify(ZLjava/lang/StringBuffer;JI)V
 cck/text/StringUtil.justify(ZLjava/lang/StringBuffer;Ljava/lang/String;I)V
 cck/text/StringUtil.space(Ljava/lang/StringBuffer;I)V
+<<<<<<< HEAD
 cck/text/StringUtil.appendFract(Ljava/lang/StringBuffer;DI)V
 avrora/sim/mcu/ADC$MUXRegister.getPosIndex()I
 avrora/sim/mcu/ADC$MUXRegister.getNegIndex()I
 avrora/sim/mcu/ADC$ControlRegister.stopConversion()V
 avrora/sim/mcu/ADC$ControlRegister.unpostADCInterrupt()V
+=======
+avrora/sim/clock/DerivedClock.getCount()J
+avrora/sim/clock/MainClock.getCount()J
+avrora/sim/clock/DeltaQueue.getCount()J
+cck/text/StringUtil.appendFract(Ljava/lang/StringBuffer;DI)V
+avrora/sim/mcu/EEPROM$EECRReg.decode()V
+avrora/sim/mcu/EEPROM$EECRReg.newTrue(ZZ)Z
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/AtmelInterpreter.setEnabled(IZ)V
 avrora/sim/InterruptTable.enable(I)V
 cck/util/Arithmetic.setBit(JIZ)J
@@ -1081,17 +1198,21 @@ avrora/sim/util/TransactionalList$Link.<init>(Ljava/lang/Object;)V
 avrora/sim/util/TransactionalList.remove(Ljava/lang/Object;)V
 avrora/sim/InterruptTable.disable(I)V
 avrora/sim/util/MulticastInterruptProbe.fireWhenDisabled(Lavrora/sim/State;I)V
+<<<<<<< HEAD
 cck/util/Arithmetic.getBit(BI)Z
 avrora/sim/mcu/ATMegaFamily$MaskRegister.setEnabled(IZ)V
 avrora/sim/mcu/Timer16Bit$BufferedRegister.flush()V
 avrora/sim/mcu/SPI$SPSReg.decode(B)V
 avrora/sim/mcu/SPI.access$000(Lavrora/sim/mcu/SPI;)V
 avrora/sim/mcu/SPI.postSPIInterrupt()V
+=======
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/AtmelInterpreter.setPosted(IZ)V
 avrora/sim/InterruptTable.post(I)V
 avrora/sim/util/MulticastInterruptProbe.fireWhenPosted(Lavrora/sim/State;I)V
 avrora/sim/InterruptTable.unpost(I)V
 avrora/sim/util/MulticastInterruptProbe.fireWhenUnposted(Lavrora/sim/State;I)V
+<<<<<<< HEAD
 avrora/sim/mcu/SPI$SPSReg.setSPIF()V
 avrora/sim/mcu/ATMegaFamily$InterruptFlag.sync()V
 cck/text/StringUtil.toMultirepString(II)Ljava/lang/String;
@@ -1100,6 +1221,24 @@ cck/text/StringUtil.appendChar(ILjava/lang/StringBuffer;)V
 avrora/sim/mcu/SPI$SPCRReg.decode(B)V
 avrora/sim/mcu/SPI$SPSReg.clearSPIF()V
 avrora/sim/mcu/SPI$TransferEvent.enableTransfer()V
+=======
+avrora/sim/clock/DerivedClock.insertEvent(Lavrora/sim/Simulator$Event;J)V
+avrora/sim/clock/MainClock.insertEvent(Lavrora/sim/Simulator$Event;J)V
+avrora/sim/clock/DeltaQueue.insertEvent(Lavrora/sim/Simulator$Event;J)V
+avrora/sim/clock/DeltaQueue.newLink(Lavrora/sim/Simulator$Event;JLavrora/sim/clock/DeltaQueue$Link;)Lavrora/sim/clock/DeltaQueue$Link;
+avrora/sim/clock/DeltaQueue$Link.<init>(Lavrora/sim/clock/DeltaQueue;Lavrora/sim/Simulator$Event;J)V
+avrora/sim/clock/DeltaQueue.access$000(Lavrora/sim/clock/DeltaQueue;Lavrora/sim/Simulator$Event;Lavrora/sim/clock/DeltaQueue$EventList;)Lavrora/sim/clock/DeltaQueue$EventList;
+avrora/sim/clock/DeltaQueue.newEventList(Lavrora/sim/Simulator$Event;Lavrora/sim/clock/DeltaQueue$EventList;)Lavrora/sim/clock/DeltaQueue$EventList;
+avrora/sim/clock/DeltaQueue$EventList.<init>(Lavrora/sim/Simulator$Event;Lavrora/sim/clock/DeltaQueue$EventList;)V
+avrora/sim/clock/DeltaQueue$Link.add(Lavrora/sim/Simulator$Event;)V
+avrora/sim/clock/DeltaQueue.insertAfter(Lavrora/sim/clock/DeltaQueue$Link;Lavrora/sim/Simulator$Event;JLavrora/sim/clock/DeltaQueue$Link;)V
+cck/text/StringUtil.toMultirepString(II)Ljava/lang/String;
+cck/text/StringUtil.toHex(Ljava/lang/StringBuffer;JI)V
+cck/text/StringUtil.appendChar(ILjava/lang/StringBuffer;)V
+cck/util/Arithmetic.getBit(BI)Z
+avrora/sim/mcu/ATMegaFamily$FlagRegister.setPosted(IZ)V
+avrora/sim/mcu/DefaultMCU$Pin.setOutputDir(Z)V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/mcu/DefaultMCU$Pin.write(Z)V
 avrora/sim/mcu/DefaultMCU$Pin.printWrite(Z)V
 avrora/sim/mcu/DefaultMCU.access$000(Lavrora/sim/mcu/DefaultMCU;)Z
@@ -1107,6 +1246,7 @@ avrora/sim/mcu/DefaultMCU.access$002(Lavrora/sim/mcu/DefaultMCU;Z)Z
 avrora/sim/mcu/DefaultMCU$Pin.getDirection()Ljava/lang/String;
 avrora/sim/platform/ExternalFlash$PD5Output.write(Z)V
 avrora/sim/platform/LED.write(Z)V
+<<<<<<< HEAD
 avrora/sim/platform/sensors/LightSensor$PowerPin.write(Z)V
 avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PDATAOutput.write(Z)V
 avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PCLKOutput.write(Z)V
@@ -1121,6 +1261,40 @@ avrora/sim/platform/ExternalFlash.echo(Ljava/lang/String;)V
 avrora/sim/output/SimPrinter.getBuffer(I)Ljava/lang/StringBuffer;
 cck/text/Terminal.append(ILjava/lang/StringBuffer;Ljava/lang/String;)V
 avrora/sim/output/SimPrinter.printBuffer(Ljava/lang/StringBuffer;)V
+=======
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PDATAOutput.write(Z)V
+avrora/sim/platform/ExternalFlash$PD3Output.write(Z)V
+avrora/sim/platform/sensors/AccelSensor$OnPin.write(Z)V
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PALEOutput.write(Z)V
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PCLKOutput.write(Z)V
+avrora/sim/platform/ExternalFlash$PA3Output.write(Z)V
+avrora/sim/platform/sensors/LightSensor$PowerPin.write(Z)V
+avrora/sim/platform/sensors/LightSensor$OnPin.write(Z)V
+avrora/sim/platform/sensors/LightSensor.access$000(Lavrora/sim/platform/sensors/LightSensor;)I
+avrora/sim/platform/sensors/LightSensor.state()I
+avrora/sim/FiniteStateMachine.transition(I)V
+avrora/sim/FiniteStateMachine.fireBefore(Lavrora/sim/util/MulticastFSMProbe;II)V
+avrora/sim/util/TransactionalList.isEmpty()Z
+avrora/sim/util/MulticastFSMProbe.fireBeforeTransition(II)V
+avrora/monitors/LEDMonitor$Mon.fireBeforeTransition(II)V
+avrora/sim/platform/LED$LEDProbe.fireBeforeTransition(II)V
+avrora/sim/energy/Energy.fireBeforeTransition(II)V
+avrora/sim/FiniteStateMachine.fireAfter(Lavrora/sim/util/MulticastFSMProbe;II)V
+avrora/sim/util/MulticastFSMProbe.fireAfterTransition(II)V
+avrora/monitors/LEDMonitor$Mon.fireAfterTransition(II)V
+avrora/sim/platform/LED$LEDProbe.fireAfterTransition(II)V
+avrora/sim/energy/Energy.fireAfterTransition(II)V
+avrora/sim/energy/EnergyControl.stateChange(Lavrora/sim/energy/Energy;)V
+avrora/sim/output/SimPrinter.getBuffer(I)Ljava/lang/StringBuffer;
+cck/text/Terminal.append(ILjava/lang/StringBuffer;Ljava/lang/String;)V
+avrora/sim/platform/LED.access$000()[Ljava/lang/String;
+avrora/sim/output/SimPrinter.printBuffer(Ljava/lang/StringBuffer;)V
+avrora/sim/platform/LED.getState()I
+avrora/sim/FiniteStateMachine.getCurrentState()I
+avrora/sim/platform/ExternalFlash.access$100(Lavrora/sim/platform/ExternalFlash;)Z
+avrora/sim/platform/ExternalFlash.access$000(Lavrora/sim/platform/ExternalFlash;Ljava/lang/String;)V
+avrora/sim/platform/ExternalFlash.echo(Ljava/lang/String;)V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/platform/ExternalFlash.access$102(Lavrora/sim/platform/ExternalFlash;Z)Z
 avrora/sim/platform/ExternalFlash.access$200(Lavrora/sim/platform/ExternalFlash;)I
 avrora/sim/platform/ExternalFlash.access$300(Lavrora/sim/platform/ExternalFlash;)I
@@ -1157,6 +1331,7 @@ avrora/sim/platform/ExternalFlash.access$302(Lavrora/sim/platform/ExternalFlash;
 avrora/sim/platform/ExternalFlash.access$1402(Lavrora/sim/platform/ExternalFlash;S)S
 avrora/sim/platform/ExternalFlash.access$1502(Lavrora/sim/platform/ExternalFlash;Z)Z
 avrora/sim/platform/ExternalFlash.access$1602(Lavrora/sim/platform/ExternalFlash;B)B
+<<<<<<< HEAD
 avrora/sim/platform/sensors/LightSensor.access$000(Lavrora/sim/platform/sensors/LightSensor;)I
 avrora/sim/platform/sensors/LightSensor.state()I
 avrora/sim/FiniteStateMachine.transition(I)V
@@ -1178,11 +1353,14 @@ avrora/sim/energy/EnergyControl.stateChange(Lavrora/sim/energy/Energy;)V
 avrora/sim/platform/sensors/AccelSensor.access$000(Lavrora/sim/platform/sensors/AccelSensor;)I
 avrora/sim/platform/sensors/AccelSensor.state()I
 avrora/sim/platform/ExternalFlash.access$1702(Lavrora/sim/platform/ExternalFlash;Z)Z
+=======
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/radio/CC1000Radio$SerialConfigurationInterface.access$200(Lavrora/sim/radio/CC1000Radio$SerialConfigurationInterface;)V
 avrora/sim/radio/CC1000Radio$SerialConfigurationInterface.clockInBit()V
 avrora/sim/radio/CC1000Radio$SerialConfigurationInterface.outputReadBit()V
 avrora/sim/radio/CC1000Radio$SerialConfigurationInterface.inputWriteBit()V
 avrora/sim/radio/CC1000Radio$RadioRegister.write(B)V
+<<<<<<< HEAD
 avrora/sim/radio/CC1000Radio$CurrentRegister.decode(B)V
 avrora/sim/radio/CC1000Radio$FrequencySeparationRegister$SubRegister.decode(B)V
 avrora/sim/radio/CC1000Radio$PLLRegister.decode(B)V
@@ -1199,6 +1377,28 @@ avrora/sim/radio/CC1000Radio$MainRegister.decode(B)V
 avrora/sim/radio/CC1000Radio$CALRegister.decode(B)V
 avrora/sim/radio/CC1000Radio$PrescalerRegister.decode(B)V
 avrora/sim/radio/CC1000Radio$FrontEndRegister.decode(B)V
+=======
+avrora/sim/radio/CC1000Radio$MainRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$Modem0Register.decode(B)V
+avrora/sim/radio/CC1000Radio$PrescalerRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$CALRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$FrequencyRegister$FrequencySubRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$FrontEndRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$FrequencySeparationRegister$SubRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$Modem1Register.decode(B)V
+avrora/sim/radio/CC1000Radio$LockRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$FSCTRLRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$PA_POWRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$PLLRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$DummyRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$MatchRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$Modem2Register.decode(B)V
+avrora/sim/radio/CC1000Radio$CurrentRegister.decode(B)V
+avrora/sim/radio/CC1000Radio$PA_POWRegister.getPower()I
+avrora/sim/radio/CC1000Radio$FrequencySeparationRegister.updateFrequencySeparation()V
+avrora/sim/radio/CC1000Radio$FrequencyRegister.updateFrequency()V
+avrora/sim/radio/CC1000Radio$Modem0Register.calculateBaudRate(II)V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/radio/Medium$Receiver.endReceive()V
 avrora/sim/radio/CC1000Radio$Receiver.nextByte(ZB)B
 avrora/sim/radio/Medium$Probe$List.fireAfterReceiveEnd(Lavrora/sim/radio/Medium$Receiver;)V
@@ -1213,8 +1413,13 @@ avrora/monitors/PacketMonitor$Mon.appendTime(Ljava/lang/StringBuffer;)V
 avrora/sim/clock/Clock.cyclesToMillis(J)D
 cck/text/StringUtil.toFixedFloat(FI)Ljava/lang/String;
 avrora/monitors/PacketMonitor$Mon.clear()V
+<<<<<<< HEAD
 avrora/sim/clock/DerivedClock.removeEvent(Lavrora/sim/Simulator$Event;)V
 avrora/sim/clock/MainClock.removeEvent(Lavrora/sim/Simulator$Event;)V
+=======
+avrora/sim/clock/MainClock.removeEvent(Lavrora/sim/Simulator$Event;)V
+avrora/sim/clock/DerivedClock.removeEvent(Lavrora/sim/Simulator$Event;)V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/clock/DeltaQueue.removeEvent(Lavrora/sim/Simulator$Event;)V
 avrora/sim/clock/DeltaQueue$Link.remove(Lavrora/sim/Simulator$Event;)V
 avrora/sim/clock/DeltaQueue.access$100(Lavrora/sim/clock/DeltaQueue;Lavrora/sim/clock/DeltaQueue$EventList;)V
@@ -1224,7 +1429,10 @@ avrora/sim/radio/Medium$Receiver.beginReceive(D)V
 avrora/sim/radio/Medium$Transmitter.endTransmit()V
 avrora/sim/radio/Medium$Transmission.end()V
 avrora/sim/radio/CC1000Radio.getPower()D
+<<<<<<< HEAD
 avrora/sim/radio/CC1000Radio$PA_POWRegister.getPower()I
+=======
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/radio/CC1000Radio.getFrequency()D
 avrora/sim/radio/Medium$Transmitter.beginTransmit(DD)V
 avrora/sim/radio/Medium.newTransmission(Lavrora/sim/radio/Medium$Transmitter;DD)Lavrora/sim/radio/Medium$Transmission;
@@ -1233,6 +1441,7 @@ avrora/sim/radio/Medium$TXRX.getBitNum(J)J
 cck/util/Arithmetic.roundup(II)I
 avrora/sim/radio/CC1000Radio$SPITicker.deactivate()V
 avrora/sim/radio/CC1000Radio$SPITicker.activate()V
+<<<<<<< HEAD
 avrora/sim/radio/CC1000Radio$Modem0Register.calculateBaudRate(II)V
 avrora/sim/radio/CC1000Radio$FrequencyRegister.updateFrequency()V
 avrora/sim/radio/CC1000Radio$FrequencySeparationRegister.updateFrequencySeparation()V
@@ -1244,6 +1453,19 @@ avrora/sim/radio/CC1000Radio$PA_POWRegister.printStatus()V
 avrora/sim/radio/CC1000Radio$Modem0Register.printStatus()V
 avrora/sim/radio/CC1000Radio$CALRegister.printStatus()V
 cck/text/StringUtil.toBit(Z)C
+=======
+avrora/sim/radio/CC1000Radio$MainRegister.printStatus()V
+avrora/sim/radio/CC1000Radio$LockRegister.printStatus()V
+avrora/sim/radio/CC1000Radio$Modem0Register.printStatus()V
+avrora/sim/radio/CC1000Radio$PA_POWRegister.printStatus()V
+avrora/sim/radio/CC1000Radio$CALRegister.printStatus()V
+avrora/sim/radio/CC1000Radio$CurrentRegister.printStatus()V
+avrora/sim/radio/CC1000Radio$RadioRegister.printStatus()V
+cck/text/StringUtil.toBit(Z)C
+avrora/sim/platform/sensors/AccelSensor.access$000(Lavrora/sim/platform/sensors/AccelSensor;)I
+avrora/sim/platform/sensors/AccelSensor.state()I
+avrora/sim/platform/ExternalFlash.access$1702(Lavrora/sim/platform/ExternalFlash;Z)Z
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/platform/ExternalFlash.access$1800(Lavrora/sim/platform/ExternalFlash;)Z
 avrora/sim/platform/ExternalFlash.access$1500(Lavrora/sim/platform/ExternalFlash;)Z
 avrora/sim/platform/ExternalFlash$PD5Output.setSO()V
@@ -1272,6 +1494,7 @@ avrora/sim/platform/ExternalFlash.setBuffer1(IS)V
 avrora/sim/platform/ExternalFlash.access$2600(Lavrora/sim/platform/ExternalFlash;IS)V
 avrora/sim/platform/ExternalFlash.setBuffer2(IS)V
 avrora/sim/platform/ExternalFlash.access$1802(Lavrora/sim/platform/ExternalFlash;Z)Z
+<<<<<<< HEAD
 avrora/sim/mcu/USART.updatePeriod()V
 avrora/sim/mcu/AtmelInternalDevice.read16(Lavrora/sim/RWRegister;Lavrora/sim/RWRegister;)I
 avrora/sim/mcu/Timer16Bit$OCRnxPairedRegister.read()B
@@ -1298,6 +1521,39 @@ avrora/sim/mcu/DefaultMCU$Pin.printRead(Z)V
 avrora/sim/mcu/DefaultMCU$Pin.setOutputDir(Z)V
 avrora/sim/mcu/ReprogrammableCodeSegment.access$000(Lavrora/sim/mcu/ReprogrammableCodeSegment;)Lavrora/sim/AtmelInterpreter;
 avrora/sim/mcu/ReprogrammableCodeSegment.access$100(Lavrora/sim/mcu/ReprogrammableCodeSegment;)Lavrora/sim/AtmelInterpreter;
+=======
+avrora/sim/mcu/ATMegaFamily$MaskRegister.setEnabled(IZ)V
+avrora/sim/mcu/Timer8Bit$ControlRegister.forcedOutputCompare()V
+avrora/sim/mcu/DefaultMCU$Pin.read()Z
+avrora/sim/platform/ExternalFlash$PD2Input.read()Z
+avrora/sim/radio/CC1000Radio$SerialConfigurationInterface$PDATAInput.read()Z
+avrora/sim/platform/ExternalFlash.access$2400(Lavrora/sim/platform/ExternalFlash;)Z
+avrora/sim/mcu/DefaultMCU$Pin.printRead(Z)V
+avrora/sim/mcu/ATMegaFamily$InterruptFlag.sync()V
+avrora/sim/mcu/Timer8Bit$BufferedRegister.flush()V
+avrora/sim/mcu/ATMegaFamily$Timer0$ASSRRegister.decode(B)V
+avrora/sim/mcu/SPI$TransferEvent.enableTransfer()V
+avrora/sim/mcu/SPI$SPSReg.clearSPIF()V
+avrora/sim/mcu/SPI$SPCRReg.decode(B)V
+avrora/sim/mcu/Timer16Bit$BufferedRegister.flush()V
+avrora/sim/mcu/SPI$SPSReg.decode(B)V
+avrora/sim/mcu/SPI.access$000(Lavrora/sim/mcu/SPI;)V
+avrora/sim/mcu/SPI.postSPIInterrupt()V
+avrora/sim/mcu/SPI$SPSReg.setSPIF()V
+avrora/sim/mcu/ReprogrammableCodeSegment.access$000(Lavrora/sim/mcu/ReprogrammableCodeSegment;)Lavrora/sim/AtmelInterpreter;
+avrora/sim/mcu/ReprogrammableCodeSegment.access$100(Lavrora/sim/mcu/ReprogrammableCodeSegment;)Lavrora/sim/AtmelInterpreter;
+avrora/sim/mcu/USART.updatePeriod()V
+avrora/sim/mcu/AtmelInternalDevice.read16(Lavrora/sim/RWRegister;Lavrora/sim/RWRegister;)I
+avrora/sim/mcu/ADC$ControlRegister.startConversion()V
+avrora/sim/mcu/ADC$ControlRegister.insertConversion()V
+avrora/sim/mcu/ADC$ControlRegister.getPrescaler()I
+avrora/sim/mcu/ADC$MUXRegister.isSingleEnded()Z
+avrora/sim/mcu/ADC$MUXRegister.getSingleIndex()I
+avrora/sim/mcu/ADC$MUXRegister.getPosIndex()I
+avrora/sim/mcu/ADC$MUXRegister.getNegIndex()I
+avrora/sim/mcu/ADC$ControlRegister.stopConversion()V
+avrora/sim/mcu/ADC$ControlRegister.unpostADCInterrupt()V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/mcu/ATMegaFamily$FlagRegister.flagBit(I)V
 cck/util/Arithmetic.setBit(BI)B
 avrora/sim/RWRegister.readBit(I)Z
@@ -1305,9 +1561,15 @@ avrora/sim/mcu/USART$Transmitter.enableTransmit()V
 avrora/sim/mcu/USART$ControlRegisterC.getFrameSize()I
 avrora/sim/mcu/USART$ControlRegisterC.getStopBits()I
 avrora/sim/mcu/SPI.newFrame(B)Lavrora/sim/mcu/SPI$Frame;
+<<<<<<< HEAD
 avrora/sim/state/RegisterUtil$PermutedView.setValue(I)V
 avrora/sim/RWRegister.setValue(I)V
 avrora/sim/state/RegisterUtil$BitRangeView.setValue(I)V
+=======
+avrora/sim/state/RegisterUtil$BitRangeView.setValue(I)V
+avrora/sim/state/RegisterUtil$PermutedView.setValue(I)V
+avrora/sim/RWRegister.setValue(I)V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/mcu/USART$ControlRegisterB.<init>(Lavrora/sim/mcu/USART;)V
 avrora/sim/state/RegisterUtil.bitView(Lavrora/sim/state/RegisterView;I)Lavrora/sim/state/RegisterView;
 avrora/sim/mcu/USART$ControlRegisterC.<init>(Lavrora/sim/mcu/USART;)V
@@ -1429,6 +1691,11 @@ avrora/sim/SimulatorThread.setSynchronizer(Lavrora/sim/clock/Synchronizer;)V
 avrora/sim/clock/RippleSynchronizer$NotifyEvent.<init>(Lavrora/sim/clock/RippleSynchronizer;Lavrora/sim/SimulatorThread;)V
 avrora/sim/SimulatorThread.getSimulator()Lavrora/sim/Simulator;
 avrora/sim/Simulation$Node.getSimulator()Lavrora/sim/Simulator;
+<<<<<<< HEAD
+=======
+avrora/sim/types/SensorSimulation$SensorNode.createNode()V
+avrora/sim/SimulatorThread.<init>(Lavrora/sim/Simulation$Node;)V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/platform/Platform.getDevice(Ljava/lang/String;)Ljava/lang/Object;
 avrora/sim/types/SensorSimulation$SensorNode.createCC2420Medium()Lavrora/sim/radio/Medium;
 avrora/sim/types/SensorSimulation$SensorNode.createRadioModel()V
@@ -1441,7 +1708,10 @@ avrora/sim/types/SensorSimulation.access$200(Lavrora/sim/types/SensorSimulation;
 avrora/sim/types/SensorSimulation.access$300(Lavrora/sim/types/SensorSimulation;)Lavrora/sim/clock/Synchronizer;
 avrora/sim/Simulator.delay(J)V
 avrora/sim/AtmelInterpreter.delay(J)V
+<<<<<<< HEAD
 avrora/sim/types/SensorSimulation$SensorNode.setNodePosition()V
+=======
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/types/SensorSimulation$SensorNode.updateNodeID()V
 avrora/sim/types/SensorSimulation$SensorNode.updateVariable(Lavrora/core/SourceMapping;Ljava/lang/String;I)V
 cck/util/Arithmetic.low(I)B
@@ -1455,6 +1725,7 @@ avrora/sim/types/SensorSimulation$SensorNode.addSensorData()V
 avrora/sim/types/SensorSimulation$SensorDataInput.instantiate(Lavrora/sim/platform/Platform;)V
 avrora/sim/platform/sensors/Sensor.setSensorData(Lavrora/sim/platform/sensors/SensorData;)V
 avrora/sim/Simulation$Node.addMonitors()V
+<<<<<<< HEAD
 avrora/monitors/PacketMonitor.newMonitor(Lavrora/sim/Simulator;)Lavrora/monitors/Monitor;
 avrora/monitors/LEDMonitor.newMonitor(Lavrora/sim/Simulator;)Lavrora/monitors/Monitor;
 avrora/monitors/LEDMonitor$Mon.<init>(Lavrora/monitors/LEDMonitor;Lavrora/sim/Simulator;)V
@@ -1468,6 +1739,21 @@ avrora/sim/radio/Medium$Probe$List.<init>()V
 avrora/sim/radio/CC1000Radio.getReceiver()Lavrora/sim/radio/Medium$Receiver;
 avrora/sim/radio/CC2420Radio.getReceiver()Lavrora/sim/radio/Medium$Receiver;
 avrora/sim/radio/Medium$Receiver.insertProbe(Lavrora/sim/radio/Medium$Probe;)V
+=======
+avrora/monitors/LEDMonitor.newMonitor(Lavrora/sim/Simulator;)Lavrora/monitors/Monitor;
+avrora/monitors/PacketMonitor.newMonitor(Lavrora/sim/Simulator;)Lavrora/monitors/Monitor;
+avrora/monitors/PacketMonitor$Mon.<init>(Lavrora/monitors/PacketMonitor;Lavrora/sim/Simulator;)V
+avrora/sim/mcu/DefaultMCU.getPlatform()Lavrora/sim/platform/Platform;
+avrora/sim/radio/CC1000Radio.getTransmitter()Lavrora/sim/radio/Medium$Transmitter;
+avrora/sim/radio/CC2420Radio.getTransmitter()Lavrora/sim/radio/Medium$Transmitter;
+avrora/sim/radio/Medium$Transmitter.insertProbe(Lavrora/sim/radio/Medium$Probe;)V
+avrora/sim/radio/Medium$TXRX.insertProbe(Lavrora/sim/radio/Medium$Probe;)V
+avrora/sim/radio/Medium$Probe$List.<init>()V
+avrora/sim/radio/CC2420Radio.getReceiver()Lavrora/sim/radio/Medium$Receiver;
+avrora/sim/radio/CC1000Radio.getReceiver()Lavrora/sim/radio/Medium$Receiver;
+avrora/sim/radio/Medium$Receiver.insertProbe(Lavrora/sim/radio/Medium$Probe;)V
+avrora/monitors/LEDMonitor$Mon.<init>(Lavrora/monitors/LEDMonitor;Lavrora/sim/Simulator;)V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/sim/clock/RippleSynchronizer.start()V
 avrora/sim/Simulation.join()V
 avrora/sim/clock/RippleSynchronizer.join()V
@@ -1497,9 +1783,15 @@ cck/text/StringUtil.justify(ZLjava/lang/String;I)Ljava/lang/String;
 cck/text/StringUtil.leftJustify(JI)Ljava/lang/String;
 avrora/sim/AtmelInterpreter$StateImpl.getCycles()J
 cck/text/Terminal.printRed(Ljava/lang/String;)V
+<<<<<<< HEAD
 cck/util/Util$InternalError.report()V
 cck/util/Util$Error.report()V
 cck/util/Util$Unexpected.report()V
+=======
+cck/util/Util$Error.report()V
+cck/util/Util$Unexpected.report()V
+cck/util/Util$InternalError.report()V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 avrora/actions/ELFDumpAction.printHeader(Lcck/elf/ELFHeader;)V
 cck/text/StringUtil.rightJustify(Ljava/lang/String;I)Ljava/lang/String;
 cck/elf/ELFHeader.is64Bit()Z
@@ -1531,12 +1823,21 @@ cck/help/HelpCategory$ListSection.printHelp()V
 cck/help/HelpCategory$OptionsSection.printHelp()V
 cck/help/HelpCategory$ParagraphSection.printHelp()V
 cck/util/Options.getAllOptions()Ljava/util/Collection;
+<<<<<<< HEAD
 cck/util/Option$Bool.printHelp()V
 cck/util/Option$Str.printHelp()V
 cck/util/Option$List.printHelp()V
 cck/util/Option$Long.printHelp()V
 cck/util/Option$Double.printHelp()V
 cck/util/Option$Interval.printHelp()V
+=======
+cck/util/Option$Long.printHelp()V
+cck/util/Option$Str.printHelp()V
+cck/util/Option$Double.printHelp()V
+cck/util/Option$List.printHelp()V
+cck/util/Option$Interval.printHelp()V
+cck/util/Option$Bool.printHelp()V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
 cck/util/Option.printHeader(Ljava/lang/String;Ljava/lang/String;)V
 cck/util/Option.printDescription()V
 cck/help/ClassMapValueItem.printHelp()V
@@ -1587,3 +1888,7 @@ org/dacapo/harness/CommandLineArgs.getTargetVar()D
 org/dacapo/harness/Benchmark.cleanup()V
 org/dacapo/harness/Benchmark.deleteTree(Ljava/io/File;)V
 org/dacapo/harness/CommandLineArgs.getIgnoreValidation()Z
+<<<<<<< HEAD
+=======
+avrora/sim/types/SensorSimulation$SensorNode.setNodePosition()V
+>>>>>>> bd1ebb90b1fc162ef037af14ddddb564f3204177
