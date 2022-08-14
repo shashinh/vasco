@@ -7,6 +7,7 @@ org/dacapo/harness/CommandLineArgs.printBenchmarks()V
 org/dacapo/harness/CommandLineArgs.extractBenchmarkSet()Ljava/util/List;
 org/dacapo/harness/CommandLineArgs.printReleaseNotes()V
 org/dacapo/harness/CommandLineArgs.printUsage()V
+jdk/internal/org/xml/sax/SAXException.getMessage()Ljava/lang/String;
 org/dacapo/harness/CommandLineArgs.defineCallback()V
 org/dacapo/harness/CommandLineArgs.getCallback()Lorg/dacapo/harness/Callback;
 org/dacapo/harness/Callback.<init>(Lorg/dacapo/harness/CommandLineArgs;)V
@@ -29,6 +30,7 @@ org/dacapo/parser/SimpleCharStream.BeginToken()C
 org/dacapo/parser/SimpleCharStream.readChar()C
 org/dacapo/parser/SimpleCharStream.FillBuff()V
 org/dacapo/parser/SimpleCharStream.ExpandBuff(Z)V
+org/dacapo/parser/TokenMgrError.getMessage()Ljava/lang/String;
 org/dacapo/parser/SimpleCharStream.backup(I)V
 org/dacapo/parser/SimpleCharStream.UpdateLineColumn(C)V
 org/dacapo/parser/ConfigFileTokenManager.jjMoveStringLiteralDfa0_1()I
@@ -142,6 +144,19 @@ org/dacapo/parser/Config.setThreadCountOverride(I)V
 org/dacapo/harness/CommandLineArgs.benchmarks()Ljava/lang/Iterable;
 org/dacapo/harness/CommandLineArgs.getCnfOverride()Ljava/lang/String;
 org/dacapo/harness/TestHarness.<init>(Ljava/io/InputStream;)V
+jdk/internal/org/objectweb/asm/Label.toString()Ljava/lang/String;
+jdk/internal/org/objectweb/asm/TypePath.toString()Ljava/lang/String;
+jdk/internal/org/xml/sax/SAXParseException.toString()Ljava/lang/String;
+org/dacapo/parser/Token.toString()Ljava/lang/String;
+jdk/internal/org/objectweb/asm/Type.toString()Ljava/lang/String;
+jdk/internal/org/xml/sax/SAXException.toString()Ljava/lang/String;
+jdk/net/ExtendedSocketOptions$ExtSocketOption.toString()Ljava/lang/String;
+jdk/internal/org/objectweb/asm/Handle.toString()Ljava/lang/String;
+jdk/internal/org/objectweb/asm/Type.getDescriptor()Ljava/lang/String;
+jdk/internal/org/objectweb/asm/Type.getDescriptor(Ljava/lang/StringBuffer;)V
+jdk/internal/org/objectweb/asm/TypePath.getLength()I
+jdk/internal/org/objectweb/asm/TypePath.getStep(I)I
+jdk/internal/org/objectweb/asm/TypePath.getStepArgument(I)I
 org/dacapo/harness/CommandLineArgs.getSize()Ljava/lang/String;
 org/dacapo/parser/Config.getThreadLimit(Ljava/lang/String;)I
 org/dacapo/parser/Config$Size.getThreadLimit()I
@@ -213,6 +228,7 @@ org/dacapo/harness/Benchmark.startIteration()V
 org/dacapo/harness/Benchmark.augmentSystemProperties(Ljava/util/Properties;)V
 org/dacapo/harness/TeePrintStream.version()V
 org/dacapo/harness/TeeOutputStream.version()V
+org/dacapo/harness/TeeOutputStream.close()V
 org/dacapo/harness/TeePrintStream.openLog()V
 org/dacapo/harness/TeeOutputStream.openLog()V
 org/dacapo/harness/Luindex.iterate(Ljava/lang/String;)V
