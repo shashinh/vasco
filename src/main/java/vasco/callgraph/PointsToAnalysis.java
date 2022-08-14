@@ -114,6 +114,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 
 	public Map<AnyNewExpr, String> bciMap;
 	public Map<AnyNewExpr, BciContainer> bciMap2;
+	public SootMethod threadStartMethod;
 	//public Map<AnyNewExpr, String> exprToMethodMap;
 	
 
@@ -138,7 +139,10 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 
 		this.bciMap = new HashMap<AnyNewExpr, String>();
 		this.bciMap2 = new HashMap<AnyNewExpr, BciContainer>();
-		//this.exprToMethodMap = new HashMap<AnyNewExpr, String>();
+		
+		this.threadStartMethod = Scene.v().getSootClass("java.lang.Thread").getMethodByNameUnsafe("start");
+		
+		assert(threadStartMethod != null);
 	}
 
 	/**
@@ -538,6 +542,35 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 
 
 	/**
+	 * Computes the targets of an invoke expresssion purely based on the hierarchy of the receiver's type (not CHA)
+	 * Use only when the receiver points to a summary node
+	 * @param receiver
+	 * @param ie
+	 * @return
+	 */
+	private SootMethod getTargetFromHierarchy(Local receiver, InvokeExpr ie) {
+		SootMethod target = null;
+		
+		assert(receiver.getType() instanceof RefType);
+		SootClass receiverType = ((RefType) receiver.getType()).getSootClass();
+		
+		String invokedMethodSubSig = ie.getMethod().getSubSignature();
+		
+		SootClass clazz = receiverType;
+		do {
+			if(clazz.declaresMethod(invokedMethodSubSig)) {
+				target = clazz.getMethod(invokedMethodSubSig);
+			} else if(clazz.hasSuperclass()) {
+				clazz = clazz.getSuperclass();
+			} else {
+				clazz = null;
+			}
+		} while(clazz != null);
+		
+		
+		return target;
+	}
+	/**
 	 * Computes the targets of an invoke expression using a given points-to graph.
 	 * 
 	 * <p>For static invocations, there is only target. For instance method
@@ -572,8 +605,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			
 			boolean containsSummary = heapNodes != null && heapNodes.contains(PointsToGraph.SUMMARY_NODE);
 			boolean containsSingletonNull = heapNodes != null && heapNodes.size() == 1 && heapNodes.contains(PointsToGraph.nullObj);
-			//TODO: if a thread.start() invocation has a BOT receiver, then it will never get resolved thanks to this guard
-			if((containsSingletonNull || containsSummary) && !invokedMethod.isJavaLibraryMethod()) {
+
+			if(containsSingletonNull || containsSummary) {
 				if (receiver.getType() instanceof RefType) {
 					
 					CallGraph cg = Scene.v().getCallGraph();
@@ -581,6 +614,10 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 					while(targetEdges.hasNext()) {
 						SootMethod t = targetEdges.next().tgt();
 							targets.add(t);
+					}
+					
+					if(targets.size() == 1 && targets.iterator().next().equals(this.threadStartMethod)) {
+						System.err.println("to short - thread.start: " + ie.toString());
 					}
 				
 					if(!targets.isEmpty())
@@ -614,19 +651,19 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							//if sootClass == Thread && subsignature == "void start()", then
 							//	targets.add(receiverClass.getMethod("void run()")
 							//this will basically inline the start-run sequence
-//							String className = sootClass.getName();
-//							if(thread_start == null && className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
-//								thread_start = invokedMethod;
-//							}
-//							if (thread_start == invokedMethod){
-//								SootMethod threadRunMethod = receiverClass.getMethod("void run()");
-//								//getMethod will throw a RuntimeException if method doesn't exist - but that is fine, the method is supposed to be defined
-//								System.out.println("short-circuited thread start with run for " + ie.toString() + " caller method " + callerMethod.toString());
-//								targets.add(threadRunMethod);
-//							} else {
+							String className = sootClass.getName();
+							if(thread_start == null && className.equals("java.lang.Thread") && subsignature.equals("void start()")) {
+								thread_start = invokedMethod;
+							}
+							if (thread_start == invokedMethod){
+								SootMethod threadRunMethod = receiverClass.getMethod("void run()");
+								//getMethod will throw a RuntimeException if method doesn't exist - but that is fine, the method is supposed to be defined
+								System.out.println("short-circuited thread start with run for " + ie.toString() + " caller method " + callerMethod.toString());
+								targets.add(threadRunMethod);
+							} else {
 								//leave the original code alone
 								targets.add(sootClass.getMethod(subsignature));
-//							}
+							}
 							break;
 						} else if (sootClass.hasSuperclass()) {
 							sootClass = sootClass.getSuperclass();

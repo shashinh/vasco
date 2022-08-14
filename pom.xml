@@ -8,7 +8,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<soot.location>/home/shashin/sootjar</soot.location>
+		<soot.location>${project.basedir}/libs</soot.location>
 	</properties>
 	<build>
 		<plugins>
@@ -84,7 +84,7 @@
 			<version>4.2.1</version>
 			<scope>system</scope>
 				<!-- 		<systemPath>${soot.location}/soot-4.3.0-jar-with-dependencies.jar</systemPath>-->
-			<systemPath>${soot.location}/soot-iitmandi-patched.jar</systemPath>
+			<systemPath>${project.basedir}/libs/soot-iitmandi-patched.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
