@@ -215,6 +215,7 @@ public class PointsToGraph {
 		roots.put(lhs, Collections.unmodifiableSet(lhsTargets));
 
 		// Ensure reachability
+		//SHASHIN - COMMENT THIS !
 //		gc();
 	}
 
@@ -647,7 +648,8 @@ public class PointsToGraph {
 					// Otherwise not acceptable as we are doing type-checking
 					System.err.println(this);
 					//SHASHIN: simply report the error and ignore the RTE?
-					System.err.println("Field not found: " + field + " in " + node);
+//					System.err.println("Field not found: " + field + " in " + node);
+					System.err.println("field not found");
 //					throw new RuntimeException("Field not found: " + field + " in " + node);
 //					oldTargets = new HashSet<AnyNewExpr>();
 					return;

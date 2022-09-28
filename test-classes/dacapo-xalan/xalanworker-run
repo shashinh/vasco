@@ -1,0 +1,130 @@
+ public void run()
+    {
+        java.io.FileOutputStream l1;
+        java.io.File $stack5, $stack7, $stack19, $stack21;
+        org.dacapo.xalan.XSLTBench$XalanWorker l0, $stack23;
+        org.dacapo.xalan.XSLTBench $stack6, $stack16, $stack20;
+        java.lang.StringBuilder $stack8, $stack9, $stack11;
+        int $stack10;
+        java.lang.String $stack12, $stack14, l3, $stack24, $stack25;
+        javax.xml.transform.stream.StreamResult l2;
+        org.dacapo.xalan.XSLTBench$WorkQueue $stack13;
+        boolean $stack15;
+        javax.xml.transform.Templates $stack17;
+        javax.xml.transform.Transformer $stack18;
+        java.io.FileInputStream l4;
+        javax.xml.transform.stream.StreamSource $stack22;
+        java.io.IOException $stack26;
+        javax.xml.transform.TransformerException $stack27;
+        javax.xml.transform.TransformerConfigurationException $stack28;
+
+        l0 := @this: org.dacapo.xalan.XSLTBench$XalanWorker;
+
+     label1:
+        l1 = new java.io.FileOutputStream;
+
+        $stack5 = new java.io.File;
+
+        $stack6 = l0.<org.dacapo.xalan.XSLTBench$XalanWorker: org.dacapo.xalan.XSLTBench this$0>;
+
+        $stack7 = staticinvoke <org.dacapo.xalan.XSLTBench: java.io.File access$000(org.dacapo.xalan.XSLTBench)>($stack6);
+
+        $stack8 = new java.lang.StringBuilder;
+
+        specialinvoke $stack8.<java.lang.StringBuilder: void <init>()>();
+
+        $stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("xalan.out.");
+
+        $stack10 = l0.<org.dacapo.xalan.XSLTBench$XalanWorker: int _id>;
+
+        $stack11 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack10);
+
+        $stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $stack5.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack7, $stack12);
+
+        specialinvoke l1.<java.io.FileOutputStream: void <init>(java.io.File)>($stack5);
+
+        l2 = new javax.xml.transform.stream.StreamResult;
+
+        specialinvoke l2.<javax.xml.transform.stream.StreamResult: void <init>(java.io.OutputStream)>(l1);
+
+     label2:
+        $stack23 = l0;
+
+        $stack13 = $stack23.<org.dacapo.xalan.XSLTBench$XalanWorker: org.dacapo.xalan.XSLTBench$WorkQueue _queue>;
+
+        $stack14 = virtualinvoke $stack13.<org.dacapo.xalan.XSLTBench$WorkQueue: java.lang.String pop()>();
+
+        l3 = $stack14;
+
+        $stack25 = l3;
+
+        $stack24 = "";
+
+        $stack15 = virtualinvoke $stack25.<java.lang.String: boolean equals(java.lang.Object)>($stack24);
+
+        if $stack15 == 0 goto label3;
+
+        goto label4;
+
+     label3:
+        $stack16 = l0.<org.dacapo.xalan.XSLTBench$XalanWorker: org.dacapo.xalan.XSLTBench this$0>;
+
+        $stack17 = $stack16.<org.dacapo.xalan.XSLTBench: javax.xml.transform.Templates _template>;
+
+        $stack18 = interfaceinvoke $stack17.<javax.xml.transform.Templates: javax.xml.transform.Transformer newTransformer()>();
+
+        virtualinvoke $stack18.<javax.xml.transform.Transformer: void setErrorListener(javax.xml.transform.ErrorListener)>(l0);
+
+        l4 = new java.io.FileInputStream;
+
+        $stack19 = new java.io.File;
+
+        $stack20 = l0.<org.dacapo.xalan.XSLTBench$XalanWorker: org.dacapo.xalan.XSLTBench this$0>;
+
+        $stack21 = staticinvoke <org.dacapo.xalan.XSLTBench: java.io.File access$000(org.dacapo.xalan.XSLTBench)>($stack20);
+
+        specialinvoke $stack19.<java.io.File: void <init>(java.io.File,java.lang.String)>($stack21, l3);
+
+        specialinvoke l4.<java.io.FileInputStream: void <init>(java.io.File)>($stack19);
+
+        $stack22 = new javax.xml.transform.stream.StreamSource;
+
+        specialinvoke $stack22.<javax.xml.transform.stream.StreamSource: void <init>(java.io.InputStream)>(l4);
+
+        virtualinvoke $stack18.<javax.xml.transform.Transformer: void transform(javax.xml.transform.Source,javax.xml.transform.Result)>($stack22, l2);
+
+        virtualinvoke l4.<java.io.FileInputStream: void close()>();
+
+        goto label2;
+
+     lbel4:
+        goto label8;
+
+     label5:
+        $stack28 := @caughtexception;
+
+        virtualinvoke $stack28.<javax.xml.transform.TransformerConfigurationException: void printStackTrace()>();
+
+        goto label8;
+
+     label6:
+        $stack27 := @caughtexception;
+
+        virtualinvoke $stack27.<javax.xml.transform.TransformerException: void printStackTrace()>();
+
+        goto label8;
+
+     label7:
+        $stack26 := @caughtexception;
+
+        virtualinvoke $stack26.<java.io.IOException: void printStackTrace()>();
+
+     label8:
+        return;
+
+        catch javax.xml.transform.TransformerConfigurationException from label1 to label4 with label5;
+        catch javax.xml.transform.TransformerException from label1 to label4 with label6;
+        catch java.io.IOException from label1 to label4 with label7;
+    }

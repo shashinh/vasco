@@ -60,6 +60,7 @@ import soot.tagkit.BytecodeOffsetTag;
 import vasco.CallSite;
 import vasco.Context;
 import vasco.ContextTransitionTable;
+import vasco.OldForwardInterProceduralAnalysis;
 import vasco.soot.AbstractNullObj;
 
 /**
@@ -112,6 +113,10 @@ public class CallGraphTest {
 					i += 2;
 				} else if (args[i].equals("-reflog")) {
 					reflectionLog = args[i+1];
+					i += 2;
+				} else if (args[i].equals("-threshold")) {
+					PointsToAnalysis.methodInvocationThreshold = Integer.parseInt(args[i+1]);
+					PointsToAnalysis.applyInvocationThreshold = true;
 					i += 2;
 				} else {
 					mainClass = args[i];
@@ -174,6 +179,7 @@ public class CallGraphTest {
 				//"-p", "cg", "reflection-log:" + reflectionLog,
 				"-include", "org.apache.",
 				"-include", "org.w3c.",
+				"-include", "com.sun.tools.javac.",
 				 "-allow-phantom-refs",
 				 
 //				 "-x", "java",
@@ -315,6 +321,7 @@ public class CallGraphTest {
 //	}
 	public static void dumpPartiallyAnalysedMethods(PointsToAnalysis pta) throws FileNotFoundException {
 		Set<SootMethod> partiallyAnalysedMethods = pta.partiallyAnalysedMethods;
+		partiallyAnalysedMethods.addAll(PointsToAnalysis.methodsOverInvocationThreshold);
 		
 		PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/pa.txt");
 		for(SootMethod m : partiallyAnalysedMethods) {

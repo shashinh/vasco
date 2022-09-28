@@ -720,8 +720,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			}
 		}
 		Set<SootMethod> targets = getTargets(callerMethod, callStmt, ie, in);
-
-			if(targets != null && !ie.getMethod().isJavaLibraryMethod()) {
+//&& (ie.getMethod().equals(threadStartMethod) || !ie.getMethod().isJavaLibraryMethod())
+			if(targets != null ) {
 				BytecodeOffsetTag bT = (BytecodeOffsetTag) ((Unit) callStmt).getTag("BytecodeOffsetTag");
 				assert(bT != null && bT.getBytecodeOffset() >= 0);
 				//1. check if the caller method already has an index
@@ -731,17 +731,21 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				Set<SootClass> receiversForCall = new HashSet<SootClass>();
 				Map <Integer, Set <SootClass>> receiverInfo = this.callsiteReceiverReference.getOrDefault(callerMethod, new HashMap<Integer, Set<SootClass>>());
 				for(SootMethod target : targets) {
-					SootClass receiverClass = target.getDeclaringClass();
-					int classIndex;
-					if(!this.sootClassIndices.containsKey(receiverClass)) {
-						classIndex = this.sootClassIndices.size() + 1;
-						this.sootClassIndices.put(receiverClass, classIndex);
-					} else {
-						//we don't really need the classIndex right now
-						classIndex = this.sootClassIndices.get(receiverClass);
-					}
 					
-					receiversForCall.add(receiverClass);
+					SootClass receiverClass = target.getDeclaringClass();
+					if(receiverClass.getPackageName().startsWith("java.security") || receiverClass.getPackageName().startsWith("javax.crypto") ||
+							! receiverClass.isJavaLibraryClass()) {
+						int classIndex;
+						if(!this.sootClassIndices.containsKey(receiverClass)) {
+							classIndex = this.sootClassIndices.size() + 1;
+							this.sootClassIndices.put(receiverClass, classIndex);
+						} else {
+							//we don't really need the classIndex right now
+							classIndex = this.sootClassIndices.get(receiverClass);
+						}
+						
+						receiversForCall.add(receiverClass);
+					}
 				}
 				
 				receiverInfo.put(bT.getBytecodeOffset(), receiversForCall);
@@ -773,8 +777,54 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			boolean treatAsOpaque = false;
 			if(!calledMethod.equals(DUMMY_METHOD)) {
 				//treat as opaque all library methods, and methods in the soot.* package
-				treatAsOpaque = calledMethod.isJavaLibraryMethod() || calledMethod.getDeclaringClass().getPackageName().startsWith("soot.") || calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.");
-
+				treatAsOpaque = calledMethod.isJavaLibraryMethod() || methodsOverInvocationThreshold.contains(calledMethod) || 
+									calledMethod.getDeclaringClass().getPackageName().startsWith("soot.") ||
+									calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.") ||
+									calledMethod.getDeclaringClass().getPackageName().startsWith("org.jfree") ||
+									calledMethod.getDeclaringClass().getPackageName().startsWith("org.h2.value") ||
+									calledMethod.getDeclaringClass().getPackageName().startsWith("org.h2.expression") ||
+									calledMethod.getDeclaringClass().getPackageName().startsWith("org.h2.command");
+//									calledMethod.toString().equals("<org.h2.value.Value: org.h2.value.Value convertTo(int)>") || 
+//									calledMethod.toString().equals("<org.h2.expression.Function: java.lang.String getSQL()>") ||
+//									calledMethod.toString().equals("<org.h2.util.ObjectArray: java.lang.String toString()>") || 
+//									calledMethod.toString().contains("getSQL") || 
+//									calledMethod.toString().contains("toString") ||
+//									calledMethod.toString().contains("isEverything") || 
+//									calledMethod.toString().equals("<org.h2.command.Parser: org.h2.expression.Expression readTerm()>") ||
+//									calledMethod.toString().startsWith("<org.h2.command.Parser") || 
+//									calledMethod.toString().equals("<org.h2.value.Value: int compareTo(org.h2.value.Value,org.h2.value.CompareMode)>") ||
+//									calledMethod.toString().equals("<org.h2.engine.SessionRemote: org.h2.value.Transfer initTransfer(org.h2.engine.ConnectionInfo,java.lang.String,java.lang.String)>") ||
+//									calledMethod.toString().equals("<org.h2.engine.Database: void open(int,int)>") ||
+//									calledMethod.toString().equals("<org.h2.table.MetaTable: org.h2.util.ObjectArray generateRows(org.h2.engine.Session,org.h2.result.SearchRow,org.h2.result.SearchRow)>") ||
+//									calledMethod.toString().equals("<org.h2.result.LocalResult: void addRow(org.h2.value.Value[])>") ||
+//									calledMethod.toString().equals("<org.h2.table.TableData: void addRow(org.h2.engine.Session,org.h2.result.Row)>") || 
+//									calledMethod.toString().equals("<org.h2.command.dml.SelectUnion: org.h2.result.LocalResult queryWithoutCache(int)>") ||
+//									calledMethod.toString().equals("<org.h2.index.MultiVersionIndex: void remove(org.h2.engine.Session,org.h2.result.Row)>") ||
+//									calledMethod.toString().equals("<org.h2.log.UndoLogRecord: void undo(org.h2.engine.Session)>") || 
+//									calledMethod.toString().equals("<org.h2.engine.Session: void commit(boolean)>") ||
+//									calledMethod.toString().equals("<org.h2.message.TraceObject: java.lang.String toString(java.lang.String,org.h2.util.ObjectArray)>") || 
+//									calledMethod.toString().equals("<org.h2.table.TableData: void checkRowCount(org.h2.engine.Session,org.h2.index.Index,int)>") ||
+//									calledMethod.toString().equals("<org.h2.index.MultiVersionIndex: long getRowCount(org.h2.engine.Session)>") || 
+//									calledMethod.toString().equals("<org.h2.engine.Engine: org.h2.engine.Session openSession(org.h2.engine.ConnectionInfo,boolean,java.lang.String)>") ||
+//									calledMethod.toString().equals("<org.h2.table.TableData: void doLock(org.h2.engine.Session,int,boolean)>") ||
+//									calledMethod.toString().equals("<org.h2.command.dml.Select: org.h2.result.LocalResult queryWithoutCache(int)>") ||
+//									calledMethod.toString().equals("<org.h2.index.IndexCursor: void find(org.h2.engine.Session,org.h2.util.ObjectArray)>") ||
+//									calledMethod.toString().equals("<org.h2.value.Value: org.h2.value.Value cache(org.h2.value.Value)>") ||
+//									calledMethod.toString().equals("<org.h2.value.DataType: org.h2.value.Value convertToValue(org.h2.engine.SessionInterface,java.lang.Object,int)>") ||
+//									calledMethod.toString().equals("<org.h2.value.DataType: org.h2.value.Value readValue(org.h2.engine.SessionInterface,java.sql.ResultSet,int,int)>") ||
+//									calledMethod.toString().equals("<org.h2.util.AutoCloseInputStream: int autoClose(int)>");
+									
+//									calledMethod.toString(.contains("setSlop");
+//									calledMethod.getDeclaringClass().getPackageName().startsWith("org.h2.util") ||
+//									calledMethod.getDeclaringClass().getPackageName().startsWith("org.h2.expression");
+				
+				if(calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.lucene") || 
+						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.xalan") ||
+						calledMethod.getDeclaringClass().getPackageName().startsWith("javax.crypto") ||
+						calledMethod.getDeclaringClass().getPackageName().startsWith("java.security") ||
+						calledMethod.getDeclaringClass().getPackageName().startsWith("com.sun.tools.javac"))
+					treatAsOpaque = false;
+				
 				//EXCEPT ReflectiveCallsWrapper
 				treatAsOpaque = treatAsOpaque && !calledMethod.getDeclaringClass().equals(Scene.v().getSootClass("soot.rtlib.tamiflex.ReflectiveCallsWrapper"));
 				
@@ -858,7 +908,12 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			// whatever went through the call edge
 			PointsToGraph entryFlow = callEdge;
 			
-			
+			if(callStmt.toString().equals("specialinvoke $stack27.<org.apache.lucene.store.ChecksumIndexOutput: void <init>(org.apache.lucene.store.IndexOutput)>($stack16)")) {
+				System.out.println("DBG*********************************");
+				System.out.println("DBG	UNIT: " + callStmt.toString());
+				System.out.println("DBG		ENTRY: " + entryFlow);
+				System.out.println("DBG*********************************");
+			}
 
 			// Make the call to this method!! (in case of body-less methods, no change)
 			PointsToGraph exitFlow = (!treatAsOpaque && calledMethod.hasActiveBody()) ? 

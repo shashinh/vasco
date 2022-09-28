@@ -4,6 +4,11 @@
  * 	2. receiver is concrete (non-bot and non-null)
  */
 class Main {
+	static {
+		try {
+			Class cl = Class.forName("A");
+		} catch (Exception ex) { }
+	}
 	public static void main (String [] args) {
 		A a = new A();
 		a.start();

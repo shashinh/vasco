@@ -125,8 +125,18 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	    
 	    //this.loadReflectionTrace();
 	    this.partiallyAnalysedMethods = new HashSet<SootMethod>();
+	   
+	    this.methodEntryFrequency = new HashMap<M, Integer>();
+	    this.invocationCount = new HashMap<SootMethod, Integer>();
+	    methodsOverInvocationThreshold = new HashSet<SootMethod>();
+	    
 	}
 
+	public static Set<SootMethod> methodsOverInvocationThreshold;
+	public static boolean applyInvocationThreshold;
+	public static int methodInvocationThreshold;
+	public Map<SootMethod, Integer> invocationCount;
+	public Map<M, Integer> methodEntryFrequency;
 	protected Stack<Context<M, N, A>> analysisStack;
 
 	public Map<String, Map<Integer, A>> loopInvariants_OLD;
@@ -304,7 +314,39 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 //							System.out.println("pushing " + ((SootMethod) context.getMethod()));
 						}
 					}
-
+					
+					if(context.getControlFlowGraph().getHeads().contains(unit)) {
+						M method = context.getMethod();
+						int invocationCount = this.invocationCount.getOrDefault((SootMethod) method, 0);
+						if(!methodsOverInvocationThreshold.contains((SootMethod) method)) {
+							if(applyInvocationThreshold && 
+									invocationCount > methodInvocationThreshold ) {
+								System.err.println(context.getMethod() + " over invocation threshold");
+								//add this method to the ignore list
+								methodsOverInvocationThreshold.add((SootMethod) context.getMethod());
+								//reinitialize the callers and add  them back to the analysis stack
+								Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
+								addCallersForAnalysis(callersSet);
+								context.getWorkList().clear();
+								continue;
+							} else {
+								this.invocationCount.put((SootMethod) method, ++invocationCount);
+								System.err.println(invocationCount + " invocation count " + method);
+							}
+						}
+						
+//						//print frequency here
+//						int freq = 0;
+//						if(!this.methodEntryFrequency.containsKey(method)) {
+//							this.methodEntryFrequency.put(method, freq);
+//						} else {
+//							freq = this.methodEntryFrequency.get(method);
+//							this.methodEntryFrequency.put(method, ++freq);
+//						}
+//						
+//						System.err.println(freq + " frequency " + method);
+						
+					}
 					// Store the value of OUT before the flow function is processed.
 					A prevOut = context.getValueAfter(unit);
 					//System.out.println("\tprevOut for unit <" + unit + "> is ");
@@ -323,7 +365,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 //					System.out.println("context: " + context.toString() + " -- method: "  + ((SootMethod) context.getMethod()) + " -- unit: " + unit.toString());
 					A out = flowFunction(context, unit, in);
 					
-//					if(context.getMethod().toString().equals("<org.dacapo.harness.Benchmark: void initialize()>")) {
+//					if(unit.toString().equals("$stack16 = virtualinvoke $stack26.<org.apache.lucene.store.Directory: org.apache.lucene.store.IndexOutput createOutput(java.lang.String)>($stack25)")) {
+//					if(unit.toString().equals("specialinvoke $stack27.<org.apache.lucene.store.ChecksumIndexOutput: void <init>(org.apache.lucene.store.IndexOutput)>($stack16)")) {
 //						System.out.println("DBG*********************************");
 //						System.out.println("DBG	UNIT: " + unit.toString());
 //						System.out.println("DBG		IN: " + in.toString());
@@ -402,50 +445,68 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 					boolean print = context.getMethod().toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>");
 					print = false;
 					 if(shouldAnalyzeCallers) {
-						 if(print) System.out.println("shouldAnalyzeCallers = true");
-						//1. obtain the callers of this context
-						Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
-						//only proceed if we have callers!
-						if(callersSet != null) {
-							//2. obtain the unique set of caller methods from these contexts;
-							Set <SootMethod> callerMethods = new HashSet <SootMethod>();
-							for(CallSite <M, N, A> cs : callersSet) {
-								callerMethods.add((SootMethod) cs.getCallingContext().getMethod());
-							}
-							
-							//3. now we have a list of unique caller methods for this callee context
-							//3a		fetch each of their contexts
-							for(SootMethod callerMethod : callerMethods) {
-								if(print) 
-									System.out.println("added caller: " + callerMethod.toString());
-								Context<M,N,A> callingContext = contexts.get(callerMethod);
-								//3b. reset the worklist to the entry of the CFG (to ensure reanalysis of the method
-								callingContext.getWorkList().clear();
-								// First initialise all points to default flow value.
-								for (N n : callingContext.getControlFlowGraph()) {
-									callingContext.setValueBefore(n, topValue());
-									callingContext.setValueAfter(n, topValue());
-								}
-								for (N head : callingContext.getControlFlowGraph().getHeads()) {
-									callingContext.setValueBefore(head, copy(callingContext.getEntryValue()));
-									// Add entry points to work-list
-									//System.out.println("ADDING TO WORKLIST FROM initContext, line 392");
-									callingContext.getWorkList().add(head);
+						 
+						 
+//						int invocationCount = this.invocationCount.getOrDefault((SootMethod) context.getMethod(), 0);
+//						if(applyInvocationThreshold && invocationCount > methodInvocationThreshold ) {
+//							//take action
+//							System.err.println(context.getMethod() + " over invocation threshold");
+//							//save this method to the ignore list
+//							methodsOverInvocationThreshold.add((SootMethod) context.getMethod());
+//							//reinitialize the callers and add  them back to the analysis stack
+//							Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
+//							addCallersForAnalysis(callersSet);
+//							//return nothing, context is not analysed (discarded, rather)
+//						}
+//						else {
+//							if(applyInvocationThreshold)
+//								this.invocationCount.put((SootMethod) context.getMethod(), ++invocationCount);
+					
+							 if(print) System.out.println("shouldAnalyzeCallers = true");
+							//1. obtain the callers of this context
+							Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(context.getMethod());
+							//only proceed if we have callers!
+							if(callersSet != null) {
+								//2. obtain the unique set of caller methods from these contexts;
+								Set <SootMethod> callerMethods = new HashSet <SootMethod>();
+								for(CallSite <M, N, A> cs : callersSet) {
+									callerMethods.add((SootMethod) cs.getCallingContext().getMethod());
 								}
 								
-								//3c. clear the out values
-	//							callingContext.clearOutValues();
-								//3d. leave the exit value alone!
-								
-								//3e. remove this context from the analysis stack, if it exists, and reinsert this new context
-//								analysisStack.remove(callingContext);
-								if(!analysisStack.contains(callingContext))
-									analysisStack.add(callingContext);
-								
-								
-							}
-						}	
-					 } //end if shouldAnalyzeCallers
+								//3. now we have a list of unique caller methods for this callee context
+								//3a		fetch each of their contexts
+								for(SootMethod callerMethod : callerMethods) {
+									if(print) 
+										System.out.println("added caller: " + callerMethod.toString());
+									Context<M,N,A> callingContext = contexts.get(callerMethod);
+									//3b. reset the worklist to the entry of the CFG (to ensure reanalysis of the method
+									callingContext.getWorkList().clear();
+									// First initialise all points to default flow value.
+									for (N n : callingContext.getControlFlowGraph()) {
+										callingContext.setValueBefore(n, topValue());
+										callingContext.setValueAfter(n, topValue());
+									}
+									for (N head : callingContext.getControlFlowGraph().getHeads()) {
+										callingContext.setValueBefore(head, copy(callingContext.getEntryValue()));
+										// Add entry points to work-list
+										//System.out.println("ADDING TO WORKLIST FROM initContext, line 392");
+										callingContext.getWorkList().add(head);
+									}
+									
+									//3c. clear the out values
+		//							callingContext.clearOutValues();
+									//3d. leave the exit value alone!
+									
+									//3e. remove this context from the analysis stack, if it exists, and reinsert this new context
+	//								analysisStack.remove(callingContext);
+									if(!analysisStack.contains(callingContext))
+										analysisStack.add(callingContext);
+									
+									
+								}
+							}	
+						}
+//					 } //end if shouldAnalyzeCallers
 					 else
 						 if(print) System.out.println("shouldAnalyzeCallers = false");
 					 /**************************************************************************************/
@@ -501,6 +562,47 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		processCallsiteIns();
 		processCallsiteOuts();
 		
+	}
+	
+	private void addCallersForAnalysis(Set<CallSite<M, N, A>> callers) {
+			//only proceed if we have callers!
+			if(callers != null) {
+				//2. obtain the unique set of caller methods from these contexts;
+				Set <SootMethod> callerMethods = new HashSet <SootMethod>();
+				for(CallSite <M, N, A> cs : callers) {
+					callerMethods.add((SootMethod) cs.getCallingContext().getMethod());
+				}
+				
+				//3. now we have a list of unique caller methods for this callee context
+				//3a		fetch each of their contexts
+				for(SootMethod callerMethod : callerMethods) {
+					Context<M,N,A> callingContext = contexts.get(callerMethod);
+					//3b. reset the worklist to the entry of the CFG (to ensure reanalysis of the method
+					callingContext.getWorkList().clear();
+					// First initialise all points to default flow value.
+					for (N n : callingContext.getControlFlowGraph()) {
+						callingContext.setValueBefore(n, topValue());
+						callingContext.setValueAfter(n, topValue());
+					}
+					for (N head : callingContext.getControlFlowGraph().getHeads()) {
+						callingContext.setValueBefore(head, copy(callingContext.getEntryValue()));
+						// Add entry points to work-list
+						//System.out.println("ADDING TO WORKLIST FROM initContext, line 392");
+						callingContext.getWorkList().add(head);
+					}
+					
+					//3c. clear the out values
+//							callingContext.clearOutValues();
+					//3d. leave the exit value alone!
+					
+					//3e. remove this context from the analysis stack, if it exists, and reinsert this new context
+//								analysisStack.remove(callingContext);
+					if(!analysisStack.contains(callingContext))
+						analysisStack.add(callingContext);
+					
+					
+				}
+			}	
 	}
 
 	private void processLoopInvariants() {
@@ -885,6 +987,36 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		Context <M, N, A> calleeContext;
 		
 		
+		/*
+		 * if some method is getting invoked over a threshold value, treat is as a library method
+		 * 
+		 * in order to accomplish that:
+		 *  1. maintain a invocation count map
+		 *  2. if invocation count > threshold
+		 *  	2a. add method to list of methods to summarize
+		 *  	2b. if method is already analyzed, set its return to BOT, to make sure its callers are re-analyzed (out will have changed)
+		 */
+		
+//		if(applyInvocationThreshold) {
+//			int invocationCount = this.invocationCount.getOrDefault((SootMethod) method, 0);
+//			if(invocationCount > methodInvocationThreshold) {
+//				//take action
+//				System.err.println(method + " over invocation threshold");
+//				//save this method to the ignore list
+//				methodsOverInvocationThreshold.add((SootMethod) method);
+//				//reinitialize the callers and add  them back to the analysis stack
+//				Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(method);
+//				addCallersForAnalysis(callersSet);
+//				//return nothing, context is not analysed (discarded, rather)
+//				return null;
+//				
+//				
+//			} else {
+//				this.invocationCount.put((SootMethod) method, ++invocationCount);
+//			}
+//		}
+			
+
 		if(contexts.containsKey(method)) {
 			//a context exists for this method
 			calleeContext = getContext(method, null);
@@ -895,27 +1027,44 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			
 			//2. if entry value has changed, perform cleanup:
 			if(hasEntryChanged) {
-//				System.out.println("chagne to context insensitive in-summary");
-				//2a. set context entry value to the new entry value
-				calleeContext.setEntryValue(aggregateEntryValue);
-				//2b. reset before/after values of all units
-				for(N unit : calleeContext.getControlFlowGraph()) {
-					calleeContext.setValueAfter(unit, topValue());
-					calleeContext.setValueBefore(unit, topValue());
-				}
 				
-				//2c. reset worklist to head of CFG
-				calleeContext.getWorkList().clear();
-				for(N head : calleeContext.getControlFlowGraph().getHeads()) {
-					calleeContext.setValueBefore(head, copy(calleeContext.getEntryValue()));
-					calleeContext.getWorkList().add(head);
-				}
 				
-//				calleeContext.unmarkAnalysed();
-				
-				//2d. we (do not) need to replace this context on the analysis stack, if it exists
-				analysisStack.remove(calleeContext);
-				analysisStack.push(calleeContext);
+//				int invocationCount = this.invocationCount.getOrDefault((SootMethod) method, 0);
+//				if(applyInvocationThreshold && invocationCount > methodInvocationThreshold ) {
+//					//take action
+//					System.err.println((SootMethod) method + " over invocation threshold");
+//					//save this method to the ignore list
+//					methodsOverInvocationThreshold.add((SootMethod) method);
+//					//reinitialize the callers and add  them back to the analysis stack
+//					Set<CallSite <M, N, A>> callersSet = contextTransitions.getContextInsensitiveCallersForMethod(method);
+//					addCallersForAnalysis(callersSet);
+//					//return nothing, context is not analysed (discarded, rather)
+//				} else {
+////				}
+//				
+//					this.invocationCount.put((SootMethod) method, ++invocationCount);
+	//				System.out.println("change to context insensitive in-summary");
+					//2a. set context entry value to the new entry value
+					calleeContext.setEntryValue(aggregateEntryValue);
+					//2b. reset before/after values of all units
+					for(N unit : calleeContext.getControlFlowGraph()) {
+						calleeContext.setValueAfter(unit, topValue());
+						calleeContext.setValueBefore(unit, topValue());
+					}
+					
+					//2c. reset worklist to head of CFG
+					calleeContext.getWorkList().clear();
+					for(N head : calleeContext.getControlFlowGraph().getHeads()) {
+						calleeContext.setValueBefore(head, copy(calleeContext.getEntryValue()));
+						calleeContext.getWorkList().add(head);
+					}
+					
+	//				calleeContext.unmarkAnalysed();
+					
+					//2d. we (do not) need to replace this context on the analysis stack, if it exists
+					analysisStack.remove(calleeContext);
+					analysisStack.push(calleeContext);
+//				}
 				
 			}
 			
@@ -927,12 +1076,12 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		}
 		
 		CallSite <M, N, A> callSite = new CallSite<M, N, A>(callerContext, callNode);
+		contextTransitions.addContextInsensitiveCaller(callSite, method);
 		
 		
 		//TODO: make this context insensitive. instead of calleecontext, make the map the method name
 		// essentially, when we do get callers, we want ALL callsites later - not just the callsites that called with this specific context
 //		contextTransitions.addTransition(callSite, calleeContext);
-		contextTransitions.addContextInsensitiveCaller(callSite, method);
 		//simpler way - maintain a map of callsites, to the called methods
 		//then later, when a method is marked analyzed - simply fetch all its callers irrespective of context and add them to the worklist (BOOM !)
 		
