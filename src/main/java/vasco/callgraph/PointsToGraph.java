@@ -646,10 +646,10 @@ public class PointsToGraph {
 					oldTargets = new HashSet<AnyNewExpr>();
 				} else {
 					// Otherwise not acceptable as we are doing type-checking
-					System.err.println(this);
+					//System.err.println(this);
 					//SHASHIN: simply report the error and ignore the RTE?
 //					System.err.println("Field not found: " + field + " in " + node);
-					System.err.println("field not found");
+					//System.err.println("field not found");
 //					throw new RuntimeException("Field not found: " + field + " in " + node);
 //					oldTargets = new HashSet<AnyNewExpr>();
 					return;

@@ -95,6 +95,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		analysisStack = new Stack<Context<M, N, A>>();
 		//loopInvariants = new HashMap<String, Map<Integer, A>>();
 		loopInvariants = new HashMap<SootMethod, Map<Unit,PointsToGraph>>();
+		this.allOutValues = new HashMap<SootMethod, Map<Unit,PointsToGraph>>();
 		callSiteInvariants = new HashMap<String, Map<Integer, Set<String>>>();
 //		calleeIndex = 1;
 		methodIndex = 1;
@@ -133,6 +134,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	}
 
 	public static Set<SootMethod> methodsOverInvocationThreshold;
+	public static boolean dumpAllOuts = false;
 	public static boolean applyInvocationThreshold;
 	public static int methodInvocationThreshold;
 	public Map<SootMethod, Integer> invocationCount;
@@ -141,6 +143,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 
 	public Map<String, Map<Integer, A>> loopInvariants_OLD;
 	public Map<SootMethod, Map <Unit, PointsToGraph>> loopInvariants;
+	public Map<SootMethod, Map <Unit, PointsToGraph>> allOutValues;
 	public Map<String, Map<Integer, Set<String>>> callSiteInvariants;
 	public Map<Integer, A> previousInMap;
 	//TODO - also wrong, needs to be keyed by SootMethod
@@ -331,7 +334,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 								continue;
 							} else {
 								this.invocationCount.put((SootMethod) method, ++invocationCount);
-								System.err.println(invocationCount + " invocation count " + method);
+								//System.err.println(invocationCount + " invocation count " + method);
 							}
 						}
 						
@@ -561,6 +564,9 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		processLoopInvariants();
 		processCallsiteIns();
 		processCallsiteOuts();
+		if(PointsToAnalysis.dumpAllOuts) {
+			processAllPointsToInformation();
+		}
 		
 	}
 	
@@ -634,6 +640,19 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		}
 	}
 	
+	private void processAllPointsToInformation() {
+		
+		PointsToAnalysis pta = (PointsToAnalysis) this;
+		for(Context <SootMethod, Unit, PointsToGraph> context : pta.contexts.values()) {
+			if(context.isAnalysed()) {
+				SootMethod method = (SootMethod) context.getMethod();
+				Map<Unit, PointsToGraph> outValues = context.getOutValues();
+				this.allOutValues.put(method, outValues);
+			}
+			
+		}
+	}
+
 	
 	private void processCallsiteIns() {
 		PointsToAnalysis pta = (PointsToAnalysis) this;

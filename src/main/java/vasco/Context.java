@@ -360,4 +360,8 @@ public class Context<M,N,A> implements soot.Context, Comparable<Context<M,N,A>> 
 	public void clearOutValues() {
 		this.outValues = new HashMap<N,A>();
 	}
+	
+	public Map<N,A> getOutValues() {
+		return this.outValues;
+	}
 }

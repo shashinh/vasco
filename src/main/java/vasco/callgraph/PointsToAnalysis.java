@@ -908,12 +908,14 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			// whatever went through the call edge
 			PointsToGraph entryFlow = callEdge;
 			
+			/*
 			if(callStmt.toString().equals("specialinvoke $stack27.<org.apache.lucene.store.ChecksumIndexOutput: void <init>(org.apache.lucene.store.IndexOutput)>($stack16)")) {
 				System.out.println("DBG*********************************");
 				System.out.println("DBG	UNIT: " + callStmt.toString());
 				System.out.println("DBG		ENTRY: " + entryFlow);
 				System.out.println("DBG*********************************");
 			}
+			*/
 
 			// Make the call to this method!! (in case of body-less methods, no change)
 			PointsToGraph exitFlow = (!treatAsOpaque && calledMethod.hasActiveBody()) ? 
@@ -922,6 +924,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 			
 			
 			
+			/*
 					if(calledMethod != DUMMY_METHOD && calledMethod.toString().equals("<org.dacapo.harness.Benchmark: java.lang.String fileInScratch(java.lang.String)>")) {
 						System.out.println("return from fileInScratch");
 						if(exitFlow != null) {
@@ -929,6 +932,7 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 							} else 
 								System.out.println("exit flow null");
 						}
+					*/
 
 			// If the called context was analysed, exitFlow will be set, else it
 			// will be null.
@@ -937,8 +941,8 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				// Propagate stuff from called procedure's exit to the caller's return-site
 				PointsToGraph returnEdge = copy(exitFlow);
 				
-				if(!calledMethod.hasActiveBody() && calledMethod != DUMMY_METHOD)
-					System.err.println(calledMethod.getBytecodeSignature() + " has no active body");
+				//if(!calledMethod.hasActiveBody() && calledMethod != DUMMY_METHOD)
+				//	System.err.println(calledMethod.getBytecodeSignature() + " has no active body");
 				// Two ways to handle this:
 				if (!treatAsOpaque && calledMethod.hasActiveBody()) {
 					// Kill all the called method's locals. That's right.
