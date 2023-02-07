@@ -75,6 +75,10 @@ public class CallGraphTest {
 	
 	private static String outputDirectory;
 	private static String inDirectory;
+	private static boolean normalizeFields;
+	private static long startTime;
+	private static long endTime;
+	private static boolean limitInSummaries;
 
 	public static void main(String args[]) {
 		outputDirectory = ".";
@@ -99,6 +103,10 @@ public class CallGraphTest {
 					File invariantFile = new File(outputDirectory + "/invariants");
 					if (invariantFile.exists() == false && invariantFile.mkdirs() == false) {
 						throw new IOException("Could not make output directory for invariants");
+					}
+					File unusedInsFile = new File(outputDirectory + "/unused-ins");
+					if (unusedInsFile.exists() == false && unusedInsFile.mkdirs() == false) {
+						throw new IOException("Could not make output directory for outs");
 					}
 					File sootifiedFile = new File(outputDirectory + "/sootified");
 					if(sootifiedFile.exists() == false && sootifiedFile.mkdirs() == false) {
@@ -126,7 +134,14 @@ public class CallGraphTest {
 					}
 					i += 1;
 					
+				} else if(args[i].equals("-normalizeFields")) {
+					normalizeFields = true;
+					i += 1;
+				}	else if(args[i].equals("-limitInSummaries")) {
+					limitInSummaries = true;
+					i += 1;
 				}
+
 				else {
 					mainClass = args[i];
 					i++;
@@ -205,6 +220,7 @@ public class CallGraphTest {
 		System.out.println("Soot args are: " + String.join(" ", sootArgs));
 
 		/* ------------------- ANALYSIS ---------------------- */
+		startTime = System.currentTimeMillis();
 		CallGraphTransformer cgt = new CallGraphTransformer();
 		PackManager.v().getPack("wjtp").add(new Transform("wjtp.fcpa", cgt));
 		
@@ -244,10 +260,12 @@ public class CallGraphTest {
 		
 		PointsToAnalysis pointsToAnalysis = cgt.getPointsToAnalysis();
 		
+		endTime = System.currentTimeMillis();
 
 		
 		/* ------------------- LOGGING ---------------------- */
 		try {
+			reportAnalysisTime();
 			dumpPartiallyAnalysedMethods(pointsToAnalysis);
 			dumpLoopInvariants(pointsToAnalysis);
 			dumpCallSiteInvariants(pointsToAnalysis);
@@ -260,6 +278,14 @@ public class CallGraphTest {
 			System.exit(1);
 		}
 		
+	}
+	
+	private static void reportAnalysisTime() throws FileNotFoundException {
+		long elapsedTime = endTime - startTime;
+		System.out.println(elapsedTime);
+		PrintWriter pw = new PrintWriter(outputDirectory + "/stats.txt");
+		pw.print(elapsedTime);
+		pw.close();
 	}
 	
 	
@@ -368,7 +394,7 @@ public class CallGraphTest {
 					int loopHeaderBCI = bT.getBytecodeOffset();
 					StringBuilder sb = new StringBuilder();
 					sb.append(loopHeaderBCI + ":");
-					sb.append(loopInvariantsForMethod.get(loopHeader).prettyPrintInvariant4(pta, false, null, false));
+					sb.append(loopInvariantsForMethod.get(loopHeader).prettyPrintInvariant4(pta, false, null, false, normalizeFields));
 					
 					sList.add(sb.toString());
 				}
@@ -398,7 +424,7 @@ public class CallGraphTest {
 						int loopHeaderBCI = bT.getBytecodeOffset();
 						StringBuilder sb = new StringBuilder();
 						sb.append(loopHeaderBCI + ":");
-						sb.append(outsForMethod.get(unit).prettyPrintInvariant4(pta, false, null, false));
+						sb.append(outsForMethod.get(unit).prettyPrintInvariant4(pta, false, null, false, normalizeFields));
 						
 						sList.add(sb.toString());
 					}
@@ -433,17 +459,29 @@ public class CallGraphTest {
 			String methodSig = pta.getTrimmedByteCodeSignature(m);
 			assert(pta.methodIndices.containsKey(methodSig));
 			Integer methodIndex = pta.methodIndices.get(methodSig);
-			PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/ci" + methodIndex + ".txt");
-			String callsiteInvariantString = summary.prettyPrintInvariant4(pta, true, paramLocals, false);
-			pw.print("0:" + callsiteInvariantString);
-			pw.close();
+			
+			//if the limitInSummaries option is set, only print invariants when there are multiple contexts
+			if(!pta.needsFixPointIn.contains(m)) {
+				System.out.println(methodIndex + " does not need fix point IN");
+				PrintWriter pw = new PrintWriter(outputDirectory + "/unused-ins/ci" + methodIndex + ".txt");
+				String callsiteInvariantString = summary.prettyPrintInvariant4(pta, true, paramLocals, false, normalizeFields);
+				pw.print("0:" + callsiteInvariantString);
+				pw.close();
+			}
+			if(!limitInSummaries || pta.needsFixPointIn.contains(m)) {
+				PrintWriter pw = new PrintWriter(outputDirectory + "/invariants/ci" + methodIndex + ".txt");
+				String callsiteInvariantString = summary.prettyPrintInvariant4(pta, true, paramLocals, false, normalizeFields);
+				pw.print("0:" + callsiteInvariantString);
+				pw.close();
+			}
+			
 			//System.out.println("callsite inv for :" + m.getBytecodeSignature() + " " + callsiteInvariantString);
 			
 			if(pta.getContext(m, null).isAnalysed()) {
 				PrintWriter pwO = new PrintWriter(outputDirectory + "/invariants/co" + methodIndex + ".txt");
 				assert(pta.callsiteOuts.containsKey(m));
 				PointsToGraph exit = pta.callsiteOuts.get(m);
-				String callsiteOutString = exit.prettyPrintInvariant4(pta, false, null, true);
+				String callsiteOutString = exit.prettyPrintInvariant4(pta, false, null, true, normalizeFields);
 				pwO.print("0:" + callsiteOutString);
 				pwO.close();
 				//System.out.println("callsite out for :" + m.getBytecodeSignature() + " " + callsiteOutString);

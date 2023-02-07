@@ -820,9 +820,13 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 				
 				if(calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.lucene") || 
 						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.xalan") ||
-						calledMethod.getDeclaringClass().getPackageName().startsWith("javax.crypto") ||
-						calledMethod.getDeclaringClass().getPackageName().startsWith("java.security") ||
-						calledMethod.getDeclaringClass().getPackageName().startsWith("com.sun.tools.javac"))
+						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.avalon") ||
+						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.xerces") ||
+						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.batik") ||
+						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.fop"))
+						//calledMethod.getDeclaringClass().getPackageName().startsWith("javax.crypto") ||
+						//calledMethod.getDeclaringClass().getPackageName().startsWith("java.security") ||
+						//calledMethod.getDeclaringClass().getPackageName().startsWith("com.sun.tools.javac"))
 					treatAsOpaque = false;
 				
 				//EXCEPT ReflectiveCallsWrapper

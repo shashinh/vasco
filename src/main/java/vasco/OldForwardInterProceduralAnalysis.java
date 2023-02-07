@@ -126,6 +126,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	    
 	    //this.loadReflectionTrace();
 	    this.partiallyAnalysedMethods = new HashSet<SootMethod>();
+	    this.needsFixPointIn = new HashSet<SootMethod>();
 	   
 	    this.methodEntryFrequency = new HashMap<M, Integer>();
 	    this.invocationCount = new HashMap<SootMethod, Integer>();
@@ -182,6 +183,8 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 	public Map<SootClass, Integer> sootClassIndices;
 	
 	public Set<SootMethod> partiallyAnalysedMethods;
+	
+	public Set<SootMethod> needsFixPointIn;
 	
 	protected static Stack <SootMethod> methStack = new Stack<SootMethod>();
 
@@ -1046,6 +1049,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 			
 			//2. if entry value has changed, perform cleanup:
 			if(hasEntryChanged) {
+				this.needsFixPointIn.add((SootMethod) method);
 				
 				
 //				int invocationCount = this.invocationCount.getOrDefault((SootMethod) method, 0);

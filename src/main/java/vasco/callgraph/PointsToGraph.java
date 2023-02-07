@@ -84,6 +84,8 @@ public class PointsToGraph {
 	protected Map<Local, Set<AnyNewExpr>> roots;
 	protected Map<AnyNewExpr, Map<SootField, Set<AnyNewExpr>>> heap;
 
+	public static Map<SootField, Integer> fieldIntMap = new HashMap<SootField, Integer>();
+
 	/**
 	 * Constructs a new empty points-to graph.
 	 */
@@ -939,7 +941,8 @@ public class PointsToGraph {
 		return sbInvariant.toString();
 		
 	}
-	public String prettyPrintInvariant4(PointsToAnalysis pta, boolean mapArgsOnly, Map<Integer, Local> argsToLocals, boolean mapReturnOnly) {
+	public String prettyPrintInvariant4(PointsToAnalysis pta, boolean mapArgsOnly, Map<Integer, Local> argsToLocals, boolean mapReturnOnly, 
+			boolean normalizeFields) {
 		StringBuilder sbInvariant = new StringBuilder();
 
 		// first handle the roots
@@ -1019,7 +1022,18 @@ public class PointsToGraph {
 					// iterate over the fields for this object
 					for (SootField field : fieldsMap.keySet()) {
 						// fetch the field name
-						String fieldName = field.isStatic() ? field.toString() : field.getName();
+						String fieldName;
+						if(normalizeFields) {
+							if(fieldIntMap.containsKey(field)) {
+								fieldName = fieldIntMap.get(field).toString();
+							} else {
+								int index = fieldIntMap.size() + 1;
+								fieldIntMap.put(field, index);
+								fieldName = String.valueOf(index);
+							}
+						} else {
+							fieldName = field.isStatic() ? field.toString() : field.getName();
+						}
 						// fetch the points to set of this object and field
 						Set<AnyNewExpr> pointees = fieldsMap.get(field);
 						// this is a prettified string for this particular field
