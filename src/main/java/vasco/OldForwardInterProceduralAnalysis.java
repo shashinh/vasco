@@ -38,14 +38,21 @@ import java.util.Stack;
 import soot.Body;
 import soot.Local;
 import soot.RefLikeType;
+import soot.RefType;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Unit;
+import soot.Value;
 import soot.jimple.AnyNewExpr;
+import soot.jimple.DefinitionStmt;
+import soot.jimple.InstanceInvokeExpr;
+import soot.jimple.InterfaceInvokeExpr;
+import soot.jimple.InvokeExpr;
 import soot.jimple.InvokeStmt;
 import soot.jimple.NewArrayExpr;
 import soot.jimple.Stmt;
+import soot.jimple.VirtualInvokeExpr;
 import soot.jimple.toolkits.annotation.logic.Loop;
 import soot.jimple.toolkits.annotation.logic.LoopFinder;
 import soot.options.Options;
@@ -567,10 +574,76 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		processLoopInvariants();
 		processCallsiteIns();
 		processCallsiteOuts();
+		processMonomorphicCalls();
 		if(PointsToAnalysis.dumpAllOuts) {
 			processAllPointsToInformation();
 		}
 		
+	}
+	
+	private void processMonomorphicCalls() { 
+		
+		int instanceInvokeCount = 0;
+		int monomorphCount = 0;
+
+		PointsToAnalysis pta = (PointsToAnalysis) this;
+		for(Context <SootMethod, Unit, PointsToGraph> context : pta.contexts.values()) {
+			if(context.isAnalysed()) {
+				SootMethod m = context.getMethod();
+					for(Unit unit : m.getActiveBody().getUnits()) {
+						assert (unit instanceof Stmt);
+						Stmt stmt = (Stmt) unit;
+
+						//we need to handle both LHS = InvokeExpr; and InvokeStmt;
+						InvokeExpr expr = null;
+						if(stmt instanceof DefinitionStmt) {
+							Value rhsOp = ((DefinitionStmt) stmt).getRightOp();
+							if(rhsOp instanceof InvokeExpr) {
+								//1. LHS = InvokeExpr;
+								expr = (InvokeExpr) rhsOp;
+							}
+						} else if (stmt instanceof InvokeStmt) {
+							//2. InvokeStmt;
+							expr = stmt.getInvokeExpr();
+						}
+						
+						if(expr != null) {
+							if(expr instanceof InstanceInvokeExpr && 
+									!expr.getMethod().getName().contains("<init>") && 
+									!expr.getMethod().getName().contains("<clinit>")) {
+								instanceInvokeCount ++;
+							//if(expr instanceof InterfaceInvokeExpr || expr instanceof VirtualInvokeExpr) {
+								Local receiver = (Local) ((InstanceInvokeExpr) expr).getBase();
+								//get the IN value for this instruction
+								PointsToGraph in = context.getValueBefore(unit);
+								//get the points-to set of the receiver
+								Set<AnyNewExpr> pointees = in.getTargets(receiver);
+								SootClass sc = null;
+								boolean isMonomorph = true;
+								for(AnyNewExpr n : pointees) {
+									//is this really needed??
+									assert(receiver.getType() instanceof RefType);
+									if( !(n instanceof AbstractNullObj) && n != PointsToGraph.SUMMARY_NODE && !(n instanceof NewArrayExpr)) {
+										if(sc == null)
+											sc = ((RefType) n.getType()).getSootClass();
+										else if(sc != ((RefType) n.getType()).getSootClass()) {
+											isMonomorph = false;
+											break;
+										}
+									}
+								}
+								
+								if(isMonomorph) {
+									System.out.println("monomorph " + unit);
+									monomorphCount ++;
+								}
+							}
+						}
+					}
+				}
+		}
+		
+		System.out.println("InstanceInvokes = " + instanceInvokeCount + "; Monomorphs = " + monomorphCount);
 	}
 	
 	private void addCallersForAnalysis(Set<CallSite<M, N, A>> callers) {
