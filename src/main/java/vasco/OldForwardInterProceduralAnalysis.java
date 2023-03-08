@@ -608,6 +608,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 						}
 						
 						if(expr != null) {
+							//do we really need to avoid counting constructors and clinit's?
 							if(expr instanceof InstanceInvokeExpr && 
 									!expr.getMethod().getName().contains("<init>") && 
 									!expr.getMethod().getName().contains("<clinit>")) {
@@ -620,13 +621,20 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 								Set<AnyNewExpr> pointees = in.getTargets(receiver);
 								SootClass sc = null;
 								boolean isMonomorph = true;
-								for(AnyNewExpr n : pointees) {
-									//is this really needed??
-									assert(receiver.getType() instanceof RefType);
-									if( !(n instanceof AbstractNullObj) && n != PointsToGraph.SUMMARY_NODE && !(n instanceof NewArrayExpr)) {
-										if(sc == null)
-											sc = ((RefType) n.getType()).getSootClass();
-										else if(sc != ((RefType) n.getType()).getSootClass()) {
+								if(pointees.isEmpty()) {
+									isMonomorph = false;
+								} else {
+									for(AnyNewExpr n : pointees) {
+										//is this really needed??
+										assert(receiver.getType() instanceof RefType);
+										if( !(n instanceof AbstractNullObj) && n != PointsToGraph.SUMMARY_NODE && !(n instanceof NewArrayExpr)) {
+											if(sc == null)
+												sc = ((RefType) n.getType()).getSootClass();
+											else if(sc != ((RefType) n.getType()).getSootClass()) {
+												isMonomorph = false;
+												break;
+											}
+										} else {
 											isMonomorph = false;
 											break;
 										}
