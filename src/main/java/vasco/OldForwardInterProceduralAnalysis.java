@@ -609,6 +609,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 						
 						if(expr != null) {
 							//do we really need to avoid counting constructors and clinit's?
+							//..for all programs? Can constructors be inlined in Java?
 							if(expr instanceof InstanceInvokeExpr && 
 									!expr.getMethod().getName().contains("<init>") && 
 									!expr.getMethod().getName().contains("<clinit>")) {
