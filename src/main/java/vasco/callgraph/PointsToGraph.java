@@ -873,9 +873,23 @@ public class PointsToGraph {
 				int pointeeCallerIndex = pointeeBciContainer.getCallerIndex();
 				assert (pointeeBci >= 0);
 				assert (pointeeCallerIndex > 0);
+				
+				
+				assert(pointee.getType() instanceof RefType);
+				SootClass sc = ((RefType) pointee.getType()).getSootClass();
+				int classIndex;
+				if(!pta.sootClassIndices.containsKey(sc)) {
+					classIndex = pta.sootClassIndices.size() + 1;
+					pta.sootClassIndices.put(sc, classIndex);
+				} else {
+					//we don't really need the classIndex right now
+					classIndex = pta.sootClassIndices.get(sc);
+				}
+				
 
 				bciList = ciToBciMap.getOrDefault(pointeeCallerIndex, new HashSet<String>());
 				bciList.add(String.valueOf(pointeeBci));
+				//bciList.add(String.valueOf(pointeeBci) + "-" + String.valueOf(classIndex));
 				ciToBciMap.put(pointeeCallerIndex, bciList);
 			}
 //					}
@@ -886,6 +900,7 @@ public class PointsToGraph {
 
 		List<String> sList = new ArrayList<String>();
 		if(pointees.isEmpty()) {
+			System.out.println("pointees.IsEmpty = true!");
 			sList.add("G");
 		}
 		else if (containsBot) {
@@ -957,6 +972,7 @@ public class PointsToGraph {
 				assert( varName.charAt(0) != '$') : "assumption that all arg locals are stack vars";
 				
 				String str = flattenCiToBci(this.roots.get(argLocal), pta);
+				System.out.println(str);
 				assert(!str.isEmpty());
 				varStringMap.put(argIndex.toString(), String.join(" ", str));
 			}
