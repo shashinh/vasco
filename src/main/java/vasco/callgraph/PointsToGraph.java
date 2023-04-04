@@ -875,21 +875,23 @@ public class PointsToGraph {
 				assert (pointeeCallerIndex > 0);
 				
 				
-				assert(pointee.getType() instanceof RefType);
-				SootClass sc = ((RefType) pointee.getType()).getSootClass();
-				int classIndex;
-				if(!pta.sootClassIndices.containsKey(sc)) {
-					classIndex = pta.sootClassIndices.size() + 1;
-					pta.sootClassIndices.put(sc, classIndex);
-				} else {
-					//we don't really need the classIndex right now
-					classIndex = pta.sootClassIndices.get(sc);
+				int classIndex = -1;
+
+				if( !(pointee instanceof AbstractNullObj) && pointee != PointsToGraph.SUMMARY_NODE && !(pointee instanceof NewArrayExpr)) {
+					//assert(pointee.getType() instanceof RefType);
+					SootClass sc = ((RefType) pointee.getType()).getSootClass();
+					if(!pta.sootClassIndices.containsKey(sc)) {
+						classIndex = pta.sootClassIndices.size() + 1;
+						pta.sootClassIndices.put(sc, classIndex);
+					} else {
+						classIndex = pta.sootClassIndices.get(sc);
+					}
 				}
 				
 
 				bciList = ciToBciMap.getOrDefault(pointeeCallerIndex, new HashSet<String>());
-				bciList.add(String.valueOf(pointeeBci));
-				//bciList.add(String.valueOf(pointeeBci) + "-" + String.valueOf(classIndex));
+				//bciList.add(String.valueOf(pointeeBci));
+				bciList.add(String.valueOf(pointeeBci) + "-" + String.valueOf(classIndex));
 				ciToBciMap.put(pointeeCallerIndex, bciList);
 			}
 //					}

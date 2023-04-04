@@ -627,7 +627,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 								} else {
 									for(AnyNewExpr n : pointees) {
 										//is this really needed??
-										assert(receiver.getType() instanceof RefType);
+										//assert(receiver.getType() instanceof RefType);
 										if( !(n instanceof AbstractNullObj) && n != PointsToGraph.SUMMARY_NODE && !(n instanceof NewArrayExpr)) {
 											if(sc == null)
 												sc = ((RefType) n.getType()).getSootClass();
