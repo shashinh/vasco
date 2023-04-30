@@ -875,7 +875,7 @@ public class PointsToGraph {
 				assert (pointeeCallerIndex > 0);
 				
 				
-				int classIndex = -1;
+				int classIndex = 0;
 
 				if( !(pointee instanceof AbstractNullObj) && pointee != PointsToGraph.SUMMARY_NODE && !(pointee instanceof NewArrayExpr)) {
 					//assert(pointee.getType() instanceof RefType);
@@ -902,7 +902,7 @@ public class PointsToGraph {
 
 		List<String> sList = new ArrayList<String>();
 		if(pointees.isEmpty()) {
-			System.out.println("pointees.IsEmpty = true!");
+			//System.out.println("pointees.IsEmpty = true!");
 			sList.add("G");
 		}
 		else if (containsBot) {
@@ -974,7 +974,7 @@ public class PointsToGraph {
 				assert( varName.charAt(0) != '$') : "assumption that all arg locals are stack vars";
 				
 				String str = flattenCiToBci(this.roots.get(argLocal), pta);
-				System.out.println(str);
+				//System.out.println(str);
 				assert(!str.isEmpty());
 				varStringMap.put(argIndex.toString(), String.join(" ", str));
 			}
@@ -1236,7 +1236,7 @@ public class PointsToGraph {
 						sList.add("N");
 					}
 					fieldsMap.put(fieldName, String.join(" ", sList));
-					System.out.println(fieldsMap);
+					//System.out.println(fieldsMap);
 
 				}
 
@@ -1404,7 +1404,7 @@ public class PointsToGraph {
 		}
 
 		sbMain.append("(").append(String.join(",", sList)).append(")");
-		System.out.println(sbMain.toString());
+		//System.out.println(sbMain.toString());
 
 		map = new HashMap<String, Set<String>>();
 		sList = new ArrayList<String>();
@@ -1437,7 +1437,7 @@ public class PointsToGraph {
 		}
 
 		sbMain.append("(").append(String.join(",", sList)).append(")");
-		System.out.println(sbMain.toString());
+		//System.out.println(sbMain.toString());
 
 		/*
 		 * StringBuffer sb = new StringBuffer();

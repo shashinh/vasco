@@ -819,11 +819,14 @@ public class PointsToAnalysis extends OldForwardInterProceduralAnalysis<SootMeth
 //									calledMethod.getDeclaringClass().getPackageName().startsWith("org.h2.expression");
 				
 				if(calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.lucene") || 
-						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.xalan") ||
-						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.avalon") ||
-						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.xerces") ||
-						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.batik") ||
-						calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.fop"))
+						//calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.xalan") ||
+						//calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.avalon") ||
+						//calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.xerces") ||
+						//calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.batik") ||
+						(calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.fop") && 
+								!calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.fop.layout")))
+						//(calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.fop") && 
+								//!calledMethod.getDeclaringClass().getPackageName().startsWith("org.apache.fop.fo")))
 						//calledMethod.getDeclaringClass().getPackageName().startsWith("javax.crypto") ||
 						//calledMethod.getDeclaringClass().getPackageName().startsWith("java.security") ||
 						//calledMethod.getDeclaringClass().getPackageName().startsWith("com.sun.tools.javac"))

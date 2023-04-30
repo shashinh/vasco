@@ -574,7 +574,7 @@ public abstract class OldForwardInterProceduralAnalysis<M, N, A> extends InterPr
 		processLoopInvariants();
 		processCallsiteIns();
 		processCallsiteOuts();
-		processMonomorphicCalls();
+		//processMonomorphicCalls();
 		if(PointsToAnalysis.dumpAllOuts) {
 			processAllPointsToInformation();
 		}
